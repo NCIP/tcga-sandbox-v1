@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean name="jobDelegateBean" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.service.JobDelegate"/>
+        <property name="group" value="filePackagerGroup"/>
+    </bean>
+
+    <bean id="filePackagerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="group" value="filePackagerGroup"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="filePackagerEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.FilePackagerEnqueuer">
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getJobDetail" bean="jobDelegateBean"/>
+        <lookup-method name="getTrigger" bean="filePackagerTrigger"/>
+
+    </bean>
+
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger"/>
+
+    <bean id="filePackager" class="gov.nih.nci.ncicb.tcga.dcc.dam.processors.FilePackager" scope="prototype">
+        <property name="filePackagerFactory" ref="filePackagerFactory"/>
+        <property name="emailTiming" value="false"/>
+        <property name="failEmail" value="test@mail.com"/>
+        <property name="hoursTillDeletion" value="1"/>
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+    <bean id="filePackagerBean" class="gov.nih.nci.ncicb.tcga.dcc.dam.bean.FilePackagerBean" scope="prototype"
+          init-method="init"/>
+
+    <bean id="filePackagerFactory" class="gov.nih.nci.ncicb.tcga.dcc.dam.processors.FilePackagerFactory">
+        <property name="notProtectedArchiveLogicalPath" value="/protected/"/>
+        <property name="notProtectedArchivePhysicalPath" value=""/>
+        <property name="protectedArchiveLogicalPath" value="${tcga.portal.protectedArchiveLogicalPath}"/>
+        <property name="protectedArchivePhysicalPath" value="${tcga.portal.protectedArchivePhysicalPath}"/>
+
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getFilePackagerBean" bean="filePackagerBean"/>
+    </bean>
+    <bean id="wsFpFactory" class="gov.nih.nci.ncicb.tcga.dcc.dam.webservice.WSFilePackagerFactory">
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getFilePackagerBean" bean="filePackagerBean"/>
+    </bean>
+    <bean id="filePackagerJob" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.FilePackagerJob">
+        <property name="logger" ref="processLogger"/>
+    </bean>
+</beans>

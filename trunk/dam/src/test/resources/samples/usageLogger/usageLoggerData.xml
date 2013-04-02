@@ -1,0 +1,58 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="1" NAME="data access matrix requested" DESCR="user requested the Data Access Matrix page for the given disease type"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="2" NAME="data access matrix reset" DESCR="user reset the data access matrix using the reset button"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="3" NAME="header selected" DESCR="user selected the header with the given name"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="4" NAME="header intersected" DESCR="user selected to intersect the header with the given name"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="5" NAME="header deselected" DESCR="user deselected the header with the given name"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="6" NAME="header category selected" DESCR="user selected a header of the given category" PORTAL_ACTION_TYPE_PARENT="3"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="7" NAME="header category intersected" DESCR="user selected to intersect a header of the given category" PORTAL_ACTION_TYPE_PARENT="4"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="8" NAME="header category deselected" DESCR="user deselected a header of the given category" PORTAL_ACTION_TYPE_PARENT="5"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="9" NAME="header type selected" DESCR="user selected a header of the given type" PORTAL_ACTION_TYPE_PARENT="3"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="10" NAME="header type intersected" DESCR="user selected to intersect a header of the given type" PORTAL_ACTION_TYPE_PARENT="4"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="11" NAME="header type deselected" DESCR="user deselected a header of the given type" PORTAL_ACTION_TYPE_PARENT="5"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="12" NAME="filter applied" DESCR="user applied a filter to the data access matrix"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="13" NAME="availability filter applied" DESCR="user applied an availability filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="14" NAME="batch filter applied" DESCR="user applied a batch filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="15" NAME="center filter applied" DESCR="user applied a center filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="16" NAME="level filter applied" DESCR="user applied a level filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="17" NAME="platform type filter applied" DESCR="user applied a platform type filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="18" NAME="protected status filter applied" DESCR="user applied a protected status filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="19" NAME="sample filter applied" DESCR="user applied a sample filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="20" NAME="tumor/normal filter applied" DESCR="user applied a tumor/normal filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="21" NAME="filter cleared" DESCR="user cleared the filter from the data access matrix"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="22" NAME="color scheme changed" DESCR="user changed the data access matrix color scheme to the given name"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="23" NAME="data access download page requested" DESCR="user requested the data access download page with the given number of cells selected"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="24" NAME="files selected" DESCR="user selected to download the given number of files"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="25" NAME="level 1 files selected" DESCR="user selected to download the given number of level 1 files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="26" NAME="level 2 files selected" DESCR="user selected to download the given number of level 2 files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="27" NAME="level 3 files selected" DESCR="user selected to download the given number of level 3 files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="28" NAME="clinical files selected" DESCR="user selected to download the given number of clinical files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="29" NAME="protected files selected" DESCR="user selected to download the given number of protected files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="30" NAME="public files selected" DESCR="user selected to download the given number of public files" PORTAL_ACTION_TYPE_PARENT="24"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="31" NAME="calculated archive size" DESCR="user requested an archive with the given calculated size"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="32" NAME="archive creation queued" DESCR="archive creation job added to the queue"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="33" NAME="archive creation started" DESCR="archive creation job started"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="34" NAME="archive creation finished" DESCR="archive creation job finished with no errors"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="35" NAME="archive creation failed" DESCR="archive creation job failed with the given message"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="36" NAME="uncompressed archive size" DESCR="archive created of the given uncompressed size"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="37" NAME="compressed archive size" DESCR="archive created of the given compressed size"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="38" NAME="total archive creation time" DESCR="time in milliseconds it took to run the file packager, not counting queue time"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="39" NAME="waiting in queue time" DESCR="time in milliseconds the job waiting in the queue before being run"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="40" NAME="file processing time" DESCR="time in milliseconds it took to process the files before generating the archive, including generating level 2 and 3 files." PORTAL_ACTION_TYPE_PARENT="38"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="41" NAME="archive generation time" DESCR="time in milliseconds it took to generate the actual archive tar.gzip file, not including file processing time." PORTAL_ACTION_TYPE_PARENT="38"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="42" NAME="end date filter applied" DESCR="user applied an end date filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="43" NAME="start date filter applied" DESCR="user applied a start date filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="45" NAME="platform filter applied" DESCR="user applied a platform filter to the data access matrix with the given value" PORTAL_ACTION_TYPE_PARENT="12"/>
+    <PORTAL_ACTION_TYPE PORTAL_ACTION_TYPE_ID="44" NAME="metadata files selected"/>
+    <PORTAL_SESSION/>
+    <PORTAL_SESSION_ACTION/>
+</dataset>

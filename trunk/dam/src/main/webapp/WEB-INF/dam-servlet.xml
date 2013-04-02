@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the 'caBIG™
+  ~ Software').
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- ========================= MESSAGE SOURCE DEFINITION ========================= -->
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.dam.web"/>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:tcgaApp.properties</value>
+        </property>
+    </bean>
+
+
+    <!-- ========================= MAPPING DEFINITIONS ========================= -->
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <!-- Archive search UI -->
+                <prop key="/logResults.htm">logController</prop>
+                <prop key="/logSearch.htm">findLogsForm</prop>
+                <prop key="/findLogs.htm">findLogsForm</prop>
+                <prop key="/archiveSearch.htm">findArchivesForm</prop>
+                <prop key="/findArchives.htm">findArchivesForm</prop>
+                <prop key="/archiveResults.htm">archiveController</prop>
+                <prop key="/latestArchives.htm">latestArchivesController</prop>
+                <prop key="/showFiles.htm">anotherFileController</prop>
+
+                <!-- DAM UI server controllers -->
+                <prop key="/dataAccessMatrix.htm">dataAccessMatrixController</prop>
+                <prop key="/homepage.htm">homepageController</prop>
+                <prop key="/news.htm">newspageController</prop>
+                <prop key="/platforms.htm">platformpageController</prop>
+                <prop key="/dataAccessMatrixSelector.htm">dataAccessMatrixSelectorController</prop>
+                <prop key="/dataAccessMatrixColorScheme.htm">dataAccessMatrixColorSchemeController</prop>
+                <prop key="/dataAccessDownload.htm">dataAccessDownloadController</prop>
+                <prop key="/dataAccessFileProcessing.htm">dataAccessFileProcessingController</prop>
+                <prop key="/dataAccessResultPolling.htm">dataAccessResultPollingController</prop>
+                <prop key="/dataAccessExternalFilter.htm">dataAccessExternalFilterController</prop>
+                <prop key="/dataAccessExternalFilterConstants.htm">dataAccessExternalFilterConstantsController</prop>
+                <prop key="/jobStatus.htm">dataMatrixStatusRequestController</prop>
+                <!-- DAM admin controllers -->
+                <prop key="/admin/dataAccessMatrixRefresh.htm">dataAccessMatrixRefreshController</prop>
+                <prop key="/admin/queueMonitor.htm">queueMonitorController</prop>
+                <prop key="/list.htm">archiveListerController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="order" value="1" />
+    </bean>
+
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!-- =================================PORTAL BEANS================================= -->
+
+    <!-- web controllers: primary portal server (UI server) -->
+    <bean id="portalWebController" abstract="true" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.WebController">
+        <property name="errorView" value="dataAccessMatrixError"/>
+        <property name="webBindingInitializer">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.editor.DAMBindingInitializer"/>
+        </property>
+    </bean>
+
+    <bean id="homepageController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.HomepageController" parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+                <property name="commandName" value="HomepageRequest"/>
+                <property name="staticMatrixModelFactory" ref="staticMatrixModelFactory"/>
+                <property name="successView" value="homepage"/>
+                <property name="enabled" value="${tcga.portal.enableDamUI}"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="newspageController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.NewspageController" parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+                <property name="commandName" value="NewspageRequest"/>
+                <property name="successView" value="news"/>
+                <property name="enabled" value="${tcga.portal.enableDamUI}"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="platformpageController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.PlatformpageController" parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+                <property name="commandName" value="PlatformpageRequest"/>
+                <property name="successView" value="platforms"/>
+                <property name="enabled" value="${tcga.portal.enableDamUI}"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="dataAccessMatrixController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessMatrixController" parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+                <property name="commandName" value="DataAccessMatrixControllerRequest"/>
+                <property name="staticMatrixModelFactory" ref="staticMatrixModelFactory"/>
+                <property name="successView" value="dataAccessMatrix"/>
+                <property name="enabled" value="${tcga.portal.enableDamUI}"/>
+                <property name="damHelper" ref="damHelper"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="dataAccessMatrixRefreshController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessMatrixController"
+          parent="portalWebController">
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+        <property name="commandName" value="DataAccessMatrixControllerRequest"/>
+        <property name="administrativeMode" value="true"/>
+        <property name="staticMatrixModelFactory" ref="staticMatrixModelFactory"/>
+        <property name="successView" value="dataAccessMatrix"/>
+        <property name="damHelper" ref="damHelper"/>
+    </bean>
+
+    <bean id="dataAccessMatrixSelectorController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessMatrixSelectorController"
+                  parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.SelectionRequest"/>
+                <property name="commandName" value="DataAccessMatrixSelectorRequest"/>
+                <property name="successView" value="dataAccessMatrix"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="dataAccessExternalFilterController"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessExternalFilterController" parent="portalWebController">
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.FilterRequest"/>
+        <property name="commandName" value="DataAccessMatrixFilterRequest"/>
+        <property name="staticMatrixModelFactory" ref="staticMatrixModelFactory"/>
+        <property name="dataAccessDownloadController" ref="dataAccessDownloadControllerTarget"/>
+        <property name="enabled" value="${tcga.portal.enableDamUI}"/>
+    </bean>
+
+    <bean id="dataAccessExternalFilterConstantsController"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessExternalFilterConstantsController"
+          parent="portalWebController">
+        <property name="commandClass" value="java.lang.Object"/>
+        <property name="commandName" value="dummy"/>
+        <property name="successView" value="dataAccessExternalFilterConstants"/>
+    </bean>
+
+    <bean id="dataAccessMatrixColorSchemeController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessMatrixColorSchemeController"
+                  parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.ColorSchemeRequest"/>
+                <property name="commandName" value="DataAccessMatrixColorSchemeRequest"/>
+                <property name="successView" value="dataAccessMatrix"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+
+    <bean id="dataAccessDownloadController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="dataAccessDownloadControllerTarget"/>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <!-- leave this controller target here so external filter can access it -->
+    <bean id="dataAccessDownloadControllerTarget"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessDownloadController"
+          parent="portalWebController">
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.DADRequest"/>
+        <property name="commandName" value="DataAccessDownloadRequest"/>
+        <property name="dataAccessMatrixQueries" ref="dataAccessMatrixQueries"/>
+        <property name="sizeLimitGigs" value="${tcga.portal.downloadSizeLimitGigs}"/>
+        <property name="successView" value="dataAccessDownload"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="dataAccessFileProcessingController" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <!-- target bean is the actual controller, which proxy will forward calls to -->
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessFileProcessingController" parent="portalWebController">
+                <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.DAFPRequest"/>
+                <property name="commandName" value="DataAccessFileProcessingRequest"/>
+                <property name="successView" value="dataAccessFileProcessing"/>
+                <property name="archivePhysicalPathPrefix" value="${tcga.mount.root}"/>
+                <property name="linkSite" value="${tcga.portal.downloadLinkSite}"/>
+                <property name="filePackagerFactory" ref="filePackagerFactory"/>
+                <property name="jobStatusService" ref="damJobStatusService"/>
+                <property name="statusCheckUrl" value="${tcga.portal.jobStatusUrl}"/>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <list>
+                <value>org.springframework.web.servlet.mvc.Controller</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="dataAccessResultPollingController"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataAccessResultPollingController"
+          parent="portalWebController">
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.view.request.PollingRequest"/>
+        <property name="commandName" value="PollingRequest"/>
+        <property name="damJobStatusService" ref="damJobStatusService"/>
+    </bean>
+
+    <bean id="dataMatrixStatusRequestController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.DataMatrixStatusRequestController">
+        <property name="successView" value="dataAccessFileProcessing"/>
+        <property name="damJobStatusService" ref="damJobStatusService"/>
+        <property name="barcodeAndUUIDValidator" ref="barcodeValidator"/>
+    </bean>
+
+    <!-- end web controllers: primary portal server -->
+
+    <bean id="queueMonitorController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.QueueMonitorController">
+        <property name="bigJobScheduler" ref="bigjobScheduler"/>
+        <property name="smallJobScheduler" ref="smalljobScheduler"/>
+    </bean>
+
+    <bean id="archiveListerController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.ArchiveListerController">
+        <property name="archiveListerService">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.service.ArchiveListerServiceImpl">
+                <property name="archiveListerQueries" ref="archiveListerQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id = "adminService" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.AdminServiceImpl"/>
+    <bean id = "adminController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.AdminController" />
+
+    <!-- end web controllers: secondary portal server (file packaging server) -->
+
+    <!-- other Portal beans related to UI -->
+
+    <bean id="damResourceBundle" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.DAMResourceBundle">
+        <property name="resourceBundle" ref="messageSource"/>
+    </bean>
+
+    <!-- just declaring the color code models will instantiate them and make them available -->
+    <bean id="defaultColorCodeModel" class="gov.nih.nci.ncicb.tcga.dcc.dam.view.DAMDefaultColorScheme"/>
+    <bean id="tumorNormalColorCodeModel" class="gov.nih.nci.ncicb.tcga.dcc.dam.view.DAMTumorNormalColorScheme"/>
+
+    <!-- archive search beans -->
+    <bean id="nameControllerResolver"
+          class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/logResults.htm">logResultHandler</prop>
+                <prop key="/logSearch.htm">logHandler</prop>
+                <prop key="/archiveResults.htm">archiveResultHandler</prop>
+                <prop key="/latestArchives.htm">lastarchiveHandler</prop>
+                <prop key="/archiveSearch.htm">archiveHandler</prop>
+                <prop key="/fileResults.htm">fileResultHandler</prop>
+                <prop key="/fileSearch.htm">fileHandler</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="logController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.LogController">
+        <property name="methodNameResolver" ref="nameControllerResolver"/>
+        <property name="logQueries" ref="logQueries"/>
+    </bean>
+
+    <bean id="archiveController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.ArchiveController">
+        <property name="methodNameResolver" ref="nameControllerResolver"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="latestArchivesController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.LatestArchivesController">
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+    <bean id="findLogsForm" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.LogFormController">
+        <property name="formView" value="findLogsForm"/>
+        <property name="selectView" value="logController"/>
+        <property name="successView" value="logResults"/>
+        <property name="logQueries" ref="logQueries"/>
+        <property name="commandName" value="logQuery"/>
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.common.web.LogQueryRequest"/>
+    </bean>
+
+    <bean id="findArchivesForm" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.ArchiveFormController" init-method="initLists">
+        <property name="formView" value="findArchivesForm"/>
+        <property name="selectView" value="archiveController"/>
+        <property name="successView" value="archiveResults"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="commandName" value="archiveQuery"/>
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.common.web.ArchiveQueryRequest"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+    </bean>
+
+    <bean id="findFileInfoForm" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.FileInfoFormController">
+        <property name="formView" value="findFileInfoForm"/>
+        <property name="selectView" value="fileController"/>
+        <property name="successView" value="fileResults"/>
+        <property name="fileQueries" ref="fileQueries"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="commandName" value="fileQuery"/>
+        <property name="commandClass" value="gov.nih.nci.ncicb.tcga.dcc.common.web.FileInfoQueryRequest"/>
+    </bean>
+    <bean id="anotherFileController" class="gov.nih.nci.ncicb.tcga.dcc.dam.web.AnotherFileInfoController">
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="fileQueries" ref="fileQueries"/>
+    </bean>
+
+</beans>

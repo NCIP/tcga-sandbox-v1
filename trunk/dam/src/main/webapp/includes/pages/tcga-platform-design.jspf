@@ -1,0 +1,26 @@
+
+<div id="content" class="widelayout">
+    <div class="left">
+        <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaAbout.jsp">About the Data</a> > <span class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+        <h1><%=h1String%></h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+	<p><span class="newWinIcon">&nbsp;</span> Please note: All links in the table will open in a new window.</p>
+
+	<div id="platforms"></div>
+
+	<div id="platformsInformation">
+		<p><b>Center</b> - provides the Center Name (domain) for the center that is submitting data for a particular platform. A <a href="/datareports/codeTablesReport.htm?codeTable=center">report</a> is available that provides a relationship between Center Name (domain), Center Type, Center Display Name, and BCR Center ID (Data Generating Center).</p>
+		<p><b>TCGA Platform Code</b> - provides the code used in TCGA to represent a platform. The code is used in archive and file names and file contents. A <a href="/datareports/codeTablesReport.htm?codeTable=platform">report</a> is available that provides the relationship between TCGA Platform Code and Platform Name.</p>
+		<p><b>Platform Name</b> - provides the vendor's name of a particular platform. The Platform Name links to the best approximation of a direct link to the platform's main information page. On the venor's page you may find links to the vendor's annotation files and other supporting materials. The DCC does not collect or track vendor annotations. If you have trouble finding the vendor's supporting materials, we reccomend you contact the vendor directly. A <a href="/datareports/codeTablesReport.htm?codeTable=platform">report</a> is available that provides the relationship between TCGA Platform Code and Platform Name.</p>
+		<p><b>Sequence Download</b> - The links provided in this column either download the FASTA file that was submitted by the related center and used to create the ADF file, or in the case of sequence-based platforms, take you to the NCBI Trace or Short Read Archives where you can download or search the metadata to get the primers used in the assay. Values of <em>Unavailable mean that the FASTA file has not yet been posted by the related center, or in the case of sequence-based plaforms, the data is not yet available at NCBI. Values of <i>NA</i> mean that probe or primer sequence files are not applicable to the related platform and that those sequences may be available in a result file (<i>e.g.</i> <span style="letter-spacing: 0px;">IlluminaGA_mRNA_DGE</span> sequences are available in the archive result files).</em></p>
+		<p><b>TCGA ADF Download</b> - TCGA uses a modified format of the standard MAGE ADF file. TCGA ADFs are used in the anaysis of the resulting data. The links provided download the TCGA ADF. Values of <i>Unavailable</i> mean that the ADF file has not yet been posted by the related center, or in the case of sequence-based plaforms, the data is not yet available at NCBI. Values of <i>NA</i> mean that ADF files are not applicable to the related platform  (<i>e.g.</i> <span style="letter-spacing: 0px;">IlluminaGA_mRNA_DGE</span> is not an array-based platform and so has no ADF).</em></p>
+	</div>
+</div>
+
+
+

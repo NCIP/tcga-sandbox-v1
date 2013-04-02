@@ -1,0 +1,90 @@
+
+<div id="content" class="widelayout">
+    <div class="left">
+	    <div class="trail"><a href="<%=host%>/tcga/tcgaHome2.jsp">Home</a> > <a href="<%=host%>/tcga/admin">TCGA Admin</a> > <span class="trailDest"><%=h1String%></span></div>
+	    <h1>Manage <%=h1String%></h1>
+	</div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAdminMain.jspf" %>
+    </div>
+	<div class="clear"></div>
+ 	<link href="/tcga/styles/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  	<script src="/tcga/scripts/jquery-ui.min.js"></script>	
+	<link href="/tcga/styles/properties_table.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" language="javascript" src="/tcga/scripts/jqueryDataTables.js"></script>
+	<script type="text/javascript">
+		var previousPropertyName = "<%=request.getParameter("propertyName")==null?"": URLDecoder.decode( request.getParameter("propertyName").replace( request.getParameter("propertyId") + "escPercent", "%"), "UTF-8").replace("\\" , "\\\\").replace("\"" , "\\\"")%>";
+	
+       	function onSubmit(form,cmd){
+	       	var propertyId = form.propertyId.value;
+		   	var serverNameDisplay = escape(form.serverNameDisplay.value.replace(/&quot;/g , '"')).replace(/%/g,propertyId + "escPercent");
+		   	var propertyNameDisplay = escape(form.propertyNameDisplay.value.replace(/&quot;/g , '"')).replace(/%/g,propertyId + "escPercent");
+		   	var propertyValueDisplay = escape(form.propertyValueDisplay.value.replace(/&quot;/g , '"')).replace(/%/g,propertyId + "escPercent");
+			var propertyDescriptionDisplay = escape(form.propertyDescriptionDisplay.value.replace(/&quot;/g , '"')).replace(/%/g,propertyId + "escPercent");
+						
+            // Form validations:
+            // if "add", make sure property name does not already exist in main table
+            // or if "update", make sure property name is not updated to an already existing property name
+            // else prevent update or add of blank property names... otherwise proceed.
+            var existingPropertyId = propertyNames[form.propertyNameDisplay.value.replace(/"/g , '&quot;')];
+            if( (existingPropertyId != undefined && cmd.toLowerCase() == "add") || 
+                	( existingPropertyId != undefined && existingPropertyId != propertyId  && cmd.toLowerCase() == "update")){
+                Ext.MessageBox.alert("Error: Property id already exists.");
+            } else if((form.propertyNameDisplay.value == null || form.propertyNameDisplay.value == "") && cmd.toLowerCase() != "delete"){
+                Ext.MessageBox.alert("Error: Property name cannot be blank.");
+            } else {
+                Ext.Msg.confirm('You about to ' + cmd + ' a property.', 'Is this ok?', function(btn, text){
+	                if(btn == 'yes'){
+					   	form.serverName.value = serverNameDisplay;
+					   	form.propertyName.value = propertyNameDisplay;
+					   	form.propertyValue.value = propertyValueDisplay;
+						form.propertyDescription.value = propertyDescriptionDisplay;
+						form.serverNameDisplay.value = "";
+						form.propertyNameDisplay.value = "";
+						form.propertyValueDisplay.value = "";
+						form.propertyDescriptionDisplay.value = "";
+	                	form.command.value = cmd;
+	                    form.submit();
+	                }
+                });
+           }
+    	}
+	</script>
+	<script type="text/javascript" charset="utf-8">
+	$(function(){
+	
+	    $("ul.dropdown li").hover(function(){
+	    
+	        $(this).addClass("hover");
+	        $('ul:first',this).css('visibility', 'visible');
+	    
+	    }, function(){
+	    
+	        $(this).removeClass("hover");
+	        $('ul:first',this).css('visibility', 'hidden');
+	    
+	    });
+	    
+	    $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+	
+	});
+	
+	$(document).ready(function() {
+		$("#accordion").accordion();
+		$('#example').dataTable( {
+			"bPaginate": true,
+			"bLengthChange": true,
+			"bFilter": true,
+			"bSort": true,
+			"bInfo": true,
+			"bAutoWidth": false } );
+	});
+	</script>
+	<style>.notshow{display:none;}h1,h2,h3{text-transform:capitalize;}</style>
+	<div class="admin_area">	
+		<div id="accordion">
+        	<%@include file="/includes/modules/admin_properties_accordion.jspf" %>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">var propertyNames = new Array();<%=propertiesJsArrayString%></script>

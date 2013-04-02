@@ -1,0 +1,26 @@
+<dataset>
+
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+
+    <center center_id="1" domain_name="testBCR" center_type_code="BCR" display_name="testBCR"/>
+    <center center_id="2" domain_name="testGCC" center_type_code="CGCC" display_name="testGCC"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="aliquot"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="uuid1" shipped_item_type_id="1" built_barcode="TCGA-11-2222-01A-01W-1234-20" project_code="TCGA" tss_code="11" participant_code="2222" is_viewable="1" is_redacted="0" batch_id="42" bcr_center_id="20"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="uuid2" shipped_item_type_id="1" built_barcode="TCGA-11-3333-11A-02D-5678-01" project_code="TCGA" tss_code="11" participant_code="3333" is_viewable="1" is_redacted="0" batch_id="8" bcr_center_id="01" />
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="uuid3" shipped_item_type_id="1" built_barcode="TCGA-11-4444-10B-01R-9999-20" project_code="TCGA" tss_code="11" participant_code="4444" is_viewable="0" is_redacted="1" bcr_center_id="20" />
+    <!-- same sample as the previous biospecimen (id 3), but different analyte and this one has a batch id defined -->
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="uuid4" shipped_item_type_id="1" built_barcode="TCGA-11-4444-10B-01W-9999-20" project_code="TCGA" tss_code="11" participant_code="4444" is_viewable="0" is_redacted="1" batch_id="16" bcr_center_id="20" />
+
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="2" element_type_id="1" element_value="11" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="3" element_type_id="1" element_value="10" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="2" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="3" element_type_id="2" element_value="B" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="4" element_type_id="1" element_value="10" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="4" element_type_id="2" element_value="B" />
+</dataset>

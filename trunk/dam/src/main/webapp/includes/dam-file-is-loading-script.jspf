@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    <%-- Ajax will poll the server to see when the archive is ready, then display link --%>
+    function pollServer() {
+        var ajax = getAjaxRequest();
+        if (ajax != null) {
+            ajax.onreadystatechange = function() {
+                handleResponse(ajax)
+            };
+            var url = "<%=request.getContextPath()%>/dataAccessResultPolling.htm?filePackagerKey=<c:out value="${DAFPInfo.filePackagerKey}"/>";
+        //IE needs every call to be unique, or it keep returning the cached value, so we append the time
+            url += ("&ms=" + (new Date()).getTime());
+
+            ajax.open("GET", url, true);
+            ajax.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            ajax.send("");
+        } else {
+            document.getElementById("jobInfo").innerHTML = '<spring:message code="label.noAjaxBrowserSupport" javaScriptEscape="true"/>';
+            clearInterval(intervalId);
+        }
+    }
+
+    function handleResponse(ajax) {
+        if (ajax.readyState == 4) {
+            if (ajax.responseText != null) {
+                var resp = trim(ajax.responseText);
+                var jobInfo = eval('(' + resp + ')');
+
+                var jobStatus = jobInfo.status;
+                var jobMessage = jobInfo.message;
+
+                updateStatus(jobStatus, jobMessage);
+            }
+        }
+    }
+
+    function updateStatus(jobStatus, jobMessage) {
+        var scheduleRefresh = true;
+        var statusClass = '';
+        if (jobStatus == 'Complete') {
+            scheduleRefresh = false;
+            statusClass = 'green';
+        } else if (jobStatus == 'Failed') {
+            scheduleRefresh = false;
+            statusClass = 'red';
+        } else if (jobStatus == 'Queued') {
+            statusClass = 'gray';
+        } else if (jobStatus == 'Running') {
+            statusClass = 'blue';
+        }
+
+        var statusArea = document.getElementById('jobStatus');
+        var messageArea = document.getElementById('jobMessage');
+        statusArea.innerHTML = jobStatus;
+        messageArea.innerHTML = jobMessage;
+        if (statusClass != '') {
+            statusArea.className = statusClass;
+        }
+
+        if (scheduleRefresh) {
+            setTimeout("pollServer()", <%=DataAccessMatrixJSPUtil.DAFP_POLLING_INTERVAL%>);
+        } else {
+            document.getElementById('refreshNotice').innerHTML = '';
+        }
+    }
+
+     function trim(s) { //incredibly, JS doesn't provide this
+        return s.replace(/^\s+|\s+$/g, '');
+    }
+
+    function getAjaxRequest() {
+        var ajax;
+        try {
+            // Opera 8.0+, Firefox, Safari
+            ajax = new XMLHttpRequest();
+        } catch (e) {
+            // Internet Explorer Browsers
+            try {
+                ajax = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                    // wrong browser
+                    return null;
+                }
+            }
+        }
+        return ajax;
+    }
+</script>
+</head> <%-- damHeader opens head tag but doesn't close it, so other scripts can be added to head --%>

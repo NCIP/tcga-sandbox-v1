@@ -1,0 +1,44 @@
+<%@ page import="org.springframework.jdbc.object.SqlUpdate" %>
+			<h3><a href="#">Manage Website Page Content</a></h3>
+			<div id="accordion_section">
+				<div id="iframedContentEditTitle"><%=config.getInitParameter("iframedContentEditTitle")%> - <%=config.getInitParameter("iframedContentEditUrl")%></div>
+				<ul class="dropdown">
+			      	<li><a href="#">Edit Other Pages in <%=h1String.substring(0,h1String.indexOf(" Management"))%>:</a>
+        				<ul class="sub_menu">
+<%
+    DriverManagerDataSource dataSourceContent = new DriverManagerDataSource();
+    dataSourceContent.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+    dataSourceContent.setUrl(contentdb);
+    dataSourceContent.setUsername(contentdbusr);
+    dataSourceContent.setPassword(contentdbpwd);
+ 
+    Clob cv; 
+	int rowCount = 0;
+	String art_id = "";
+	String art_title = "";
+	String art_title_h1 = "";
+	String art_desc = "";
+	String art_keywords = "";
+	String art_body = "";
+	String art_url = "";
+	String updateSqlStr = "";
+	
+	JdbcTemplate  jdbcTemplateContent = new JdbcTemplate(dataSourceContent);
+    SqlRowSet contentRowContent = jdbcTemplateContent.queryForRowSet("select title, post_url from content_post where post_url like '/" + config.getInitParameter("applicationRoot") + "/%' order by title desc");
+
+    while (contentRowContent.next()) {	
+        if ( contentRowContent.getString("POST_URL") != null ){
+			art_url = contentRowContent.getString("POST_URL");
+			art_title = contentRowContent.getString("TITLE");
+		}
+%>
+					<li><a href="#" title="<%=art_title%> - <%=art_url%>" onclick="document.getElementById('iframedContentEdit').src='/tcga/includes/iframes/tcga-admin-content-update-form.jsp?post_url=<%=art_url%>';document.getElementById('iframedContentEditTitle').innerHTML='<%=art_title%> - <%=art_url%>';"><%=art_title%></a></li>
+<%
+      rowCount++;
+    }    
+%>        		
+							</ul>
+						</li>
+					</ul>
+				<iframe src="/tcga/includes/iframes/tcga-admin-content-update-form.jsp?post_url=<%=config.getInitParameter("iframedContentEditUrl")%>" id="iframedContentEdit" scrolling="no" frameBorder="0"></iframe>			
+			</div>

@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+		version="2.4">
+		
+	<display-name>TCGA Portal</display-name>
+	
+	<description>TCGA Portal</description>
+
+    <servlet>
+        <servlet-name>maincss</servlet-name>
+        <jsp-file>/styles/commonCSS.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>maincss</servlet-name>
+        <url-pattern>/styles/main.css</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>mainjs</servlet-name>
+        <jsp-file>/scripts/commonjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mainjs</servlet-name>
+        <url-pattern>/scripts/main.js</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>mergedjs</servlet-name>
+        <jsp-file>/scripts/mergedjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mergedjs</servlet-name>
+        <url-pattern>/scripts/merged.js</url-pattern>
+    </servlet-mapping>
+    	
+    <servlet>
+        <servlet-name>Main Page</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>tcgahome</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaHome2.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Main Page</servlet-name>
+        <url-pattern>/tcgaHome2.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Main Page</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+	
+    	
+    <servlet>
+        <servlet-name>About</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>adata</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaAbout.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/tcgaAbout.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Access Tiers</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>access-tiers</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaAccessTiers.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Access Tiers</servlet-name>
+        <url-pattern>/tcgaAccessTiers.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Announcements</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>announcements</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaAnnouncements.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Announcements</servlet-name>
+        <url-pattern>/tcgaAnnouncements.jsp</url-pattern>
+    </servlet-mapping>
+    
+
+    <servlet>
+        <servlet-name>Additional Help</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>portaladditionalhelp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaAdditionalPortalHelp.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Additional Help</servlet-name>
+        <url-pattern>/tcgaAdditionalPortalHelp.jsp</url-pattern>
+    </servlet-mapping>
+    
+
+    <servlet>
+        <servlet-name>Analytical Tools</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>atools</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaAnalyticalTools.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Analytical Tools</servlet-name>
+        <url-pattern>/tcgaAnalyticalTools.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Cite Data</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>citedata</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaCiteData.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Cite Data</servlet-name>
+        <url-pattern>/tcgaCiteData.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Contact Us</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>contact</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaContact.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Contact Us</servlet-name>
+        <url-pattern>/tcgaContact.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Data Types</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>datatype</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaDataType.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Types</servlet-name>
+        <url-pattern>/tcgaDataType.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Download Data</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>ddata</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaDownload.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Download Data</servlet-name>
+        <url-pattern>/tcgaDownload.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>User Guides and Help</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>help</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaHelp.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>User Guides and Help</servlet-name>
+        <url-pattern>/tcgaHelp.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Somatic Mutation Data</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>mutations</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaMutations.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Somatic Mutation Data</servlet-name>
+        <url-pattern>/tcgaMutations.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Platform Design</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaPlatformDesign.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Platform Design</servlet-name>
+        <url-pattern>/tcgaPlatformDesign.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>TCGA Data Portal Application Help</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>portalhelp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaPortalHelp.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Platform Design</servlet-name>
+        <url-pattern>/tcgaPortalHelp.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Search by Archives User Guide</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>searcharchivesguide</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaSearchArchivesGuide.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Search by Archives User Guide</servlet-name>
+        <url-pattern>/tcgaSearchArchivesGuide.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Data Portal Site Map</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>site-map</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaSiteMap.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Portal Site Map</servlet-name>
+        <url-pattern>/tcgaSiteMap.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Tools</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>rtools</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/tcgaTools.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tools</servlet-name>
+        <url-pattern>/tcgaTools.jsp</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Data Matrix FAQ</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>faqs</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbContent</param-name>
+			<param-value>/tcga/faqs.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Matrix FAQ</servlet-name>
+        <url-pattern>/faqs.jsp</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Site Administration</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-main</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Site Administration</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Site Administration</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Data Access Management</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-data-access</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Data Access Management</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Access Management</servlet-name>
+        <url-pattern>/admin/data-access</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Annotations Management</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-annotations</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Annotations Management</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Annotations Management</servlet-name>
+        <url-pattern>/admin/annotations</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Data Reports Management</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-data-reports</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Data Reports Management</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Reports Management</servlet-name>
+        <url-pattern>/admin/data-reports</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Data Portal Management</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-data-portal</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Data Portal Management</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Data Reports Management</servlet-name>
+        <url-pattern>/admin/data-portal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Meta Data Browser Management</servlet-name>
+        <jsp-file>/tcgaTemplate.jsp</jsp-file>
+		<init-param>
+			<param-name>pageCategory</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>currentPage</param-name>
+			<param-value>admin-meta-data-browser</param-value>
+		</init-param>
+		<init-param>
+			<param-name>h1String</param-name>
+			<param-value>Meta Data Browser Management</param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaKeywords</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>metaDescription</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>bodyClass</param-name>
+			<param-value>platform-design</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Meta Data Browser Management</servlet-name>
+        <url-pattern>/admin/meta-data-browser</url-pattern>
+    </servlet-mapping> 
+</web-app>

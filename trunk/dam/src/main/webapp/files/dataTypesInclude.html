@@ -1,0 +1,456 @@
+ <div>
+                The table below shows the relationship of TCGA data types to data levels as well as information on important metadata.<br>
+                <br>
+                Please see the <a href="https://wiki.nci.nih.gov/display/TCGA/TCGA+Data+Primer" target="_blank" class="newWinIcon">TCGA Data Primer</a> for a detailed guide on TCGA data types.<br>
+                <br>
+                *<span style="color: red;">Red</span> indicates data that are in the <span style="font-weight: bold;">controlled-access</span> data tier. The phrase "Controlled-access" is also used to denote such data.
+                Data in this tier require user authorization in order to access them. Please see the <a href="tcgaAccessTiers.jsp">Access Tiers</a> page for more information.
+            </div>
+
+            <h3>Relationship of Data Levels to Data Types</h3>
+
+            <table class="plainTable" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Data Subtypes</th>
+                        <th><a href="tcgaPlatformDesign.jsp">Technology Platform(s)</a></th>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Important Metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2" style="border-width:0 1px 1px 1px;">Clinical Data</td>
+                        <td><nobr>1. Clinical data</nobr></td>
+                        <td>n/a</td>
+                        <td>Clinical information for each participant (including demographic information, treatment information, survival data, etc)<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>:  tab-delimited "biotab" (.txt) and .xml
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>The <a href="https://tcga-data.nci.nih.gov/docs/dictionary/TCGA_BCR_DataDictionary.xml" target="_blank" class="newWinIcon">BCR data dictionary</a>
+                            describes of all the clinical and biospecimen data elements in TCGA
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><nobr>2. Biospecimen data</nobr></td>
+                        <td>n/a</td>
+                        <td>Information on how samples from each participant were processed by the Biospecimen Core Resource Center (BCR)<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>:  tab-delimited "biotab" (.txt) and .xml
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>The <a href="https://tcga-data.nci.nih.gov/docs/dictionary/TCGA_BCR_DataDictionary.xml" target="_blank" class="newWinIcon">BCR data dictionary</a> describes of all the clinical and biospecimen data elements in TCGA</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" style="border-width:0 1px 1px 1px;">Tissue Slide Images</td>
+                        <td>1. Diagnostic image</td>
+                        <td>n/a</td>
+                        <td>Tissue images used by the hospital to diagnose participant<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: .svs (image viewer)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Available images are listed in the <b>biospecimen biotab and xml files</b></td>
+                    </tr>
+                    <tr>
+                        <td>2. Tissue image</td>
+                        <td>n/a</td>
+                        <td>Images of tissue samples from each participant that were used for TCGA analyses<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: .svs (image viewer)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Available images are listed in the <b>biospecimen biotab and xml files</b></td>
+                    </tr>
+                    <tr>
+                        <td style="border-width:0 1px 1px 1px;">Pathology Reports</td>
+                        <td></td>
+                        <td>n/a</td>
+                        <td style="color: red;">Pathology reports for a subset of participants<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: .pdf
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                    </tr>
+                    <tr>
+                         <td style="border-width:0 1px 1px 1px;">Microsatellite Instability (MSI)</td>
+                        <td></td>
+                        <td>n/a</td>
+                        <td style="color: red;">Markers indicating presence or absence of a MSI shift, allele homozygosity/heterozygosity, and loss of heterozygosity (LOH) observed in the tumor sample for each participant<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>: fragment analysis trace file (.fsa) and tab-delimited (.txt) file summarizing the trace file
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>Classifications of microsatellite instability detected for each participant's tumor sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: auxiliary.xml
+                        </td>
+                        <td>Level 1 data are submitted as part of a standard <b>MAGE-TAB</b> archive<br><br>
+                            Level 3 data are contained in the BCR clinical data archives
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4" style="border-width:0 1px 1px 1px;">DNA Sequencing</td>
+                        <td>1. Whole exome sequence (available at the <a href="https://cghub.ucsc.edu/" target="_blank" class="newWinIcon">Cancer Genomics Hub</a>)</td>
+                        <td><span style="line-height:160%;">IluminaGA_DNASeq<br>SOLiD_DNASeq</span>
+                        </td>
+                        <td style="color: red;">Whole exome sequence for both tumor and normal sample for each participant<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: binary alignment file (.bam)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Experimental protocol, including primer information, is contained in the metadata <b>.xml file</b> associated with each .bam file</td>
+                    </tr>
+                    <tr>
+                        <td>2. Whole genome sequence (available at the <a href="https://cghub.ucsc.edu/" target="_blank" class="newWinIcon">Cancer Genomics Hub</a>)</td>
+                        <td><span style="line-height:160%;">IluminaGA_DNASeq<br>SOLiD_DNASeq</span>
+                        </td>
+                        <td style="color: red;">
+                            Whole genome sequence for both tumor and normal sample for select participants<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: binary alignment file (.bam)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Experimental protocol, including primer information, is contained in the metadata <b>.xml file</b> associated with each .bam file</td>
+                    </tr>
+                    <tr>
+                        <td>3. Sequence traces (may be available at the <a href="http://www.ncbi.nlm.nih.gov/Traces/home/" target="_blank" class="newWinIcon">NCBI Trace Archive</a>)<sup>1</sup></td>
+                        <td>n/a</td>
+                        <td>Raw sequence output from older sequencing technologies<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: sequence chromatogram format (.scf)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td><b>Trace-sample relationship (.tr)</b> files map NCBI trace IDs to TCGA biospecimen barcodes</td>
+                    </tr>
+                    <tr>
+                        <td>4. Mutations</td>
+                        <td><span style="line-height:160%;">IluminaGA_DNASeq<br>
+                            SOLiD_DNASeq</span>
+                        </td>
+                        <td>Whole genome and exome sequence - see above</td>
+                        <td>Validated and unvalidated DNA variant/ mutations for each participant<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>: mutation annotation file (.maf) (open and controlled-access) and <span style="color: red">variant calling file (.vcf) (controlled-access)</span>
+                        </td>
+                        <td>
+                            Validated DNA variants/mutations for each participant<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: mutation annotation file (.maf)
+                        </td>
+                        <td>The <b>DESCRIPTION</b> file contains a summary of the mutation detection and validation method<br>
+			<br>The .maf files do not have an standard MAGE-TAB archive associated with them</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" style="border-width:0 1px 1px 1px;">Expression - miRNA Sequencing</td>
+                        <td>1. miRNA sequence (available at the <a href="https://cghub.ucsc.edu" target="_blank" class="newWinIcon">Cancer Genomics Hub</a>)</td>
+                        <td><span style="line-height:160%;">IlluminaGA_miRNASeq<br>IlluminaHiSeq_miRNASeq</span></td>
+                        <td style="color: red">miRNA sequence  for each participant's tumor sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: binary alignment file (.bam)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Experimental protocol, including primer information, is contained in the metadata <b>.xml file</b> associated with each .bam file</td>
+                    </tr>
+                    <tr>
+                        <td>2. miRNA</td>
+                        <td><span style="line-height:160%;">IlluminaGA_miRNASeq<br>IlluminaHiSeq_miRNASeq</span></td>
+                        <td>miRNA sequence  for each participant's tumor sample - see above </td>
+                        <td>n/a</td>
+                        <td>The calculated expression for all reads aligning to a particular miRNA, per sample<br>
+                           <br>
+                           <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td>3. Isoform</td>
+                        <td><span style="line-height:160%;">IlluminaGA_miRNASeq<br>IlluminaHiSeq_miRNASeq</span></td>
+                        <td>miRNA sequence  for each participant's tumor sample - see above </td>
+                        <td>n/a</td>
+                        <td>The calculated expression for each individual miRNA sequence isoform observed, per sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td style="border-width:0 1px 1px 1px;">Expression - Protein Array</td>
+                        <td></td>
+                        <td>MDA_RPPA_Core</td>
+                        <td>High resolution images of protein array slides (up to 1000 samples per slide) and raw signals per slide<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>: .tiff (image viewer) for images and tab-delimited (.txt) for signals
+                        </td>
+                        <td>Dilution curves for each sample <br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Normalized protein expression for each gene<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Array design files, antibody annotations, and the experimental protocol are included in <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5" style="border-width:0 1px 1px 1px;">Expression - mRNA <nobr>Sequencing<sup>2</sup></nobr></td>
+                        <td>1. mRNA sequence (available at the <a href="https://cghub.ucsc.edu" target="_blank" class="newWinIcon">Cancer Genomics Hub</a>)</td>
+                        <td><span style="line-height:160%;">IlluminaGA_RNASeq<br>IlluminaHiSeq_RNASeq</span></td>
+                        <td style="color: red">mRNA sequence for each participant's tumor sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: binary alignment file (.bam)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>n/a</td>
+                        <td>n/a</td>
+                        <td>Experimental protocol, including primer information, is contained in the metadata <b>.xml file</b> associated with each .bam file</td>
+                    </tr>
+                    <tr>
+                        <td>2. Exon</td>
+                        <td><span style="line-height:160%;">IlluminaGA_RNASeq<br>IlluminaHiSeq_RNASeq</span></td>
+                        <td>mRNA sequence for each participant's tumor sample - see above</td>
+                        <td>n/a</td>
+                        <td>The calculated expression signal of a particular composite exon of a gene<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td>3. Gene</td>
+                        <td><span style="line-height:160%;">IlluminaGA_RNASeq<br>IlluminaHiSeq_RNASeq</span></td>
+                        <td>mRNA sequence for each participant's tumor sample - see above</td>
+                        <td>n/a</td>
+                        <td>The calculated expression signal of a gene<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td>4. Splice Junction</td>
+                        <td><span style="line-height:160%;">IlluminaGA_RNASeq<br>IlluminaHiSeq_RNASeq</span></td>
+                        <td>mRNA sequence for each participant's tumor sample - see above</td>
+                        <td>n/a</td>
+                        <td>The calculated expression signal of a particular composite splice junction of a gene<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td>5. Isoform</td>
+                        <td><span style="line-height:160%;">IlluminaGA_RNASeq<br>IlluminaHiSeq_RNASeq</span></td>
+                        <td>mRNA sequence  for each participant's tumor sample - see above </td>
+                        <td>n/a</td>
+                        <td>The normalized expression signal of individual isoforms (transcripts)<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" style="border-width:0 1px 1px 1px;"><nobr>Expression Array<sup>1</sup></nobr></td>
+                        <td>1. Gene</td>
+                        <td><span style="line-height:160%;">AgilentG4502A_07_3<br>
+                            AgilentG4502A_07_2<br>
+                            AgilentG4502A_07_1<br>
+                            HT-HG-U133A<br>
+                            HG-U133-Plus2</span>
+                        </td>
+                        <td>Raw signals per probe<br>
+                            <br>
+                            <span style="text-decoration: underline">File types</span>:  binary (.CEL) and tab-delimited (.txt)
+                        </td>
+                        <td>Normalized signals per probe or probe set<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Expression calls for genes, per sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+                            <br>
+                            Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2. Exon</td>
+                        <td>HuEx-1_0-st-v2</td>
+                        <td style="color: red">Raw signals per probe <br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: binary (.CEL)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td style="color: red">Normalized signals per probe or probe set<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: .tab-delimited (.txt)
+			    <br><br>(Controlled-access)
+                        </td>
+                        <td>Expression calls for exons/variants, per sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: .tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+                            <br>
+                            Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3. miRNA</td>
+                        <td><span style="line-height:160%;">H-miRNA_8x15K<br>H-miRNA_8x15Kv2</span></td>
+                        <td>Raw signals per probe<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Normalized signals per probe or probe set<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Expression calls for miRNAs, per sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+			<br>
+                            Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-width:0 1px 1px 1px;">DNA Methylation</td>
+                        <td></td>
+                        <td><span style="line-height:160%;">HumanMethylation27<br>
+                            HumanMethylation450<br><br>
+			    IlluminaDNAMethylation_ OMA002_CPI<br><br>
+                            IlluminaDNAMethylation_ OMA003_CPI</span>
+                        </td>
+                        <td>Raw signal intensities of probes<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt) and binary [(.idat) (applies to HumanMethylation450 platform)]
+                        </td>
+                        <td>Calculated beta values<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>
+                            Calculated beta values mapped to genome, per sample<br>
+                            <br>
+                            <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                        </td>
+                        <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+                            <br>
+                            Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                        </td>
+                    </tr>
+                <tr>
+                    <td style="border-width:0 1px 1px 1px;">SNP</td>
+                    <td></td>
+                    <td><span style="line-height:160%;">Genome_Wide_SNP_6<br>
+                        Human1MDuo<br>
+                        HumanHap550</span>
+                    </td>
+                    <td style="color: red">
+                        Raw data<br>
+                        <br>
+                        <span style="text-decoration: underline">File types</span>: binary (.CEL), binary (.idat), and tab-delimited (.txt)
+			    <br><br>(Controlled-access)
+                    </td>
+                    <td style="color: red">
+                        Unnormalized SNP, copy number, and LOH data<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+			    <br><br>(Controlled-access)
+                    </td>
+                    <td>
+                        Normalized copy number and LOH data, per sample<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                    </td>
+                    <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+                        <br>
+                        Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" style="border-width:0 1px 1px 1px;">Copy Number Results</td>
+                    <td><nobr>1. Sequencing based</nobr></td>
+                    <td>IlluminaHiSeq_DNASeqC</td>
+                    <td style="color: red">Low pass, whole genome sequence of both tumor and normal samples for each participant and analysis
+                        of differences in read counts between the tumor and normal sample<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: binary alignment file (.bam)
+			    <br><br>(Controlled-access)
+                    </td>
+                    <td style="color: red">DNA variants/mutations and copy number variation for each participant<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: variant calling format (.vcf)
+			    <br><br>(Controlled-access)
+                    </td>
+                    <td>Regions with differences in genome coverage (number of reads) between normal and tumor samples for each participant<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.tsv)
+                    </td>
+                    <td>
+                        Experimental protocol, including  calculation methods, is included in the DESCRIPTION file of the <b>MAGE-TAB</b> archive
+                    </td>
+                </tr>
+                <tr>
+                    <td><nobr>2. Array based - CGH<sup>1</sup></nobr></td>
+                    <td>HG-CGH-244A<br>
+                         HG-CGH-415K_G4124A<br>
+                        CGH-1x1M_G4447A
+                    </td>
+                    <td>Raw signals per probe<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.txt)
+                    </td>
+                    <td>
+                        Normalized signals for copy number alterations of aggregated regions, per probe or probe set<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.tsv and .mat)
+                    </td>
+                    <td>Copy number alterations for aggregated/segmented regions, per sample<br>
+                        <br>
+                        <span style="text-decoration: underline">File type</span>: tab-delimited (.tsv and .txt)
+                    </td>
+                    <td>Experimental protocol, including calculation methods, is included in the <b>MAGE-TAB</b> archive<br>
+                        <br>
+                        Probe information is contained in the <a href="https://tcga-data.nci.nih.gov/docs/integration/adfs/tcga/">Array design files</a> for each platform
+                    </td>
+                </tr>
+                <tr>
+                    <td>3. Array based - SNP (see above)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        <div>
+            <sup>1</sup> Denotes an older data type/platform that applies to TCGA pilot projects (GBM and Ovarian) only.
+        </div>
+        <div>
+            <sup>2</sup> RNA sequencing has two versions - V1 and V2. Version 2 differs from Version 1 by the algorithm used to generate the data.
+        </div>

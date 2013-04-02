@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		">
+
+    <context:annotation-config/>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+        <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/jdbc.properties</value>
+                <value>classpath:tcgaApp.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:dccCommon"/>
+    </bean>
+
+
+    <!-- "routing" ds that dispatches to one of the disease-specific oracle datasources -->
+    <bean id="diseaseSpecificDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource">
+        <constructor-arg index="0">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
+                <property name="prefix" value="java:"/>
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup"/>
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="1" value="${tcga.portal.diseaseDataSources}"/>
+    </bean>
+
+    <!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="oracleTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+    </bean>
+
+    <bean id="quartzDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:quartzOracleDS"/>
+    </bean>
+
+    <bean id="quartzTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="quartzDataSource"/>
+    </bean>
+
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+    <!-- define this bean after datasource beans -->
+    <!-- Initializes the applicationContext which can be accessed anywhere in the application -->
+    <bean id="applicationContextProvider" class="gov.nih.nci.ncicb.tcga.dcc.common.framework.SpringApplicationContext"
+          lazy-init="false">
+    </bean>
+    <!-- parent DAO - delegates to children -->
+    <bean id="dataAccessMatrixQueries" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesFacade">
+        <property name="DAOs">
+            <list>
+                <ref bean="damQueriesMetadata"/>
+                <ref bean="damQueriesLevel1"/>
+                <ref bean="damQueriesTrace"/>
+                <ref bean="damQueriesLevel2"/>
+                <ref bean="damQueriesLevel3CNA"/>
+                <ref bean="damQueriesLevel3ExpGene"/>
+                <ref bean="damQueriesLevel3Methylation"/>
+                <ref bean="damQueriesLevel3miRnaSeq"/>
+                <ref bean="damQueriesLevel3RNASeq"/>
+                <ref bean="damQueriesLevel3ProteinExp"/>
+                <ref bean="damQueriesMutation"/>
+                <ref bean="damQueriesGscVcf"/>
+                <ref bean="damQueriesClinicalBiotab"/>
+                <ref bean="damQueriesClinicalXml"/>
+            </list>
+        </property>
+        <property name="submittedSampleGetter" ref="submittedSampleGetter"/>
+        <property name="sorterAndGapFiller" ref="sorterAndGapFiller"/>
+        <property name="tumorNormalClassifier" ref="tumorNormalClassifier"/>
+    </bean>
+
+    <!-- JDBC DAO for disease specific database for level 1 -->
+    <bean id="damQueriesLevel1" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesCGCCLevel1" lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="damUtils" ref="damUtils" />
+    </bean>
+
+    <bean id="damQueriesGscVcf" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesGscVcf" lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="damUtils" ref="damUtils"/>
+    </bean>
+
+    <bean id="damQueriesMetadata" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesMetadata" lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="annotationQueries" ref="annotationQueries"/>
+        <property name="damUtils" ref="damUtils" />
+        <property name="tempFileDirectory" value="${tcga.portal.tempfileDirectory}"/>
+    </bean>
+
+    <bean id="annotationQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="fileInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="uuidService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDServiceImpl"/>
+
+    <!-- abstract bean allows us to set tempfile location in one place -->
+    <bean id="damQueriesTempfileSetter" abstract="true">
+        <property name="tempfileDirectory" value="${tcga.portal.tempfileDirectory}"/>
+    </bean>
+
+    <!-- DAO for trace file (level 1) -->
+    <bean id="damQueriesTrace" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesTrace" lazy-init="true"
+          parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="damUtils" ref="damUtils" />
+    </bean>
+
+    <bean id="damQueriesMutation" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesMutation" lazy-init="true"
+          parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+    </bean>
+
+    <bean id="bcrXmlFileParser" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BcrXMLFileParser" lazy-init="true"
+          init-method="init">
+    </bean>
+
+    <bean id="bioTabDataProcessorUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabDataProcessorUtil" />
+
+    <bean id="diseaseFileArchiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+    </bean>
+        
+    <bean id="bioTabFileGenerator" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabFileGenerator"
+          lazy-init="true" init-method="init">
+        <property name="bcrXMLFileParser" ref="bcrXmlFileParser"/>
+        <property name="fileArchiveQueries" ref="diseaseFileArchiveQueries"/>
+        <property name="bioTabFilesTmpDir" value="${tcga.portal.tempfileDirectory}"/>
+        <property name="templateFilesDir" value="${tcga.dcc.bioTabTemplateFilesRootDir}"/>
+        <property name="packageName" value="gov.nih.nci.ncicb.tcga.dcc.common.jaxb.generated.template"/>
+        <property name="bioTabDataProcessorUtil" ref="bioTabDataProcessorUtil"/>
+    </bean>
+
+    <!-- JDBC DAO for oracle database for clinical -->
+    <bean id="damQueriesClinicalBiotab" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesClinicalBiotab" lazy-init="true"
+          parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="useThreadedBufferedWriter" value="${tcga.portal.enable.threadedBufferedWriter}"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="clinicalMetaQueries">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ClinicalMetaQueriesJDBCImpl">
+                <property name="dataSource" ref="diseaseSpecificDataSource"/>
+            </bean>
+        </property>
+        <property name="controlDiseaseAbbreviation" value="${tcga.dcc.controlDiseaseAbbreviation}"/>
+        <property name="damUtils" ref="damUtils" />
+        <property name="fileInfoQueries" ref="fileInfoQueries" />
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator" />
+        <property name="fileGenerator" ref="bioTabFileGenerator" />
+    </bean>
+
+    <bean id="damQueriesClinicalXml" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesClinicalXML" lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+    </bean>
+
+    <!-- abstract parent for level 2 and 3 queries objects -->
+    <bean id="damQueriesLevel23Parent" abstract="true" parent="damQueriesTempfileSetter"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesCGCCLevelTwoAndThree">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="levelTwoThreeList" ref="damQueriesLevel2List"/>
+        <property name="useThreadedBufferedWriter" value="true"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="dataSetReducer" ref="dataSetReducer"/>
+        <property name="damUtils" ref="damUtils"/>
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="oracleTransactionManager"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="damQueriesLevel2" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel2" lazy-init="true"
+          parent="damQueriesLevel23Parent">
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="oracleTransactionManager"/>
+            </bean>
+        </property>
+        <property name="minExpectedRowsToUseHintQuery" value="${tcga.dcc.minExpectedRowsToUseHintQuery}"/>
+        <property name="sourceFileTypeFinder">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.util.SourceFileTypeFinderSdrfParserImpl">
+                <property name="fileInfoQueries" ref="fileQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- subclasses of level 3 DAO for different types of data -->
+    <bean id="damQueriesLevel3CNA" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3CNA_SNP" lazy-init="true"
+          parent="damQueriesLevel23Parent"/>
+
+    <bean id="damQueriesLevel3ExpGene" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3ExpGene"
+          lazy-init="true"
+          parent="damQueriesLevel23Parent"/>
+
+    <bean id="damQueriesLevel3Methylation" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3Methylation"
+          lazy-init="true"
+          parent="damQueriesLevel23Parent"/>
+
+    <bean id="damQueriesLevel3miRnaSeq" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3miRnaSeq"
+          lazy-init="true"
+          parent="damQueriesLevel23Parent"/>
+
+    <bean id="damQueriesLevel3RNASeq" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3RnaSeq"
+          lazy-init="true"
+          parent="damQueriesLevel23Parent"/>
+
+    <bean id="damQueriesLevel3ProteinExp" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesLevel3ProteinExp"
+          lazy-init="true" parent="damQueriesLevel23Parent"/>
+
+    <!-- JDBC DAO for Oracle database for level 2 list -->
+    <bean id="damQueriesLevel2List" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesCGCCLevelTwoThreeList"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+    </bean>
+
+    <!-- class that returns list of submitted samples per center -->
+    <bean id="submittedSampleGetter" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMQueriesCGCCLevel1" lazy-init="true">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+        <property name="damUtils" ref="damUtils" />
+    </bean>
+
+    <bean id="damUtils" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMUtils" factory-method="getInstance">
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="damDiseaseQueries">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMDiseaseQueriesJDBCImpl">
+                <property name="dataSource" ref="diseaseSpecificDataSource"/>
+                <property name="diseaseNameLister" ref="diseaseSpecificDataSource"/>
+                <property name="controlDiseaseAbbreviation" value="${tcga.dcc.controlDiseaseAbbreviation}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="sorterAndGapFiller" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.DataSetSorterAndGapFiller"/>
+    <bean id="tumorNormalClassifier" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.TumorNormalClassifier">
+        <property name="sampleTypeQueries" ref="sampleTypeQueries"/>
+        <property name="tissueSourceSiteQueries" ref="tissueSourceSiteQueries"/>
+    </bean>
+    <bean id="dataSetReducer" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.DataSetReducer"/>
+
+    <bean id="centerQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="centerImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="platformQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="platformImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="tumorQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="tumorImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataTypeQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="dataTypeImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="sampleTypeQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="sampleTypeImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="codeTableQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl">
+                <property name="dataSource" ref="dccCommonDataSource"/>
+            </bean>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="centerImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="platformImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="dataTypeImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DataTypeQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="sampleTypeImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.SampleTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <!-- old search DAO -->
+    <bean id="logImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.LogQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="archiveImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="logQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="logImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="archiveImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="fileImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="fileImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="tissueSourceSiteQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TissueSourceSiteQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <!-- quartz-related beans for queueing file packaging and archive deletion jobs -->
+    <bean name="jobDetailBean" class="org.springframework.scheduling.quartz.JobDetailBean" scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.service.JobDelegate"/>
+        <property name="group" value="filePackagerGroup"/>
+    </bean>
+
+    <bean id="filePackagerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="group" value="filePackagerGroup"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="bigjobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="bigjobScheduler"/>
+        <property name="autoStartup" value="${tcga.portal.filepackager.queue.autoStartup}"/>
+        <property name="startupDelay" value="${tcga.portal.filepackager.queue.startupDelay}"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.portal.filepackager.threads.bigjobs}</prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">BIG_QUE_</prop>
+                <prop key="org.quartz.plugin.PersistJobHistoryQuartzPlugin.class">
+                    gov.nih.nci.ncicb.tcga.dcc.dam.service.PersistJobHistoryQuartzPlugin
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="smalljobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="smalljobScheduler"/>
+        <property name="autoStartup" value="${tcga.portal.filepackager.queue.autoStartup}"/>
+        <property name="startupDelay" value="${tcga.portal.filepackager.queue.startupDelay}"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.portal.filepackager.threads.smalljobs}</prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">SMALL_QUE_</prop>
+                <prop key="org.quartz.plugin.PersistJobHistoryQuartzPlugin.class">
+                    gov.nih.nci.ncicb.tcga.dcc.dam.service.PersistJobHistoryQuartzPlugin
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="filePackagerEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.FilePackagerEnqueuer">
+        <property name="bigjobScheduler" ref="bigjobScheduler"/>
+        <property name="smalljobScheduler" ref="smalljobScheduler"/>
+        <property name="hoursTillDeletion" value="${tcga.portal.filepackager.filedeletionhours}"/>
+        <property name="smallJobQueueMaxBytes" value="${tcga.portal.filepackager.smalljobmaxbytes}"/>
+        <property name="quartzJobHistoryService" ref="quartzJobHistoryService"/>
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getJobDetail" bean="jobDetailBean"/>
+        <lookup-method name="getTrigger" bean="filePackagerTrigger"/>
+    </bean>
+
+    <bean id="filePackagerJob" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.FilePackagerJob" scope="prototype">
+        <property name="filePackagerFactory" ref="filePackagerFactory"/>
+        <property name="wsFilePackagerFactory" ref="wsFpFactory"/>
+        <property name="filePackager" ref="filePackager"/>
+        <property name="filePackagerEnqueuer" ref="filePackagerEnqueuer"/>
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+    <bean id="archiveDeletionJob" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.ArchiveDeletionJob" scope="prototype">
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+	   <bean id="commonShippedBiospecimenImpl"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl">
+          <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenImpl"/>                    
+    </bean>
+	
+
+    <bean id="quartzJobHistoryDeletionJob" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.QuartzJobHistoryDeletionJob"
+          scope="prototype"/>
+
+    <bean id="abstractFPFactory" abstract="true">
+        <property name="notProtectedArchiveLogicalPath" value="${tcga.portal.notProtectedArchiveLogicalPath}"/>
+        <property name="notProtectedArchivePhysicalPath" value="${tcga.portal.notProtectedArchivePhysicalPath}"/>
+        <property name="protectedArchiveLogicalPath" value="${tcga.portal.protectedArchiveLogicalPath}"/>
+        <property name="protectedArchivePhysicalPath" value="${tcga.portal.protectedArchivePhysicalPath}"/>
+        <property name="filePackagerEnqueuer" ref="filePackagerEnqueuer"/>
+        <property name="errorMailSender" ref="mailErrorHelper"/>
+    </bean>
+    <bean id="filePackagerBean" class="gov.nih.nci.ncicb.tcga.dcc.dam.bean.FilePackagerBean" scope="prototype"
+          init-method="init">
+
+
+    </bean>
+
+
+    <bean id="mailErrorHelper" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelperImpl">
+        <property name="to" value="${tcga.dcc.error.to}"/>
+        <property name="subject" value="${tcga.dcc.error.subject}"/>
+        <property name="mailSender" ref="portalMailSender"/>
+    </bean>
+
+
+    <bean id="filePackagerFactory" class="gov.nih.nci.ncicb.tcga.dcc.dam.processors.FilePackagerFactory"
+          parent="abstractFPFactory">
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getFilePackagerBean" bean="filePackagerBean"/>
+        <property name="mailSender" ref="portalMailSender"/>
+    </bean>
+
+    <bean id="portalMailSender" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.impl.MailSenderImpl">
+        <property name="defaultFromAddress" value="${tcga.portal.defaultFromAddress}"/>
+        <property name="defaultReplyTo" value="${tcga.portal.defaultReplyTo}"/>
+        <property name="defaultFromName" value="${tcga.portal.defaultFromName}"/>
+        <property name="mailEnabled" value="${tcga.portal.enableEmail}"/>
+        <property name="subjectPrefix" value="${tcga.portal.subjectPrefix}"/>
+        <property name="javaMailSender" ref="mailSenderImpl"/>
+    </bean>
+
+    <bean id="mailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${tcga.dcc.mailHost}"/>
+    </bean>
+
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger"/>
+
+    <bean id="filePackager" class="org.springframework.aop.framework.ProxyFactoryBean" scope="prototype">
+        <property name="target" ref="filePackagerTarget"/>
+        <property name="proxyInterfaces">
+            <list>
+                <value>gov.nih.nci.ncicb.tcga.dcc.dam.processors.FilePackagerI</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="usageAdvisor"/>
+    </bean>
+
+    <bean id="filePackagerTarget" class="gov.nih.nci.ncicb.tcga.dcc.dam.processors.FilePackager" scope="prototype">
+        <property name="filePackagerFactory" ref="filePackagerFactory"/>
+        <property name="dataAccessMatrixQueries" ref="dataAccessMatrixQueries"/>
+        <property name="mailSender" ref="portalMailSender"/>
+        <property name="tempfileDirectory" value="${tcga.portal.tempfileDirectory}"/>
+        <property name="emailTiming" value="${tcga.portal.emailTiming}"/>
+        <property name="failEmail" value="${tcga.portal.failedEmailTo}"/>
+        <property name="hoursTillDeletion" value="${tcga.portal.filepackager.filedeletionhours}"/>
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+
+    <bean name="jobRunner" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.JobRunner">
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+    <bean id="filePackagerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="quartzProperties">
+            <props>
+                <!-- adjust this depending on the number of server CPUs -->
+                <prop key="org.quartz.threadPool.threadCount">${tcga.portal.filePackagerQueueCount}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- this bean, being not lazy-init'd, will create the DAMStaticModel immediately on loading,
+         so the first user doesn't get hit with a ton of bricks
+    -->
+    <bean id="staticMatrixModelFactory" class="gov.nih.nci.ncicb.tcga.dcc.dam.view.StaticMatrixModelFactory">
+        <constructor-arg value="${tcga.portal.enableDamUI}"/>
+        <constructor-arg ref="dataAccessMatrixQueries"/>
+        <!-- set to true to init on startup and not lazy -->
+        <constructor-arg value="true"/>
+        <constructor-arg ref="tumorDetailsService"/>
+        <constructor-arg ref="homePageStatsService"/>
+        <constructor-arg ref="sorterAndGapFiller"/>
+        <constructor-arg value="${tcga.dcc.controlDiseaseAbbreviation}"/>
+    </bean>
+
+    <!-- advises FilePackager and most of the WebControllers, may advise others as needed -->
+    <bean id="usageAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="usageAdvice"/>
+        <property name="patterns">
+            <list>
+                <value>.*runJob</value>
+                <value>.*setSelectedFiles</value>
+                <value>.*handleRequest</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="barcodeValidator" class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl">
+        <property name="codeTableQueries" ref="codeTableQueries"/>
+    </bean>
+
+    <bean id="filterRequestValidator" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.FilterRequestValidatorImpl">
+        <property name="barcodeValidator" ref="barcodeValidator"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+    </bean>
+
+    <!-- AOP beans -->
+    <bean id="usageAdvice" class="gov.nih.nci.ncicb.tcga.dcc.dam.aop.UsageAdvice" scope="singleton">
+        <property name="writeToDb" value="${tcga.dcc.usageLogger.writeToDb}"/>
+        <property name="usageLoggerDb" ref="jdbcUsageLogger"/>
+        <property name="usageLoggerFile" ref="fileUsageLogger"/>
+        <property name="filterRequestValidator" ref="filterRequestValidator"/>
+    </bean>
+
+    <!-- usage logger that writes to Oracle db -->
+    <bean id="jdbcUsageLogger" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.usage.UsageLoggerJDBCImpl" scope="singleton">
+        <property name="dataSource" ref="diseaseSpecificDataSource"/>
+        <property name="sessionIdIncrementer">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
+                <property name="dataSource" ref="diseaseSpecificDataSource"/>
+                <property name="incrementerName" value="portal_session_id_seq"/>
+            </bean>
+        </property>
+        <property name="sessionActionIdIncrementer">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
+                <property name="dataSource" ref="diseaseSpecificDataSource"/>
+                <property name="incrementerName" value="portal_session_action_id_seq"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- usage logger that writes to a file -->
+    <bean id="fileUsageLogger" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.usage.UsageLoggerFileImpl" scope="singleton">
+        <constructor-arg index="0" value="${tcga.dcc.usageLoggerDirectory}"/>
+        <constructor-arg index="1" value="${tcga.dcc.usageLoggerFileName}"/>
+        <constructor-arg index="2" value="false"/>
+        <!-- whether to append to existing log or not -->
+    </bean>
+
+    <bean id="cachedOutputManager" class="gov.nih.nci.ncicb.tcga.dcc.dam.processors.CachedOutputManager">
+        <property name="cachefileDirectory" value="${tcga.portal.cachefileDirectory}"/>
+    </bean>
+
+
+    <!-- quartz beans related to DAM cache refresh -->
+    <bean name="damRefreshJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.dam.service.DAMRefreshJob"/>
+        <property name="group" value="damRefreshGroup"/>
+        <property name="description" value="Job to run DAM cache refresh"/>
+    </bean>
+
+    <bean id="damRefreshTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="damRefreshJob"/>
+        <property name="group" value="damRefreshGroup"/>
+        <property name="cronExpression" value="${tcga.dcc.damRefreshCronTrigger.Timer}"/>
+        <property name="description" value="Job to refresh DAM cache"/>
+    </bean>
+
+    <bean id="damRefreshScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="schedulerContextAsMap">
+            <map>
+                <entry key="staticMatrixModelFactory" value-ref="staticMatrixModelFactory"/>
+                <entry key="logger" value-ref="processLogger"/>
+            </map>
+        </property>
+        <property name="dataSource" ref="quartzDataSource"/>
+        <property name="triggers">
+            <list>
+                <ref bean="damRefreshTrigger"/>
+            </list>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+                <prop key="org.quartz.jobStore.tablePrefix">DAM_QRTZ_</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- end of quartz beans related to DAM cache refresh -->
+
+    <!-- used in web service -->
+    <bean id="damWSUtil" class="gov.nih.nci.ncicb.tcga.dcc.dam.webservice.DAMWSUtil">
+        <property name="sizeLimitGigs" value="${tcga.portal.downloadSizeLimitGigs}"/>
+        <property name="archivePhysicalPathPrefix" value="${tcga.mount.root}"/>
+        <property name="downloadLinkSite" value="${tcga.portal.downloadLinkSite}"/>
+    </bean>
+
+    <bean id="wsFpFactory"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.webservice.WSFilePackagerFactory"
+          parent="abstractFPFactory"
+          init-method="init">
+
+        <property name="bigjobScheduler" ref="bigjobScheduler"/>
+        <property name="smalljobScheduler" ref="smalljobScheduler"/>
+        <property name="quartzJobHistoryService" ref="quartzJobHistoryService"/>
+        <property name="quartzQueueJobDetailsService" ref="quartzQueueJobDetailsService"/>
+
+        <!-- inject reference to filePackager proxy -->
+        <lookup-method name="getFilePackagerBean" bean="filePackagerBean"/>
+    </bean>
+
+    <!-- Tumor Details -->
+
+    <bean id="dataTypeCountQueries" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.DataTypeCountQueriesImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+
+
+    <bean id="tumorDetailsService"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.service.TumorDetailsServiceImpl"/>
+
+    <!-- Tumor Main -->
+
+    <bean id="homePageStatsQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.HomePageStatsQueriesImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="homePageStatsService"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.service.HomePageStatsServiceImpl">
+        <property name="jsonDir" value="${tcga.bcr.pipeline.json.directory}"/>
+    </bean>
+
+    <bean id="jsonFileUtils" class="gov.nih.nci.ncicb.tcga.dcc.dam.util.JsonFileUtilsImpl"/>
+
+    <bean id="tumorMainCountQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.TumorMainCountQueriesImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorMainService"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.service.TumorMainServiceImpl"/>
+
+    <!-- Quartz Job History -->
+
+    <bean id="quartzJobHistoryQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.QuartzJobHistoryQueriesImpl">
+        <property name="dataSource" ref="quartzDataSource"/>
+    </bean>
+
+    <bean id="quartzJobHistoryService"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.service.QuartzJobHistoryServiceImpl">
+        <property name="quartzJobHistoryQueries" ref="quartzJobHistoryQueries"/>
+    </bean>
+    <bean id="damHelper" class="gov.nih.nci.ncicb.tcga.dcc.dam.view.DAMHelper"/>
+    <!-- Quartz Queue Job Details -->
+
+    <bean id="quartzQueueJobDetailsQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.QuartzQueueJobDetailsQueriesImpl">
+        <property name="dataSource" ref="quartzDataSource"/>
+    </bean>
+
+    <bean id="quartzQueueJobDetailsService"
+          class="gov.nih.nci.ncicb.tcga.dcc.dam.service.QuartzQueueJobDetailsServiceImpl">
+        <property name="quartzQueueJobDetailsQueries" ref="quartzQueueJobDetailsQueries"/>
+    </bean>
+
+    <bean id="archiveListerQueries" class="gov.nih.nci.ncicb.tcga.dcc.dam.dao.jdbc.ArchiveListerQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <bean id="damJobStatusService" class="gov.nih.nci.ncicb.tcga.dcc.dam.service.DAMJobStatusServiceImpl">
+        <property name="filePackagerEnqueuer" ref="filePackagerEnqueuer"/>
+        <property name="quartzJobHistoryService" ref="quartzJobHistoryService"/>
+        <property name="supportEmailAddress" value="${tcga.dcc.nci.support.email}"/>
+    </bean>
+    <bean id = "dccPropertyQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DccPropertyQueriesJDBCImpl" >
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+</beans>

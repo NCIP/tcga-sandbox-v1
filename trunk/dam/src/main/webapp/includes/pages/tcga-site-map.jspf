@@ -1,0 +1,75 @@
+
+		<div id="content">
+			<div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+			<h1><%=h1String%></h1>
+				<table class="siteMap">
+					<tr>
+						<td class="siteMapElement" rowspan=16><a href="/tcga/tcgaHome2.jsp">Data Portal Home</a></td>
+						<td class="siteMapElement">Cancer Detail Pages</td>
+						<td class="siteMapEmpty"></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="<% out.print(dbHost); %>/tcga-portal/">Query the Data</a></td>
+						<td class="siteMapEmpty"></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement" rowspan=3><a href="/tcga/tcgaDownload.jsp">Download Data</a></td>
+						<td class="siteMapElement"><a href="/tcga/dataAccessMatrix.htm">Data Matrix</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/findArchives.htm">Bulk Download</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaDownload.jsp">HTTP Directories</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement" rowspan=3><a href="/tcga/tcgaTools.jsp">Tools</a></td>
+						<td class="siteMapElement"><a href="/tcga/tcgaAnalyticalTools.jsp">Analytical Tools</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="<%=secureHost %>/annotations/">Annotations Manager</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="<%=secureHost %>/uuid/uuidBrowser.htm">Biospecimen Metadata Browser</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement" rowspan=6><a href="/tcga/tcgaAbout.jsp">About the Data</a></td>
+						<td class="siteMapElement"><a href="/tcga/tcgaDataType.jsp">Data Levels and Data Types</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaPlatformDesign.jsp">Platform Design</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaAccessTiers.jsp">Access Tiers</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/datareports/">Reports</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaAnnouncements.jsp">Announcements</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaHelp.jsp">User Guides and Help</a></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaContact.jsp">Contact Us</a></td>
+						<td class="siteMapEmpty"></td>
+					</tr>
+					<tr>
+						<td class="siteMapElement"><a href="/tcga/tcgaHelp.jsp#ncicbSupport">Report a Problem</a></td>
+						<td class="siteMapEmpty"></td>
+					</tr>
+					<!--
+					<tr>
+						<td class="siteMapElement"><a class="rssIcon" href="http://cancergenome.nih.gov/rss" target="_blank">RSS</a></td>
+						<td class="siteMapEmpty"></td>
+					</tr>
+					-->
+				</table>
+		</div>
+		<div id="sidebar">
+            <%@include file="/includes/modules/rightAnnouncements.jspf" %>
+            <%@include file="/includes/modules/rightMoreTcgaInformation.jspf" %>
+		</div>
+

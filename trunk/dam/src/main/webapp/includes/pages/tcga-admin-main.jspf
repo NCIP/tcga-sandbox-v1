@@ -1,0 +1,43 @@
+
+<div id="content" class="widelayout">
+    <div class="left">
+	    <div class="trail"><a href="<%=host%>/tcga/tcgaHome2.jsp">Home</a> > <span class="trailDest"><%=h1String%></span></div>
+	    <h1><%=h1String%></h1>
+	</div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAdminMain.jspf" %>
+    </div>
+	<div class="clear"></div>
+	<div class="admin-intro">
+		This section of the site allows you to administer different areas of TCGA Data Portal. 
+		Please be informed that you are updating live data on production.
+	</div>
+	<div id="carousel1">
+	    <p id="title-text"></p>
+	    <p id="alt-text"></p>
+	    <div id="user-c">
+	      <input id="right-but" type="image" value="Right" src="/tcga/images/admin/button-left.png" title="Rotate Left"  onclick="_gaq.push(['_trackEvent', 'Carousel', 'Home Page', 'Rotate Left']);" />
+	      <input type="image" id="left-but"  value="Left" src="http://www.studiomauriks.com/img/ws/button-right.png"  title="Rotate Right"  onclick="_gaq.push(['_trackEvent', 'Carousel', 'Home Page', 'Rotate Right']);" />
+	    </div>
+	    <a href="/tcga/admin/annotations.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/annotations.png" alt="Data Annotations Administration" title="Data Annotations Administration" /></a> 
+	    <a href="/tcga/admin/data-reports.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/datareports.png" alt="Data Reports Administratio" title="Data Reports Administration" /></a> 
+	    <a href="/tcga/admin/data-browser.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/databrowser.png" alt="Data Browser Administration" title="Data Browser Administration" /></a> 
+	    <a href="/tcga/admin/data-matrix.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/datamatrix.png" alt="Data Matrix Administration" title="Data Matrix Administration" /></a> 
+	    <a href="/tcga/admin/metadata-browser.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/metadata.png" alt="Metadata Browser Administration" title="Metadata Browser Administration" /></a> 
+	    <a href="/tcga/admin/qclive.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/qclive.png" alt="QCLive Administration"" title="QCLive Administration" /></a> 
+	    <a href="/tcga/admin/other.htm"><img width="400" border="0" class="cloudcarousel" 
+	    src="/tcga/images/admin/otherapps.png" alt="Other Apps Administration" title="Other Apps Administration" /></a> 
+	    <div id="user-c">
+	      <input id="right-but" type="image" value="Right" src="/tcga/images/admin/button-left.png" title="Rotate Left"  onclick="_gaq.push(['_trackEvent', 'Carousel', 'Home Page', 'Rotate Left']);" />
+	      <input type="image" id="left-but"  value="Left" src="/tcga/images/admin/button-right.png"  title="Rotate Right"  onclick="_gaq.push(['_trackEvent', 'Carousel', 'Home Page', 'Rotate Right']);" />
+	    </div>
+	</div>
+	
+</div>
+<script type="text/javascript" src="/<%=rootDir%>/scripts/admincarousel.js"></script>

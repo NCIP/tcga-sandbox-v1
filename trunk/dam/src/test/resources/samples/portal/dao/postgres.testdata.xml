@@ -1,0 +1,36 @@
+<dataset>
+    <CENTER_INFO ID="1" CENTER_NAME="c" CENTER_TYPE="CGCC" EMAIL="hi" DISPLAY_NAME="center" sort_order="1" />
+    <PLATFORM_INFO ID="1" PLATFORM_NAME="p1" AVAILABLE="1" SORT_ORDER="1" DISPLAY_NAME="platform 1" />
+    <PLATFORM_INFO ID="2" PLATFORM_NAME="p2" AVAILABLE="1" SORT_ORDER="1" DISPLAY_NAME="platform 2" />
+    <TUMOR_INFO ID="1" TUMOR_ABBREVIATION="TUM" TUMOR_NAME="Tumor" sort_order="1" />
+    <DATA_LEVEL LEVEL_NUMBER="1" DEFINITION="level 1" />
+    <DATA_LEVEL LEVEL_NUMBER="2" DEFINITION="level 2" />
+    <ARCHIVE_TYPE ID="1" TYPE="Level_1" DATA_LEVEL="1" />
+    <ARCHIVE_TYPE ID="2" TYPE="Level_2" DATA_LEVEL="2" />
+    <ARCHIVE_TYPE ID="6" TYPE="mage-tab" /> 
+    <ARCHIVE_TYPE ID="7" TYPE="classic" />
+    <FILE_TYPE ID="1" FILE_TYPE_NAME="test" DESCRIPTION="test" SUFFIX="any" />
+    
+    <!-- classic archive -->
+    <ARCHIVE_INFO ID="1" ARCHIVE_NAME="a1" ARCHIVE_TYPE_ID="7" CENTER_ID="1" TUMOR_ID="1" PLATFORM_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" DEPLOY_LOCATION="a1.tar.gz" IS_LATEST="1" />
+    <FILE_INFO ID="1" FILE_TYPE_ID="1" FILE_NAME="test.data.txt" FILE_ARCHIVE_ID="1" />
+    <FILE_INFO_URL ID="1" FILE_ID="1" FILE_LOCATION_URL="test" file_size="5" />
+    <FILE_INFO ID="2" FILE_TYPE_ID="1" FILE_NAME="test.sdrf.txt" FILE_ARCHIVE_ID="1" />
+    <FILE_INFO_URL ID="2" FILE_ID="2" FILE_LOCATION_URL="test" file_size="15" />
+    <FILE_INFO ID="3" FILE_TYPE_ID="1" FILE_NAME="test.idf.txt" FILE_ARCHIVE_ID="1" />
+    <FILE_INFO_URL ID="3" FILE_ID="3" FILE_LOCATION_URL="test" file_size="3" />
+
+    <!-- new format archive -->
+    <ARCHIVE_INFO ID="2" ARCHIVE_NAME="a2.Level_2" ARCHIVE_TYPE_ID="2" CENTER_ID="1" TUMOR_ID="1" PLATFORM_ID="2" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" DEPLOY_LOCATION="a2.Level_2.tar.gz" IS_LATEST="1" />
+    <FILE_INFO ID="4" FILE_TYPE_ID="1" FILE_NAME="test.1.data.txt" FILE_ARCHIVE_ID="2" />
+    <FILE_INFO_URL ID="4" FILE_ID="4" FILE_LOCATION_URL="test" file_size="5" />
+    <FILE_INFO ID="5" FILE_TYPE_ID="1" FILE_NAME="test.2.data.txt" FILE_ARCHIVE_ID="2" />
+    <FILE_INFO_URL ID="5" FILE_ID="5" FILE_LOCATION_URL="test" file_size="5" />
+
+    <!-- mage tab archive that goes with new format archive -->
+    <ARCHIVE_INFO ID="3" ARCHIVE_NAME="a3.mage-tab" ARCHIVE_TYPE_ID="6" CENTER_ID="1" TUMOR_ID="1" PLATFORM_ID="2" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" DEPLOY_LOCATION="a3.mage-tab.tar.gz" IS_LATEST="1" />
+    <FILE_INFO ID="6" FILE_TYPE_ID="1" FILE_NAME="mage-tab.sdrf.txt" FILE_ARCHIVE_ID="3" />
+    <FILE_INFO_URL ID="6" FILE_ID="6" FILE_LOCATION_URL="test" file_size="7" />
+    <FILE_INFO ID="7" FILE_TYPE_ID="1" FILE_NAME="mage-tab.idf.txt" FILE_ARCHIVE_ID="3" />
+    <FILE_INFO_URL ID="7" FILE_ID="7" FILE_LOCATION_URL="test" file_size="9" />
+</dataset>

@@ -1,0 +1,153 @@
+<dataset>
+    <disease disease_id="1" disease_name="TEST" disease_abbreviation="TEST" active="1"/>
+    <disease disease_id="2" disease_name="CNTL" disease_abbreviation="CNTL" active="1"/>
+    <center_type CENTER_TYPE_CODE="GSC" CENTER_TYPE_DEFINITION="GSC"/>
+
+    <center CENTER_ID="9" DOMAIN_NAME="genome.wustl.edu" CENTER_TYPE_CODE="GSC" DISPLAY_NAME="Washington University School of Medicine" SHORT_NAME="WashU" SORT_ORDER="1"/>
+    <center CENTER_ID="10" DOMAIN_NAME="broad.mit.edu" CENTER_TYPE_CODE="GSC" DISPLAY_NAME="Broad GSC" SHORT_NAME="Broad" SORT_ORDER="2"/>
+
+    <center_to_bcr_center BCR_CENTER_ID="09" CENTER_ID="9" CENTER_TYPE_CODE="GSC"/>
+    <center_to_bcr_center BCR_CENTER_ID="08" CENTER_ID="10" CENTER_TYPE_CODE="GSC"/>
+
+    <visibility visibility_id="1" visibility_name="Public" identifiable="0"/>
+    <visibility visibility_id="2" visibility_name="Protected" identifiable="1"/>
+
+    <data_visibility DATA_VISIBILITY_ID="1" DATA_TYPE_ID="10" VISIBILITY_ID="1" LEVEL_NUMBER="1"/>
+    <data_visibility DATA_VISIBILITY_ID="2" DATA_TYPE_ID="10" VISIBILITY_ID="1" LEVEL_NUMBER="2"/>
+    <data_visibility DATA_VISIBILITY_ID="3" DATA_TYPE_ID="10" VISIBILITY_ID="1" LEVEL_NUMBER="3"/>
+    <data_visibility DATA_VISIBILITY_ID="4" DATA_TYPE_ID="11" VISIBILITY_ID="2" LEVEL_NUMBER="1"/>
+    <data_visibility DATA_VISIBILITY_ID="5" DATA_TYPE_ID="11" VISIBILITY_ID="2" LEVEL_NUMBER="2"/>
+    <data_visibility DATA_VISIBILITY_ID="6" DATA_TYPE_ID="11" VISIBILITY_ID="2" LEVEL_NUMBER="3"/>
+
+    <data_type DATA_TYPE_ID="10" NAME="Somatic Mutations" CENTER_TYPE_CODE="GSC" FTP_DISPLAY="mutations" AVAILABLE="1" SORT_ORDER="10"/>
+    <data_type DATA_TYPE_ID="11" NAME="Protected Mutations" CENTER_TYPE_CODE="GSC" FTP_DISPLAY="mutations_protected" AVAILABLE="1" SORT_ORDER="11"/>
+
+    <platform platform_id="40" platform_name="IlluminaGA_DNASeq" center_type_code="GSC" platform_display_name="Illumina Genome Analyzer DNA Sequencing" platform_alias="IlluminaGA_DNASeq" available="1" sort_order="22" base_data_type_id="10" />
+    <platform platform_id="41" platform_name="IlluminaGA_DNASeq_Cont" center_type_code="GSC" platform_display_name="Illumina Genome Analyzer DNA Sequencing - Controlled" platform_alias="IlluminaGA_DNASeq_Cont" available="1" sort_order="22" base_data_type_id="11" />
+
+    <archive_type ARCHIVE_TYPE_ID="2" ARCHIVE_TYPE="Level_2" DATA_LEVEL="2"/>
+    <archive_type ARCHIVE_TYPE_ID="3" ARCHIVE_TYPE="Level_3" DATA_LEVEL="3"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="uuid1" shipped_item_type_id="1" built_barcode="TCGA-00-0001-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+						participant_code="0001" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="uuid2" shipped_item_type_id="1" built_barcode="TCGA-00-0001-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                            participant_code="0001" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="uuid3" shipped_item_type_id="1" built_barcode="TCGA-00-0002-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0002" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="uuid4" shipped_item_type_id="1" built_barcode="TCGA-00-0002-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0002" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="5" uuid="uuid5" shipped_item_type_id="1" built_barcode="TCGA-00-0003-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0003" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="6" uuid="uuid6" shipped_item_type_id="1" built_barcode="TCGA-00-0003-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0003" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="7" uuid="uuid7" shipped_item_type_id="1" built_barcode="TCGA-00-0004-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0004" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="8" uuid="uuid8" shipped_item_type_id="1" built_barcode="TCGA-00-0004-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0004" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="9" uuid="uuid9" shipped_item_type_id="1" built_barcode="TCGA-00-0006-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0006" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="10" uuid="uuid10" shipped_item_type_id="1" built_barcode="TCGA-00-0006-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0006" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="11" uuid="uuid11" shipped_item_type_id="1" built_barcode="TCGA-00-0005-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0005" bcr_center_id="08" is_viewable="0" is_redacted="1" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="12" uuid="uuid12" shipped_item_type_id="1" built_barcode="TCGA-00-0005-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                         participant_code="0005" bcr_center_id="08" is_viewable="0" is_redacted="1" is_control="0"/>
+    <!-- control -->
+    <shipped_biospecimen shipped_biospecimen_id="13" uuid="uuid13" shipped_item_type_id="1" built_barcode="TCGA-AV-0007-20A-11W-A019-09" project_code="TCGA" tss_code="AV"
+                         participant_code="0007" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="1"/>
+
+
+
+    <!-- public platform, level 2, latest -->
+    <archive_info ARCHIVE_ID="100" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0" ARCHIVE_TYPE_ID="2"
+                  CENTER_ID="10" DISEASE_ID="1" PLATFORM_ID="40" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2012-04-29 19:57:41.996" DEPLOY_STATUS="Available"
+                  DEPLOY_LOCATION="somewhere"
+                  IS_LATEST="1" IS_LATEST_LOADED="1"/>
+    <file_info file_id="1" file_name="level_2.somatic.maf" file_size="1000" />
+    <file_to_archive file_archive_id="1" archive_id="100" file_id="1"/>
+    <maf_info MAF_INFO_ID="1000" CENTER_ID="10" FILE_ID="1" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0001-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0001-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown" MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+    <!-- this record is for a redacted case so ignored -->
+    <maf_info MAF_INFO_ID="1100" CENTER_ID="10" FILE_ID="1" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0005-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0005-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown" MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+    <!-- this record is for a cell line control -->
+    <maf_info MAF_INFO_ID="1200" CENTER_ID="10" FILE_ID="1" HUGO_SYMBOL="CNTL_TEST" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-AV-0007-20A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-AV-0007-20A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown" MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+
+
+    <!-- protected platform, level 2, latest -->
+    <archive_info ARCHIVE_ID="101" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_2.1.0.0" ARCHIVE_TYPE_ID="2"
+                      CENTER_ID="10" DISEASE_ID="1" PLATFORM_ID="41" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                      DATE_ADDED="2012-04-29 19:57:41.996" DEPLOY_STATUS="Available"
+                      DEPLOY_LOCATION="somewhere"
+                      IS_LATEST="1" IS_LATEST_LOADED="1"/>
+    <file_info file_id="2" file_name="level_2.protected.maf" file_size="2000"/>
+    <file_to_archive file_archive_id="2" archive_id="101" file_id="2"/>
+    <maf_info MAF_INFO_ID="1001" CENTER_ID="10" FILE_ID="2" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0002-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0002-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown" MUTATION_STATUS="Germline"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+
+    <!-- public platform, level 3, latest -->
+    <archive_info ARCHIVE_ID="102" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq.Level_3.1.0.0" ARCHIVE_TYPE_ID="3"
+                  CENTER_ID="10" DISEASE_ID="1" PLATFORM_ID="40" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2012-04-29 19:57:41.996" DEPLOY_STATUS="Available"
+                  DEPLOY_LOCATION="somewhere"
+                  IS_LATEST="1" IS_LATEST_LOADED="1"/>
+    <file_info file_id="3" file_name="level_3.somatic.maf" file_size="3000"/>
+    <file_to_archive file_archive_id="3" archive_id="102" file_id="3"/>
+    <maf_info MAF_INFO_ID="1003" CENTER_ID="10" FILE_ID="3" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0003-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0003-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Valid" MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+
+    <!-- protected platform, level 3, latest -->
+    <archive_info ARCHIVE_ID="103" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_3.1.0.0" ARCHIVE_TYPE_ID="3"
+                      CENTER_ID="10" DISEASE_ID="1" PLATFORM_ID="41" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                      DATE_ADDED="2012-04-29 19:57:41.996" DEPLOY_STATUS="Available"
+                      DEPLOY_LOCATION="somewhere"
+                      IS_LATEST="1" IS_LATEST_LOADED="1"/>
+    <file_info file_id="4" file_name="level_3.protected.maf" file_size="4000"/>
+    <file_to_archive file_archive_id="4" archive_id="103" file_id="4"/>
+    <maf_info MAF_INFO_ID="1004" CENTER_ID="10" FILE_ID="4" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0004-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0004-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Valid" MUTATION_STATUS="Germline"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+
+    <!-- public level 2 NOT LATEST -->
+    <!-- this should be ignored and not put into the model because not latest -->
+     <archive_info ARCHIVE_ID="200" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.0.0" ARCHIVE_TYPE_ID="2"
+                  CENTER_ID="10" DISEASE_ID="1" PLATFORM_ID="40" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2012-04-29 19:57:41.996" DEPLOY_STATUS="Available"
+                  DEPLOY_LOCATION="somewhere"
+                  IS_LATEST="0" IS_LATEST_LOADED="0"/>
+    <file_info file_id="5" file_name="level_2.somatic.maf" file_size="900" />
+    <file_to_archive file_archive_id="5" archive_id="200" file_id="5"/>
+    <maf_info MAF_INFO_ID="1005" CENTER_ID="10" FILE_ID="5" HUGO_SYMBOL="A2M" ENTREZ_GENE_ID="0" NCBI_BUILD="36"
+              CHROM="12" START_POSITION="9123535" END_POSITION="9123535" STRAND="+" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0006-01A-11W-A019-09" MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0006-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown" MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE="" SEQUENCER="Illumina GAIIx"/>
+
+
+</dataset>

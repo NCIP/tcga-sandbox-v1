@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="job-process">
+        <xs:annotation>
+            <xs:documentation>Specify the DAM Job Process.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ticket" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="submission-time" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="estimated-size" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="status-check-url" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="job-status" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="ticket" type="xs:long">
+        <xs:annotation>
+            <xs:documentation>Ticket associated with the Job</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="submission-time" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>Date and Time of the Job Submission</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="estimated-size">
+        <xs:annotation>
+            <xs:documentation>Estimated size of the Job (Max size of 70Gb)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:long">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="70000000000"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    
+    <xs:element name="status-check-url" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>URL of the Job Status</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="archive-url" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>URL of the completed Archive</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="job-status">
+        <xs:annotation>
+            <xs:documentation>Specify the status of the Job Process</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="status-code"/>
+                <xs:element ref="status-message"/>
+                <xs:element ref="archive-url" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="status-code">
+        <xs:annotation>
+            <xs:documentation>Job Status Code</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="200"/>
+                <xs:enumeration value="201"/>
+                <xs:enumeration value="202"/>
+                <xs:enumeration value="204"/>
+                <xs:enumeration value="404"/>
+                <xs:enumeration value="412"/>
+                <xs:enumeration value="413"/>
+                <xs:enumeration value="415"/>
+                <xs:enumeration value="418"/>
+                <xs:enumeration value="421"/>
+                <xs:enumeration value="500"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    
+    <xs:element name="status-message">
+        <xs:annotation>
+            <xs:documentation>Job Status Message</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="200 OK"/>
+                <xs:enumeration value="201 Created"/>
+                <xs:enumeration value="202 Accepted"/>
+                <xs:enumeration value="204 No Content"/>
+                <xs:enumeration value="404 Not Found"/>
+                <xs:enumeration value="412 Precondition Failed"/>
+                <xs:enumeration value="413 request Entity Too Large"/>
+                <xs:enumeration value="415 Unsupported Media Type"/>
+                <xs:enumeration value="418 I'm a teapot"/>
+                <xs:enumeration value="421 There are too many connections from your internet address"/>
+                <xs:enumeration value="500 Internal Server Error"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    
+</xs:schema>

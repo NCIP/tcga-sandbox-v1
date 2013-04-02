@@ -1,0 +1,114 @@
+    <%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.bean.AdminDataModel" %>
+    <%@ page import="gov.nih.nci.ncicb.tcga.dcc.common.bean.DccProperty" %>
+    <%@ page import="gov.nih.nci.ncicb.tcga.dcc.ConstantValues" %>
+    <%@ page import="java.net.URLDecoder" %>
+    
+			<h3><a href="#">Manage <%=h1String%> Properties</a></h3>
+			<div id="accordion_section">
+		<%
+		    AdminDataModel adminDataModel = (AdminDataModel) request.getAttribute("dataModel");
+			String propertyId = "";
+			String propertyName = "";
+			String propertyValue = "";
+			String propertyDescription = "";
+			String propertyServer = "";
+            String applicationName = "";
+            String propertiesJsArrayString = "";
+        %>
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+            <th style="width:40px;">ID</th>
+            <th style="width:120px;">Property Name</th>
+            <th style="width:220px;">Property Value</th>
+            <th style="width:150px;">Property Description</th>
+            <th style="width:120px;">Server Name</th>
+            <th style="width:30px;background:none;">Del</th>
+            <th style="background:none;">Update</th>
+		</tr>
+	</thead>
+	<tbody>
+<%		
+            final List dccProperties = adminDataModel.getPropertyData();
+            final Iterator iterator = dccProperties.iterator();
+		    while(iterator.hasNext()){
+                DccProperty dccProperty = (DccProperty)iterator.next();
+                propertyId = String.valueOf(dccProperty.getPropertyId());
+                propertyDescription = (dccProperty.getPropertyDescription() == null)?"":dccProperty.getPropertyDescription();
+                propertyValue = (dccProperty.getPropertyValue() == null)?"":dccProperty.getPropertyValue();
+                propertyName = (dccProperty.getPropertyName() == null)?"":dccProperty.getPropertyName();
+                propertyServer = (dccProperty.getServerName()== null)?"":dccProperty.getServerName();
+				propertiesJsArrayString += "propertyNames[\"" + propertyName.replace("\"","&quot;") + "\"] = '" + propertyId + "';";
+		%>		
+				<tr id="rowid-<%=propertyId%>" class="gradeA">
+				<form  method="post" name="propertyform<%=propertyId%>" id="propertyform<%=propertyId%>" action="">
+					<td style="border-left:1px #000 solid;"><%=propertyId%><input type="hidden" id="propertyId<%=propertyId%>" name="propertyId" value="<%=propertyId%>" /></td>
+					<td><input style="width:120px;height:15px;" id="name<%=propertyId%>" name="propertyNameDisplay" value="<%=propertyName.replace("\"","&quot;")%>" /><span class="notshow"><%=propertyName%></span></td>
+					<td><input style="width:220px;height:15px;" id="value<%=propertyId%>" name="propertyValueDisplay" value="<%=propertyValue.replace("\"","&quot;")%>" /><span class="notshow"><%=propertyValue%></span></td>
+					<td><input style="width:150px;height:15px;" id="desc<%=propertyId%>" name="propertyDescriptionDisplay" value="<%=propertyDescription.replace("\"","&quot;")%>" /><span class="notshow"><%=propertyDescription%></span></td>
+					<td><input style="width:120px;height:15px;" id="server<%=propertyId%>" name="serverNameDisplay" value="<%=propertyServer.replace("\"","&quot;")%>" /><span class="notshow"><%=propertyServer%></span></td>
+					<input id="name<%=propertyId%>" name="propertyName" value="" type="hidden">
+					<input id="value<%=propertyId%>" name="propertyValue" value="" type="hidden">
+					<input id="desc<%=propertyId%>" name="propertyDescription" value="" type="hidden">
+					<input id="server<%=propertyId%>" name="serverName" value="" type="hidden">
+					<td><a href="javascript:onSubmit(document.propertyform<%=propertyId%>,'<%=ConstantValues.COMMAND_DELETE%>');" class="tablebutton">Delete</a></td>
+					<td style="border-right:1px #000 solid;" class="center"><a href="javascript:onSubmit(document.propertyform<%=propertyId%>,'<%=ConstantValues.COMMAND_UPDATE%>');" class="tablebutton">Update</a></td>
+                    <input type="hidden" name="command" value="" />
+
+				</form>
+				</tr>
+		  <% } %>
+	</tbody>
+	<tfoot>
+		<tr>
+            <th style="width:40px;">ID</th>
+            <th style="width:120px;">Property Name</th>
+            <th style="width:220px;">Property Value</th>
+            <th style="width:150px;">Property Description</th>
+            <th style="width:120px;">Server Name</th>
+            <th style="width:30px;">Del</th>
+        	<th>Update</th>
+		</tr>
+	</tfoot>
+</table>
+<h3 class="clear">Insert New <%=h1String%> Property Below</h3>
+<table class="display" id="exampleInsert" border="0" cellpadding="0" cellspacing="0">
+	<thead>
+		<tr>
+            <th style="width:40px;">ID</th>
+            <th style="width:120px;">Property Name</th>
+            <th style="width:120px;">Property Value</th>
+            <th style="width:150px;">Property Description</th>
+            <th style="width:120px;">Server Name</th>
+        	<th style="width:30px;">New</th>
+		</tr>
+	</thead>
+	<tbody><tr id="rowInsert" class="gradeB odd">
+				<form method="post" name="propertyformInsert" id="propertyformInsert" action="">
+					<td style="border-left:1px #000 solid;"><input id="propertyIdInsert" name="propertyId" value="-1" type="hidden"></td>
+					<td><input style="width: 200px;height:15px;" id="nameInsertDisplay" name="propertyNameDisplay" value=""></td>
+					<td><input style="width: 200px;height:15px;" id="valueInsertDisplay" name="propertyValueDisplay" value=""></td>
+					<td><input style="width: 150px;height:15px;" id="descInsertDisplay" name="propertyDescriptionDisplay" value=""></td>
+					<td><input style="width: 150px;height:15px;" id="serverInsertDisplay" name="serverNameDisplay" value=""></td>
+					<input id="nameInsert" name="propertyName" value="" type="hidden">
+					<input id="valueInsert" name="propertyValue" value="" type="hidden">
+					<input id="descInsert" name="propertyDescription" value="" type="hidden">
+					<input id="serverInsert" name="serverName" value="" type="hidden">
+					<input id="appInsert" name="applicationName" value="" type="hidden">
+					<td style="border-right:1px #000 solid;" class="center">
+					<a href="javascript:onSubmit(document.propertyformInsert,'<%=ConstantValues.COMMAND_ADD%>');" class="tablebutton">Add</a></td>
+					<input type="hidden" name="command" value="" />
+				</form>
+			</tr>
+	</tbody>
+	<tfoot>
+        <th style="width:40px;">ID</th>
+        <th style="width:175px;">Property Name</th>
+        <th style="width:175px;">Property Value</th>
+        <th style="width:150px;">Property Description</th>
+        <th style="width:150px;">Server Name</th>
+   		<th style="width:30px;">New</th>
+	</tfoot>
+</table>
+		</div>

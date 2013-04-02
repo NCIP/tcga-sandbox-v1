@@ -1,0 +1,543 @@
+<%@ include file="/includes/dam-scripts-dam.jspf" %>
+<%@include file="/includes/dam-imports.jspf" %>
+
+<div id="content" class="widelayout dam">
+<div class="left">
+    <% if (!showMatrix) { %>
+    <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <span
+            class="trailDest">Data Matrix</span></div>
+    <a name="skip" id="skip"></a>
+    <h1>Data Matrix</h1>
+    <% } else { %>
+    <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <a
+            href="/tcga/dataAccessMatrix.htm">Data Matrix</a> > <span class="trailDest">Data Matrix Datasets</span>
+    </div>
+    <a name="skip" id="skip"></a>
+    <h1>Data Matrix Datasets</h1>
+    <% } %>
+</div>
+<div id="sidebar" class="rollup right">
+    <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+</div>
+<div class="clear"></div>
+
+<div id="center" class="<%=bodyDesign%>">
+<form action="dummy" id="hiddenform" name="hiddenform" method="post" enctype="multipart/form-data">
+<input type="hidden" id="showMatrix" name="showMatrix" value="<%=showMatrix%>"/>
+<input type="hidden" id="filterDisplayStyle" name="filterDisplayStyle" value="<%=filterDisplayStyle%>"/>
+<input type="hidden" id="selectedCells" name="selectedCells" value=""/>
+<input type="hidden" id="selectedCellInCols" name="selectedCellInCols" value=""/>
+<% if (request.getParameter("mode") != null) { %>
+<input type="hidden" id="downloadMode" name="mode" value="<%=request.getParameter("mode")%>"/>
+<% } %>
+<input type="hidden" id="selectedHeaders" name="selectedHeaders" value=""/>
+<input type="hidden" id="arg3" name="samplesFromDropdowns"
+       value="<%=request.getParameter("samplesFromDropdowns")==null?"":request.getParameter("samplesFromDropdowns")%>"/>
+<input type="hidden" name="innerScroll" value="<%=request.getParameter("innerScroll")%>"/>
+<input type="hidden" name="outerScroll" value="<%=request.getParameter("outerScroll")%>"/>
+<input type="hidden" name="scrollSize"
+       value="<%=scrollSize == null ? "500px" : scrollSize %>"/>
+<input type="hidden" name="colorSchemeName" value="<%=currentCSName%>"/>
+<%-- don't close the form until after the filter --%>
+
+
+<%
+    if (!showMatrix) {
+        filterDisplayStyle = "block";
+    } else {
+        filterDisplayStyle = "none";
+    }
+%>
+
+<%
+    List diseases = DAMUtils.getInstance().getActiveDiseases();
+%>
+
+<%-- FILTER --%>
+<% if (!showMatrix) { %>
+<div id="filterContainer" class="filterform">
+    <%}else{%>
+<div id="filterContainer">
+    <%}%>
+    <div id="filter" style="display:<%=filterDisplayStyle%>" class="yui-skin-sam">
+        <% if (!showMatrix) { %>
+        <p><spring:message code="label.matrixLoadMessage"/></p>
+        <% } %>
+        <h3><spring:message code="label.filterSettings"/></h3>
+
+        <div id="filterBody" class="designBody">
+
+            <fieldset id="section0">
+                <label for="diseaseType">Select a disease:</label>
+                <select size="1" name="diseaseType" id="diseaseType" onchange="changeToNewDisease(null)">
+                    <%
+
+                        Iterator it0 = diseases.iterator();
+                        while (it0.hasNext()) {
+                            Disease disease = (Disease) it0.next();
+                    %>
+                    <option value="<%=disease.getAbbreviation()%>"
+                            <% if(disease.getAbbreviation().equals( selected )){%>selected="selected"<%}%>><%=disease.getAbbreviation()%>
+                        - <%=disease.getName()%>
+                    </option>
+                    <% } %>
+                </select>
+            </fieldset>
+
+            <div class="clear"></div>
+
+            <fieldset id="section1">
+                <legend><spring:message code="label.limitByPlatformType"/></legend>
+                <select multiple size="4" name="platformType" id="platformType">
+                    <option value=""><spring:message code="label.all"/></option>
+                    <%-- platformType=() --%>
+                    <%
+                        String prevPlatformTypes = prevFilter.getPlatformType();
+                        Iterator platformTypes = facadeI.getFilterChoices().getAllPlatformTypes().iterator();
+                        while (platformTypes.hasNext()) {
+                            String platformType = (String) platformTypes.next();
+                            String platformTypeDisplay = DataAccessMatrixJSPUtil.lookupHeaderText(Header.HeaderCategory.PlatformType,
+                                    platformType,
+                                    getServletConfig().getServletContext());
+                    %>
+                    <option value="<%=platformType%>"<%=prevPlatformTypes.contains("," + platformType + ",") ? " selected" : ""%>><%=platformTypeDisplay%>
+                    </option>
+                    <% }%>
+                </select>
+                <legend><spring:message code="label.limitByBatchNumber"/></legend>
+                <select multiple size="4" name="batch" id="batch">
+                    <option value=""><spring:message code="label.all"/></option>
+                    <%-- batch=() --%>
+                    <%
+                        String prevBatches = prevFilter.getBatch();
+                        Iterator batches = facadeI.getFilterChoices().getAllBatches().iterator();
+                        while (batches.hasNext()) {
+                            String batchName = (String) batches.next();
+                    %>
+                    <option value="<%=batchName%>"<%=prevBatches.contains("," + batchName + ",") ? " selected" : ""%>><%=batchName%>
+                    </option>
+                    <% } %>
+                </select>
+                <legend><spring:message code="label.limitByDataLevel"/></legend>
+                <%
+                    Iterator levels = facadeI.getFilterChoices().getAllLevels().iterator();
+                    while (levels.hasNext()) {
+                        String levelName = (String) levels.next();
+                        String label;
+                        if (!levelName.equals("C")) { //no checkbox for clinical, for some reason
+                            label = "Level " + levelName;
+                            boolean checked = prevFilter.getLevel().contains("," + levelName + ",");
+                %>
+                <input type="checkbox" <%=checked ? "checked" : ""%> id="level<%=levelName%>" name="level"
+                       value="<%=levelName%>">
+                <label for="level<%=levelName%>"><%=label%>
+                </label> <br/>
+                <%
+                        }
+                    }
+                %>
+                <% String prevAvail = prevFilter.getAvailability(); %>
+                <legend><spring:message code="label.limitByAvailability"/></legend>
+                <input type="checkbox" <%=prevAvail.contains(ConstantValues.AVAILABILITY_AVAILABLE + ",")?"checked":""%>
+                       id="availabilityAvailable" name="availability"
+                       value="<%=ConstantValues.AVAILABILITY_AVAILABLE%>">
+                <label for="availabilityAvailable"><spring:message code="label.available"/> </label> <br/>
+                <input type="checkbox" <%=prevAvail.contains(ConstantValues.AVAILABILITY_PENDING + ",")?"checked":""%>
+                       id="availabilityPending" name="availability" value="<%=ConstantValues.AVAILABILITY_PENDING%>">
+                <label for="availabilityPending"><spring:message code="label.pending"/> </label> <br/>
+                <input type="checkbox" <%=prevAvail.contains(ConstantValues.AVAILABILITY_NOTAVAILABLE + ",")?"checked":""%>
+                       id="availabilityNotAvailable" name="availability"
+                       value="<%=ConstantValues.AVAILABILITY_NOTAVAILABLE%>">
+                <label for="availabilityNotAvailable"><spring:message code="label.notAvailable"/></label> <br/>
+
+            </fieldset>
+            <%-- end panel 1 --%>
+
+            <%-- begin panel 2 --%>
+            <fieldset id="section2">
+                <legend><spring:message code="label.limitByCenterPlatform"/></legend>
+                <select multiple size="4" id="centerSelect" name="center">
+                    <option value=""><spring:message code="label.all"/></option>
+                    <%
+                        String prevCenter = prevFilter.getCenter();
+                        Iterator centers = facadeI.getFilterChoices().getAllCenters().iterator();
+                        while (centers.hasNext()) {
+                            String center = (String) centers.next();
+                            String centerDisplay = DataAccessMatrixJSPUtil.lookupHeaderText(Header.HeaderCategory.Center, center, getServletConfig().getServletContext());
+                    %>
+                    <option value="<%=center%>"<%=prevCenter.contains("," + center + ",") ? " selected" : ""%>><%=centerDisplay%>
+                    </option>
+                    <% }%>
+                </select>
+                <legend><spring:message code="label.limitBySample"/></legend>
+                <label><spring:message code="label.idMatches"/></label>
+
+                <div id="sampleWidgets"></div>
+                <a href="javascript:void(0);" class="buttonsmall" onclick="addSampleWidget()"><spring:message
+                        code="label.addRow"/> </a>
+                <label for="sampleList"><spring:message code="label.pasteSampleList"/></label> <br/>
+                <textarea name="sampleList" id="sampleList" rows=4 cols=30
+                          onkeyup="this.value=this.value.replace(/(\r\n|\n|\r)/gm,' ');"><%=prevFilter.getSampleList().replace("\n", " ")%>
+                </textarea> <br/>
+                <label for="sampleListFile"><spring:message code="label.uploadSampleList"/></label> <br/>
+
+                <input id="sampleListFile" name="sampleListFile" type="file"/>
+
+            </fieldset>
+            <%-- end panel 2 --%>
+
+            <%-- begin panel 3 --%>
+            <fieldset id="section3">
+                <legend><spring:message code="label.limitByStatus"/></legend>
+                <% String prevProtected = prevFilter.getProtectedStatus(); %>
+                <input type="radio" id="statusAll" name="protectedStatus"
+                       value="" <%=(!prevProtected.contains("P,") && !prevProtected.contains("N,"))?"checked":""%> >
+                <label for="statusAll">All</label><br>
+                <input type="radio" id="statusProtected" name="protectedStatus"
+                       value="P" <%=prevProtected.contains("P,")?"checked":""%> > <label
+                    for="statusProtected"><%=ConstantValues.PROTECTEDSTATUS_PROTECTED%>
+            </label> <br/>
+                <input type="radio" id="statusUnprotected" name="protectedStatus"
+                       value="N" <%=prevProtected.contains("N,")?"checked":""%> > <label
+                    for="statusUnprotected"><%=ConstantValues.PROTECTEDSTATUS_PUBLIC%>
+            </label><br/>
+
+                <%-- Tumor --%>
+                <% if (!"CNTL".equals(selected)) { %>
+                <legend><spring:message code="label.limitByTumor"/></legend>
+                <% String prevTissue = prevFilter.getTumorNormal(); %>
+                <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL+",")?"checked":""%>
+                       id="matchedNormal" name="tumorNormal"
+                       value="<%=DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL%>">
+                <label for="matchedNormal"><spring:message code="label.tumorMatched"/></label> <br/>
+                <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITHOUT_MATCHED_NORMAL+",")?"checked":""%>
+                       id="noMatchedNormal" name="tumorNormal"
+                       value="<%=DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITHOUT_MATCHED_NORMAL%>">
+                <label for="noMatchedNormal"><spring:message code="label.tumorUnmatched"/></label> <br/>
+                <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR+",")?"checked":""%>
+                       id="normalMatchedType" name="tumorNormal"
+                       value="<%=DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR%>">
+                <label for="normalMatchedType"><spring:message code="label.normalMatched"/></label> <br/>
+                <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_HEALTHY_TISSUE_CONTROL+",")?"checked":""%>
+                       id="normalUnmatchedType" name="tumorNormal"
+                       value="<%=DataAccessMatrixQueries.TUMORNORMAL_HEALTHY_TISSUE_CONTROL%>">
+                <label for="normalUnmatchedType"><spring:message code="label.normalUnmatched"/></label>
+                <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_CELL_LINE_CONTROL+",")?"checked":""%>
+                       id="cellLineControlType" name="tumorNormal"
+                       value="<%=DataAccessMatrixQueries.TUMORNORMAL_CELL_LINE_CONTROL%>">
+                <label for="cellLineControlType"><spring:message code="label.cellLineControl"/></label>
+
+                <br/>
+                <br/>
+                <% } %>
+
+                <legend><spring:message code="label.submittedSince"/></legend>
+                <div id="startDateCalContainer"></div>
+                <input type="text" size="10" name="startDate" id="startDate" maxlength="19"
+                       style="color:<%=prevFilter.getStartDate().equals("") ? "#D3D3D3" : "#000000"%>"
+                       onblur="blurred(this, 'mm/dd/yyyy')" onfocus="focused(this, 'mm/dd/yyyy')"
+                       value="<%=prevFilter.getStartDate().equals("") ? "mm/dd/yyyy" : prevFilter.getStartDate()%>">
+                <button type="button" id="startDateButton" name="Pick start date" class="calendarbutton">&nbsp;</button>
+
+                <legend><spring:message code="label.submittedUpTo"/></legend>
+                <div id="endDateCalContainer"></div>
+                <input type="text" size="10" name="endDate" id="endDate" maxlength="19"
+                       style="color:<%=prevFilter.getEndDate().equals("") ? "#D3D3D3" : "#000000"%>"
+                       onblur="blurred(this, 'mm/dd/yyyy')" onfocus="focused(this, 'mm/dd/yyyy')"
+                       value="<%=prevFilter.getEndDate().equals("") ? "mm/dd/yyyy" : prevFilter.getEndDate()%>">
+                <button type="button" id="endDateButton" name="Pick end date" class="calendarbutton">&nbsp;</button>
+                <br/>
+                <br/>
+
+                <input type="checkbox" <%=prevFilter.getShowCompleteRowsOnly().equals(DataAccessMatrixQueries.SHOW_COMPLETE_ROWS_ONLY)?"checked":""%>
+                       id="showCompleteRowsOnly" name="showCompleteRowsOnly"
+                       value="<%=DataAccessMatrixQueries.SHOW_COMPLETE_ROWS_ONLY%>">
+                <label for="showCompleteRowsOnly"><spring:message code="label.showCompleteRowsOnly"/></label> <br/>
+
+            </fieldset>
+            <%-- end panel 3 --%>
+
+            <div class="clear"></div>
+
+            <div class="formfooter">
+                <span id="webServiceUrlLink" onclick="getWebServiceUrl()"><spring:message
+                        code="label.filterWebServiceEquivalentLink"/></span>
+                <button onclick="submitFilter()" name="Filter" value="Apply" type="button" class="positiveButton"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/check.png"/>)">
+                    <span><spring:message code="button.apply"/></span></button>
+                <button type="button" name="Clear filter" onclick="clearFilterForm()"><spring:message
+                        code="button.clear"/></button>
+
+                <% if (showMatrix) { %>
+                <button type="reset" name="Cancel filter" value="Cancel" onclick="toggleFilter()" class="negativeButton"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/x_red.png"/>)">
+                    <span><spring:message code="button.cancel"/></span></button>
+                <% } %>
+                <div id="webServiceUrl">
+                    To request an archive of all data matching this filter from the Data Matrix web service, use the
+                    following URL:<br/>
+                    <textarea rows="4" cols="55" id="webServiceUrlTextArea"></textarea>
+
+                    <div id="webServiceUrlClose"
+                         onclick="document.getElementById('webServiceUrl').style.display='none'">Close
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- end filter div -->
+</div>
+<!-- end filterContainer -->
+<%-- END FILTER --%>
+
+</form>
+<%-- end hiddenform --%>
+
+<%
+    // get rough estimate (will be too high) to use for setting width of elements, so when they get resized onload the
+    // page won't jump around too much.  this has to be either exact or too big -- otherwise the cells will be squished
+    int estMatrixWidth = (facadeI.getTotalColumns() * 33);
+%>
+
+<% if (showMatrix) { %>
+
+
+<div id="menuContainer">
+    <div id="menubar">
+        <div class="menurow">
+            <div class="left">
+                <%
+                    if (diseases.size() > 1) {
+                %>
+                <div id="pageTitle" style="display:inline;cursor:pointer;"
+                     title='<spring:message code="label.switchCancerType" htmlEscape="true"/>'
+                     onclick="toggleDiseaseSwitcher()">
+                    <img src="<c:url value="/images/matrix/arrow-down.gif"/>"
+                         alt='<spring:message code="label.switchCancerType" htmlEscape="true"/>'
+                         style="border:1px outset #009BCD;padding:2px;">
+                    <%=facadeI.getDiseaseType()%> <spring:message code="label.dataAccessMatrix"/>
+                    <div id="diseaseSwitcher" style="visibility:hidden;position:absolute;">
+                        <spring:message code="label.switchToCancerType"/><br/>
+                        <%
+                            Iterator it1 = diseases.iterator();
+                            while (it1.hasNext()) {
+                                Disease disease = (Disease) it1.next();
+                                if (!disease.getAbbreviation().equals(facadeI.getDiseaseType())) {
+                        %>
+                        <a href="<%=request.getContextPath()%>/dataAccessMatrix.htm?diseaseType=<%=disease.getAbbreviation()%>"
+                           onclick="changeToNewDisease('<%=disease.getAbbreviation()%>'); return false;"><%=disease.getAbbreviation()%>
+                            - <%=disease.getName()%>
+                        </a><br/>
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+                </div>
+                <%
+                } else {
+                %>
+                <span id="pageTitle"><%=facadeI.getDiseaseType()%> <spring:message
+                        code="label.dataAccessMatrix"/></span>
+                <%
+                    }
+                %>
+                <span class="optionName"><spring:message code="label.options"/></span>
+                <button type="button" id="resetButton" name="Reset matrix" onclick="clearFilter()" name="xxxx"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/undo.png"/>)">
+                    <span><spring:message code="button.resetMatrix"/></span>
+                </button>
+                <%
+                    if (clearMatrix != null && clearMatrix.equals("true")) {
+                %>
+                <button type="button" id="setFilterButton" name="Set filter" onclick="toggleFilter()"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/funnel.png"/>)">
+                    <span><spring:message code="button.setFilter"/></span>
+                </button>
+                <%
+                } else {
+                %>
+                <button type="button" id="editFilterButton" name="Edit filter" onclick="toggleFilter()"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/funnel.png"/>)">
+                    <span><spring:message code="button.editFilter"/></span>
+                </button>
+                <button type="button" id="removeFilterButton" name="Remove filter" class="negativeButton"
+                        onclick="removeFilter()"
+                        style="background-image:url(<c:url value="/images/matrix/buttons/x_red.png"/>)">
+                    <span><spring:message code="button.removeFilter"/></span>
+                </button>
+                <%
+                    }
+                %>
+            </div>
+            <a class="tcgaHelpIcon" href="https://wiki.nci.nih.gov/x/54diAw" target="_blank">Help</a>
+
+            <div class="clear"></div>
+        </div>
+        <div class="menurow">
+            <span class="optionName"><spring:message code="label.colorCellsBy"/></span>
+            <select name="colorBy" id="colorBy"
+                    onchange="setColorScheme(this.options[this.selectedIndex].value)" <%=tNDisableStr%> >
+                <%
+                    Iterator colorSchemes = facadeI.getColorSchemeNames().iterator();
+                    while (colorSchemes.hasNext()) {
+                        String colorSchemeName = (String) colorSchemes.next();
+                %>
+                <option value="<%=colorSchemeName%>" <%=colorSchemeName.equals(currentCSName) ? "selected" : ""%>>
+                    <% String colorSchemeNameKey = "data." + colorSchemeName; %>
+                    <spring:message code="<%=colorSchemeNameKey%>"/>
+                </option>
+                <%
+                    }
+                %>
+            </select>
+            <span class="optionName"><spring:message code="label.scrollSize"/></span>
+            <select id="scrollSizer" onchange="setScrollRegion(this.options[this.selectedIndex].value)">
+                <option id="scrollSizer_None"
+                        value="100" <%= "100".equals(scrollSize) ? "selected" : "" %>>
+                    <spring:message code="data.none"/>
+                </option>
+                <option value="300px" <%= "300px".equals(scrollSize) ? "selected" : "" %>>
+                    <spring:message code="data.small"/>
+                </option>
+                <option value="500px" <%= ("500px".equals(scrollSize) || scrollSize == null) ? "selected" : "" %>>
+                    <spring:message code="data.standard"/>
+                </option>
+                <option value="700px" <%= "700px".equals(scrollSize) ? "selected" : "" %>>
+                    <spring:message code="data.large"/>
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+
+<div id="matrixContainer">
+
+    <div id="matrixHeader">
+
+        <%
+            int batchCount = facadeI.getTotalBatches();
+            if (batchCount > 0) {
+        %>
+        <table id="titleTable">
+            <%-- and col headers --%>
+            <tr>
+                <td colspan="2" rowspan="2" valign="top">
+                    <div style="text-align:center;">
+                        <button id="downloadButton" name="Show files for download" onclick="showFilesForDownload()"
+                                class="positiveButton"
+                                title='<spring:message code="label.downloadArchiveTitle" htmlEscape="true" />'
+                                style="background-image:url(<c:url value="/images/matrix/buttons/arrow_right.png"/>)">
+                            <span><spring:message code="button.buildArchive"/></span>
+                        </button>
+                    </div>
+                    <div class="legendTableCont">
+                        <table id="legendTable">
+                            <tr>
+                                <td style="font-weight:bold;text-align:left;padding-top:5px;" colspan="2">
+                                    <spring:message code="label.legend"/></td>
+                            </tr>
+                            <%
+                                facadeI.setColorSchemeName(currentCSName);
+                                String[][] legendInfo = facadeI.getLegend();
+                                for (int i = 0; i < legendInfo.length; i++) {
+                            %>
+                            <tr>
+                                <td style="vertical-align:top;text-align:right;">
+                                    <table>
+                                        <tr>
+                                            <td class="legend" style="background-color:<%=legendInfo[i][1]%>">
+                                                <%--<%=legendInfo[i][0]%>--%>
+                                                <% String legendInfoLabelKey = "legend.code." + legendInfo[i][0]; %>
+                                                <spring:message code="<%=legendInfoLabelKey%>"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="text-align:left;line-height:1.3em;">
+                                    <%=legendInfo[i][2]%>
+                                </td>
+                            </tr>
+
+                            <%
+                                }
+                            %>
+                            <tr>
+                                <td colspan="2" style="text-align:left;">
+                                    <span style="color:red"><spring:message code="label.redProtectedData"/></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <%
+                    String columnHeaderURL = "dataAccessMatrixColumnHeaderSection.jsp?" + "currentSelectedHeaders=" + currentSelectedHeaders;
+                %>
+                <jsp:include page="<%=columnHeaderURL%>"/>
+            </tr>
+        </table>
+        <%
+            }
+        %>
+    </div>
+    <%-- end matrixHeader div --%>
+    <div id="matrix">
+        <%-- scrolling region for cells --%>
+        <div id="divContScroll"
+             style="overflow:auto;height:<%=scrollSize == null ? "500px" : scrollSize %>;vertical-align:top;text-align:left;">
+            <table id="scrollingTable">
+                <%
+                    if (batchCount == 0) {
+                %>
+                <tr>
+                    <td colspan="2"><b><spring:message code="label.noDatasetsMatched"/></b></td>
+                </tr>
+                <%
+                } else {
+                    for (int ibatch = 0; ibatch < batchCount; ibatch++) {
+                        String batchInclude = "dataAccessMatrixBatch.jsp?batchno=" + ibatch + "&currentSelectedCells=" + currentSelectedCells + "&currentSelectedHeaders=" + currentSelectedHeaders + "&currentCSName=" + currentCSName;
+                %>
+                <jsp:include page="<%=batchInclude%>"/>
+                <%
+                        }
+                    }
+                %>
+            </table>
+            <%
+                String[] unmatchedSamples = prevFilter.getUnmatchedSamples();
+                if (unmatchedSamples.length > 0) {
+            %>
+            <spring:message code="label.filterSamplesNotFound"/>
+
+            <table>
+                <%
+                    for (int iunmatched = 0; iunmatched < unmatchedSamples.length; iunmatched++) {
+                %>
+                <tr>
+                    <td align="left"><%=unmatchedSamples[iunmatched]%>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+            <%
+                }
+            %>
+        </div>
+
+    </div>
+    <!-- end matrix -->
+</div>
+<!-- end matrixContainer -->
+<% } else {
+    // Do not display the matrix yet
+}
+%>
+</div>
+<!-- end center -->
+</div>

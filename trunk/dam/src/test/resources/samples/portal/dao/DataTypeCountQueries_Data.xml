@@ -1,0 +1,935 @@
+<!--
+  ~ /*
+  ~  * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~  * Copyright Notice.  The software subject to this notice and license includes both human
+  ~  * readable source code form and machine readable, binary, object code form (the "caBIG
+  ~  * Software").
+  ~  *
+  ~  * Please refer to the complete License text for full details at the root of the project.
+  ~  */
+  -->
+<dataset>
+    <home_page_drilldown disease_abbreviation="DIS1" header_name="Total" case_count="100" healthy_control_count="0"/>
+    <home_page_drilldown disease_abbreviation="DIS1" header_name="Exome" case_count="50" healthy_control_count="0"/>
+    <home_page_drilldown disease_abbreviation="DIS1" header_name="mRNA" case_count="80" healthy_control_count="0"/>
+    <home_page_drilldown disease_abbreviation="DIS2" header_name="Total" case_count="500" healthy_control_count="10"/>
+    <home_page_drilldown disease_abbreviation="DIS2" header_name="SNP" case_count="400" healthy_control_count="0"/>
+    <home_page_drilldown disease_abbreviation="DIS2" header_name="Exome" case_count="250" healthy_control_count="10"/>
+    <home_page_drilldown disease_abbreviation="DIS2" header_name="squirrel" case_count="0" healthy_control_count="100"/>
+
+
+    <!-- data for testing calculateAndSave-->
+
+    <project project_code="TCGA" definition="TCGA"/>
+
+    <center_type center_type_code="GSC" center_type_definition="GSC"/>
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+
+    <sample_type sample_type_code="01" definition="solid tumor" is_tumor="1" />
+    <sample_type sample_type_code="10" definition="blood normal" is_tumor="0"/>
+    <sample_type sample_type_code="11" definition="solid normal" is_tumor="0"/>
+
+    <data_level level_number="1" level_definition="1"/>
+    <archive_type archive_type_id="1" archive_type="Level_1" data_level="1" />
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot"/>
+
+    <center center_id="1" domain_name="cgcc.org" center_type_code="CGCC" display_name="CGCC Center"/>
+    <center center_id="2" domain_name="unc.edu" center_type_code="CGCC" display_name="unc.edu"/>
+    <center center_id="3" domain_name="bcgsc.ca" center_type_code="CGCC" display_name="bcgsc.ca"/>
+    <center center_id="4" domain_name="gsc.org" center_type_code="GSC" display_name="GSC"/>
+    <center center_id="5" domain_name="bcr.org" center_type_code="BCR" display_name="BCR"/>
+
+    <center_to_bcr_center bcr_center_id="00" center_id="1" center_type_code="CGCC"/>
+    <tissue_source_site tss_code="00" tss_definition="test" receiving_center_id="1"/>
+    <tissue_source_site tss_code="ZZ" tss_definition="test2" receiving_center_id="2"/>
+
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="GBM" active="1"/>
+    <disease disease_id="2" disease_abbreviation="OV" disease_name="OV" active="1"/>
+    <disease disease_id="3" disease_abbreviation="BRCA" disease_name="BRCA" active="1"/>
+    <disease disease_id="4" disease_abbreviation="COAD" disease_name="COAD" active="1"/>
+    <disease disease_id="5" disease_abbreviation="UCEC" disease_name="UCEC" active="1"/>
+
+    <data_type data_type_id="1" name="SNP" center_type_code="CGCC" />
+    <data_type data_type_id="2" name="Methylation" center_type_code="CGCC"/>
+    <data_type data_type_id="3" name="Gene Expression" center_type_code="CGCC"/>
+    <data_type data_type_id="4" name="miRNA" center_type_code="CGCC"/>
+    <data_type data_type_id="5" name="Trace-Sample Relationship" center_type_code="GSC"/>
+    <data_type data_type_id="6" name="Complete Clinical Set" center_type_code="BCR"/>
+
+    <shipped_element_type element_type_id="1" element_type_name="sample_type_code"/>
+    <shipped_element_type element_type_id="2" element_type_name="sample_sequence"/>
+    <shipped_element_type element_type_id="3" element_type_name="portion_sequence"/>
+    <shipped_element_type element_type_id="4" element_type_name="analyte_code"/>
+    <shipped_element_type element_type_id="5" element_type_name="plate_id"/>
+
+    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" molecule="DNA" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="3" bam_datatype="rnaseq" molecule="RNA" general_datatype="RNAseq"/>
+    <bam_file_datatype bam_datatype_id="4" bam_datatype="whole" molecule="DNA" general_datatype="Genome"/>
+    <bam_file_datatype bam_datatype_id="5" bam_datatype="capture" molecule="DNA" general_datatype="Exome"/>
+
+    <generation_method generation_method_id="1" generation_method="test"/>
+    <uuid_item_type item_type_id="1" item_type="Participant" sort_order="1" xml_name="patient"/>
+    <uuid_item_type item_type_id="2" item_type="Sample" sort_order="2" xml_name="sample"/>
+
+    <!-- SNP -->
+    <platform platform_id="1" platform_name="Genome_Wide_SNP_6" platform_display_name="Genome_Wide_SNP_6"
+              platform_alias="Genome_Wide_SNP_6" center_type_code="CGCC" base_data_type_id="1" available="1" sort_order="1"/>
+    <!-- Methylation -->
+    <platform platform_id="2" platform_name="IlluminaDNAMethylation_OMA002_CPI" platform_display_name="IlluminaDNAMethylation_OMA002_CPI"
+              platform_alias="IlluminaDNAMethylation_OMA002_CPI" center_type_code="CGCC" base_data_type_id="2" available="1" sort_order="2"/>
+    <platform platform_id="3" platform_name="HumanMethylation27" platform_display_name="HumanMethylation27" platform_alias="HumanMethylation27"
+              center_type_code="CGCC" base_data_type_id="2" available="1" sort_order="3"/>
+    <platform platform_id="4" platform_name="HumanMethylation450" platform_display_name="HumanMethylation450" platform_alias="HumanMethylation450"
+              center_type_code="CGCC" base_data_type_id="2" available="1" sort_order="4"/>
+    <platform platform_id="5" platform_name="IlluminaDNAMethylation_OMA003_CPI" platform_display_name="IlluminaDNAMethylation_OMA003_CPI"
+              platform_alias="IlluminaDNAMethylation_OMA003_CPI" center_type_code="CGCC" base_data_type_id="2" available="1" sort_order="5"/>
+
+    <!-- Gene Expression / mRNA -->
+    <platform platform_id="6" platform_name="IlluminaHiSeq_mRNA_DGE" platform_display_name="IlluminaHiSeq_mRNA_DGE"
+              platform_alias="IlluminaHiSeq_mRNA_DGE" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="7" platform_name="IlluminaGA_mRNA_DGE" platform_display_name="IlluminaGA_mRNA_DGE"
+                  platform_alias="IlluminaGA_mRNA_DGE" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="8" platform_name="AgilentG4502A_07_1" platform_display_name="AgilentG4502A_07_1"
+                  platform_alias="AgilentG4502A_07_1" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="9" platform_name="AgilentG4502A_07_2" platform_display_name="AgilentG4502A_07_2"
+                  platform_alias="AgilentG4502A_07_2" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="10" platform_name="AgilentG4502A_07_3" platform_display_name="AgilentG4502A_07_3"
+                  platform_alias="AgilentG4502A_07_3" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="11" platform_name="HT_HG-U133A" platform_display_name="HT_HG-U133A"
+                  platform_alias="HT_HG-U133A" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="12" platform_name="HuEx-1_0-st-v2" platform_display_name="HuEx-1_0-st-v2"
+                  platform_alias="HuEx-1_0-st-v2" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="13" platform_name="IlluminaHiSeq_RNASeqV2" platform_display_name="IlluminaHiSeq_RNASeqV2"
+                  platform_alias="IlluminaHiSeq_RNASeqV2" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+    <platform platform_id="14" platform_name="IlluminaHiSeq_RNASeq" platform_display_name="IlluminaHiSeq_RNASeq"
+                  platform_alias="IlluminaHiSeq_RNASeq" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="1"/>
+
+    <!-- miRNA Platforms H-miRNA_8x15Kv2 or H-miRNA_8x15K -->
+    <platform platform_id="15" platform_name="H-miRNA_8x15Kv2" platform_display_name="H-miRNA_8x15Kv2"
+                  platform_alias="H-miRNA_8x15Kv2" center_type_code="CGCC" base_data_type_id="4" available="1" sort_order="1"/>
+    <platform platform_id="16" platform_name="H-miRNA_8x15K" platform_display_name="H-miRNA_8x15K"
+                  platform_alias="H-miRNA_8x15K" center_type_code="CGCC" base_data_type_id="4" available="1" sort_order="1"/>
+
+    <!-- ABI -->
+    <platform platform_id="17" platform_name="ABI" platform_display_name="ABI" platform_alias="ABI" base_data_type_id="5"
+              center_type_code="GSC" available="1" sort_order="1"/>
+
+    <!-- Clinical (bio) -->
+    <platform platform_id="18" platform_name="bio" platform_display_name="bio" platform_alias="bio" base_data_type_id="6"
+              center_type_code="BCR" available="1" sort_order="1"/>
+
+
+    <!-- SNP archives -->
+
+    <!-- this archive contains:
+         GBM - TCGA-00-0001 - SNP -->
+    <archive_info archive_id="1" archive_name="cgcc.org_GBM.Genome_Wide_SNP_6.Level_1.1.1.0" center_id="1"
+                  platform_id="1" disease_id="1" archive_type_id="1"
+                  serial_index="1" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="1" file_name="test.cel" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="1" archive_id="1" file_id="1" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="1" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0001"
+                         built_barcode="TCGA-00-0001-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0001" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="1" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="1" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="1" shipped_biospecimen_id="1"/>
+
+    <!-- this archive is not latest and contains:
+         GBM - TCGA-00-0002 - SNP -->
+    <archive_info archive_id="2" archive_name="cgcc.org_GBM.Genome_Wide_SNP_6.Level_1.1.0.0" center_id="1"
+                  platform_id="1" disease_id="1" archive_type_id="1"
+                  serial_index="1" revision="0" series="0" deploy_status="Available" is_latest="0" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="2" file_name="not_latest.cel" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="2" archive_id="2" file_id="2" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0002"
+                         built_barcode="TCGA-00-0002-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0002" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="2" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="2" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="2" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="9" shipped_biospecimen_id="2" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="10" shipped_biospecimen_id="2" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="2" shipped_biospecimen_id="2"/>
+
+    <!-- this archive contains
+         BRCA - TCGA-00-0003 - SNP
+         BRCA - TCGA-00-0004 - SNP -->
+    <archive_info archive_id="3" archive_name="cgcc.org_BRCA.Genome_Wide_SNP_6.Level_1.5.0.0" center_id="1"
+                  platform_id="1" disease_id="3" archive_type_id="1"
+                  serial_index="5" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="3" file_name="case_0003.cel" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="3" archive_id="3" file_id="3" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="3" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0003"
+                         built_barcode="TCGA-00-0003-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0003" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="11" shipped_biospecimen_id="3" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="12" shipped_biospecimen_id="3" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="13" shipped_biospecimen_id="3" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="14" shipped_biospecimen_id="3" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="15" shipped_biospecimen_id="3" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="3" shipped_biospecimen_id="3"/>
+    <file_info file_id="4" file_name="case_0004.cel" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="4" file_id="4" archive_id="3" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0004"
+                         built_barcode="TCGA-00-0004-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0004" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="16" shipped_biospecimen_id="4" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="17" shipped_biospecimen_id="4" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="18" shipped_biospecimen_id="4" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="19" shipped_biospecimen_id="4" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="20" shipped_biospecimen_id="4" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="4" shipped_biospecimen_id="4"/>
+
+    <!-- Methylation archives -->
+    <!-- need one from each platform 'IlluminaDNAMethylation_OMA002_CPI','HumanMethylation27','HumanMethylation450','IlluminaDNAMethylation_OMA003_CPI' -->
+
+    <!-- IlluminaDNAMethylation_OMA002_CPI GBM TCGA-00-0005 -->
+    <archive_info archive_id="4" archive_name="cgcc.org_GBM.IlluminaDNAMethylation_OMA002_CPI.Level_1.10.0.0" center_id="1"
+                  platform_id="2" disease_id="1" archive_type_id="1"
+                  serial_index="10" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="5" file_name="data.txt" level_number="1" data_type_id="2"/>
+    <file_to_archive file_archive_id="5" archive_id="4" file_id="5" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="5" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0005"
+                         built_barcode="TCGA-00-0005-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0005" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="21" shipped_biospecimen_id="5" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="22" shipped_biospecimen_id="5" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="23" shipped_biospecimen_id="5" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="24" shipped_biospecimen_id="5" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="25" shipped_biospecimen_id="5" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="5" shipped_biospecimen_id="5"/>
+
+    <!-- HumanMethylation27 OV TCGA-00-0006 Methylation -->
+    <archive_info archive_id="5" archive_name="cgcc.org_OV.HumanMethylation27.Level_1.5.0.0" center_id="1"
+                  platform_id="3" disease_id="2" archive_type_id="1"
+                  serial_index="5" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="6" file_name="hm27-0006.txt" level_number="1" data_type_id="2"/>
+    <file_to_archive file_archive_id="6" archive_id="5" file_id="6" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="6" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0006"
+                         built_barcode="TCGA-00-0006-01A-01W-1111-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0006" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="26" shipped_biospecimen_id="6" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="27" shipped_biospecimen_id="6" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="28" shipped_biospecimen_id="6" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="29" shipped_biospecimen_id="6" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="30" shipped_biospecimen_id="6" element_type_id="5" element_value="1111"/>
+    <shipped_biospecimen_file file_id="6" shipped_biospecimen_id="6"/>
+
+    <!-- HumanMethylation450 BRCA TCGA-00-0004 methylation (already in SNP so won't increase total) -->
+    <archive_info archive_id="6" archive_name="cgcc.org_BRCA.HumanMethylation450.Level_1.5.0.0" center_id="1"
+                  platform_id="4" disease_id="3" archive_type_id="1"
+                  serial_index="5" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="7" file_name="hm450-0004.txt" level_number="1" data_type_id="2"/>
+    <file_to_archive file_archive_id="7" archive_id="6" file_id="7" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="7" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0004"
+                         built_barcode="TCGA-00-0004-01A-01W-2222-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0004-1" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="31" shipped_biospecimen_id="7" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="32" shipped_biospecimen_id="7" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="33" shipped_biospecimen_id="7" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="34" shipped_biospecimen_id="7" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="35" shipped_biospecimen_id="7" element_type_id="5" element_value="2222"/>
+    <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="7"/>
+
+    <!-- IlluminaDNAMethylation_OMA003_CPI GBM TCGA-00-0007 Methylation -->
+    <archive_info archive_id="7" archive_name="cgcc.org_GBM.IlluminaDNAMethylation_OMA003_CPI.Level_1.5.0.0" center_id="1"
+                  platform_id="5" disease_id="1" archive_type_id="1"
+                  serial_index="5" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="8" file_name="oma3-0007.txt" level_number="1" data_type_id="2"/>
+    <file_to_archive file_archive_id="8" archive_id="7" file_id="8" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="8" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0007"
+                         built_barcode="TCGA-00-0007-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0008" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="36" shipped_biospecimen_id="8" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="37" shipped_biospecimen_id="8" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="38" shipped_biospecimen_id="8" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="39" shipped_biospecimen_id="8" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="40" shipped_biospecimen_id="8" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="8" shipped_biospecimen_id="8"/>
+
+
+    <!-- mRNA: BRCA and UCEC
+         data from BAM files -->
+
+    <!-- BRCA mRNA for TCGA-00-0008-->
+    <bam_file bam_file_id="1" bam_file_name="BRCA-mrna-0008.bam" disease_id="3" center_id="2" bam_file_size="100" date_received="2013-04-01"
+              bam_datatype_id="3"/>
+    <shipped_biospecimen shipped_biospecimen_id="9" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0008"
+                         built_barcode="TCGA-00-0008-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0009" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="41" shipped_biospecimen_id="9" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="42" shipped_biospecimen_id="9" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="43" shipped_biospecimen_id="9" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="44" shipped_biospecimen_id="9" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="45" shipped_biospecimen_id="9" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="9" bam_file_id="1"/>
+
+    <!-- UCEC mRNA for TCGA-00-0009 -->
+    <bam_file bam_file_id="2" bam_file_name="hi.bam" disease_id="5" center_id="3" bam_file_size="200" date_received="2013-04-04" bam_datatype_id="3"/>
+    <shipped_biospecimen shipped_biospecimen_id="10" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="0009"
+                         built_barcode="TCGA-00-0009-01A-01W-0000-00" bcr_center_id="00" is_viewable="1" is_control="0" is_redacted="0"
+                         shipped_date="2011-03-07" uuid="uuid9"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="46" shipped_biospecimen_id="10" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="47" shipped_biospecimen_id="10" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="48" shipped_biospecimen_id="10" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="49" shipped_biospecimen_id="10" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="50" shipped_biospecimen_id="10" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="10" bam_file_id="2"/>
+
+
+    <!-- mRNA: GBM and OV -->
+
+    <!-- GBM mRNA TCGA-00-0010 -->
+    <archive_info archive_id="8" archive_name="cgcc.org_GBM.IlluminaHiSeq_mRNA_DGE.Level_1.3.0.0" center_id="1"
+                  platform_id="6" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="9" file_name="dge-0010.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="9" archive_id="8" file_id="9" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="11" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0010"
+                         built_barcode="TCGA-00-0010-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0010" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="51" shipped_biospecimen_id="11" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="52" shipped_biospecimen_id="11" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="53" shipped_biospecimen_id="11" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="54" shipped_biospecimen_id="11" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="55" shipped_biospecimen_id="11" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="9" shipped_biospecimen_id="11"/>
+
+      <!-- GBM mRNA TCGA-00-0001 -->
+    <archive_info archive_id="9" archive_name="cgcc.org_GBM.IlluminaGA_mRNA_DGE.Level_1.3.0.0" center_id="1"
+                  platform_id="7" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="10" file_name="dge-0001.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="10" archive_id="9" file_id="10" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="10" shipped_biospecimen_id="1"/>
+
+    <!-- GBM AgilentG4502A_07_1 mRNA TCGA-00-0002 -->
+    <archive_info archive_id="10" archive_name="cgcc.org_GBM.AgilentG4502A_07_1.Level_1.3.0.0" center_id="1"
+                  platform_id="8" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="11" file_name="07-01-0002.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="11" archive_id="10" file_id="11" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="11" shipped_biospecimen_id="2"/>
+
+    <!-- OV AgilentG4502A_07_2 mRNA TCGA-00-0006 (already in total) -->
+    <archive_info archive_id="11" archive_name="cgcc.org_OV.AgilentG4502A_07_2.Level_1.3.0.0" center_id="1"
+                  platform_id="9" disease_id="2" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="12" file_name="07-02-0006.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="12" archive_id="11" file_id="12" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="12" shipped_biospecimen_id="6"/>
+
+    <!-- OV AgilentG4502A_07_3 mRNA TCGA-00-0011 -->
+    <archive_info archive_id="12" archive_name="cgcc.org_OV.AgilentG4502A_07_3.Level_1.3.0.0" center_id="1"
+                  platform_id="10" disease_id="2" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="13" file_name="07_3-0011.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="13" archive_id="12" file_id="13" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="12" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0011"
+                         built_barcode="TCGA-00-0011-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0011" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="56" shipped_biospecimen_id="12" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="57" shipped_biospecimen_id="12" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="58" shipped_biospecimen_id="12" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="59" shipped_biospecimen_id="12" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="60" shipped_biospecimen_id="12" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="13" shipped_biospecimen_id="12"/>
+
+    <!-- HT_HG-U133A (mRNA) OV TCGA-00-0012 -->
+    <archive_info archive_id="13" archive_name="cgcc.org_OV.HT_HG-U133A.Level_1.3.0.0" center_id="1"
+                   platform_id="11" disease_id="2" archive_type_id="1"
+                   serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                   date_added="2013-02-26 0:00:00.000000000" />
+     <file_info file_id="14" file_name="HT_HG-U133A-0012.txt" level_number="1" data_type_id="3"/>
+     <file_to_archive file_archive_id="14" archive_id="13" file_id="14" file_location_url="url"/>
+     <shipped_biospecimen shipped_biospecimen_id="13" shipped_item_type_id="1"
+                          project_code="TCGA" tss_code="00" participant_code="0012"
+                          built_barcode="TCGA-00-0012-01A-01W-0000-00"
+                          bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0012" shipped_date="2010-01-01" is_control="0"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="61" shipped_biospecimen_id="13" element_type_id="1" element_value="01"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="62" shipped_biospecimen_id="13" element_type_id="2" element_value="A"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="63" shipped_biospecimen_id="13" element_type_id="3" element_value="01"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="64" shipped_biospecimen_id="13" element_type_id="4" element_value="W"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="65" shipped_biospecimen_id="13" element_type_id="5" element_value="0000"/>
+     <shipped_biospecimen_file file_id="14" shipped_biospecimen_id="13"/>
+
+    <!-- GBM HuEx-1_0-st-v2 mRNA TCGA-00-0013 -->
+     <archive_info archive_id="14" archive_name="cgcc.org_GBM.HuEx-1_0-st-v2.Level_1.3.0.0" center_id="1"
+                   platform_id="12" disease_id="1" archive_type_id="1"
+                   serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                   date_added="2013-02-26 0:00:00.000000000" />
+     <file_info file_id="15" file_name="HuEx-0013.txt" level_number="1" data_type_id="3"/>
+     <file_to_archive file_archive_id="15" archive_id="14" file_id="15" file_location_url="url"/>
+     <shipped_biospecimen shipped_biospecimen_id="14" shipped_item_type_id="1"
+                          project_code="TCGA" tss_code="00" participant_code="0013"
+                          built_barcode="TCGA-00-0013-01A-01W-0000-00"
+                          bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0013" shipped_date="2010-01-01" is_control="0"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="66" shipped_biospecimen_id="14" element_type_id="1" element_value="01"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="67" shipped_biospecimen_id="14" element_type_id="2" element_value="A"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="68" shipped_biospecimen_id="14" element_type_id="3" element_value="01"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="69" shipped_biospecimen_id="14" element_type_id="4" element_value="W"/>
+     <shipped_biospecimen_element shipped_biospecimen_element_id="70" shipped_biospecimen_id="14" element_type_id="5" element_value="0000"/>
+     <shipped_biospecimen_file file_id="15" shipped_biospecimen_id="14"/>
+
+    <!-- GBM IlluminaHiSeq_RNASeqV2 (mRNA) TCGA-00-0005 (already in total) -->
+    <archive_info archive_id="15" archive_name="cgcc.GBM.IlluminaHiSeq_RNASeqV2.Level_1.3.0.0" center_id="1"
+                  platform_id="13" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="16" file_name="mrna-0005.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="16" archive_id="15" file_id="16" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="16" shipped_biospecimen_id="5"/>
+
+    <!-- OV IlluminaHiSeq_RNASeq (mRNA) TCGA-00-0014 -->
+    <archive_info archive_id="16" archive_name="cgcc.org_OV.IlluminaHiSeq_RNASeq.Level_1.3.0.0" center_id="1"
+                  platform_id="14" disease_id="2" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="17" file_name="rnaseq-14.txt" level_number="1" data_type_id="3"/>
+    <file_to_archive file_archive_id="17" archive_id="16" file_id="17" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="15" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0014"
+                         built_barcode="TCGA-00-0014-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0014" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="71" shipped_biospecimen_id="15" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="72" shipped_biospecimen_id="15" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="73" shipped_biospecimen_id="15" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="74" shipped_biospecimen_id="15" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="75" shipped_biospecimen_id="15" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="17" shipped_biospecimen_id="15"/>
+
+
+    <!-- miRNA -->
+    <!-- UCEC and COAD: from BAM files -->
+
+    <!-- UCEC TCGA-00-0009 (id 10) already in total -->
+    <bam_file bam_file_id="3" bam_file_name="ucec-mirna-0009.bam" bam_file_size="300" center_id="3" disease_id="5" date_received="2013-01-17"
+              bam_datatype_id="2" />
+    <shipped_biospecimen_bamfile bam_file_id="3" shipped_biospecimen_id="10"/>
+
+    <!-- COAD TCGA-00-0015 miRNA -->
+    <bam_file bam_file_id="4" bam_file_name="wrong-center.bam" bam_file_size="400" center_id="3" disease_id="4" date_received="2011-01-01"
+              bam_datatype_id="2"/>
+    <shipped_biospecimen shipped_biospecimen_id="16" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0015"
+                         built_barcode="TCGA-00-0015-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0015" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="76" shipped_biospecimen_id="16" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="77" shipped_biospecimen_id="16" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="78" shipped_biospecimen_id="16" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="79" shipped_biospecimen_id="16" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="80" shipped_biospecimen_id="16" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile bam_file_id="4" shipped_biospecimen_id="16"/>
+
+    <!-- GBM and OV: H-miRNA_8x15Kv2 or H-miRNA_8x15K -->
+
+    <!-- GBM TCGA-00-0016 miRNA -->
+    <archive_info archive_id="17" archive_name="cgcc.org_GBM.H-miRNA_8x15Kv2.Level_1.3.0.0" center_id="1"
+                  platform_id="15" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="18" file_name="mirna-16.txt" level_number="1" data_type_id="4"/>
+    <file_to_archive file_archive_id="18" archive_id="17" file_id="18" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="17" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0016"
+                         built_barcode="TCGA-00-0016-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0016" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="81" shipped_biospecimen_id="17" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="82" shipped_biospecimen_id="17" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="83" shipped_biospecimen_id="17" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="84" shipped_biospecimen_id="17" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="85" shipped_biospecimen_id="17" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="18" shipped_biospecimen_id="17"/>
+
+    <!-- OV TCGA-00-0014 (id 15) miRNA -->
+    <archive_info archive_id="18" archive_name="cgcc.org_OV.H-miRNA_8x15K.Level_1.3.0.0" center_id="1"
+                  platform_id="16" disease_id="2" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="19" file_name="mirna-14.txt" level_number="1" data_type_id="4"/>
+    <file_to_archive file_archive_id="19" archive_id="18" file_id="19" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="19" shipped_biospecimen_id="15"/>
+
+
+    <!-- Exome: need tumor and normal for it to count -->
+
+    <!-- BRCA tumor and normal BAM for Exome -->
+    <!-- tumor for TCGA-00-0017 -->
+    <shipped_biospecimen shipped_biospecimen_id="18" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0017"
+                         built_barcode="TCGA-00-0017-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0017-t" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="86" shipped_biospecimen_id="18" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="87" shipped_biospecimen_id="18" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="88" shipped_biospecimen_id="18" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="89" shipped_biospecimen_id="18" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="90" shipped_biospecimen_id="18" element_type_id="5" element_value="0000"/>
+    <!-- normal for TCGA-00-0017 -->
+    <shipped_biospecimen shipped_biospecimen_id="19" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0017"
+                         built_barcode="TCGA-00-0017-10A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0017-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="91" shipped_biospecimen_id="19" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="92" shipped_biospecimen_id="19" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="93" shipped_biospecimen_id="19" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="94" shipped_biospecimen_id="19" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="95" shipped_biospecimen_id="19" element_type_id="5" element_value="0000"/>
+
+    <bam_file bam_file_id="5" bam_file_name="tumor-0017.bam" bam_file_size="500" center_id="4" disease_id="3" date_received="2012-09-15"
+              bam_datatype_id="1"/>
+    <shipped_biospecimen_bamfile bam_file_id="5" shipped_biospecimen_id="18"/>
+    <shipped_biospecimen_bamfile bam_file_id="5" shipped_biospecimen_id="19"/>
+
+    <!-- BRCA just tumor BAM (won't count for Exome) TCGA-00-0003 -->
+    <bam_file bam_file_id="6" bam_file_name="tumor-0003.bam" bam_file_size="6" center_id="4" disease_id="3" date_received="2013-03-02"
+              bam_datatype_id="1"/>
+    <shipped_biospecimen_bamfile bam_file_id="6" shipped_biospecimen_id="3"/>
+
+    <!-- just normal BAM (for a case that has a tumor defined) TCGA-00-0008 - won't count because no tumor BAM -->
+    <shipped_biospecimen shipped_biospecimen_id="20" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0008"
+                         built_barcode="TCGA-00-0008-10A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0008-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="96" shipped_biospecimen_id="20" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="97" shipped_biospecimen_id="20" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="98" shipped_biospecimen_id="20" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="99" shipped_biospecimen_id="20" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="100" shipped_biospecimen_id="20" element_type_id="5" element_value="0000"/>
+    <bam_file bam_file_id="7" bam_file_name="0008-normal.bam" bam_file_size="7" center_id="4" disease_id="3" date_received="2013-02-28"
+              bam_datatype_id="1"/>
+    <shipped_biospecimen_bamfile bam_file_id="7" shipped_biospecimen_id="20"/>
+
+    <!-- ABI tumor and normal -->
+    <!-- GBM TCGA-00-0016 -->
+    <archive_info archive_id="19" archive_name="gsc.org_GBM.ABI.Level_1.3.0.0" center_id="1"
+                  platform_id="17" disease_id="1" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="20" file_name="0016-tumor.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="20" archive_id="19" file_id="20" file_location_url="url"/>
+    <file_info file_id="21" file_name="0016-normal.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="21" archive_id="19" file_id="21" file_location_url="url"/>
+
+    <shipped_biospecimen_file file_id="20" shipped_biospecimen_id="17"/>
+    <!-- normal (tumor sb is defined in previous part of file w/id 17 -->
+    <shipped_biospecimen shipped_biospecimen_id="21" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0016"
+                         built_barcode="TCGA-00-0016-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0016-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="101" shipped_biospecimen_id="21" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="102" shipped_biospecimen_id="21" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="103" shipped_biospecimen_id="21" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="104" shipped_biospecimen_id="21" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="105" shipped_biospecimen_id="21" element_type_id="5" element_value="0000"/>
+
+    <shipped_biospecimen_file file_id="21" shipped_biospecimen_id="21"/>
+
+    <!-- OV TCGA-00-0018 ABI tumor and normal -->
+    <archive_info archive_id="20" archive_name="gsc.org_OV.ABI.Level_1.3.0.0" center_id="1"
+                  platform_id="17" disease_id="2" archive_type_id="1"
+                  serial_index="3" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="22" file_name="0018-tumor.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="22" archive_id="20" file_id="22" file_location_url="url"/>
+    <file_info file_id="23" file_name="0018-normal.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="23" archive_id="20" file_id="23" file_location_url="url"/>
+    <!-- tumor -->
+    <shipped_biospecimen shipped_biospecimen_id="22" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0018"
+                         built_barcode="TCGA-00-0018-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0018-t" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="106" shipped_biospecimen_id="22" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="107" shipped_biospecimen_id="22" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="108" shipped_biospecimen_id="22" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="109" shipped_biospecimen_id="22" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="110" shipped_biospecimen_id="22" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="22" shipped_biospecimen_id="22"/>
+    <!-- normal -->
+    <shipped_biospecimen shipped_biospecimen_id="23" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0018"
+                         built_barcode="TCGA-00-0018-10A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0018-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="111" shipped_biospecimen_id="23" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="112" shipped_biospecimen_id="23" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="113" shipped_biospecimen_id="23" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="114" shipped_biospecimen_id="23" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="115" shipped_biospecimen_id="23" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="23" shipped_biospecimen_id="23"/>
+
+    <!-- GBM ABI just tumor -->
+    <!-- will count towards total but not Exome -->
+    <archive_info archive_id="21" archive_name="gsc.org_GBM.ABI.Level_1.20.0.0" center_id="1"
+                  platform_id="17" disease_id="1" archive_type_id="1"
+                  serial_index="20" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="24" file_name="0019-tumor.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="24" archive_id="21" file_id="24" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="24" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0019"
+                         built_barcode="TCGA-00-0019-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0019" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="116" shipped_biospecimen_id="24" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="117" shipped_biospecimen_id="24" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="118" shipped_biospecimen_id="24" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="119" shipped_biospecimen_id="24" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="120" shipped_biospecimen_id="24" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="24" shipped_biospecimen_id="24"/>
+
+    <!-- OV ABI just normal (for a case that has a tumor defined) (TCGA-00-0014) won't count -->
+     <archive_info archive_id="22" archive_name="gsc.org_OV.ABI.Level_1.21.0.0" center_id="1"
+                  platform_id="17" disease_id="2" archive_type_id="1"
+                  serial_index="21" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="25" file_name="0014-normal.trace" level_number="1" data_type_id="5"/>
+    <file_to_archive file_archive_id="25" archive_id="22" file_id="25" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="25" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0014"
+                         built_barcode="TCGA-00-0014-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0014-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="121" shipped_biospecimen_id="25" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="122" shipped_biospecimen_id="25" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="123" shipped_biospecimen_id="25" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="124" shipped_biospecimen_id="25" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="125" shipped_biospecimen_id="25" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="25" shipped_biospecimen_id="25"/>
+
+
+    <!-- OV BAM tumor and normal -->
+    <!-- tumor for TCGA-00-0020 -->
+    <shipped_biospecimen shipped_biospecimen_id="26" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0020"
+                         built_barcode="TCGA-00-0020-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0020-t" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="126" shipped_biospecimen_id="26" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="127" shipped_biospecimen_id="26" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="128" shipped_biospecimen_id="26" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="129" shipped_biospecimen_id="26" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="130" shipped_biospecimen_id="26" element_type_id="5" element_value="0000"/>
+    <!-- normal for TCGA-00-0020 -->
+    <shipped_biospecimen shipped_biospecimen_id="27" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0020"
+                         built_barcode="TCGA-00-0020-10A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0020-n" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="131" shipped_biospecimen_id="27" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="132" shipped_biospecimen_id="27" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="133" shipped_biospecimen_id="27" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="134" shipped_biospecimen_id="27" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="135" shipped_biospecimen_id="27" element_type_id="5" element_value="0000"/>
+
+    <bam_file bam_file_id="8" bam_file_name="tumor-0020.bam" bam_file_size="800" center_id="4" disease_id="2" date_received="2012-09-15"
+              bam_datatype_id="5"/>
+    <shipped_biospecimen_bamfile bam_file_id="8" shipped_biospecimen_id="26"/>
+    <bam_file bam_file_id="9" bam_file_name="normal-0020.bam" bam_file_size="900" center_id="4" disease_id="2" date_received="2012-09-16"
+              bam_datatype_id="5"/>
+    <shipped_biospecimen_bamfile bam_file_id="9" shipped_biospecimen_id="27"/>
+
+    
+    <!-- Clinical -->
+    <!-- archive, file f2a, sb2f, uuid hierarchy for participant and sample, participant_uuid_file for xml files -->
+    <!-- one through files, one through uuid hierarchy -->
+    <!-- GBM clinical XML file for TCGA-00-0001 -->
+
+    <uuid uuid="patient-0001" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05" />
+    <uuid uuid="sample-tumor-0001" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05"/>
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="patient-0001" item_type_id="1" tss_code="00" center_id_bcr="00" batch_number="1" barcode="TCGA-00-0001"
+                    participant_number="0001" create_date="2010-11-12" is_redacted="0" />
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="sample-tumor-0001" parent_uuid="patient-0001" item_type_id="2" tss_code="00" center_id_bcr="00"
+                    batch_number="1" barcode="TCGA-00-0001-01A" create_date="2010-11-12" participant_number="0001" is_redacted="0" sample_type_code="01" sample_sequence="A"/>
+    <!-- GBM bio archive with  clinical XML files and biospecimen XML files -->
+    <archive_info archive_id="23" archive_name="bcr.org_GBM.bio.Level_1.6.0.0" center_id="5"
+                  platform_id="18" disease_id="1" archive_type_id="1"
+                  serial_index="6" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+
+    <!-- one clinical file (for TCGA-00-0001) has no shipped_biospecimen_file records just participant_uuid_file -->
+    <file_info file_id="26" file_name="bcr.org_clinical.TCGA-00-0001.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="26" archive_id="23" file_id="26" file_location_url="url"/>
+    <participant_uuid_file uuid="patient-0001" file_id="26"/>
+
+    <!-- the others have shipped biospecimen to file records -->
+    <!-- TCGA-00-0002 id 2, TCGA-00-0005 id 5 have clinical XML so count -->
+    <file_info file_id="27" file_name="bcr.org_clinical.TCGA-00-0002.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="27" file_id="27" archive_id="23" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="27" shipped_biospecimen_id="2"/>
+
+    <file_info file_id="28" file_name="bcr.org_clinical.TCGA-00-0005.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="28" file_id="28" archive_id="23" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="28" shipped_biospecimen_id="5"/>
+
+    <!-- TCGA-00-0007 id 8, TCGA-00-0010 id 11 have just biospecimen xml so don't count -->
+    <file_info file_id="29" file_name="bcr.org_biospecimen.TCGA-00-0007.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="29" file_id="29" archive_id="23" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="29" shipped_biospecimen_id="8"/>
+
+    <file_info file_id="30" file_name="bcr.org_biospecimen.TCGA-00-0010.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="30" file_id="30" archive_id="23" file_location_url="url"/>
+    <shipped_biospecimen_file file_id="30" shipped_biospecimen_id="11"/>
+
+
+
+    <!-- healthy controls for GBM and UCEC for each data type... the other diseases have none -->
+
+    <!-- SNP -->
+    <!-- GBM TCGA-ZZ-1000 SNP -->
+     <archive_info archive_id="100" archive_name="cgcc.org_GBM.Genome_Wide_SNP_6.Level_1.5.1.0" center_id="1"
+                  platform_id="1" disease_id="1" archive_type_id="1"
+                  serial_index="5" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="100" file_name="normal.cel" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="100" archive_id="100" file_id="100" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="100" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1000"
+                         built_barcode="TCGA-ZZ-1000-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1000" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1000" shipped_biospecimen_id="100" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1001" shipped_biospecimen_id="100" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1002" shipped_biospecimen_id="100" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1003" shipped_biospecimen_id="100" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1004" shipped_biospecimen_id="100" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="100" shipped_biospecimen_id="100"/>
+
+    <!-- methylation -->
+    <!-- UCEC TCGA-ZZ-1001 -->
+    <archive_info archive_id="101" archive_name="cgcc.org_UCEC.HumanMethylation27.Level_1.5.1.0" center_id="1"
+                  platform_id="2" disease_id="5" archive_type_id="1"
+                  serial_index="5" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="101" file_name="methylation.txt" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="101" archive_id="101" file_id="101" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="101" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1001"
+                         built_barcode="TCGA-ZZ-1001-10A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1001" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1005" shipped_biospecimen_id="101" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1006" shipped_biospecimen_id="101" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1007" shipped_biospecimen_id="101" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1008" shipped_biospecimen_id="101" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1009" shipped_biospecimen_id="101" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="101" shipped_biospecimen_id="101"/>
+
+    <!-- exome -->
+    <!-- GBM: ABI -->
+    <archive_info archive_id="102" archive_name="gsc.org_GBM.ABI.Level_1.50.1.0" center_id="1"
+                  platform_id="17" disease_id="1" archive_type_id="1"
+                  serial_index="50" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="102" file_name="trace-sample.txt" level_number="1" data_type_id="1"/>
+    <file_to_archive file_archive_id="102" archive_id="102" file_id="102" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="102" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1002"
+                         built_barcode="TCGA-ZZ-1002-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1002" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1010" shipped_biospecimen_id="102" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1011" shipped_biospecimen_id="102" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1012" shipped_biospecimen_id="102" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1013" shipped_biospecimen_id="102" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1014" shipped_biospecimen_id="102" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="102" shipped_biospecimen_id="102"/>
+
+    <!-- UCEC: BAM Exome -->
+    <bam_file bam_file_id="10" bam_file_name="normal-1003.bam" bam_file_size="900" center_id="4" disease_id="5" date_received="2012-09-16"
+              bam_datatype_id="1"/>
+    <shipped_biospecimen shipped_biospecimen_id="103" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1003"
+                         built_barcode="TCGA-ZZ-1003-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1003" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1015" shipped_biospecimen_id="103" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1016" shipped_biospecimen_id="103" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1017" shipped_biospecimen_id="103" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1018" shipped_biospecimen_id="103" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1019" shipped_biospecimen_id="103" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile bam_file_id="10" shipped_biospecimen_id="103"/>
+
+    <!-- clinical -->
+    <!-- GBM, clinical XML, via participant uuid to file -->
+    <uuid uuid="control-1004" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05" />
+    <uuid uuid="sample-normal-1004" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05"/>
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="control-1004" item_type_id="1" tss_code="ZZ" center_id_bcr="00" batch_number="1" barcode="TCGA-ZZ-1004"
+                    participant_number="1004" create_date="2010-11-12" is_redacted="0" />
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="sample-normal-1004" parent_uuid="control-1004" item_type_id="2" tss_code="ZZ" center_id_bcr="00"
+                    batch_number="1" barcode="TCGA-ZZ-1004-11A" create_date="2010-11-12" participant_number="1004" is_redacted="0" sample_type_code="11" sample_sequence="A"/>
+    <archive_info archive_id="103" archive_name="bcr.org_GBM.bio.Level_1.50.1.0" center_id="1"
+                  platform_id="18" disease_id="1" archive_type_id="1"
+                  serial_index="50" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="103" file_name="bcr.org_clinical.TCGA-ZZ-1004.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="103" archive_id="103" file_id="103" file_location_url="url"/>
+    <participant_uuid_file file_id="103" uuid="control-1004"/>
+
+    <!-- GBM via sb to file -->
+
+    <file_info file_id="104" file_name="bcr.org_clinical.TCGA-ZZ-1005.xml" level_number="1" data_type_id="6" />
+    <file_to_archive file_archive_id="104" file_id="104" archive_id="103" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="104" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1005"
+                         built_barcode="TCGA-ZZ-1005-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1005" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1020" shipped_biospecimen_id="104" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1021" shipped_biospecimen_id="104" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1022" shipped_biospecimen_id="104" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1023" shipped_biospecimen_id="104" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1024" shipped_biospecimen_id="104" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="104" shipped_biospecimen_id="104"/>
+
+    <!-- UCEC biospecimen XML: won't count for clinical so won't for total either -->
+    <archive_info archive_id="104" archive_name="bcr.org_UCEC.bio.Level_1.100.1.0" center_id="1"
+                  platform_id="18" disease_id="5" archive_type_id="1"
+                  serial_index="100" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="105" file_name="bcr.org_biospecimen.TCGA-ZZ-1006.xml" level_number="1" data_type_id="6" />
+    <file_to_archive file_archive_id="105" file_id="105" archive_id="104" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="105" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1006"
+                         built_barcode="TCGA-ZZ-1006-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1006" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1025" shipped_biospecimen_id="105" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1026" shipped_biospecimen_id="105" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1027" shipped_biospecimen_id="105" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1028" shipped_biospecimen_id="105" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1029" shipped_biospecimen_id="105" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="105" shipped_biospecimen_id="105"/>
+
+
+    <!-- mRNA -->
+
+    <!-- BAM file for UCEC -->
+    <bam_file bam_file_id="11" bam_file_name="normal-1007-mRNA.bam" bam_file_size="20" center_id="2" disease_id="5" date_received="2012-09-16"
+              bam_datatype_id="3"/>
+    <shipped_biospecimen shipped_biospecimen_id="106" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1007"
+                         built_barcode="TCGA-ZZ-1007-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1007" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1030" shipped_biospecimen_id="106" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1031" shipped_biospecimen_id="106" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1032" shipped_biospecimen_id="106" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1033" shipped_biospecimen_id="106" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1034" shipped_biospecimen_id="106" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile bam_file_id="11" shipped_biospecimen_id="106"/>
+
+    <!-- Agilent archive for GBM -->
+    <archive_info archive_id="105" archive_name="cgcc.org_GBM.AgilentG4502A_07_1.Level_1.100.1.0" center_id="1"
+                  platform_id="8" disease_id="1" archive_type_id="1"
+                  serial_index="100" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="106" file_name="level1.file" level_number="1" data_type_id="3" />
+    <file_to_archive file_archive_id="106" file_id="106" archive_id="105" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="107" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1008"
+                         built_barcode="TCGA-ZZ-1008-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1008" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1035" shipped_biospecimen_id="107" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1036" shipped_biospecimen_id="107" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1037" shipped_biospecimen_id="107" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1038" shipped_biospecimen_id="107" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1039" shipped_biospecimen_id="107" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="106" shipped_biospecimen_id="107"/>
+
+    <!-- miRNA -->
+    <!-- BAM file for UCEC from BC -->
+    <bam_file bam_file_id="12" bam_file_name="normal-1009-miRNA.bam" bam_file_size="20" center_id="3" disease_id="5" date_received="2012-09-16"
+              bam_datatype_id="2"/>
+    <shipped_biospecimen shipped_biospecimen_id="108" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1009"
+                         built_barcode="TCGA-ZZ-1009-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1009" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1040" shipped_biospecimen_id="108" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1041" shipped_biospecimen_id="108" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1042" shipped_biospecimen_id="108" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1043" shipped_biospecimen_id="108" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1044" shipped_biospecimen_id="108" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_bamfile bam_file_id="12" shipped_biospecimen_id="108"/>
+
+    <!-- archive for miRNA platform for GBM -->
+    <archive_info archive_id="106" archive_name="cgcc.org_GBM.H-miRNA_8x15K.Level_1.100.1.0" center_id="1"
+                  platform_id="16" disease_id="1" archive_type_id="1"
+                  serial_index="100" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="107" file_name="level1.file" level_number="1" data_type_id="4" />
+    <file_to_archive file_archive_id="107" file_id="107" archive_id="106" file_location_url="url"/>
+    <shipped_biospecimen shipped_biospecimen_id="109" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="ZZ" participant_code="1010"
+                         built_barcode="TCGA-ZZ-1010-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="1010" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1045" shipped_biospecimen_id="109" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1046" shipped_biospecimen_id="109" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1047" shipped_biospecimen_id="109" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1048" shipped_biospecimen_id="109" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1049" shipped_biospecimen_id="109" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="107" shipped_biospecimen_id="109"/>
+
+    <!-- test case: partcipant TCGA-00-0021 has tumor and normal biospecimen XML and just normal Exome: should not count for healthy controls -->
+    <uuid uuid="participant-0021" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05" />
+    <uuid uuid="sample-normal-0021" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05"/>
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="participant-0021" item_type_id="1" tss_code="00" center_id_bcr="00" batch_number="1" barcode="TCGA-00-0021"
+                    participant_number="0021" create_date="2010-11-12" is_redacted="0" />
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="sample-normal-0021" parent_uuid="participant-0021" item_type_id="2" tss_code="00" center_id_bcr="00"
+                    batch_number="1" barcode="TCGA-00-0021-11A" create_date="2010-11-12" participant_number="0021" is_redacted="0" sample_type_code="11" sample_sequence="A"/>
+    <uuid uuid="tumor-0021" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05" />
+    <uuid uuid="sample-tumor-0021" center_id="5" generation_method_id="1" created_by="test" create_date="2013-03-05"/>
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="sample-tumor-0021" parent_uuid="participant-0021" item_type_id="2" tss_code="00" center_id_bcr="00"
+                    batch_number="1" barcode="TCGA-00-0021-01A" create_date="2010-11-12" participant_number="0021" is_redacted="0" sample_type_code="01" sample_sequence="A"/>
+    <archive_info archive_id="107" archive_name="bcr.org_GBM.bio.Level_1.42.7.0" center_id="1"
+                  platform_id="18" disease_id="1" archive_type_id="1"
+                  serial_index="42" revision="7" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"
+                  date_added="2013-02-26 0:00:00.000000000" />
+    <file_info file_id="108" file_name="bcr.org_biospecimen.TCGA-00-120.xml" level_number="1" data_type_id="6"/>
+    <file_to_archive file_archive_id="108" archive_id="107" file_id="108" file_location_url="url"/>
+    <participant_uuid_file file_id="108" uuid="participant-0021"/>
+
+    <bam_file bam_file_id="13" bam_file_name="normal-0021-exome.bam" bam_file_size="20" center_id="2" disease_id="1" date_received="2012-09-16"
+              bam_datatype_id="3"/>
+    <shipped_biospecimen shipped_biospecimen_id="110" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0021"
+                         built_barcode="TCGA-00-0021-11A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0021" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1050" shipped_biospecimen_id="110" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1051" shipped_biospecimen_id="110" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1052" shipped_biospecimen_id="110" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1053" shipped_biospecimen_id="110" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1054" shipped_biospecimen_id="110" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="108" shipped_biospecimen_id="110"/>
+
+     <shipped_biospecimen shipped_biospecimen_id="111" shipped_item_type_id="1"
+                         project_code="TCGA" tss_code="00" participant_code="0021"
+                         built_barcode="TCGA-00-0021-01A-01W-0000-00"
+                         bcr_center_id="00" is_viewable="1" is_redacted="0" uuid="0021-t" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1055" shipped_biospecimen_id="111" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1056" shipped_biospecimen_id="111" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1057" shipped_biospecimen_id="111" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1058" shipped_biospecimen_id="111" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1059" shipped_biospecimen_id="111" element_type_id="5" element_value="0000"/>
+    <shipped_biospecimen_file file_id="108" shipped_biospecimen_id="111"/>
+    <!-- BAM for normal only -->
+    <shipped_biospecimen_bamfile bam_file_id="13" shipped_biospecimen_id="110"/>
+
+</dataset>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+	<artifactId>tcga-aggregator</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>TCGA Aggregator</name>
+	<description>
+		Superlative POM/project that aggregates Maven build actions for all TCGA software projects. This project cannot build individual TCGA projects
+		and is only meant for build activities such as releases and nightly builds.
+	</description>
+	<scm>
+		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-aggregator/trunk</connection>
+		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-aggregator/trunk</developerConnection>
+		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-aggregator/trunk</url>
+	</scm>
+	<!--
+	#############################################################################################################################################################################
+	
+	Prerequisites
+	
+		In order for this project to be run correctly, the following steps should be performed:
+		
+			1. Checkout the this projects' software project folder, tcga-aggregator, from version control:
+				
+				https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-aggregator/trunk tcga-aggregator
+			
+			2. Once the tcga-aggregator project has been checked out, navigate to the tcga-aggregator/aggregate directory and 
+			checkout the tcga-parent software project folder from.
+			
+			3. Within the tcga-parent directory checkout ALL TCGA software development project folders. For the 
+			common-web project, the fusioncharts 'Charts' folder will need to be checked out as well:
+			
+			https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-web/trunk/fusioncharts/FusionCharts_EntPlus/Charts common-web/fusioncharts/FusionCharts_EntPlus/Charts
+	
+		After completing the steps above, the resulting directory structure should look like the following:
+	
+			../tcga-aggregator
+				../aggregate
+					../tcga-parent
+						../annotations
+						../clide
+						../common
+						../common-jaxb
+						../common-web
+							../fusioncharts
+								../FusionCharts_EntPlus
+									../Charts
+						../dam
+						../databrowser
+						../datareports
+						../qclive
+						../qclive-test-data-generator
+						../tcga-parent
+						../uuid
+		
+		
+	Usage
+	
+		Build Using Default Goals
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		To run builds for each aggregate project using the default goals (clean install), execute the following command from the the 'tcga-aggregator' project 
+		directory:
+		
+			mvn -DmavenOpts='-DskipTests=true -Denv=<build-for-env> -Dprops.loc=<properties-file-path>' clean install
+		
+		where <build-for-env> is either local, dev, prod, qa, or stage, and <properties-file-path> is the path to the properties file for each project.
+		The value for <properties-file-path> will effectively be ignored and can be left blank, however it is required for a successful build.
+		
+		This command deviates a bit from the more familiar commands used for other TCGA software projects in that the list of Maven options to be applied
+		to each aggregate project build are themselves passed to the Maven command as a single option. This is a requirement of the invoker plug-in used 
+		by the tcga-aggregator since it's own command line options are not visible to aggregate project builds.
+		
+			
+	##############################################################################################################################################################################
+    -->
+	<properties>
+		<!-- Build encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- URLs for release, deployment, etc. -->
+		<tcga.svn.url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox</tcga.svn.url>
+		<tcga.snapshot.url>https://ncimvn.nci.nih.gov/nexus/content/repositories/snapshots</tcga.snapshot.url>
+		<tcga.release.url>https://ncimvn.nci.nih.gov/nexus/content/repositories/releases</tcga.release.url>
+		
+		<!-- Space or comma separated list of mojos to invoke for each project -->
+		<goals.to.invoke>clean install</goals.to.invoke>
+		
+		<!-- Aggregate POMs path prefix (i.e. aggregate/tcga-parent/pom.xml) -->
+		<aggregate.poms.path.prefix>aggregate/tcga-parent</aggregate.poms.path.prefix>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-invoker-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<cloneProjectsTo>${project.build.directory}/aggregate</cloneProjectsTo>
+					<filterProperties>
+						<tcga.invoker.goals>${goals.to.invoke}</tcga.invoker.goals>
+						<tcga.invoker.mavenOpts>${mavenOpts}</tcga.invoker.mavenOpts>
+					</filterProperties>
+					<noLog>true</noLog>
+					<streamLogs>true</streamLogs>
+				</configuration>
+				<executions>
+				
+					<!-- tcga-parent -->
+					<execution>
+						<id>invoke-tcga-parent</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- common-jaxb -->
+					<execution>
+						<id>invoke-common-jaxb</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/common-jaxb/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- common -->
+					<execution>
+						<id>invoke-common</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/common/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- common-web -->
+					<execution>
+						<id>invoke-common-web</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/common-web/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- qclive-test-data-generator -->
+					<execution>
+						<id>invoke-qclive-test-data-generator</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/qclive-test-data-generator/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- qclive -->
+					<execution>
+						<id>invoke-qclive</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/qclive/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- annotations -->
+					<execution>
+						<id>invoke-annotations</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/annotations/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- dam -->
+					<execution>
+						<id>invoke-dam</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/dam/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- datareports -->
+					<execution>
+						<id>invoke-datareports</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/datareports/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- uuid -->
+					<execution>
+						<id>invoke-uuid</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/uuid/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- databrowser -->
+					<execution>
+						<id>invoke-databrowser</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/databrowser/pom.xml</pom>
+						</configuration>
+					</execution>
+					
+					<!-- clide -->
+					<execution>
+						<id>invoke-clide</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>${aggregate.poms.path.prefix}/clide/pom.xml</pom>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>snapshots</id>
+			<name>TCGA Snapshots</name>
+			<url>${tcga.snapshot.url}</url>
+		</snapshotRepository>
+		<site>
+			<id>sites</id>
+			<name>TCGA Software Project Sites</name>
+			<url>dav:https://ncimvn.nci.nih.gov/nexus/content/sites/cbiit-sites/tcga</url>
+		</site>
+	</distributionManagement>
+</project>

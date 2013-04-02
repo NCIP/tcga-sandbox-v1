@@ -1,0 +1,49 @@
+
+
+<div id="content">
+    <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <span class="trailDest"><%=h1String%></span></div>
+    <a name="skip" id="skip"></a>
+    <h1><%=h1String%></h1>
+    <%
+    
+    String theJob = request.getParameter("job");
+    
+    if (theJob.equals("queued")) { %>
+	<p class="queue">
+	Job status: <span class="gray">Queued</span><br />
+	There are X jobs in the queue ahead of you
+	</p>
+	<%}%>
+    <%if (theJob.equals("processing")) { %>
+	<p class="processing">
+	Job status: <span class="blue">Running</span><br />
+	Your job is currently being processed.
+	</p>
+	<%}%>
+	
+    <%if (theJob.equals("done")) { %>
+	<p class="done">
+	Job status: <span class="green">Complete</span><br />
+	The archive you created is available at <br />
+	<a href="http://tcga-data.nci.nih.gov/tcgafiles_qa/ftp_auth/distro_ftpusers/anonymous/userCreatedArchives/mock-up.tar.gz" target="_blank">
+	http://tcga-data.nci.nih.gov/tcgafiles_qa/ftp_auth/distro_ftpusers/anonymous/userCreatedArchives/mock-up.tar.gz
+	</a>
+	</p>
+	<%}%>
+</div>
+<div id="sidebar">
+	<div id="menuAbout" class="box boxMenu">
+		<h3>TCGA Data Portal Links</h3>
+		<ul class="boxbody">
+			<li><a href="http://tcga-data.nci.nih.gov/tcga/tcgaAbout.jsp">About the Data</a></li>
+			<li><a href="http://tcga-data.nci.nih.gov/tcga/tcgaDataType.jsp">Data Levels and Data Types</a></li>
+
+			<li><a href="http://tcga-data.nci.nih.gov/tcga/tcgaPlatformDesign.jsp">Platform Design</a></li>
+			<li><a href="http://tcga-data.nci.nih.gov/tcga/tcgaAccessTiers.jsp">Access Tiers</a></li>
+			<li><a href="http://tcga-data.nci.nih.gov/datareports/">Reports</a></li>
+			<li><a href="http://tcga-data.nci.nih.gov/tcga/tcgaAnnouncements.jsp">Announcements</a></li>
+			<li class="last"><a href="http://tcga-data.nci.nih.gov/tcga/tcgaHelp.jsp">User Guides and Help</a></li>
+		</ul>
+
+	</div>
+</div>

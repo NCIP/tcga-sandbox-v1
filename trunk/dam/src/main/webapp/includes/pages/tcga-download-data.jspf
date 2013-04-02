@@ -1,0 +1,101 @@
+
+		<div id="content">
+			<div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+            <h1><%=h1String%></h1>
+            <div class="paragraph">
+                <b>The TCGA Data Portal does not host lower levels of sequence data. NCI's
+                <a href="https://cghub.ucsc.edu/" target="_blank" class="newWinIcon">Cancer Genomics Hub (CGHub)</a>
+                is the new secure repository for storing, cataloging, and accessing sequence related data.
+                New users must still apply for authorized access through NCBI's
+                <a href="http://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000178.v5.p5"
+                   target="_blank" class="newWinIcon">Database of Genotypes and Phenotypes (dbGaP)</a></b>
+            </div>
+            <div class="paragraph">
+                <b>IMPORTANT:</b> Data downloaders are urged to use the data annotation search interface
+                (<a href="https://tcga-data.nci.nih.gov/annotations/">https://tcga-data.nci.nih.gov/annotations/</a>)
+                to query the case, sample, and aliquot identifiers
+                in their download to obtain the latest information associated with their data.
+            </div>
+            <div class="paragraph">We provide 3 ways to download data:
+                <div class="clear"></div>
+            </div>
+			<table class="gradientRoundedTable"  cellspacing="0" cellpadding="0">
+				<thead><tr class="tableHead">
+					<th>Method</th>
+					<th>What it offers</th>
+					<th>When to use it</th>
+				</tr></thead>
+				<tbody><tr>
+					<td align="center">
+						<div id="dataMatrixButton" class="button" onclick="location.href='dataAccessMatrix.htm';">
+							Data Matrix
+						</div>
+					</td>
+					<td>
+						Select and download subsets of data by center, platform and data types.
+						<br/>
+						<br/>
+						Includes: Level 1, 2 and 3 data
+                        <br/>
+                        <br/>
+                        Access the <a target="_blank" class="newWinIcon" href="https://wiki.nci.nih.gov/x/TqH9AQ">FAQ</a>
+					</td>
+					<td>
+						Use when:
+						<ul class="downloadDataWhenToUse">
+							<li>You want to download data as tab-delimited text</li>
+							<li>You only want a subset of the data</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						<div id="bulkDownloadButton" class="button" onclick="location.href='findArchives.htm';">
+							Bulk Download
+						</div>
+					</td>
+					<td>
+						A form that helps you locate files in the data archives.
+						<br/>
+						<br/>
+						Includes: Level 1, 2, 3 and limited level 4 data
+					</td>
+					<td>
+						Use when:
+						<ul>
+							<li>You want to download bulk datasets as provided by the research centers</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>Access HTTP Directories</h4>
+						<ul>
+							<li><a href="https://tcga-data.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/">Open-access HTTP Directory</a></li>
+							<li><a href="https://tcga-data.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/">Controlled-Access HTTP Directory</a></li>
+						</ul>
+					</td>
+					<td>
+						Direct access to the HTTP directories where the data archives are stored.
+						<br/>
+						<br/>
+						Includes: Level 1, 2, 3 and limited level 4 data.
+						<br/>
+						<br/>
+						Login is required for the Controlled-access HTTP Directory.  See <a href="/tcga/tcgaAccessTiers.jsp">controlled-access requirements</a>.
+					</td>
+					<td>
+						Use when:
+						<ul>
+							<li>You know how to use HTTP directories and you prefer to find files yourself rather than use the Bulk Download form</li>
+						</ul>
+					</td>
+				</tr></tbody>
+			</table>
+		</div>
+		<div id="sidebar">
+			<%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+			<%@include file="/includes/modules/rightControlledAccessRequirements.jspf" %>
+			<%@include file="/includes/modules/rightHelp.jspf" %>
+		</div>

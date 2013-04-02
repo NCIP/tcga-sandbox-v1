@@ -1,0 +1,210 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.text.DecimalFormat" %>
+<div id="content" class="widelayout">
+ <div id="sidebar" class="rollup right">
+    <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+ </div>
+ <div class="left">
+   <div id="hiddenErrorTrail" class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/list.htm?accessLevel=open">open HTTP Directory</a> | <a href="/tcga/list.htm?accessLevel=controlled">controlled HTTP Directory</a></div>
+   <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a>
+	<c:choose>
+	  <c:when test="${param.accessLevel != null}">
+	      <c:choose>
+		      <c:when test="${param.disease != null}">
+                  > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>"><c:out value="${param.accessLevel}"/> HTTP Directory</a>
+	      			<c:choose>		
+		      			<c:when test="${param.centerType != null}">
+                              > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>"><c:out value="${param.disease}"/></a>
+
+				      			<c:choose>		
+					      			<c:when test="${param.center != null}">
+                                          > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>"><c:out value="${param.centerType}"/></a>
+						      			<c:choose>		
+							      			<c:when test="${param.platform != null}">
+                                                  > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>&center=<c:out value="${param.center}"/>"><c:out value="${param.center}"/></a>
+								      			<c:choose>		
+									      			<c:when test="${param.archive != null}">
+                                                        > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>&center=<c:out value="${param.center}"/>&platform=<c:out value="${param.platform}"/>"><c:out value="${param.platform}"/></a>
+									        			> <span class="trailDest"><c:out value="${param.archive}"/></span>
+														</div>
+														<h1>Index of <c:out value="${param.archive}"/></h1>
+														</div><!--end of left--><div class="clear"></div>
+														<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+														<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.platform}"/></a>
+														<a class="parentdirectory sub"><c:out value="${param.archive}"/></a>
+								      				</c:when>
+                                                    <c:when test="${param.collection != null}">
+                                                        > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>&center=<c:out value="${param.center}"/>&platform=<c:out value="${param.platform}"/>"><c:out value="${param.platform}"/></a>
+                                                        > <span class="trailDest"><c:out value="${param.collection}"/></span>
+                                                        </div>
+														<h1>Index of <c:out value="${param.collection}"/></h1>
+														</div><!--end of left--><div class="clear"></div>
+														<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+														<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.platform}"/></a>
+														<a class="parentdirectory sub"><c:out value="${param.collection}"/></a>
+                                                    </c:when>
+										      		<c:otherwise>
+									        			> <span class="trailDest"><c:out value="${param.platform}"/></span>
+														</div>
+														<h1>Index of <c:out value="${param.platform}"/></h1>
+														</div><!--end of left--><div class="clear"></div>
+														<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+														<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.center}"/></a>
+														<a class="parentdirectory sub"><c:out value="${param.platform}"/></a>
+									      			</c:otherwise>
+								    			</c:choose> 					      			     			
+						      				</c:when>
+                                            <c:when test="${param.collection != null}">
+                                                > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>&center=<c:out value="${param.center}"/>"><c:out value="${param.center}"/></a>
+                                                > <span class="trailDest"><c:out value="${param.collection}"/></span>
+                                                </div>
+												<h1>Index of <c:out value="${param.collection}"/></h1>
+												</div><!--end of left--><div class="clear"></div>
+												<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+												<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.center}"/></a>
+												<a class="parentdirectory sub"><c:out value="${param.collection}"/></a>
+                                            </c:when>
+								      		<c:otherwise>
+							        			> <span class="trailDest"><c:out value="${param.center}"/></span>
+												</div>
+												<h1>Index of <c:out value="${param.center}"/></h1>
+												</div><!--end of left--><div class="clear"></div>
+												<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+												<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.centerType}"/></a>
+												<a class="parentdirectory sub"><c:out value="${param.center}"/></a>
+							      			</c:otherwise>
+						    			</c:choose> 
+				      				</c:when>
+                                    <c:when test="${param.collection != null}">
+                                        > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>&centerType=<c:out value="${param.centerType}"/>"><c:out value="${param.centerType}"/></a>
+                                        > <span class="trailDest"><c:out value="${param.collection}"/></span>
+                                        </div>
+										<h1>Index of <c:out value="${param.collection}"/></h1>
+										</div><!--end of left--><div class="clear"></div>
+										<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+										<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.centerType}"/></a>
+					   					<a class="parentdirectory sub"><c:out value="${param.collection}"/></a>
+                                    </c:when>
+						      		<c:otherwise>
+					        			> <span class="trailDest"><c:out value="${param.centerType}"/></span>
+										</div>
+										<h1>Index of <c:out value="${param.centerType}"/></h1>
+										</div><!--end of left--><div class="clear"></div>
+										<a class="directoryPlus" href="<c:out value="${archiveListInfo.parentPage.url}"/>">&nbsp;</a>
+										<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.disease}"/></a>
+					   					<a class="parentdirectory sub"><c:out value="${param.centerType}"/></a>
+					      			</c:otherwise>
+				    			</c:choose> 			
+	      				</c:when>
+                        <c:when test="${param.collection != null}">
+                            > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>&disease=<c:out value="${param.disease}"/>"><c:out value="${param.disease}"/></a>
+                            > <span class="trailDest"><c:out value="${param.collection}"/></span>
+                            </div>
+                            <h1>Index of <c:out value="${param.collection}"/></h1>
+							</div><!--end of left--><div class="clear"></div>
+							<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.disease}"/></a>
+	   	 					<a class="parentdirectory sub"><c:out value="${param.collection}"/></a>
+                        </c:when>
+			      		<c:otherwise>
+					        > <span class="trailDest"><c:out value="${param.disease}"/></span>
+							</div>
+							<h1>Index of <c:out value="${param.disease}"/></h1>
+							</div><!--end of left--><div class="clear"></div>
+							<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.accessLevel}"/></a>
+	   	 					<a class="parentdirectory sub"><c:out value="${param.disease}"/></a>
+		      			</c:otherwise>
+	    			</c:choose>
+		      </c:when>
+              <c:when test="${param.collection != null}">
+                  > <a href="/tcga/list.htm?accessLevel=<c:out value="${param.accessLevel}"/>"><c:out value="${param.accessLevel}"/> HTTP Directory</a>
+                  > <span class="trailDest"><c:out value="${param.collection}"/></span>
+                            </div>
+                            <h1>Index of <c:out value="${param.collection}"/></h1>
+							</div><!--end of left--><div class="clear"></div>
+							<a class="parentdirectory" href="<c:out value="${archiveListInfo.parentPage.url}"/>"><c:out value="${param.accessLevel}"/></a>
+	   	 					<a class="parentdirectory sub"><c:out value="${param.collection}"/></a>
+              </c:when>
+			  <c:otherwise>
+				</div>
+				<h1>Index of <c:out value="${param.accessLevel}"/></h1>
+				</div><!--end of left--><div class="clear"></div>
+	   	 		<a class="parentdirectory sub"><c:out value="${param.accessLevel}"/></a>
+		      </c:otherwise>
+	      </c:choose>
+		</c:when>
+	  	<c:otherwise>
+			</div></div><!--end of left--><div class="clear"></div>
+	  	</c:otherwise>
+	</c:choose>
+	
+	<%
+	 SimpleDateFormat fileDateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+	 NumberFormat form = new DecimalFormat(".#");
+	 double byteConversion = 1024.00;
+	%>
+   <div id="directoryList" class="paragraph">
+	 <c:choose>
+	    <c:when test="${not empty archiveListInfo.pageLinks}">
+	    	<table><thead><tr><th class="name">Name</th><th class="modified">Last Modified</th><th class="size">Size</th></tr></thead>
+	    		<tbody>
+				<c:forEach var="link" items="${archiveListInfo.pageLinks}">
+					  <c:set value="${link.displayName}" var="displayName"/>
+					  <c:set value="${link.deployDate}" var="deployDate"/>
+					  <c:set value="${link.fileSizeInBytes}" var="fileSizeInB"/>
+		<%				
+		String displayNameOrig = (String)pageContext.getAttribute("displayName");
+		String displayName = displayNameOrig;
+		String modifiedDate = "";
+		String sizeBStr = "";
+		
+		if (pageContext.getAttribute("deployDate") == null)
+			modifiedDate = "-";
+		else
+		    modifiedDate = fileDateFormat.format(pageContext.getAttribute("deployDate"));
+		
+		if (pageContext.getAttribute("fileSizeInB") == null)
+			sizeBStr = "-";
+		else if (Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString()) > (Math.pow(byteConversion,3)-1))
+		    sizeBStr = form.format(Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString())/Math.pow(byteConversion,3)) + " G";
+		else if (Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString()) > (Math.pow(byteConversion,2)-1))
+		    sizeBStr = form.format(Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString())/Math.pow(byteConversion,2)) + " M";
+		else if (Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString()) > (byteConversion-1))
+		    sizeBStr = form.format(Double.parseDouble(pageContext.getAttribute("fileSizeInB").toString())/byteConversion) + " K";
+		else
+		    sizeBStr = pageContext.getAttribute("fileSizeInB").toString();
+		
+		%>
+				    <c:choose>
+				      <c:when test="${param.archive != null}">
+					     <tr><td class="name"><a class="file" title="<%=displayNameOrig%>" href="<c:out value="${link.url}"/>"><%=displayName%></a></td><td class="modified"><%=modifiedDate%></td><td class="size"><%=sizeBStr%></td></tr>
+				      </c:when>
+                      <c:when test="${param.collection != null}">
+                          <tr><td class="name"><a class="file" title="<%=displayNameOrig%>" href="<c:out value="${link.url}"/>"><%=displayName%></a></td><td class="modified"><%=modifiedDate%></td><td class="size"><%=sizeBStr%></td></tr>
+                      </c:when>
+				      <c:when test="${param.platform != null}">
+		<% 
+		if ( displayNameOrig.indexOf(".tar.") != -1) {%>
+						     <tr><td class="name"><a class="zip" title="<%=displayNameOrig%>" href="<c:out value="${link.url}"/>"><%=displayName%></a></td><td class="modified"><%=modifiedDate%></td><td class="size"><%=sizeBStr%></td></tr>
+		<%} else {%>
+						     <tr><td class="name"><a class="parentdirectory" title="<%=displayNameOrig%>" href="<c:out value="${link.url}"/>"><%=displayName%></a></td><td class="modified"><%=modifiedDate%></td><td class="size"><%=sizeBStr%></td></tr>
+		<% } %>
+				      </c:when>
+				      <c:otherwise>
+						  <tr><td class="name"><a class="parentdirectory" title="<%=displayNameOrig%>" href="<c:out value="${link.url}"/>"><%=displayName%></a></td><td class="modified"><%=modifiedDate%></td><td class="size"><%=sizeBStr%></td></tr>
+				      </c:otherwise>
+				    </c:choose>
+		        </c:forEach>
+     		</tbody></table>
+     	</c:when>
+		<c:otherwise>
+	        <style><!--
+	        	.archivelist .parentdirectory, .archivelist .directoryPlus{display:none;}
+	        	.trail {display:none;}
+	        	#hiddenErrorTrail.trail {display:block;}
+	        --></style>
+	        <span class="archiveError">No content</span>
+	    </c:otherwise>
+     </c:choose>
+   </div>
+</div>

@@ -1,0 +1,611 @@
+/*******************************************************************************
+ * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Copyright Notice.  The software subject to this notice and license includes both human
+ * readable source code form and machine readable, binary, object code form (the "caBIG
+ * Software").
+ *
+ * Please refer to the complete License text for full details at the root of the project.
+ ******************************************************************************/
+
+/*
+ * TCGA
+ * 
+ * This is the common css file for CSS projects.  OK, so it's not there yet, but that's
+ * the intent.
+ */
+
+/*
+ * Tweaks to html tag types
+*/
+td.center {
+	text-align: center;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    line-height: 19px;
+}
+
+/* Create constant scrollbar in FF so no "shifting" occurs */
+html {
+    min-height: 100%;
+    margin-bottom: 1px;
+}
+
+a:link, a:active, a:visited {
+    color: #007BAD;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #009BCD;
+    text-decoration: none;
+}
+
+a {
+    color: #009BCD;
+}
+
+/* Triangle bulleted list */
+ul.triangle {
+	list-style-image:url('../images/common/bullet_arrow_right_dark.png');
+	padding-left: 20px;
+	margin-top: 0px;
+	*padding-left: 0px;
+}
+
+/*
+ * The header elements
+ */
+#topHeader {
+    background-image: url( ../images/header/bg.gif );
+    background-position: center;
+    background-repeat: repeat-y;
+	 align: center;
+}
+
+#header {
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	background: #0095cd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#007abb), to(#004572));
+	background: -moz-linear-gradient(top,  #007abb,  #004572);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#007abb', endColorstr='#004572');
+    height: 40px;
+}
+
+#footer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #999999;
+    clear: both;
+    white-space: nowrap;
+}
+
+/*
+ * Navigation
+ * 
+ * Styling for all of the various elements that make up navigation, including the top nav
+ * bar, the extranavlinks that show up on the header, the submenus from the top nav bar,
+ * and the trail that shows up beneath the nav bar.
+ */
+
+/* Top Nav bar */
+#nav {
+   height: 25px;
+   padding: 0px 0px 0px 0px;
+   _padding: 0px 0px 10px 0px;
+   white-space: nowrap;
+	-moz-border-radius: 0 0 15px 15px;-webkit-border-radius: 0 0 15px 15px;
+	background-color: #efefef;
+	width: 840px;
+	margin: auto;
+}
+
+.navlink {
+	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#dbdbdb));
+	background: -moz-linear-gradient(top,  #efefef,  #dbdbdb);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#efefef', endColorstr='#dbdbdb');
+	border-bottom: outset 2px #d8d8d8;
+	padding: 2px 45px 2px 45px;
+	display: inline-block;
+	color: #000000;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+	*margin-right: 3px;
+	*display: inline;
+	zoom: 1;
+}
+
+.navlink a {
+	color: #000000;
+	text-decoration: none;
+}
+
+.navlink.left {
+	-moz-border-radius: 0 0 0 15px;-webkit-border-radius: 0 0 0 15px;
+	border-left: outset 2px #d8d8d8;
+}
+
+.navlink.right {
+	-moz-border-radius: 0 0 15px 0;-webkit-border-radius: 0 0 15px 0;
+	border-right: outset 2px #d8d8d8;
+}
+
+.navlink:hover {
+	background: -webkit-gradient(linear, left top, left bottom, from(#004572), to(#007abb));
+	background: -moz-linear-gradient(top,  #004572,  #007abb);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#004572', endColorstr='#007abb');
+	border-bottom: outset 2px #0e7b9b;
+}
+
+.navlink:hover a {
+	color: #ffffff;
+}
+
+.navselected {
+	background: -webkit-gradient(linear, left top, left bottom, from(#004572), to(#007abb));
+	background: -moz-linear-gradient(top,  #004572,  #007abb);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#004572', endColorstr='#007abb');
+}
+
+.navselected a {
+	color: #ffffff;
+}
+
+/* Used to unborder images in the top and bottom nav */
+.navImages {
+	border: none;
+}
+
+/* The navlinks that sit in the banner and the anchor text color tweak needed to make them visible. */
+#extraNavLinks {
+	position: relative;
+	top: -32px;
+	right: 33px;
+	color: #ffffff;
+	width: 840px;
+	margin: auto;
+}
+
+a.whiteLink {
+	color: #ffffff;
+}
+
+/* subNavMenu are the items on the drop down menus from the nav bar */
+.hoverMenu {
+	position: relative;
+	*position: inherit;
+}
+
+.subNavMenu {
+	z-index: 10000;
+	background-color: #e0e0e0;
+	position: absolute;
+	display: none;
+	list-style: none inside none;
+	border: outset 2px #e0e0e0;
+	font-size: 12px;
+	top: 25px;
+	left: 10px;
+}
+
+.subNavMenu a {
+	color: #000000 !important;
+	text-decoration: none;
+	padding: 4px 10px;
+	width: 100%;
+}
+
+/* For inactive links */
+.subNavMenu b {
+	color: #aaaaaa;
+	text-decoration: none;
+	padding: 4px 10px;
+	width: 100%;
+}
+
+.subNavMenu td:hover {
+	background-color: #f0f0f0;
+}
+
+.subNavMenu td {
+    text-align: left;
+}
+
+/* Breadcrumb trail */
+.trail {
+	margin-bottom: 10px;
+}
+
+.trailDest {
+	font-size: 11px;
+}
+
+/*
+ * The footer elements
+ */
+#footer a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #999999;
+}
+
+/*
+ * Right gutter information and navigation boxes
+ */
+.boxtop {
+	-moz-border-radius: 5px 5px 0 0;-webkit-border-radius: 5px 5px 0 0;
+	padding: 2px 0 2px 6px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#d3d3d3));
+	background: -moz-linear-gradient(top,  #f5f5f5,  #d3d3d3);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#d3d3d3');
+	color: #277196;
+	font-weight: bold;
+	margin-top: 10px;
+	*background: #eeeeee;
+	*border-top: solid 2px #d3d3d3;
+	*border-left: solid 2px #d3d3d3;
+	*border-right: solid 2px #d3d3d3;
+}
+
+.boxbody {
+	-moz-border-radius: 0 0 5px 5px;-webkit-border-radius: 0 0 5px 5px;
+	padding: 2px 0 2px 6px;
+	border: solid 2px #d3d3d3;
+	border-top-width: 0;
+	color: #27414a;
+}
+
+.boxcomplete {
+	-moz-border-radius: 5px;-webkit-border-radius: 5px;
+	padding: 2px 6px;
+	border: solid 2px #d3d3d3;
+	color: #27414a;
+	display: inline-block;
+	width: 150px;
+    margin-bottom: 5px;
+	*display: inline;
+	zoom: 1;
+}
+
+.boxcomplete.corners15 {
+	-moz-border-radius: 15px;-webkit-border-radius: 15px;
+}
+
+/*
+ * The warning message when encountering a browser that is not supported.
+ */
+#browserWarning {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border: 4px solid red;
+    width: 99%;
+    background-color: #FFEEFF;    
+}
+
+#browserWarningClose {
+	float: right;
+	cursor: pointer;
+	padding: 5px;
+}
+
+#browserWarningTitle {
+	padding: 10px 0 10px 20px;
+}
+
+#browserWarningMessage {
+	padding: 0 20px 10px 20px;
+}
+
+/*
+ * Utilities
+ * 
+ * These are some standard styles for creating a common look and feel across the data
+ * portal and applications.  Additionally, there are various helper classes, like hand,
+ * when cursor: pointer is needed.
+ */
+
+/* Standard text styles */
+.stdTitle {
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+	font-size: 18px;
+	line-height: 18px;
+	font-weight:bold;
+	color: #084B75;
+	margin-bottom: 15px;
+}
+
+.stdSecondaryTitle {
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight:bold;
+	color: #084B75;
+	margin-bottom: 10px;
+}
+
+.stdLabel {
+	font: bold 14px tahoma;
+}
+
+/* Paragraph and indent standards for blocks of text */
+.paragraph {
+	margin-bottom: 15px;
+}
+
+.indent {
+	margin-left: 20px;
+}
+
+/* Establish the blocking of the columns and the body */
+.bodyCentering {
+	width: 100%;margin: 15px 0 15px 0;
+}
+
+.bodyContent {
+	width: 855px;
+	margin: auto;
+}
+
+.leftColumn {
+	width: 640px;
+	margin-bottom: 15px;
+	display: inline-block;
+	vertical-align: top;
+	*display: inline;
+	zoom: 1;
+}
+
+.rightColumn {
+	float: right;
+	width: 200px;
+	*display: inline;
+	*margin-left: 10px;
+	*float: none;
+	zoom: 1;
+}
+
+/* Generic helpers */
+.hand {
+	cursor: pointer;
+}
+
+.rssIcon {
+    background-image: url( ../images/common/rss.png );
+    background-repeat: no-repeat;
+    background-position: left center;
+	 padding-left: 16px;
+}
+
+.pdfIcon {
+    background-image: url( ../images/common/pdf1.gif );
+    background-repeat: no-repeat;
+    background-position: left center;
+	 width: 16px;
+	 display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+
+.newWinIcon {
+    background-image: url( ../images/common/newWin.gif );
+    background-repeat: no-repeat;
+    background-position: left center;
+	 width: 10px;
+	 display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+
+table.plainTable td {
+    border: 1px solid #e0e0e0;
+}
+
+table.plainTable th {
+	background-color: #f5f5f5;
+	color: #277196;
+	font-weight: bold;
+    border: 1px solid #e0e0e0;
+}
+
+table.plainTable tr td:first-child {
+	border-left: 2px solid #d3d3d3;
+}
+
+table.plainTable tr td:last-child {
+	border-right: 2px solid #d3d3d3;
+}
+
+table.plainTable tr:last-child td {
+	border-bottom: 2px solid #d3d3d3;
+}
+
+table.plainTable tr th {
+	border-right: 1px solid #d3d3d3;
+	border-left: 1px solid #d3d3d3;
+}
+
+/*
+ * The fancy table with the gradient gray top and the rounded corners used on, currently, the
+ * home page, the details page and a couple of other places.
+ */
+table.gradientRoundedTable {
+/*	border-collapse: collapse;*/
+}
+
+table.gradientRoundedTable td {
+	border: 1px solid #e0e0e0;
+}
+
+table.gradientRoundedTable th {
+	/*background-color: #e0e0e0;*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#d3d3d3));
+	background: -moz-linear-gradient(top,  #f5f5f5,  #d3d3d3);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#d3d3d3');
+	color: #277196;
+	font-weight: bold;
+}
+
+table.topAlign td {
+	vertical-align: top;
+}
+
+table.gradientRoundedTable tr:last-child td:first-child {
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px
+}
+
+table.gradientRoundedTable tr td:first-child {
+	border-left: 2px solid #d3d3d3;
+}
+
+table.gradientRoundedTable tr td:last-child {
+	border-right: 2px solid #d3d3d3;
+}
+
+table.gradientRoundedTable tr:last-child td {
+	border-bottom: 2px solid #d3d3d3;
+}
+
+table.gradientRoundedTable tr:last-child td:last-child {
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px
+}
+
+table.gradientRoundedTable tr:first-child th:first-child {
+	border-left: 0px none;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px
+}
+
+table.gradientRoundedTable tr th {
+	border-right: 1px solid #d3d3d3;
+	border-left: 1px solid #d3d3d3;
+}
+
+table.gradientRoundedTable tr:first-child th:last-child {
+	border-right: 0px none;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-top-right-radius: 5px
+}
+
+
+/*
+ * Tab Panel configuration for a new look - pairs with the tab panel overrides in ext-overrides.css
+ */
+ul.x-tab-strip-top.tcga-ext-tab{
+   margin:0px;
+   padding:0px 10px 0px 10px;
+   list-style:none;
+}
+
+.tcga-ext-tab a{
+	float: left;
+	display: block;
+	padding: 10px 15px 8px 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #999;
+}
+
+.tcga-ext-tab li{
+	float: left;
+   border-left: 1px solid #D0D0D0;
+	margin: 0px;
+	padding: 0px 0px 0px 1px;
+}
+
+.tcga-ext-tab .x-tab-edge {
+    height: 33px  !important;
+    width: 1px !important;
+}
+
+/*
+ * Fancy buttons - gradient rounded corners
+ */
+.button {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 12px/100% Verdana, Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	*display: inline;
+	zoom: 1;
+}
+
+.button:hover {
+	text-decoration: none;
+}
+
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+/* Coloring in the buttons in blue, the buttons could have other colors as well */
+.blueButtonFill {
+	color: #fef4e9;
+	border: solid 1px #0076a3;
+	background: #0095cd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+	background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+}
+.blueButtonFill:hover {
+	background: #007ead;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+	background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+}
+.blueButtonFill:active {
+	color: #80bed6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+	background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+
+/* The spec for the standard hovering window. */
+.hoverWin {
+	border: 2px solid black;
+	padding: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	color: white;
+	max-width: 150px;
+	min-width: 100px;
+	background-color: rgba(0, 0, 0, 0.6);
+	/* IE8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000)";
+	/* IE6 & IE7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+}
+
+.greyLink {
+	color: #aaaaaa;
+	cursor: auto;
+}

@@ -1,0 +1,15 @@
+<dataset>
+    <CENTER_TYPE CENTER_TYPE_CODE="TEST" CENTER_TYPE_DEFINITION="Test" />
+    <CENTER CENTER_ID="1" DOMAIN_NAME="center" CENTER_TYPE_CODE="TEST" DISPLAY_NAME="a center"/>
+    <DATA_TYPE DATA_TYPE_ID="1" NAME="test"/>
+    <PLATFORM PLATFORM_ID="1" PLATFORM_NAME="platform" BASE_DATA_TYPE_ID="1" CENTER_TYPE_CODE="TEST" AVAILABLE="1" PLATFORM_ALIAS="platform" PLATFORM_DISPLAY_NAME="platform" SORT_ORDER="1" />
+
+    <archive_info ARCHIVE_ID="1" ARCHIVE_NAME="test.TEST.Level_3.1.0.0" ARCHIVE_TYPE_ID="1" CENTER_ID="1" DISEASE_ID="1" PLATFORM_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2007-11-27 09:19:55.116" DEPLOY_STATUS="Available" DEPLOY_LOCATION="test.1.0.0.tar.gz" IS_LATEST="1" IS_LATEST_LOADED="0" DATA_LOADED_DATE="2007-11-27 09:19:55.0" />
+
+    <EXPERIMENT EXPERIMENT_ID="1" BASE_NAME="center_platform.disease" DATA_DEPOSIT_BATCH="1" DATA_REVISION="0" CENTER_ID="1" PLATFORM_ID="1" />
+
+    <data_set data_set_id="1" experiment_id="1" source_file_name="methylation.betavalue.txt" source_file_type="methylation" center_id="1" platform_id="1" archive_id="1" access_level="PUBLIC" load_complete="1" use_in_dam="1" />
+
+    <hybridization_ref hybridization_ref_id="1" bestbarcode="barcodeA" sample_name="A" />
+    <methylation_value methylation_value_id="1" data_set_id="1" hybridization_ref_id="1" beta_value="1.234" entrez_gene_symbol="ABC" chromosome="12" chr_position="1000" probe_name="methy001" />
+</dataset>

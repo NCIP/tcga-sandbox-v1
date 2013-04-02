@@ -1,0 +1,43 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="DIS1" ACTIVE="1" DISEASE_NAME="Disease 1" />
+    <DISEASE DISEASE_ID="2" DISEASE_ABBREVIATION="DIS2" ACTIVE="1" DISEASE_NAME="Disease 2" />
+    <DISEASE DISEASE_ID="3" DISEASE_ABBREVIATION="DIS3" ACTIVE="0" DISEASE_NAME="Disease 3" />
+    <DISEASE DISEASE_ID="4" DISEASE_ABBREVIATION="CNTL" ACTIVE="1" DISEASE_NAME="Control" />
+
+    <CENTER center_ID="1" domain_NAME="c" CENTER_TYPE_code="CGCC" DISPLAY_NAME="center" sort_order="1" />
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="characterization center" />
+    <CENTER_TYPE CENTER_TYPE_CODE="BCR" CENTER_TYPE_DEFINITION="biospecimen core resource center" />
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" NAME="TestType" FTP_DISPLAY="test" AVAILABLE="1" SORT_ORDER="1"/>
+    <PLATFORM platform_ID="1" BASE_DATA_TYPE_ID="1" CENTER_TYPE_code="CGCC" PLATFORM_NAME="p1" AVAILABLE="1" SORT_ORDER="1" platform_DISPLAY_NAME="platform 1" platform_alias="platform 1"/>
+    <PLATFORM platform_ID="2" BASE_DATA_TYPE_ID="1" CENTER_TYPE_code="CGCC" PLATFORM_NAME="p2" AVAILABLE="1" SORT_ORDER="1" platform_DISPLAY_NAME="platform 2" platform_alias="platform 2"/>
+     <DATA_LEVEL LEVEL_NUMBER="2" LEVEL_DEFINITION="level 2" />
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="2" ARCHIVE_TYPE="Level_2" DATA_LEVEL="2" />
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="6" ARCHIVE_TYPE="mage-tab" />
+
+    <!-- new format archive -->
+    <ARCHIVE_INFO ARCHIVE_ID="2" ARCHIVE_NAME="a2.Level_2" ARCHIVE_TYPE_ID="2" CENTER_ID="1" disease_id="1" PLATFORM_ID="2" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" DEPLOY_LOCATION="a2.Level_2.tar.gz" IS_LATEST="1" />
+    <FILE_INFO FILE_ID="4" DATA_TYPE_ID="1" FILE_NAME="test.1.data.txt"  file_size="5"/>
+    <file_to_archive FILE_ARCHIVE_ID="4" FILE_ID="4" FILE_LOCATION_URL="test" ARCHIVE_ID="2" />
+    <FILE_INFO FILE_ID="5" DATA_TYPE_ID="1" FILE_NAME="test.2.data.txt"  file_size="5"/>
+    <file_to_archive FILE_ARCHIVE_ID="5" FILE_ID="5" FILE_LOCATION_URL="test" ARCHIVE_ID="2" />
+
+    <!-- mage tab archive that goes with new format archive -->
+    <ARCHIVE_INFO ARCHIVE_ID="3" ARCHIVE_NAME="a3.mage-tab" ARCHIVE_TYPE_ID="6" CENTER_ID="1" disease_id="1" PLATFORM_ID="2" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" DEPLOY_LOCATION="a3.mage-tab.tar.gz" IS_LATEST="1" />
+    <FILE_INFO FILE_ID="6" DATA_TYPE_ID="1" FILE_NAME="mage-tab.sdrf.txt" file_size="7" />
+    <file_to_archive FILE_ARCHIVE_ID="6" FILE_ID="6" FILE_LOCATION_URL="test" ARCHIVE_ID="3"/>
+    <FILE_INFO FILE_ID="7" DATA_TYPE_ID="1" FILE_NAME="mage-tab.idf.txt" file_size="9" />
+    <file_to_archive FILE_ARCHIVE_ID="7" ARCHIVE_ID="3" FILE_ID="7" FILE_LOCATION_URL="test"  />
+
+    <!-- control archive -->
+    <ARCHIVE_INFO ARCHIVE_ID="4" ARCHIVE_NAME="controlArchive" ARCHIVE_TYPE_ID="2" CENTER_ID="1" disease_id="4" PLATFORM_ID="2" SERIAL_INDEX="0" REVISION="5" DEPLOY_LOCATION="somewhere" DEPLOY_STATUS="Available" IS_LATEST="1" SERIES="0" DATE_ADDED="2012-02-08 13:04:00.0" />
+    <FILE_INFO FILE_ID="8" FILE_NAME="controlArchiveFile" DATA_TYPE_ID="1" file_size="1234" />
+    <file_to_archive FILE_ARCHIVE_ID="8" FILE_ID="8" ARCHIVE_ID="4" FILE_LOCATION_URL="somewhere/controlArchiveFile.txt"/>
+</dataset>

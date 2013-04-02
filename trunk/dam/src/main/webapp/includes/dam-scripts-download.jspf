@@ -1,0 +1,197 @@
+<%--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--%>
+
+<%
+    DataAccessDownloadModel model = (DataAccessDownloadModel) pageContext.getSession().getAttribute("dadModel");
+    String selectedCells = request.getParameter("selectedCells");
+%>
+
+<%-- tree component scripts --%>
+<script type="text/javascript" src="<c:url value="/js/dhtmlxcommon.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/dhtmlxtree.js"/>"></script>
+
+<script type="text/javascript">
+var tree;
+var fileSizes = new Array();
+var totalSize;
+var fileProtected = new Array();
+<%  //list all the file sizes in JS array so we can calc total download size on the fly
+    final Map sizeMap = model.getFileSizes();
+    final Iterator keys = sizeMap.keySet().iterator();
+    while (keys.hasNext()) {
+        final String key = (String)keys.next();
+%>
+fileSizes["<%=key%>"] = <%=sizeMap.get(key)%>;
+<%
+    }
+
+    //array of protected files so we can dynamically display warning
+    final List protectedNodeIds = model.getProtectedFileTreeNodeIds();
+    for (int i=0; i<protectedNodeIds.size(); i++) {
+%>
+fileProtected["<%=(String)protectedNodeIds.get(i)%>"] = true;
+<%
+    }
+%>
+function createTree() {
+    tree = new dhtmlXTreeObject(document.getElementById("treebox"), "100%", "100%", 0);
+    tree.setImagePath("<%=request.getContextPath()%>/images/dhtmltree/csh_bluefolders/");
+    tree.enableCheckBoxes(1);
+    tree.enableThreeStateCheckboxes(true);
+    tree.loadXMLString("<%=model.getXmlForTree()%>");
+    tree.openAllItems("0");
+    tree.setCheck("0", 1);
+    tree.setOnCheckHandler(function(id, state) {
+        var fileSize = fileSizes[id];
+        if(fileSize != undefined && fileSize != null) { //clicked a leaf node
+            if(state == 0) { //unchecked
+                totalSize = totalSize - fileSize;
+            } else { //checked
+                totalSize = totalSize + fileSize;
+            }
+            updateSizeEstimateText();
+        } else {
+            //clicked a branch node, have to recalc the whole
+            calcTotalFileSize();
+        }
+        showOrHideProtectedWarning();
+    });
+}
+
+//cancel retrieves url that submitted the download
+//and submits form to hold on to the selected values.
+function cancel() {
+    document.downloadform.action = "dataAccessMatrix.htm";
+    document.downloadform.submit();
+}
+function validateAndSubmit() {
+    var email = document.getElementById("email");
+    var email2 = document.getElementById("email2");
+    if(email.value == null || email2.value == null || email.value == "" || email2.value == "") {
+        alert('<spring:message code="label.confirmEmailAddress" javaScriptEscape="true"/>');
+        return;
+    }
+    if (email.value.toLowerCase() != email2.value.toLowerCase()) {
+        alert('<spring:message code="label.reenterEmailValidation" javaScriptEscape="true"/>');
+        return;
+    }
+    if(email.value.indexOf("@") < 0) {
+        alert('<spring:message code="label.invalidEmail" javaScriptEscape="true"/>');
+        return;
+    }
+    var selectedFilesInput = document.getElementById("treeNodeIds");
+    var fileIds = tree.getAllChecked();
+    if(fileIds == null || fileIds == "") {
+        alert('<spring:message code="label.noFilesChecked" javaScriptEscape="true"/>');
+        return;
+    }
+    selectedFilesInput.value = fileIds;
+    document.downloadform.submit();
+}
+function calcTotalFileSize() {
+    totalSize = 0;
+    for(key in fileSizes) {
+        if(tree.isItemChecked(key)) {
+            totalSize += fileSizes[key];
+        }
+    }
+    updateSizeEstimateText();
+}
+function isDownloadingProtectedFiles() {
+    var ret = false;
+    var key;
+    for(key in fileProtected) {
+        if(tree.isItemChecked(key)) {
+            ret = true;
+            break;
+        }
+    }
+    return ret;
+}
+function showOrHideProtectedWarning() {
+    var warningdiv = document.getElementById("protectedwarning");
+    if(isDownloadingProtectedFiles()) {
+        warningdiv.style.display = "";
+    } else {
+        warningdiv.style.display = "none";
+    }
+}
+function showOrHideSizeWarning() {
+    var limit = <%=model.getSizeLimitGigs()%>;
+    var warningdiv = document.getElementById("sizewarning");
+    var downloadbutton = document.getElementById("downloadbutton");
+    if(limit > 0 && totalSize > 1073741824 * limit) {
+        warningdiv.style.display = "";
+        downloadbutton.disabled = true;
+    } else {
+        warningdiv.style.display = "none";
+        downloadbutton.disabled = false;
+    }
+}
+
+function updateSizeEstimateText() {
+    var sizeInput = document.getElementById("size");
+    var estimate;
+    if (totalSize < 1048576) {
+        estimate = round(totalSize /1024, 3) + " KB";
+    } else if (totalSize < 1073741824) {
+        estimate = round(totalSize /1048576, 3) + " MB";
+    } else {
+        estimate = round(totalSize /1073741824, 3) + " GB";
+    }
+    sizeInput.value = estimate;
+
+    if (round(totalSize /1073741824, 3) <= <%=model.getSizeLimitGigs()%>) {
+    	Ext.get('allowableLimit').addClass('green');
+    	Ext.get('allowableLimit').removeClass('red');
+    	Ext.get('archiveDownloadLinks').setStyle('display', 'none');
+    } else if (round(totalSize /1073741824, 3) > <%=model.getSizeLimitGigs()%>) {
+    	Ext.get('allowableLimit').addClass('red');
+    	Ext.get('allowableLimit').removeClass('green');
+    	Ext.get('archiveDownloadLinks').setStyle('display', 'block');
+    } else {
+    	Ext.get('allowableLimit').removeClass('red');
+    	Ext.get('allowableLimit').removeClass('green');
+    	Ext.get('archiveDownloadLinks').setStyle('display', 'none');
+    }
+    showOrHideSizeWarning();
+}
+
+function round(i, decimals) {
+    var p = Math.pow(10, decimals);
+    return Math.round(i * p) / p;
+}
+
+function handleKeyPress(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13) validateAndSubmit();
+}
+
+
+</script>
+
+<style type="text/css">
+    button {
+        font-size: 11px;
+        font-family: sans-serif;
+        cursor: pointer;
+        width: auto;
+        overflow: visible;
+        background-position: 5% 50%;
+        background-repeat: no-repeat;
+        background-color: #EEEEEE;
+        vertical-align: bottom;
+    }
+
+    button span {
+        margin-left: 20px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+</style>

@@ -1,0 +1,138 @@
+
+<%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.view.DataAccessDownloadModel" %>
+<%@ page import="gov.nih.nci.ncicb.tcga.dcc.common.bean.Archive" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Arrays" %>
+
+<%@ include file="/includes/dam-imports.jspf"%>
+<%@ include file="/includes/dam-scripts-download.jspf" %>
+        <div id="content" class="widelayout dam">
+            <div class="left">
+                <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <a href="/tcga/dataAccessMatrix.htm">Data Matrix</a> > <%=model.getDiseaseType()%> <spring:message code="label.dataAccessMatrix" /></div>
+                <h1><c:out value="${DAFPInfo.diseaseType}"/> <spring:message code="label.dataAccessDownload"/></h1>
+            </div>
+            <div id="sidebar" class="rollup right">
+                <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+            </div>
+            <div class="clear"></div>
+
+            <div id="center" class="<%=bodyDesign%>">
+                <div id="downloadformdiv">
+                    <form name="downloadform" id="downloadform" action="<%=request.getContextPath()%>/dataAccessFileProcessing.htm"
+                          method="post">
+                        <table>
+                            <tr>
+                                <td><spring:message code="label.enterEmailAddress"/></td>
+                                <td><input tabindex="1" type="text" name="email" id="email" onkeypress="handleKeyPress(event)" value="<%=model.getEmail() == null ? "" : model.getEmail()%>"/>
+                                </td>
+                                <td style="padding-left:20px;">
+                                    <button tabindex="3" type="button" id="downloadbutton" name="Download"
+                                            style="background-image:url(<c:url value="/images/matrix/buttons/download.png"/>)"
+                                            disabled="true" value="Download" onclick="validateAndSubmit()">
+                                        <span><spring:message code="button.download"/></span>
+                                    </button>
+                                    &nbsp;&nbsp;
+                                    <button type="button" value="Cancel" onclick="cancel()" name="Cancel"
+                                            style="background-image:url(<c:url value="/images/matrix/buttons/x_red.png"/>)">
+                                        <span>
+                                            <% if (model.isFromExternalFilter()) { %>
+                                                <spring:message code="label.matrix" />
+                                            <% } else { %>
+                                                <spring:message code="button.cancel" />
+                                            <% } %>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><spring:message code="label.reEnterEmailAddress"/></td>
+                                <td colspan="2"><input tabindex="2" type="text" name="email2" id="email2" onkeypress="handleKeyPress(event)" value="<%=model.getEmail2() == null ? "" : model.getEmail2()%>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><spring:message code="label.estimatedUncompressedSize"/></td>
+                                <td colspan="2"><input type="text" id="size" name="size" readonly="true" onkeypress="handleKeyPress(event)"> <div id="allowableLimit"> <%=model.getSizeLimitGigs()%> Gb maximum allowable size</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top">Archive Options:</td>
+                                <td colspan="2">
+                                    <input tabindex="4" type="checkbox" id="flatten" name="flatten" value="true" <%=model.isFlatten() ? "checked" : "" %>>&nbsp;<spring:message code="label.flattenDirectoryStructure"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" id="treeNodeIds" name="treeNodeIds"/>
+                        <input type="hidden" id="selectedCells" name="selectedCells" value="<%=selectedCells%>">
+                        <input type="hidden" id="consolidateFiles" name="consolidateFiles" value="false">
+                        <input type="hidden" id="selectedHeaders" name="selectedHeaders" value="<%=request.getParameter("selectedHeaders")%>"/>
+		                <input type="hidden" id="showMatrix" name="showMatrix" value="true"/>
+		                <input type="hidden" id="mode" name="mode" value="ApplyFilter"/>
+		                
+                		<input type="hidden" name="colorSchemeName" value="<%=request.getParameter("colorSchemeName")%>"/>
+                        <input type="hidden" id="clearMatrix" name="clearMatrix" value="<%=request.getParameter("clearMatrix")%>"/>
+                        <input type="hidden" id="diseaseType" name="diseaseType" value="<%=request.getParameter("diseaseType")==null?"GBM":request.getParameter("diseaseType")%>"/>
+                        <input type="hidden" id="platformType" name="platformType" value="<%=request.getParameterValues("platformType")==null?"":Arrays.toString(request.getParameterValues("platformType")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="sampleList" name="sampleList" value="<%=request.getParameter("sampleList")==null?"":request.getParameter("sampleList")%>"/>
+                        <input type="hidden" id="protectedStatus" name="protectedStatus" value="<%=request.getParameter("protectedStatus")==null?"":Arrays.toString(request.getParameterValues("protectedStatus")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="startDate" name="startDate" value="<%=request.getParameter("startDate")==null?"":request.getParameter("startDate")%>"/>
+                        <input type="hidden" id="endDate" name="endDate" value="<%=request.getParameter("endDate")==null?"":request.getParameter("endDate")%>"/>
+                        <input type="hidden" id="batch" name="batch" value="<%=request.getParameter("batch")==null?"":Arrays.toString(request.getParameterValues("batch")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="level" name="level" value="<%=request.getParameter("level")==null?"":Arrays.toString(request.getParameterValues("level")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="availability" name="availability" value="<%=request.getParameter("availability")==null?"":Arrays.toString(request.getParameterValues("availability")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="center" name="center" value="<%=request.getParameter("center")==null?"":Arrays.toString(request.getParameterValues("center")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="tumorNormal" name="tumorNormal" value="<%=request.getParameter("tumorNormal")==null?"":Arrays.toString(request.getParameterValues("tumorNormal")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                		<input type="hidden" id="arg3" name="samplesFromDropdowns" value="<%=request.getParameter("samplesFromDropdowns")==null?"":request.getParameter("samplesFromDropdowns")%>" />
+                        <input type="hidden" id="showCompleteRowsOnly" name="showCompleteRowsOnly" value="<%=request.getParameter("showCompleteRowsOnly")==null?"":Arrays.toString(request.getParameterValues("showCompleteRowsOnly")).replace("[","").replace("]","").replace(", ",",")%>"/>
+                        <input type="hidden" id="selectedCellInCols" name="selectedCellInCols" value="<%=request.getParameter("selectedCellInCols")%>"/>
+                    </form>
+                </div>
+
+                <div id="textexplanation">
+                    <span style="color:blue">
+                        <spring:message code="label.emailConfirmation"/>
+                    </span>
+                    <p>
+                        <b>IMPORTANT:</b> Data downloaders are urged to use the data annotation search interface
+                        (<a href="https://tcga-data.nci.nih.gov/annotations/">https://tcga-data.nci.nih.gov/annotations/</a>)
+                        to query the case, sample, and aliquot identifiers in their download to obtain the latest information
+                        associated with their data.
+                    </p>
+
+                    <div id="sizewarning">
+                        <br>
+                        <span style="color:firebrick"><b>
+                            <spring:message code="label.maximumDownloadSizeExceeded" arguments="<%=model.getSizeLimitGigs()%>" />
+                        </b></span>
+                    </div>
+                    <div id="protectedwarning">
+                        <br>
+                        <span style="color:red">
+                            <spring:message code="label.downloadProtectedFiles"/>
+                        </span>
+                        <br>
+                    </div>
+                </div>
+				<div id="archiveDownloadLinks">
+				  <ul>
+					<%
+					Archive archivedFile;
+					for (Iterator iter = model.getOriginalArchives().iterator(); iter.hasNext();) {
+						archivedFile = (Archive) iter.next();
+						%>
+						<li><a target="_blank" href="<%=archivedFile.getDeployLocation()%>" title="Download <%=archivedFile.getRealName()%>"><%=archivedFile.getRealName()%></a></li>
+						<%
+					}
+					%>
+				  </ul>
+				</div>
+                <div id="treebox">
+                    <spring:message code="label.selectFilesToInclude"/>
+                </div>
+                <%-- tree will be inserted here by script--%>
+                <script type="text/javascript">
+                    createTree();
+                    calcTotalFileSize();
+                    showOrHideProtectedWarning();
+                </script>
+            </div>
+        </div>

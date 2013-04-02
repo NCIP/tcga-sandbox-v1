@@ -1,0 +1,104 @@
+<dataset>
+    <project PROJECT_CODE="TCGA" DEFINITION="The Cancer Genome Atlas" />
+
+    <center_type CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="Cancer Genome Characterization Center" />
+
+    <center CENTER_ID="3" DOMAIN_NAME="hms.harvard.edu" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Harvard Medical School" SHORT_NAME="HMS" SORT_ORDER="3" />
+    <center CENTER_ID="1" DOMAIN_NAME="unc.edu" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="University of North Carolina" SHORT_NAME="UNC" SORT_ORDER="3" />
+    <center CENTER_ID="2" DOMAIN_NAME="broad.mit.edu" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Broad Institute of MIT and Harvard" SHORT_NAME="BI" SORT_ORDER="3" />
+
+    <center_to_bcr_center bcr_center_id="01" center_id="1" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="04" center_id="2" center_type_code="CGCC"/>
+
+    <data_level LEVEL_NUMBER="1" LEVEL_DEFINITION="Raw data" />
+
+    <archive_type ARCHIVE_TYPE_ID="6" ARCHIVE_TYPE="mage-tab" />
+    <archive_type ARCHIVE_TYPE_ID="7" ARCHIVE_TYPE="classic" />
+
+    <disease DISEASE_ID="1" DISEASE_NAME="Glioblastoma multiforme" DISEASE_ABBREVIATION="GBM" ACTIVE="1" />
+    <disease DISEASE_ID="2" DISEASE_NAME="Ovarian serous cystadenocarcinoma" DISEASE_ABBREVIATION="OV" ACTIVE="1" />
+
+    <data_type DATA_TYPE_ID="1" NAME="Trace-Sample Relationship" CENTER_TYPE_CODE="CGCC" FTP_DISPLAY="snp" AVAILABLE="1" SORT_ORDER="6" />
+
+    <platform PLATFORM_ID="5" PLATFORM_NAME="HG-CGH-244A" PLATFORM_DISPLAY_NAME="Agilent Human Genome CGH Microarray 244A" PLATFORM_ALIAS="HG-CGH-244A" CENTER_TYPE_CODE="CGCC" SORT_ORDER="10" AVAILABLE="1" BASE_DATA_TYPE_ID="1" />
+    
+    <archive_info ARCHIVE_ID="536" ARCHIVE_NAME="hms.harvard.edu_GBM.HG-CGH-244A.1.5.0" ARCHIVE_TYPE_ID="7" CENTER_ID="3" DISEASE_ID="1" PLATFORM_ID="5" SERIAL_INDEX="1" REVISION="5" SERIES="0" DATE_ADDED="2008-07-18 19:42:28.777" DEPLOY_STATUS="Available" DEPLOY_LOCATION="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/gbm/cgcc/hms.harvard.edu/hg-cgh-244a/cna/hms.harvard.edu_GBM.HG-CGH-244A.1.5.0.tar.gz" IS_LATEST="1" IS_LATEST_LOADED="1" />
+    <archive_info ARCHIVE_ID="1633" ARCHIVE_NAME="unc.edu_OV.H-miRNA_8x15Kv2.mage-tab.1.0.0" ARCHIVE_TYPE_ID="6" CENTER_ID="3" DISEASE_ID="1" PLATFORM_ID="5" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-20 13:07:39.148" DEPLOY_STATUS="Available" DEPLOY_LOCATION="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/unc.edu/h-mirna_8x15kv2/mirna/unc.edu_OV.H-miRNA_8x15Kv2.mage-tab.1.0.0.tar.gz" IS_LATEST="1" INITIAL_SIZE_KB="3" FINAL_SIZE_KB="3" />
+    <archive_info ARCHIVE_ID="2012" ARCHIVE_NAME="hms.harvard.edu_OV.HG-CGH-244A.1.5.0" ARCHIVE_TYPE_ID="7" CENTER_ID="3" DISEASE_ID="2" PLATFORM_ID="5" SERIAL_INDEX="1" REVISION="5" SERIES="0" DATE_ADDED="2008-07-18 19:42:28.777" DEPLOY_STATUS="Available" DEPLOY_LOCATION="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/gbm/cgcc/hms.harvard.edu/hg-cgh-244a/cna/hms.harvard.edu_OV.HG-CGH-244A.1.5.0.tar.gz" IS_LATEST="1" IS_LATEST_LOADED="1" />
+
+    <file_info FILE_ID="6211" FILE_NAME="genome.wustl.edu_GBM.ABI.10.tr" FILE_SIZE="658160" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+    <file_info FILE_ID="36087" FILE_NAME="genome.wustl.edu_GBM.ABI.59.0.0.tr" FILE_SIZE="649520" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+    <file_info FILE_ID="201202" FILE_NAME="genome.wustl.edu_OV.ABI.10.tr" FILE_SIZE="658160" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+
+    <file_to_archive FILE_ARCHIVE_ID="6211" FILE_ID="6211" ARCHIVE_ID="536" />
+    <file_to_archive FILE_ARCHIVE_ID="36087" FILE_ID="36087" ARCHIVE_ID="1633" />
+    <file_to_archive FILE_ARCHIVE_ID="20120208" FILE_ID="201202" ARCHIVE_ID="2012" />
+
+    <visibility VISIBILITY_ID="4" IDENTIFIABLE="0" VISIBILITY_NAME="Public"  />
+    <visibility VISIBILITY_ID="5" IDENTIFIABLE="1" VISIBILITY_NAME="Private" />
+
+    <data_visibility DATA_VISIBILITY_ID="5" DATA_TYPE_ID="1" VISIBILITY_ID="5" LEVEL_NUMBER="1" />
+
+    <sample_type SAMPLE_TYPE_CODE="01" DEFINITION="Primary solid Tumor" />
+
+    <portion_analyte PORTION_ANALYTE_CODE="D" DEFINITION="DNA" />
+    <portion_analyte PORTION_ANALYTE_CODE="R" DEFINITION="RNA" />
+
+    <tissue_source_site TSS_CODE="25" TSS_DEFINITION="Mayo Clinic - Rochester" RECEIVING_CENTER_ID="3" />
+    <tissue_source_site TSS_CODE="00" TSS_DEFINITION="test" RECEIVING_CENTER_ID="3"/>
+
+    <shipped_element_type element_type_id="1" element_type_name="sample_type_code"/>
+    <shipped_element_type element_type_id="2" element_type_name="sample_sequence"/>
+    <shipped_element_type element_type_id="3" element_type_name="portion_sequence"/>
+    <shipped_element_type element_type_id="4" element_type_name="analyte_code"/>
+    <shipped_element_type element_type_id="5" element_type_name="plate_id"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliqot" />
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="d88b35a3-a291-457a-b15b-a314859b25c5" shipped_item_type_id="1" built_barcode="TCGA-25-1635-01A-01D-0533-01" project_code="TCGA" tss_code="25"
+                         participant_code="1635" bcr_center_id="01" is_viewable="1" is_redacted="0" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="bccb35a3-a291-457a-b15b-a314859b25c5" shipped_item_type_id="1" built_barcode="TCGA-25-1635-01A-01D-0534-04" project_code="TCGA" tss_code="25"
+                         participant_code="1635" bcr_center_id="04" is_viewable="1" is_redacted="0" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="uuid3" shipped_item_type_id="1" built_barcode="TCGA-00-0001-01A-01D-1234-99"
+                         project_code="TCGA" tss_code="00" participant_code="0001" bcr_center_id="01" is_redacted="0" is_viewable="1" is_control="1" />
+
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="uuid4" shipped_item_type_id="1" built_barcode="TCGA-00-0001-01A-01D-4567-99"
+                         project_code="TCGA" tss_code="00" participant_code="0001" bcr_center_id="01" is_redacted="0" is_viewable="1" is_control="1" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="1" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="3" element_value="01" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="4" element_value="T" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="1" element_type_id="5" element_value="0364" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="2" element_type_id="1" element_value="01" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="2" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="2" element_type_id="3" element_value="01" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="9" shipped_biospecimen_id="2" element_type_id="4" element_value="D" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="10" shipped_biospecimen_id="2" element_type_id="5" element_value="0704" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="11" shipped_biospecimen_id="3" element_type_id="1" element_value="01" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="12" shipped_biospecimen_id="4" element_type_id="1" element_value="01" />
+
+    <shipped_biospecimen_file shipped_biospecimen_id="1" file_id="6211"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="2" file_id="36087"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="3" file_id="36087"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="4" file_id="201202"/>
+
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="1" archive_id="536"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="2" archive_id="1633"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="3" archive_id="2012"/>
+
+    <biospecimen_barcode BIOSPECIMEN_ID="6947" BARCODE="TCGA-25-1635-01A-01D-0533-01" PROJECT_CODE="TCGA" TSS_CODE="25" PATIENT="1635" SAMPLE_TYPE_CODE="01" SAMPLE_SEQUENCE="A" PORTION_SEQUENCE="01" PORTION_ANALYTE_CODE="D" PLATE_ID="0533" BCR_CENTER_ID="01" IS_VALID="1" IS_VIEWABLE="1" SHIP_DATE="2009-06-03 00:00:00.0" />
+    <biospecimen_barcode BIOSPECIMEN_ID="6948" BARCODE="TCGA-25-1635-01A-01D-0534-04" PROJECT_CODE="TCGA" TSS_CODE="25" PATIENT="1635" SAMPLE_TYPE_CODE="01" SAMPLE_SEQUENCE="A" PORTION_SEQUENCE="01" PORTION_ANALYTE_CODE="D" PLATE_ID="0534" BCR_CENTER_ID="04" IS_VALID="1" IS_VIEWABLE="1" SHIP_DATE="2009-06-03 00:00:00.0" />
+    <biospecimen_barcode BIOSPECIMEN_ID="2013" BARCODE="TCGA-00-1635-01A-01D-0534-04" PROJECT_CODE="TCGA" TSS_CODE="00" PATIENT="1635" SAMPLE_TYPE_CODE="01" SAMPLE_SEQUENCE="A" PORTION_SEQUENCE="01" PORTION_ANALYTE_CODE="D" PLATE_ID="0534" BCR_CENTER_ID="04" IS_VALID="1" IS_VIEWABLE="1" SHIP_DATE="2009-06-03 00:00:00.0" />
+
+    <biospecimen_to_file BIOSPECIMEN_FILE_ID="1" BIOSPECIMEN_ID="6947" FILE_ID="6211" FILE_COL_NAME="Derived Array Data Matrix File" />
+    <biospecimen_to_file BIOSPECIMEN_FILE_ID="2" BIOSPECIMEN_ID="6948" FILE_ID="36087" FILE_COL_NAME="Array Data File" />
+    <biospecimen_to_file BIOSPECIMEN_FILE_ID="3" BIOSPECIMEN_ID="2013" FILE_ID="201202" FILE_COL_NAME="Array Data File" />
+
+    <bcr_biospecimen_to_archive BIOSPECIMEN_ARCHIVE_ID="1" BIOSPECIMEN_ID="6947" ARCHIVE_ID="536" />
+    <bcr_biospecimen_to_archive BIOSPECIMEN_ARCHIVE_ID="2" BIOSPECIMEN_ID="6948" ARCHIVE_ID="1633" />
+    <bcr_biospecimen_to_archive BIOSPECIMEN_ARCHIVE_ID="3" BIOSPECIMEN_ID="2013" ARCHIVE_ID="2012" />
+
+
+</dataset>

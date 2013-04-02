@@ -1,0 +1,2 @@
+<%@ include file="tagsInclude.jsp" %><%@ page contentType="text/plain;charset=UTF-8" language="java" %><c:if test="${empty fileList}"><spring:message code="label.noResultsForTumor"/></c:if><c:if test="${not empty fileList}">Date Tumor_Type  Download_Location<c:forEach var="fileitem" items="${fileList}">
+<c:out value="${fileitem.date_added}    ${fileitem.tumor_abbreviation}    http://tcga-data.nci.nih.gov${fileitem.deploy_location}"  /></c:forEach></c:if>

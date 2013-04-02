@@ -1,0 +1,71 @@
+<dataset>
+    <disease disease_id="1" disease_abbreviation="TEST" />
+    <disease disease_id="2" disease_abbreviation="CNTL"/>
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+    <center center_id="1" domain_name="test" center_type_code="BCR"/>
+    <data_type data_type_id="1" name="Complete Clinical Set" require_compression="1"/>
+    <platform platform_id="1" platform_name="bio" base_data_type_id="1"/>
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot"/>
+
+    <archive_info archive_id="100" archive_name="testArchive" serial_index="12" revision="19" series="0" platform_id="1" center_id="1" disease_id="1" is_latest="1" deploy_status="Available" date_added="2012-05-23 12:00:00.0" />
+    <file_info file_id="200" file_name="patient1_clinical.xml" file_size="200" />
+    <file_to_archive file_archive_id="200" file_id="200" archive_id="100" file_location_url="/path/to/patient1_clinical.xml"/>
+    <file_info file_id="201" file_name="patient1_biospecimen.xml" file_size="201"/>
+    <file_to_archive file_archive_id="201" file_id="201" archive_id="100" file_location_url="/path/to/patient1_biospecimen.xml"/>
+    <file_info file_id="202" file_name="patient2_aux.xml" file_size="202"/>
+    <file_to_archive file_archive_id="202" file_id="202" archive_id="100" file_location_url="/path/to/patient2.aux.xml"/>
+
+    <archive_info archive_id="101" archive_name="testArchive2" serial_index="42" revision="4" series="0" platform_id="1" center_id="1" disease_id="1" is_latest="1" deploy_status="Available" date_added="2012-02-06 12:00:00.0"/>
+    <file_info file_id="203" file_name="patient3_clinical.xml" file_size="203"/>
+    <file_to_archive file_archive_id="203" file_id="203" archive_id="101" file_location_url="/path/to/patient3_clinical.xml"/>
+    <file_info file_id="204" file_name="patient3_biospecimen.xml" file_size="204"/>
+    <file_to_archive file_archive_id="204" file_id="204" archive_id="101" file_location_url="/path/to/patient3_biospecimen.xml"/>
+
+    <file_info file_id="206" file_name="redacted.xml" file_size="1"/>
+    <file_to_archive file_archive_id="206" file_id="206" archive_id="101" file_location_url="somewhere"/>
+
+    <!-- this archive is not the latest -->
+    <archive_info archive_id="102" archive_name="notLatest" serial_index="12" revision="18" series="0" platform_id="1" center_id="1" disease_id="1" is_latest="0" deploy_status="Available" date_added="2011-05-03 12:00:00.0"/>
+    <file_to_archive file_archive_id="205" file_id="200" archive_id="102" file_location_url="/path/to/older/patient1_clinical.xml"/>
+
+    <patient patient_id="1" patient_barcode="patient1" uuid="uuid1"/>
+    <sample sample_id="1" sample_barcode="sample1A" patient_id="1" uuid="sampleUuid1"/>
+    <portion portion_id="1" sample_id="1" portion_barcode="portion1" uuid="portionUuid1"/>
+    <analyte analyte_id="1" portion_id="1" analyte_barcode="analyte1" uuid="analyteUuid1"/>
+    <aliquot aliquot_id="1" analyte_id="1" aliquot_barcode="aliquot1" uuid="aliquotUuid1"/>
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="aliquotUuid1" built_barcode="aliquot1" project_code="p" tss_code="t" bcr_center_id="01" participant_code="1234" is_viewable="1" is_redacted="0" shipped_item_type_id="1"/>
+    <patient_archive patient_archive_id="1" patient_id="1" archive_id="100"/>
+
+    <patient patient_id="2" patient_barcode="patient2" uuid="uuid2"/>
+    <sample sample_id="2" sample_barcode="sample2B" patient_id="2" uuid="sampleUuid2"/>
+    <portion portion_id="2" sample_id="2" portion_barcode="portion2" uuid="portionUuid2"/>
+    <analyte analyte_id="2" portion_id="2" analyte_barcode="analyte2" uuid="analyteUuid2"/>
+    <aliquot aliquot_id="2" analyte_id="2" aliquot_barcode="aliquot2" uuid="aliquotUuid2"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="aliquotUuid2" built_barcode="aliquot2" project_code="p" tss_code="t" bcr_center_id="01" participant_code="1234" is_viewable="1" is_redacted="0" shipped_item_type_id="1" />
+    <patient_archive patient_archive_id="2" patient_id="2" archive_id="100"/>
+
+    <patient patient_id="3" patient_barcode="patient3" uuid="uuid3"/>
+    <sample sample_id="3" sample_barcode="sample3A" patient_id="3" uuid="sampleUuid3"/>
+    <portion portion_id="3" sample_id="3" portion_barcode="portion3" uuid="portionUuid3"/>
+    <analyte analyte_id="3" portion_id="3" analyte_barcode="analyte3" uuid="analyteUuid3"/>
+    <aliquot aliquot_id="3" analyte_id="3" aliquot_barcode="aliquot3" uuid="aliquotUuid3"/>
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="aliquotUuid3" built_barcode="aliquot3" project_code="p" tss_code="t" bcr_center_id="01" participant_code="1234" is_viewable="1" is_redacted="0" shipped_item_type_id="1" />
+    <aliquot aliquot_id="4" analyte_id="3" aliquot_barcode="aliquot4" uuid="aliquotUuid4"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="aliquotUuid4" built_barcode="aliquot4" project_code="p" tss_code="t" bcr_center_id="01" participant_code="1234" is_viewable="0" is_redacted="1" shipped_item_type_id="1" />
+    <patient_archive patient_archive_id="3" patient_id="3" archive_id="101"/>
+
+    <patient patient_id="5" patient_barcode="patient5" uuid="uuid5"/>
+    <sample sample_id="5" patient_id="5" sample_barcode="sample5X" uuid="sampleUuid5"/>
+    <portion portion_id="5" sample_id="5" portion_barcode="portion5" uuid="portionUuid5"/>
+    <analyte analyte_id="5" portion_id="5" analyte_barcode="analyte5" uuid="analyteUuid5"/>
+    <aliquot aliquot_id="5" analyte_id="5" aliquot_barcode="aliquot5" uuid="aliquotUuid5"/>
+    <shipped_biospecimen shipped_biospecimen_id="5" uuid="aliquotUuid5" built_barcode="aliquot5" project_code="p" tss_code="t" bcr_center_id="01" participant_code="1234" is_viewable="0" is_redacted="1" shipped_item_type_id="1" />
+    <patient_archive patient_archive_id="5" patient_id="5" archive_id="101"/>
+
+    <participant_uuid_file uuid="uuid1" file_id="200"/>
+    <participant_uuid_file uuid="uuid1" file_id="201"/>
+    <participant_uuid_file uuid="uuid2" file_id="202"/>
+    <participant_uuid_file uuid="uuid3" file_id="203"/>
+    <participant_uuid_file uuid="uuid3" file_id="204"/>
+    <participant_uuid_file uuid="uuid5" file_id="206"/>
+</dataset>

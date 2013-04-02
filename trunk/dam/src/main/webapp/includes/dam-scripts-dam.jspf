@@ -1,0 +1,330 @@
+
+<%
+    String currentSelectedCells = request.getParameter("selectedCells");
+    String currentSelectedHeaders = request.getParameter("selectedHeaders");
+    String selectedCellInCols = request.getParameter("selectedCellInCols");
+    String selected = request.getParameter("diseaseType");
+    String scrollSize = request.getParameter("label.scrollSize");
+    String currentCSName = request.getParameter("colorSchemeName");
+    String clearMatrix = request.getParameter("clearMatrix");
+    String defaultColorScheme = "Available";
+    String tNDisableStr = "";
+        
+    Cookie[] cookies = request.getCookies();
+
+    if (cookies != null) {
+       for(int i = 0; i < cookies.length; i++) {
+            Cookie c = cookies[i];
+            if (c.getName().equals("tcgaportal_currentscrollsize") && scrollSize == null) {
+                scrollSize = c.getValue();
+            } else if (c.getName().equals("tcgaportal_colorschemename") && currentCSName == null) {
+                currentCSName = c.getValue();
+                }
+        }
+    }
+        
+    //set default to GBM or set color scheme to default and disable colorscheme drop down if 
+    //its the only one available for disease selected
+    if (selected == null) {
+         selected = "GBM";
+    } else if ("CNTL".equals(selected)) {
+                currentCSName = defaultColorScheme;
+                tNDisableStr += "disabled=\"disabled\" class=\"grey-out-text\"";
+    } 
+
+%>
+
+
+<%-- Yahoo UI javascript files and date mask--%>
+<script type="text/javascript" src="/<%=rootDir%>/scripts/merged.js?vers=<%=timestamp%>&js=thirdParty/yui/yahoo-dom-event.js thirdParty/yui/calendar-min.js thirdParty/javascriptools/JavaScriptUtil.js thirdParty/javascriptools/Parsers.js thirdParty/javascriptools/InputMask.js dataMatrix.js"></script>   
+
+<%-- css style sheet for calendar --%>
+<link rel="stylesheet" type="text/css" href="styles/calendar.css">
+
+<script type="text/javascript">
+
+
+var selectedCells = new Array(); //array of selected cells to submit
+var cellHeaders = new Array();   //array of headers for header toggle
+var levelHeaders = new Array();   //array of headers for header toggle
+var batchArray = new Array();    //array of available batches for quick resets
+var contextPath = "<%=request.getContextPath()%>";
+var diseaseType = "<%=selected%>";
+var startDateGreaterThanToday = "<spring:message code="label.startDateGreaterThanToday" javaScriptEscape="true"/>";
+var badEndDate = "<spring:message code="label.badEndDate" javaScriptEscape="true"/>";
+var startDateGreaterThanEndDate = "<spring:message code="label.startDateGreaterThanEndDate" javaScriptEscape="true"/>";
+
+<%  //initialize JS array with all the cell Ids we already know are selected
+    DAMFacadeI facadeI = (DAMFacadeI)request.getAttribute(DAMFacade.FACADE_KEY_NAME);
+    
+    String[] selectedCellIds;
+	if (currentSelectedCells != null) {
+    	selectedCellIds = currentSelectedCells.split(",");
+    	for (int i=0; i<selectedCellIds.length; i++) {
+%>
+			selectedCells["<%=selectedCellIds[i]%>"] = "<%=selectedCellIds[i]%>";
+<%
+    	}
+    }
+
+    // this is here so it can be used anywhere on the page
+    FilterRequestI prevFilter = facadeI.getPreviousFilterRequest();
+
+    boolean showMatrix = false;
+    String filterDisplayStyle = "block";
+    if((request.getParameter("showMatrix") != null) &&
+       (request.getParameter("showMatrix").equals("true"))) {
+        showMatrix = true;
+        filterDisplayStyle = "none";
+    }
+
+%>
+var columnMax = <%=facadeI.getTotalColumns()%>;
+
+function showFilesForDownload() {
+    var cellIds = concatCellIds(); //puts the cell Ids into a hidden input so we can POST it. List could be too long for a GET
+    if(cellIds == "") {
+        alert('<spring:message code="label.noDataSets" javaScriptEscape="true"/>');
+        return;
+    }
+    document.hiddenform.selectedHeaders.value = activeHeaders();
+    document.hiddenform.selectedCellInCols.value = selectedCellInCols;
+    
+    // don't use submitForm function, because this is going to a different page...
+    document.hiddenform.action = contextPath + "/dataAccessDownload.htm";
+    document.hiddenform.submit();
+}
+
+var samplePart2Options = [
+    <%
+        Iterator samplePart2Iter = facadeI.getFilterChoices().getSampleCollectionCenterOptions().iterator();
+        while (samplePart2Iter.hasNext()) {
+    %>
+    '<%=samplePart2Iter.next()%>'<%=samplePart2Iter.hasNext() ? ", " : ""%>
+    <%
+       }
+    %>
+];
+
+var samplePart4Options = [
+    <%
+        Iterator samplePart4Iter = facadeI.getFilterChoices().getSampleTypeOptions().iterator();
+        while (samplePart4Iter.hasNext()) {
+    %>
+    '<%=samplePart4Iter.next()%>'<%=samplePart4Iter.hasNext() ? ", " : ""%>
+    <%
+       }
+    %>
+];
+
+var numSampleWidgets = 0;
+function addSampleWidget( part2, part3, part4 ) {
+    // get the container
+    var container = document.getElementById("sampleWidgets");
+    var widget = document.createElement("div");
+    widget.appendChild(document.createTextNode('<spring:message code="label.tcga" javaScriptEscape="true"/>'));
+    var select2 = document.createElement("select");
+    select2.name = 'samplePart2';
+    select2.id = 'samplePart2' + numSampleWidgets;
+    select2.className = 'samplePart2';
+    select2.appendChild(makeOption('--', ''));
+    for(var i = 0; i < samplePart2Options.length; i++) {
+        select2.appendChild(makeOption(samplePart2Options[i], samplePart2Options[i], (part2 && part2 == samplePart2Options[i])));
+    }
+    widget.appendChild(select2);
+    var text1 = document.createElement("input");
+    text1.type = "text";
+    text1.name = "samplePart3";
+    text1.id = "samplePart3" + numSampleWidgets;
+    text1.className = 'samplePart3';
+    text1.size = 4;
+    if(part3) {
+        text1.value = part3;
+    }
+    widget.appendChild(text1);
+    var select4 = document.createElement("select");
+    select4.name = 'samplePart4';
+    select4.id = 'samplePart4' + numSampleWidgets;
+    select4.className = 'samplePart4';
+    select4.appendChild(makeOption('--', ''));
+    for(var i = 0; i < samplePart4Options.length; i++) {
+        select4.appendChild(makeOption(samplePart4Options[i], samplePart4Options[i], (part4 && part4 == samplePart4Options[i])));
+    }
+    widget.appendChild(select4);
+    var id = "sampleWidget" + numSampleWidgets;
+    widget.id = id;
+    var removeLink = document.createElement("span");
+    removeLink.style.color = 'blue';
+    removeLink.style.cursor = 'pointer';
+    removeLink.style.textDecoration = 'underline';
+    removeLink.style.paddingLeft = "5px";
+    removeLink.style.fontSize = "0.8em";
+    removeLink.onclick = function() {
+        removeSampleWidget(id)
+    };
+    removeLink.innerHTML = '<spring:message code="label.remove" javaScriptEscape="true"/>';
+    widget.appendChild(removeLink);
+    container.appendChild(widget);
+    numSampleWidgets++;
+}
+
+function removeSampleWidget( widgetId ) {
+    document.getElementById('sampleWidgets').removeChild(document.getElementById(widgetId));
+}
+
+<% if(showMatrix) { %>
+var columnWidth = 26;
+var currentSelectedHeaders = "<%=currentSelectedHeaders%>";
+var selectedCellInColsFromPage = "<%=selectedCellInCols%>";
+
+//for is-loading gif   
+var waitingDiv = document.createElement('div');
+waitingDiv.innerHTML = "<img src='/tcga/images/general/loader_transparent.gif' />";
+waitingDiv.innerHTML += "<br /><br />loading...";
+waitingDiv.id = "waitingDiv";
+document.body.appendChild(waitingDiv);
+    
+var adjustedWidth = columnMax*columnWidth+280;
+$(document).ready(function() {
+    var matrix = document.getElementById('matrix');
+	waitingDiv.style.display = 'none';
+    adjustMatrixWidth();
+    var matrixHeader = document.getElementById('matrixHeader');
+
+    if (matrixHeader != null) {
+        document.getElementById('matrixHeader').style.width = adjustedWidth + "px";
+    }
+
+    if (matrix != null) {
+        document.getElementById('matrix').style.width = (adjustedWidth + 13) + "px";
+    }
+
+    if (adjustedWidth > 950) {
+        document.getElementById('nci-banner').style.width = 90 + adjustedWidth + "px";
+        document.getElementById('mainnav').style.width = 60 + adjustedWidth + "px";
+        document.getElementById('container').style.width = 60 + adjustedWidth + "px";
+        document.getElementById('footer').style.width = 60 + adjustedWidth + "px";
+    }
+
+    document.getElementById('mainnav').style.display = 'block';
+    document.getElementById('container').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
+
+    // scroll the matrix down
+    setScrollAmount();
+    YAHOO.util.Event.addListener(window, "scroll", windowScrolled);
+    YAHOO.util.Event.addListener(window, "resize", windowResized);
+    	
+    if( selectedCellInColsFromPage != null && selectedCellInColsFromPage != "" ) {
+    	selectedCellInCols = selectedCellInColsFromPage.split(",");
+    }
+    	
+    if (currentSelectedHeaders != "null" && currentSelectedHeaders != "") {
+    	preSelectedHeaders = currentSelectedHeaders.split(",");
+        for (i=0; i < preSelectedHeaders.length; i++) {
+        	if(preSelectedHeaders[i].indexOf("_sample") > - 1) {
+            	selectedCellInRows[preSelectedHeaders[i]] = cellHeaders[preSelectedHeaders[i]].split(",").length;
+                markSelectedSampleHeader( preSelectedHeaders[i] );
+            } else if(preSelectedHeaders[i].indexOf("_column") > - 1) {
+             	columnNum = preSelectedHeaders[i].split("column")[1].split("_")[0];
+                if (cellHeaders[columnNum] != undefined) {
+                	selectedCellInCols[columnNum] = cellHeaders[columnNum].split(",").length - 1;
+                	markSelectedLevelHeader( preSelectedHeaders[i] );
+                } else if(levelHeaders[columnNum] != undefined){
+                	selectedCellInCols[columnNum] = levelHeaders[columnNum].length;
+                	markSelectedLevelHeader( preSelectedHeaders[i] );
+                }
+            }
+        }
+   	}
+
+});
+<% } %>
+
+// will be initialized in pageLoad
+var startDateCal, endDateCal;
+function pageLoad() {
+
+    //date mask
+    var dateMask1 = new DateMask("MM/dd/yyyy", "endDate");
+    dateMask1.validationMessage = '<spring:message code="label.invalidDate"/> ${value}. <spring:message code="label.expectedFormat"/> ${mask}';
+    var dateMask2 = new DateMask("MM/dd/yyyy", "startDate");
+    dateMask2.validationMessage = '<spring:message code="label.invalidDate"/> ${value}. <spring:message code="label.expectedFormat"/> ${mask}';
+<%
+    int numPrevSamples = Math.max(prevFilter.getSampleCollectionArray().length, prevFilter.getSamplePatientIdArray().length);
+    numPrevSamples = Math.max(numPrevSamples, prevFilter.getSampleSampleTypeArray().length);
+    if (numPrevSamples > 0) {
+
+        // add a widget for each previous filter thingie
+        for (int i=0; i<numPrevSamples; i++) {
+            String prevSamplePart2 = "";
+            if (prevFilter.getSampleCollectionArray().length > i) {
+                prevSamplePart2 = prevFilter.getSampleCollectionArray()[i];
+            }
+            String prevSamplePart3 = "";
+            if (prevFilter.getSamplePatientIdArray().length > i) {
+                prevSamplePart3 = prevFilter.getSamplePatientIdArray()[i];
+            }
+            String prevSamplePart4 = "";
+            if (prevFilter.getSampleSampleTypeArray().length > i) {
+                prevSamplePart4 = prevFilter.getSampleSampleTypeArray()[i];
+            }
+
+%>
+    addSampleWidget('<%=prevSamplePart2%>', '<%=prevSamplePart3%>', '<%=prevSamplePart4%>');
+<%
+        }
+
+    } else {
+%>
+    addSampleWidget();
+<%
+    }
+%>
+
+    // initialize calendars for date filters
+    endDateCal = new YAHOO.widget.Calendar("endDateCal", "endDateCalContainer", { title:'<spring:message code="label.chooseDate"/>', close:true });
+    startDateCal = new YAHOO.widget.Calendar("startDateCal", "startDateCalContainer", { title:'<spring:message code="label.chooseDate"/>', close:true });
+    endDateCal.render();
+    startDateCal.render();
+    YAHOO.util.Event.addListener("endDateButton", "click", function () {
+        updateCalendar(this, document.getElementById("endDate").value);
+        this.show();
+    }, endDateCal, true);
+    YAHOO.util.Event.addListener("startDateButton", "click", function () {
+        updateCalendar(this, document.getElementById("startDate").value);
+        this.show();
+    }, startDateCal, true);
+    updateCalendar(startDateCal, "<%=prevFilter.getStartDate()%>");
+    updateCalendar(endDateCal, "<%=prevFilter.getEndDate()%>");
+    endDateCal.selectEvent.subscribe(function ( type, args ) {
+        var date = args[0][0];
+        var month = date[1];
+        if(month < 10) {
+            month = "0" + month;
+        }
+        var day = date[2];
+        if(day < 10) {
+            day = "0" + day;
+        }
+        document.getElementById("endDate").value = month + "/" + day + "/" + date[0];
+        document.getElementById("endDate").style.color = "black";
+        endDateCal.hide();
+    });
+    startDateCal.selectEvent.subscribe(function ( type, args ) {
+        var date = args[0][0];
+        var month = date[1];
+        if(month < 10) {
+            month = "0" + month;
+        }
+        var day = date[2];
+        if(day < 10) {
+            day = "0" + day;
+        }
+        document.getElementById("startDate").value = month + "/" + day + "/" + date[0];
+        document.getElementById("startDate").style.color = "black";
+        startDateCal.hide();
+    });
+}
+
+</script>

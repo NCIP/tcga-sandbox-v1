@@ -1,0 +1,41 @@
+
+		<div id="content">
+			<div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+			<h1>Open-Access Validated <%=h1String%></h1>
+            <div class="indent">
+                <p>
+                        <h3>Data tables used for identifying significantly mutated genes described in the <a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/" class="newWinIcon">2008 GBM manuscript</a></h3>
+                        <ul>
+                            <li>
+                            <a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/TCGA_GBM_Level3_All_Somatic_Mutations_DataFreeze2.maf" class="newWinIcon">Level 3 - Somatic Mutations</a> : Somatic mutations summarized from all centers using the <a href="http://tcga-data.nci.nih.gov/docs/TCGA_GBM08_Publication_Data_Freeze.txt" target="_blank" class="newWinIcon">09/09/08 TCGA GBM Publication Data Freeze</a>. Non-silent mutations were validated by orthogonal methods (genotype assay or alternative sequencing method) or verified by independent PCR amplification and sequencing. Silent mutations were validated, verified or manually reviewed.
+                            <b>Download:</b> [<a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/TCGA_GBM_Level3_All_Somatic_Mutations_DataFreeze2.maf">.maf</a>] [<a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/TCGA_GBM_Level3_All_Somatic_Mutations_DataFreeze2.xls" class="newWinIcon">.xls</a>]
+                            </li>
+                            <li>
+                            <a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/TCGA_GBM_Level4_Significant_Genes_by_Mutations_DataFreeze2.xls" class="newWinIcon">Level 4 - Significance Across Samples</a>: statistical significance for each gene WRT somatic mutation counts in Level 3 data (represented as p- and q-values).  <b>Download:</b> [<a target="_blank" href="http://tcga-data.nci.nih.gov/docs/publications/gbm_2008/TCGA_GBM_Level4_Significant_Genes_by_Mutations_DataFreeze2.xls" class="newWinIcon">.xls</a>]
+                            </li>
+                        </ul>
+                </p>
+                <h3>Latest summarized somatic mutation data</h3>
+                <ul>
+                    <li>
+                        <a target="_blank" href="http://tcga-data.nci.nih.gov/docs/somatic_mutations/TCGA_GBM_Level3_Somatic_Mutations_08.28.2008.maf" class="newWinIcon">Level 3 - Somatic Mutations as of 08/28/2008</a> : all validated somatic mutations summarized for all centers up to 08/28/2008. Duplicate entries from the same sample assayed by multiple centers were removed. <b>Download:</b> [<a target="_blank" href="http://tcga-data.nci.nih.gov/docs/somatic_mutations/TCGA_GBM_Level3_Somatic_Mutations_08.28.2008.maf">.maf</a>] [<a href="http://tcga-data.nci.nih.gov/docs/somatic_mutations/TCGA_GBM_Level3_Somatic_Mutations_08.28.2008.xls" class="newWinIcon">.xls</a>] </li>
+                    </li>
+                </ul>
+                <h3>Additional Information</h3>
+                <ul>
+                    <li>Current somatic mutation data can be downloaded from the Data Matrix: <a href="/tcga/dataAccessMatrix.htm?mode=ApplyFilter&platformType=9&diseaseType=GBM">GBM Somatic Mutations</a>, <a href="/tcga/dataAccessMatrix.htm?mode=ApplyFilter&platformType=9&diseaseType=OV">OV Somatic Mutations</a>
+                    <li>All GBM Publication Mutations: <a href="/tcga/tcgaAccessTiers.jsp">Controlled-access</a> mutations that include germ-line, somatic, and LOH: [<a target="_blank" href="http://tcga-data.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/cgcc/broad.mit.edu/abi/tracerel/broad.mit.edu_GBM.ABI.1.21.0.tar.gz">Broad</a>] [<a target="_blank" href="http://tcga-data.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/hgsc.bcm.edu/abi/tracerel/hgsc.bcm.edu_GBM.ABI.1.19.0.tar.gz">Baylor</a>] [<a target="_blank" href="http://tcga-data.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/genome.wustl.edu/abi/tracerel/genome.wustl.edu_GBM.ABI.319.0.0.tar.gz" class="newWinIcon">WashU</a>] </li>
+                    <li>The latest <a href="/tcga/tcgaAccessTiers.jsp">controlled-access</a> mutations can be found by entering 'maf' in the File Name field on the <a href="/tcga/findArchives.htm">Find Archives search page</a></li>
+                    <li>Descriptions of TCGA data levels are provided in the <a target="_blank" class="newWinIcon" href="https://wiki.nci.nih.gov/display/TCGA/TCGA+Data+Primer">TCGA Data Primer</a></li>
+                    <li><a target="_blank" href="http://tcga-data.nci.nih.gov/docs/somatic_mutations/MutationAnnotationFormatDescription.pdf">Descriptions of column headers</a><span class="pdfIcon"></span> <span class="newWinIcon"></span></li>
+                </ul>
+                <h3><a href="http://cbio.mskcc.org/cancergenomics-dataportal/index.do" target="_blank" class="newWinIcon">MSKCC Cancer Genomics Analysis</a></h3>
+                <p>The cBio Cancer Genomics Pathway Portal provides direct download and visualization of large-scale cancer genomics data sets.</p>
+                <p class="footnotes">Note: Some Windows machines may attempt to use Microsoft Access to open maf files.  If this happens to you, please right-click the maf file and choose "Open With..." to select the appropriate application to use for opening the file.</p>
+
+           </div>
+		</div>
+		<div id="sidebar">
+			<%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+		</div>

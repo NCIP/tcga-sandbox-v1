@@ -1,0 +1,215 @@
+<dataset>
+    <center_type center_type_code="GSC" center_type_definition="GSC"/>
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+
+    <disease disease_id="1" disease_abbreviation="DIS1" disease_name="Test Disease 1" active="1"/>
+    <disease disease_id="2" disease_abbreviation="DIS2" disease_name="Test Disease 2" active="1"/>
+
+    <center center_id="1" domain_name="gsc.org" center_type_code="GSC" display_name="gsc.org"/>
+    <center center_id="2" domain_name="cgcc.edu" center_type_code="CGCC" display_name="cgcc.edu"/>
+
+    <data_type data_type_id="1" name="Somatic Mutations" center_type_code="GSC" ftp_display="somatic_mutations" available="1" sort_order="1"/>
+    <data_type data_type_id="2" name="Protected Mutations" center_type_code="GSC" ftp_display="protected_mutations" available="1" sort_order="2"/>
+    <data_type data_type_id="3" name="Low Pass DNASeq" center_type_code="GCGG" ftp_display="lowpass" available="1" sort_order="3"/>
+
+    <visibility visibility_id="1" identifiable="0" visibility_name="Public"/>
+    <visibility visibility_id="2" identifiable="1" visibility_name="Protected"/>
+
+    <data_visibility data_visibility_id="1" data_type_id="1" level_number="2" visibility_id="1"/>
+    <data_visibility data_visibility_id="2" data_type_id="2" level_number="2" visibility_id="2"/>
+    <data_visibility data_visibility_id="3" data_type_id="3" level_number="2" visibility_id="2"/>
+
+    <platform platform_id="1" platform_name="DNASeq" base_data_type_id="1" center_type_code="GSC" platform_display_name="DNASeq" platform_alias="DNASeq" sort_order="1"/>
+    <platform platform_id="2" platform_name="DNASeq_Cont" base_data_type_id="2" center_type_code="GSC" platform_display_name="DNASeq_Cont" platform_alias="DNASeq_Cont" sort_order="2"/>
+    <platform platform_id="3" platform_name="DNASeqC" base_data_type_id="3" center_type_code="CGCC" platform_display_name="DNASeqC" platform_alias="DNASeqC" sort_order="3"/>
+
+    <archive_type archive_type_id="1" archive_type="Level_2" data_level="2" />
+
+    <center_to_bcr_center bcr_center_id="99" center_id="1" center_type_code="GSC"/>
+    <center_to_bcr_center bcr_center_id="88" center_id="2" center_type_code="CGCC"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot"/>
+    <!-- sent to gsc.org -->
+    <shipped_biospecimen shipped_biospecimen_id="1" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="1111"
+                         built_barcode="TCGA-00-1111-01A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid1" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="1111"
+                         built_barcode="TCGA-00-1111-10A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid2" shipped_date="2010-01-01" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="3" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="2222"
+                         built_barcode="TCGA-00-2222-01A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid3" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="2222"
+                         built_barcode="TCGA-00-2222-10A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid4" shipped_date="2010-01-01" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="5" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="3333"
+                         built_barcode="TCGA-00-3333-01A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid5" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="6" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="3333"
+                         built_barcode="TCGA-00-3333-10A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid6" shipped_date="2010-01-01" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="7" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="4444"
+                         built_barcode="TCGA-00-4444-01A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid7" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="8" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="4444"
+                         built_barcode="TCGA-00-4444-10A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid8" shipped_date="2010-01-01" is_control="0"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="9" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="5555"
+                         built_barcode="TCGA-00-5555-01A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid9" shipped_date="2010-01-01" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="10" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="5555"
+                         built_barcode="TCGA-00-5555-10A-01W-1111-99"
+                         bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid10" shipped_date="2010-01-01" is_control="0"/>
+
+    <!-- sent to cgcc.edu -->
+    <shipped_biospecimen shipped_biospecimen_id="11" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="6666"
+                         uuid="uuid11" is_redacted="0" is_viewable="1" bcr_center_id="88" shipped_date="2011-01-10"
+                         built_barcode="TCGA-00-6666-01B-01D-0000-88" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="12" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="6666"
+                         uuid="uuid12" built_barcode="TCGA-00-6666-11B-01D-0000-88" bcr_center_id="88" is_redacted="0" is_viewable="1"
+                         shipped_date="2011-01-10" is_control="0"/>
+
+    <!-- control -->
+    <shipped_biospecimen shipped_biospecimen_id="13" shipped_item_type_id="1" project_code="TCGA" tss_code="07" participant_code="7777"
+                         built_barcode="TCGA-07-7777-20A-01W-9999-99" bcr_center_id="99" is_redacted="0" is_viewable="1" shipped_date="2012-12-12"
+                         uuid="control1" is_control="1"/>
+
+    <!-- GSC archive with protected VCF files: latest and available -->
+    <archive_info archive_id="1" archive_name="gsc.org_DIS1.DNASeq_Cont.Level_2.1.0.0" center_id="1" platform_id="2" disease_id="1" archive_type_id="1"
+            serial_index="1" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="/fake/path/to/gsc.org_DIS1.DNASeq_Cont.Level_2.1.0.0.tar.gz"
+            date_added="2013-02-26 0:00:00.000000000" />
+    <!-- contains 2 VCF files and a manifest -->
+    <file_info file_id="1" file_name="file1.vcf" level_number="2" data_type_id="2"/>
+    <file_info file_id="2" file_name="MANIFEST.txt" level_number="0"/>
+    <file_info file_id="3" file_name="file2.vcf" level_number="2" data_type_id="2"/>
+    <file_to_archive file_archive_id="1" archive_id="1" file_id="1" file_location_url="/fake/path/to/archive/file1.vcf"/>
+    <file_to_archive file_archive_id="2" archive_id="1" file_id="2" file_location_url="/fake/path/to/archive/MANIFEST.txt"/>
+    <file_to_archive file_archive_id="3" archive_id="1" file_id="3" file_location_url="/fake/path/to/archive/file2.vcf"/>
+
+    <!-- file1.vcf has 2 aliquots associated: TCGA-00-1111-01A-01W-1111-99 and TCGA-00-1111-10A-01W-1111-99 -->
+    <shipped_biospecimen_file file_id="1" shipped_biospecimen_id="1"/>
+    <shipped_biospecimen_file file_id="1" shipped_biospecimen_id="2"/>
+    <!-- file2.vcf has 2 aliquots: TCGA-00-2222-01A-01W-1111-99 and TCGA-00-2222-10A-01W-1111-99 -->
+    <shipped_biospecimen_file file_id="3" shipped_biospecimen_id="3"/>
+    <shipped_biospecimen_file file_id="3" shipped_biospecimen_id="4"/>
+
+    <!-- GSC archive with protected VCF files: not latest -->
+    <archive_info archive_id="2" archive_name="gsc.org_DIS1.DNASeq_Cont.Level_2.2.0.0" center_id="1" platform_id="2" disease_id="1" archive_type_id="1"
+                  serial_index="2" revision="0" series="0" deploy_status="Available" is_latest="0" deploy_location="irrelevant" date_added="2013-01-15 0:00:00.000000000" />
+    <file_info file_id="4" file_name="file4.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="4" file_id="4" archive_id="2" file_location_url="who/knows"/>
+    <shipped_biospecimen_file file_id="4" shipped_biospecimen_id="5"/>
+    <shipped_biospecimen_file file_id="4" shipped_biospecimen_id="6"/>
+
+    <!-- CGCC archive with VCF files: latest and available -->
+    <archive_info archive_id="3" archive_name="cgcc.edu_DIS1.DNASeqC.Level_2.1.0.0" center_id="2" platform_id="3" disease_id="1" archive_type_id="1"
+                  serial_index="1" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="somewhere" date_added="2012-12-06 0:00:00.000000000"/>
+    <file_info file_id="5" file_name="cgcc.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="5" file_id="5" archive_id="3" file_location_url="maryland"/>
+    <shipped_biospecimen_file file_id="5" shipped_biospecimen_id="11"/>
+    <shipped_biospecimen_file file_id="5" shipped_biospecimen_id="12"/>
+
+    <!-- GSC archive with VCF file but different disease than test -->
+    <archive_info archive_id="4" archive_name="gsc.org_DIS2.DNASeq_Cont.Level_2.1.1.0" center_id="1" platform_id="2" disease_id="2" archive_type_id="1"
+                  serial_index="1" revision="1" series="0" deploy_status="Available" is_latest="1" deploy_location="here" date_added="2012-11-18 0:00:00.000000000"/>
+    <file_info file_id="6" file_name="file5.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="6" file_id="6" archive_id="4" file_location_url="dis2"/>
+    <shipped_biospecimen_file file_id="6" shipped_biospecimen_id="7"/>
+    <shipped_biospecimen_file file_id="6" shipped_biospecimen_id="8"/>
+
+    <!-- GSC archive with public VCF files: latest and available -->
+    <archive_info archive_id="5" archive_name="gsc.org_DIS1_DNASeq.Level_2.4.3.0" center_id="1" platform_id="1" disease_id="1" archive_type_id="1"
+                  serial_index="4" revision="3" series="0" deploy_status="Available" is_latest="1" deploy_location="/public/path/to/gsc.org_DIS1_DNASeq.Level_2.4.3.0.tar.gz"
+                  date_added="2013-01-26 0:00:00.000000000"/>
+    <!-- contains disease VCF and a control VCF -->
+    <file_info file_id="7" file_name="somatic.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="7" file_id="7" archive_id="5" file_location_url="/public/archive/somatic.vcf"/>
+    <file_info file_id="8" file_name="control.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="8" file_id="8" archive_id="5" file_location_url="/public/archive/control.vcf"/>
+    <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="9"/>
+    <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="10"/>
+    <shipped_biospecimen_file file_id="8" shipped_biospecimen_id="13"/>
+
+    <!-- shipped_biospecimen_element so the shipped_biospecimen_breakdown view will be populated correctly TCGA-00-1111-01A-01W-1111-99 -->
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="1" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="1" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="2" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="2" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="2" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="9" shipped_biospecimen_id="2" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="10" shipped_biospecimen_id="2" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="11" shipped_biospecimen_id="3" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="12" shipped_biospecimen_id="3" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="13" shipped_biospecimen_id="3" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="14" shipped_biospecimen_id="3" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="15" shipped_biospecimen_id="3" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="16" shipped_biospecimen_id="4" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="17" shipped_biospecimen_id="4" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="18" shipped_biospecimen_id="4" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="19" shipped_biospecimen_id="4" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="20" shipped_biospecimen_id="4" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="21" shipped_biospecimen_id="5" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="22" shipped_biospecimen_id="5" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="23" shipped_biospecimen_id="5" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="24" shipped_biospecimen_id="5" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="25" shipped_biospecimen_id="5" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="26" shipped_biospecimen_id="6" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="27" shipped_biospecimen_id="6" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="28" shipped_biospecimen_id="6" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="29" shipped_biospecimen_id="6" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="30" shipped_biospecimen_id="6" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="31" shipped_biospecimen_id="7" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="32" shipped_biospecimen_id="7" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="33" shipped_biospecimen_id="7" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="34" shipped_biospecimen_id="7" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="35" shipped_biospecimen_id="7" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="36" shipped_biospecimen_id="8" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="37" shipped_biospecimen_id="8" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="38" shipped_biospecimen_id="8" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="39" shipped_biospecimen_id="8" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="40" shipped_biospecimen_id="8" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="41" shipped_biospecimen_id="9" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="42" shipped_biospecimen_id="9" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="43" shipped_biospecimen_id="9" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="44" shipped_biospecimen_id="9" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="45" shipped_biospecimen_id="9" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="46" shipped_biospecimen_id="10" element_type_id="1" element_value="10"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="47" shipped_biospecimen_id="10" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="48" shipped_biospecimen_id="10" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="49" shipped_biospecimen_id="10" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="50" shipped_biospecimen_id="10" element_type_id="5" element_value="1111"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="51" shipped_biospecimen_id="11" element_type_id="1" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="52" shipped_biospecimen_id="11" element_type_id="2" element_value="B"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="53" shipped_biospecimen_id="11" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="54" shipped_biospecimen_id="11" element_type_id="4" element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="55" shipped_biospecimen_id="11" element_type_id="5" element_value="0000"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="56" shipped_biospecimen_id="12" element_type_id="1" element_value="11"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="57" shipped_biospecimen_id="12" element_type_id="2" element_value="B"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="58" shipped_biospecimen_id="12" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="59" shipped_biospecimen_id="12" element_type_id="4" element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="60" shipped_biospecimen_id="12" element_type_id="5" element_value="0000"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="61" shipped_biospecimen_id="13" element_type_id="1" element_value="20"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="62" shipped_biospecimen_id="13" element_type_id="2" element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="63" shipped_biospecimen_id="13" element_type_id="3" element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="64" shipped_biospecimen_id="13" element_type_id="4" element_value="W"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="65" shipped_biospecimen_id="13" element_type_id="5" element_value="9999"/>
+</dataset>

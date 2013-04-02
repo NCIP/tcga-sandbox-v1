@@ -1,0 +1,40 @@
+
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.GregorianCalendar" %>
+<%@include file="/includes/dam-imports.jspf"%>
+<% String helpURL = "/tcga/tcgaSearchArchivesGuide.jsp"; %>
+
+        <div id="content" class="widelayout dam">
+            <div id="sidebar" class="rollup right">
+                <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+            </div>
+            <div class="left">
+                <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <a href="findArchives.htm">Bulk Download</a> > <span class="trailDest">Archive Details: <c:out value="${archive.platform}"/> Platform</span></div>
+                <a name="skip" id="skip"></a>
+                <h1>Archive Details: <c:out value="${archive.platform}"/> Platform</h1>
+                <a href="findArchives.htm">(Reset Archive Search Criteria)</a>
+            </div>
+            <div class="clear"></div>
+
+            <div id="center" class="<%=bodyDesign%>">
+                <div id="results_table">
+                    <ec:table
+                            items="${fileList}"
+                            var="file"
+                            action="${pageContext.request.contextPath}/showFiles.htm"
+                            imagePath="${pageContext.request.contextPath}/images/layout/*.gif"
+                            >
+                        <ec:row highlightRow="true">
+                            <ec:column property="fileName" title="Name">
+                                <a href="<c:out value="${archive.deployDirectory}"/>/<c:out value="${file}"/>"><c:out
+                                        value="${file}"/></a>
+                            </ec:column>
+                        </ec:row>
+                    </ec:table>
+
+                </div>
+                <%@ include file="/includes/queryParamDisplay.jsp" %>
+            </div>
+        </div>
+

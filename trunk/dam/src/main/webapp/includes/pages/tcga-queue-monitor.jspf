@@ -1,0 +1,22 @@
+<center>
+    <h1><spring:message code="label.currentlyScheduledJobs"/></h1>
+
+    <table border="1" rules="all">
+        <tr>
+            <th><spring:message code="label.index"/></th>
+            <th><spring:message code="label.jobType"/></th>
+            <th><spring:message code="label.queueType"/></th>
+            <th><spring:message code="label.archiveName"/></th>
+            <th><spring:message code="label.uncompressedSize"/></th>
+        </tr>
+        <c:forEach items="${QueueItems}" var="qitem">
+            <tr>
+                <td><c:out value="${qitem.index}"/></td>
+                <td><c:out value="${qitem.jobType}"/></td>
+                <td><c:out value="${qitem.queueType}"/></td>
+                <td><c:out value="${qitem.archiveName}"/></td>
+                <td><c:out value="${qitem.totalSize}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+</center>

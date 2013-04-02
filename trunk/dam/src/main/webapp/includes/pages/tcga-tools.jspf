@@ -1,0 +1,23 @@
+
+		<div id="content">
+			<div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+			<h1><%=h1String%></h1>
+			<div class="indent">
+				<h3>Analytical Tools</h3>
+				<p>Links to genomic viewers and other analytical tools: <a href="tcgaAnalyticalTools.jsp">Analytical Tools Page</a></p>
+				<h3>Data Portal Tools</h3>
+                <ul>
+                    <li><h4><a id="annotationsLink" href="<%=secureHost%>/annotations/">Annotations Manager</a></h4>
+                        <p>A tool to add, edit or search for annotations of TCGA data.</p>
+                    </li>
+                    <li><h4><a id="metadataLink" href="<%=secureHost%>/uuid/uuidBrowser.htm">Biospecimen Metadata Browser</a></h4>
+                        <p>A tool for searching TCGA biospecimen metadata and browsing the hierarchical relationships between them.</p>
+                    </li>
+                </ul>
+			</div>
+		</div>
+		<div id="sidebar">
+			<%@include file="/includes/modules/rightMenuTools.jspf" %>
+			<%@include file="/includes/modules/rightMoreTcgaInformation.jspf" %>
+		</div>

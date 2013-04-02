@@ -1,0 +1,90 @@
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.GregorianCalendar" %>
+<%@ include file="/includes/dam-imports.jspf"%>
+
+        <div id="content" class="widelayout dam">
+            <div class="left">
+                <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <a href="findArchives.htm">Bulk Download</a> > <span class="trailDest"><%=h1String%></span></div>
+                <a name="skip" id="skip"></a>
+                <h1><%=h1String%></h1>
+            </div>
+            <div id="sidebar" class="rollup right">
+                <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+            </div>
+            <div class="clear"></div>
+
+            <div id="center" class="<%=bodyDesign%>">
+
+                <div id="results_table">
+                    <%--@elvariable id="archiveList" type="java.util.List"--%>
+                    <ec:table
+                            items="${archiveList}"
+                            var="archive"
+                            action="${pageContext.request.contextPath}/findArchives.htm"
+                            title="<a href=\"findArchives.htm\">(Reset Archive Search Criteria)</a>"
+                            imagePath="${pageContext.request.contextPath}/images/layout/*.gif"
+                            width="100%"
+                            filterable="true"
+                            >
+                        <%--<ec:exportPdf
+                       fileName="archives.pdf"
+                       tooltip="Export PDF"
+                       headerColor="black"
+                       headerBackgroundColor="#b6c2da"
+                       headerTitle="Archives"/>
+                <ec:export
+                       view="xls"
+                       fileName="archives.xls"
+                       tooltip="Export Excel"/>--%>
+
+                        <ec:row highlightRow="true">
+                            <ec:column property="realName" title="Archive"/>
+                            <ec:column property="dateAdded" title="Added On" filterCell="droplist"/>
+                            <ec:column property="domainName" title="Center" filterCell="droplist"/>
+                            <%-- Use the displayVersion and not the individual values of an archive's version to display in UI
+                    This permits proper sorting of values in extremeTables --%>
+                            <ec:column property="displayVersion" title="Version" filterCell="droplist"/>
+                            <ec:column property="tumorType" title="Cancer Type" filterCell="droplist"/>
+                            <ec:column property="platform" title="Platform" filterCell="droplist"/>
+                            <ec:column property="archiveType" title="Archive Type" filterCell="droplist"/>
+                            <ec:column property="dataType" title="Data Type" filterCell="droplist"/>
+                            <ec:column property="deployStatus" title="Status" filterable="false">
+                                <c:if test='${archive.deployStatus == "In Review"}'><font color="yellow">In Review</font> </c:if>
+                                <c:if test='${archive.deployStatus == "Available" && archive.deployLocation != null }'>
+                                    <c:set var="dl2" value="${archive.deployLocation}"/>
+                                    <jsp:useBean id="dl2" type="java.lang.String"/>
+                                    <% if ( dl2.contains("tcga4yeo") ) { %>
+                                        <font color="red">Available - Controlled Access</font>
+                                    <% } %>
+                                    <% if ( dl2.contains("anonymous") ) { %>
+                                        <font color="black">Available - Open Access</font>
+                                    <% } %>
+                                </c:if>
+                            </ec:column>
+                            <ec:column property="deployLocation" title="Download" filterable="false">
+                                <c:if test='${archive.deployStatus == "In Review"}'> No Download Available </c:if>
+                                <c:if test='${archive.deployStatus == "Available" && archive.deployLocation != null }'>
+                                    <c:set var="dl" value="${archive.deployLocation}"/>
+                                    <jsp:useBean id="dl" type="java.lang.String"/>
+                                    <% if ( dl.contains("tcga4yeo") ) { %>
+                                        <a href="${archive.deployLocation}"><font color="red">Download</font></a><br><a
+                                            href="${archive.deployLocation}.md5"><font color="red">MD5</font></a>
+                                    <% } %>
+                                    <% if ( dl.contains("anonymous") ) { %>
+                                        <a href="${archive.deployLocation}">Download</a><br><a
+                                            href="${archive.deployLocation}.md5">MD5</a>
+                                    <% } %>
+                                    <br><a href="showFiles.htm?archiveId=<c:out value="${archive.id}"/>">View Files</a>
+                                </c:if>
+                                <c:if test='${archive.deployStatus == "Invalid" && archive.deployLocation != null }'>
+                                	<a href="javascript:void(0)" onclick="alert('Previous location: ${archive.deployLocation}');">View Files</a>
+                                </c:if>
+                            </ec:column>
+                        </ec:row>
+                    </ec:table>
+                </div>
+                <%@ include file="/includes/queryParamDisplay.jsp" %>
+            </div>
+        </div>
+

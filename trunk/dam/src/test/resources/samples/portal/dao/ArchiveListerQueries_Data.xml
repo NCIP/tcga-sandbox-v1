@@ -1,0 +1,106 @@
+<dataset>
+    <visibility visibility_id="1" visibility_name="Public" identifiable="0"/>
+    <visibility visibility_id="2" visibility_name="Protected" identifiable="1"/>
+
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+    <center_type center_type_code="BCR" center_type_definition="BCR" />
+    <center_type center_type_code="GSC" center_type_definition="GSC"/>
+
+    <data_type data_type_id="3" name="SNP" center_type_code="CGCC" ftp_display="snp" available="1" sort_order="0" />
+    <data_type data_type_id="4" name="Clinical" center_type_code="BCR" ftp_display="clin" available="1" sort_order="0"/>
+    <data_type data_type_id="5" name="DNASeq" center_type_code="GSC" ftp_display="dnaseq" available="1" sort_order="0"/>
+
+    <data_level level_number="0" level_definition="meta-data" />
+    <data_level level_number="1" level_definition="raw" />
+    <data_level level_number="2" level_definition="normalized" />
+    <data_level level_number="3" level_definition="aggregated" />
+
+    <!-- SNP data type: public for level 0 and 3, protected for level 1 and 2 -->
+    <data_visibility data_visibility_id="6" data_type_id="3" visibility_id="1" level_number="0"/>
+    <data_visibility data_visibility_id="7" data_type_id="3" visibility_id="2" level_number="1"/>
+    <data_visibility data_visibility_id="8" data_type_id="3" visibility_id="2" level_number="2"/>
+    <data_visibility data_visibility_id="9" data_type_id="3" visibility_id="1" level_number="3"/>
+
+    <!-- clinical data type: protected for level 1 -->
+    <data_visibility data_visibility_id="10" data_type_id="4" visibility_id="2" level_number="1" />
+
+    <!-- DNASeq data type: protected for level 1 and 2, public for level 3 -->
+    <data_visibility data_visibility_id="11" data_type_id="5" visibility_id="2" level_number="1" />
+    <data_visibility data_visibility_id="12" data_type_id="5" visibility_id="2" level_number="2" />
+    <data_visibility data_visibility_id="13" data_type_id="5" visibility_id="1" level_number="3" />
+
+    <center center_id="14" domain_name="cgcc_center.org" center_type_code="CGCC" display_name="CGCC Center" short_name="cgcc" sort_order="0" />
+    <center center_id="15" domain_name="bcr_center.org" center_type_code="BCR" display_name="BCR Center" short_name="bcr" sort_order="0" />
+    <center center_id="16" domain_name="gsc_center.edu" center_type_code="GSC" display_name="GSC Center" short_name="gsc" sort_order="0" />
+
+    <platform platform_id="17" platform_name="Genome_Wide_SNP6" platform_display_name="Genome Wide SNP 6" platform_alias="Genome_Wide_SNP6" center_type_code="CGCC" base_data_type_id="3" available="1" sort_order="0" />
+    <platform platform_id="18" platform_name="bio" platform_display_name="Clinical Biospecimen" platform_alias="bio" center_type_code="BCR" base_data_type_id="4" available="1" sort_order="0" />
+    <platform platform_id="19" platform_name="Illumina_DNASeq" platform_display_name="Illumina DNA Sequencing" platform_alias="Illumina_DNASeq" center_type_code="GSC" base_data_type_id="5" available="1" sort_order="0" />
+
+    <disease disease_id="20" disease_name="Glioblastoma multiforme" disease_abbreviation="GBM" active="1" />
+    <disease disease_id="21" disease_name="Breast carcinoma" disease_abbreviation="BRCA" active="1" />
+    <disease disease_id="22" disease_name="Acute myloid leukemia" disease_abbreviation="LAML" active="1" />
+
+    <archive_type archive_type_id="23" archive_type="mage-tab" data_level="0" />
+    <archive_type archive_type_id="24" archive_type="Level_1" data_level="1" />
+    <archive_type archive_type_id="25" archive_type="Level_2" data_level="2" />
+    <archive_type archive_type_id="26" archive_type="Level_3" data_level="3" />
+
+    <!-- GBM snp6 archives -->
+    <archive_info archive_id="100" deploy_status="Available" is_latest="0" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.mage-tab.1.0.0" archive_type_id="23" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="0" series="0" date_added="2011-01-28 12:00:00.000000000" /> />
+    <!-- latest -->
+    <archive_info archive_id="101" deploy_status="Available" is_latest="1" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.mage-tab.1.1.0" archive_type_id="23" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="1" series="0" date_added="2011-01-27 12:00:00.000000000" deploy_location="/path/to/magetab/archive/cgcc_center.org_GBM.Genome_Wide_SNP6.mage-tab.1.1.0.tar.gz"/> />
+    <!-- latest -->
+    <archive_info archive_id="102" deploy_status="Available" is_latest="1" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_1.1.0.0" archive_type_id="24" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="0" series="0" date_added="2011-02-26 12:00:00.000000000" deploy_location="/path/to/level1/archive/cgcc_center.org_GBM.Genome_Wide_SNP6.Level_1.1.0.0.tar.gz" final_size_kb="90000"/> />
+    <archive_info archive_id="103" deploy_status="Invalid" is_latest="0" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_1.1.1.0" archive_type_id="24" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="1" series="0" date_added="2011-01-25 12:00:00.000000000" /> />
+    <!-- latest -->
+    <archive_info archive_id="104" deploy_status="Available" is_latest="1" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_2.1.0.0" archive_type_id="25" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="0" series="0" date_added="2011-03-24 12:00:00.000000000" deploy_location="/path/to/level2/archive/cgcc_center.org_GBM.Genome_Wide_SNP6.Level_2.1.0.0.tar.gz" final_size_kb="50000"/> />
+    <archive_info archive_id="105" deploy_status="Available" is_latest="0" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_3.1.0.0" archive_type_id="26" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="0" series="0" date_added="2011-01-23 12:00:00.000000000" /> />
+    <archive_info archive_id="106" deploy_status="Available" is_latest="0" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_3.1.1.0" archive_type_id="26" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="1" series="0" date_added="2011-01-22 12:00:00.000000000" /> />
+    <!-- latest -->
+    <archive_info archive_id="107" deploy_status="Available" is_latest="1" archive_name="cgcc_center.org_GBM.Genome_Wide_SNP6.Level_3.1.2.0" archive_type_id="26" center_id="14" disease_id="20" platform_id="17" serial_index="1" revision="2" series="0" date_added="2011-01-21 12:00:00.000000000" deploy_location="/path/to/level3/archive/cgcc_center.org_GBM.Genome_Wide_SNP6.Level_3.1.2.0.tar.gz"/> />
+
+    <!-- LAML snp6 archives -->
+    <!-- latest -->
+    <archive_info archive_id="108" deploy_status="Available" is_latest="1" archive_name="cgcc_center.org_LAML.Genome_Wide_SNP6.mage-tab.8.0.0" archive_type_id="23" center_id="14" disease_id="22" platform_id="17" serial_index="8" revision="0" series="0" date_added="2011-01-20 12:00:00.000000000" /> />
+
+    <!-- bio archives -->
+    <archive_info archive_id="200" deploy_status="Available" is_latest="0" archive_name="bcr_center.org_GBM.bio.Level_1.12.0.0" archive_type_id="24" center_id="15" disease_id="20" platform_id="18" serial_index="12" revision="0" series="0" date_added="2011-01-19 12:00:00.000000000" /> />
+    <archive_info archive_id="201" deploy_status="Available" is_latest="1" archive_name="bcr_center.org_GBM.bio.Level_1.12.2.0" archive_type_id="24" center_id="15" disease_id="20" platform_id="18" serial_index="12" revision="2" series="0" date_added="2011-01-18 12:00:00.000000000" /> />
+
+    <archive_info archive_id="202" deploy_status="Available" is_latest="1" archive_name="bcr_center.org_BRCA.bio.Level_1.26.0.0" archive_type_id="24" center_id="15" disease_id="21" platform_id="18" serial_index="26" revision="0" series="0" date_added="2011-01-17 12:00:00.000000000" /> />
+
+    <archive_info archive_id="203" deploy_status="Available" is_latest="1" archive_name="bcr_center.org_LAML.bio.Level_1.99.0.0" archive_type_id="24" center_id="15" disease_id="22" platform_id="18" serial_index="99" revision="0" series="0" date_added="2011-01-16 12:00:00.000000000" /> />
+    <archive_info archive_id="204" deploy_status="Available" is_latest="1" archive_name="bcr_center.org_LAML.bio.Level_1.100.0.0" archive_type_id="24" center_id="15" disease_id="22" platform_id="18" serial_index="100" revision="0" series="0" date_added="2011-01-15 12:00:00.000000000" /> />
+
+    <!-- 2 files in archive 101 (latest GBM mage-tab for SNP6) -->
+    <file_info file_id="500" file_name="hello.sdrf.txt" file_size="12345"/>
+    <file_to_archive file_archive_id="501" file_id="500" archive_id="101" file_location_url="/location/of/file/hello.sdrf.txt" />
+
+    <file_info file_id="502" file_name="readme.txt" file_size="111"/>
+    <file_to_archive file_archive_id="503" file_id="502" archive_id="101" file_location_url="/location/of/file/readme.txt" />
+
+    <file_collection file_collection_id="1" collection_name="DCC Notes" visibility_id="1" />
+    <file_collection file_collection_id="2" collection_name="brca_working_group_data" visibility_id="2" disease_id="21" />
+    <file_collection file_collection_id="3" collection_name="biotab" visibility_id="2" disease_id="20" center_type_code="BCR" />
+    <file_collection file_collection_id="4" collection_name="minbiotab" visibility_id="1" disease_id="21" center_type_code="BCR" center_id="15" />
+    <file_collection file_collection_id="5" collection_name="notes" visibility_id="2" disease_id="20" center_type_code="BCR" center_id="15" platform_id="18" />
+
+    <file_info file_id="505" file_name="gbm_patients_biotab.txt" file_size="101" />
+    <file_info file_id="506" file_name="gbm_samples_biotab.txt" file_size="200" />
+    <file_info file_id="507" file_name="gbm_portions_biotab.txt" file_size="306" />
+
+    <file_info file_id="508" file_name="note.txt" file_size="1" />
+    <file_info file_id="509" file_name="RESULTS" file_size="100000" />
+    <file_info file_id="510" file_name="ThisIsAPublicBioTabFile" file_size="1234" />
+
+    <file_to_collection file_collection_id="3" file_id="505" file_location_url="/path/to/biotab/gbm_patients_biotab.txt" file_date="2011-09-23 0:00:00.00" />
+    <file_to_collection file_collection_id="3" file_id="506" file_location_url="/path/to/biotab/gbm_samples_biotab.txt" file_date="2011-09-22 0:00:00.00" />
+    <file_to_collection file_collection_id="3" file_id="507" file_location_url="/path/to/biotab/gbm_portions_biotab.txt" file_date="2011-09-21 0:00:00.00"/>
+
+    <file_to_collection file_collection_id="1" file_id="508" file_location_url="hi" file_date="2011-08-23 0:00:00.00" />
+    <file_to_collection file_collection_id="2" file_id="509" file_location_url="thisIsGreat" file_date="2011-07-01 0:00:00.00" />
+    <file_to_collection file_collection_id="4" file_id="510" file_location_url="HERE" file_date="2010-01-01 0:00:00.00" />
+    <file_to_collection file_collection_id="5" file_id="508" file_location_url="hi" file_date="2011-08-10 0:00:00.00" />
+    <file_to_collection file_collection_id="5" file_id="509" file_location_url="hello" file_date="2009-06-26 0:00:00.00" />
+</dataset>

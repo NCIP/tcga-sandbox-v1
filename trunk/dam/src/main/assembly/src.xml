@@ -1,0 +1,49 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Assembly descriptor which tells Maven how to assemble the final DAM distribution artifacts -->
+
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+  <id>distribution</id>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <baseDirectory>dam</baseDirectory>
+  <files>
+      <file>
+          <source>src/main/resources/damApp.properties</source>
+          <outputDirectory>/conf/front</outputDirectory>
+          <filtered>true</filtered>
+      </file>
+      <file>
+          <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+          <destName>tcga.${project.packaging}</destName>
+          <filtered>false</filtered>
+      </file>
+  </files>
+<dependencySets>
+      <dependencySet>
+      	  <outputDirectory>/conf</outputDirectory>
+      	  <!-- Unpack the common dependency JAR and include the schema folder as part of the qclive-core
+      	  	   final distribution artifacts. -->
+          <unpack>true</unpack>
+          <unpackOptions>
+          	<includes>
+          		<include>schema/*.xml</include>
+          		<include>schema/*.xsd</include>
+          	</includes>
+          	<excludes>
+          		<exclude>schema/TCGA_BCR.Metadata.xsd</exclude>
+          	</excludes>
+          </unpackOptions>
+      </dependencySet>
+  </dependencySets>
+</assembly>

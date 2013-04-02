@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="tree" type="treeType"/>
+    <xs:complexType name="treeType">
+        <xs:sequence>
+            <xs:element type="itemType" name="item" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="child"/>
+        <xs:attribute type="xs:string" name="id"/>
+        <xs:attribute type="xs:string" name="im1" use="optional"/>
+        <xs:attribute type="xs:string" name="im2" use="optional"/>
+        <xs:attribute type="xs:string" name="text" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="itemType" mixed="true">
+        <xs:sequence>
+            <xs:element type="itemType" name="item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:integer" name="child" use="required"/>
+        <xs:attribute type="xs:string" name="text" use="required"/>
+        <xs:attribute type="xs:integer" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="im1" use="optional"/>
+        <xs:attribute type="xs:string" name="im2" use="optional"/>
+        <xs:attribute type="xs:string" name="aCol" use="optional"/>
+    </xs:complexType>
+</xs:schema>

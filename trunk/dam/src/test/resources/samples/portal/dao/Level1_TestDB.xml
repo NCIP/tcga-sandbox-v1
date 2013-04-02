@@ -1,0 +1,204 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="1" ARCHIVE_TYPE="Level_1" />
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="characterization center" />
+    <CENTER_TYPE CENTER_TYPE_CODE="BCR" CENTER_TYPE_DEFINITION="biospecimen core resource center" />
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="TUM" DISEASE_NAME="Tumor" ACTIVE="1"/>
+    <CENTER CENTER_ID="1" DOMAIN_NAME="bcr-test.org" CENTER_TYPE_CODE="BCR" DISPLAY_NAME="BCR"/>
+    <CENTER CENTER_ID="2" DOMAIN_NAME="test.org" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Test"/>
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" NAME="TestType" FTP_DISPLAY="test" AVAILABLE="1" SORT_ORDER="1"/>
+    <DATA_TYPE DATA_TYPE_ID="2" CENTER_TYPE_CODE="BCR" NAME="ClinicalType" FTP_DISPLAY="clin" AVAILABLE="1" SORT_ORDER="1"/>
+    <PLATFORM PLATFORM_ID="1" PLATFORM_NAME="aPlatform" AVAILABLE="1" BASE_DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" PLATFORM_DISPLAY_NAME="aPlatform" PLATFORM_ALIAS="aPlatform" SORT_ORDER="1"/>
+    <PLATFORM PLATFORM_ID="2" PLATFORM_NAME="clinical" AVAILABLE="1" BASE_DATA_TYPE_ID="2" CENTER_TYPE_CODE="BCR" PLATFORM_DISPLAY_NAME="aPlatform" PLATFORM_ALIAS="aPlatform" SORT_ORDER="1"/>
+    <PLATFORM PLATFORM_ID="3" PLATFORM_NAME="aPlatform" AVAILABLE="1" BASE_DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" PLATFORM_DISPLAY_NAME="aPlatform" PLATFORM_ALIAS="aPlatform" SORT_ORDER="1"/>
+    <VISIBILITY VISIBILITY_ID="1" IDENTIFIABLE="1" VISIBILITY_NAME="protected"  />
+    <VISIBILITY VISIBILITY_ID="2" IDENTIFIABLE="0" VISIBILITY_NAME="Public" />
+    <DATA_VISIBILITY DATA_VISIBILITY_ID="1" DATA_TYPE_ID="1" LEVEL_NUMBER="1" VISIBILITY_ID="1" />
+    <DATA_VISIBILITY DATA_VISIBILITY_ID="2" DATA_TYPE_ID="1" LEVEL_NUMBER="2" VISIBILITY_ID="1" />
+    <DATA_VISIBILITY DATA_VISIBILITY_ID="3" DATA_TYPE_ID="1" LEVEL_NUMBER="3" VISIBILITY_ID="2" />
+    <DATA_VISIBILITY DATA_VISIBILITY_ID="4" DATA_TYPE_ID="2" LEVEL_NUMBER="1" VISIBILITY_ID="1" />
+    <DATA_LEVEL LEVEL_NUMBER="1" LEVEL_DEFINITION="one"/>
+    <DATA_LEVEL LEVEL_NUMBER="2" LEVEL_DEFINITION="two"/>
+    <DATA_LEVEL LEVEL_NUMBER="3" LEVEL_DEFINITION="three"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot"/>
+
+    <CENTER_TO_BCR_CENTER BCR_CENTER_ID="11" CENTER_ID="2" CENTER_TYPE_CODE="CGCC" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="1" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="3" element_value="00" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="1" element_type_id="5" element_value="0000" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="2" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="2" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="2" element_type_id="3" element_value="00" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="9" shipped_biospecimen_id="2" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="10" shipped_biospecimen_id="2" element_type_id="5" element_value="0000" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="11" shipped_biospecimen_id="3" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="12" shipped_biospecimen_id="3" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="13" shipped_biospecimen_id="3" element_type_id="3" element_value="00" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="14" shipped_biospecimen_id="3" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="15" shipped_biospecimen_id="3" element_type_id="5" element_value="0000" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="16" shipped_biospecimen_id="4" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="17" shipped_biospecimen_id="4" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="18" shipped_biospecimen_id="4" element_type_id="3" element_value="00" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="19" shipped_biospecimen_id="4" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="20" shipped_biospecimen_id="4" element_type_id="5" element_value="0000" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="21" shipped_biospecimen_id="5" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="22" shipped_biospecimen_id="5" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="23" shipped_biospecimen_id="5" element_type_id="3" element_value="11" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="24" shipped_biospecimen_id="5" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="25" shipped_biospecimen_id="5" element_type_id="5" element_value="0000" />
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="26" shipped_biospecimen_id="6" element_type_id="1" element_value="00"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="27" shipped_biospecimen_id="6" element_type_id="2" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="28" shipped_biospecimen_id="6" element_type_id="3" element_value="11" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="29" shipped_biospecimen_id="6" element_type_id="4" element_value="A" />
+    <shipped_biospecimen_element shipped_biospecimen_element_id="30" shipped_biospecimen_id="6" element_type_id="5" element_value="0000" />
+
+
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="1" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0001-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="0"
+                         PARTICIPANT_CODE="0001" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d931"/>
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="2" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0002-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="0"
+                         PARTICIPANT_CODE="0002" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d932"/>
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="3" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0003-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="0"
+                         PARTICIPANT_CODE="0003" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d933"/>
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="4" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0004-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="1"
+                         PARTICIPANT_CODE="0004" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d934"/>
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="5" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0005-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="0"
+                         PARTICIPANT_CODE="0005" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d935"/>
+    <SHIPPED_BIOSPECIMEN SHIPPED_BIOSPECIMEN_ID="6" SHIPPED_ITEM_TYPE_ID="1" PROJECT_CODE="TEST" TSS_CODE="00"
+                         BUILT_BARCODE="TCGA-00-0006-00" BCR_CENTER_ID="11" IS_VIEWABLE="1" IS_REDACTED="0" IS_CONTROL="0"
+                         PARTICIPANT_CODE="0006" SHIPPED_DATE="2010-06-22" uuid="810adcea-d548-42c8-ba9c-f5619597d936"/>
+
+
+    <!-- a pretend BCR archive, for Batch 1 -->
+    <ARCHIVE_INFO ARCHIVE_ID="100" ARCHIVE_NAME="bcr-test.org_TUM.bio.Level_1.1.0.0" CENTER_ID="1" PLATFORM_ID="2" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" ARCHIVE_TYPE_ID="1" DATE_ADDED="2009-10-28 12:00:00.000000000" DEPLOY_LOCATION="Sweden" DEPLOY_STATUS="Available" is_latest="1" />
+    <SHIPPED_BIOSPEC_BCR_ARCHIVE shipped_biospecimen_id="1" archive_id="100" />
+    <SHIPPED_BIOSPEC_BCR_ARCHIVE shipped_biospecimen_id="2" archive_id="100" />
+    <SHIPPED_BIOSPEC_BCR_ARCHIVE shipped_biospecimen_id="3" archive_id="100" />
+    <!-- another BCR archive, for Batch 42 -->
+    <ARCHIVE_INFO ARCHIVE_ID="101" ARCHIVE_NAME="bcr-test.org_TUM.bio.Level_1.42.5.0" CENTER_ID="1" PLATFORM_ID="2" DISEASE_ID="1" SERIAL_INDEX="42" REVISION="5" SERIES="0" ARCHIVE_TYPE_ID="1" DATE_ADDED="2009-10-28 12:00:00.000000000" DEPLOY_LOCATION="Denmark" DEPLOY_STATUS="Available" is_latest="1" />
+    <SHIPPED_BIOSPEC_BCR_ARCHIVE shipped_biospecimen_id="4" archive_id="101" />
+
+    <!-- for this archive, 1.1 is the latest and is available -->
+    <ARCHIVE_INFO ARCHIVE_ID="10" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.1.2.0" CENTER_ID="2" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="2" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Uploaded" is_latest="0" DEPLOY_LOCATION="somewhere" ARCHIVE_TYPE_ID="1" />
+    <ARCHIVE_INFO ARCHIVE_ID="11" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.1.0.0" CENTER_ID="2" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2009-10-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" ARCHIVE_TYPE_ID="1" DEPLOY_LOCATION="here"/>
+    <ARCHIVE_INFO ARCHIVE_ID="12" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.1.1.0" CENTER_ID="2" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="1" SERIES="0" DATE_ADDED="2009-12-08 12:00:00.000000000" DEPLOY_STATUS="Invalid" is_latest="0" ARCHIVE_TYPE_ID="1" DEPLOY_LOCATION="there"/>
+
+    <!-- archive that is Invalid and latest -->
+    <ARCHIVE_INFO ARCHIVE_ID="13" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.2.0.0" CENTER_ID="2" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="2" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Weird" is_latest="1" DEPLOY_LOCATION="Kansas" ARCHIVE_TYPE_ID="1" />
+
+    <!-- archive that is latest and available -->
+    <ARCHIVE_INFO ARCHIVE_ID="14" ARCHIVE_NAME="test.org_AAA.aPlatform.Level_1.1.2.0" CENTER_ID="2" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="2" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" DEPLOY_LOCATION="somewhere" ARCHIVE_TYPE_ID="1" />
+    <ARCHIVE_INFO ARCHIVE_ID="15" ARCHIVE_NAME="test.org_BBB.aPlatform.Level_1.1.2.0" CENTER_ID="2" PLATFORM_ID="3" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="2" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" DEPLOY_LOCATION="somewhere" ARCHIVE_TYPE_ID="1" />
+
+    <!-- level 1 file for archive 1.1 (11) -->
+    <FILE_INFO FILE_ID="1" FILE_NAME="file1.txt" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="111" FILE_ID="1" ARCHIVE_ID="11" FILE_LOCATION_URL="test/file1.txt" />
+    
+    <!-- level 1 file for archive 2.0 (13) -->
+    <FILE_INFO FILE_ID="2" FILE_NAME="file2.txt" LEVEL_NUMBER="1" DATA_TYPE_ID="1" file_size="1024"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="213" FILE_ID="2" ARCHIVE_ID="13" FILE_LOCATION_URL="test/file2.txt" />
+
+    <!-- level 2 file for archive 1.1 (11) -->
+    <FILE_INFO FILE_ID="3" FILE_NAME="data1.txt" LEVEL_NUMBER="2" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="311" FILE_ID="3" ARCHIVE_ID="11" FILE_LOCATION_URL="test/data1.txt" />
+
+    <!-- level 2 file for archive 2.0 (13) -->
+    <FILE_INFO FILE_ID="4" FILE_NAME="data2.txt" LEVEL_NUMBER="2" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="413" FILE_ID="4" ARCHIVE_ID="13" FILE_LOCATION_URL="test/data2.txt" />
+
+    <!-- level 3 file for archive 1.1 (11) -->
+    <FILE_INFO FILE_ID="5" FILE_NAME="genes1.txt" LEVEL_NUMBER="3" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="511" FILE_ID="5" ARCHIVE_ID="11" FILE_LOCATION_URL="test/genes1.txt" />
+
+        <!-- level 3 file for archive 2.0 (13) -->
+    <FILE_INFO FILE_ID="6" FILE_NAME="genes2.txt" LEVEL_NUMBER="3" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="613" FILE_ID="6" ARCHIVE_ID="13" FILE_LOCATION_URL="test/genes2.txt" />
+
+    <!-- file for BCR archive (100) -->
+    <FILE_INFO FILE_ID="7" FILE_NAME="clinical.xml" LEVEL_NUMBER="1" DATA_TYPE_ID="2" />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="7100" FILE_ID="7" ARCHIVE_ID="100" FILE_LOCATION_URL="bcr/clinical.xml" />
+
+    <!-- file for archive 14 and 15 -->
+    <FILE_INFO FILE_ID="8" FILE_NAME="aaa.txt" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="120" FILE_ID="8" ARCHIVE_ID="14" FILE_LOCATION_URL="test/aaa.txt" />
+    <FILE_INFO FILE_ID="9" FILE_NAME="bbb.txt" LEVEL_NUMBER="1" DATA_TYPE_ID="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="121" FILE_ID="9" ARCHIVE_ID="15" FILE_LOCATION_URL="test/bbb.txt" />
+
+    <!-- file1.txt has barcodes 1, 2, 3, 4 -->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="1" BIOSPECIMEN_ID="1" FILE_ID="1" FILE_COL_NAME="1" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="2" BIOSPECIMEN_ID="2" FILE_ID="1" FILE_COL_NAME="1" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="3" BIOSPECIMEN_ID="3" FILE_ID="1" FILE_COL_NAME="1" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="4" BIOSPECIMEN_ID="4" FILE_ID="1" FILE_COL_NAME="1" />
+    <!-- file2.txt just has barcodes 1 and 2 -->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="5" BIOSPECIMEN_ID="1" FILE_ID="2" FILE_COL_NAME="1" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="6" BIOSPECIMEN_ID="2" FILE_ID="2" FILE_COL_NAME="1" />
+    <!-- data1.txt has barcodes 1, 2, 3, 4, 5 -->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="7" BIOSPECIMEN_ID="1" FILE_ID="3" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="8" BIOSPECIMEN_ID="2" FILE_ID="3" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="9" BIOSPECIMEN_ID="3" FILE_ID="3" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="10" BIOSPECIMEN_ID="4" FILE_ID="3" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="11" BIOSPECIMEN_ID="5" FILE_ID="3" FILE_COL_NAME="data"/>
+    <!-- data2.txt has barcodes 2, 3, 4, 5 -->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="12" BIOSPECIMEN_ID="2" FILE_ID="4" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="13" BIOSPECIMEN_ID="3" FILE_ID="4" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="14" BIOSPECIMEN_ID="4" FILE_ID="4" FILE_COL_NAME="data"/>
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="15" BIOSPECIMEN_ID="4" FILE_ID="5" FILE_COL_NAME="data"/>
+
+    <!-- BCR archive has biospecimen_to_file rows too-->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="16" BIOSPECIMEN_ID="1" FILE_ID="7" FILE_COL_NAME="N/A" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="17" BIOSPECIMEN_ID="2" FILE_ID="7" FILE_COL_NAME="N/A" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="18" BIOSPECIMEN_ID="3" FILE_ID="7" FILE_COL_NAME="N/A" />
+
+    <!-- aaa.txt and bbb.txt has same barcode -->
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="19" BIOSPECIMEN_ID="6" FILE_ID="8" FILE_COL_NAME="1" />
+    <BIOSPECIMEN_TO_FILE BIOSPECIMEN_FILE_ID="20" BIOSPECIMEN_ID="6" FILE_ID="9" FILE_COL_NAME="1" />
+
+    <!-- file1.txt has barcodes 1, 2, 3, 4 -->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="1" FILE_ID="1" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="2" FILE_ID="1" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="3" FILE_ID="1" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="4" FILE_ID="1" />
+    <!-- file2.txt just has barcodes 1 and 2 -->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="1" FILE_ID="2" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="2" FILE_ID="2" />
+    <!-- data1.txt has barcodes 1, 2, 3, 4, 5 -->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="1" FILE_ID="3" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="2" FILE_ID="3" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="3" FILE_ID="3" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="4" FILE_ID="3" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="5" FILE_ID="3" />
+    <!-- data2.txt has barcodes 2, 3, 4, 5 -->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="2" FILE_ID="4" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="3" FILE_ID="4" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="4" FILE_ID="4" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="4" FILE_ID="5" />
+
+    <!-- BCR archive has biospecimen_to_file rows too-->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="1" FILE_ID="7" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="2" FILE_ID="7" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="3" FILE_ID="7" />
+
+    <!-- aaa.txt and bbb.txt share the same barcode -->
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="6" FILE_ID="8" />
+    <SHIPPED_BIOSPECIMEN_FILE shipped_biospecimen_id="6" FILE_ID="9" />
+
+</dataset>

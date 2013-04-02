@@ -1,0 +1,72 @@
+
+<div id="content">
+    <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaAbout.jsp">About the Data</a> > <span class="trailDest"><%=h1String%></span></div>
+    <a name="skip" id="skip"></a>
+    <h1><%=h1String%></h1>
+    <div class="indent">
+		<p>There are two data access tiers:
+			<ul>
+				<li>Open Access data tier</li>
+					<li>Controlled Access data tier</li>
+			</ul>
+		</p>
+        <h3>Open Access Data Tier</h3>
+        <p>
+The Open Access data tier comprises public data not unique to an individual. The Open Access data tier does not require user certification.
+		</p><p>
+	    	Data in the Open Access tier are available in the TCGA Data Portal as well as other public databases. 
+	    	<br />These data may consist of:
+                <ul>
+					<li>De-identified clinical and demographic data</li>
+					<li>Gene expression data</li>
+					<li>Copy-number alterations in regions of the genome</li>
+					<li>Epigenetic data</li>
+					<li>Summaries of data, such as genotype frequencies, compiled across individuals</li>
+					<li>Anonymized single amplicon DNA sequence data </li>
+				</ul>
+		</p>
+        <h3>Controlled Access Data Tier</h3>
+		<p>
+The Controlled Access data tier contains data that may be unique to an individual. All data types are stripped of direct identifiers. The Controlled Access data tier requires user certification.
+		</p>
+		<p>
+			The following data types are in Controlled-Access:
+                <ul>
+					<li>Individual germline variant data (SNP. cel files)</li>
+					<li>Primary sequence data (.bam files) - available at the <a target="newWin" href="https://cghub.ucsc.edu/" class="newWinIcon">Cancer Genomics Hub</a></li>
+					<li>Clinical free text fields</li>
+					<li>Exon Array files (GBM and OV projects only)</li>
+				</ul>
+		</p>
+		<p>
+			To gain access to these data, the researchers must:
+                <ul>
+					<li>Complete the <a target="newWin" href="https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?login=&page=login" class="newWinIcon">Data Access Request</a> (DAR) form which is available electronically through the <a target="newWin" href="http://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000178.v5.p5" class="newWinIcon">Database of Genotypes and PhenoTypes (dbGaP)</a>.</li>
+					<li>Supplemental instructions on how to complete the DAR for TCGA datasets are available <a target="newWin" href="/docs/TCGA_DAC_Supplemental_Instruction.pdf" class="newWinIcon">here<span class="pdfIcon">&nbsp;</span></a>.
+				</ul>
+		</p>
+		<p>
+		Once the request is approved, researchers must: 
+		</p>
+		<p>
+				<ul>
+					<li>Agree to restrict their use of the information to biomedical research purposes only</li>
+					<li>Agree with the statements within <a target="newWin" class="newWinIcon" href="/docs/TCGA_Data_Use_Certification.pdf">TCGA Data Use Certification (DUC)<span class="pdfIcon">&nbsp;</span></a></li>
+					<li>Have their institutions certifiably agree to the statements within TCGA DUC</li>
+				</ul>
+        </p>
+        <p>Note that CGHub data is accessible using the approved user's <a href="https://commons.era.nih.gov/" target="newWin" class="newWinIcon">eraCommons</a> credentials,
+            while DCC protected data is accessible through the user's NCI username and password. An external NCI username is provided upon the approval of the Data Access Request.
+        </p>
+        <p>
+            Questions regarding Data Access Policies and Procedures can be sent to the TCGA Data Access Committee at <a href="mailto:tcga@mail.nih.gov">tcga@mail.nih.gov</a>
+        </p>
+   </div>
+</div>
+<div id="sidebar">
+    <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+</div>
+
+
+
+

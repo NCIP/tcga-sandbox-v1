@@ -1,0 +1,149 @@
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.GregorianCalendar" %>
+<%@include file="/includes/dam-imports.jspf" %>
+
+<div id="content" class="dam">
+    <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <span
+            class="trailDest">Bulk Download</span></div>
+    <a name="skip" id="skip"></a>
+    <h1>Bulk Download</h1>
+    <a class="tcgaHelpIcon" href="https://wiki.nci.nih.gov/x/o4O4Aw" target="_blank">Help</a>
+
+    <div class="clear"></div>
+    <form method="POST" id="findArchives" action=""
+          onSubmit="return tcga.util.validateFindArchivesDates(this,this.dateStart,this.dateEnd);">
+        <div class="archiveIntro">
+            Describe your search constraints. The search will return the list of archives that satisfy all of the
+            constraints.
+        </div>
+        <div class="paragraph">
+            <b>IMPORTANT:</b> Data downloaders are urged to use the data annotation search interface
+            (<a href="https://tcga-data.nci.nih.gov/annotations/">https://tcga-data.nci.nih.gov/annotations/</a>)
+            to query the case, sample, and aliquot identifiers
+            in their download to obtain the latest information associated with their data.
+        </div>
+        <div class="archiveTable designBody">
+            <spring:bind path="archiveQuery.project">
+                <label for="cancerType"><h3 class="archiveTableLeft">Cancer Type</h3></label>
+
+                <div class="archiveTableRight">
+                    <select name="<c:out value="${status.expression}"/>" id="cancerType" multiple="multiple" size="5">
+                        <option value="-1" selected>All</option>
+                        <c:forEach items="${tumors}" var="tumor">
+                            <option value="<c:out value="${tumor.disease_id}"/>"><c:out
+                                    value="${tumor.disease_name}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <spring:bind path="archiveQuery.center">
+                <label for="center"><h3 class="archiveTableLeft">Center</h3></label>
+
+                <div class="archiveTableRight">
+                    <select name="<c:out value="${status.expression}"/>" id="center" multiple="multiple" size="5">
+                        <option value="-1" selected>All</option>
+                        <c:forEach items="${centers}" var="center">
+                            <option value="<c:out value="${center.center_id}"/>"><c:out
+                                    value="${center.display_name} (${center.center_type_code})"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <spring:bind path="archiveQuery.platform">
+                <label for="platform"><h3 class="archiveTableLeft">Platform</h3></label>
+
+                <div class="archiveTableRight">
+                    <select name="<c:out value="${status.expression}"/>" id="platform" multiple="multiple" size="5">
+                        <option value="-1" selected>All</option>
+                        <c:forEach items="${platforms}" var="platform">
+                            <c:if test="${platform.platform_name!= 'bio'}">
+                                <option value="<c:out value="${platform.platform_id}"/>"><c:out
+                                        value="${platform.platform_display_name}"/></option>
+                            </c:if>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <spring:bind path="archiveQuery.dataType">
+                <label for="dataType"><h3 class="archiveTableLeft">Data Type</h3></label>
+
+                <div class="archiveTableRight">
+                    <select name="<c:out value="${status.expression}"/>" id="dataType" multiple="multiple" size="5">
+                        <option value="-1" selected>All</option>
+                        <c:forEach items="${datatypes}" var="dataType">
+                            <option value="<c:out value="${dataType.data_type_id}"/>"><c:out
+                                    value="${dataType.name}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <spring:bind path="archiveQuery.archiveType">
+                <label for="archiveType"><h3 class="archiveTableLeft">Archive Type</h3></label>
+
+                <div class="archiveTableRight">
+                    <select name="archiveType" id="archiveType" multiple="multiple" size="5">
+                        <option value="-1" selected>All</option>
+                        <c:forEach items="${archiveTypes}" var="archiveType">
+                            <option value="<c:out value="${archiveType.archiveTypeId}"/>"><c:out
+                                    value="${archiveType.archiveType}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <spring:bind path="archiveQuery.fileName">
+                <div class="archiveTableLeft">
+                    <label for="fileName"><h3>File Name</h3><span class="desciptionTxt">(Full or Partial)</span></label>
+                </div>
+                <div class="archiveTableRight">
+                    <input type="text" id="fileName" name="<c:out value="${status.expression}"/>" maxlength="255">
+
+                    <div class="desciptionTxt grey">To locate the latest mutation files, enter "maf" here</div>
+                </div>
+                <div class="clear"></div>
+            </spring:bind>
+            <label for="submissionDate"><h3 class="archiveTableLeft">Submission Date</h3></label>
+
+            <div class="archiveTableRight">
+                <div class="archiveTableLeft">
+                    <spring:bind path="archiveQuery.dateStart">
+                        <input type="text" id="submissionDate" name="<c:out value="${status.expression}"/>" size="10"
+                               maxlength="10" value="1/1/07">
+                    </spring:bind>
+                    <%
+                        //Get tomorrow's date for the default value of the BEFORE date field.
+                        //If we don't do this we will be one day behind in default searches in the available archives list.
+                        final GregorianCalendar calendar = new GregorianCalendar();
+                        final Calendar cal = Calendar.getInstance();
+                        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
+                    %>
+                    <label for="submissionDate"><span class="desciptionTxt">On or After</span></label>
+                </div>
+                <span class="hyphen">-</span>
+
+                <div class="archiveTableRight">
+                    <spring:bind path="archiveQuery.dateEnd">
+                        <input type="text" id="submissionDateBefore" name="<c:out value="${status.expression}"/>"
+                               size="10" maxlength="10"
+                               value="<%= DateFormat.getDateInstance(3).format(calendar.getTime())%>">
+                    </spring:bind>
+                    <label for="submissionDateBefore"><span class="desciptionTxt">Before</span></label>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="footer">
+                <input type="reset" value="Reset" class="button left"><input type="submit" value="Find >>"
+                                                                             class="button right"/></td>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<div id="sidebar" class="right">
+    <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+</div>

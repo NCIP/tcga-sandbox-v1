@@ -1,0 +1,133 @@
+<%--
+Author: David Nassau
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    isLevelHeader = (category == Header.HeaderCategory.Level);
+    
+	platformx = 0;
+	centerx = 0;
+	levelx = 0;
+
+    for (int iCol = 0, max = facade.getColumnCount(category); iCol < max; iCol++) {
+        colId = facade.getColumnHeaderId(category, iCol);
+        headerText = DataAccessMatrixJSPUtil.lookupHeaderText(category, facade.getHeaderName(colId), getServletConfig().getServletContext());
+
+
+        if (!isLevelHeader) { //uses image for vertical text
+            baseName = DataAccessMatrixJSPUtil.removePunctuation(headerText.toLowerCase());
+            imageName = baseName + ".gif";
+            headerTextToDisplay = DAMResourceBundle.getMessage(labelType + "." + baseName, headerText);
+        } else { //level: just displays number as text
+            if (headerText == null || headerText.equals(DataAccessMatrixQueries.LEVEL_CLINICAL )) {
+                headerTextToDisplay =  "&nbsp;";
+            }else {
+                headerTextToDisplay = DAMResourceBundle.getMessage(labelType + "." + headerText, headerText);             
+            }
+			
+			levelID = "header_p" + platformx + "_c" + centerx + "_l" + levelx + "_column" +iCol + "_";
+
+            cssclass = "headerCell numbers";            
+            if (facade.isHeaderProtected(colId)) {
+                cssclass += "_protected";
+            }
+        }
+%>
+
+<%
+if ( scat.equals("platform") ) {
+	//register number of children of platform parent
+	platformChildren.add( Integer.toString(facade.getColumnHeaderColSpan(colId)) );
+	String platformID = "header_p" + platformx + "_";
+    cssclass = "headerCell vertical";
+%>
+<td id="<%=platformID%>"
+    colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
+    valign="top"
+    class="<%=cssclass%>"
+    onclick="toggleHeader(event, this, <%=platformFirstColumn%>)">
+    <a href="JavaScript:void(0);" title="<%=headerTextToDisplay%>">
+    <img src="<%=headerImgFolder%>/<%=imageName%>" alt="<%=headerTextToDisplay%>" /></a>
+
+    <%
+    	platformFirstColumn += facade.getColumnHeaderColSpan(colId);
+        platformx++;
+    %>
+</td>
+<%}%>
+
+<%
+if ( scat.equals("center") ) {
+	//register number of children of center parent
+	centerChildren.add( Integer.toString(facade.getColumnHeaderColSpan(colId)) );
+	String centerID = "header_p" + platformx + "_c" + centerx + "_";
+    cssclass = "headerCell vertical";
+
+    
+%>
+<td id="<%=centerID%>"
+    colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
+    valign="top"
+    class="<%=cssclass%>"			   
+    onclick="toggleHeader(event, this, <%=centerFirstColumn%>)">
+    <%  
+    	centerFirstColumn += facade.getColumnHeaderColSpan(colId);
+    	centerParentControl = centerParentControl + facade.getColumnHeaderColSpan(colId);
+    	tempStr = String.valueOf(platformChildren.get( centerParentsReg ));
+    	if ( !( centerParentControl <  Integer.parseInt(tempStr)) ) {
+    		centerParentControl = 0;
+    		centerx = -1;
+    		platformx++;
+    		centerParentsReg++;
+    	}
+    %>
+    <a href="JavaScript:void(0);" title="<%=headerTextToDisplay%>">
+    <img src="<%=headerImgFolder%>/<%=imageName%>" alt="<%=headerTextToDisplay%>" /></a>
+
+    <%
+        centerx++;
+    %>
+</td>
+<%}%>
+
+<%
+if ( scat.equals("level") ) {
+    levelJsArray = levelJsArray +  "'" + levelID + "'";
+
+%>
+<td id="<%=levelID%>"
+    colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
+    valign="top"
+    class="<%=cssclass%>"
+    onclick="toggleHeader(event, this, null)">
+    <%
+    	levelParentControl = levelParentControl + facade.getColumnHeaderColSpan(colId);
+    	tempStr = String.valueOf(centerChildren.get( levelParentsReg ));
+    	if ( !( levelParentControl <  Integer.parseInt(tempStr)) ) {
+    		levelParentControl = 0;
+    		levelx = -1;
+    		centerx++;
+    		levelParentsReg++;
+    	}
+    %>
+    <%
+    	centerParentControl = centerParentControl + facade.getColumnHeaderColSpan(colId);
+    	tempStr = String.valueOf(platformChildren.get( platformx ));
+    	if ( !( centerParentControl <  Integer.parseInt(tempStr)) ) {
+    		centerParentControl = 0;
+    		centerx = 0;
+    		platformx = platformx + 1;
+    	}
+    %>
+    <div><%=headerTextToDisplay%></div>
+    <%
+        levelx=levelx+1;
+    %>
+</td>
+<%}%>
+
+<%
+    }
+%>
+

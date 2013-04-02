@@ -1,0 +1,32 @@
+<%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.util.DataAccessMatrixJSPUtil" %>
+<%@ page import="java.util.Map" %>
+<%@include file="/includes/dam-imports.jspf"%>
+<%@ include file="/includes/dam-file-is-loading-script.jspf" %>
+
+                <div id="content" class="widelayout dam">
+                    <div id="sidebar" class="rollup right">
+                        <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
+                    </div>
+                    <div class="left">
+                        <div class="trail"><a href="/tcga/">Home</a> > <a href="/tcga/tcgaDownload.jsp">Download Data</a> > <a href="/tcga/dataAccessMatrix.htm">Data Matrix</a> > <span class="trailDest"><c:out value="${DAFPInfo.diseaseType}"/> <spring:message code="label.dataAccessDownload"/></span></div>
+                        <a name="skip" id="skip"></a>
+                        <h1><c:out value="${DAFPInfo.diseaseType}"/> <spring:message code="label.dataAccessDownload"/></h1>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="jobInfo">
+                        <p>
+                            <b>Job Status</b>: <span id="jobStatus">Checking status, please wait...</span>
+                        </p>
+                        <p>
+                            <span id="jobMessage"></span>
+                        </p>
+                        <p>
+                            <span id="refreshNotice"><i><small>This page will refresh every <%=DataAccessMatrixJSPUtil.DAFP_POLLING_INTERVAL/1000%> seconds.</small></i></span>
+                        </p>
+                    </div>
+                </div>
+
+    <script type="text/javascript">
+        pollServer();
+        setInterval('pollServer()', <%=DataAccessMatrixJSPUtil.DAFP_POLLING_INTERVAL%>);</script>
