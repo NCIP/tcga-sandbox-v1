@@ -1,0 +1,41 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="1" ARCHIVE_TYPE="Level_1" />
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="TUM" DISEASE_NAME="Tumor" ACTIVE="1"/>
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="CGCC" />
+    <CENTER CENTER_ID="1" DOMAIN_NAME="test.org" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Test" />
+    <CENTER CENTER_ID="2" DOMAIN_NAME="intgen.org" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Test" />
+
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" NAME="testType"/>
+    <PLATFORM PLATFORM_ID="1" CENTER_TYPE_CODE="CGCC" PLATFORM_NAME="aPlatform" PLATFORM_ALIAS="aPlatform" PLATFORM_DISPLAY_NAME="a platform" SORT_ORDER="1" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+    <PLATFORM PLATFORM_ID="2" CENTER_TYPE_CODE="CGCC" PLATFORM_NAME="bio" PLATFORM_ALIAS="bio" PLATFORM_DISPLAY_NAME="bio" SORT_ORDER="1" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+    <ARCHIVE_INFO ARCHIVE_ID="10" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.1.0.0" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Uploaded" is_latest="0" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="1" />
+    <ARCHIVE_INFO ARCHIVE_ID="11" ARCHIVE_NAME="test.org_TUM.bio.Level_1.1.0.0" CENTER_ID="1" PLATFORM_ID="2" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="1" />
+    <ARCHIVE_INFO ARCHIVE_ID="12" ARCHIVE_NAME="test.org_TUM.bio.Level_12.1.0.0" CENTER_ID="2" PLATFORM_ID="2" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="1" />
+    <FILE_INFO FILE_ID="1" FILE_NAME="file1.txt" />
+    <FILE_INFO FILE_ID="2" FILE_NAME="file2.txt" />
+    <FILE_INFO FILE_ID="3" FILE_NAME="file3.txt" />
+    <FILE_INFO FILE_ID="4" FILE_NAME="file4.txt" />
+    <FILE_INFO FILE_ID="10" FILE_NAME="biospecimen.TCGA-AA-1100.xml" />
+    <FILE_INFO FILE_ID="11" FILE_NAME="biospecimen.TCGA-AA-1000.xml" />
+    <FILE_INFO FILE_ID="12" FILE_NAME="clinical.TCGA-AA-1100.xml" />
+    <FILE_INFO FILE_ID="13" FILE_NAME="clinical.TCGA-AA-1000.xml" />
+    <FILE_INFO FILE_ID="1000" FILE_NAME="file1000.txt" />
+    <FILE_INFO FILE_ID="1001" FILE_NAME="file1001.txt" />
+
+    <!-- association without file_location_url -->
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="100" ARCHIVE_ID="10" FILE_ID="2"  />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="101" ARCHIVE_ID="10" FILE_ID="1000" />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="102" ARCHIVE_ID="10" FILE_ID="1001" />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="103" ARCHIVE_ID="11" FILE_ID="10" file_location_url="/tcgafiles/biospecimen.TCGA-AA-1100.xml" />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="104" ARCHIVE_ID="12" FILE_ID="11" file_location_url="/tcgafiles/biospecimen.TCGA-AA-1000.xml"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="105" ARCHIVE_ID="11" FILE_ID="12" file_location_url="/tcgafiles/clinical.TCGA-AA-1100.xml"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="106" ARCHIVE_ID="12" FILE_ID="13" file_location_url="/tcgafiles/clinical.TCGA-AA-1000.xml"/>
+</dataset>

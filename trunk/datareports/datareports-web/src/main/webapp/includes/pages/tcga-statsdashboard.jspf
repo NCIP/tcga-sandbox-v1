@@ -1,0 +1,29 @@
+	<div id="content">
+	    <div class="left">
+	    	<div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> >
+                <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+	    	<h1><%=h1String%></h1>
+	    </div>
+	    <div id="sidebar" class="rollup right">
+	        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+	    </div>
+	    <div class="clear"></div>  
+	    <a class="tcgaHelpIcon" href="https://wiki.nci.nih.gov/x/kw9yAg" target="_blank">Help</a>
+	    <div class="clear"></div>
+		<div class="smallertext">
+		   	Click on a bubble, column or slice to drill-down to more detailed statistics
+		</div>
+		<div id="piePlatformTypeContainer"></div>
+		<div id="pieBatchContainer"></div>
+		<div class="clear"></div>
+		<div id="pieLevelContainer" class="left"></div>
+		<div id="pieAccessTierContainer" class="right"></div>
+		<div class="clear"></div>
+		<div id="chartContainer1"></div>
+		<div id="chartContainer2"></div>
+		<div class="clear"></div>
+		<div id="chartSubContainer1"></div>
+		<div id="chartSubContainer2"></div>
+		<div class="clear"></div>
+	</div>

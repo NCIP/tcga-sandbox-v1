@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		">
+
+    <!-- quartz-related beans for refreshing the cache nightly -->
+
+    <bean name="refreshAnnotationsCacheQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="annotationServiceImpl"
+          p:targetMethod="getAllAnnotations"
+          p:concurrent="false"/>
+
+    <bean id="refreshAnnotationsCacheCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean"
+          p:jobDetail-ref="refreshAnnotationsCacheQuartzJob"
+          p:cronExpression="${tcga.annotations.cacheRefreshCronFrequencyTimer}"/>
+
+    <bean id="refreshAnnotationsCacheScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="refreshAnnotationsCacheCronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,18 @@
+	<div id="content">
+	    <div class="left">
+	    	<div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+	    	<h1><%=h1String%></h1>
+	    </div>
+	    <div id="sidebar" class="rollup right">
+	        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+	    </div>
+	    <div class="clear"></div>
+	    <a class="tcgaHelpIcon" href="https://wiki.nci.nih.gov/x/LZohAg" target="_blank">Help</a>
+	    <div class="clear"></div>
+	    <div id="filterPanel"></div>
+		<div id="errorDiv"  class="reportintro">
+	        Sorry, No data available
+	    </div>
+	    <div id="raphgraph"></div>
+	</div>

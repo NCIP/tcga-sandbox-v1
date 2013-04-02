@@ -1,0 +1,56 @@
+<!--
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!-- =========== DATA SOURCE DEFINITION =========== -->
+    <import resource="dataSourceDefinition.xml"/>
+
+    <!-- =========== SECURITY =========== -->
+    <import resource="securityTest.xml"/>
+
+    <bean id="codeTableQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          p:dataSource-ref="dataReportsDataSource"/>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="pendingUUIDDAOImpl"
+          class="gov.nih.nci.ncicb.tcga.dcc.datareports.dao.jdbc.PendingUUIDDAOImpl"/>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl"
+          p:dataSource-ref="dataReportsDataSource"/>
+
+    <bean id="pendingUUIDProcessor"
+          class="gov.nih.nci.ncicb.tcga.dcc.datareports.service.PendingUUIDProcessor"/>
+
+    <bean id="shippedBiospecimenQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dataReportsDataSource"/>
+    </bean>
+
+    <bean id="uuidDao" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="dataReportsDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="dataReportsDataSource"/>
+    </bean>
+
+</beans>

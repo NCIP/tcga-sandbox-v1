@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="all" debug="false">
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/> 
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/> 
+    </layout> 
+  </appender>
+  <logger name="org.springframework">
+	<level value="INFO"/>
+  </logger>
+  <logger name="gov.nih.nci.ncicb.tcga">
+	<level value="INFO"/> 
+  </logger>
+  <root> 
+    <level value ="all" /> 
+    <appender-ref ref="CONSOLE" /> 
+  </root>
+</log4j:configuration>
+

@@ -1,0 +1,76 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+
+    <input type='hidden' id="serverUrl" name="serverUrl" value="${serverUrl}"/>
+    <input type='hidden' id="bcr" name="bcr" value="${bcr}"/>
+    <input type='hidden' id="center" name="center" value="${center}"/>
+    <input type='hidden' id="batch" name="batch" value="${batch}"/>
+    <input type='hidden' id="plateId" name="plateId" value="${plateId}"/>
+
+    <div id="pendingUUIDReportDiv"></div>
+
+    <noscript>
+        <p><a href="https://wiki.nci.nih.gov/x/xAuSB" target="_blank">Help</a></p>
+                            <span style="display: table-cell;"><form name=xlExport
+                                                                     action="pendingUUIDExport.htm?exportType=xl"
+                                                                     method="post">
+                                <input type="submit" value="Export to Excel"></form></span>
+                            <span style="display: table-cell;"><form name=csvExport
+                                                                     action="pendingUUIDExport.htm?exportType=csv"
+                                                                     method="post">
+                                <input type="submit" value="Export to CSV"></form></span>
+                            <span style="display: table-cell;"><form name=tabExport
+                                                                     action="pendingUUIDExport.htm?exportType=tab"
+                                                                     method="post">
+                                <input type="submit" value="Export to Tab"></form></span>
+        <br/>
+        <display:table name="${pendingUUIDList}" requestURI="shipped-items-pending-bcr-data-submission.htm"
+                       uid="pendingUUID"
+                       pagesize="${pendingUUIDPageSize}" partialList="true" size="${pendingUUIDTotalCount}">
+            <display:column property="bcr" title="BCR" headerScope="col" scope="row"/>
+            <display:column property="center" title="Center" headerScope="col" scope="row"/>
+            <display:column property="uuid" title="UUID" headerScope="col" scope="row"/>
+            <display:column property="bcrAliquotBarcode" title="Barcode" headerScope="col" scope="row"/>
+            <display:column property="batchNumber" title="Batch" headerScope="col" scope="row"/>
+            <display:column property="plateId" title="Plate Id" headerScope="col" scope="row"/>
+            <display:column property="plateCoordinate" title="Plate Coordinate" headerScope="col" scope="row"/>
+            <display:column property="shippedDate" title="Date Shipped" headerScope="col" scope="row"/>
+            <display:column property="sampleType" title="Sample Type" headerScope="col" scope="row"/>
+            <display:column property="analyteType" title="Analyte Type" headerScope="col" scope="row"/>
+            <display:column property="portionNumber" title="Portion" headerScope="col" scope="row"/>
+            <display:column property="vialNumber" title="Vial" headerScope="col" scope="row"/>
+            <display:column property="itemType" title="Item Type" headerScope="col" scope="row"/>
+        </display:table>
+        <br/>
+    </noscript>
+
+    <c:if test="${showFilterBox=='yes'}">
+        <script type="text/javascript">
+            <!--
+            Ext.onReady(function () {
+                Ext.getCmp('fToggle').toggle(true);
+            });
+            //-->
+        </script>
+    </c:if>
+</div>

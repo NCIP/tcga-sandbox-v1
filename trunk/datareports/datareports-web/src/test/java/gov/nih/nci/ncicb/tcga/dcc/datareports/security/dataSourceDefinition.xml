@@ -1,0 +1,30 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!--
+    Property placeholder for the data source.
+    -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:samples/unittest.properties"
+          p:ignoreUnresolvablePlaceholders="true"
+          p:order="1"/>
+
+    <bean id="dataReportsDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${dbUnitJDBCDriver}"
+          p:url="${dbUnitConnectionURL}"
+          p:username="${dbUnitUserName}"
+          p:password="${dbUnitPassword}"/>
+
+</beans>

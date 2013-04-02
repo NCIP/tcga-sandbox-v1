@@ -1,0 +1,66 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+    <div id="archDesc" class="reportintro"><spring:message code="latestArchiveReport.desc"/></div>
+    <div class="smallertext"><spring:message code="datareports.note"/></div>
+
+    <input type='hidden' id="serverUrl" name="serverUrl" value="${serverUrl}"/>
+    <input type='hidden' id="archiveType" name="archiveType" value="${archiveType}"/>
+    <input type='hidden' id="dateFrom" name="dateFrom" value="${dateFrom}"/>
+    <input type='hidden' id="dateTo" name="dateTo" value="${dateTo}"/>
+
+    <div id="latestArchiveReportDiv"></div>
+
+    <noscript>
+        <p><a href="https://wiki.nci.nih.gov/x/L5ohAg" target="_blank">Help</a></p>
+                    <span style="display: table-cell;"><form name=xlExport
+                                                             action="latestArchiveExport.htm?exportType=xl"
+                                                             method="post">
+                        <input type="submit" value="Export to Excel"></form></span>
+                    <span style="display: table-cell;"><form name=csvExport
+                                                             action="latestArchiveExport.htm?exportType=csv"
+                                                             method="post">
+                        <input type="submit" value="Export to CSV"></form></span>
+                    <span style="display: table-cell;"><form name=tabExport
+                                                             action="latestArchiveExport.htm?exportType=tab"
+                                                             method="post">
+                        <input type="submit" value="Export to Tab"></form></span>
+        <br/>
+        <display:table name="${latestArchiveList}" requestURI="latestArchiveReport.htm" uid="latestArchive"
+                       pagesize="${latestArchivePageSize}" partialList="true" size="${latestArchiveTotalCount}">
+            <display:column property="archiveName" title="Archive" headerScope="col" scope="row"/>
+            <display:column property="dateAdded" title="Date Added" headerScope="col" scope="row"/>
+            <display:column property="archiveType" title="Archive Type" headerScope="col" scope="row"/>
+            <display:column property="sdrfName" title="SDRF File" headerScope="col" scope="row"/>
+            <display:column property="mafName" title="MAF File" headerScope="col" scope="row"/>
+        </display:table>
+        <br/>
+    </noscript>
+
+    <c:if test="${showFilterBox=='yes'}">
+        <script type="text/javascript">
+            Ext.onReady(function () {
+                Ext.getCmp('fToggle').toggle(true);
+            });
+        </script>
+    </c:if>
+</div>

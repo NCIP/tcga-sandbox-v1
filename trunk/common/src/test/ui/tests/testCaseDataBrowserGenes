@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>testCaseDataBrowserPathways</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testCaseDataBrowserPathways</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga-portal/AnomalySearch.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='databrowsernews']</td>
+	<td>The output of this application reflects DCC data as of October 2010. Efforts are currently underway to update this site in the next few weeks.</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.gwt-ListBox</td>
+	<td>label=COAD - Colon adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=SearchBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.tab.purpleTab &gt; div.gwt-HTML</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=SearchBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='anomalySearch']/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr/td/div/table/tbody/tr[2]/td/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/select</td>
+	<td>label=- Select to Add -</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='anomalySearch']/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr/td/div/table/tbody/tr[2]/td/div/table/tbody/tr[3]/td/table/tbody/tr/td/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=tr.resultsTableHeader.purpleResultsTableHeader &gt; td.resultsTableHeader &gt; table &gt; tbody &gt; tr &gt; td &gt; div.gwt-HTML.action</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="trail"><a href="/tcga/">Home</a> > <span class="trailDest"><%=h1String%></span></div>
+    <a name="skip" id="skip"></a>
+    <h1><%=h1String%>
+    </h1>
+    <a class="tcgaHelpIcon" href="https://wiki.nci.nih.gov/x/sZghAg" target="_blank">Help</a>
+
+    <div class="clear"></div>
+
+    <div class="indent">
+        <h3>General Interest</h3>
+
+        <h4><a href="statsDashboard.htm" id="dataStatisticsDashboard">Data Statistics Dashboard</a></h4>
+
+        <p><spring:message code="statsDashboard.desc.summary"/> [<a class="hand"
+                                                                    onclick="tcga.detailPopup.show({title: 'Data Statistics Dashboard', message: '<spring:message code='statsDashboard.desc'/>'})">more</a>]
+        </p>
+
+        <h4 id="pcodLink" class="pcodReportLink">Project Case Overview Dashboard</h4>
+
+        <p><spring:message code="projectCaseDashboard.desc.summary"/> [<a class="hand"
+                                                                          onclick="tcga.detailPopup.show({title: 'Project Case Overview Dashboard', message: '<spring:message code='projectCaseDashboard.desc'/>'})">more</a>]
+        </p>
+	
+	          <span class="submission"><h4><a href="submissionReport.htm" id="submissionReport">Submission Report</a>
+              </h4>
+	          	<p><spring:message code="submissionReport.desc.summary"/> [<a class="hand"
+                                                                                onclick="tcga.detailPopup.show({title: 'Submission Report', message: '<spring:message code='submissionReport.desc'/>'})">more</a>]
+                  </p>
+	          </span>
+        <h4><a href="BCRPipelineReport.htm" id="bcrPipelineReport">BCR Pipeline Report</a></h4>
+
+        <p><spring:message code="BCRPipelineReport.desc.summary"/> [<a class="hand"
+                                                                       onclick="tcga.detailPopup.show({title: 'BCR Pipeline Report', message: '<spring:message code='BCRPipelineReport.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="sampleSummaryReport.htm" id="sampleCountsReport">Sample Counts for TCGA Data</a></h4>
+
+        <p><spring:message code="sampleSummary.desc.summary"/> [<a class="hand"
+                                                                   onclick="tcga.detailPopup.show({title: 'Experiment Sample-Counts Summary Report', message: '<spring:message code='sampleSummary.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="latestArchiveReport.htm" id="latestArchiveReport">Latest Archive Report</a></h4>
+
+        <p><spring:message code="latestArchiveReport.desc.summary"/> [<a class="hand"
+                                                                         onclick="tcga.detailPopup.show({title: 'Latest Archive Report', message: '<spring:message code='latestArchiveReport.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="codeTablesReport.htm" id="codeTablesReport">Code and Abbreviations Used in the Data Portal</a></h4>
+
+        <p><spring:message code="codeTablesReport.desc.summary"/> [<a class="hand"
+                                                                      onclick="tcga.detailPopup.show({title: 'Code Tables Report', message: '<spring:message code='codeTablesReport.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="bamTelemetryReport.htm" id="bamTelemetryReport">BAM Telemetry Report</a></h4>
+
+        <p><spring:message code="bamTelemetryReport.desc.summary"/> [<a class="hand"
+                                                                        onclick="tcga.detailPopup.show({title: 'BAM Telemetry Report', message: '<spring:message code='bamTelemetryReport.desc'/>'})">more</a>]
+        </p>
+
+        <h3>Aliquot Reports</h3>
+
+        <h4><a href="aliquotReport.htm" id="experimentAliquotReport">Experiment Aliquot Report</a></h4>
+
+        <p><spring:message code="aliquotReport.desc.summary"/> [<a class="hand"
+                                                                   onclick="tcga.detailPopup.show({title: 'Experiment Aliquot Report', message: '<spring:message code='aliquotReport.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="aliquotIdBreakdownReport.htm" id="aliquotIdBreakdownReport">Aliquot Id Breakdown Report</a></h4>
+
+        <p><spring:message code="aliquotIdBreakdownReport.desc.summary"/> [<a class="hand"
+                                                                              onclick="tcga.detailPopup.show({title: 'Aliquot Id Breakdown Report', message: '<spring:message code='aliquotIdBreakdownReport.desc'/>'})">more</a>]
+        </p>
+
+        <h4><a href="shipped-items-pending-bcr-data-submission.htm" id="shipped-items-pending-bcr-data-submission">Shipped
+            Items Pending BCR Data Submission Report</a></h4>
+
+        <p><spring:message code="shipped-items-pending-bcr-data-submission.desc.summary"/> [<a class="hand"
+                                                                                               onclick="tcga.detailPopup.show({title: 'Shipped Items Pending BCR Data Submission Report', message: '<spring:message code='shipped-items-pending-bcr-data-submission.desc'/>'})">more</a>]
+        </p>
+
+    </div>
+    <h5>Definitions</h5>
+
+    <p><spring:message code="datareports.experiment"/></p>
+</div>
+<div id="sidebar">
+    <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+</div>

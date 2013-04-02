@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tcgaBcrDataTemplate xmlns="http://tcga-data.nci.nih.gov/tcga"
+        xsi:schemaLocation="http://tcga-data.nci.nih.gov/tcga tcgaBcrDataTemplate.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <tcgaBcrData>
+        <bcrFileType>clinical</bcrFileType>
+        <biotabFileType>clinical_surgery</biotabFileType>
+        <xmlData>
+            <parentNode>
+                <absoluteXPath>/tcga_bcr/patient</absoluteXPath>
+                <elementsToBeIncluded>
+                    <elementName>bcr_patient_barcode</elementName>
+                </elementsToBeIncluded>
+            </parentNode>
+            <dataNode>
+                <relativePath>surgeries/surgery</relativePath>
+                <alternateAttributeValue>procurement_status</alternateAttributeValue>
+                <elements filterType="ignore" />
+            </dataNode>
+        </xmlData>
+        <biotabData>
+            <keyColumns>
+                <columnName>bcr_patient_barcode</columnName>
+                <columnName>bcr_surgery_barcode</columnName>
+            </keyColumns>
+            <dataColumnsOrder>
+                <columnName>bcr_patient_barcode</columnName>
+                <columnName>bcr_surgery_barcode</columnName>
+            </dataColumnsOrder>
+            <diseaseSpecificData>
+            </diseaseSpecificData>
+        </biotabData>
+    </tcgaBcrData>
+</tcgaBcrDataTemplate>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.datareports"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="propertyConfigurer"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.annotations.TCGAValueImpl"
+          p:location="classpath:tcgaApp.properties"/>
+
+    <!-- Datasource access through JNDI in jBoss, there is no configuration for connection to db in war file.-->
+    <bean id="dataReportsDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:dccCommon"/>
+    </bean>
+
+    <bean id="quartzDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:quartzOracleDS"/>
+    </bean>
+
+    <bean id="cacheAspect" class="gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.CacheAspect"/>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:configLocation="classpath:ehcache-config.xml"/>
+
+    <bean id="beanCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+          p:cacheManager-ref="cacheManager" p:cacheName="datareportsCache"/>
+
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger"/>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl"
+          p:dataSource-ref="dataReportsDataSource"/>
+
+    <bean id="shippedBiospecimenQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl"
+          p:dataSource-ref="dataReportsDataSource"/>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="uuidDao" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="dataReportsDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="dataReportsDataSource"/>
+    </bean>
+
+    <bean id="codeTableQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          p:dataSource-ref="dataReportsDataSource"/>
+
+    <import resource="quartz-web-config.xml"/>
+
+    <!-- =========== SECURITY =========== -->
+    <import resource="security.xml"/>
+
+</beans>

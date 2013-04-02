@@ -1,0 +1,19 @@
+	<div id="browserWarning">
+		<div id="browserWarningClose" 
+			onclick="document.getElementById('browserWarning').style.display='none'">
+			<img src="images/common/x_red.png" alt="Close">
+		</div>
+
+		<div id="browserWarningTitle" class="stdTitle">
+			Warning:
+		</div>    
+		<div id="browserWarningMessage">
+			Internet Explorer 6 is no longer supported by the TCGA 
+			Data Portal. Please use one of these supported browsers:
+			<a href="http://www.microsoft.com/windows/internet-explorer/">Internet 
+			Explorer 7+</a>, <a href="http://getfirefox.com/">Firefox</a>,
+			<a href="http://www.google.com/chrome">Google Chrome</a>, or
+			<a href="http://www.apple.com/safari/download/">Safari</a>.
+		</div>    
+	</div>
+	

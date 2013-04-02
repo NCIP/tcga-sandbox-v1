@@ -1,0 +1,339 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+    <DATA_LEVEL LEVEL_NUMBER="1" LEVEL_DEFINITION="raw"/>
+    <DATA_LEVEL LEVEL_NUMBER="6" LEVEL_DEFINITION="raw"/>
+    <DATA_LEVEL LEVEL_NUMBER="2" LEVEL_DEFINITION="level 2"/>
+
+    <ARCHIVE_TYPE archive_type_ID="2" archive_TYPE="type" data_level="1"/>
+    <ARCHIVE_TYPE archive_type_ID="6" archive_TYPE="mage-tab" data_level="6"/>
+    <ARCHIVE_TYPE archive_type_ID="7" archive_TYPE="level2" data_level="2"/>
+    <ARCHIVE_TYPE archive_type_ID="10" archive_TYPE="z"/>
+
+    <DISEASE DISEASE_ID="3" DISEASE_ABBREVIATION="TUM" DISEASE_NAME="Tumor" ACTIVE='1'/>
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="characterization center"/>
+    <CENTER_TYPE CENTER_TYPE_CODE="BCR" CENTER_TYPE_DEFINITION="biospecimen core resource center"/>
+    <CENTER CENTER_ID="3" domain_NAME="igc.org" CENTER_TYPE_code="CGCC" DISPLAY_NAME="Test"/>
+    <CENTER CENTER_ID="4" domain_NAME="test.org" CENTER_TYPE_code="CGCC" DISPLAY_NAME="Test"/>
+    <CENTER CENTER_ID="5" domain_NAME="bcr.org" CENTER_TYPE_code="BCR" DISPLAY_NAME="Test BCR"/>
+
+    <CENTER_EMAIL CENTER_EMAIL_ID="1" CENTER_ID="4" EMAIL_ADDRESS="jeyanthi.thangiah@nih.gov"/>
+    <DATA_TYPE DATA_TYPE_ID="10" NAME="aDataType" />
+    <DATA_TYPE DATA_TYPE_ID="11" NAME="bDataType" />
+    <DATA_TYPE DATA_TYPE_ID="12" NAME="cDataType" />
+    <DATA_TYPE DATA_TYPE_ID="14" NAME="dataType" />
+    <DATA_TYPE DATA_TYPE_ID="13" NAME="nothing"/>
+
+    <data_type data_type_id="210"
+               center_type_code="BCR"
+               name="Complete Clinical Set"
+               ftp_display="clin"
+               available="1"
+               sort_order="11"/>
+
+    <data_type data_type_id="211"
+               center_type_code="BCR"
+               name="Minimal Clinical Set"
+               ftp_display="clin"
+               available="1"
+               sort_order="12"/>
+
+    <PLATFORM BASE_DATA_TYPE_ID="10" SORT_ORDER="1" CENTER_TYPE_code="CGCC" PLATFORM_ID="1" PLATFORM_NAME="aPlatform"
+              PLATFORM_DISPLAY_NAME="aPlatform" PLATFORM_ALIAS="aPlatform" AVAILABLE="1"/>
+    <PLATFORM BASE_DATA_TYPE_ID="11" SORT_ORDER="1" CENTER_TYPE_code="CGCC" PLATFORM_ID="2" PLATFORM_NAME="bPlatform"
+              PLATFORM_DISPLAY_NAME="bPlatform" PLATFORM_ALIAS="bPlatform" AVAILABLE="1"/>
+    <PLATFORM BASE_DATA_TYPE_ID="12" SORT_ORDER="1" CENTER_TYPE_code="CGCC" PLATFORM_ID="3" PLATFORM_NAME="cPlatform"
+              PLATFORM_DISPLAY_NAME="cPlatform" PLATFORM_ALIAS="cPlatform" AVAILABLE="1"/>
+    <PLATFORM BASE_DATA_TYPE_ID="12" SORT_ORDER="1" CENTER_TYPE_code="BCR" PLATFORM_ID="4" PLATFORM_NAME="bcrPlatform"
+              PLATFORM_DISPLAY_NAME="bcrPlatform" PLATFORM_ALIAS="bcrPlatform" AVAILABLE="1"/>
+    <PLATFORM BASE_DATA_TYPE_ID="14" SORT_ORDER="1" CENTER_TYPE_code="BCR" PLATFORM_ID="5" PLATFORM_NAME="Platform"
+              PLATFORM_DISPLAY_NAME="Platform" PLATFORM_ALIAS="Platform" AVAILABLE="1"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="1" ARCHIVE_NAME="available_latest" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="4"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2009-01-28 12:36:12.870000000" DEPLOY_LOCATION="C:/tcgafiles/" SECONDARY_DEPLOY_LOCATION="somewhere else!" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="2" ARCHIVE_NAME="available_not_latest" DEPLOY_STATUS="Available" IS_LATEST="0"
+                  CENTER_ID="4" PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2008-01-28 12:00:00.000000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="3" ARCHIVE_NAME="uploaded" DEPLOY_STATUS="Uploaded" IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2007-01-28 12:00:00.000000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="4" ARCHIVE_NAME="in_review" DEPLOY_STATUS="In Review" IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2006-01-28 12:00:00.000000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"
+                  IS_LATEST_LOADED="1"/>
+    <ARCHIVE_INFO ARCHIVE_ID="5" ARCHIVE_NAME="invalid" DEPLOY_STATUS="Invalid" IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2005-01-28 12:00:00.000000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="6" ARCHIVE_NAME="archive_bDataType" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="4"
+                  PLATFORM_ID="2" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2010-08-28 12:36:12.870000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="7" ARCHIVE_NAME="archive_cDataType" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="4"
+                  PLATFORM_ID="3" DISEASE_ID="3" SERIAL_INDEX="1" REVISION="0" SERIES="0"
+                  DATE_ADDED="2010-01-28 12:36:12.870000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="8" ARCHIVE_NAME="bcr_archive" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="5"
+                  PLATFORM_ID="4" DISEASE_ID="3" SERIAL_INDEX="2" REVISION="0" SERIES="0"
+                  DATE_ADDED="2005-01-28 12:00:00.000000000" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="2"/>
+    <ARCHIVE_INFO ARCHIVE_ID="9" ARCHIVE_NAME="latestInReview" DEPLOY_STATUS="In Review" IS_LATEST="1" ARCHIVE_TYPE_ID="2"
+                  PLATFORM_ID="4" DISEASE_ID="3" CENTER_ID="5" DEPLOY_LOCATION="hi" IS_LATEST_LOADED="0" SECONDARY_DEPLOY_LOCATION="no"
+                  DATE_ADDED="2011-10-03 16:05:00.0" SERIAL_INDEX="10" REVISION="0" SERIES="0" />
+
+    <FILE_INFO FILE_ID="7" FILE_NAME="Test file for ArchiveQueries" LEVEL_NUMBER="1"/>
+
+    <!-- archives for getMaxRevision tests -->
+    <ARCHIVE_INFO ARCHIVE_ID="100" ARCHIVE_NAME="test.org_TUM.bPlatform.type.100.5.0" DEPLOY_STATUS="Available"
+                  IS_LATEST="1" CENTER_ID="4"
+                  PLATFORM_ID="2" DISEASE_ID="3" SERIAL_INDEX="100" REVISION="5" SERIES="0" ARCHIVE_TYPE_ID="2"
+                  DATE_ADDED="2010-08-28 12:36:12.870000000" DEPLOY_LOCATION="somewhere else"/>
+    <ARCHIVE_INFO ARCHIVE_ID="101" ARCHIVE_NAME="test.org_TUM.bPlatform.type.100.4.0" DEPLOY_STATUS="Available"
+                  IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="2" DISEASE_ID="3" SERIAL_INDEX="100" REVISION="4" SERIES="0" ARCHIVE_TYPE_ID="2"
+                  DATE_ADDED="2010-09-28 12:36:12.870000000" DEPLOY_LOCATION="somewhere out there"/>
+    <ARCHIVE_INFO ARCHIVE_ID="102" ARCHIVE_NAME="test.org_TUM.bPlatform.type.100.6.0" DEPLOY_STATUS="Invalid"
+                  IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="2" DISEASE_ID="3" SERIAL_INDEX="100" REVISION="6" SERIES="0" ARCHIVE_TYPE_ID="2"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="nowhere"/>
+    <ARCHIVE_INFO ARCHIVE_ID="103" ARCHIVE_NAME="test.org_TUM.bPlatform.type.101.2.0" DEPLOY_STATUS="Invalid"
+                  IS_LATEST="0" CENTER_ID="4"
+                  PLATFORM_ID="2" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="2"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="nowhere"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="104" ARCHIVE_NAME="sdrfArchive" DEPLOY_STATUS="Invalid" IS_LATEST="1" CENTER_ID="4"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="6"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/sdrf"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="105" ARCHIVE_NAME="cgcsdrfArchive" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="3"
+                  PLATFORM_ID="1" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="6"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/sdrf"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="50" ARCHIVE_NAME="broad.mit.edu_GBM.IlluminaGA_DNASeq.Level_2.0.2.0" DEPLOY_STATUS="Obsolete" IS_LATEST="0" CENTER_ID="3"
+                  PLATFORM_ID="5" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/anonymous/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0.tar.gz"/>
+
+
+    <ARCHIVE_INFO ARCHIVE_ID="106" ARCHIVE_NAME="broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="3"
+                  PLATFORM_ID="5" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0.tar.gz"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="107" ARCHIVE_NAME="broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0" DEPLOY_STATUS="Available" IS_LATEST="0" CENTER_ID="3"
+                  PLATFORM_ID="5" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0.tar.gz"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="108" ARCHIVE_NAME="broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.2.0" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="3"
+                  PLATFORM_ID="5" DISEASE_ID="3" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/anonymous/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0.tar.gz"/>
+
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="1" FILE_ID="7" ARCHIVE_ID="1"/>
+
+    <FILE_INFO FILE_ID="8" FILE_NAME="archive_bDataType_File" LEVEL_NUMBER="1" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="2" FILE_ID="8" ARCHIVE_ID="6"/>
+
+    <FILE_INFO FILE_ID="9" FILE_NAME="archive_cDataType_File" LEVEL_NUMBER="1"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="3" FILE_ID="9" ARCHIVE_ID="7"/>
+
+    <FILE_INFO FILE_ID="20" FILE_NAME="test.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="21" FILE_NAME="test1.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="40" FILE_ID="20" ARCHIVE_ID="50"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="41" FILE_ID="21" ARCHIVE_ID="50"/>
+
+
+    <FILE_INFO FILE_ID="10" FILE_NAME="test.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="11" FILE_NAME="test1.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="30" FILE_ID="10" ARCHIVE_ID="106"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="31" FILE_ID="11" ARCHIVE_ID="106"/>
+
+    <FILE_INFO FILE_ID="13" FILE_NAME="test.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="14" FILE_NAME="test1.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="32" FILE_ID="13" ARCHIVE_ID="107"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="33" FILE_ID="14" ARCHIVE_ID="107"/>
+
+    <FILE_INFO FILE_ID="15" FILE_NAME="test.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="16" FILE_NAME="test1.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="34" FILE_ID="15" ARCHIVE_ID="108"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="35" FILE_ID="16" ARCHIVE_ID="108"/>
+
+    <!--     -->
+       <!-- NEW -->
+       <!--     -->
+
+       <disease disease_id="2"
+                disease_abbreviation="OV"
+                disease_name="Ovarian serous cystadenocarcinoma"
+                active="1"/>
+
+       <platform platform_id="30"
+                 center_type_code="BCR"
+                 platform_name="bio"
+                 available="0"
+                 sort_order="19"
+                 platform_display_name="Biospecimen Metadata - Complete Set"
+                 platform_alias="bio"
+                 base_data_type_id="210"/>
+
+       <platform platform_id="37"
+                 center_type_code="BCR"
+                 platform_name="minbiotab"
+                 available="0"
+                 sort_order="20"
+                 platform_display_name="Biospecimen Metadata - Minimal Set - All Samples - Tab-delimited"
+                 platform_alias="minbiotab"
+                 base_data_type_id="211"/>
+
+       <archive_type archive_type_id="1"
+                     archive_type="Level_1"
+                     data_level="1"/>
+
+       <file_info file_id="201"
+                  level_number="1"
+                  file_name="intgen.org_biospecimen.TCGA-09-2043.xml"
+                  file_size="84794"
+                  md5="9fd5baf61557962a78e87e958d1d5166"
+                  data_type_id="210"
+                  revision_of_file_id="201"/>
+
+       <file_info file_id="202"
+                  level_number="1"
+                  file_name="intgen.org_biospecimen.TCGA-09-2043.xml"
+                  file_size="84794"
+                  md5="9fd5baf61557962a78e87e958d1d5166"
+                  data_type_id="210"
+                  revision_of_file_id="202"/>
+
+       <file_info file_id="203"
+                  level_number="1"
+                  file_name="intgen.org_biospecimen.TCGA-09-2043.xml"
+                  file_size="84794"
+                  md5="9fd5baf61557962a78e87e958d1d5166"
+                  data_type_id="210"
+                  revision_of_file_id="203"/>
+
+       <file_info file_id="204"
+                  level_number="1"
+                  file_name="intgen.org_biospecimen.TCGA-09-2043.xml"
+                  file_size="84794"
+                  md5="9fd5baf61557962a78e87e958d1d5166"
+                  data_type_id="210"
+                  revision_of_file_id="204"/>
+
+       <file_info file_id="205"
+                  level_number="1"
+                  file_name="TCGA-06-137-10A-01D_BioSizing.tsv"
+                  file_size="84794"
+                  md5="9fd5baf61557962a78e87e958d1d5166"
+                  data_type_id="211"
+                  revision_of_file_id="205"/>
+
+       <!-- Latest Available, protected bio - should be picked up -->
+       <archive_info archive_id="201"
+                     archive_name="intgen.org_OV.bio.Level_1.24.20.0"
+                     center_id="5"
+                     disease_id="2"
+                     platform_id="30"
+                     serial_index="24"
+                     revision="20"
+                     series="0"
+                     date_added="2010-04-01 16:44:50.387"
+                     deploy_status="Available"
+                     deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.20.0.tar.gz"
+                     is_latest="1"
+                     archive_type_id="1"
+                     is_latest_loaded="0"/>
+
+       <!-- Available, protected bio, not the latest - should be picked up -->
+       <archive_info archive_id="202"
+                     archive_name="intgen.org_OV.bio.Level_1.24.21.0"
+                     center_id="5"
+                     disease_id="2"
+                     platform_id="30"
+                     serial_index="24"
+                     revision="21"
+                     series="0"
+                     date_added="2010-04-01 16:44:50.387"
+                     deploy_status="Available"
+                     deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.21.0.tar.gz"
+                     is_latest="0"
+                     archive_type_id="1"
+                     is_latest_loaded="0"/>
+
+       <!-- Protected bio, but not Available - should not be picked up -->
+       <archive_info archive_id="203"
+                     archive_name="intgen.org_OV.bio.Level_1.24.22.0"
+                     center_id="5"
+                     disease_id="2"
+                     platform_id="30"
+                     serial_index="24"
+                     revision="22"
+                     series="0"
+                     date_added="2010-04-01 16:44:50.387"
+                     deploy_status="Obsolete"
+                     deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.22.0.tar.gz"
+                     is_latest="0"
+                     archive_type_id="1"
+                     is_latest_loaded="0"/>
+
+       <!-- Available bio, but not protected - should not be picked up -->
+       <archive_info archive_id="204"
+                     archive_name="intgen.org_OV.bio.Level_1.24.23.0"
+                     center_id="5"
+                     disease_id="2"
+                     platform_id="30"
+                     serial_index="24"
+                     revision="23"
+                     series="0"
+                     date_added="2010-04-01 16:44:50.387"
+                     deploy_status="Available"
+                     deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.21.0.tar.gz"
+                     is_latest="0"
+                     archive_type_id="1"
+                     is_latest_loaded="0"/>
+
+       <!-- Available and protected, but not bio platform - should not be picked up -->
+       <archive_info archive_id="205"
+                     archive_name="intgen.org_OV.minbiotab.Level_1.24.24.0"
+                     center_id="5"
+                     disease_id="2"
+                     platform_id="30"
+                     serial_index="24"
+                     revision="24"
+                     series="0"
+                     date_added="2010-04-01 16:44:50.387"
+                     deploy_status="Available"
+                     deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.minbiotab.Level_1.24.24.0.tar.gz"
+                     is_latest="0"
+                     archive_type_id="1"
+                     is_latest_loaded="0"/>
+
+       <file_to_archive file_archive_id="201"
+                        file_id="201"
+                        file_location_url="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.20.0/intgen.org_biospecimen.TCGA-09-2043.xml"
+                        archive_id="201"/>
+
+       <file_to_archive file_archive_id="202"
+                        file_id="202"
+                        file_location_url="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.21.0/intgen.org_biospecimen.TCGA-09-2043.xml"
+                        archive_id="202"/>
+
+       <file_to_archive file_archive_id="203"
+                        file_id="203"
+                        file_location_url="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.22.0/intgen.org_biospecimen.TCGA-09-2043.xml"
+                        archive_id="203"/>
+
+       <file_to_archive file_archive_id="204"
+                        file_id="204"
+                        file_location_url="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.Level_1.24.23.0/intgen.org_biospecimen.TCGA-09-2043.xml"
+                        archive_id="204"/>
+
+       <file_to_archive file_archive_id="205"
+                        file_id="205"
+                        file_location_url="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.minbiotab.Level_1.24.24.0/TCGA-06-137-10A-01D_BioSizing.tsv"
+                        archive_id="205"/>
+    
+</dataset>

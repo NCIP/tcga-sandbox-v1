@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tcgaBcrDataTemplate xmlns="http://tcga-data.nci.nih.gov/tcga"
+        xsi:schemaLocation="http://tcga-data.nci.nih.gov/tcga tcgaBcrDataTemplate.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        type = "dynamic">
+    <tcgaBcrData>
+        <bcrFileType>clinical</bcrFileType>
+        <biotabFileType>clinical_follow_up_vdynamic</biotabFileType>
+        <xmlData>
+            <parentNode/>
+            <dataNode>
+                <relativePath>/tcga_bcr/patient/follow_ups/follow_up</relativePath>
+                <alternateAttributeValue>procurement_status</alternateAttributeValue>
+                <dynamicFileSuffixAttribute>version</dynamicFileSuffixAttribute>
+                <elements filterType="ignore" />
+            </dataNode>
+        </xmlData>
+        <biotabData>
+            <keyColumns>
+                <columnName>bcr_followup_barcode</columnName>
+            </keyColumns>
+            <dataColumnsOrder>
+                <columnName>bcr_followup_barcode</columnName>
+
+            </dataColumnsOrder>
+            <diseaseSpecificData/>
+        </biotabData>
+    </tcgaBcrData>
+</tcgaBcrDataTemplate>

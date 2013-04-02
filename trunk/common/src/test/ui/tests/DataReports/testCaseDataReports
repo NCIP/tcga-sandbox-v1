@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>tcDataReports</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tcDataReports</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/datareports/dataReportsHome.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>bcrPipelineReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bcrPipelineReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>sampleCountsReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>latestArchiveReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>codeTablesReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bamFilesList</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>experimentAliquotReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>aliquotIdBreakdownReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>pendingUUIDReport</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/BCRPipelineReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>raphgraph</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>raphgraph</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>dateCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bcrCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fieldDisease</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>dateComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>date1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bcrComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>bcr1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>diseaseComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>disease1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/sampleSummaryReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>disease0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>diseaseCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>centerCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>portionAnalyteCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>platformCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level4Combo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>diseaseComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>diseaseCombo1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>diseaseCombo1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>disease0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/latestArchiveReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>archiveType0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>archiveTypeCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>dateFrom</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>dateTo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>archiveTypeComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>archiveTypeCombo2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>archiveTypeCombo2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>archiveType0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/codeTablesReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>bcrBatch0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>selectReportComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>selectReport2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>centerCode0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/aliquotReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>aliquotId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>diseaseCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>centerCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>platformCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level1Combo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level2Combo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level3Combo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>aliquotIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bcrBatchTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>diseaseComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>diseaseCombo2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>diseaseCombo2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>aliquotId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/aliquotIdBreakdownReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>aliquotId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>aliquotIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>sampleIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>analyteIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>participantIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>aliquotId0</td>
+	<td>aliquotIdTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>aliquotIdTextField</td>
+	<td>${aliquotIdTest1}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>aliquotId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/pendingUUIDReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>seleniumId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>fTogglebtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bcrCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>batchTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>centerCombo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>plateIdTextField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bcrComboTrigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>bcrCombo1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>bcrCombo1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filterNowbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>seleniumId0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/dataReportsHome.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/bamTelemetryReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Data Reports Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>BAM Telemetry Report</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<dataset>
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+    <CENTER center_ID="1" domain_NAME="test.org" CENTER_TYPE_code="CGCC" DISPLAY_NAME="Test"/>
+    <center center_id="2" domain_name="test.test" center_type_code="BCR" display_name="test" short_name="t"
+            sort_order="1"/>
+
+    <Center_To_Bcr_Center BCR_CENTER_ID="20" CENTER_ID="1" CENTER_TYPE_CODE="CGCC"/>
+    <center_to_bcr_center bcr_center_id="99" center_id="2" center_type_code="BCR"/>
+
+    <Shipped_biospecimen shipped_biospecimen_id="1" uuid="12345-d5f8-4c55-a3a4-be3355122480" shipped_item_type_id="2"
+                         built_barcode="TCGA-A3-3308-01A-03-1234-20" project_code="TCGA" tss_code="A3"
+                         bcr_center_id="20" participant_code="1111"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="10" uuid="uuid1" shipped_item_type_id="2" built_barcode="barcode"
+                         project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1"
+                         is_redacted="0" is_control="1"/>
+    <shipped_biospecimen shipped_biospecimen_id="20" uuid="uuid2" shipped_item_type_id="2" built_barcode="barcode"
+                         project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1"
+                         is_redacted="0" is_control="1"/>
+    <shipped_biospecimen shipped_biospecimen_id="30" uuid="uuid3" shipped_item_type_id="1" built_barcode="barcode"
+                         project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1"
+                         is_redacted="0" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="40" uuid="uuid4" shipped_item_type_id="1" built_barcode="barcode"
+                         project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0001" is_viewable="1"
+                         is_redacted="1" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="50" uuid="uuid5" shipped_item_type_id="1" built_barcode="barcode"
+                         project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0002" is_viewable="1"
+                         is_redacted="1" is_control="0"/>
+
+    <Shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1"
+                                 element_value="1111"/>
+
+    <file_info file_id="100" file_name="test.txt"/>
+    <file_info file_id="101" file_name="hi"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="20" file_id="100"/>
+
+    <data_type data_type_id="1" center_type_code="BCR" name="Complete Clinical Set" ftp_display="clin" available="1"
+               sort_order="11"/>
+    <platform platform_id="1" center_type_code="BCR" platform_name="bio" available="1" sort_order="1"
+              platform_display_name="bio" platform_alias="bio" base_data_type_id="1"/>
+    <disease disease_id="1" disease_abbreviation="TEST" disease_name="test" active="1"/>
+    <data_level level_number="1" level_definition="Raw data"/>
+    <archive_type archive_type_id="1" archive_type="Level 1" data_level="1"/>
+
+    <archive_info archive_id="1" archive_name="test.org_TEST.bio.12.0.0" center_id="1" disease_id="1" platform_id="1"
+                  serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387"
+                  deploy_status="Available" deploy_location="switzerland" is_latest="1" archive_type_id="1"
+                  is_latest_loaded="1"/>
+
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="20" archive_id="1"/>
+
+</dataset>

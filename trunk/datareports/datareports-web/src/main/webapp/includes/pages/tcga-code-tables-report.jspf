@@ -1,0 +1,246 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+<div class="left">
+    <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+            class="trailDest"><%=h1String%></span></div>
+    <a name="skip" id="skip"></a>
+
+    <h1><%=h1String%>
+    </h1>
+</div>
+<div id="sidebar" class="rollup right">
+    <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+</div>
+<div class="clear"></div>
+<div id="codeDesc" class="reportintro"><spring:message code="codeTablesReport.desc"/></div>
+<div id="codeTablesDiv"></div>
+
+<noscript>
+<p><a href="https://wiki.nci.nih.gov/x/MpohAg" target="_blank">Help</a></p>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=bcrBatchCode"
+                                                 method="post">
+            <input type="submit" value="Export BCR Batch to Excel"></form></span>
+        <span style="display: table-cell;"><form name=csvExport
+                                                 action="codeTablesExport.htm?exportType=csv&codeTablesReport=bcrBatchCode"
+                                                 method="post">
+            <input type="submit" value="Export BCR Batch to CSV"></form></span>
+        <span style="display: table-cell;"><form name=tabExport
+                                                 action="codeTablesExport.htm?exportType=tab&codeTablesReport=bcrBatchCode"
+                                                 method="post">
+            <input type="submit" value="Export BCR Batch to Tab"></form></span>
+<br/>
+<display:table name="${bcrBatchCodeList}" requestURI="codeTablesReport.htm" uid="bcrBatchCode"
+               pagesize="${bcrBatchCodePageSize}" partialList="true" size="${bcrBatchCodeTotalCount}">
+    <display:column property="bcrBatch" title="BCR Batch" headerScope="col" scope="row"/>
+    <display:column property="studyCode" title="Study Abbreviation" headerScope="col" scope="row"/>
+    <display:column property="studyName" title="Study Name" headerScope="col" scope="row"/>
+    <display:column property="bcr" title="BCR" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+       <span style="display: table-cell;"><form name=xlExport
+                                                action="codeTablesExport.htm?exportType=xl&codeTablesReport=centerCode"
+                                                method="post">
+           <input type="submit" value="Export Center to Excel"></form></span>
+       <span style="display: table-cell;"><form name=csvExport
+                                                action="codeTablesExport.htm?exportType=csv&codeTablesReport=centerCode"
+                                                method="post">
+           <input type="submit" value="Export Center to CSV"></form></span>
+       <span style="display: table-cell;"><form name=tabExport
+                                                action="codeTablesExport.htm?exportType=tab&codeTablesReport=centerCode"
+                                                method="post">
+           <input type="submit" value="Export Center to Tab"></form></span>
+<br/>
+<display:table name="${centerCodeList}" requestURI="codeTablesReport.htm" uid="centerCode"
+               pagesize="${centerCodePageSize}" partialList="true" size="${centerCodeTotalCount}">
+    <display:column property="code" title="Code" headerScope="col" scope="row"/>
+    <display:column property="centerName" title="Center Name" headerScope="col" scope="row"/>
+    <display:column property="centerType" title="Center Type" headerScope="col" scope="row"/>
+    <display:column property="centerDisplayName" title="Display Name" headerScope="col" scope="row"/>
+    <display:column property="shortName" title="Short Name" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=dataLevel"
+                                                 method="post">
+            <input type="submit" value="Export Data Level to Excel"></form></span>
+        <span style="display: table-cell;"><form name=csvExport
+                                                 action="codeTablesExport.htm?exportType=csv&codeTablesReport=dataLevel"
+                                                 method="post">
+            <input type="submit" value="Export Data Level to CSV"></form></span>
+        <span style="display: table-cell;"><form name=tabExport
+                                                 action="codeTablesExport.htm?exportType=tab&codeTablesReport=dataLevel"
+                                                 method="post">
+            <input type="submit" value="Export Data Level to Tab"></form></span>
+<br/>
+<display:table name="${dataLevelList}" requestURI="codeTablesReport.htm" uid="dataLevel"
+               pagesize="${dataLevelPageSize}" partialList="true" size="${dataLevelTotalCount}">
+    <display:column property="code" title="Level Number" headerScope="col" scope="row"/>
+    <display:column property="definition" title="Definition" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=dataType"
+                                                 method="post">
+            <input type="submit" value="Export Data Type to Excel"></form></span>
+        <span style="display: table-cell;"><form name=csvExport
+                                                 action="codeTablesExport.htm?exportType=csv&codeTablesReport=dataType"
+                                                 method="post">
+            <input type="submit" value="Export Data Type to CSV"></form></span>
+        <span style="display: table-cell;"><form name=tabExport
+                                                 action="codeTablesExport.htm?exportType=tab&codeTablesReport=dataType"
+                                                 method="post">
+            <input type="submit" value="Export Data Type to Tab"></form></span>
+<br/>
+<display:table name="${dataTypeList}" requestURI="codeTablesReport.htm" uid="dataType"
+               pagesize="${dataTypePageSize}" partialList="true" size="${dataTypeTotalCount}">
+    <display:column property="centerType" title="Center Type" headerScope="col" scope="row"/>
+    <display:column property="displayName" title="Display Name" headerScope="col" scope="row"/>
+    <display:column property="ftpDisplay" title="FTP Display" headerScope="col" scope="row"/>
+    <display:column property="available" title="Available" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=diseaseStudy"
+                                                 method="post">
+            <input type="submit" value="Export Disease Study to Excel"></form></span>
+                <span style="display: table-cell;"><form name=csvExport
+                                                         action="codeTablesExport.htm?exportType=csv&codeTablesReport=diseaseStudy"
+                                                         method="post">
+                    <input type="submit" value="Export Disease Study to CSV"></form></span>
+                <span style="display: table-cell;"><form name=tabExport
+                                                         action="codeTablesExport.htm?exportType=tab&codeTablesReport=diseaseStudy"
+                                                         method="post">
+                    <input type="submit" value="Export Disease Study to Tab"></form></span>
+<br/>
+<display:table name="${diseaseStudyList}" requestURI="codeTablesReport.htm" uid="diseaseStudy"
+               pagesize="${diseaseStudyPageSize}" partialList="true" size="${diseaseStudyTotalCount}">
+    <display:column property="tumorName" title="Study Abbreviation" headerScope="col" scope="row"/>
+    <display:column property="tumorDescription" title="Study Name" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=platformCode"
+                                                 method="post">
+            <input type="submit" value="Export Platform to Excel"></form></span>
+                        <span style="display: table-cell;"><form name=csvExport
+                                                                 action="codeTablesExport.htm?exportType=csv&codeTablesReport=platformCode"
+                                                                 method="post">
+                            <input type="submit" value="Export Platform to CSV"></form></span>
+                        <span style="display: table-cell;"><form name=tabExport
+                                                                 action="codeTablesExport.htm?exportType=tab&codeTablesReport=platformCode"
+                                                                 method="post">
+                            <input type="submit" value="Export Platform to Tab"></form></span>
+<br/>
+<display:table name="${platformCodeList}" requestURI="codeTablesReport.htm" uid="platformCode"
+               pagesize="${platformCodePageSize}" partialList="true" size="${platformCodeTotalCount}">
+    <display:column property="platformName" title="Platform Code" headerScope="col" scope="row"/>
+    <display:column property="platformAlias" title="Platform Alias" headerScope="col" scope="row"/>
+    <display:column property="platformDisplayName" title="Platform Name" headerScope="col" scope="row"/>
+    <display:column property="available" title="Available" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=portionAnalyte"
+                                                 method="post">
+            <input type="submit" value="Export Portion Analyte to Excel"></form></span>
+                                <span style="display: table-cell;"><form name=csvExport
+                                                                         action="codeTablesExport.htm?exportType=csv&codeTablesReport=portionAnalyte"
+                                                                         method="post">
+                                    <input type="submit" value="Export Portion Analyte to CSV"></form></span>
+                                <span style="display: table-cell;"><form name=tabExport
+                                                                         action="codeTablesExport.htm?exportType=tab&codeTablesReport=portionAnalyte"
+                                                                         method="post">
+                                    <input type="submit" value="Export Portion Analyte to Tab"></form></span>
+<br/>
+<display:table name="${portionAnalyteList}" requestURI="codeTablesReport.htm" uid="portionAnalyte"
+               pagesize="${portionAnalytePageSize}" partialList="true" size="${portionAnalyteTotalCount}">
+    <display:column property="code" title="Code" headerScope="col" scope="row"/>
+    <display:column property="definition" title="Definition" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=sampleType"
+                                                 method="post">
+            <input type="submit" value="Export Sample Type to Excel"></form></span>
+                                        <span style="display: table-cell;"><form name=csvExport
+                                                                                 action="codeTablesExport.htm?exportType=csv&codeTablesReport=sampleType"
+                                                                                 method="post">
+                                            <input type="submit" value="Export Sample Type to CSV"></form></span>
+                                        <span style="display: table-cell;"><form name=tabExport
+                                                                                 action="codeTablesExport.htm?exportType=tab&codeTablesReport=sampleType"
+                                                                                 method="post">
+                                            <input type="submit" value="Export Sample Type to Tab"></form></span>
+<br/>
+<display:table name="${sampleTypeList}" requestURI="codeTablesReport.htm" uid="sampleType"
+               pagesize="${sampleTypePageSize}" partialList="true" size="${sampleTypeTotalCount}">
+    <display:column property="sampleTypeCode" title="Code" headerScope="col" scope="row"/>
+    <display:column property="definition" title="Definition" headerScope="col" scope="row"/>
+    <display:column property="shortLetterCode" title="Short Letter Code" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=tissue"
+                                                 method="post">
+            <input type="submit" value="Export Tissue to Excel"></form></span>
+                                                <span style="display: table-cell;"><form name=csvExport
+                                                                                         action="codeTablesExport.htm?exportType=csv&codeTablesReport=tissue"
+                                                                                         method="post">
+                                                    <input type="submit" value="Export Tissue to CSV">
+                                                </form></span>
+                                                <span style="display: table-cell;"><form name=tabExport
+                                                                                         action="codeTablesExport.htm?exportType=tab&codeTablesReport=tissue"
+                                                                                         method="post">
+                                                    <input type="submit" value="Export Tissue to Tab">
+                                                </form></span>
+<br/>
+<display:table name="${tissueList}" requestURI="codeTablesReport.htm" uid="tissue"
+               pagesize="${tissuePageSize}" partialList="true" size="${tissueTotalCount}">
+    <display:column property="tissue" title="Tissue" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="codeTablesExport.htm?exportType=xl&codeTablesReport=tissueSourceSite"
+                                                 method="post">
+            <input type="submit" value="Export Tissue Source Site to Excel"></form></span>
+                                                <span style="display: table-cell;"><form name=csvExport
+                                                                                         action="codeTablesExport.htm?exportType=csv&codeTablesReport=tissueSourceSite"
+                                                                                         method="post">
+                                                    <input type="submit" value="Export Tissue Source Site to CSV">
+                                                </form></span>
+                                                <span style="display: table-cell;"><form name=tabExport
+                                                                                         action="codeTablesExport.htm?exportType=tab&codeTablesReport=tissueSourceSite"
+                                                                                         method="post">
+                                                    <input type="submit" value="Export Tissue Source Site to Tab">
+                                                </form></span>
+<br/>
+<display:table name="${tissueSourceSiteList}" requestURI="codeTablesReport.htm" uid="tissueSourceSite"
+               pagesize="${tissueSourceSitePageSize}" partialList="true" size="${tissueSourceSiteTotalCount}">
+    <display:column property="code" title="TSS Code" headerScope="col" scope="row"/>
+    <display:column property="definition" title="Source Site" headerScope="col" scope="row"/>
+    <display:column property="studyName" title="Study Name" headerScope="col" scope="row"/>
+    <display:column property="bcr" title="BCR" headerScope="col" scope="row"/>
+</display:table>
+<br/>
+
+</noscript>
+
+</div>

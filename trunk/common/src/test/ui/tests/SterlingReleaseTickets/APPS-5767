@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>tcDam</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tcDam</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga/dataAccessMatrix.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>filterContainer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>filterContainer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>diseaseType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>platformType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=diseaseType</td>
+	<td>KIRC - Kidney renal clear cell carcinoma</td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>level3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>centerSelect</td>
+	<td>JHU_USC (HumanMethylation450)</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=Filter</td>
+	<td>Apply</td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=header1041</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>rashmi.sanbhadti@nih.gov</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email2</td>
+	<td>rashmi.sanbhadti@nih.gov</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=downloadbutton</td>
+	<td>Download</td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

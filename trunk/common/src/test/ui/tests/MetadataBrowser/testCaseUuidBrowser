@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>uuidmanager</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">uuidmanager</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/uuid/uuidBrowser.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Tools</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Biospecimen Metadata Browser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>uuidBrowserTabPanel__uuidSearchPanel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>uuidBrowserTabPanel__metadataForm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>uuidSearchRadio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>barcodeSearchRadio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>fileSearchRadio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>uuidField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>barcodeField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>form-file</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>form-file-file</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>searchButtonbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>resetButtonbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>uuidResultsPanel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//span[@class='x-panel-header-text'])</td>
+	<td>UUID Search Results</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>exportButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>showHideButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>resetButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>searchButtonbtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@class='x-panel-body'])//table//tbody//tr//td//div//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//div[@class='x-panel-body'])//table//tbody//tr//td//div//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//span[@class='x-window-header-text'])</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//span[@class='x-window-header-text'])</td>
+	<td>Biospecimen Metadata Browser Details</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>closeButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='resetResultsButton']//tbody</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>barcodeSearchRadio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='searchButton']/tbody/tr[2]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@class='x-panel-body'])//table//tbody//tr//td//div//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//li[@id='uuidBrowserTabPanel__metadataForm']/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='resetResultsButton']//tbody</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-uuidTypeCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-platformCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=participantTB</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=batchTB</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-diseaseChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-sampleChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-analyteChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-diseaseCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-sampleCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-analyteCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-bcrChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-tssChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-centerChoiceCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-bcrCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-tssCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-centerCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='x-form-el-centerTypeCombo']//parent::div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>updatedBefore</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>updatedAfter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>resetButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>searchButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//div[@class='x-panel-body'])//table//tbody//tr//td//div//a</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+CREATE TABLE L4_TARGET
+(
+   target_id NUMBER(38) NOT NULL,
+   source_genetic_element_id NUMBER(38) NOT NULL,
+   target_genetic_element_id NUMBER(38) NOT NULL
+);
+
+ALTER TABLE L4_TARGET ADD CONSTRAINT PK_L4_TARGET
+                PRIMARY KEY (target_id);
+
+ALTER TABLE L4_TARGET ADD CONSTRAINT FK_TARGET_SOURCE_FK
+                FOREIGN KEY (source_genetic_element_id) REFERENCES L4_GENETIC_ELEMENT (GENETIC_ELEMENT_ID);
+
+ALTER TABLE L4_TARGET ADD CONSTRAINT FK_TARGET_TARGET_FK
+                FOREIGN KEY (target_genetic_element_id) REFERENCES L4_GENETIC_ELEMENT (GENETIC_ELEMENT_ID);
+
+ALTER TABLE L4_TARGET ADD CONSTRAINT TARGET_GE_IDS_AK1 UNIQUE (source_genetic_element_id, target_genetic_element_id);

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache maxElementsInMemory="10000"
+                  eternal="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120"
+                  overflowToDisk="true"
+                  diskSpoolBufferSizeMB="30"
+                  maxElementsOnDisk="10000000"
+                  diskPersistent="false"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU" />
+    
+    <cache name="testCache"
+           maxElementsInMemory="500"
+           eternal="false"
+           timeToIdleSeconds="60"
+           timeToLiveSeconds="60"
+           overflowToDisk="true"
+           memoryStoreEvictionPolicy="LRU" />
+
+</ehcache>
+

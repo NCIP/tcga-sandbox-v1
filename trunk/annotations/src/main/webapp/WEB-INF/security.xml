@@ -1,0 +1,218 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!--
+Note: Each time this file is modified, the 'security.xml' file under /test/slow/security/ should be modified
+accordingly to make sure the tests reflect the latest security setup
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- =========== AUTHORIZATION WITH SPRING-ACL =========== -->
+
+    <!-- a UserDetail service for the authorities populator -->
+    <bean id="jdbcUserService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl"
+          p:dataSource-ref="dccCommonDataSource"
+          p:enableAuthorities="true"
+          p:enableGroups="true"
+          p:rolePrefix=""/>
+
+    <bean id="populator" class="org.springframework.security.ldap.populator.UserDetailsServiceLdapAuthoritiesPopulator">
+        <constructor-arg>
+            <ref local="jdbcUserService"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- ACL cache for the lookup strategy -->
+
+    <bean id="aclCache" class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
+        <constructor-arg>
+            <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+                  p:cacheName="aclCache"
+                  p:cacheManager-ref="cacheManager">
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!-- A lookup strategy for ACL service -->
+    <bean id="lookupStrategy" class="org.springframework.security.acls.jdbc.BasicLookupStrategy">
+        <constructor-arg ref="dccCommonDataSource"/>
+        <constructor-arg ref="aclCache"/>
+        <constructor-arg>
+            <!--
+            The AclAuthorizationStrategy is used to determine whether a principal (user) is permitted to call 
+            administrative methods on the ACLs. In this case, the principal needs ROLE_ADMINISTRATOR to call
+            methods that modify permissions: the first one is the authority needed to change ownership,
+            the second one is the authority needed to modify auditing details, and the third one is the
+            authority needed to change other ACL and ACE details.
+            -->
+            <bean class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
+                <constructor-arg>
+                    <list>
+                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                            <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                        </bean>
+                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                            <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                        </bean>
+                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                            <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                        </bean>
+                    </list>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="org.springframework.security.acls.domain.ConsoleAuditLogger"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- ACL service for Authorization management -->
+    <bean id="aclService" class="gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SimpleJdbcMutableAclService"
+          p:classIdentityQuery="SELECT ACL_CLASS_SEQ.currval FROM dual"
+          p:sidIdentityQuery="SELECT ACL_SID_SEQ.currval FROM dual">
+        <constructor-arg ref="dccCommonDataSource"/>
+        <constructor-arg ref="lookupStrategy"/>
+        <constructor-arg ref="aclCache"/>
+    </bean>
+
+    <!-- Basic ACL permission mask -->
+    <bean id="org.springframework.security.acls.domain.BasePermission.WRITE"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"
+          p:staticField="org.springframework.security.acls.domain.BasePermission.WRITE"/>
+
+    <!-- An access decision voter that reads ACL_ANNOTATION_NOTE_EDITOR configuration settings -->
+    <bean id="aclAnnotationNoteEditorVoter" class="org.springframework.security.vote.AclEntryVoter">
+        <constructor-arg ref="aclService"/>
+        <constructor-arg value="ACL_ANNOTATION_NOTE_EDITOR"/>
+        <constructor-arg>
+            <list>
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE"/>
+            </list>
+        </constructor-arg>
+
+        <property name="objectIdentityRetrievalStrategy">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.security.DccAnnotationNoteRetrievalStrategy"/>
+        </property>
+
+        <property name="processDomainObjectClass" value="gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote"/>
+    </bean>
+
+    <!--
+        Decision manager that uses:
+            - a role-based voter
+            - an ACL based voter for DccAnnotationNote edition
+     -->
+    <util:list id="decisionVoters">
+        <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter"/>
+        <ref local="aclAnnotationNoteEditorVoter"/>
+    </util:list>
+
+    <bean id="businessAccessDecisionManager" class="org.springframework.security.vote.UnanimousBased"
+          p:allowIfAllAbstainDecisions="true"
+          p:decisionVoters-ref="decisionVoters">
+    </bean>
+
+    <!-- Security configuration that will enable the use of secured annotations to protect methods -->
+    <security:global-method-security
+            secured-annotations="enabled"
+            jsr250-annotations="enabled"
+            access-decision-manager-ref="businessAccessDecisionManager"/>
+
+    <!-- Activate annotation-driven transactions -->
+    <tx:annotation-driven/>
+
+    <!-- Transaction Manager for ACL updates -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dccCommonDataSource"/>
+
+    <!-- Application specific ACL Management -->
+    <bean id="aclSecurityUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.security.impl.AclSecurityUtilImpl"/>
+
+    <!-- Application specific Security Util -->
+    <bean id="securityUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityUtilImpl"/>
+
+    <!-- =========== AUTHENTICATION WITH SPRING-LDAP =========== -->
+
+    <!--
+    Property placeholder for LDAP.
+    Do not change 'order' property unless you know what you are doing!
+    -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:annotationsApp-local.properties"
+          p:ignoreUnresolvablePlaceholders="true"
+          p:order="2"/>
+
+    <!--<bean class="gov.nih.nci.ncicb.tcga.dcc.common.util.DccPropertiesPlaceholderConfigurer"-->
+    <!--init-method="init" p:ignoreUnresolvablePlaceholders="true" p:order="2"/>-->
+
+    <!-- LDAP settings -->
+    <bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        <constructor-arg value="${ldap_authentication_server_url}"/>
+    </bean>
+
+    <!-- LDAP user search settings -->
+    <bean id="userSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+        <constructor-arg index="0" value="${ldap_user_search_base}"/>
+        <constructor-arg index="1" value="${ldap_user_search_filter}"/>
+        <constructor-arg index="2" ref="contextSource"/>
+    </bean>
+
+    <bean id="authenticator" class="org.springframework.security.providers.ldap.authenticator.BindAuthenticator"
+          p:userSearch-ref="userSearch">
+        <constructor-arg ref="contextSource"/>
+    </bean>
+
+    <bean id="ldapAuthProvider" class="org.springframework.security.providers.ldap.LdapAuthenticationProvider">
+        <constructor-arg ref="authenticator"/>
+        <constructor-arg ref="populator"/>
+        <!-- For ACL -->
+        <security:custom-authentication-provider/>
+    </bean>
+
+    <!-- =========== GENERAL CONFIGURATION FOR AUTHENTICATION ENTRY POINT =========== -->
+
+    <security:http
+            auto-config="false"
+            entry-point-ref="authenticationProcessingFilterEntryPoint"
+            >
+        <security:http-basic/>
+        <security:logout invalidate-session="true"/>
+        <!-- Authentication exit point that defaults to /j_spring_security_logout -->
+        <!-- Requiring HTTPS on all urls for now. In the future only login should be made over HTTPS -->
+        <security:intercept-url pattern="/**" requires-channel="https"/>
+    </security:http>
+
+    <bean id="authenticationProcessingFilterEntryPoint"
+          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint"
+          p:loginFormUrl="/webservice_login"
+          p:forceHttps="false">
+    </bean>
+
+    <security:authentication-manager alias="authenticationManager"/>
+
+    <bean id="authenticationProcessingFilter"
+          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter"
+          p:defaultTargetUrl="/"
+          p:authenticationManager-ref="authenticationManager"
+          p:authenticationFailureUrl="/webservice_authentication_failure">
+        <security:custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,886 @@
+<datasources>
+<local-tx-datasource>
+        <jndi-name>quartzOracleDS</jndi-name>
+        <connection-url>jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA</connection-url>
+        <driver-class>oracle.jdbc.OracleDriver</driver-class>
+        <user-name>USERNAME</user-name>
+        <password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+    </local-tx-datasource>
+
+
+	<local-tx-datasource>
+		<jndi-name>dccCommon</jndi-name>
+		<connection-url>jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA</connection-url>
+		<driver-class>oracle.jdbc.OracleDriver</driver-class>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+  </local-tx-datasource>
+
+
+	<!-- GBM Data source for GBM Schema -->
+	<local-tx-datasource>
+		<jndi-name>tcgaGBMDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- OV Data source for OV Schema -->
+	<local-tx-datasource>
+		<jndi-name>tcgaOVDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- LUSC Data source for LUSC Schema -->
+	<local-tx-datasource>
+		<jndi-name>tcgaLUSCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+		<!-- COAD Data source for COAD Schema -->
+	<local-tx-datasource>
+		<jndi-name>tcgaCOADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- READ Data source for READ Schema -->
+	<local-tx-datasource>
+		<jndi-name>tcgaREADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- BRCA data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaBRCADS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+    	<!-- DLBC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaDLBCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- KIRP data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaKIRPDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+ <!-- KIRC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaKIRCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- LAML data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaLAMLDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- LUAD data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaLUADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- UCEC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaUCECDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- CESC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaCESCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- HNSC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaHNSCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- LGG data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaLGGDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- LIHC data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaLIHCDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+    <!-- PAAD data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaPAADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- PRAD data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaPRADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- SALD data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaSALDDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- SKCM data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaSKCMDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- STAD data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaSTADDS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+
+	<!-- ESCA data source -->
+	<local-tx-datasource>
+		<jndi-name>tcgaESCADS</jndi-name>
+		<track-connection-by-tx>true</track-connection-by-tx>
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+		<connection-url>
+			jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+		</connection-url>
+		<user-name>USERNAME</user-name>
+		<password>???</password>
+
+		<idle-timeout-minutes>30</idle-timeout-minutes>
+		<!-- sql to call when connection is created -->
+		<new-connection-sql>select 0 from dual</new-connection-sql>
+		<prepared-statement-cache-size>100</prepared-statement-cache-size>
+		<share-prepared-statements>true</share-prepared-statements>		
+		<background-validation>true</background-validation>
+		<background-validation-minutes>20</background-validation-minutes>]
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<!-- Checks the Oracle error codes and messages for fatal errors -->
+		<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>		
+		<!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+		<metadata>
+			<type-mapping>Oracle9i</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+    <!-- KICH data source -->
+    <local-tx-datasource>
+        <jndi-name>tcgaKICHDS</jndi-name>
+        <track-connection-by-tx>true</track-connection-by-tx>
+        <isSameRM-override-value>false</isSameRM-override-value>
+        <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+        <connection-url>
+            jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+        </connection-url>
+        <user-name>USERNAME</user-name>
+        <password>???</password>
+
+        <idle-timeout-minutes>30</idle-timeout-minutes>
+        <!-- sql to call when connection is created -->
+        <new-connection-sql>select 0 from dual</new-connection-sql>
+        <prepared-statement-cache-size>100</prepared-statement-cache-size>
+        <share-prepared-statements>true</share-prepared-statements>
+        <background-validation>true</background-validation>
+        <background-validation-minutes>20</background-validation-minutes>]
+        <min-pool-size>5</min-pool-size>
+        <max-pool-size>100</max-pool-size>
+        <!-- Checks the Oracle error codes and messages for fatal errors -->
+        <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+        <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+        <metadata>
+            <type-mapping>Oracle9i</type-mapping>
+        </metadata>
+    </local-tx-datasource>
+    <!-- MESO data source -->
+        <local-tx-datasource>
+            <jndi-name>tcgaMESODS</jndi-name>
+            <track-connection-by-tx>true</track-connection-by-tx>
+            <isSameRM-override-value>false</isSameRM-override-value>
+            <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+            <connection-url>
+                jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+            </connection-url>
+            <user-name>USERNAME</user-name>
+            <password>???</password>
+
+            <idle-timeout-minutes>30</idle-timeout-minutes>
+            <!-- sql to call when connection is created -->
+            <new-connection-sql>select 0 from dual</new-connection-sql>
+            <prepared-statement-cache-size>100</prepared-statement-cache-size>
+            <share-prepared-statements>true</share-prepared-statements>
+            <background-validation>true</background-validation>
+            <background-validation-minutes>20</background-validation-minutes>]
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>100</max-pool-size>
+            <!-- Checks the Oracle error codes and messages for fatal errors -->
+            <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+            <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+            <metadata>
+                <type-mapping>Oracle9i</type-mapping>
+            </metadata>
+        </local-tx-datasource>
+    <!-- ACC data source -->
+        <local-tx-datasource>
+            <jndi-name>tcgaACCDS</jndi-name>
+            <track-connection-by-tx>true</track-connection-by-tx>
+            <isSameRM-override-value>false</isSameRM-override-value>
+            <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+            <connection-url>
+                jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+            </connection-url>
+            <user-name>USERNAME</user-name>
+            <password>???</password>
+
+            <idle-timeout-minutes>30</idle-timeout-minutes>
+            <!-- sql to call when connection is created -->
+            <new-connection-sql>select 0 from dual</new-connection-sql>
+            <prepared-statement-cache-size>100</prepared-statement-cache-size>
+            <share-prepared-statements>true</share-prepared-statements>
+            <background-validation>true</background-validation>
+            <background-validation-minutes>20</background-validation-minutes>]
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>100</max-pool-size>
+            <!-- Checks the Oracle error codes and messages for fatal errors -->
+            <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+            <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+            <metadata>
+                <type-mapping>Oracle9i</type-mapping>
+            </metadata>
+        </local-tx-datasource>
+    <!-- LCML data source -->
+        <local-tx-datasource>
+            <jndi-name>tcgaLCMLDS</jndi-name>
+            <track-connection-by-tx>true</track-connection-by-tx>
+            <isSameRM-override-value>false</isSameRM-override-value>
+            <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+            <connection-url>
+                jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+            </connection-url>
+            <user-name>USERNAME</user-name>
+            <password>???</password>
+
+            <idle-timeout-minutes>30</idle-timeout-minutes>
+            <!-- sql to call when connection is created -->
+            <new-connection-sql>select 0 from dual</new-connection-sql>
+            <prepared-statement-cache-size>100</prepared-statement-cache-size>
+            <share-prepared-statements>true</share-prepared-statements>
+            <background-validation>true</background-validation>
+            <background-validation-minutes>20</background-validation-minutes>]
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>100</max-pool-size>
+            <!-- Checks the Oracle error codes and messages for fatal errors -->
+            <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+            <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+            <metadata>
+                <type-mapping>Oracle9i</type-mapping>
+            </metadata>
+        </local-tx-datasource>
+    <!-- PCPG data source -->
+           <local-tx-datasource>
+               <jndi-name>tcgaPCPGDS</jndi-name>
+               <track-connection-by-tx>true</track-connection-by-tx>
+               <isSameRM-override-value>false</isSameRM-override-value>
+               <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+               <connection-url>
+                   jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+               </connection-url>
+               <user-name>USERNAME</user-name>
+               <password>???</password>
+
+               <idle-timeout-minutes>30</idle-timeout-minutes>
+               <!-- sql to call when connection is created -->
+               <new-connection-sql>select 0 from dual</new-connection-sql>
+               <prepared-statement-cache-size>100</prepared-statement-cache-size>
+               <share-prepared-statements>true</share-prepared-statements>
+               <background-validation>true</background-validation>
+               <background-validation-minutes>20</background-validation-minutes>]
+               <min-pool-size>5</min-pool-size>
+               <max-pool-size>100</max-pool-size>
+               <!-- Checks the Oracle error codes and messages for fatal errors -->
+               <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+               <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+               <metadata>
+                   <type-mapping>Oracle9i</type-mapping>
+               </metadata>
+           </local-tx-datasource>
+     <!-- MISC data source -->
+           <local-tx-datasource>
+               <jndi-name>tcgaMISCDS</jndi-name>
+               <track-connection-by-tx>true</track-connection-by-tx>
+               <isSameRM-override-value>false</isSameRM-override-value>
+               <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+               <connection-url>
+                   jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+               </connection-url>
+               <user-name>USERNAME</user-name>
+               <password>???</password>
+
+               <idle-timeout-minutes>30</idle-timeout-minutes>
+               <!-- sql to call when connection is created -->
+               <new-connection-sql>select 0 from dual</new-connection-sql>
+               <prepared-statement-cache-size>100</prepared-statement-cache-size>
+               <share-prepared-statements>true</share-prepared-statements>
+               <background-validation>true</background-validation>
+               <background-validation-minutes>20</background-validation-minutes>]
+               <min-pool-size>5</min-pool-size>
+               <max-pool-size>100</max-pool-size>
+               <!-- Checks the Oracle error codes and messages for fatal errors -->
+               <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+               <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+               <metadata>
+                   <type-mapping>Oracle9i</type-mapping>
+               </metadata>
+           </local-tx-datasource>
+        <!-- UVM data source -->
+           <local-tx-datasource>
+               <jndi-name>tcgaUVMDS</jndi-name>
+               <track-connection-by-tx>true</track-connection-by-tx>
+               <isSameRM-override-value>false</isSameRM-override-value>
+               <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+               <connection-url>
+                   jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+               </connection-url>
+               <user-name>USERNAME</user-name>
+               <password>???</password>
+
+               <idle-timeout-minutes>30</idle-timeout-minutes>
+               <!-- sql to call when connection is created -->
+               <new-connection-sql>select 0 from dual</new-connection-sql>
+               <prepared-statement-cache-size>100</prepared-statement-cache-size>
+               <share-prepared-statements>true</share-prepared-statements>
+               <background-validation>true</background-validation>
+               <background-validation-minutes>20</background-validation-minutes>]
+               <min-pool-size>5</min-pool-size>
+               <max-pool-size>100</max-pool-size>
+               <!-- Checks the Oracle error codes and messages for fatal errors -->
+               <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+               <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+               <metadata>
+                   <type-mapping>Oracle9i</type-mapping>
+               </metadata>
+           </local-tx-datasource>
+</datasources>
+

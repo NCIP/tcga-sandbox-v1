@@ -1,0 +1,1401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>tcBulkDownload</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tcBulkDownload</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga/findArchives.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=click here</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Glioblastoma multiforme</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Acute Myeloid Leukemia</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Bladder Urothelial Carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Brain Lower Grade Glioma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Breast invasive carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>project</td>
+	<td>label=All</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Cervical squamous cell carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Chronic Lymphocytic Leukemia</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Colon adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Glioblastoma multiforme</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Head and Neck squamous cell carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Kidney renal clear cell carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Kidney renal papillary cell carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Liver hepatocellular carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Lung adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Lung squamous cell carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Lymphoid Neoplasm Diffuse Large B-cell Lymphoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Lymphoid Neoplasm Non-Hodgkins Lymphoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Ovarian serous cystadenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Pancreatic adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Prostate adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Rectum adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Sarcoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Skin Cutaneous Melanoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Stomach adenocarcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Thyroid carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>project</td>
+	<td>label=Uterine Corpus Endometrioid Carcinoma</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Find &gt;&gt;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>results_table</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>quereyResults</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Files</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=//tbody[@class='tableBody']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(Reset Archive Search Criteria)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>findArchives</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

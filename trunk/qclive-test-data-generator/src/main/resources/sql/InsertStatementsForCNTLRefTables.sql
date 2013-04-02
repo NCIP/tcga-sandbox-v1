@@ -1,0 +1,4 @@
+/*
+ * The statement in this file is case-sensitive.
+ */
+INSERT INTO clinical_table(clinical_table_id, table_name, join_for_sample, join_for_patient, barcode_element_id, barcode_column_name, element_node_name, element_table_name, table_id_column_name, parent_table_id, archive_link_table_name, uuid_element_id, is_dynamic) (select 23, 'CLINICAL_CONTROL', 'CLINICAL_CONTROL.PATIENT_ID(+)=PATIENT.PATIENT_ID AND PATIENT.PATIENT_ID=SAMPLE.PATIENT_ID', 'CLINICAL_CONTROL.PATIENT_ID(+)=PATIENT.PATIENT_ID', 14, 'CLINICAL_CONTROL_BARCODE', 'control', 'CLINICAL_CONTROL_ELEMENT', 'CLINICAL_CONTROL_ID', clinical_table_id, 'CLINICAL_CONTROL_ARCHIVE', clinical_xsd_element_id, 0 from clinical_table, clinical_xsd_element where clinical_table.table_name='PATIENT' and clinical_xsd_element.element_name='bcr_aliquot_uuid');

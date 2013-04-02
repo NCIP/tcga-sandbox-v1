@@ -1,0 +1,7 @@
+set echo on;
+insert into anomaly_type(anomaly_type_id,anomaly,anomaly_description,value_threshold,value_threshold_type,display_name,patient_threshold,comments) values (4,'AMPLIFIED','Amplification of all or part of the gene.  Based on data from Harvard, Broad, MSKCC, and Stanford.',2.5,'GTE','AMP',.1,'');
+insert into anomaly_type(anomaly_type_id,anomaly,anomaly_description,value_threshold,value_threshold_type,display_name,patient_threshold,comments) values (5,'DELETED','Deletion of all or part of the gene.  Based on data from Harvard, Broad, MSKCC, and Stanford.',1.5,'LTE','DEL',.1,'');
+insert into anomaly_type(anomaly_type_id,anomaly,anomaly_description,value_threshold,value_threshold_type,display_name,patient_threshold,comments) values (1,'MUTATION','A validated, functional mutation (i.e. silent change is not counted here) exists in the gene of interest.  Data from submitted by the three GSC Centers',1,'GTE','MUTATION',.05,'');
+insert into anomaly_type(anomaly_type_id,anomaly,anomaly_description,value_threshold,value_threshold_type,display_name,patient_threshold,comments) values (2,'OVEREXPRESSION, AFFYMETRIX','Overexpression of the gene is seen in Affymetrix 133A Microarray analysis.',2,'GTE','EXP+_AF',.25,'');
+insert into anomaly_type(anomaly_type_id,anomaly,anomaly_description,value_threshold,value_threshold_type,display_name,patient_threshold,comments) values (3,'UNDEREXPRESSION, AFFYMETRIX','Underexpression of the gene is seen in Affymetrix 133A Microarray analysis.',.1,'LTE','EXP-_AF',.15,'');
+commit;

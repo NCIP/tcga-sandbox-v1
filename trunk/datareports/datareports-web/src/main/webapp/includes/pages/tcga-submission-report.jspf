@@ -1,0 +1,31 @@
+	<div id="content">
+        <div class="left">
+	    <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+	    <h1><%=h1String%></h1>
+        </div>
+		<div class="indent">
+	        <div>${response}</div>
+	        <form:form modelAttribute="submission" method="post" enctype="multipart/form-data">
+	            <fieldset>
+	                <legend>Upload File</legend>
+	                <p>
+	                    <form:label for="typeOfFile" path="typeOfFile">Type of File</form:label><br/>
+	                    <form:input path="typeOfFile"/>
+	                </p>
+	
+	                <p>
+	                    <form:label for="fileData" path="fileData">File</form:label><br/>
+	                    <input name="fileData" id="fileData" type="file"/>
+	                </p>
+	
+	                <p>
+	                    <input class="largeButton" value="Submit File >>" type="submit"/>
+	                </p>
+	            </fieldset>
+	        </form:form>
+	    </div>
+	</div>
+	<div id="sidebar">
+	    <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+	</div>

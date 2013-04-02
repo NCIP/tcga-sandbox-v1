@@ -1,0 +1,17 @@
+<dataset>
+    <center_type center_type_definition="Cancer Genome Characterization Center" center_type_code="CGCC"/>
+    <center_type center_type_definition="Biospecimen Core Resource" center_type_code="BCR"/>
+
+    <data_type data_type_id="7" center_type_code="CGCC" name="SNP" ftp_display="snp" available="1" sort_order="6"/>
+    <data_type data_type_id="8" center_type_code="CGCC" name="Copy Number Results" ftp_display="cna" available="1" sort_order="4"/>
+    <data_type data_type_id="1" center_type_code="BCR" name="Complete Clinical Set" ftp_display="clin" available="1" sort_order="11"/>
+
+    <platform platform_id="7" center_type_code="CGCC" platform_name="GenomeWideSNP_5" available="0" sort_order="7" platform_display_name="Affymetrix Genome-Wide Human SNP Array 5.0" platform_alias="GenomeWideSNP_5" base_data_type_id="7"/>
+    <platform platform_id="36" center_type_code="CGCC" platform_name="Human1MDuo" available="1" sort_order="17" platform_display_name="Illumina Human1M-Duo BeadChip" platform_alias="Human1MDuo" base_data_type_id="1"/>
+
+    <data_type_to_platform data_type_platform_id="1" platform_id="36" data_type_id="7" />
+    <data_type_to_platform data_type_platform_id="2" platform_id="36" data_type_id="8" />
+    <data_type_to_platform data_type_platform_id="3" platform_id="7" data_type_id="1" />
+    
+
+</dataset>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+     version="2.4">
+
+    <display-name>TCGA Annotations</display-name>
+
+    <description>TCGA Annotations</description>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext-annotations.xml</param-value>
+    </context-param>
+
+	<filter>
+		<display-name>Security Filter</display-name>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>allowableResourcesRoot</param-name>
+			<param-value>/</param-value>
+		</init-param>
+		
+		<!-- The following initialization parameters are optional. -->
+		
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>paramValueMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>queryStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>uriStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>urlStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- List of query parameter names to be ignored when performing
+			 validation -->
+		<init-param>
+			<param-name>ignoreParamValidationForNames</param-name>
+			<param-value>j_password</param-value>
+		</init-param>
+		<!-- Boolean indicating whether or not to bypass the default HTTP 
+			 response status code (200 OK) provided by the ESAPI security 
+			 framework and allow status codes set by the container to pass
+			 through. -->
+		<init-param>
+			<param-name>bypassDefaultResponseStatusCode</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- Boolean indicating whether or not to retain empty values for query parameters.
+             If this init parameter is not provided, the default will be false, and all query parameter
+             values with empty strings will be set to null. -->
+         <init-param>
+             <param-name>retainEmptyQueryParamValues</param-name>
+             <param-value>true</param-value>
+         </init-param>
+	</filter>
+	 
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>annotationsJson</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>securityJson</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>webservice-security</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>annotations</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>annotations</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>annotations</servlet-name>
+        <url-pattern>*.rss</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>annotationsJson</servlet-name>
+        <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>securityJson</servlet-name>
+        <url-pattern>*.securityjson</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>webservice-security</servlet-name>
+        <url-pattern>/webservice_login</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>webservice-security</servlet-name>
+        <url-pattern>/webservice_authentication_failure</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <!-- Default to 60 minutes session timeout -->
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <display-name>Jersey-Spring</display-name>
+        <servlet-name>Jersey-Spring</servlet-name>
+        <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+        <init-param>
+            <description>REST resource package</description>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>gov.nih.nci.ncicb.tcga.dcc.annotations.webservice</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Jersey-Spring</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationsHelp</servlet-name>
+        <servlet-class>gov.nih.nci.ncicb.tcga.dcc.common.web.StaticContentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationsHelp</servlet-name>
+        <url-pattern>/help/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>maincss</servlet-name>
+        <jsp-file>/styles/commonCSS.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>maincss</servlet-name>
+        <url-pattern>/styles/main.css</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>mainjs</servlet-name>
+        <jsp-file>/scripts/commonjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mainjs</servlet-name>
+        <url-pattern>/scripts/main.js</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>mergedjs</servlet-name>
+        <jsp-file>/scripts/mergedjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mergedjs</servlet-name>
+        <url-pattern>/scripts/merged.js</url-pattern>
+    </servlet-mapping>
+    <!-- =========== SECURITY =========== -->
+
+    <!-- Spring security filter -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>

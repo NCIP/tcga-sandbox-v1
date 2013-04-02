@@ -1,0 +1,131 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+    <!-- aspects are used for caching of annotations for RSS feed -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- =========== DATA SOURCE DEFINITION =========== -->
+    <import resource="dataSourceDefinition.xml"/>
+
+    <!-- =========== SECURITY =========== -->
+    <import resource="security.xml"/>
+
+    <!-- =========== QUARTZ =========== -->
+    <import resource="quartz-config.xml"/>
+
+    <!-- =========== ANNOTATIONS =========== -->
+    <context:annotation-config/>
+
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.annotations" scoped-proxy="targetClass"/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations"
+                            scoped-proxy="targetClass"/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.common.service.annotations"
+                            scoped-proxy="targetClass"/>
+
+    <bean id="annotationQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueriesJDBCImpl"
+          p:dataSource-ref="dccCommonDataSource">
+        <property name="annotationIdSequence">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"
+                  p:dataSource-ref="dccCommonDataSource"
+                  p:incrementerName="ANNOTATION_SEQ"/>
+        </property>
+        <property name="annotationNoteIdSequence">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"
+                  p:dataSource-ref="dccCommonDataSource"
+                  p:incrementerName="ANNOTATION_NOTE_SEQ"/>
+        </property>
+    </bean>
+
+    <bean id="annotationRssService" class="gov.nih.nci.ncicb.tcga.dcc.annotations.service.AnnotationRssServiceImpl"
+          p:monthsToSearch="${rss.feed.num.months}"
+          p:annotationQueries-ref="annotationQueries"/>
+
+    <bean id="redactionService"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.service.RedactionServiceImpl"/>
+
+    <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl"
+          p:dataSource-ref="dccCommonDataSource"/>
+
+    <bean id="redactionCommonQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.RedactionQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="transactionManager" ref="commonTransactionManager"/>
+        <property name="commonSchema" value="true"/>
+    </bean>
+
+    <bean id="redactionDiseaseQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.RedactionQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="transactionManager" ref="oracleTransactionManager"/>
+        <property name="commonSchema" value="false"/>
+    </bean>
+
+    <bean id="oracleTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="commonTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="uuidHierarchyQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDHierarchyQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="uuidService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDServiceImpl">
+        <property name="uuidDAO" ref="uuidDao"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <bean id="uuidDao" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="shippedBiospecimenQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl"
+          p:dataSource-ref="dccCommonDataSource"/>
+
+    <bean id="codeTableQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          p:dataSource-ref="dccCommonDataSource"/>
+
+    <bean id="cacheAspect" class="gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.CacheAspect"/>
+
+    <ehcache:annotation-driven cache-manager="cacheManager"/>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:configLocation="classpath:ehcache-config.xml"/>
+
+    <bean id="beanCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+          p:cacheManager-ref="cacheManager" p:cacheName="rssCache"/>
+
+</beans>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <!--
+   #############################################################################################################
+   This settings.xml file should be copied to the .m2 directory of the users’ folder. For Windows this will be
+   %UserProfile%/.m2 and for Linux this will be $HOME/.m2 or ~/.m2.
+   #############################################################################################################
+  -->
+
+  <!-- The "PATH-TO-LOCAL-REPOSITORY" specified for this element should be replaced with a path on the local file
+       system so that Maven knows where to store dependencies. The path specified here must be an absolute path
+       so that Maven can locate the "correct" dependencies during builds. -->
+  <localRepository>PATH-TO-LOCAL-REPOSITORY</localRepository>
+  <servers>
+	 <server>
+       <id>snapshots</id>
+       <username>deployment</username>
+       <password>deployment123</password>
+     </server>
+  </servers>
+  <profiles>
+	<profile>
+		<id>tcga-dev</id>
+		<repositories>
+			<repository>
+				<id>thirdparty</id>
+				<name>Nexus Third Party Libs</name>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+				<url>http://cbiodev80.nci.nih.gov:8082/nexus/content/repositories/thirdparty</url>
+				<layout>default</layout>
+			</repository>
+			<repository>
+				<id>snapshots</id>
+				<name>TCGA Snapshots</name>
+				<releases>
+					<enabled>false</enabled>
+				</releases>
+				<snapshots>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</snapshots>
+				<url>http://cbiodev80.nci.nih.gov:8082/nexus/content/repositories/snapshots</url>
+				<layout>default</layout>
+			</repository>
+			<repository>
+				<id>releases</id>
+				<name>TCGA Releases</name>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+				<url>http://cbiodev80.nci.nih.gov:8082/nexus/content/repositories/releases</url>
+				<layout>default</layout>
+			</repository>
+            <repository>
+				<id>maven2-repository.dev.java.net</id>
+				<name>Java.net Repository for Maven</name>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+				<url>http://download.java.net/maven/2</url>
+				<layout>default</layout>
+			</repository>
+            <repository>
+				<id>public-jboss</id>
+				<name>JBoss Repository for Maven</name>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+				<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+				<layout>default</layout>
+			</repository>
+      </repositories>
+	</profile>
+  </profiles>
+  <activeProfiles>
+	<activeProfile>tcga-dev</activeProfile>
+  </activeProfiles>
+</settings>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	">
+
+    <!-- quartz-related beans for email from common -->
+
+    <bean name="sendEmail" class="gov.nih.nci.ncicb.tcga.dcc.datareports.email.SendEmail"/>
+    <bean id="emailGenerator" class="gov.nih.nci.ncicb.tcga.dcc.datareports.email.CenterSampleReportGeneratorImpl"/>
+
+    <bean id="mailSender"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.mail.impl.MailSenderImpl"
+          p:defaultFromAddress="${tcga.datareports.defaultFromAddress}"
+          p:defaultReplyTo="${tcga.datareports.defaultReplyTo}"
+          p:defaultCcAddress="${tcga.datareports.defaultCcAddress}"
+          p:defaultFromName="${tcga.datareports.defaultFromName}"
+          p:mailEnabled="${tcga.datareports.enableEmail}"
+          p:subjectPrefix="${tcga.datareports.subjectPrefix}"
+          p:javaMailSender-ref="mailSenderImpl"/>
+
+    <bean id="mailErrorHelper"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelperImpl"
+          p:to="${tcga.datareports.error.to}"
+          p:subject="${tcga.datareports.error.subject}"
+          p:mailSender-ref="mailSender"/>
+
+    <bean id="mailSenderImpl"
+          class="org.springframework.mail.javamail.JavaMailSenderImpl"
+          p:host="${tcga.datareports.mailHost}"/>
+
+    <bean name="sendEmailQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="sendEmail"
+          p:targetMethod="sendEmails"
+          p:concurrent="false"/>
+
+    <bean id="sendEmailCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean"
+          p:jobDetail-ref="sendEmailQuartzJob"
+          p:cronExpression="${tcga.datareports.piReportCronFrequencyTimer}"/>
+
+    <bean id="sendEmailScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="sendEmailCronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- quartz-related beans for refreshing the sample summary report detail table -->
+
+    <bean name="refreshSampleSummaryTableQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="sampleSummaryReportDAOImpl"
+          p:targetMethod="refreshTable"
+          p:concurrent="false"/>
+
+    <bean id="refreshSampleSummaryTableCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean"
+          p:jobDetail-ref="refreshSampleSummaryTableQuartzJob"
+          p:cronExpression="${tcga.datareports.sampleSummaryRefreshCronFrequencyTimer}"/>
+
+    <bean id="refreshSampleSummaryTableScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="refreshSampleSummaryTableCronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- quartz-related beans for refreshing the stats dashboard procedure -->
+
+    <bean name="refreshStatsDashboardProcQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="statsDashboardDAOImpl"
+          p:targetMethod="refreshStatsDashboardProcedure"
+          p:concurrent="false"/>
+
+    <bean id="refreshStatsDashboardProcCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean"
+          p:jobDetail-ref="refreshStatsDashboardProcQuartzJob"
+          p:cronExpression="${tcga.datareports.statsDashboardRefreshCronFrequencyTimer}"/>
+
+    <bean id="refreshStatsDashboardProcScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="refreshStatsDashboardProcCronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- quartz-related beans for refreshing the projectCase dashboard procedure and cache -->
+
+    <bean name="refreshProjectCaseDashboardProcQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="projectCaseDashboardJsonController"
+          p:targetMethod="refreshQuartzPCODCacheAndProc"
+          p:concurrent="false"/>
+
+    <bean id="refreshProjectCaseDashboardProcCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean"
+          p:jobDetail-ref="refreshProjectCaseDashboardProcQuartzJob"
+          p:cronExpression="${tcga.datareports.projectCaseDashboardRefreshCronFrequencyTimer}"/>
+
+    <bean id="refreshProjectCaseDashboardProcScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="refreshProjectCaseDashboardProcCronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

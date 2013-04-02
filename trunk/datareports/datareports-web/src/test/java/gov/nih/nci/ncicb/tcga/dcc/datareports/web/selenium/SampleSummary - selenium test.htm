@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/datareports/sampleSummary.htm" />
+<title>SampleSummary - selenium test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SampleSummary - selenium test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/datareports/sampleSummary.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>DCC Data Summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>top_header</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>The Cancer Genome Atlas Data Portal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='summarySamples']/thead/tr[1]/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Cancer Type</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Analyte</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Platform</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample IDs BCR Reported Sending to Center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample IDs DCC Received from Center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Unaccounted for BCR Sample IDs that Center Reported</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Unaccounted for Center Sample IDs that BCR Reported</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample IDs with Level 1 Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample IDs with Level 2 Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample IDs with Level 3 Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Level 4 Submitted (Y/N)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Disclaimer: The above table(s) reflect as accurately as possible the sample IDs and ID annotations submitted to the DCC to date. At the present time, the intended platform for a given aliquot can only be inferred from the disease and the identity of the GSC/CGCC that is encoded in the aliquot ID. If a given GSC/CGCC is using only one platform for a given disease, then this inference will be accurate. If the GSC/CGCC is using more than one platform for a disease, the DCC cannot accurately report ID counts per platform per disease. Of course, once a GSC/CGCC submits molecular data for an aliquot to the DCC, then the platform is known. In Phase 2 of the TCGA project there will be a standard operating procedure for a GSC/CGCC to report the intended platform for a given aliquot before submitting the molecular data.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:A value of &quot;Undetermined&quot; for Platform indicates that the DCC has not received data for the indicated sample-analytes<br /> * = Although not in the latest current archive, level 4 data has been submitted</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:* = Although not in the latest current archive, level 4 data has been submitted</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@alt='National Human Genome Research Institute']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@alt='National Cancer Institute']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@alt='National Institutes of Health']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@alt='Department of Health and Human Services']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@alt='FirstGov.gov']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='csv']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='jexcel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=509</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>DCC Data Detailed View</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td>Back to Sample Summary Page</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample Detailed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Results 1 - 50 of 509.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='detailedSamples']/tbody[2]/tr/td</td>
+	<td>Results 1 - 50 of 509.</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='csv']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='jexcel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='results_table']/fieldset/legend</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Results 1 - 47 of 47.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=327</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='detailedSamples']/caption</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Tumor Abbreviation: GBM</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Center Name: broad.mit.edu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Center Type: CGCC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Portion Analyte: R</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Platform: HT_HG-U133A</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=338</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=64</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='detailedSamples']/tbody[2]/tr/td</td>
+	<td>Results 1 - 50 of 64.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='summarySamples_row23']/td[9]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='detailedSamples']/tbody[2]/tr/td</td>
+	<td>Results 1 - 50 of 487.</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='results_table']/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='results_table']/p</td>
+	<td>exact:Disclaimer: The above table(s) reflect as accurately as possible the sample IDs and ID annotations submitted to the DCC to date. At the present time, the intended platform for a given aliquot can only be inferred from the disease and the identity of the GSC/CGCC that is encoded in the aliquot ID. If a given GSC/CGCC is using only one platform for a given disease, then this inference will be accurate. If the GSC/CGCC is using more than one platform for a disease, the DCC cannot accurately report ID counts per platform per disease. Of course, once a GSC/CGCC submits molecular data for an aliquot to the DCC, then the platform is known. In Phase 2 of the TCGA project there will be a standard operating procedure for a GSC/CGCC to report the intended platform for a given aliquot before submitting the molecular data.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=171</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='detailedSamples']/tbody[2]/tr/td</td>
+	<td>Results 1 - 50 of 171.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to Sample Summary Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sample Summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>DCC Data Summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Results 1 - 47 of 47.</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

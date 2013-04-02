@@ -1,0 +1,32 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+
+    <Center_Type CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="Cancer Genome Characterization Center"/>
+    <Center CENTER_ID="1" DOMAIN_NAME="broad.mit.edu" CENTER_TYPE_CODE="CGCC"
+            DISPLAY_NAME="Broad Institute of MIT and Harvard" SHORT_NAME="BI" SORT_ORDER="2"/>
+
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="GBM Disease" active="1"/>
+    <disease disease_id="2" disease_abbreviation="OV" disease_name="OV Disease" active="1"/>
+    <disease disease_id="31" disease_abbreviation="CNTL" disease_name="Cell Line Controls" active="1"/>
+    
+    <tissue_source_site tss_code="01" tss_definition="Aliquot" receiving_center_id="1"/>
+    <tissue_source_site tss_code="02" tss_definition="Sample" receiving_center_id="1"/>
+    <tissue_source_site tss_code="03" tss_definition="Analyte" receiving_center_id="1"/>
+    <tissue_source_site tss_code="04" tss_definition="Aliquot" receiving_center_id="1"/>
+    <tissue_source_site tss_code="07" tss_definition="07" receiving_center_id="1"/>
+    <tissue_source_site tss_code="AV" tss_definition="AV" receiving_center_id="1"/>
+
+    <tss_to_disease TSS_DISEASE_ID="1" disease_id="1" tss_code="01"/>
+    <tss_to_disease TSS_DISEASE_ID="2" disease_id="1" tss_code="02"/>
+    <tss_to_disease TSS_DISEASE_ID="3" disease_id="2" tss_code="01"/>
+    <tss_to_disease TSS_DISEASE_ID="4" disease_id="31" tss_code="07"/>
+    <tss_to_disease TSS_DISEASE_ID="5" disease_id="31" tss_code="AV"/>
+
+</dataset>

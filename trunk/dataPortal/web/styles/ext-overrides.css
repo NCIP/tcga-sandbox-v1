@@ -1,0 +1,130 @@
+/* 
+ * All of the grid columns that are allowed to wrap 
+ * Note: Need a separate entry for the header and the data
+ * 
+ * This is here as an example.  Each app should have it's own set of these rather than
+ * placing them here in the generic file.
+ *
+.x-grid3-xxx {
+	white-space: normal;
+}
+ */
+
+/* Radio selection model for grids*/
+/*
+ * This is the basic background sprite for the radio selection model.  The following CSS specifiers
+ * define the positioning of this sprite which contains selected/unselected images for a radio button.
+ */
+.x-grid3-row-radioselector {
+    background-image:url(../images/extensions/row-radio-sprite.gif);
+}
+
+/* Copied from ExtJS - duplicates of the checkboxSelector that is needed for the radioSelector. */
+.x-grid3-body .x-grid3-td-radioselector {
+    background-image: url(../images/default/grid/grid3-special-col-bg.gif);
+}
+
+.x-grid3-body .x-grid3-row-selected .x-grid3-td-radioselector {
+	background-image:url(../images/default/grid/grid3-special-col-sel-bg.gif);
+}
+
+.x-grid3-body .x-grid3-row-selected .x-grid3-td-radioselector {
+	background:transparent repeat-y right;
+}
+
+.x-grid3-body .x-grid3-td-radioselector {
+    background:transparent repeat-y right;
+}
+
+.x-grid3-body .x-grid3-td-radioselector .x-grid3-cell-inner {
+    padding:0 !important;
+    height:100%;
+}
+
+.x-grid3-row-radioselector {
+    width:100%;
+    height:18px;
+    background-position:2px 2px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+}
+
+/* The unselected position of the radio sprite */
+.x-grid3-row .x-grid3-row-radioselector {
+    background-position:2px 2px;
+}
+
+/* The selected position of the radio sprite */
+.x-grid3-row-selected .x-grid3-row-radioselector, .x-grid3-row-checked .x-grid3-row-radioselector {
+    background-position:-23px 2px;
+}
+
+/*
+ * Modifications to the tabs - used to allow the tabs to be a bit more configurable.
+ * See: conflooktabpanel
+ */
+.x-tab-panel-header-plain{
+	background:transparent!important;
+	border-top-width:1px!important;
+	border-right-width:1px!important;
+	border-left-width:1px!important;
+	border-bottom-width:0px!important;
+	padding-bottom:0px!important;
+}
+
+.x-tab-strip-wrap{
+	background: url(../images/extensions/tab-bg.gif) repeat-x bottom;
+	width:100%;
+	border-bottom: 0px;
+	overflow:hidden;
+	position:relative;
+	zoom:1;
+}
+
+ul.x-tab-strip{
+	display:block;
+	width:5000px;
+	zoom:1;
+}
+
+ul.x-tab-strip-top{
+	border-bottom:0px solid #8db2e3;
+}
+
+.x-tab-strip-text {
+	color: #005ba4;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+	font:bold 11px tahoma,arial,helvetica;
+	white-space: nowrap;
+	cursor:pointer;
+   padding:4px 0;
+}
+
+a.x-tab-strip-over {
+	text-decoration: none;
+}
+
+.x-tab-strip-over span.x-tab-strip-text {
+	color:#cccccc;
+}
+
+li.x-tab-strip-active{
+    background: #ffffff;
+	 border-bottom: solid 1px #cccccc;
+    color: #404040;
+}
+
+.x-tab-strip-active span.x-tab-strip-text {
+   color: #404040;
+	font-weight: bold;
+	padding-bottom: 5px;
+	text-decoration: none;
+}
+
+.x-tab-panel-header {
+	padding: 0px;
+	line-height: 15px;
+}
+

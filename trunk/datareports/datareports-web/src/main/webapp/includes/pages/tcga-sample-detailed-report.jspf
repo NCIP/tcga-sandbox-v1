@@ -1,0 +1,55 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <a
+                href="sampleSummaryReport.htm">Sample Counts for TCGA Data</a> >
+            <span class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+
+    <c:set var='modePage' value='${mode}' scope='page'/>
+
+    <p>Disease: ${disease}, Center: ${center}, Portion Analyte: ${portionAnalyte}, Platform: ${platform}</p>
+    <br/>
+
+    <span style="display: table-cell;">
+        <form name=xlExport
+              action="sampleDetailedExport.htm?exportType=xl&cols=${cols}&disease=${disease}&center=${center}&portionAnalyte=${portionAnalyte}&platform=${platform}&bcr=true"
+              method="post">
+            <input type="submit" value="Export to Excel"></form></span>
+    <span style="display: table-cell;">
+        <form name=csvExport
+              action="sampleDetailedExport.htm?exportType=csv&cols=${cols}&disease=${disease}&center=${center}&portionAnalyte=${portionAnalyte}&platform=${platform}&bcr=true"
+              method="post">
+            <input type="submit" value="Export to CSV"></form></span>
+    <span style="display: table-cell;">
+        <form name=tabExport
+              action="sampleDetailedExport.htm?exportType=tab&cols=${cols}&disease=${disease}&center=${center}&portionAnalyte=${portionAnalyte}&platform=${platform}&bcr=true"
+              method="post">
+            <input type="submit" value="Export to Tab"></form></span>
+    <br/>
+
+    <display:table name="${sampleList}" requestURI="sampleDetailedReport.htm" uid="sample"
+                   pagesize="${samplePageSize}" partialList="true" size="${sampleTotalCount}">
+        <display:column property="name" title="Sample" headerScope="col" scope="row"/>
+        <display:column property="sampleDate" title="Date" headerScope="col" scope="row"/>
+    </display:table>
+
+    <br/>
+
+</div>

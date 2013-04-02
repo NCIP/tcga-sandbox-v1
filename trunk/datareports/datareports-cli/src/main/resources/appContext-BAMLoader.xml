@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.bamloader"/>
+
+    <bean id="propertyConfigurer"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.annotations.TCGAValueImpl"
+          p:location="BAMLoader.properties"/>
+
+    <bean id="fileBAMDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${fileBAM.jdbc.driverClassName}"
+          p:url="${fileBAM.jdbc.url}"
+          p:username="${fileBAM.jdbc.username}"
+          p:password="${fileBAM.jdbc.password}"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="fileBAMDataSource"/>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate"
+          p:transactionManager-ref="transactionManager"/>
+
+    <bean name="fileBAMSequence"
+          class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"
+          p:dataSource-ref="fileBAMDataSource"
+          p:incrementerName="BAM_FILE_SEQ"/>
+
+    <bean id="lookUpBAMDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${lookupBAM.jdbc.driverClassName}"
+          p:url="${lookupBAM.jdbc.url}"
+          p:username="${lookupBAM.jdbc.username}"
+          p:password="${lookupBAM.jdbc.password}"/>
+
+</beans>

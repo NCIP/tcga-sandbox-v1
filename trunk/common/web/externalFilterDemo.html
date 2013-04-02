@@ -1,0 +1,28 @@
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<html>
+<head><title>DAM External Filter Demo Page</title></head>
+
+<body>
+<a href="/tcga1/dataAccessExternalFilter.htm?platformType=3,5&tumorNormal=T,TN">
+    Gene Expression & miRNA Expression, Tumor samples only
+</a>
+
+<p>
+    <a href="/tcga1/dataAccessExternalFilter.htm?platformType=-999&batch=Batch%202">
+        Clinical data, Batch 2 only
+    </a>
+
+<p>
+    <a href="/tcga1/dataAccessExternalFilter.htm?level=2,3&sampleList=tcga-02-0064-*,tcga-02-0069-*,tcga-02-0071-*,tcga-02-0074-*,tcga-02-0075-*,tcga-02-0080-*,tcga-02-0083-*,tcga-02-0085-*">
+        Level 2 and 3 data, specific list of patients
+    </a>
+</body>
+</html>

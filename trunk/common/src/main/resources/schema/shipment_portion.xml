@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tcgaBcrDataTemplate xmlns="http://tcga-data.nci.nih.gov/tcga"
+        xsi:schemaLocation="http://tcga-data.nci.nih.gov/tcga tcgaBcrDataTemplate.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <tcgaBcrData>
+        <bcrFileType>biospecimen</bcrFileType>
+        <bcrFileType>control</bcrFileType>
+        <biotabFileType>biospecimen_shipment_portion</biotabFileType>
+        <xmlData>
+            <parentNode>
+                <absoluteXPath>/tcga_bcr/patient/samples/sample</absoluteXPath>
+                <elementsToBeIncluded>
+                    <elementName>bcr_sample_barcode</elementName>
+                </elementsToBeIncluded>
+            </parentNode>
+            <dataNode>
+                <relativePath>portions/shipment_portion</relativePath>
+                <alternateAttributeValue>procurement_status</alternateAttributeValue>
+                <elements filterType="ignore" />
+            </dataNode>
+        </xmlData>
+        <biotabData>
+            <keyColumns>
+                <columnName>bcr_sample_barcode</columnName>
+                <columnName>shipment_portion_bcr_aliquot_barcode</columnName>
+            </keyColumns>
+            <dataColumnsOrder>
+                <columnName>bcr_sample_barcode</columnName>
+                <columnName>shipment_portion_bcr_aliquot_barcode</columnName>
+            </dataColumnsOrder>
+            <diseaseSpecificData/>
+        </biotabData>
+    </tcgaBcrData>
+</tcgaBcrDataTemplate>

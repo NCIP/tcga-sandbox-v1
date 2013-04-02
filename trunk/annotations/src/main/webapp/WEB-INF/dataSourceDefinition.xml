@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+    Property placeholder for the data source.
+    Do not change 'order' property unless you know what you are doing!
+    -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="WEB-INF/datasource.properties"
+          p:ignoreUnresolvablePlaceholders="true"
+          p:order="1"/>
+
+    <bean id="dccCommonDataSource"
+          class="org.springframework.jndi.JndiObjectFactoryBean"
+          lazy-init="true"
+          p:jndiName="${jndiName}"/>
+
+    <!-- Data source based on disease name -->
+    <bean id="diseaseDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource"
+          lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker" lazy-init="default"
+                  autowire="default" dependency-check="default">
+                <property name="prefix" value="java:"/>
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" lazy-init="default"
+                          autowire="default" dependency-check="default"/>
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${tcga.dcc.diseaseDataSources}"/>
+    </bean>
+
+</beans>

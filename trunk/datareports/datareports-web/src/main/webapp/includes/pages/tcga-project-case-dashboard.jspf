@@ -1,0 +1,95 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+    <div class="smallertext">
+        Mouse over column headers for a description of that column.
+    </div>
+    <input type='hidden' id="serverUrl" name="serverUrl" value="${serverUrl}"/>
+    <input type='hidden' id="disease" name="disease" value="${disease}"/>
+
+    <div id="projectCaseDashboardDiv"></div>
+
+    <noscript>
+        <p><a href="https://wiki.nci.nih.gov/x/lQ9yAg" target="_blank">Help</a></p>
+                        <span style="display: table-cell;"><form name=xlExport
+                                                                 action="projectCaseDashboardExport.htm?exportType=xl"
+                                                                 method="post">
+                            <input type="submit" value="Export to Excel"></form></span>
+                        <span style="display: table-cell;"><form name=csvExport
+                                                                 action="projectCaseDashboardExport.htm?exportType=csv"
+                                                                 method="post">
+                            <input type="submit" value="Export to CSV"></form></span>
+                        <span style="display: table-cell;"><form name=tabExport
+                                                                 action="projectCaseDashboardExport.htm?exportType=tab"
+                                                                 method="post">
+                            <input type="submit" value="Export to Tab"></form></span>
+        <br/>
+        <display:table name="${projectCaseList}" requestURI="projectCaseDashboardReport.htm" uid="projectCase"
+                       pagesize="${projectCasePageSize}" partialList="true" size="${projectCaseTotalCount}">
+            <display:column property="disease" title="Disease" headerScope="col" scope="row"/>
+            <display:column property="overallProgress" title="Percent Complete" headerScope="col" scope="row"/>
+            <display:column property="projectedCaseBCR" title="Case Required" headerScope="col" scope="row"/>
+            <display:column property="currentCaseGapBCR" title="Case Gap" headerScope="col" scope="row"/>
+            <display:column property="receivedBCR" title="BCR Received" headerScope="col" scope="row"/>
+            <display:column property="shippedBCR" title="BCR Shipped" headerScope="col" scope="row"/>
+            <display:column property="genomeGSC" title="GSC Genome Sequence Data" headerScope="col" scope="row"/>
+            <display:column property="exomeGSC" title="GSC Exome and Sanger Sequence Data" headerScope="col"
+                            scope="row"/>
+            <display:column property="mutationGSC" title="GSC Mutation Data" headerScope="col" scope="row"/>
+            <display:column property="expressionRNASeqGSC" title="GSC Expression Data (RNASeq)" headerScope="col"
+                            scope="row"/>
+            <display:column property="microRNAGSC" title="GSC miRNASeq Data" headerScope="col" scope="row"/>
+            <display:column property="lowPassGSC" title="GSC Low Pass" headerScope="col" scope="row"/>
+            <display:column property="methylationCGCC" title="GCC Methylation Data" headerScope="col" scope="row"/>
+            <display:column property="microRNACGCC" title="GCC microRNA Data" headerScope="col" scope="row"/>
+            <display:column property="expressionArrayCGCC" title="GCC Expression Data (Array)" headerScope="col"
+                            scope="row"/>
+            <display:column property="expressionRNASeqCGCC" title="GCC Expression Data (RNASeq)" headerScope="col"
+                            scope="row"/>
+            <display:column property="copyNumberSNPCGCC" title="GCC SNP/Copy Number Data" headerScope="col"
+                            scope="row"/>
+            <display:column property="lowPassGCC" title="GCC Low Pass" headerScope="col" scope="row"/>
+            <display:column property="completeCases" title="Complete Cases" headerScope="col" scope="row"/>
+            <display:column property="incompleteCases" title="Incomplete Cases" headerScope="col" scope="row"/>
+        </display:table>
+        <br/>
+    </noscript>
+
+    <div class="clear"></div>
+    <div class="smallertext">
+        <br/>
+        &#42;: Values in the Genome column are likely incorrect due to metadata issues from CGHub (inherited from
+        dbGaP).
+        The migration of the TCGA data to CGHub has uncovered inconsistent and missing XML metadata files.
+        CGHub is in the process of correcting these problems, but this will take a while.
+        Please check your search and download results carefully see they are what is expected.
+        Please report any inconsistencies that are encountered to support@cghub.ucsc.edu.
+    </div>
+    <c:if test="${showFilterBox=='yes'}">
+        <script type="text/javascript"><!--
+        Ext.onReady(function () {
+            Ext.getCmp('fToggle').toggle(true);
+        });
+        //-->
+        </script>
+    </c:if>
+</div>

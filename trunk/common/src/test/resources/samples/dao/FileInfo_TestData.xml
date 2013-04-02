@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+    <center_type center_type_definition="Cancer Genome Characterization Center" center_type_code="CGCC"/>
+    <center_type center_type_definition="Genomic Sequencing Center" center_type_code="GSC"/>
+    <center_type center_type_definition="Biospecimen Core Resource" center_type_code="BCR"/>
+    <center_type center_type_definition="Genome Data Analysis Center" center_type_code="GDAC"/>
+
+    <center center_id="2" domain_name="hms.harvard.edu" center_type_code="CGCC" display_name="Harvard Medical School" sort_order="3" short_name="HMS"/>
+    <data_type data_type_id="1" center_type_code="BCR" name="Complete Clinical Set" ftp_display="clin" available="1" sort_order="11"/>
+    <data_type data_type_id="199" center_type_code="GDAC" name="Dummy" ftp_display="dum" available="1" sort_order="99"/>
+    <data_type data_type_id="3"  center_type_code="GDAC" name="dataType1" ftp_display="dum" available="1" sort_order="99"/>
+    <data_type data_type_id="4" center_type_code="GDAC" name="dataType2" ftp_display="dum" available="1" sort_order="99"/>
+    <data_type data_type_id="5" center_type_code="GDAC" name="dataType3" ftp_display="dum" available="1" sort_order="99"/>
+
+    <platform platform_id="1" center_type_code="GSC" platform_name="HG-U133A_2" available="0" sort_order="1" platform_display_name="Affymetrix Human Genome U133A 2.0 Array" platform_alias="HG-U133A_2" base_data_type_id="1"/>
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="Glioblastoma multiforme (GBM)" active="1"/>
+    <data_level level_number="1" level_definition="Raw data"/>
+    <data_level level_number="2" level_definition="Processed data"/>
+    <archive_type archive_type_id="1" archive_type="mage-tab" data_level="1"/>
+    <archive_type archive_type_id="7" archive_type="maf" data_level="2"/>
+
+
+    <file_info file_id="1" level_number="1" file_name="broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" file_size="1024" md5="blah" data_type_id="1" revision_of_file_id="1"/>
+    <file_info file_id="2" level_number="2" file_name="hudsonalpha.org_GBM.HumanHap550.9.1.0.idf.txt" file_size="1024" md5="blah"/>
+    <file_info file_id="3" level_number="2" file_name="delete_1.txt" file_size="1024" md5="blah"/>
+    <file_info file_id="4" level_number="2" file_name="delete_2.txt" file_size="1024" md5="blah"/>
+    <file_info file_id="5" level_number="1" data_type_id = "1" file_name="level1.txt" file_size="1024" md5="blah"/>
+    <file_info file_id="6" level_number="2" data_type_id = "1" file_name="level2.txt" file_size="1024" md5="blah"/>
+    <file_info file_id="7" level_number="3" data_type_id = "1" file_name="level3.txt" file_size="1024" md5="blah"/>
+
+    <archive_info archive_id="1" archive_name="intgen.org_OV.bio.12.0.0" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="0" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="2" archive_name="intgen.org_OV.bio.12.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="3" archive_name="intgen.org_OV.level1.12.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="4" archive_name="intgen.org_OV.level2.12.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="5" archive_name="intgen.org_OV.level3.12.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+
+    <file_to_archive file_archive_id="1" file_id="1" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="1"/>
+    <file_to_archive file_archive_id="2" file_id="1" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="2"/>
+    <file_to_archive file_archive_id="3" file_id="5" file_location_url="/level1.txt" archive_id="3"/>
+    <file_to_archive file_archive_id="4" file_id="6" file_location_url="/level2.txt" archive_id="4"/>
+    <file_to_archive file_archive_id="5" file_id="7" file_location_url="/level3.txt" archive_id="5"/>
+
+    <generation_method  generation_method = "client" generation_method_id="1" />
+    <uuid_item_type item_type="item" item_type_id="1" sort_order="1" xml_name="item"/>
+    <uuid uuid = "patient_1_uuid" center_id="2" generation_method_id = "1"  latest_barcode_id="1" created_by="unit_test" create_date="2012-05-28 12:36:12.870000000" />
+    <barcode_history barcode_id="1" barcode="patient_1" uuid="patient_1_uuid" disease_id="1" effective_date="2012-05-28 12:36:12.870000000" item_type_id="1" />
+
+    <archive_info archive_id="99" archive_name="intgen.org_OV.bio.13.0.0" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="0" archive_type_id="1" is_latest_loaded="1"/>
+    <file_info file_id="98" level_number="1" data_type_id = "1" file_name="clinical.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="98" file_id="98" file_location_url="/clinical.xml" archive_id="99"/>
+    <file_info file_id="99" level_number="1" data_type_id = "1" file_name="biospecimen.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="99" file_id="99" file_location_url="/biospecimen.xml" archive_id="99"/>
+
+
+
+    <archive_info archive_id="100" archive_name="intgen.org_OV.bio.13.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <file_info file_id="100" level_number="1" data_type_id = "1" file_name="clinical.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="100" file_id="100" file_location_url="/clinical.xml" archive_id="100"/>
+    <file_info file_id="101" level_number="1" data_type_id = "1" file_name="biospecimen.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="101" file_id="101" file_location_url="/biospecimen.xml" archive_id="100"/>
+
+    <archive_info archive_id="101" archive_name="intgen.org_OV.bio.40.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.40.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <file_info file_id="102" level_number="1" data_type_id = "1" file_name="auxiliary.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="102" file_id="102" file_location_url="/auxiliary.xml" archive_id="101"/>
+
+    <archive_info archive_id="102" archive_name="intgen.org_CNTL.bio.40.0.1" center_id="2" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_CNTL.bio.40.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <file_info file_id="103" level_number="1" data_type_id = "1" file_name="control.xml" file_size="1024" md5="blah"/>
+    <file_to_archive file_archive_id="103" file_id="103" file_location_url="/control.xml" archive_id="102"/>
+
+    <PLATFORM BASE_DATA_TYPE_ID="4" SORT_ORDER="1" CENTER_TYPE_code="CGCC" PLATFORM_ID="5" PLATFORM_NAME="Platform"
+              PLATFORM_DISPLAY_NAME="Platform" PLATFORM_ALIAS="Platform" AVAILABLE="1"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="106" ARCHIVE_NAME="broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0" DEPLOY_STATUS="Available" IS_LATEST="1" CENTER_ID="2"
+                  PLATFORM_ID="5" DISEASE_ID="1" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0.tar.gz"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="107" ARCHIVE_NAME="broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0" DEPLOY_STATUS="Available" IS_LATEST="0" CENTER_ID="2"
+                  PLATFORM_ID="5" DISEASE_ID="1" SERIAL_INDEX="101" REVISION="2" SERIES="0" ARCHIVE_TYPE_ID="7"
+                  DATE_ADDED="2010-10-28 12:36:12.870000000" DEPLOY_LOCATION="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0.tar.gz"/>
+
+
+    <FILE_INFO FILE_ID="10" FILE_NAME="test_1.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="11" FILE_NAME="test_2.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="30" FILE_ID="10" ARCHIVE_ID="106" file_location_url="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0/test_1.maf"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="31" FILE_ID="11" ARCHIVE_ID="106" file_location_url="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.0.0/test_2.maf"/>
+
+    <FILE_INFO FILE_ID="13" FILE_NAME="test_3.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_INFO FILE_ID="14" FILE_NAME="test_4.maf" LEVEL_NUMBER="2" FILE_SIZE="100"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="32" FILE_ID="13" ARCHIVE_ID="107" file_location_url ="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0/test_3.maf"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="33" FILE_ID="14" ARCHIVE_ID="107" file_location_url="/tcgafiles/tcga4yeo/broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0/test_4.maf"/>
+
+
+    <participant_uuid_file file_id = "98" uuid = "patient_1_uuid" />
+    <participant_uuid_file file_id = "99" uuid = "patient_1_uuid" />
+    <participant_uuid_file file_id = "100" uuid = "patient_1_uuid" />
+    <participant_uuid_file file_id = "101" uuid = "patient_1_uuid" />
+    <participant_uuid_file file_id = "102" uuid = "patient_1_uuid" />
+    <participant_uuid_file file_id = "103" uuid = "patient_1_uuid" />
+
+
+</dataset>

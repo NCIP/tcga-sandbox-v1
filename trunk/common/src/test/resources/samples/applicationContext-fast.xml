@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean id="bcrXmlFileParser" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BcrXMLFileParser" lazy-init="true" init-method="init">
+    </bean>
+    <bean id="bioTabFileGenerator" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabFileGenerator" lazy-init="true" init-method="init">
+        <property name="bcrXMLFileParser" ref="bcrXmlFileParser"/>
+        <property name="packageName" value="gov.nih.nci.ncicb.tcga.dcc.common.jaxb.generated.template"/>
+    </bean>
+</beans>

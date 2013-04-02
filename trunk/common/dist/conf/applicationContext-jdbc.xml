@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+
+    <!-- Datasource access through JNDI in jBoss, there is no configuration for connection to db in war file.-->
+    <bean id="qcLiveDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:QCLiveDSS"/>
+    </bean>
+
+
+    <bean id="oracleDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:tcgaPortalDS"/>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:dccCommon"/>
+    </bean>
+
+     <!-- Data source based on disease name -->
+    <bean id="diseaseDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource" lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker" lazy-init="default" autowire="default" dependency-check="default">
+                <property name="prefix" value="java:" />
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" lazy-init="default" autowire="default" dependency-check="default" />
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="GBM:tcgaGBMDS,OV:tcgaOVDS,LUSC:tcgaLUSCDS,COAD:tcgaCOADDS,READ:tcgaREADDS,LAML:tcgaLAMLDS,BRCA:tcgaBRCADS,KIRP:tcgaKIRPDS,LUAD:tcgaLUADDS,UCEC:tcgaUCECDS" />
+    </bean>
+    <!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+
+
+    <bean id="logImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.LogQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="archiveImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="dccreportImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.DCCReportQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="traceInfoImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.TraceInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="fileImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="traceRImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.TraceRelationshipQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="mafinfoImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.MafInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="centerImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="platformImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.PlatformQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="dataTypeImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.DataTypeQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="accessImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.AccessQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+    <bean id="bcrIdImpl" class="gov.nih.nci.ncicb.dcc.dao.qc.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="dataTypeQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${datatype.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="logQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${log.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${archive.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dccreportQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${biospecimen.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="traceInfoQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${traceInfo.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="mafinfoQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${mafinfo.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${file.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileURLQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${fileURL.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="centerQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${center.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="platformQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${platform.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="tumorQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${tumor.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="accessQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${access.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="bcrIDQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${bcrID.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="traceRelationshipQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="${traceRelationship.jdbcImplBeanName}"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- parent DAO - delegates to children -->
+    <bean id="dataAccessMatrixQueries" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesFacade">
+        <property name="DAOs">
+            <list>
+                <ref bean="damQueriesMetadata"/>
+                <ref bean="damQueriesLevel1"/>
+                <ref bean="damQueriesTrace"/>
+                <ref bean="damQueriesLevel2"/>
+                <ref bean="damQueriesLevel3CNA"/>
+                <ref bean="damQueriesLevel3ExpGene"/>
+                <ref bean="damQueriesLevel3Methylation" />
+                <ref bean="damQueriesMutation"/>
+                <ref bean="damQueriesClinical"/>
+            </list>
+        </property>
+        <property name="submittedSampleGetter" ref="submittedSampleGetter"/>
+        <property name="sorterAndGapFiller" ref="sorterAndGapFiller"/>
+    </bean>
+
+    <!-- JDBC DAO for postgres DCC database for level 1 -->
+    <bean id="damQueriesLevel1" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel1" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="damQueriesMetadata" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesMetadata" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <!-- abstract bean allows us to set tempfile location in one place -->
+    <bean id="damQueriesTempfileSetter" abstract="true">
+        <property name="tempfileDirectory" value="/@MOUNT.ROOT/ftp_auth/distro_ftpusers/tcga4yeo/userCreatedArchives"/>
+    </bean>
+
+    <!-- DAO for trace file (level 1) -->
+    <bean id="damQueriesTrace" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesTrace" lazy-init="true" parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="damQueriesMutation" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesMutation" lazy-init="true" parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <!-- JDBC DAO for oracle database for clinical -->
+    <bean id="damQueriesClinical" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesClinical" lazy-init="true" parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="oracleDataSource"/>
+        <property name="useThreadedBufferedWriter" value="true"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+    </bean>
+
+    <!-- JDBC DAO for oracle database for level 2 -->
+    <bean id="damQueriesLevel2" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel2" lazy-init="true" parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="oracleDataSource"/>
+        <property name="level2List" ref="damQueriesLevel2List" />
+        <property name="useThreadedBufferedWriter" value="true"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+    </bean>
+
+    <bean id="damQueriesLevel3Parent" abstract="true" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel3"
+          parent="damQueriesTempfileSetter">
+        <property name="dataSource" ref="oracleDataSource"/>
+        <property name="level3List" ref="damQueriesLevel2List"/>
+        <property name="useThreadedBufferedWriter" value="true"/>
+        <property name="bufferedWriterBufferSize" value="32768"/>
+    </bean>
+
+    <!-- subclasses of level 3 DAO for different types of data -->
+    <bean id="damQueriesLevel3CNA" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel3CNA_SNP" lazy-init="true"
+          parent="damQueriesLevel3Parent" />
+
+    <bean id="damQueriesLevel3ExpGene" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel3ExpGene" lazy-init="true"
+          parent="damQueriesLevel3Parent" />
+
+    <bean id="damQueriesLevel3Methylation" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel3Methylation" lazy-init="true"
+          parent="damQueriesLevel3Parent" />
+
+
+     <!-- JDBC DAO for postgres database for level 2 list -->
+    <bean id="damQueriesLevel2List" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevelTwoThreeList" lazy-init="true">
+          <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <!-- class that returns list of submitted samples per center -->
+    <bean id="submittedSampleGetter" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesLevel1" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource" />
+    </bean>
+
+    <bean id="damUtils" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMUtils" factory-method="getInstance">
+        <property name="portalDataSource" ref="oracleDataSource"/>
+        <property name="dccDataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="statsQueries" class="gov.nih.nci.ncicb.dcc.dao.dam.DAMQueriesStats">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="sorterAndGapFiller" class="gov.nih.nci.ncicb.dcc.dao.dam.DataSetSorterAndGapFiller"/>
+
+</beans>

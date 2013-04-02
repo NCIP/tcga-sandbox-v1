@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://tcga-data-stg.nci.nih.gov/tcga/" />
+<title>testCaseDataPortalApps</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testCaseDataPortalApps</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaDownload.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>In This Section</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuDownloadData</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>controlledAccessRequirements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>userGuidesAndHelp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>dataMatrixButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>bulkDownloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Open-access HTTP Directory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Controlled-Access HTTP Directory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaTools.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Analytical Tools</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Data Portal Tools</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>annotationsLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>metadataLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuTools</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>moreTcgaInformation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaAnalyticalTools.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuTools</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>moreTcgaInformation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=NCI Cancer Molecular Analysis (CMA) Portal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=NCI Cancer Genome Workbench (CGWB)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Broad Institute Integrative Genomics Viewer (IGV)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=MSKCC Cancer Genomics Analysis</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaAbout.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>About TCGA Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuAbout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Publications</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaDataType.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuAbout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Data Levels and Data Types</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Relationship of Data Levels to Data Types</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Data Levels</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Relationship of Data Levels to Data Types</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaPlatformDesign.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Platform Design</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>platform0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaAccessTiers.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuAbout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Access Tiers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaAnnouncements.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuAbout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>newsArticle1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga/tcgaHelp.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>menuAbout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>reportProblem</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>User Guides and Help</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Report a Problem</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Please report TCGA data issues to [NCICB support</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tcga-portal/AnomalySearch.jsp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='databrowsernews']</td>
+	<td>The output of this application reflects DCC data as of October 2010. Efforts are currently underway to update this site in the next few weeks.</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/dataReportsHome.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/BCRPipelineReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/sampleSummaryReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/latestArchiveReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/aliquotIdBreakdownReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/codeTablesReport.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/datareports/aliquotReport.htm</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

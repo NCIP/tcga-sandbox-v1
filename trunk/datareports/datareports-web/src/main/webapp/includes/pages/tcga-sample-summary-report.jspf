@@ -1,0 +1,121 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+
+    <c:set var='modePage' value='${mode}' scope='page'/>
+
+    <div id="ssDesc" class="reportintro"><spring:message code="sampleSummary.desc"/></div>
+    <h4>Data as of <fmt:formatDate pattern="MM/dd/yyyy - HH:mm" value="${last_refresh}"/></h4>
+    <c:if test="${centerEmail!=null}">
+        <h4><span class="alert">Center : ${centerEmail}</span></h4>
+    </c:if>
+
+    <div class="smallertext"><spring:message code="datareports.note"/></div>
+    <input type='hidden' id="serverUrl" name="serverUrl" value="${serverUrl}"/>
+    <input type='hidden' id="disease" name="disease" value="${disease}"/>
+    <input type='hidden' id="center" name="center" value="${center}"/>
+    <input type='hidden' id="centerEmail" name="centerEmail" value="${centerEmail}"/>
+    <input type='hidden' id="portionAnalyte" name="portionAnalyte" value="${portionAnalyte}"/>
+    <input type='hidden' id="platform" name="platform" value="${platform}"/>
+    <input type='hidden' id="levelFourSubmitted" name="levelFourSubmitted" value="${levelFourSubmitted}"/>
+    <input type='hidden' id="cols" name="cols" value="${cols}"/>
+
+    <div id="sampleSummaryReportDiv"></div>
+
+    <noscript>
+        <p><a href="https://wiki.nci.nih.gov/x/I5ohAg" target="_blank">Help</a></p>
+        <span style="display: table-cell;"><form name=xlExport
+                                                 action="sampleSummaryExport.htm?exportType=xl&centerEmail=${centerEmail}"
+                                                 method="post">
+            <input type="submit" value="Export to Excel"></form></span>
+        <span style="display: table-cell;"><form name=csvExport
+                                                 action="sampleSummaryExport.htm?exportType=csv&centerEmail=${centerEmail}"
+                                                 method="post">
+            <input type="submit" value="Export to CSV"></form></span>
+        <span style="display: table-cell;"><form name=tabExport
+                                                 action="sampleSummaryExport.htm?exportType=tab&centerEmail=${centerEmail}"
+                                                 method="post">
+            <input type="submit" value="Export to Tab"></form></span>
+        <br/>
+
+        <display:table name="${sampleSummaryList}" requestURI="sampleSummaryReport.htm" uid="sampleSummary"
+                       pagesize="${sampleSummaryPageSize}" partialList="true" size="${sampleSummaryTotalCount}">
+            <display:column property="disease" title="Disease" headerScope="col" scope="row"/>
+            <display:column property="center" title="Center" headerScope="col" scope="row"/>
+            <display:column property="portionAnalyte" title="Portion Analyte" headerScope="col" scope="row"/>
+            <display:column property="platform" title="Platform" headerScope="col" scope="row"/>
+            <display:column title="BCR Reported" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalBCRSent&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalBCRSent}</a>
+            </display:column>
+            <display:column title="DCC Received" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalCenterSent&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalCenterSent}</a>
+            </display:column>
+            <display:column title="BCR Missing" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalBCRUnaccountedFor&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalBCRUnaccountedFor}</a>
+            </display:column>
+            <display:column title="Center Missing" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalCenterUnaccountedFor&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalCenterUnaccountedFor}</a>
+            </display:column>
+            <display:column title="Level 1" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalLevelOne&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalLevelOne}</a>
+            </display:column>
+            <display:column title="Level 2" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalLevelTwo&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalLevelTwo}</a>
+            </display:column>
+            <display:column title="Level 3" headerScope="col" scope="row">
+                <a target="_blank"
+                   href="/datareports/sampleDetailedReport.htm?cols=totalLevelThree&disease=${sampleSummary.disease}&center=${sampleSummary.centerName}&centerType=${sampleSummary.centerType}&portionAnalyte=${sampleSummary.portionAnalyte}&platform=${sampleSummary.platform}">${sampleSummary.totalLevelThree}</a>
+            </display:column>
+            <display:column property="levelFourSubmitted" title="Level 4"/>
+        </display:table>
+
+        <br/>
+    </noscript>
+
+    <c:if test="${showFilterBox=='yes'}">
+        <script type="text/javascript">
+            Ext.onReady(function () {
+                Ext.getCmp('fToggle').toggle(true);
+            });
+        </script>
+    </c:if>
+
+    <div id="reportfooter" class="smallertext">
+        <span><spring:message code="sampleSummary.note"/></span><br/>
+        <span><spring:message code="sampleSummary.disclaimer"/></span>
+        <c:if test="${modePage=='comingFromEmail'}">
+            <script type="text/javascript">
+                Ext.onReady(function () {
+                    showSampleDetailed('${cols}', '${colName}', '${diseaseEmail}',
+                            '${centerEmail}', '${portionAnalyteEmail}', '${platformEmail}', ${bcrEmail});
+                });
+            </script>
+        </c:if>
+    </div>
+
+</div>

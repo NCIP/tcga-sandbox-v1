@@ -1,0 +1,717 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<dataset>
+
+    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" molecule="DNA" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="10" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
+
+    <center_type center_type_definition="Cancer Genome Characterization Center" center_type_code="CGCC"/>
+    <center_type center_type_definition="Genomic Sequencing Center" center_type_code="GSC"/>
+    <center_type center_type_definition="Biospecimen Core Resource" center_type_code="BCR"/>
+    <center_type center_type_definition="Genome Data Analysis Center" center_type_code="GDAC"/>
+
+    <center center_id="2" domain_name="hms.harvard.edu" center_type_code="CGCC" display_name="Harvard Medical School"
+            sort_order="3" short_name="HMS"/>
+    <center center_id="9" domain_name="hgsc.bcm.edu" center_type_code="GSC" display_name="Baylor College of Medicine"
+            sort_order="1" short_name="BCM"/>
+    <center center_id="5" domain_name="unc.edu" center_type_code="CGCC" display_name="University of North Carolina"
+            sort_order="8" short_name="UNC"/>
+    <center center_id="3" domain_name="broad.mit.edu" center_type_code="CGCC"
+            display_name="Broad Institute of MIT and Harvard" sort_order="2" short_name="BI"/>
+    <center center_id="6" domain_name="jhu-usc.edu" center_type_code="CGCC"
+            display_name="Johns Hopkins / University of Southern California" sort_order="5" short_name="JHU_USC"/>
+    <center center_id="1" domain_name="intgen.org" center_type_code="BCR" display_name="IGC Biospecimen Core Resource"
+            sort_order="4" short_name="BCR"/>
+    <center center_id="4" domain_name="lbl.gov" center_type_code="CGCC"
+            display_name="Lawrence Berkeley National Laboratory" sort_order="6" short_name="LBL"/>
+    <center center_id="7" domain_name="mskcc.org" center_type_code="CGCC"
+            display_name="Memorial Sloan-Kettering Cancer Center" sort_order="7" short_name="MSKCC"/>
+    <center center_id="10" domain_name="genome.wustl.edu" center_type_code="GSC"
+            display_name="Washington University School of Medicine" sort_order="12" short_name="WUSM"/>
+    <center center_id="8" domain_name="hudsonalpha.org" center_type_code="CGCC"
+            display_name="HudsonAlpha Institute for Biotechnology" sort_order="10" short_name="HAIB"/>
+
+    <data_level level_number="1" level_definition="Raw data"/>
+    <data_level level_number="2" level_definition="Normalized data"/>
+    <data_level level_number="3" level_definition="Aggregated data"/>
+    <data_level level_number="4" level_definition="Regions of Interest data"/>
+
+    <data_type data_type_id="1" center_type_code="BCR" name="Complete Clinical Set" ftp_display="clin" available="1"
+               sort_order="11"/>
+    <data_type data_type_id="2" center_type_code="BCR" name="Minimal Clinical Set" ftp_display="clin" available="1"
+               sort_order="12"/>
+    <data_type data_type_id="4" center_type_code="CGCC" name="Expression-Exon" ftp_display="exon" available="1"
+               sort_order="2"/>
+    <data_type data_type_id="5" center_type_code="CGCC" name="Expression-miRNA" ftp_display="mirna" available="1"
+               sort_order="3"/>
+    <data_type data_type_id="7" center_type_code="CGCC" name="SNP" ftp_display="snp" available="1" sort_order="6"/>
+    <data_type data_type_id="8" center_type_code="CGCC" name="Copy Number Results" ftp_display="cna" available="1"
+               sort_order="4"/>
+    <data_type data_type_id="9" center_type_code="GSC" name="Somatic Mutations" ftp_display="mutations" available="1"
+               sort_order="10"/>
+    <data_type data_type_id="10" center_type_code="GSC" name="Trace-Sample Relationship" ftp_display="tracerel"
+               available="1" sort_order="9"/>
+    <data_type data_type_id="13" center_type_code="CGCC" name="SNP Copy Number Results" ftp_display="cna" available="0"
+               sort_order="8"/>
+    <data_type data_type_id="3" center_type_code="CGCC" name="Expression-Genes" ftp_display="transcriptome"
+               available="1" sort_order="1"/>
+    <data_type data_type_id="6" center_type_code="CGCC" name="DNA Methylation" ftp_display="methylation" available="1"
+               sort_order="5"/>
+    <data_type data_type_id="11" center_type_code="GSC" name="Sequencing Trace" ftp_display="seq" available="0"
+               sort_order="13"/>
+    <data_type data_type_id="12" center_type_code="CGCC" name="SNP Frequencies" ftp_display="snp" available="0"
+               sort_order="7"/>
+    <data_type data_type_id="14" center_type_code="BCR" name="Tissue Slide Images" ftp_display="slide_images"
+               available="1" sort_order="14"/>
+
+
+    <platform platform_id="36" center_type_code="CGCC" platform_name="Human1MDuo" available="1" sort_order="17"
+              platform_display_name="Illumina Human1M-Duo BeadChip" platform_alias="Human1MDuo" base_data_type_id="1"/>
+    <platform platform_id="37" center_type_code="CGCC" platform_name="CGH-1x1M_G4447A" available="1" sort_order="15"
+              platform_display_name="Agilent SurePrint G3 Human CGH Microarray Kit 1x1M"
+              platform_alias="CGH-1x1M_G4447A" base_data_type_id="3"/>
+    <platform platform_id="39" center_type_code="CGCC" platform_name="IlluminaGA_mRNA_DGE" available="1" sort_order="17"
+              platform_display_name="Illumina Genome Analyzer mRNA Digital Gene Expression"
+              platform_alias="IlluminaGA_mRNA_DGE" base_data_type_id="6"/>
+    <platform platform_id="38" center_type_code="CGCC" platform_name="H-miRNA_8x15Kv2" available="1" sort_order="13"
+              platform_display_name="Agilent Human miRNA Microarray Rel12.0" platform_alias="H-miRNA_8x15K"
+              base_data_type_id="4"/>
+    <platform platform_id="40" center_type_code="CGCC" platform_name="HG-CGH-415K_G4124A" available="1" sort_order="9"
+              platform_display_name="Agilent Human Genome CGH Custom Microarray 2x415K"
+              platform_alias="HG-CGH-415K_G4124A" base_data_type_id="1"/>
+    <platform platform_id="25" center_type_code="CGCC" platform_name="AgilentG4502A_07_1" available="1" sort_order="13"
+              platform_display_name="Agilent 244K Custom Gene Expression G4502A-07-1" platform_alias="AgilentG4502A_07"
+              base_data_type_id="5"/>
+    <platform platform_id="13639" center_type_code="BCR" platform_name="AgilentG4502A_07_2" available="1"
+              sort_order="13" platform_display_name="Agilent 244K Custom Gene Expression G4502A-07-2"
+              platform_alias="AgilentG4502A_07" base_data_type_id="1"/>
+    <platform platform_id="14" center_type_code="CGCC" platform_name="IlluminaDNAMethylation_OMA002_CPI" available="1"
+              sort_order="17" platform_display_name="Illumina DNA Methylation OMA002 Cancer Panel I"
+              platform_alias="IlluminaDNAMethylation" base_data_type_id="6"/>
+    <platform platform_id="130" center_type_code="CGCC" platform_name="IlluminaDNAMethylation_OMA003_CPI" available="1"
+              sort_order="17" platform_display_name="Illumina DNA Methylation OMA003 Cancer Panel I"
+              platform_alias="IlluminaDNAMethylation" base_data_type_id="4"/>
+    <platform platform_id="1" center_type_code="GSC" platform_name="HG-U133A_2" available="0" sort_order="1"
+              platform_display_name="Affymetrix Human Genome U133A 2.0 Array" platform_alias="HG-U133A_2"
+              base_data_type_id="3"/>
+    <platform platform_id="31" center_type_code="CGCC" platform_name="AgilentG4502A_07_3" available="1" sort_order="13"
+              platform_display_name="Agilent 244K Custom Gene Expression G4502A-07-3" platform_alias="AgilentG4502A_07"
+              base_data_type_id="5"/>
+    <platform platform_id="2" center_type_code="CGCC" platform_name="HG-U133_Plus_2" available="0" sort_order="2"
+              platform_display_name="Affymetrix Human Genome U133 Plus 2.0 Array" platform_alias="HG-U133_Plus_2"
+              base_data_type_id="1"/>
+    <platform platform_id="3" center_type_code="CGCC" platform_name="HT_HG-U133A" available="1" sort_order="3"
+              platform_display_name="Affymetrix HT Human Genome U133 Array Plate Set" platform_alias="HT_HG-U133A"
+              base_data_type_id="2"/>
+    <platform platform_id="4" center_type_code="CGCC" platform_name="HuEx-1_0-st-v2" available="1" sort_order="4"
+              platform_display_name="Affymetrix Human Exon 1.0 ST Array" platform_alias="HuEx-1_0-st-v2"
+              base_data_type_id="5"/>
+    <platform platform_id="5" center_type_code="CGCC" platform_name="Mapping250K_Nsp" available="0" sort_order="5"
+              platform_display_name="Affymetrix Human Mapping 250K Nsp Array" platform_alias="Mapping250K_Nsp"
+              base_data_type_id="6"/>
+    <platform platform_id="6" center_type_code="CGCC" platform_name="Mapping250K_Sty" available="0" sort_order="6"
+              platform_display_name="Affymetrix Human Mapping 250K Sty Array" platform_alias="Mapping250K_Sty"
+              base_data_type_id="4"/>
+    <platform platform_id="7" center_type_code="CGCC" platform_name="GenomeWideSNP_5" available="0" sort_order="7"
+              platform_display_name="Affymetrix Genome-Wide Human SNP Array 5.0" platform_alias="GenomeWideSNP_5"
+              base_data_type_id="3"/>
+    <platform platform_id="10" center_type_code="GSC" platform_name="HG-CGH-244A" available="1" sort_order="10"
+              platform_display_name="Agilent Human Genome CGH Microarray 244A" platform_alias="HG-CGH-244A"
+              base_data_type_id="6"/>
+    <platform platform_id="143422" center_type_code="BCR" platform_name="tissue_images" available="0" sort_order="23"
+              platform_display_name="Tissue Images" platform_alias="tissue_images" base_data_type_id="4"/>
+    <platform platform_id="13" center_type_code="CGCC" platform_name="IlluminaGG" available="0" sort_order="16"
+              platform_display_name="Illumina GoldenGate" platform_alias="IlluminaGG" base_data_type_id="5"/>
+    <platform platform_id="15" center_type_code="CGCC" platform_name="HumanHap550" available="1" sort_order="18"
+              platform_display_name="Illumina 550K Infinium HumanHap550 SNP Chip" platform_alias="HumanHap550"
+              base_data_type_id="3"/>
+    <platform platform_id="16" center_type_code="CGCC" platform_name="bio" available="0" sort_order="19"
+              platform_display_name="Biospecimen Metadata - Complete Set" platform_alias="bio" base_data_type_id="1"/>
+    <platform platform_id="18" center_type_code="CGCC" platform_name="454" available="0" sort_order="22"
+              platform_display_name="454 Life Sciences Genome Sequence data" platform_alias="454"
+              base_data_type_id="3"/>
+    <platform platform_id="19" center_type_code="CGCC" platform_name="Genome_Wide_SNP_6" available="1" sort_order="8"
+              platform_display_name="Affymetrix Genome-Wide Human SNP Array 6.0" platform_alias="Genome_Wide_SNP_6"
+              base_data_type_id="6"/>
+    <platform platform_id="20" center_type_code="CGCC" platform_name="minbio" available="0" sort_order="20"
+              platform_display_name="Biospecimen Metadata - Minimal Set" platform_alias="minbio" base_data_type_id="6"/>
+    <platform platform_id="21" center_type_code="CGCC" platform_name="H-miRNA_8x15K" available="1" sort_order="14"
+              platform_display_name="Agilent 8 x 15K Human miRNA-specific microarray" platform_alias="H-miRNA_8x15K"
+              base_data_type_id="5"/>
+    <platform platform_id="22" center_type_code="CGCC" platform_name="H-miRNA_EarlyAccess" available="0" sort_order="15"
+              platform_display_name="Agilent Human miRNA Early Access Array" platform_alias="H-miRNA_EarlyAccess"
+              base_data_type_id="4"/>
+    <platform platform_id="9" center_type_code="GSC" platform_name="WHG-CGH_4x44B" available="0" sort_order="9"
+              platform_display_name="Agilent Human Genome CGH Microarray 44K" platform_alias="WHG-CGH_4x44B"
+              base_data_type_id="2"/>
+    <platform platform_id="11" center_type_code="GSC" platform_name="WHG-1x44K_G4112A" available="0" sort_order="11"
+              platform_display_name="Agilent Whole Human Genome, 1 x 44K" platform_alias="WHG-1x44K_G4112A"
+              base_data_type_id="1"/>
+    <platform platform_id="8" center_type_code="CGCC" platform_name="H-miRNA_G4470A" available="0" sort_order="13"
+              platform_display_name="Agilent Human miRNA Microarray" platform_alias="H-miRNA_G4470A"
+              base_data_type_id="3"/>
+    <platform platform_id="23" center_type_code="CGCC" platform_name="minbiotab" available="0" sort_order="20"
+              platform_display_name="Biospecimen Metadata - Minimal Set - All Samples - Tab-delimited"
+              platform_alias="minbiotab" base_data_type_id="4"/>
+    <platform platform_id="24" center_type_code="CGCC" platform_name="biotab" available="0" sort_order="19"
+              platform_display_name="Biospecimen Metadata - Complete Set - All Samples - Tab-delimited"
+              platform_alias="biotab" base_data_type_id="5"/>
+    <platform platform_id="17" center_type_code="CGCC" platform_name="ABI" available="1" sort_order="21"
+              platform_display_name="Applied Biosystems Sequence data" platform_alias="ABI" base_data_type_id="6"/>
+    <platform platform_id="12" center_type_code="CGCC" platform_name="WHG-4x44K_G4112F" available="0" sort_order="12"
+              platform_display_name="Agilent Whole Human Genome Microarray Kit, 4 x 44K"
+              platform_alias="WHG-4x44K_G4112F" base_data_type_id="2"/>
+    <platform platform_id="138187" center_type_code="BCR" platform_name="HumanMethylation27" available="1"
+              sort_order="17" platform_display_name="Illumina Infinium Human DNA Methylation 27"
+              platform_alias="HumanMethylation27" base_data_type_id="6"/>
+
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="Glioblastoma multiforme (GBM)" active="1"/>
+    <disease disease_id="4" disease_abbreviation="LUAD" disease_name="Lung adenocarcinoma" active="1"/>
+    <disease disease_id="5" disease_abbreviation="BRDC" disease_name="Breast ductal carcinoma" active="1"/>
+    <disease disease_id="6" disease_abbreviation="BRLC" disease_name="Breast lobular carcinoma" active="1"/>
+    <disease disease_id="3" disease_abbreviation="OV" disease_name="Ovarian serous cystadenocarcinoma (OV)" active="1"/>
+    <disease disease_id="7" disease_abbreviation="KIRC" disease_name="Kidney clear cell carcinoma" active="1"/>
+    <disease disease_id="2" disease_abbreviation="LUSC" disease_name="Lung squamous cell carcinoma (LUSC)" active="1"/>
+    <disease disease_id="8" disease_abbreviation="KIRP" disease_name="Kidney papillary cell carcinoma" active="1"/>
+
+    <archive_type archive_type_id="1" archive_type="Level_1" data_level="1"/>
+    <archive_type archive_type_id="2" archive_type="Level_2" data_level="2"/>
+    <archive_type archive_type_id="3" archive_type="Level_3" data_level="3"/>
+    <archive_type archive_type_id="4" archive_type="Level_4" data_level="4"/>
+    <archive_type archive_type_id="5" archive_type="aux"/>
+    <archive_type archive_type_id="6" archive_type="mage-tab"/>
+    <archive_type archive_type_id="7" archive_type="classic"/>
+
+    <archive_info archive_id="1" archive_name="intgen.org_OV.bio.12.0.0" center_id="2" disease_id="1" platform_id="1"
+                  serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz"
+                  is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="2" archive_name="intgen.org_OV.bio.12.0.1" center_id="3" disease_id="1" platform_id="1"
+                  serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.1.tar.gz"
+                  is_latest="1" archive_type_id="2" is_latest_loaded="1"/>
+    <archive_info archive_id="3" archive_name="intgen.org_OV.bio.12.3.0" center_id="2" disease_id="3" platform_id="1"
+                  serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.3.0.tar.gz"
+                  is_latest="1" archive_type_id="3" is_latest_loaded="1"/>
+    <archive_info archive_id="4" archive_name="intgen.org_OV.bio.12.4.1" center_id="3" disease_id="3" platform_id="1"
+                  serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.4.1.tar.gz"
+                  is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="5" archive_name="hms.harvard.edu_GBM.HG-CGH-244A.2.3.0" center_id="2" disease_id="1"
+                  platform_id="10" serial_index="2" revision="3" series="0" date_added="2008-06-02 10:09:34.124"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/gbm/cgcc/hms.harvard.edu/hg-cgh-244a/cna/hms.harvard.edu_GBM.HG-CGH-244A.2.3.0.tar.gz"
+                  is_latest="1" archive_type_id="2" is_latest_loaded="1"/>
+    <archive_info archive_id="6" archive_name="broad.mit.edu_GBM.Genome_Wide_SNP_6.1.0.0" center_id="3" disease_id="1"
+                  platform_id="1" serial_index="1" revision="0" series="0" date_added="2007-08-07 11:31:11.333"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/cgcc/broad.mit.edu/genome_wide_snp_6/snp/broad.mit.edu_GBM.Genome_Wide_SNP_6.1.0.0.tar.gz"
+                  is_latest="1" archive_type_id="3" is_latest_loaded="1"/>
+    <archive_info archive_id="7" archive_name="lbl.gov_GBM.HuEx-1_0-st-v2.5.2.0" center_id="4" disease_id="1"
+                  platform_id="4" serial_index="5" revision="2" series="0" date_added="2008-11-26 11:44:30.943"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/cgcc/lbl.gov/huex-1_0-st-v2/exon/lbl.gov_GBM.HuEx-1_0-st-v2.5.2.0.tar.gz"
+                  is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="8" archive_name="unc.edu_OV.H-miRNA_8x15Kv2.2.1.0" center_id="5" disease_id="3"
+                  platform_id="38" serial_index="2" revision="1" series="0" date_added="2009-04-09 09:49:07.713"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/unc.edu/h-mirna_8x15kv2/mirna/unc.edu_OV.H-miRNA_8x15Kv2.2.1.0.tar.gz"
+                  is_latest="1" archive_type_id="2" is_latest_loaded="1"/>
+    <archive_info archive_id="9" archive_name="jhu-usc.edu_OV.HumanMethylation27.2.0.0" center_id="6" disease_id="3"
+                  platform_id="138187" serial_index="2" revision="0" series="0" date_added="2009-04-13 17:27:59.252"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/jhu-usc.edu/humanmethylation27/methylation/jhu-usc.edu_OV.HumanMethylation27.2.0.0.tar.gz"
+                  is_latest="1" archive_type_id="3" is_latest_loaded="1"/>
+    <archive_info archive_id="10" archive_name="mskcc.org_OV.HG-CGH-244A.9.2.0" center_id="7" disease_id="3"
+                  platform_id="10" serial_index="9" revision="2" series="0" date_added="2008-12-01 17:16:24.655"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/mskcc.org/hg-cgh-244a/cna/mskcc.org_OV.HG-CGH-244A.9.2.0.tar.gz"
+                  is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="11" archive_name="stanford.edu_GBM.HumanHap550.4.1.0" center_id="8" disease_id="1"
+                  platform_id="15" serial_index="4" revision="1" series="0" date_added="2008-06-18 13:35:11.654"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/cgcc/stanford.edu/humanhap550/snp/stanford.edu_GBM.HumanHap550.4.1.0.tar.gz"
+                  is_latest="1" archive_type_id="2" is_latest_loaded="1"/>
+    <archive_info archive_id="12" archive_name="hgsc.bcm.edu_GBM.ABI.2.4.0" center_id="9" disease_id="1"
+                  platform_id="17" serial_index="2" revision="4" series="0" date_added="2008-04-22 11:24:55.939"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/hgsc.bcm.edu/abi/tracerel/hgsc.bcm.edu_GBM.ABI.2.4.0.tar.gz"
+                  is_latest="1" archive_type_id="6" is_latest_loaded="1"/>
+    <archive_info archive_id="13" archive_name="genome.wustl.edu_GBM.ABI.53.3.0" center_id="10" disease_id="1"
+                  platform_id="17" serial_index="53" revision="3" series="0" date_added="2008-04-29 01:17:43.911"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/genome.wustl.edu/abi/tracerel/genome.wustl.edu_GBM.ABI.53.3.0.tar.gz"
+                  is_latest="1" archive_type_id="4" is_latest_loaded="1"/>
+    <archive_info archive_id="14" archive_name="hgsc.bcm.edu_GBM.ABI.3.4.0" center_id="9" disease_id="1"
+                  platform_id="17" serial_index="3" revision="4" series="0" date_added="2008-04-22 11:24:55.939"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/hgsc.bcm.edu/abi/tracerel/hgsc.bcm.edu_GBM.ABI.3.4.0.tar.gz"
+                  is_latest="1" archive_type_id="6" is_latest_loaded="1"/>
+    <archive_info archive_id="15" archive_name="hgsc.bcm.edu_GBM.ABI.3.6.0" center_id="9" disease_id="1"
+                  platform_id="17" serial_index="3" revision="6" series="0" date_added="2008-04-22 11:24:55.939"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/gsc/hgsc.bcm.edu/abi/tracerel/hgsc.bcm.edu_GBM.ABI.3.6.0.tar.gz"
+                  is_latest="1" archive_type_id="6" is_latest_loaded="1"/>
+    <archive_info archive_id="16" archive_name="intgen.org_GBM.bio.Level_1.4.24.0" center_id="8" disease_id="1"
+                  platform_id="16" serial_index="4" revision="24" series="0" date_added="2010-05-10 1:00:43.795"
+                  deploy_status="Available"
+                  deploy_location="/tcga_prod/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.Level_1.4.24.0.tar.gz"
+                  is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+
+    <sample_type sample_type_code="01" definition="solid tumor" short_letter_code="TP"/>
+
+    <project project_code="TCGA" definition="The Cancer Genome Atlas"/>
+
+    <portion_analyte portion_analyte_code="D" definition="DNA"/>
+    <portion_analyte portion_analyte_code="R" definition="RNA"/>
+    <portion_analyte portion_analyte_code="T" definition="Total RNA"/>
+    <portion_analyte portion_analyte_code="W" definition="Whole Genome Amplification (WGA)"/>
+    <portion_analyte portion_analyte_code="G" definition="WGA DNA produced using GenomePlex from Rubicon Genomics"/>
+
+    <tissue tissue_id="1" tissue="brain"/>
+
+    <tissue_to_disease tissue_disease_id="1" disease_id="1" tissue_id="1"/>
+
+    <tissue_source_site tss_code="01" tss_definition="Henry Ford Hospital" receiving_center_id="1"/>
+    <tissue_source_site tss_code="07" tss_definition="TGen" receiving_center_id="1"/>
+    <tissue_source_site tss_code="AA" tss_definition="Test" receiving_center_id="1"/>
+
+    <tss_to_disease tss_disease_id="1" tss_code="01" disease_id="1"/>
+
+    <!-- tss 07 is a cell line so associated with multiple diseases -->
+    <tss_to_disease tss_disease_id="2" tss_code="07" disease_id="1"/>
+    <tss_to_disease tss_disease_id="3" tss_code="07" disease_id="2"/>
+    <tss_to_disease tss_disease_id="4" tss_code="07" disease_id="3"/>
+    <tss_to_disease tss_disease_id="5" tss_code="07" disease_id="4"/>
+
+    <tss_to_disease tss_disease_id="6" tss_code="AA" disease_id="3"/>
+
+    <file_info file_id="1" level_number="1" file_name="broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" file_size="1024"/>
+    <file_info file_id="2" level_number="2" file_name="hudsonalpha.org_GBM.HumanHap550.9.1.0.idf.txt" file_size="1024"/>
+    <file_info file_id="3" level_number="3" file_name="hudsonalpha.org_GBM.HumanHap550.9.1.2.sdrf.txt"
+               file_size="1024"/>
+    <file_info file_id="4" level_number="1" file_name="MANIFEST.txt.bouh.idf.txt" file_size="1024"/>
+    <file_info file_id="5" level_number="2" file_name="broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" file_size="1024"/>
+    <file_info file_id="6" level_number="3" file_name="hudsonalpha.org_GBM.HumanHap550.2.5.0.idf.txt" file_size="1024"/>
+    <file_info file_id="7" level_number="1" file_name="hudsonalpha.org_GBM.HumanHap550.1.2.0.sdrf.txt"
+               file_size="1024"/>
+    <file_info file_id="8" level_number="2" file_name="MANIFEST.greg.idf.txt" file_size="1024"/>
+    <file_info file_id="9" level_number="3" file_name="broad.mit.edu_GBM.HT_HG-U133A.69..idf.txt" file_size="1024"/>
+    <file_info file_id="10" level_number="1" file_name="hudsonalpha.org_GBM.HumanHap550.9.1.58.domi10.idf.txt"
+               file_size="1024"/>
+    <file_info file_id="11" level_number="2" file_name="hudsonalpha.org_GBM.HumanHap550.69.1.42.domi11.idf.txt"
+               file_size="1024"/>
+    <file_info file_id="12" level_number="3" file_name="MANIFEST.testouille.idf.txt" file_size="1024"/>
+    <file_info file_id="13" level_number="3" file_name="DOMI.idf.txt" file_size="1024"/>
+    <file_info file_id="44" level_number="1" file_name="DOMI-GSC1.sdrf.idf.txt" file_size="1024"/>
+    <file_info file_id="55" level_number="1" file_name="DOMI-GSC2.idf.maf.txt" file_size="1024"/>
+    <file_info file_id="66" level_number="1" file_name="DOMI-GSC3.idf.maf.sdrf.txt" file_size="1024"/>
+    <file_info file_id="77" level_number="1" file_name="filename-GSC1.sdrf.idf.txt" file_size="1024"/>
+    <file_info file_id="88" level_number="1" file_name="filename-GSC2.idf.maf.txt" file_size="1024"/>
+
+    <file_to_archive file_archive_id="1" file_id="1" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt"
+                     archive_id="1"/>
+    <file_to_archive file_archive_id="2" file_id="2" file_location_url="/hudsonalpha.org_GBM.HumanHap550.9.1.0.idf.txt"
+                     archive_id="2"/>
+    <file_to_archive file_archive_id="3" file_id="3" file_location_url="/hudsonalpha.org_GBM.HumanHap550.9.1.2.sdrf.txt"
+                     archive_id="3"/>
+    <file_to_archive file_archive_id="4" file_id="4" file_location_url="/MANIFEST.txt.bouh.idf.txt" archive_id="4"/>
+    <file_to_archive file_archive_id="5" file_id="5" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt"
+                     archive_id="5"/>
+    <file_to_archive file_archive_id="6" file_id="6" file_location_url="/hudsonalpha.org_GBM.HumanHap550.2.5.0.idf.txt"
+                     archive_id="6"/>
+    <file_to_archive file_archive_id="7" file_id="7" file_location_url="/hudsonalpha.org_GBM.HumanHap550.1.2.0.sdrf.txt"
+                     archive_id="7"/>
+    <file_to_archive file_archive_id="8" file_id="8" file_location_url="/MANIFEST.greg.idf.txt" archive_id="9"/>
+    <file_to_archive file_archive_id="9" file_id="9" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.69..idf.txt"
+                     archive_id="8"/>
+    <file_to_archive file_archive_id="10" file_id="10"
+                     file_location_url="/hudsonalpha.org_GBM.HumanHap550.9.1.58.domi10.idf.txt" archive_id="10"/>
+    <file_to_archive file_archive_id="11" file_id="11"
+                     file_location_url="/hudsonalpha.org_GBM.HumanHap550.69.1.42.domi11.idf.txt" archive_id="11"/>
+    <file_to_archive file_archive_id="12" file_id="12" file_location_url="MANIFEST.testouille.idf.txt" archive_id="12"/>
+    <file_to_archive file_archive_id="13" file_id="13" file_location_url="DOMI.idf.txt" archive_id="13"/>
+    <file_to_archive file_archive_id="14" file_id="44" file_location_url="DOMI-GSC1.sdrf.idf.txt" archive_id="12"/>
+    <file_to_archive file_archive_id="15" file_id="55" file_location_url="DOMI-GSC2.idf.maf.txt" archive_id="10"/>
+    <file_to_archive file_archive_id="16" file_id="66" file_location_url="DOMI-GSC3.idf.maf.sdrf.txt" archive_id="13"/>
+    <file_to_archive file_archive_id="17" file_id="77" archive_id="14"/>
+    <file_to_archive file_archive_id="18" file_id="88" archive_id="15"/>
+
+    <center_to_bcr_center bcr_center_id="01" center_id="3" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="02" center_id="2" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="03" center_id="4" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="04" center_id="7" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="05" center_id="6" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="06" center_id="8" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="07" center_id="5" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="09" center_id="10" center_type_code="GSC"/>
+    <center_to_bcr_center bcr_center_id="10" center_id="9" center_type_code="GSC"/>
+    <center_to_bcr_center bcr_center_id="08" center_id="3" center_type_code="GSC"/>
+
+    <batch_number_assignment batch_id="1" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="2" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="3" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="4" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="5" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="6" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="7" disease_id="1" center_id="1"/>
+    <batch_number_assignment batch_id="8" disease_id="1" center_id="1"/>
+
+    <portal_action_summary disease_abbreviation="GBM" monthyear="03/2010" action_type_id="34"
+                           action="blah" action_total="12" user_count="12" totalusercount="100"/>
+    <portal_action_summary disease_abbreviation="GBM" monthyear="05/2010" action_type_id="34"
+                           action="blah" action_total="123" user_count="21" totalusercount="100"/>
+    <portal_action_summary disease_abbreviation="GBM" monthyear="03/2010" action_type_id="16"
+                           action="blah" action_total="123456789" user_count="12" totalusercount="100"
+                           selection="Level 2"/>
+    <portal_action_summary disease_abbreviation="GBM" monthyear="05/2010" action_type_id="16"
+                           action="blah" action_total="987654321" user_count="21" totalusercount="100"
+                           selection="Level 2"/>
+    <portal_action_summary disease_abbreviation="GBM" monthyear="03/2010" action_type_id="36"
+                           action="blah" action_total="123456789" user_count="12" totalusercount="100"/>
+    <portal_action_summary disease_abbreviation="GBM" monthyear="05/2010" action_type_id="36"
+                           action="blah" action_total="987654321" user_count="21" totalusercount="100"/>
+
+    <projectoverview_case_counts project_overview_id="1" disease_abbreviation="COAD" metholated_data_cases="100"
+                                 microrna_data_cases="200" exparray_data_cases="300" exprnaseq_data_cases="400"
+                                 copynumber_data_cases="500" gsc_mutation_data_cases="600"/>
+    <projectoverview_case_counts project_overview_id="2" disease_abbreviation="GBM" metholated_data_cases="101"
+                                 microrna_data_cases="201" exparray_data_cases="301" exprnaseq_data_cases="401"
+                                 copynumber_data_cases="501" gsc_mutation_data_cases="601"/>
+    <projectoverview_case_counts project_overview_id="3" disease_abbreviation="OV" metholated_data_cases="102"
+                                 microrna_data_cases="202" exparray_data_cases="302" exprnaseq_data_cases="402"
+                                 copynumber_data_cases="502" gsc_mutation_data_cases="602"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliqot"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="d88b35a3-a291-457a-b15b-a314859b25c5" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0621-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0621" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="d88b35a3-a291-457a-b15b-a314859b25c6" shipped_item_type_id="1"
+                         built_barcode="TCGA-59-2362-10A-01D-0704-01" project_code="TCGA" tss_code="01"
+                         participant_code="2362" bcr_center_id="01" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="d88b35a3-a291-457a-b15b-a314859b25c7" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0623-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0623" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="d88b35a3-a291-457a-b15b-a314859b25c8" shipped_item_type_id="1"
+                         built_barcode="TCGA-59-2364-10A-01D-0704-01" project_code="TCGA" tss_code="01"
+                         participant_code="2364" bcr_center_id="01" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="5" uuid="d88b35a3-a291-457a-b15b-a314859b25c9" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0625-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0625" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="6" uuid="d88b35a3-a291-457a-b15b-a314859b25c1" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0626-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0626" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="7" uuid="d88b35a3-a291-457a-b15b-a314859b25c2" shipped_item_type_id="1"
+                         built_barcode="TCGA-59-2367-10A-01D-0704-01" project_code="TCGA" tss_code="01"
+                         participant_code="2367" bcr_center_id="01" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="8" uuid="d88b35a3-a291-457a-b15b-a314859b25c3" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0628-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0628" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="9" uuid="d88b35a3-a291-457a-b15b-a314859b25c4" shipped_item_type_id="1"
+                         built_barcode="TCGA-59-2369-10A-01D-0704-01" project_code="TCGA" tss_code="01"
+                         participant_code="2369" bcr_center_id="01" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="10" uuid="d88b35a3-a291-457a-b15b-a314859b25d1"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0610-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0610" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="11" uuid="d88b35a3-a291-457a-b15b-a314859b25d2"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0611-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0611" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="12" uuid="d88b35a3-a291-457a-b15b-a314859b25d3"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0612-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0612" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="13" uuid="d88b35a3-a291-457a-b15b-a314859b25d4"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0613-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0613" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="44" uuid="d88b35a3-a291-457a-b15b-a314859b25d5"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0644-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0644" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="55" uuid="d88b35a3-a291-457a-b15b-a314859b25d6"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0655-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0655" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="66" uuid="d88b35a3-a291-457a-b15b-a314859b25d7"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0666-01A-01T-0364-07" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0666" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="70" uuid="d88b35a3-a291-457a-b15b-a314859b25d8"
+                         shipped_item_type_id="1" built_barcode="TCGA-01-0138-01A-01R-0231-06" project_code="TCGA"
+                         tss_code="01"
+                         participant_code="0138" bcr_center_id="06" is_viewable="1" is_redacted="0"/>
+
+    <bam_file bam_file_id="1" bam_file_name="bamfilename1" disease_id="2" center_id="4" bam_file_size="12345"
+              date_received="2010-04-22 11:24:55.939" bam_datatype_id="1"/>
+    <bam_file bam_file_id="2" bam_file_name="bamfilename2" disease_id="1" center_id="3" bam_file_size="54321"
+              date_received="2010-01-02 11:24:55.939" bam_datatype_id="2"/>
+    <bam_file bam_file_id="3" bam_file_name="bamfilename3" disease_id="3" center_id="8" bam_file_size="987654321"
+              date_received="2010-05-12 11:24:55.939" bam_datatype_id="2"/>
+
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="1" bam_file_id="1"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="2" bam_file_id="2"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="3" bam_file_id="3"/>
+
+    <shipped_biospecimen_file shipped_biospecimen_id="1" file_id="1"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="2" file_id="2"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="3" file_id="3"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="4" file_id="4"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="5" file_id="5"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="6" file_id="6"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="7" file_id="7"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="8" file_id="8"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="9" file_id="9"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="10" file_id="10"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="11" file_id="11"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="12" file_id="12"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="13" file_id="13"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="44" file_id="44"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="55" file_id="55"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="66" file_id="66"/>
+
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="1" archive_id="1"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="2" archive_id="2"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="3" archive_id="3"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="4" archive_id="4"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="5" archive_id="5"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="6" archive_id="6"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="7" archive_id="7"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="8" archive_id="8"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="9" archive_id="9"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="10" archive_id="10"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="11" archive_id="11"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="12" archive_id="12"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="13" archive_id="13"/>
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="70" archive_id="16"/>
+
+    <shipped_element_type element_type_id="1" element_type_name="sample_type_code"/>
+    <shipped_element_type element_type_id="2" element_type_name="sample_sequence"/>
+    <shipped_element_type element_type_id="3" element_type_name="portion_sequence"/>
+    <shipped_element_type element_type_id="4" element_type_name="analyte_code"/>
+    <shipped_element_type element_type_id="5" element_type_name="plate_id"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="1" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="1" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="5" shipped_biospecimen_id="1" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="6" shipped_biospecimen_id="2" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="7" shipped_biospecimen_id="2" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="8" shipped_biospecimen_id="2" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="9" shipped_biospecimen_id="2" element_type_id="4"
+                                 element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="10" shipped_biospecimen_id="2" element_type_id="5"
+                                 element_value="0704"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="11" shipped_biospecimen_id="3" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="12" shipped_biospecimen_id="3" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="13" shipped_biospecimen_id="3" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="14" shipped_biospecimen_id="3" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="15" shipped_biospecimen_id="3" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="16" shipped_biospecimen_id="4" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="17" shipped_biospecimen_id="4" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="18" shipped_biospecimen_id="4" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="19" shipped_biospecimen_id="4" element_type_id="4"
+                                 element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="20" shipped_biospecimen_id="4" element_type_id="5"
+                                 element_value="0704"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="21" shipped_biospecimen_id="5" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="22" shipped_biospecimen_id="5" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="23" shipped_biospecimen_id="5" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="24" shipped_biospecimen_id="5" element_type_id="4"
+                                 element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="25" shipped_biospecimen_id="5" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="26" shipped_biospecimen_id="6" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="27" shipped_biospecimen_id="6" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="28" shipped_biospecimen_id="6" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="29" shipped_biospecimen_id="6" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="30" shipped_biospecimen_id="6" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="31" shipped_biospecimen_id="7" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="32" shipped_biospecimen_id="7" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="33" shipped_biospecimen_id="7" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="34" shipped_biospecimen_id="7" element_type_id="4"
+                                 element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="35" shipped_biospecimen_id="7" element_type_id="5"
+                                 element_value="0704"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="36" shipped_biospecimen_id="8" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="37" shipped_biospecimen_id="8" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="38" shipped_biospecimen_id="8" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="39" shipped_biospecimen_id="8" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="40" shipped_biospecimen_id="8" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="41" shipped_biospecimen_id="9" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="42" shipped_biospecimen_id="9" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="43" shipped_biospecimen_id="9" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="44" shipped_biospecimen_id="9" element_type_id="4"
+                                 element_value="D"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="45" shipped_biospecimen_id="9" element_type_id="5"
+                                 element_value="0704"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="46" shipped_biospecimen_id="10" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="47" shipped_biospecimen_id="10" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="48" shipped_biospecimen_id="10" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="49" shipped_biospecimen_id="10" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="50" shipped_biospecimen_id="10" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="51" shipped_biospecimen_id="11" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="52" shipped_biospecimen_id="11" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="53" shipped_biospecimen_id="11" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="54" shipped_biospecimen_id="11" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="55" shipped_biospecimen_id="11" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="56" shipped_biospecimen_id="12" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="57" shipped_biospecimen_id="12" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="58" shipped_biospecimen_id="12" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="59" shipped_biospecimen_id="12" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="60" shipped_biospecimen_id="12" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="61" shipped_biospecimen_id="13" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="62" shipped_biospecimen_id="13" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="63" shipped_biospecimen_id="13" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="64" shipped_biospecimen_id="13" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="65" shipped_biospecimen_id="13" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="66" shipped_biospecimen_id="44" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="67" shipped_biospecimen_id="44" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="68" shipped_biospecimen_id="44" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="69" shipped_biospecimen_id="44" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="70" shipped_biospecimen_id="44" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="71" shipped_biospecimen_id="55" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="72" shipped_biospecimen_id="55" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="73" shipped_biospecimen_id="55" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="74" shipped_biospecimen_id="55" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="75" shipped_biospecimen_id="55" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="76" shipped_biospecimen_id="66" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="77" shipped_biospecimen_id="66" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="78" shipped_biospecimen_id="66" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="79" shipped_biospecimen_id="66" element_type_id="4"
+                                 element_value="T"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="80" shipped_biospecimen_id="66" element_type_id="5"
+                                 element_value="0364"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="81" shipped_biospecimen_id="70" element_type_id="1"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="82" shipped_biospecimen_id="70" element_type_id="2"
+                                 element_value="A"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="83" shipped_biospecimen_id="70" element_type_id="3"
+                                 element_value="01"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="84" shipped_biospecimen_id="70" element_type_id="4"
+                                 element_value="R"/>
+    <shipped_biospecimen_element shipped_biospecimen_element_id="85" shipped_biospecimen_id="70" element_type_id="5"
+                                 element_value="0231"/>
+
+    <pcod_normal_tumor_stats DISEASE_ABBREVIATION="GBM" PARTICIPANT_BARCODE="TCGA-01-1234"
+                             CN_TUMORCOUNT="1" CN_NORMALCOUNT="1"
+                             EXPARRAY_TUMORCOUNT="1" EXPARRAY_NORMALCOUNT="1"
+                             EXPRNASEQ_TUMORCOUNT="1" EXPRNASEQ_NORMALCOUNT="1"
+                             MIRNA_TUMORCOUNT="1" MIRNA_NORMALCOUNT="1"
+                             METHYLATION_TUMORCOUNT="1" METHYLATION_NORMALCOUNT="1"
+                             MUTATION_TUMORCOUNT="1" MUTATION_NORMALCOUNT="1"
+                             GSC_GENOME_TUMORCOUNT="1" GSC_GENOME_NORMALCOUNT="1"
+                             GSC_EXOME_TUMORCOUNT="1" GSC_EXOME_NORMALCOUNT="1"
+                             GSC_RNASEQ_TUMORCOUNT="1" GSC_RNASEQ_NORMALCOUNT="1"
+                             GSC_MIRNA_TUMORCOUNT="1" GSC_MIRNA_NORMALCOUNT="1"/>
+
+    <pcod_normal_tumor_stats DISEASE_ABBREVIATION="GBM" PARTICIPANT_BARCODE="TCGA-01-5678"
+                             CN_TUMORCOUNT="1" CN_NORMALCOUNT="1"
+                             EXPARRAY_TUMORCOUNT="1" EXPARRAY_NORMALCOUNT="1"
+                             EXPRNASEQ_TUMORCOUNT="1" EXPRNASEQ_NORMALCOUNT="1"
+                             MIRNA_TUMORCOUNT="1" MIRNA_NORMALCOUNT="1"
+                             METHYLATION_TUMORCOUNT="1" METHYLATION_NORMALCOUNT="1"
+                             MUTATION_TUMORCOUNT="1" MUTATION_NORMALCOUNT="1"
+                             GSC_GENOME_TUMORCOUNT="1" GSC_GENOME_NORMALCOUNT="1"
+                             GSC_EXOME_TUMORCOUNT="1" GSC_EXOME_NORMALCOUNT="1"
+                             GSC_RNASEQ_TUMORCOUNT="1" GSC_RNASEQ_NORMALCOUNT="1"
+                             GSC_MIRNA_TUMORCOUNT="1" GSC_MIRNA_NORMALCOUNT="1"/>
+
+    <pcod_normal_tumor_stats DISEASE_ABBREVIATION="GBM" PARTICIPANT_BARCODE="TCGA-01-0007"
+                             CN_TUMORCOUNT="1" CN_NORMALCOUNT="1"
+                             EXPARRAY_TUMORCOUNT="1" EXPARRAY_NORMALCOUNT="1"
+                             EXPRNASEQ_TUMORCOUNT="1" EXPRNASEQ_NORMALCOUNT="1"
+                             MIRNA_TUMORCOUNT="1" MIRNA_NORMALCOUNT="1"
+                             METHYLATION_TUMORCOUNT="1" METHYLATION_NORMALCOUNT="0"
+                             MUTATION_TUMORCOUNT="1" MUTATION_NORMALCOUNT="1"
+                             GSC_GENOME_TUMORCOUNT="1" GSC_GENOME_NORMALCOUNT="1"
+                             GSC_EXOME_TUMORCOUNT="1" GSC_EXOME_NORMALCOUNT="0"
+                             GSC_RNASEQ_TUMORCOUNT="1" GSC_RNASEQ_NORMALCOUNT="1"
+                             GSC_MIRNA_TUMORCOUNT="1" GSC_MIRNA_NORMALCOUNT="1"/>
+
+</dataset>

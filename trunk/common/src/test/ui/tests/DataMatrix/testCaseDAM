@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>tcDam</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tcDam</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga/dataAccessMatrix.htm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>filterContainer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>filterContainer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>diseaseType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>platformType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>batch</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>level2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>level3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>availabilityAvailable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>availabilityPending</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>availabilityNotAvailable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>samplePart20</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>samplePart30</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>samplePart40</td>
+	<td>--01101120</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>sampleList</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>sampleListFile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>statusProtected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>statusUnprotected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>matchedNormal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>noMatchedNormal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>normalMatchedType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>normalUnmatchedType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>startDate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>endDate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>webServiceUrlLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//button[@name='Filter']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//button[@name='Clear filter']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotSomethingSelected</td>
+	<td>platformType</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>diseaseType</td>
+	<td>value=GBM</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>platformType</td>
+	<td>value=-999</td>
+</tr>
+<tr>
+	<td>verifySelectedValue</td>
+	<td>platformType</td>
+	<td>-999</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>centerSelect</td>
+	<td>All</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>level3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>webServiceUrlLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>webServiceUrlTextArea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>webServiceUrlTextArea</td>
+	<td>glob:*/tcga/damws/jobprocess/xml?&amp;disease=GBM&amp;platformType=-999&amp;level=3</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>webServiceUrlClose</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>webServiceUrlClose</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>level3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@name='Filter']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>resetButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>editFilterButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>removeFilterButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>colorBy</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>scrollSizer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>header2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//table[@id='scrollingTable']//tr[1]/td[3]</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='scrollingTable']//tr[1]/td[3]</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>downloadbutton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>downloadbutton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>Cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>email</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>email2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>size</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>flatten</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>consolidateFiles</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>glob:selected_samples::clinical_*_GBM.txt (*)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>test@abc.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email2</td>
+	<td>test@abc.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>downloadbutton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>textexplanation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>textexplanation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//div[@class='trail'])//a[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@name='Filter']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_</td>
+	<td>Expression-Genes</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_c0_</td>
+	<td>BI<br />HT_HG-U133A</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_c0_l0_column0_</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_c0_l1_column1_</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_c0_l2_column2_</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p0_c1_</td>
+	<td>UNC<br />AgilentG4502A_07</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p1_</td>
+	<td>Expression-Exon</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p1_c0_</td>
+	<td>LBL<br />HuEx-1_0-st-v2</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p2_</td>
+	<td>Expression-miRNA</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p2_c0_</td>
+	<td>UNC<br />H-miRNA_8x15K</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p3_</td>
+	<td>Copy Number Results</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p3_c0_</td>
+	<td>HMS<br />HG-CGH-415K_G4124A</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p3_c1_</td>
+	<td>HMS<br />HG-CGH-244A</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=header_p3_c2_</td>
+	<td>MSKCC<br />HG-CGH-244A</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p4_</td>
+	<td>DNA Methylation</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p4_c0_</td>
+	<td>JHU_USC<br />HumanMethylation27</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p4_c1_</td>
+	<td>JHU_USC<br />IlluminaDNAMethylation</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p4_c2_</td>
+	<td>JHU_USC<br />HumanMethylation450</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p5_</td>
+	<td>SNP</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p5_c0_</td>
+	<td>BI<br />Genome_Wide_SNP_6</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p5_c1_</td>
+	<td>HAIB<br />HumanHap550</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p6_</td>
+	<td>Trace-Sample Relationship</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p6_c0_</td>
+	<td>BI<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p6_c1_</td>
+	<td>BCM<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p6_c2_</td>
+	<td>WUSM<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p7_</td>
+	<td>Somatic Mutations</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p7_c0_</td>
+	<td>BI<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p7_c1_</td>
+	<td>BCM<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p7_c2_</td>
+	<td>WUSM<br />ABI</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p8_</td>
+	<td>Expression-Protein</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p8_c0_</td>
+	<td>MDA<br />MDA_RPPA_Core</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p9_</td>
+	<td>Clinical</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p9_c0_</td>
+	<td>Public</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>id=header_p9_c1_</td>
+	<td>All Clinical</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>header1138</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>downloadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>archiveDownloadLinks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='archiveDownloadLinks']/ul/li/a[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='archiveDownloadLinks']/ul/li/a[1]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

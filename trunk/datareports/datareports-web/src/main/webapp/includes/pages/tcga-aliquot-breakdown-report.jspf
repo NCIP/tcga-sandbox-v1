@@ -1,0 +1,81 @@
+<%--
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  --%>
+
+<div id="content">
+    <div class="left">
+        <div class="trail"><a href="/tcga/">Home</a> > <a href="dataReportsHome.htm">Data Reports Home</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <a name="skip" id="skip"></a>
+
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuAboutData.jspf" %>
+    </div>
+    <div class="clear"></div>
+    <div id="abDesc" class="reportintro">
+        <spring:message code="aliquotIdBreakdownReport.desc"/>
+    </div>
+    <div class="smallertext"><spring:message code="datareports.note"/></div>
+    <input type='hidden' id="serverUrl" name="serverUrl" value="${serverUrl}"/>
+    <input type='hidden' id="aliquotId" name="aliquotId" value="${aliquotId}"/>
+    <input type='hidden' id="analyteId" name="analyteId" value="${analyteId}"/>
+    <input type='hidden' id="sampleId" name="sampleId" value="${sampleId}"/>
+    <input type='hidden' id="participantId" name="participantId" value="${participantId}"/>
+
+    <div id="aliquotIdBreakdownReportDiv"></div>
+
+    <noscript>
+        <p><a href="https://wiki.nci.nih.gov/x/JZohAg" target="_blank">Help</a></p>
+                <span style="display: table-cell;"><form name=xlExport
+                                                         action="aliquotIdBreakdownExport.htm?exportType=xl"
+                                                         method="post">
+                    <input type="submit" value="Export to Excel"></form></span>
+                <span style="display: table-cell;"><form name=csvExport
+                                                         action="aliquotIdBreakdownExport.htm?exportType=csv"
+                                                         method="post">
+                    <input type="submit" value="Export to CSV"></form></span>
+                <span style="display: table-cell;"><form name=tabExport
+                                                         action="aliquotIdBreakdownExport.htm?exportType=tab"
+                                                         method="post">
+                    <input type="submit" value="Export to Tab"></form></span>
+        <br/>
+        <display:table name="${aliquotIdBreakdownList}" requestURI="aliquotIdBreakdownReport.htm"
+                       uid="aliquotIdBreakdown"
+                       pagesize="${aliquotIdBreakdownPageSize}" partialList="true"
+                       size="${aliquotIdBreakdownTotalCount}">
+            <display:column property="aliquotId" title="Aliquot ID" headerScope="col" scope="row"/>
+            <display:column property="analyteId" title="Analyte ID" headerScope="col" scope="row"/>
+            <display:column property="sampleId" title="Sample ID" headerScope="col" scope="row"/>
+            <display:column property="participantId" title="Participant ID" headerScope="col" scope="row"/>
+            <display:column property="project" title="Project" headerScope="col" scope="row"/>
+            <display:column property="tissueSourceSite" title="Tissue Source Site" headerScope="col" scope="row"/>
+            <display:column property="participant" title="Participant" headerScope="col" scope="row"/>
+            <display:column property="sampleType" title="Sample Type" headerScope="col" scope="row"/>
+            <display:column property="vialId" title="Vial ID" headerScope="col" scope="row"/>
+            <display:column property="portionId" title="Portion ID" headerScope="col" scope="row"/>
+            <display:column property="portionAnalyte" title="Portion Analyte" headerScope="col" scope="row"/>
+            <display:column property="plateId" title="Plate ID" headerScope="col" scope="row"/>
+            <display:column property="centerId" title="Center Code" headerScope="col" scope="row"/>
+        </display:table>
+        <br/>
+    </noscript>
+
+    <c:if test="${showFilterBox=='yes'}">
+        <script type="text/javascript">
+            <!--
+            Ext.onReady(function () {
+                Ext.getCmp('fToggle').toggle(true);
+            });
+            //-->
+        </script>
+    </c:if>
+
+</div>

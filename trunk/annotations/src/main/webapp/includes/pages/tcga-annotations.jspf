@@ -1,0 +1,15 @@
+
+	<div id="content" class="widelayout">
+	    <div class="left">
+	        <div class="trail"><a href="<% out.print(host); %>/tcga/">Home</a> > <a href="<% out.print(host); %>/tcga/tcgaTools.jsp">Tools</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+	        <h1><%=h1String%> <a href="/<%=rootDir%>/annotations.rss" target="_blank">
+	        <img alt="RSS" src="/<%=rootDir%>/images/general/header-rss.gif" border="0"></a>
+	        </h1>
+	    </div>
+	    <div id="sidebar" class="rollup right">
+	        <%@include file="/includes/modules/rightMenuTools.jspf" %>
+	    </div>
+	    <div class="clear"></div>
+	    <div id="main"></div>   
+	</div>

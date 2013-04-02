@@ -1,0 +1,87 @@
+/*
+ * TCGA Data Portal
+ * 
+ * This is the css file with elements that are only on the data portal.
+ */
+
+/*
+ * The center buttons on the data portal home page - these are the specifics for those
+ * buttons.  Also see the more general classes .button and .blue.
+ */
+#homePageButtons {
+	margin-left: 100px;
+}
+
+#homePageQueryDataButton {
+	margin-left:31px;
+}
+
+#homePageDownloadDataButton {
+	margin-left:55px;
+}
+
+/* The description block below each of the buttons on the home page. */
+.dataButtonDescription {
+	display: inline-block;
+	width: 163px;
+	text-align: center;
+	vertical-align: top;
+	padding: 3px 0 0 5px;
+   margin: 0 17px 0 17px;
+	*display: inline;
+	zoom: 1;
+}
+
+.dataButtonDescription.wide {
+	width: 203px;
+}
+
+/* 
+ * The block above the table on the cancer details page that talks about the target number of
+ * samples expected for the disease.
+ */
+#cancerDetailsSampleBlock {
+	display: inline-block;
+	width: 200px;
+	*display: inline;
+	zoom: 1;
+}
+
+/*
+ * Highlight boxes using the generic boxcomplete look will often need modifiers to properly
+ * place them.  These are modifiers for the cancer details page and for the data levels page.
+ */
+#cancerDetailsRunQuery {
+	position: relative;
+	left: 270px;
+}
+
+#dataLevelsDataTypeRedirect {
+	position: relative;
+	left: 170px;
+	margin-bottom: 10px;
+}
+
+/*
+ * The lists in the table cells in the download table.
+ */
+.downloadDataWhenToUse {
+	position: relative;
+	top: -10px;
+}
+
+/*
+ * Elements for the site map
+ */
+.siteMap {
+	border-collapse: collapse;
+	margin-left: 70px;
+}
+
+.siteMapElement {
+	border: solid 2px #dddddd;
+	padding: 3px 20px;
+}
+
+.siteMapEmpty {
+}

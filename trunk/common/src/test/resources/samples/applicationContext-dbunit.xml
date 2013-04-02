@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+    <!-- <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.common"/>  -->
+    <context:annotation-config/>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:samples/unittest.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="disease.PropertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:samples/diseaseSpecific.unittest.properties"/>
+        <property name="placeholderPrefix" value="$disease{"/>
+        <property name="placeholderSuffix" value="}"/>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          lazy-init="false">
+        <property name="driverClassName" value="${dbUnitJDBCDriver}"/>
+        <property name="url" value="${dbUnitConnectionURL}"/>
+        <property name="username" value="${dbUnitUserName}"/>
+        <property name="password" value="${dbUnitPassword}"/>
+    </bean>
+
+    <bean id="diseaseDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="false">
+        <property name="driverClassName" value="$disease{dbUnitJDBCDriver}"/>
+        <property name="url" value="$disease{dbUnitConnectionURL}"/>
+        <property name="username" value="$disease{dbUnitUserName}"/>
+        <property name="password" value="$disease{dbUnitPassword}"/>
+    </bean>
+
+    <bean id="platformQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="codeTableQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="dataTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DataTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="batchNumberQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.BatchNumberQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="oracleTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="commonTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="level2DataQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.Level2DataQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="oracleTransactionManager"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="shippedBiospecimenQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="controlQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ControlQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <bean id="redactionQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.RedactionQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="transactionManager" ref="commonTransactionManager"/>
+    </bean>
+
+    <bean id="redactionDiseaseQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.RedactionQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="transactionManager" ref="oracleTransactionManager"/>
+    </bean>
+
+    <bean id="uuidDao" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="iOCConstraintValidatorFactory"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.bean.validation.IOCConstraintValidatorFactory"/>
+
+    <bean id="validator" factory-bean="iOCConstraintValidatorFactory" factory-method="getValidator"/>
+
+    <bean id="uuidHierarchyQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDHierarchyQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="validator" ref="validator"/>
+    </bean>
+
+    <bean id="dccPropertyQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DccPropertyQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <ehcache:annotation-driven cache-manager="cacheManager"/>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:configLocation="classpath:ehcache-config.xml"/>
+
+    <!-- The unit test code using this config has been reverted for further requirements clarification.
+          See tickets APPS-5818 and APPS-6055 for more info.
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+         <property name="dataSource" ref="dccCommonDataSource" />
+         <property name="configLocation">
+             <value>classpath:hibernate.cfg.xml</value>
+         </property>
+         <property name="configurationClass">
+             <value>org.hibernate.cfg.AnnotationConfiguration</value>
+         </property>
+         <property name="hibernateProperties">
+             <props>
+                 <prop key="hibernate.generate_statistics">true</prop>
+                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                 <prop key="hibernate.show_sql">false</prop>
+                 <prop key="hibernate.cache.use_query_cache">true</prop>
+                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                 <prop key="hibernate.cache.use_structured_entries">true</prop>
+                 <prop key="net.sf.ehcache.configurationResourceName">/ehcache-config.xml</prop>
+                 <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+             </props>
+         </property>
+     </bean>
+
+     <tx:annotation-driven />
+     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+         <property name="sessionFactory" ref="sessionFactory" />
+     </bean>
+
+     <bean id="protectedClinicalElementQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ProtectedClinicalElementDAOImpl" lazy-init="true" />
+     -->
+
+</beans>    

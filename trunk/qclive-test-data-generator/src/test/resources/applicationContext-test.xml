@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Software License, Version 1.0 Copyright 2011 SRA International, Inc. 
+	Copyright Notice. The software subject to this notice and license includes 
+	both human ~ readable source code form and machine readable, binary, object 
+	code form (the "caBIG ~ Software"). ~ ~ Please refer to the complete License 
+	text for full details at the root of the project. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	
+	<context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc" />
+
+	<context:property-placeholder
+		location="classpath:gov/nih/nci/ncicb/tcga/dcc/tcgaDBConnect.properties,classpath:tcgaLocalDBConnect-test.properties" />
+	
+	<bean id="dccCommonDevDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dccCommonDevConnectionURL}"/>
+        <property name="username" value="${dccCommonDevUserName}"/>
+        <property name="password" value="${dccCommonDevPassword}"/>
+	</bean>
+	
+	<bean id="diseaseDevDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${diseaseDevConnectionURL}"/>
+        <property name="username" value="${diseaseDevUserName}"/>
+        <property name="password" value="${diseaseDevPassword}"/>
+	</bean>
+	
+	<bean id="dccCommonLocalDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dccCommonLocalConnectionURL}"/>
+        <property name="username" value="${dccCommonLocalUserName}"/>
+        <property name="password" value="${dccCommonLocalPassword}"/>
+	</bean>
+	
+	<bean id="diseaseLocalDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${diseaseLocalConnectionURL}"/>
+        <property name="username" value="${diseaseLocalUserName}"/>
+        <property name="password" value="${diseaseLocalPassword}"/>
+	</bean>
+
+	<bean id="dccCommonDevJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dccCommonDevDataSource" />
+	</bean>
+
+	<bean id="diseaseDevJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="diseaseDevDataSource" />
+	</bean>
+
+	<bean id="dccCommonLocalJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dccCommonLocalDataSource" />
+	</bean>
+
+	<bean id="diseaseLocalJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="diseaseLocalDataSource" />
+	</bean>
+
+	<bean id="dccCommonDevSQLInsertScriptFileName" class="java.lang.String"> 
+		<constructor-arg value="sql/TestSQLScriptFile.sql" />
+	</bean>
+
+	<bean id="diseaseDevRefDataSQLInsertScriptFileName" class="java.lang.String"> 
+		<constructor-arg value="sql/TestSQLScriptFile.sql" />
+	</bean> 
+	
+	<bean id="diseaseDevSQLInsertScriptFileName" class="java.lang.String"> 
+		<constructor-arg value="sql/TestSQLScriptFile.sql" />
+	</bean>
+	
+	<bean id="barcodeSQLInsertScriptFileName" class="java.lang.String"> 
+		<constructor-arg value="sql/TestSQLScriptFile.sql" />
+	</bean>
+
+    <bean id="cntlDevRefDataSQLInsertScriptFileName" class="java.lang.String">
+        <constructor-arg value="sql/TestInsertStatementsForCNTLRefTables.sql" />
+    </bean>
+
+	<!-- See gov.nih.nci.ncicb.tcga.dcc.SchemaType for the list of supported schema types that can be used for
+		 values for this map -->
+	<bean id="initSQLScriptClassPathLocations" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="sourceMap">
+			<map>
+				<entry key="sql/TestDeleteFromDccCommon.sql" value="local_common" />
+				<entry key="sql/TestDeleteQcliveTestData.sql" value="local_disease" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="qcLiveTestDataGenerator" class="gov.nih.nci.ncicb.tcga.dcc.QCLiveTestDataGenerator" autowire="byName" />
+	
+</beans>
