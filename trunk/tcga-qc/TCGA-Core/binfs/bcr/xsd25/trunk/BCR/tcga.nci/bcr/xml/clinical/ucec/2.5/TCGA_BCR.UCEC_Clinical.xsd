@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- $Id: TCGA_BCR.UCEC_Clinical.xsd 1774 2012-01-14 00:26:01Z jxd019 $ -->
+
+<xs:schema elementFormDefault="qualified" version="2.5.6" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5"
+  xmlns:admin="http://tcga.nci/bcr/xml/administration/2.5"
+  xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5"
+  xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.5"
+  xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5"
+  xmlns:cqcf="http://tcga.nci/bcr/xml/clinical/cqcf/2.5"
+  xmlns:ucec_shared="http://tcga.nci/bcr/xml/clinical/ucec/shared/2.5" 
+  xmlns:ucec_nte="http://tcga.nci/bcr/xml/clinical/ucec/shared/new_tumor_event/2.5/1.0"
+  xmlns:follow_up_v1.7="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/1.7"
+  xmlns:follow_up_v2.0="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/2.0"
+  xmlns:follow_up_v4.0="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/4.0"
+  xmlns="http://tcga.nci/bcr/xml/clinical/ucec/2.5"
+  targetNamespace="http://tcga.nci/bcr/xml/clinical/ucec/2.5"
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
+      
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true"/>
+            <jaxb:schemaBindings>
+                <jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.ucec"/>
+            </jaxb:schemaBindings>
+        </xs:appinfo>
+    </xs:annotation>
+  
+    <xs:annotation>
+        <xs:documentation xml:lang="en">Schema to define the elements of the UCEC study.</xs:documentation>
+    </xs:annotation>
+  
+    <xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/administration/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/administration/2.5/TCGA_BCR.Administration.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/radiation/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/radiation/2.5/TCGA_BCR.Radiation.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/pharmaceutical/2.5/TCGA_BCR.Pharmaceutical.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/cqcf/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/cqcf/2.5/TCGA_BCR.CQCF.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/ucec/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/ucec/shared/2.5/TCGA_BCR.UCEC_Clinical_Shared_Datatypes.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/ucec/shared/new_tumor_event/2.5/1.0" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/ucec/shared/2.5/TCGA_BCR.UCEC_Clinical_NTEs_v1.0.xsd" />
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/1.7" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/ucec/followup/2.5/TCGA_BCR.UCEC_Clinical_FollowUp_v1.7.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/2.0" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/ucec/followup/2.5/TCGA_BCR.UCEC_Clinical_FollowUp_v2.0.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/ucec/followup/2.5/4.0" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/ucec/followup/2.5/TCGA_BCR.UCEC_Clinical_FollowUp_v4.0.xsd" />
+    
+    <xs:element name="tcga_bcr">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="admin:admin" />
+                <xs:element ref="patient" />
+            </xs:sequence>
+        
+            <xs:attribute name="schemaVersion" type="xs:decimal" use="required" fixed="2.5"/>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="patient">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:tissue_source_site" />
+                <xs:element ref="shared:patient_id" />
+				<xs:element ref="shared:bcr_patient_barcode" /> 
+                <xs:element ref="shared:bcr_patient_uuid" />
+				<xs:element ref="shared:informed_consent_verified" />  
+                <xs:element ref="shared:icd_o_3_site" />
+                <xs:element ref="shared:icd_o_3_histology" />
+                <xs:element ref="shared:icd_10" />
+				
+				<xs:element ref="tissue_prospective_collection_indicator" />
+				<xs:element ref="tissue_retrospective_collection_indicator" />
+				<xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_birth" />
+                        <xs:element ref="shared:month_of_birth" /> 
+                        <xs:element ref="shared:year_of_birth" /> 
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_birth" /> 
+                </xs:choice>
+				<xs:element ref="shared:gender" />
+				<xs:element ref="menopause_status" />
+				<xs:element ref="shared:height" />
+                <xs:element ref="shared:weight" />
+				<xs:element ref="shared:race" />
+				<xs:element ref="shared:ethnicity" />
+				<xs:element ref="shared:prior_diagnosis" />
+				<xs:element ref="shared:pretreatment_history" />
+				<xs:element ref="shared:vital_status">
+					<xs:annotation>
+                        <xs:documentation xml:lang="en">The vital_status question is asked in both the initial enrollment form and the follow-up form(s).</xs:documentation>
+                    </xs:annotation>
+				</xs:element>
+				<xs:choice>
+					<xs:annotation>
+                        <xs:documentation xml:lang="en">The date_of_last_followup question is asked in both the initial enrollment form and the follow-up form(s).</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_followup" />
+                        <xs:element ref="shared:month_of_last_followup" /> 
+                        <xs:element ref="shared:year_of_last_followup" /> 
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_last_followup" /> 
+                </xs:choice>
+				<xs:choice>
+					<xs:annotation>
+                        <xs:documentation xml:lang="en"> 
+							The date_of_last_known_alive question is asked in both the initial enrollment form and the follow-up form(s).
+							
+							DEPRECATED: 
+							This question is no longer asked on the TCGA Clinical Data initial enrollment form or follow-up Forms (starting with v2.0) 
+							within the UCEC study.
+						</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_known_alive" />
+                        <xs:element ref="shared:month_of_last_known_alive" /> 
+                        <xs:element ref="shared:year_of_last_known_alive" /> 
+                    </xs:sequence>
+          
+                    <xs:element ref="shared:days_to_last_known_alive" /> 
+                </xs:choice>
+				<xs:choice>
+					<xs:annotation>
+                        <xs:documentation xml:lang="en">The date_of_death question is asked in both the initial enrollment form and the follow-up form(s).</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_death" />
+                        <xs:element ref="shared:month_of_death" /> 
+                        <xs:element ref="shared:year_of_death" /> 
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_death" /> 
+                </xs:choice>
+				<xs:element ref="shared:person_neoplasm_cancer_status">
+					<xs:annotation>
+                        <xs:documentation xml:lang="en">The person_neoplasm_cancer_status question is asked in both the initial enrollment form and the follow-up form(s).</xs:documentation>
+                    </xs:annotation>
+				</xs:element>
+				
+				<xs:element ref="shared:tumor_tissue_site" />
+				<xs:element ref="primary_other_site_of_disease_name">
+					<xs:annotation><xs:documentation>
+						Data for the primary_other_site_of_disease_name element is *only* asked on the 
+						TCGA Clinical Data Form during initial enrollment within the UCEC study, *and only* when 
+						an answer of 'Other (please specify)' is provided for tumor_tissue_site. 
+					</xs:documentation></xs:annotation>
+				</xs:element>
+				<xs:element ref="histological_type" />
+				<xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_initial_pathologic_diagnosis" />
+                        <xs:element ref="shared:month_of_initial_pathologic_diagnosis" />
+                    </xs:sequence>
+                    <xs:sequence>
+                        <xs:element ref="shared:days_to_initial_pathologic_diagnosis" />  
+                        <xs:element ref="shared:age_at_initial_pathologic_diagnosis" />  
+                    </xs:sequence>
+                </xs:choice>
+                <xs:element ref="shared:year_of_initial_pathologic_diagnosis" />
+				<xs:element ref="shared:initial_pathologic_diagnosis_method" />
+                <xs:element ref="first_pathologic_diagnosis_biospecimen_acquisition_other_method_text">
+					<xs:annotation><xs:documentation xml:lang="en">
+						Data for the first_pathologic_diagnosis_biospecimen_acquisition_other_method_text element is *only* asked on the 
+						TCGA Clinical Data Form during initial enrollment within the UCEC study, *and only* when 
+						an answer of 'Other method (please specify)' is provided for first_pathologic_diagnosis_biospecimen_acquisition_method_type. 
+					</xs:documentation></xs:annotation>
+				</xs:element>
+				<xs:element ref="surgical_approach" />
+				<xs:element ref="peritoneal_wash" />
+				<xs:element ref="pct_tumor_invasion" />
+				<xs:element ref="gynecologic_figo_staging_system">
+					<xs:annotation><xs:documentation xml:lang="en">
+						Data for the gynecologic_figo_staging_system element is only asked on the 
+						*version 2.08* and later of the TCGA Clinical Data Form during initial enrollment 
+						within the UCEC study. 
+					</xs:documentation></xs:annotation>
+				</xs:element>
+				<xs:element ref="gynecologic_tumor_grouping_figo_stage" />
+                <xs:element ref="tumor_grade" />
+                <xs:element ref="shared:residual_tumor" />
+				<xs:element ref="total_pelv_lnr" />
+				<xs:element ref="pln_pos_light_micro" />
+				<xs:element ref="pln_pos_ihc" />
+				<xs:element ref="total_pelv_lnp" />
+                <xs:element ref="total_aor_lnr" />
+				<xs:element ref="aln_pos_light_micro" />
+				<xs:element ref="aln_pos_ihc" />
+				<xs:element ref="total_aor-lnp" />
+				
+				<!-- The following was added on the v4 enrollment form. -->
+				<!-- Find the order in which these should go into this XSD -->
+				<xs:element ref="shared:postoperative_rx_tx" minOccurs="0" />
+				<xs:element ref="shared:radiation_therapy" minOccurs="0" />
+				<xs:element ref="ucec_shared:colorectal_cancer" minOccurs="0" />
+				<xs:element ref="ucec_shared:diabetes" minOccurs="0" />
+				<xs:element ref="ucec_shared:horm_ther" minOccurs="0" />
+				<xs:element ref="ucec_shared:hypertension" minOccurs="0" />
+				<xs:element ref="ucec_shared:birth_control_pill_history_usage_category" minOccurs="0" />
+				<xs:element ref="ucec_shared:pregnancies" minOccurs="0" />
+				<xs:element ref="shared:primary_therapy_outcome_success" minOccurs="0" />
+				<xs:element ref="ucec_shared:prior_tamoxifen_administered_usage_category" minOccurs="0" />
+				
+				<!-- In the 2.6.0 release change new_tumor_event to minOccurs="1" maxOccurs="1" -->
+				<xs:element ref="ucec_nte:new_tumor_events" minOccurs="0" />
+				
+				<xs:choice>
+					<xs:annotation>
+						<xs:documentation xml:lang="en">
+							Date the interviewer originally completed the corresponding TCGA Clinical Data Form. 
+							If modifications are made after the form is marked complete, this date should not change.
+						</xs:documentation>
+					</xs:annotation>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />  
+                        <xs:element ref="shared:month_of_form_completion" />  
+                        <xs:element ref="shared:year_of_form_completion" />  
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_form_completion" />   
+                </xs:choice> 
+	
+				<xs:element ref="follow_ups" />
+                <xs:element ref="rx:drugs" />
+                <xs:element ref="rad:radiations" />
+                <xs:element ref="clinical_cqcf" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+  
+	<xs:element name="follow_ups">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">We are using namespaces and version numbers to distinguish one version of followup from another.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element ref="follow_up_v1.7:follow_up_v1.7" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element ref="follow_up_v2.0:follow_up_v2.0" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element ref="follow_up_v4.0:follow_up_v4.0" minOccurs="0" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="clinical_cqcf">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:anatomic_organ_subdivision"/>
+                <xs:element ref="cqcf:consent_or_death_status"/>
+                
+                <xs:choice>
+                    <xs:choice>
+                        <xs:sequence>
+                            <xs:element ref="cqcf:day_of_consent"/>
+                            <xs:element ref="cqcf:month_of_consent"/>
+                            <xs:element ref="cqcf:year_of_consent"/>
+                        </xs:sequence>
+                        
+                        <xs:element ref="cqcf:days_to_consent"/>
+                    </xs:choice>
+                    
+                    <xs:choice>
+                        <xs:sequence>
+                            <xs:element ref="shared:day_of_death"/>
+                            <xs:element ref="shared:month_of_death"/>
+                            <xs:element ref="shared:year_of_death"/>
+                        </xs:sequence>
+                        
+                        <xs:element ref="shared:days_to_death"/>
+                    </xs:choice>
+                </xs:choice>
+                
+                <xs:element ref="cqcf:diagnosis_subtype"/>
+                <xs:element ref="shared:prior_diagnosis"/>
+                <xs:element ref="cqcf:history_of_neoadjuvant_treatment"/>
+                <xs:element ref="cqcf:normal_tissue_anatomic_site"/>
+                <xs:element ref="cqcf:normal_tissue_proximity"/>
+                <xs:element ref="cqcf:tumor_focality"/>
+                <xs:element ref="cqcf:tumor_type"/>
+				<xs:element ref="cqcf:other_diagnosis"/>
+                <xs:element ref="cqcf:histological_subtype" minOccurs="0"/>
+                <xs:element ref="cqcf:other_anatomic_site" minOccurs="0"/>
+                <xs:element ref="cqcf:country"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+				
+    <xs:element name="primary_other_site_of_disease_name" nillable="true">
+		<xs:annotation><xs:documentation>
+			DEPRECATED since this will be moved to shared.xsd in release 2.6.0. 
+			
+			TODO: Delete me in 2.6.0.
+		</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2584114" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="histological_type" nillable="true">
+		<xs:annotation><xs:documentation>
+			The premissible value 'Endometrioid endometrial adenocarcinoma (Grade 1 or 2)' has been deprecated and will be removed in XSD 2.5 since it 
+			has been replaced by the following two permissible values:
+				Endometrioid endometrial adenocarcinoma (Grade 1)
+				Endometrioid endometrial adenocarcinoma (Grade 2)
+		</xs:documentation></xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="Endometrioid endometrial adenocarcinoma" />
+					<xs:enumeration value="Endometrioid endometrial adenocarcinoma (Grade 1)" />
+					<xs:enumeration value="Endometrioid endometrial adenocarcinoma (Grade 2)" />
+					<xs:enumeration value="Endometrioid endometrial adenocarcinoma (Grade 3)" />
+                    <xs:enumeration value="Endometrioid endometrial adenocarcinoma (Grade 1 or 2)" /> <!-- Deprecated. Will be removed in 2.5. This permissible value has been replaced.  -->
+                    <xs:enumeration value="Mixed serous and endometrioid" />
+					<xs:enumeration value="Serous endometrial adenocarcinoma" />
+					<xs:enumeration value="Uterine serous endometrial adenocarcinoma" />
+					<xs:attribute name="cde" type="xs:string" default="3081934" /> 
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+	<xs:element name="gynecologic_figo_staging_system" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="1988" />
+                    <xs:enumeration value="1995" />
+                    <xs:enumeration value="2009" />
+                    <xs:attribute name="cde" type="xs:string" default="3114049" /> 
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+    <xs:element name="gynecologic_tumor_grouping_figo_stage" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="Stage 0" />
+					<xs:enumeration value="Stage I" />
+					<xs:enumeration value="Stage IA" />
+					<xs:enumeration value="Stage IA1" />
+					<xs:enumeration value="Stage IA2" />
+					<xs:enumeration value="Stage IB" />
+					<xs:enumeration value="Stage IB1" />
+					<xs:enumeration value="Stage IB2" />
+					<xs:enumeration value="Stage II" />
+					<xs:enumeration value="Stage IIA" />
+					<xs:enumeration value="Stage IIB" />
+					<xs:enumeration value="Stage IC" />
+					<xs:enumeration value="Stage III" />
+					<xs:enumeration value="Stage IIIA" />
+					<xs:enumeration value="Stage IIIB" />
+					<xs:enumeration value="Stage IIIC" />
+					<xs:enumeration value="Stage IIIC1" />
+					<xs:enumeration value="Stage IIIC2" />
+					<xs:enumeration value="Stage IV" />
+					<xs:enumeration value="Stage IVA" />
+					<xs:enumeration value="Stage IVB" />
+                    <xs:attribute name="cde" type="xs:string" default="3225684" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="tumor_grade" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Grade 1" />
+                    <xs:enumeration value="Grade 2" />
+                    <xs:enumeration value="Grade 3" />
+					<xs:enumeration value="Low Grade" />
+					<xs:enumeration value="High Grade" />
+                    <xs:attribute name="cde" type="xs:string" default="3104227" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="pct_tumor_invasion" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:number_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3104403" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                    <xs:attribute name="units" type="xs:string" fixed="%"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="peritoneal_wash" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="negative" />
+                    <xs:enumeration value="positive" />
+                    <xs:enumeration value="Not Performed" />
+                    <xs:enumeration value="Unknown" />
+                    <xs:attribute name="cde" type="xs:string" default="61384" /> 
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="tissue_prospective_collection_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3088492" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="tissue_retrospective_collection_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3088528" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="surgical_approach" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Minimally Invasive" />
+                    <xs:enumeration value="open" />
+                    <xs:attribute name="cde" type="xs:string" default="2429840" /> 
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="menopause_status" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Pre (&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)" />
+                    <xs:enumeration value="Peri (6-12 months since last menstrual period)" />
+                    <xs:enumeration value="Post (prior bilateral ovariectomy OR >12 mo since LMP with no prior hysterectomy)" />
+                    <xs:enumeration value="Indeterminate (neither Pre or Postmenopausal)" />
+                    <xs:attribute name="cde" type="xs:string" default="2957270" /> 
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="aln_pos_ihc" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151831" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="aln_pos_light_micro" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151832" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="pln_pos_ihc" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151829" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="pln_pos_light_micro" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151830" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="total_aor-lnp" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151827" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="total_aor_lnr" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3104460" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="total_pelv_lnp" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3151828" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="total_pelv_lnr" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:integer_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3104458" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="first_pathologic_diagnosis_biospecimen_acquisition_other_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2757948" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+</xs:schema>

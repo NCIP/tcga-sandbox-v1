@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Platform" table="platform" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="platform_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Platform class -->
+		<property name="alias" type="string" column="platform_alias"/>
+		<property name="displayName" type="string" column="platform_display_name"/>
+		<property name="name" type="string" column="platform_name"/>
+		<!-- Associations mapping for the Platform class -->
+		<set name="archiveCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="platform_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Archive"/>
+		</set>
+			<many-to-one name="baseDataType" class="gov.nih.nci.ncicb.tcga.dccws.Datatype" column="base_data_type_id" lazy="proxy" not-null="true" cascade="none"/>
+		<set name="datatypeCollection" table="data_type_to_platform" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="platform_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.Datatype" column="data_type_id" />
+		</set>
+			<many-to-one name="centerType" class="gov.nih.nci.ncicb.tcga.dccws.CenterType" column="center_type_code" lazy="proxy" not-null="true" cascade="none"/>
+	</class>
+</hibernate-mapping>

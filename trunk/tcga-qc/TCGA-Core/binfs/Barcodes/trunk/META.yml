@@ -1,0 +1,52 @@
+---
+abstract: 'a set of packages for querying TCGA barcodes/uuids'
+author:
+  - 'Mark A. Jensen'
+build_requires:
+  Module::Build: 0
+configure_requires:
+  Module::Build: 0.4
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4, CPAN::Meta::Converter version 2.120630'
+license: restrictive
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: TCGA-Barcodes
+provides:
+  TCGA::BCFactory:
+    file: lib/TCGA/BCFactory.pm
+    version: 0
+  TCGA::BCFactory::db:
+    file: lib/TCGA/BCFactory/db.pm
+    version: 0
+  TCGA::BCFactory::db::config:
+    file: lib/TCGA/BCFactory/db/config.pm
+    version: 0
+  TCGA::Barcode:
+    file: lib/TCGA/Barcode.pm
+    version: 0
+  TCGA::Barcode::db:
+    file: lib/TCGA/Barcode/db.pm
+    version: 0
+  TCGA::Barcode::db::config:
+    file: lib/TCGA/Barcode/db/config.pm
+    version: 0
+  TCGA::Barcode::ws:
+    file: lib/TCGA/Barcode/ws.pm
+    version: 0
+  TCGA::Barcode::ws::config:
+    file: lib/TCGA/Barcode/ws/config.pm
+    version: 0
+  TCGA::Barcodes:
+    file: lib/TCGA/Barcodes.pm
+    version: 0.1
+  TCGA::ThrottledUserAgent:
+    file: lib/TCGA/ThrottledUserAgent.pm
+    version: 0
+requires:
+  DBD::Oracle: 0
+  JSON: 0
+  LWP::UserAgent: 0
+  perl: v5.8.0
+version: 0.1

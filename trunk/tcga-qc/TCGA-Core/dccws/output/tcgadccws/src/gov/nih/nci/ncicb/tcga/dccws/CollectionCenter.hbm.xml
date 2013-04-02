@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="CollectionCenter" table="collection_center" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="string" column="code">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the CollectionCenter class -->
+		<property name="definition" type="string" column="definition"/>
+		<!-- Associations mapping for the CollectionCenter class -->
+		<set name="biospecimenBarcodeCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="collection_center" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.BiospecimenBarcode"/>
+		</set>
+			<many-to-one name="tissue" class="gov.nih.nci.ncicb.tcga.dccws.Tissue" column="tissue_id" lazy="proxy" not-null="true" cascade="none"/>
+	</class>
+</hibernate-mapping>

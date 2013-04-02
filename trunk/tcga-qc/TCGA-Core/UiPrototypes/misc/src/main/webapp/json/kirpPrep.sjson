@@ -1,0 +1,75 @@
+{
+	"totals": {
+		"textSize":14,
+		"width":180,
+		"counts":[{
+			"label":"Total Shipped",
+			"count":0
+		}, {
+			"label":"Awaiting Shipment",
+			"count":16
+		}, {
+			"label":"Other Pending",
+			"count":6
+		}]
+	},
+	"nodeData":[{
+		"name":"igc",
+		"image":"images\/igc.jpg",
+		"label":"Received at IGC",
+		"outputs":[{
+			"count":19,
+			"connectToNextNode":"true",
+			"color":"#0f0",
+			"arrow":"false"
+		}, {
+			"label":"Pending BCR Initial Screening",
+			"count":3
+		}],
+		"numericLabel": "samples"
+	}, {
+		"name":"pathology",
+		"image":"images\/breast_cancer_slide_narrow.jpeg",
+		"label":"Pathology QC",
+		"outputs":[{
+			"count":19,
+			"color":"#0f0",
+			"arrow":"false",
+			"label":"Pathology Pass",
+			"connectToNextNode":"true"
+		}],
+		"numericLabel":"samples"
+	}, {
+		"name":"molecular",
+		"image":"images\/DNA_Science.jpeg",
+		"label":"Molecular QC",
+		"pathLength":170,
+		"outputs":[{
+			"count":16,
+			"color":"#0f0",
+			"arrow":"false",
+			"label":"Molecular Pass",
+			"connectToNextNode":"true"
+		}, {
+			"label":"Awaiting Shipment",
+			"count":16
+		}, {
+			"label":"Molecular Pending",
+			"count":3
+		}],
+		"numericLabel":"samples"
+	}, {
+		"name":"totals",
+		"image":"images\/box.jpg",
+		"label":"Shipped"
+	}],
+	"graphConfig":{
+		"center":"true",
+		"renderTo":"raphgraph",
+		"pathColors":["red","orange","green","blue","yellow","brown"],
+		"pathHeight":200,
+		"squareSize":{"height":200,"width":150},
+		"pathLength":100,
+		"squareCorners":5
+	}
+}

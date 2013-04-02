@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<project name="data-matrix-splitter" default="package-data-matrix-splitter">
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="on"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="128m"/>
+
+	<!-- Path settings -->
+    <property name="distro.dir" value="${basedir}/distro/data-matrix-splitter"/>
+    <property name="src.dir" value="${basedir}/src/main/java"/>
+    <property name="common.src.dir" value="${basedir}/../../common/src/main/java"/>
+    <property name="qclive.src.dir" value="${basedir}/../qclive-web/src/main/java"/>
+    <property name="output.dir" value="${basedir}/out/data-matrix-splitter/classes"/>
+	<property name="testoutput.dir" value="${basedir}/out/data-matrix-splitter/tests" />
+
+	<!-- Create compilation directories -->
+	<mkdir dir="${basedir}/distro"/>
+    <mkdir dir="${basedir}/distro/data-matrix-splitter"/>
+    <mkdir dir="${basedir}/out"/>
+    <mkdir dir="${basedir}/out/data-matrix-splitter"/>
+    <mkdir dir="${basedir}/out/data-matrix-splitter/classes"/>
+    <mkdir dir="${basedir}/out/data-matrix-splitter/classes/tests"/>
+
+
+    <path id="data-matrix-splitter.classpath">
+        <pathelement location="../../common/lib/spring-framework-2.5.6.SEC01/dist/spring.jar"/>
+        <pathelement location="../../common/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+        <pathelement location="../../common/lib/ojdbc5.jar"/>
+        <pathelement location="../../common/lib/slf4j/slf4j-api-1.5.10.jar"/>
+        <pathelement location="../../common/lib/slf4j/slf4j-log4j12-1.5.10.jar"/>
+        <pathelement location="../../common/lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+        <pathelement location="../../common/lib/commons-lang-2.4/commons-lang-2.4.jar"/>
+        <pathelement location="../../common/lib/cglib-nodep-2.2.jar"/>
+    </path>
+
+    <target name="compile-common" description="Compile Cache generator classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" srcdir="${common.src.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <classpath refid="data-matrix-splitter.classpath"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/ConstantValues*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/bean/**"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/FileArchiveQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/FileInfoQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/ArchiveQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/BaseQueriesProcessor*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/CenterQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/UUIDAO*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/jdbc/FileArchiveQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/jdbc/FileInfoQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/jdbc/ArchiveQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/jdbc/CenterQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/dao/jdbc/UUIDAO*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/mail/MailSender*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/CommonBarcodeAndUUIDValidatorImpl*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/TabDelimitedContentImplTabDelimitedContentImpl*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/TabDelimitedContentImpl*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/ProcessLogger*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/StringUtil*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/util/md5/MD5ChecksumCreator*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/exception/UUIDException*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/service/UUIDService*"/>
+        </javac>
+    </target>
+    <target name="compile-qclive" description="Compile Cache generator classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" srcdir="${qclive.src.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <classpath refid="data-matrix-splitter.classpath"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/bean/Experiment*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/dao/BCRIDQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/dao/jdbc/BCRIDQueries*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/QcContext*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/AbstractSdrfHandler*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/DataMatrixSplitter*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/Processor*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/AbstractProcessor*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/SdrfRewriter*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/validation/MD5Validator*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/validation/util/MessageFormat*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/util/DirectoryListerImpl*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/util/ArchiveCompressor*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/common/util/ArchiveCompressorTarGzImpl*"/>
+        </javac>
+    </target>
+
+    <target name="compile-data-matrix-splitter" depends="compile-common,compile-qclive" description="Compile Cache generator classes">
+           <mkdir dir="${output.dir}"/>
+           <javac destdir="${output.dir}" srcdir="${src.dir}" debug="${compiler.debug}"
+                  nowarn="${compiler.generate.no.warnings}"
+                  memorymaximumsize="${compiler.max.memory}" fork="true">
+               <classpath refid="data-matrix-splitter.classpath"/>
+           </javac>
+       </target>
+
+    <target name="package-data-matrix-splitter" description="Build Cache Generator package"
+        depends="clean,compile-data-matrix-splitter">
+           <!-- copy config files -->
+           <copy todir="${distro.dir}/lib" flatten="true">
+               <fileset file="../../common/lib/spring-framework-2.5.6.SEC01/dist/spring.jar"/>
+               <fileset file="../../common/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+               <fileset file="../../common/lib/ojdbc5.jar"/>
+               <fileset file="../../common/lib/slf4j/slf4j-api-1.5.10.jar"/>
+               <fileset file="../../common/lib/slf4j/slf4j-log4j12-1.5.10.jar"/>
+               <fileset file="../../common/lib/commons-lang-2.4/commons-lang-2.4.jar"/>
+               <fileset file="../../common/lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+               <fileset file="../../common/lib/cglib-nodep-2.2.jar"/>
+           </copy>
+
+           <copy todir="${distro.dir}/resources" flatten="true">
+               <fileset file="${basedir}/src/main/resources/applicationContext.xml"/>
+               <fileset file="${basedir}/src/main/resources/tcgaDBConnect.properties"/>
+               <fileset file="${basedir}/src/main/resources/log4j.xml"/>
+           </copy>
+            <copy file="${qclive.src.dir}/gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/validation/util/MessageFormat.properties"
+              tofile="${output.dir}/gov/nih/nci/ncicb/tcga/dcc/qclive/common/action/validation/util/MessageFormat.properties"/>
+
+
+           <!-- create a manifest classpath -->
+           <manifestclasspath property="lib.list"
+                              jarfile="${distro.dir}/cache-generator.jar">
+               <classpath>
+                   <fileset dir="${distro.dir}/lib">
+                       <include name="**/*.jar"/>
+                       <include name="./lib/spring.jar"/>
+                   </fileset>
+               </classpath>
+           </manifestclasspath>
+
+           <!-- Create the JAR file -->
+           <jar destfile="${distro.dir}/data-matrix-splitter.jar" duplicate="preserve">
+               <manifest>
+                   <attribute name="Created-By" value="TCGA team"/>
+                   <attribute name="Manifest-Version" value="1.0"/>
+                   <attribute name="Main-Class"
+                              value="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.DataMatrixSplitterStandalone"/>
+                   <attribute name="Class-Path"
+                              value=". ./resources/ ./lib/spring.jar ./lib/commons-logging-1.1.1.jar ./lib/ojdbc5.jar ./lib/slf4j-api-1.5.10.jar ./lib/slf4j-log4j12-1.5.10.jar ./lib/log4j-1.2.15.jar ./lib/cglib-nodep-2.2.jar ./lib/commons-lang-2.4.jar"/>
+               </manifest>
+               <fileset dir="${output.dir}">
+                   <include name="**"/>
+               </fileset>
+           </jar>
+
+    </target>
+
+    <target name="clean" description="cleanup module">
+            <delete dir="${output.dir}"/>
+            <delete dir="${distro.dir}"/>
+
+    </target>
+</project>

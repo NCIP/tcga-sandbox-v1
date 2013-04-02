@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="integration.test.datasources.properties"/>
+    </bean>
+
+    <!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+    <bean id="diseaseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="localDiseaseDataSource"/>
+    </bean>
+
+    <bean id="localCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${commonDataSource.driverClass}"/>
+        <property name="url" value="${commonDataSource.url}"/>
+        <property name="username" value="${commonDataSource.username}"/>
+        <property name="password" value="${commonDataSource.password}"/>
+    </bean>
+
+    <bean id="localDiseaseDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${diseaseDataSource.driverClass}"/>
+        <property name="url" value="${diseaseDataSource.url}"/>
+        <property name="username" value="${diseaseDataSource.username}"/>
+        <property name="password" value="${diseaseDataSource.password}"/>
+    </bean>
+
+    <bean id="devCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${devCommonDataSource.driverClass}"/>
+        <property name="url" value="${devCommonDataSource.url}"/>
+        <property name="username" value="${devCommonDataSource.username}"/>
+        <property name="password" value="${devCommonDataSource.password}"/>
+    </bean>
+
+    <bean id="devDiseaseDataSourceDisease" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${devDiseaseDataSource.driverClass}"/>
+        <property name="url" value="${devDiseaseDataSource.url}"/>
+        <property name="username" value="${devDiseaseDataSource.username}"/>
+        <property name="password" value="${devDiseaseDataSource.password}"/>
+    </bean>
+
+</beans>

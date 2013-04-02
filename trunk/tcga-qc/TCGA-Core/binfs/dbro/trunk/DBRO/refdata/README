@@ -1,0 +1,8 @@
+Reference data tables computed by Carl Schaefer prior to March 2011
+
+Bin start and stop calculated over bp increments as indicated in filenames.
+Chromosome boundaries (lengths) obtained from UCSC chromInfo database files; genome version HG18.
+Gene names and underlying boundaries obtained from UCSC RefFlat database files; genome version HG18.
+DGV.txt - flat version of the Database of Genomic Variants, where VariationType == 'CopyNumber'
+
+DGV : Obtain the latest version of the DGV at http://dgvbeta.tcag.ca/dgv/app/downloads?ref=NCBI36/hg18. Download the text file containing the HG18 version. Use carlscript/DGV.pl to convert, and load the ccnv table with the createRefDataSQLite.pl script (--ccnv-f [file]).

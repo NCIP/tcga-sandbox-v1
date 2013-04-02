@@ -1,0 +1,63 @@
+---
+abstract: 'Slice/dice Level 3 data for data browser'
+author:
+  - 'Mark A. Jensen/Carl Schaefer'
+build_requires:
+  Test::Exception: 0
+configure_requires:
+  Module::Build: 0.4
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4, CPAN::Meta::Converter version 2.120630'
+license: restrictive
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: TCGA-DBRO
+provides:
+  TCGA::CNV:
+    file: lib/TCGA/CNV.pm
+    version: 0.01
+  TCGA::CNV::Config:
+    file: lib/TCGA/CNV/Config.pm
+    version: 0
+  TCGA::CNV::RefData:
+    file: lib/TCGA/CNV/RefData.pm
+    version: 0
+  TCGA::CNV::RefData::BDB:
+    file: lib/TCGA/CNV/RefData/BDB.pm
+    version: 0
+  TCGA::CNV::RefData::SQLite:
+    file: lib/TCGA/CNV/RefData/SQLite.pm
+    version: 0
+  TCGA::CNV::SegIO:
+    file: lib/TCGA/CNV/SegIO.pm
+    version: 0
+  TCGA::CNV::SegToGene:
+    file: lib/TCGA/CNV/SegToGene.pm
+    version: 0
+  TCGA::CNV::Segment:
+    file: lib/TCGA/CNV/Segment.pm
+    version: 0
+  TCGA::CNV::Util:
+    file: lib/TCGA/CNV/Util.pm
+    version: 0
+  TCGA::DBRO:
+    file: lib/TCGA/DBRO.pm
+    version: 0.01
+  TCGA::DBRO::Util:
+    file: lib/TCGA/DBRO/Util.pm
+    version: 0
+  TCGA::EXPR::ExprIO:
+    file: lib/TCGA/EXPR/ExprIO.pm
+    version: 0
+  TCGA::EXPR::ExprToGene:
+    file: lib/TCGA/EXPR/ExprToGene.pm
+    version: 0
+  TCGA::Level4::Config:
+    file: lib/TCGA/Level4/Config.pm
+    version: 0
+recommends:
+  TCGA::DBH: 0
+requires:
+  perl: v5.8.0
+version: 0.01

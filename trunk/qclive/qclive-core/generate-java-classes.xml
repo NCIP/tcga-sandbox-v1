@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<project name="GenerateJavaClasses" default="generate-java-classes">
+    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+      <classpath>
+        <fileset dir="../../common/lib/jaxb2.2.4" includes="*.jar" />
+      </classpath>
+    </taskdef>
+
+    <property name="schema.dir" value="../../common/src/main/resources/schema"/>
+
+    <target name="generate-java-classes" >
+        <xjc destdir="../../common/src/main/java">
+          <schema  dir="${schema.dir}" includes="tcgaBcrDataTemplate.xsd"/>
+          <binding dir="${schema.dir}" includes="jaxb-binding.xjb"/>
+        </xjc>
+
+    </target>
+</project>

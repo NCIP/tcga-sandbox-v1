@@ -1,0 +1,18 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <CENTER CENTER_ID="1" DOMAIN_NAME="center" CENTER_TYPE_CODE="GSC"  DISPLAY_NAME="Test" />
+    <CENTER_TYPE CENTER_TYPE_CODE="GSC" CENTER_TYPE_DEFINITION="Biospecimen Core Resource" />    
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="GSC" NAME="type" FTP_DISPLAY="hi" AVAILABLE="1" />
+    <PLATFORM PLATFORM_ID="2" CENTER_TYPE_CODE="GSC" AVAILABLE="1" BASE_DATA_TYPE_ID="1" PLATFORM_ALIAS="p" PLATFORM_DISPLAY_NAME="platform" PLATFORM_NAME="platform" SORT_ORDER="1" />
+    <EXPERIMENT EXPERIMENT_ID="1" CENTER_ID="1" PLATFORM_ID="2" BASE_NAME="robert" data_deposit_batch="1" data_revision="42"/>
+    <ARCHIVE_INFO ARCHIVE_ID="10" ARCHIVE_NAME="test.org_TUM.aPlatform.Level_1.2.0.0" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="2" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Uploaded" is_latest="1" DEPLOY_LOCATION="C:/tcgafiles/" ARCHIVE_TYPE_ID="1" />
+    <FILE_INFO FILE_ID="1" FILE_NAME="a_file" />
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="1" ARCHIVE_ID="10" FILE_ID="1" />
+</dataset>

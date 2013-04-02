@@ -1,0 +1,32 @@
+##fileformat=VCFv4.1
+##fileDate=20090805
+##tcgaversion=1.1
+##vcfProcessLog=<InputVCF=<file1.vcf>,InputVCFSource=<caller1>,InputVCFVer=<1.0>,InputVCFParam=<a1,b>,InputVCFgeneAnno=<anno1.gaf>>
+##reference=file://seq/references/1000GenomesPilot-NCBI36.fasta
+##contig=<ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species="Homo sapiens",taxonomy=x>
+##phasing=partial
+##center="Broad"
+##INFO=<ID=NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+##INFO=<ID=AA,Number=1,Type=String,Description="Ancestral Allele">
+##INFO=<ID=DB,Number=0,Type=Flag,Description="dbSNP membership, build 129">
+##INFO=<ID=H2,Number=0,Type=Flag,Description="HapMap2 membership">
+##FILTER=<ID=q10,Description="Quality below 10">
+##FILTER=<ID=s50,Description="Less than 50% of samples have data">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##FORMAT=<ID=HQ,Number=2,Type=Integer,Description="Haplotype Quality">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+##FORMAT=<ID=BQ,Number=.,Type=Integer,Description="Average base quality for reads supporting alleles">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Depth of reads supporting alleles 0/1/2/3">
+##SAMPLE=<ID=NORMAL,SampleName=70f8b600-310f-48ad-a296-656819936be8,Individual=TCGA-01-1000,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,File=TCGA-01-1000-1.bam,Platform=Illumina,Source=dbGAP,Accession=1234>
+##SAMPLE=<ID=TUMOR,SampleName=70f8b600-310f-48ad-a296-656819936be8,Individual=TCGA-01-1000,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,File=TCGA-01-1000-2.bam,Platform=Illumina,Source=dbGAP,Accession=4567>
+##PEDIGREE=<Name_0=TUMOR,Name_1=NORMAL>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	TUMOR     
+20	14370	rs6054257	G	A	29	PASS	NS=3;DP=14;AF=0.5;DB;H2	GT:GQ:DP:HQ:SS:BQ:AD	0|0:48:1:51,51:0:7:8	1|0:48:8:51,51:0:7:8
+20	17330	.	T	A	3	q10	NS=3;DP=11;AF=0.017	GT:GQ:DP:HQ:SS:BQ:AD	0|0:49:3:58,50:0:7:8	0|1:3:5:65,3:0:7:8
+20	1110696	rs6040355	A	G,T	67	PASS	NS=2;DP=10;AF=0.333,0.667;DB	GT:GQ:DP:HQ:SS:BQ:AD	1|2:21:6:23,27:0:7:8	2|1:2:0:18,2:0:7:8
+20	1230237	.	T	.	47	PASS	NS=3;DP=13;AA=T	GT:GQ:DP:HQ:SS:BQ:AD	0:54:7:56,60:0:7:8	0:48:4:51,51:0:7:8
+20	1234567	microsat1	GTC	G,GTCTC	50	PASS	NS=3;DP=9;AA=G	GT:GQ:DP:SS:BQ:AD	0/1:35:4:0:7:8	0/2:17:2:0:7:8

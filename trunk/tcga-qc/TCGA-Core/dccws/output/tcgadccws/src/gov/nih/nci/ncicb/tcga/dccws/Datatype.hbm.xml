@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Datatype" table="data_type" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="data_type_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Datatype class -->
+		<property name="centerType" type="string" column="center_type_code"/>
+		<property name="name" type="string" column="name"/>
+		<!-- Associations mapping for the Datatype class -->
+		<set name="basePlatformCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="base_data_type_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Platform"/>
+		</set>
+		<set name="dataVisibilityCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="data_type_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.DataVisibility"/>
+		</set>
+		<set name="platformCollection" table="data_type_to_platform" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="data_type_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.Platform" column="platform_id" />
+		</set>
+		<set name="fileCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="data_type_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.FileInfo"/>
+		</set>
+	</class>
+</hibernate-mapping>

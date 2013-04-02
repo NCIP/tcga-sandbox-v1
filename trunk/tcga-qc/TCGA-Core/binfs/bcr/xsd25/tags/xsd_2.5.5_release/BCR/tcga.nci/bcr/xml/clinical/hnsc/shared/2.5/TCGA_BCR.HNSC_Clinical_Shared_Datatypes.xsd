@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- $Id -->
+
+<xs:schema elementFormDefault="qualified" version="2.5.5"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5"
+  xmlns="http://tcga.nci/bcr/xml/clinical/hnsc/shared/2.5"
+  targetNamespace="http://tcga.nci/bcr/xml/clinical/hnsc/shared/2.5">
+  
+    <xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd" />
+	
+	<xs:element name="smokeless_tobacco_use_at_diag">	
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+				   <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+				   <xs:attribute name="cde" type="xs:string" default="3624719" />
+				   <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+				   <xs:attribute name="tier" type="xs:string" default="2" />
+				 </xs:extension>
+			</xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="smokeless_tobacco_use_regularly">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+				   <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+				   <xs:attribute name="cde" type="xs:string" default="3624720" />
+				   <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+				   <xs:attribute name="tier" type="xs:string" default="2" />
+				 </xs:extension>
+			</xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="smokeless_tobacco_use_per_day" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:number_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624721" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="smokeless_tobacco_use_age_at_start" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:number_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624722" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="smokeless_tobacco_use_age_at_quit" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:number_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624723" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="day_of_completion_of_curative_tx" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_day">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624725" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="month_of_completion_of_curative_tx" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_month">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624724" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="year_of_completion_of_curative_tx" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_year">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3624726" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="days_to_completion_of_curative_tx">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:attribute name="cde" type="xs:string" default="" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="" />
+                    <xs:attribute name="tier" type="xs:string" default="2.5" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="method_of_curative_tx">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Surgery" />
+                    <xs:enumeration value="Chemotherapy (not given concurrently)" />
+                    <xs:enumeration value="Concurrent Chemotherapy" />
+                    <xs:enumeration value="Radiation" />
+                    <xs:attribute name="cde" type="xs:string" default="3601546" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>	
+
+	<xs:element name="disease_after_curative_tx">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+				   <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+				   <xs:attribute name="cde" type="xs:string" default="3624727" />
+				   <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+				   <xs:attribute name="tier" type="xs:string" default="2" />
+				 </xs:extension>
+			</xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	
+	
+
+	<xs:element name="ajcc_clinical_primary_tumor_m_stage">
+		<xs:annotation>
+			<xs:documentation>
+				The way in which AJCC data is presented in the XML -- for all studies -- is 
+				being changed to be more coherent and uniform. 
+			</xs:documentation>
+		</xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="cM0 (i+)" />
+					<xs:enumeration value="M0" />
+					<xs:enumeration value="M1" />
+					<xs:enumeration value="M1a" />
+					<xs:enumeration value="M1b" />
+					<xs:enumeration value="M1c" />
+					<xs:enumeration value="MX" />
+                    <xs:attribute name="cde" type="xs:string" default="3440331" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="ajcc_clinical_primary_tumor_n_stage">
+		<xs:annotation>
+			<xs:documentation>
+				The way in which AJCC data is presented in the XML -- for all studies -- is 
+				being changed to be more coherent and uniform. 
+				
+				This element will soon be DEPRECATED and repleaced with a more general 
+				set of elements and a more coherent and uniform structure for all AJCC data values. 
+			</xs:documentation>
+		</xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="N0" />
+					<xs:enumeration value="N0 (i+)" />
+					<xs:enumeration value="N0 (i-)" />
+					<xs:enumeration value="N0 (mol+)" />
+					<xs:enumeration value="N0 (mol-)" />
+					<xs:enumeration value="N1" />
+					<xs:enumeration value="N1a" />
+					<xs:enumeration value="N1b" />
+					<xs:enumeration value="N1bI" />
+					<xs:enumeration value="N1bII" />
+					<xs:enumeration value="N1bIII" />
+					<xs:enumeration value="N1bIV" />
+					<xs:enumeration value="N1c" />
+					<xs:enumeration value="N1mi" />
+					<xs:enumeration value="N2" />
+					<xs:enumeration value="N2a" />
+					<xs:enumeration value="N2b" />
+					<xs:enumeration value="N2c" />
+					<xs:enumeration value="N3" />
+					<xs:enumeration value="N3a" />
+					<xs:enumeration value="N3b" />
+					<xs:enumeration value="N3c" />
+					<xs:enumeration value="N4" />
+					<xs:enumeration value="NX" />
+                    <xs:attribute name="cde" type="xs:string" default="3440330" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+
+	<xs:element name="ajcc_clinical_primary_tumor_t_stage">
+		<xs:annotation>
+			<xs:documentation>
+				The way in which AJCC data is presented in the XML -- for all studies -- is 
+				being changed to be more coherent and uniform. 
+				
+				This element will soon be DEPRECATED and repleaced with a more general 
+				set of elements and a more coherent and uniform structure for all AJCC data values. 
+			</xs:documentation>
+		</xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					 <xs:enumeration value="T0" />
+					 <xs:enumeration value="T1" />
+					 <xs:enumeration value="T1a" />
+					 <xs:enumeration value="T1a1" />
+					 <xs:enumeration value="T1a2" />
+					 <xs:enumeration value="T1b" />
+					 <xs:enumeration value="T1b1" />
+					 <xs:enumeration value="T1b2" />
+					 <xs:enumeration value="T1c" />
+					 <xs:enumeration value="T1mi" />
+					 <xs:enumeration value="T2" />
+					 <xs:enumeration value="T2a" />
+					 <xs:enumeration value="T2a1" />
+					 <xs:enumeration value="T2a2" />
+					 <xs:enumeration value="T2b" />
+					 <xs:enumeration value="T2c" />
+					 <xs:enumeration value="T3" />
+					 <xs:enumeration value="T3a" />
+					 <xs:enumeration value="T3b" />
+					 <xs:enumeration value="T3c" />
+					 <xs:enumeration value="T4" />
+					 <xs:enumeration value="T4a" />
+					 <xs:enumeration value="T4b" />
+					 <xs:enumeration value="T4c" />
+					 <xs:enumeration value="T4d" />
+					 <xs:enumeration value="Ta" />
+					 <xs:enumeration value="Tis" />
+					 <xs:enumeration value="Tis (DCIS)" />
+					 <xs:enumeration value="Tis (LCIS)" />
+					 <xs:enumeration value="Tis (Paget's)" />
+					 <xs:enumeration value="TX" />
+                    <xs:attribute name="cde" type="xs:string" default="3440328" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="ajcc_clinical_group_stage">
+		<xs:annotation>
+			<xs:documentation>
+				The way in which AJCC data is presented in the XML -- for all studies -- is 
+				being changed to be more coherent and uniform. 
+				
+				This element will soon be DEPRECATED and repleaced with a more general 
+				set of elements and a more coherent and uniform structure for all AJCC data values. 
+			</xs:documentation>
+		</xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="Stage 0" />
+					<xs:enumeration value="Stage 0a" />
+					<xs:enumeration value="Stage 0is" />
+					<xs:enumeration value="Stage I" />
+					<xs:enumeration value="Stage IA" />
+					<xs:enumeration value="Stage IA1" />
+					<xs:enumeration value="Stage IA2" />
+					<xs:enumeration value="Stage IB" />
+					<xs:enumeration value="Stage IB Cervix" />
+					<xs:enumeration value="Stage IB1" />
+					<xs:enumeration value="Stage IB2" />
+					<xs:enumeration value="Stage II" />
+					<xs:enumeration value="Stage II Cervix" />
+					<xs:enumeration value="Stage IIA" />
+					<xs:enumeration value="Stage IIA Cervix" />
+					<xs:enumeration value="Stage IIB" />
+					<xs:enumeration value="Stage IIC" />
+					<xs:enumeration value="Stage III" />
+					<xs:enumeration value="Stage IIIA" />
+					<xs:enumeration value="Stage IIIB" />
+					<xs:enumeration value="Stage IIIC" />
+					<xs:enumeration value="Stage IV" />
+					<xs:enumeration value="Stage IVA" />
+					<xs:enumeration value="Stage IVB" />
+					<xs:enumeration value="Stage IVC" />
+					<xs:enumeration value="Stage Tis" />
+					<xs:enumeration value="Stage X" />
+                    <xs:attribute name="cde" type="xs:string" default="3440332" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	
+
+</xs:schema>

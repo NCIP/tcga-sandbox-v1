@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="oracleDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:TCGAQA"/>
+        <property name="username" value="tcgaunittest"/>
+        <property name="password" value="tcga123unit"/>
+    </bean>
+
+    <bean id="loaderQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.LoaderQueriesJdbcImpl">
+        <property name="dataSource" ref="oracleDataSource"/>
+    </bean>
+
+    <!-- quartz-related beans for queuing autoloader jobs -->
+    <bean name="loaderJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderJob"/>
+        <property name="group" value="loaderGroup"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="loaderRunner" value-ref="loaderRunner"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="loaderRunner" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderRunner"/>
+
+    <bean id="loaderTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="loaderJob"/>
+        <property name="group" value="loaderGroup"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="loaderScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="quartzProperties">
+            <props>
+                <!-- adjust this depending on the number of server CPUs -->
+                <prop key="org.quartz.threadPool.threadCount">1</prop>
+            </props>
+        </property>
+        <property name="dataSource" ref="oracleDataSource"/>
+    </bean>
+
+    <bean id="loaderEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderEnqueuer">
+        <property name="quartzJobDetail" ref="loaderJob"/>
+        <property name="quartzTrigger" ref="loaderTrigger"/>
+        <property name="quartzScheduler" ref="loaderScheduler"/>
+        <property name="loaderQueries" ref="loaderQueries"/>
+        <property name="switchOnTime" value="19:00"/>
+        <property name="switchOffTime" value="07:00"/>
+    </bean>
+    <!-- end quartz-related beans for queuing file packaging and archive deletion jobs -->
+
+    <!--    <bean id="mailSender" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.impl.MailSenderImpl">
+        <property name="defaultFromAddress" value="nassaud@mail.nih.gov"/>
+        <property name="defaultReplyTo" value="nassaud@mail.nih.gov"/>
+        <property name="defaultCcAddress" value="nassaud@mail.nih.gov"/>
+        <property name="defaultFromName" value="What_a_Load"/>
+        <property name="mailEnabled" value="true"/>
+        <property name="subjectPrefix" value=""/>
+        <property name="javaMailSender" ref="mailSenderImpl"/>
+    </bean>
+
+    <bean id="mailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="NIHCESMLBX11.nih.gov"/>
+    </bean>-->
+</beans>

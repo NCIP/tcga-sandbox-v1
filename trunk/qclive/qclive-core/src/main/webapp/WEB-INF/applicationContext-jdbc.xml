@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/jdbc.properties</value>
+                <value>classpath:qcLiveParameters-local.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Datasource access through JNDI in jBoss, there is no configuration for connection to db in war file.-->
+    <bean id="qcLiveDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:dccCommon"/>
+    </bean>
+
+    <bean id="quartzDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+        <property name="jndiName" value="java:quartzOracleDS"/>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true"
+          autowire="default" dependency-check="default">
+        <property name="jndiName" value="java:dccCommon"/>
+    </bean>
+
+    <!-- Data source based on disease name -->
+    <bean id="diseaseDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource"
+          lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker" lazy-init="default"
+                  autowire="default" dependency-check="default">
+                <property name="prefix" value="java:"/>
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" lazy-init="default"
+                          autowire="default" dependency-check="default"/>
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${tcga.dcc.diseaseDataSources}"/>
+    </bean>
+
+
+    <!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="diseaseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="quartzTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="quartzDataSource"/>
+    </bean>
+
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+    <!-- Initializes the applicationContext which can be accessed anywhere in the application -->
+    <bean id="applicationContextProvider" class="gov.nih.nci.ncicb.tcga.dcc.common.framework.SpringApplicationContext"
+          lazy-init="false">
+    </bean>
+
+    <bean id="logImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.LogQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="lobHandler">
+            <ref local="lobHandler"/>
+        </property>
+    </bean>
+
+    <!-- LobHandler for Oracle JDBC drivers -->
+    <bean id="lobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+        <property name="nativeJdbcExtractor">
+            <ref local="nativeJdbcExtractor"/>
+        </property>
+    </bean>
+
+    <!-- NativeJdbcExtractor -->
+    <bean id="nativeJdbcExtractor"
+          class="org.springframework.jdbc.support.nativejdbc.JBossNativeJdbcExtractor" lazy-init="true"/>
+
+    <bean id="archiveImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseArchiveImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+
+    <bean id="experimentImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ExperimentQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="archiveTypeQueries" ref="archiveTypeQueries"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <bean id="archiveTypeImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ArchiveTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="chromInfoQueriesImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ChromInfoQueriesImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="traceInfoImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TraceInfoQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="codeTableImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="fileImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="diseaseFileImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="fileArchiveImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseFileArchiveImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="traceRImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TraceRelationshipQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="mafinfoImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.MafInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="centerImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="platformImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="dataTypeImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DataTypeQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="accessImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VisibilityQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="uuidQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="uuidDAOImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="bcrIdImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+        <property name="uuidDAO" ref="uuidQueries"/>
+        <property name="uuidService" ref="uuidService"/>
+        <property name="centerQueries" ref="centerQueries"/>
+    </bean>
+   
+    <bean id="uuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+    
+     <bean id="diseaseIuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+    
+     <bean id="diseaseUUIDDAO"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="diseaseIuidDAOImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="uuidHierarchyQueriesImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDHierarchyQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="validator" ref="validator"/>
+    </bean>
+
+    <bean id="diseaseBcrIdImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="uuidDAO" ref="uuidQueries"/>
+        <property name="uuidService" ref="uuidService"/>
+        <property name="centerQueries" ref="centerQueries"/>
+    </bean>
+    <bean id="commonShippedBiospecimenImpl"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="sampleTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.SampleTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="controlQueriesImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ControlQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+    <bean id="diseaseControlQueriesImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ControlQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+    <bean id="controlQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="controlQueriesImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="diseaseControlQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="diseaseControlQueriesImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="commonShippedBiospecimenQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="commonShippedBiospecimenImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="diseaseShippedBiospecimenImpl"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+    <bean id="diseaseShippedBiospecimenQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="diseaseShippedBiospecimenImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="collectionSiteImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TissueSourceSiteQueriesImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="clinicalMetaQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ClinicalMetaQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="dataTypeQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="dataTypeImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="logQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="logImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="archiveImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="diseaseArchiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="diseaseArchiveImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="experimentQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="experimentImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archiveTypeQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="archiveTypeImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="traceInfoQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="traceInfoImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="mafinfoQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="mafinfoImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="codeTableQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="codeTableImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="fileImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="diseaseFileQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="diseaseFileImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileArchiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="fileArchiveImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="diseaseFileArchiveQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="diseaseFileArchiveImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="centerQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="centerImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="platformQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="platformImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="tumorQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="tumorImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="accessQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="accessImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="bcrIDQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="bcrIdImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="diseaseBcrIDQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="diseaseBcrIdImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="traceRelationshipQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="traceRImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="tissueSourceSiteQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="collectionSiteImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="annotationQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="annotationIdSequence">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
+                <property name="dataSource" ref="dccCommonDataSource"/>
+                <property name="incrementerName" value="ANNOTATION_SEQ"/>
+            </bean>
+        </property>
+        <property name="annotationNoteIdSequence">
+            <bean class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
+                <property name="dataSource" ref="dccCommonDataSource"/>
+                <property name="incrementerName" value="ANNOTATION_NOTE_SEQ"/>
+            </bean>
+        </property>
+        <property name="commonBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+    </bean>
+    <bean id="batchNumberAssignmentImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.BatchNumberQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="batchNumberAssignmentQueries"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="batchNumberAssignmentImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fileCollectionQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileCollectionQueriesJDBCImpl">
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="fileQueries" ref="fileQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="annotationService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.annotations.AnnotationServiceImpl">
+        <property name="annotationQueries" ref="annotationQueries"/>
+    </bean>
+
+    <bean id="clinicalLoaderQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ClinicalLoaderQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="loaderQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.LoaderQueriesJdbcImpl">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="logger" ref="processLogger"/>
+    </bean>
+
+    <bean id="uuidService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDServiceImpl">
+        <property name="uuidDAO" ref="uuidDAOImpl"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="emailManager" ref="emailManager"/>
+    </bean>
+
+
+    <bean id="barcodeUuidResolver" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BarcodeUuidResolverImpl">
+        <property name="uuidService" ref="uuidService"/>
+        <property name="uuidDAO" ref="uuidQueries"/>
+        <property name="barcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+    </bean>
+
+    <bean id="emailManager" class="gov.nih.nci.ncicb.tcga.dcc.common.util.EmailManager"/>
+
+
+    <!-- moved from servlet -->
+    <bean name="updateTraceInfoJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.UpdateTraceInfoJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="updateTraceInfoRunner" value-ref="updateTraceInfoRunner"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="updateTraceInfoRunner" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.UpdateTraceInfoRunner">
+        <property name="logger" ref="processLogger"/>
+        <property name="traceInfoQueries" ref="traceInfoQueries"/>
+        <!-- inject reference to filePackager proxy          -->
+        <property name="downloadDirectory" value="${tcga.dcc.ncbiDownloadDirectory}"/>
+    </bean>
+
+    <bean id="updateTraceInfoTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="updateTraceInfoJob"/>
+        <property name="cronExpression" value="${tcga.dcc.ncbiCronTriggerTimer}"/>
+    </bean>
+
+    <bean id="mailSender" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.impl.MailSenderImpl">
+        <property name="defaultFromAddress" value="${tcga.dcc.defaultFromAddress}"/>
+        <property name="defaultReplyTo" value="${tcga.dcc.defaultReplyTo}"/>
+        <property name="defaultCcAddress" value="${tcga.dcc.defaultCcAddress}"/>
+        <property name="defaultFromName" value="${tcga.dcc.defaultFromName}"/>
+        <property name="mailEnabled" value="${tcga.dcc.archive.enableEmail}"/>
+        <property name="subjectPrefix" value="${tcga.dcc.subjectPrefix}"/>
+        <property name="javaMailSender" ref="mailSenderImpl"/>
+    </bean>
+
+    <bean id="mailErrorHelper" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelperImpl">
+        <property name="to" value="${tcga.dcc.error.to}"/>
+        <property name="subject" value="${tcga.dcc.error.subject}"/>
+        <property name="mailSender" ref="mailSender"/>
+    </bean>
+
+    <bean id="mailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${tcga.dcc.mailHost}"/>
+    </bean>
+
+    <bean id="bcrIDProcessor" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BCRIDProcessorImpl">
+        <property name="bcrIDQueries" ref="bcrIDQueries"/>
+        <property name="aliquotElementXPath" value="${tcga.dcc.bcr.aliquotElementXPath}"/>
+        <property name="patientElementUUIDXPath" value="${tcga.dcc.bcr.patientElementUUIDXPath}"/>
+        <property name="aliquotBarcodeElement" value="${tcga.dcc.bcr.aliquotBarcodeElementName}"/>
+        <property name="shipDayElement" value="${tcga.dcc.bcr.shipDayElementName}"/>
+        <property name="shipMonthElement" value="${tcga.dcc.bcr.shipMonthElementName}"/>
+        <property name="shipYearElement" value="${tcga.dcc.bcr.shipYearElementName}"/>
+        <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="aliquotUuidElement" value="${tcga.dcc.bcr.aliquotUuidElementName}"/>
+        <property name="shippedPortionElementXPath" value="${tcga.dcc.bcr.shipmentPortionPath}"/>
+        <property name="shippedPortionBarcodeElement"
+                  value="${tcga.dcc.bcr.shipmentPortionBcrAliquotBarcodeElementName}"/>
+        <property name="shippedPortionUuidElement" value="${tcga.dcc.bcr.bcrShipmentPortionUuidElementName}"/>
+        <property name="shippedPortionShipDayElement" value="${tcga.dcc.bcr.shipmentPortionShipDayElementName}"/>
+        <property name="shippedPortionShipMonthElement" value="${tcga.dcc.bcr.shipmentPortionShipMonthElementName}"/>
+        <property name="shippedPortionShipYearElement" value="${tcga.dcc.bcr.shipmentPortionShipYearElementName}"/>
+    </bean>
+
+    <bean id="shippedPortionIdProcessor"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ShippedPortionIdProcessorImpl">
+        <property name="shipmentPortionPath" value="${tcga.dcc.bcr.shipmentPortionPath}"/>
+    </bean>
+
+    <bean id="diseaseBcrIDProcessor" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BCRIDProcessorImpl">
+        <property name="bcrIDQueries" ref="diseaseBcrIDQueries"/>
+        <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="shippedPortionElementXPath" value="${tcga.dcc.bcr.shipmentPortionPath}"/>
+        <property name="shippedPortionBarcodeElement"
+                  value="${tcga.dcc.bcr.shipmentPortionBcrAliquotBarcodeElementName}"/>
+        <property name="shippedPortionUuidElement" value="${tcga.dcc.bcr.bcrShipmentPortionUuidElementName}"/>
+        <property name="shippedPortionShipDayElement" value="${tcga.dcc.bcr.shipmentPortionShipDayElementName}"/>
+        <property name="shippedPortionShipMonthElement" value="${tcga.dcc.bcr.shipmentPortionShipMonthElementName}"/>
+        <property name="shippedPortionShipYearElement" value="${tcga.dcc.bcr.shipmentPortionShipYearElementName}"/>
+    </bean>
+
+    <bean id="experimentDAO" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ExperimentDAOImpl">
+        <property name="commonArchiveQueries" ref="archiveQueries"/>
+        <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+        <property name="accessQueries" ref="accessQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+        <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+    </bean>
+
+    <bean id="bcrDataService" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRDataServiceImpl">
+        <property name="commonBcrIdProcessor" ref="bcrIDProcessor"/>
+        <property name="diseaseBcrIdProcessor" ref="diseaseBcrIDProcessor"/>
+        <property name="commonShippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+        <property name="diseaseShippedBiospecimenQueries" ref="diseaseShippedBiospecimenQueries"/>
+
+    </bean>
+
+    <bean id="vcfHeaderDefinitionQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VcfHeaderDefinitionQueriesJDBCImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger"/>
+
+    <import resource="services.xml"/>
+
+    <!-- quartz-related beans for queuing autoloader jobs -->
+    <bean name="loaderJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderJob"/>
+        <property name="group" value="loaderGroup"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="loaderRunner" value-ref="loaderRunner"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="loaderRunner" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderRunner"/>
+
+    <bean id="loaderTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="loaderJob"/>
+        <property name="group" value="loaderGroup"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="autoLoaderScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="autoLoaderScheduler"/>
+        <property name="autoStartup" value="true"/>
+        <property name="quartzProperties">
+            <props>
+                <!-- Hardcoded to run with 2 threads all the time -->
+                <prop key="org.quartz.threadPool.threadCount">${tcga.dcc.autoloader.threadCount}</prop>
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">AL_QUE_</prop>
+                <prop key="org.quartz.plugin.LoggingJobHistoryPlugin.class">
+                    gov.nih.nci.ncicb.tcga.dcc.common.util.LoggingJobHistoryPlugin
+                </prop>
+            </props>
+        </property>
+        <property name="dataSource" ref="quartzDataSource"/>
+    </bean>
+
+    <bean id="loaderEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.LoaderEnqueuer"
+          factory-method="getLoaderEnqueuer">
+        <property name="quartzScheduler" ref="autoLoaderScheduler"/>
+        <property name="loaderQueries" ref="loaderQueries"/>
+        <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+        <property name="commonArchiveQueries" ref="archiveQueries"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="mailTo" value="${tcga.dcc.failedmailto}"/>
+        <property name="uuidDAO" ref="uuidDAOImpl"/>
+        <property name="switchOnTime" value="${tcga.dcc.autoloader.switchOnTime}"/>
+        <property name="switchOffTime" value="${tcga.dcc.autoloader.switchOffTime}"/>
+    </bean>
+
+    <bean name="loader" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.Loader" scope="prototype">
+        <property name="loaderQueries" ref="loaderQueries"/>
+        <property name="commonArchiveQueries" ref="archiveQueries"/>
+        <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+        <property name="uuidDAO" ref="uuidDAOImpl"/>
+        <property name="mailSender" ref="mailSender"/>
+    </bean>
+    <!-- END quartz-related beans for queuing autoloader jobs -->
+
+    <bean id="oracleTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="level2DataQueriesImpl" class=" gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.Level2DataQueriesJDBCImpl">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="oracleTransactionManager"/>
+            </bean>
+        </property>
+
+    </bean>
+
+    <bean id="level2DataQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="level2DataQueriesImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <ehcache:annotation-driven cache-manager="cacheManager"/>
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:configLocation="classpath:ehcache-config.xml"/>
+
+    <bean id="beanCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+          p:cacheManager-ref="cacheManager" p:cacheName="uuidItemTypeCache"/>
+
+    <bean id="iOCConstraintValidatorFactory"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.bean.validation.IOCConstraintValidatorFactory"/>
+
+    <bean id="validator" factory-bean="iOCConstraintValidatorFactory" factory-method="getValidator"/>
+
+</beans>

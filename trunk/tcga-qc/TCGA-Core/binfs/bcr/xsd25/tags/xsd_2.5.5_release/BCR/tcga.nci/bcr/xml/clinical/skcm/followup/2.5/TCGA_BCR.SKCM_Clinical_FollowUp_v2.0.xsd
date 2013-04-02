@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio Developer Edition 8.1.2.2399 (http://www.liquid-technologies.com)-->
+<xs:schema elementFormDefault="qualified" version="2.5.5"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5" 
+	xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5" 
+	xmlns:admin="http://tcga.nci/bcr/xml/administration/2.5" 
+	xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.5"
+	xmlns:skcm_shared="http://tcga.nci/bcr/xml/clinical/skcm/shared/2.5" 
+	xmlns="http://tcga.nci/bcr/xml/clinical/skcm/followup/2.5/2.0" 
+	targetNamespace="http://tcga.nci/bcr/xml/clinical/skcm/followup/2.5/2.0" 
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" >
+	
+    <xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/administration/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/administration/2.5/TCGA_BCR.Administration.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/radiation/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/radiation/2.5/TCGA_BCR.Radiation.xsd" />
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/skcm/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/skcm/shared/2.5/TCGA_BCR.SKCM_Clinical_Shared_Datatypes.xsd" />
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true" />
+            <jaxb:schemaBindings>
+                <jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.skcm" />
+            </jaxb:schemaBindings>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation xml:lang="en">Schema to define the elements of the TCGA Clinical Data Follow-up Form within the SKCM study.</xs:documentation>
+    </xs:annotation>
+     <xs:element name="follow_up_v2.0">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:bcr_followup_barcode" />
+                <xs:element ref="shared:bcr_followup_uuid" />
+				
+				<xs:element ref="shared:followup_case_report_form_submission_reason" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="shared:lost_follow_up" />
+				<xs:element ref="shared:radiation_therapy" />
+				<xs:element ref="shared:postoperative_rx_tx" />
+				<xs:element ref="shared:person_neoplasm_cancer_status" />
+				<xs:element ref="shared:vital_status" />
+
+				<xs:choice>
+					<xs:annotation><xs:documentation>
+						Data for the DATE_of_last_followup elements are also asked on the 
+						TCGA Clinical Data Form during initial enrollment within the SKCM study. 
+					</xs:documentation></xs:annotation>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_last_followup" />
+						<xs:element ref="shared:month_of_last_followup" />
+						<xs:element ref="shared:year_of_last_followup" />
+					</xs:sequence>
+					<xs:element ref="shared:days_to_last_followup" />
+				</xs:choice>
+
+				<xs:choice>
+					<xs:annotation><xs:documentation>
+						Data for the DATE_of_death elements are also asked on the 
+						TCGA Clinical Data Form during initial enrollment within the SKCM study. 
+					</xs:documentation></xs:annotation>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_death" />
+						<xs:element ref="shared:month_of_death" />
+						<xs:element ref="shared:year_of_death" />
+					</xs:sequence>
+					<xs:element ref="shared:days_to_death" />
+				</xs:choice>
+				
+				<xs:element ref="skcm_shared:subsequent_primary_melanoma_during_followup" />
+				<xs:element ref="new_tumor_events" />
+				
+                <xs:choice>
+                    <xs:annotation>
+                        <xs:documentation>
+							Date the interviewer originally completed the corresponding TCGA Clinical Data Form. 
+							If modifications are made after the form is marked complete, this date should not change.
+						</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />
+                        <xs:element ref="shared:month_of_form_completion" />
+                        <xs:element ref="shared:year_of_form_completion" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_form_completion" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" default="2.0" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="new_tumor_events">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element ref="shared:new_tumor_event_after_initial_treatment" />
+			<xs:element ref="new_tumor_event" minOccurs="0" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="new_tumor_event">
+		<xs:annotation><xs:documentation>
+			All of these elements are answers to questions that are also asked  
+			on the TCGA Clinical Data Form during initial enrollment within the SKCM study. 
+		</xs:documentation></xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_new_tumor_event_after_initial_treatment" />
+						<xs:element ref="shared:month_of_new_tumor_event_after_initial_treatment" />
+						<xs:element ref="shared:year_of_new_tumor_event_after_initial_treatment" />
+					</xs:sequence>
+					<xs:element ref="shared:days_to_new_tumor_event_after_initial_treatment" />
+				</xs:choice>
+		
+				<xs:element ref="shared:new_tumor_event_additional_surgery_procedure" />
+		
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_new_tumor_event_additional_surgery_procedure" />
+						<xs:element ref="shared:month_of_new_tumor_event_additional_surgery_procedure" />
+						<xs:element ref="shared:year_of_new_tumor_event_additional_surgery_procedure" />
+					</xs:sequence>
+					<xs:element ref="shared:days_to_new_tumor_event_additional_surgery_procedure" />
+				</xs:choice>
+				
+				<xs:element ref="shared:new_tumor_additional_rad_tx" />
+				<xs:element ref="shared:new_tumor_additional_rx_tx" />
+				<xs:element ref="shared:new_neoplasm_event_type" />
+				<xs:element ref="skcm_shared:new_tumor_metastasis_anatomic_site" />
+				<xs:element ref="skcm_shared:new_tumor_metastasis_anatomic_site_other_text" />
+				<xs:element ref="skcm_shared:new_primary_melanoma_anatomic_site" />
+				<xs:element ref="skcm_shared:primary_anatomic_site_count" />
+				<xs:element ref="skcm_shared:new_primary_melanoma_anatomic_site_other_text" />
+				<xs:element ref="skcm_shared:new_non_melanoma_event_histologic_type_text" />
+				<xs:element ref="skcm_shared:new_neoplasm_event_occurrence_anatomic_site" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

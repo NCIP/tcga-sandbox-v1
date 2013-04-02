@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="clinicalattr">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="cde" type="xs:string" use="required" />
+        <xs:attribute name="procurement_status" type="xs:string" use="required" />
+          <xs:attribute name="owner" type="xs:string" use="required" />
+        <xs:attribute name="xsd_ver" type="xs:string" use="required" />
+        <xs:attribute name="tier" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+    <xs:element name="PATIENT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="BARCODE" />
+                <xs:element ref="DAYOFBIRTH" />
+                <xs:element ref="MONTHOFBIRTH" />
+                <xs:element ref="YEAROFBIRTH" />
+                <xs:element ref="DAYOFINITIALDIAGNOSIS" />
+                <xs:element ref="MONTHOFINITIALDIAGNOSIS" />
+                <xs:element ref="YEAROFINITIALDIAGNOSIS" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYOFBIRTH">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MONTHOFBIRTH">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="YEAROFBIRTH">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BARCODE">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYOFINITIALDIAGNOSIS">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MONTHOFINITIALDIAGNOSIS">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="YEAROFINITIALDIAGNOSIS">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

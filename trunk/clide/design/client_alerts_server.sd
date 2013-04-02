@@ -1,0 +1,31 @@
+#![<Client alerts the server of new files>]
+client:HttpClient[p]
+server:HttpServer
+scheduler:UploadScheduler
+
+client:server.Hello.  You there?
+server:server.Check list of blocked IPs
+[c:alt IP is blocked]
+    server:client.IP Blocked.  Contact DCC representative.
+    server:client.COMMUNICATION TERMINATED
+    --[else]
+    server:client.Who is this? [optional TCGA news message]
+[/c]
+client:server.Here is my private key
+[c:alt Private Key is bad]
+    server:client.Authentication failed.  Goodbye.
+    server:client.COMMUNICATION TERMINATED
+    --[else]
+    server:client.Here is my private key
+  [/c]
+client:server.I recognize your private key
+server:client.I recognize you Center X
+client:server.I have files for you [file metadata]
+server:scheduleResult=scheduler.attemptToSchedule(file metadata)
+[c:alt Scheduling is successful]
+    server:client.OK you are scheduled for Timestamp
+    --[else]
+    server:client.Scheduling issue, try again later
+[/c]
+
+

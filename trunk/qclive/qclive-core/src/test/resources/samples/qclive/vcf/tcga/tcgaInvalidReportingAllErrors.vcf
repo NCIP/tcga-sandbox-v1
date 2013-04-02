@@ -1,0 +1,50 @@
+##fileformat=VCFv4.0
+##tcgaversion=1.1
+##fileDate=20110610
+##reference=<ID=hg18,source=.>
+##phasing=none
+##INDIVIDUAL=TCGA-AG-A00C
+##SAMPLE=<ID=NORMAL,SampleName=70f8b600-310f-48ad-a296-656819936be8,Individual="TCGA-AG-A00C",SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Normal",File="TCGA-AG-A00C-10A-01W-A005-10.bam",Platform="SOLID",Source="dbGAP",Accession="dbGaP">
+##SAMPLE=<ID=PRIMARY,SampleName=70f8b600-310f-48ad-a296-656819936be8,Individual="TCGA-AG-A00C",SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Primary tumor",File="TCGA-AG-A00C-01A-01W-A005-10.bam",Platform="SOLID",Source="dbGAP",Accession="dbGaP">
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant type">
+##INFO=<ID=SS,Number=1,Type=String,Description="Somatic status of sample">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="SNP quality from Pileup">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allele depth corresponding to alleles 0/1/2/3">
+##FORMAT=<ID=FA,Number=.,Type=Float,Description="Fractions of reads supporting alternate allele 1, per sample">
+##FORMAT=<ID=MQ,Number=1,Type=Integer,Description="RMS mapping quality from Pileup">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+##FORMAT=<ID=BQ,Number=.,Type=Integer,Description="Average base quality for reads supporting alleles">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFOO	FORMAT	NORMAL	PRIMARY
+1	878522	.	T	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:0:.,0:0.000:.:0:7	1/1:42:5:0,5:1.000:53:0:7
+1	1105465	.	G	A	.	PASS	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:2:0:.,0:0.000:.:0:7	1/1:30:2:1,1:0.500:60:0:7
+1	1452942	.	A	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:5:.,1:0.200:.:0:7	0/1:40:7:4,3:0.429:60:0:7
+1	6616701	.	C	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:10:.,1:0.100:.:0:7	0/1:40:15:10,5:0.333:60:0:7
+1	7646174	.	A	G	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:7:.,0:0.000:.:0:7	0/1:41:8:6,2:0.250:60:0:7
+1	9723758	.	C	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:45:.,2:0.044:.:0:7	0/1:104:31:22,9:0.290:60:0:7
+1	9854700	.	C	G	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:33:.,4:0.121:.:0:7	0/1:71:23:17,5:0.217:60:0:7
+1	9990854	.	A	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:49:.,2:0.041:.:0:7	0/1:46:50:45,5:0.100:60:0:7
+1	11025636	.	A	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:13:.,2:0.154:.:0:7	0/1:52:9:6,2:0.222:60:0:7
+1	11256300	.	G	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:7:.,0:0.000:.:0:7	0/1:59:11:7,4:0.364:60:0:7
+1	12648931	.	C	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:19:.,1:0.053:.:0:7	0/1:56:19:15,4:0.211:60:0:7
+1	12841478	.	A	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:22:.,3:0.136:.:0:7	0/1:44:38:28,9:0.237:33:0:7
+1	12841675	.	T	G	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:36:.,2:0.056:.:0:7	0/1:49:36:28,8:0.222:54:0:7
+1	17174366	.	C	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:29:.,2:0.069:.:0:7	0/1:60:35:27,7:0.200:60:0:7
+1	17189211	.	T	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:21:.,3:0.143:.:0:7	0/1:66:17:12,4:0.235:60:0:7
+1	17270565	.	C	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:60:.,9:0.150:.:0:7	0/1:46:52:41,11:0.212:60:0:7
+1	18427038	.	T	G	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:60:.,6:0.100:.:0:7	0/1:74:58:48,10:0.172:60:0:7
+1	18899826	.	A	G	.	PASS	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:11:.,1:0.091:.:0:7	0/1:221:13:7,6:0.462:60:0:7
+1	19397712	.	T	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:34:.,1:0.029:.:0:7	0/1:106:46:36,10:0.217:60:0:7
+1	19525459	.	G	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:1:.,0:0.000:.:0:7	0/1:59:5:1,4:0.800:60:0:7
+1	19944627	.	C	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:31:.,0:0.000:.:0:7	0/1:51:15:13,2:0.133:60:0:7
+1	20119484	.	C	G	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:17:.,3:0.176:.:0:7	0/1:80:18:12,5:0.278:60:0:7
+1	21682437	.	T	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:1:.,0:0.000:.:0:7	0/1:46:3:1,2:0.667:60:0:7
+1	22689223	.	G	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:42:.,3:0.071:.:0:7	0/1:51:42:33,9:0.214:60:0:7
+1	22723477	.	A	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:27:.,2:0.074:.:0:7	0/1:46:20:17,3:0.150:60:0:7
+1	22843229	.	C	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:12:.,1:0.083:.:0:7	0/1:84:5:3,2:0.400:60:0:7
+1	22983977	.	T	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:5:.,0:0.000:.:0:7	0/1:42:5:3,2:0.400:60:0:7
+1	23632545	.	G	T	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:32:.,1:0.031:.:0:7	0/1:76:25:18,7:0.280:60:0:7
+1	23953504	.	T	A	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:60:.,8:0.133:.:0:7	0/1:63:43:32,11:0.256:60:0:7
+1	23995657	.	T	C	.	CA	VT=SNP;SS=Somatic	GT:GQ:DP:AD:FA:MQ:SS:BQ	0/0:1:27:.,3:0.111:.:0:7	0/1:87:21:16,5:0.238:60:0:7

@@ -1,0 +1,26 @@
+Wed Jul 13 10:44:27 EDT 2011
+
+as root:		mkdir /var/svn/eesPerl/perl
+				chmodi -r 777 /var/svn/
+
+as eesnyder:	cd ~/src/
+				mkdir safekeeping
+				mv Perl Perl.svn/ svn/ perl/ safekeeping/
+				mkdir perl
+				cd safekeeping/perl/
+				cp -r modules/ ../../perl/
+				cp dbGaPvalidator.pl ../../perl/
+				cp headings2json.pl ../../perl/
+				cp dbGaP_archive_cleaner.pl ../../perl/
+				cp template.pl ../../perl/
+				svn import perl file:///var/svn/eesPerl/perl -m "Initial import"
+				svn checkout file:///var/svn/eesPerl/perl
+				svn update perl
+
+----------------------------------------------------------------------------------------------------
+Thu Jul 14 12:22:01 EDT 2011
+see: https://wiki.nci.nih.gov/display/TCGAproject/Binf+Subversion+repository+info
+
+svn import https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/dbGaPvalidator dbGaPvalidator -m "DCCT-673 - Create new respository for dbGaPvalidator and related programs"
+
+

@@ -1,0 +1,1581 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- this advises any method call by any proxied class -->
+    <bean id="processorAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="processorAdvice"/>
+        <property name="patterns">
+            <list>
+                <value>.*</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- archive logger logs major validation/processing info to db  -->
+    <bean id="archiveLogger" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.ArchiveLoggerImpl">
+        <property name="local" value="${tcga.dcc.archiveLoggerLocal}"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="logQueries" ref="logQueries"/>
+    </bean>
+
+    <bean id="qcStatsLogger" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.QcStatsLoggerImpl">
+        <property name="archiveQueries" ref="archiveQueries"/>
+    </bean>
+
+    <bean id="processorAdvice" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.ProcessorAdvice" scope="singleton">
+        <property name="logger" ref="logger"/>
+        <property name="archiveLogger" ref="archiveLogger"/>
+        <property name="statsLogger" ref="qcStatsLogger"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="subjectPrefix" value="${tcga.dcc.subjectPrefix}"/>
+        <property name="archiveLoggingProcessorNames">
+            <list>
+                <value>gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.UploadChecker</value>
+                <value>gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveSaver</value>
+                <value>gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveDeployer</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="liveScheduler" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.LiveScheduler" scope="singleton">
+        <property name="scheduler" ref="schedulerFactoryBean"/>
+        <property name="uploadScheduler" ref="uploadSchedulerFactoryBean"/>
+        <property name="loaderScheduler" ref="loaderScheduler"/>
+        <property name="cleanupArchiveJobDetail" ref="archiveCleanupJob"/>
+        <property name="cleanupArchiveTrigger" ref="archiveCleanupTrigger"/>
+        <lookup-method name="getExperimentJobDetail" bean="experimentCheckerJob"/>
+        <lookup-method name="getExperimentTrigger" bean="experimentCheckerTrigger"/>
+        <lookup-method name="getUploadTrigger" bean="uploadCheckerTrigger"/>
+        <lookup-method name="getClinicalLoaderTrigger" bean="clinicalLoaderTrigger"/>
+        <lookup-method name="getUploadJobDetail" bean="uploadCheckerJob"/>
+        <lookup-method name="getClinicalLoadJobDetail" bean="clinicalLoaderJob"/>
+    </bean>
+
+    <bean id="qcLive" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.Live" scope="singleton"
+          factory-method="getInstance">
+        <property name="logger" ref="logger"/>
+        <property name="archiveLogger" ref="archiveLogger"/>
+        <property name="emailBcc" value="${tcga.dcc.emailBCC}"/>
+        <property name="errorMailSender" ref="mailErrorHelper"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="commonArchiveQueries" ref="archiveQueries"/>
+        <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+        <property name="experimentDAO" ref="experimentDAO"/>
+        <property name="jobScheduler" ref="liveScheduler"/>
+        <property name="waitHours" value="${tcga.dcc.qcLiveWaitHours}"/>
+        <property name="uploadChecker" ref="uploadChecker"/>
+        <property name="experimentCheckers">
+            <map>
+                <entry key="CGCC" value-ref="experimentCheckerForMageTab"/>
+                <entry key="GSC" value-ref="experimentCheckerForMageTab"/>
+                <entry key="BCR" value-ref="experimentCheckerForNonMageTab"/>
+                <entry key="GDAC" value-ref="experimentCheckerForNonMageTab"/>
+            </map>
+        </property>
+        <property name="experimentValidators">
+            <map>
+                <entry key="CGCC" value-ref="experimentValidatorCgcc"/>
+                <entry key="GSC" value-ref="experimentValidatorGsc"/>
+                <entry key="BCR" value-ref="experimentValidatorBcr"/>
+                <entry key="GDAC" value-ref="experimentValidatorGdac"/>
+            </map>
+        </property>
+        <property name="experimentDeployers">
+            <map>
+                <entry key="CGCC" value-ref="experimentDeployerCgcc"/>
+                <entry key="BCR" value-ref="experimentDeployerBcr"/>
+                <entry key="GSC" value-ref="experimentDeployerGsc"/>
+                <entry key="GDAC" value-ref="experimentDeployerGdac"/>
+            </map>
+        </property>
+        <property name="autoloaderCaller" ref="autoloaderCaller"/>
+        <property name="autoloaderEnabled" value="${tcga.dcc.autoloader.enabled}"/>
+        <property name="clinicalLoaderCaller" ref="clinicalLoaderCaller"/>
+        <property name="initialWaitMinutes" value="${tcga.dcc.qcLiveInitialWaitMinutes}"/>
+        <property name="clinicalLoaderWaitMinutes" value="${tcga.dcc.qcLiveClinicalLoaderWaitMinutes}"/>
+        <property name="archiveOfflineRootPath" value="${tcga.dcc.archiveOfflineRoot}"/>
+        <property name="failedArchiveRootPath" value="${tcga.dcc.failedArchiveRoot}"/>
+        <property name="md5ValidationRetryPeriod" value="${tcga.dcc.md5ValidationRetryPeriod}"/>
+        <property name="md5RetryAttempts" value="${tcga.dcc.md5ValidationRetryAttempts}"/>
+        <property name="serverUrl" value="${tcga.dcc.serverUrl}"/>
+        <property name="validClinicalPlatforms" value="${tcga.dcc.validClinicalPlatforms}"/>
+    </bean>
+
+    <bean id="logger" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.LoggerImpl">
+        <property name="destinations">
+            <list>
+                <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.Log4JLoggerDestination">
+                    <constructor-arg value="TCGALogger"/>
+                    <property name="minLevel">
+                        <util:constant static-field="org.apache.log4j.Level.INFO"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- parent for all proxies -->
+    <bean id="qcProxyParent" abstract="true" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <list>
+                <value>gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.Processor</value>
+            </list>
+        </property>
+        <property name="interceptorNames" value="processorAdvisor"/>
+    </bean>
+
+
+    <!-- parent for all actions/validators -->
+    <bean id="qcLiveActionParent" abstract="true"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.AbstractProcessor">
+        <property name="mailSender" ref="mailSender"/>
+    </bean>
+
+    <!-- BEGIN ACTIONS -->
+    <bean id="experimentSaver" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentArchiveProcessor"
+                  parent="qcLiveActionParent" scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="archiveSaver"/>
+                    </list>
+                </property>
+                <property name="name" value="experiment saver"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveSaver" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveSaver"
+                  parent="qcLiveActionParent" scope="singleton">
+                <property name="commonArchiveQueries" ref="archiveQueries"/>
+                <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+                <property name="centerQueries" ref="centerQueries"/>
+                <property name="dataTypeQueries" ref="dataTypeQueries"/>
+                <property name="platformQueries" ref="platformQueries"/>
+                <property name="tumorQueries" ref="tumorQueries"/>
+                <property name="archiveTypeQueries" ref="archiveTypeQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="droppedBarcodeFinder" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.DroppedBarcodeFinder"
+                  parent="qcLiveActionParent" scope="singleton">
+                <property name="bcrIdQueries" ref="bcrIDQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="uploadChecker" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.UploadChecker" scope="singleton">
+                <property name="doEmail" value="true"/>
+                <property name="inputValidators">
+                    <list>
+                        <ref bean="md5Validator"/>
+                    </list>
+                </property>
+                <property name="outputValidators">
+                    <list>
+                        <ref bean="archiveNameValidator"/>
+                        <ref bean="archiveTypeValidator"/>
+                        <ref bean="diseaseTypeValidator"/>
+                        <ref bean="batchNumberValidator"/>
+                        <ref bean="domainNameValidator"/>
+                        <ref bean="platformValidator"/>
+                        <ref bean="archiveExistenceValidator"/>
+                        <ref bean="archiveRevisionValidator"/>
+                    </list>
+                </property>
+                <property name="postProcessors">
+                    <list>
+                        <ref bean="archiveExpander"/>
+                        <ref bean="archiveSaver"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentCheckerForMageTab" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentChecker" scope="singleton">
+                <property name="experimentQueries" ref="experimentQueries"/>
+                <property name="firstGenSequencingPlatform" value="ABI"/>
+                <!-- hours to wait for complete submission -->
+                <property name="timeLimitInHours" value="${tcga.dcc.qcLiveSubmissionWindowHours}"/>
+                <property name="outputValidators">
+                    <list>
+                        <ref bean="mageTabExperimentChecker"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentCheckerForNonMageTab" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentChecker" scope="singleton">
+                <property name="experimentQueries" ref="experimentQueries"/>
+                <property name="firstGenSequencingPlatform" value="ABI"/>
+                <!-- hours to wait for complete submission -->
+                <property name="timeLimitInHours" value="${tcga.dcc.qcLiveSubmissionWindowHours}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentValidatorBcr" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ExperimentValidator"
+                  scope="singleton">
+                <property name="inputValidators">
+                    <list>
+                        <ref bean="bcrExperimentValidator"/>
+                    </list>
+                </property>
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="manifestValidator"/>
+                        <ref bean="controlArchiveValidator"/>
+                        <!-- copy files from previous after manifest validated -->
+                        <ref bean="previousArchiveFileCopier"/>
+                        <ref bean="clinicalXmlValidator"/>
+                        <ref bean="biospecimenXmlValidator"/>
+                        <ref bean="auxiliaryXmlValidator"/>
+                    </list>
+                </property>
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentValidatorGsc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ExperimentValidator"
+                  scope="singleton">
+                <property name="inputValidators">
+                    <list>
+                        <ref bean="mageTabExperimentValidator"/>
+                        <ref bean="gscExperimentValidator"/>
+                    </list>
+                </property>
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="manifestValidator"/>
+                        <ref bean="mafFileValidatorDispatcher"/>
+                        <ref bean="traceFileValidator"/>
+                        <ref bean="vcfFileValidator"/>
+                        <ref bean="dnaSeqSdrfValidator"/>
+                        <ref bean="gscIdfValidator"/>
+                    </list>
+                </property>
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentValidatorGdac" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ExperimentValidator"
+                  scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="manifestValidator"/>
+                    </list>
+                </property>
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentValidatorCgcc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ExperimentValidator"
+                  scope="singleton">
+                <property name="inputValidators">
+                    <list>
+                        <ref bean="mageTabExperimentValidator"/>
+                    </list>
+                </property>
+                <property name="listProcessors">
+                    <!-- these will be called once for each archive in the experiment -->
+                    <list>
+                        <ref bean="manifestValidator"/>
+                        <ref bean="gccIdfValidator"/>
+                        <ref bean="mafFileValidatorDispatcher"/>
+                        <ref bean="sdrfValidatorDispatcher"/>
+                        <ref bean="rnaSeqGeneFileValidator"/>
+                        <ref bean="rnaSeqExonFileValidator"/>
+                        <ref bean="rnaSeqJunctionFileValidator"/>
+                        <ref bean="rnaSeqRSEMGeneNormalizedFileValidator"/>
+                        <ref bean="rnaSeqRSEMGeneResultsFileValidator"/>
+                        <ref bean="rnaSeqRSEMIsoformNormalizedFileValidator"/>
+                        <ref bean="rnaSeqRSEMIsoformFileValidator"/>
+                        <ref bean="miRNASeqFileValidator"/>
+                        <ref bean="miRNASeqIsoformFileValidator"/>
+                        <ref bean="ProteinArrayLevelThreeDataFileValidator"/>
+                        <ref bean="proteinArrayLevelTwoDataFileValidator"/>
+                        <ref bean="vcfFileValidator"/>
+                    </list>
+                </property>
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- don't proxy these -->
+    <bean id="qcLiveBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.QcLiveBarcodeAndUUIDValidatorImpl">
+        <property name="bcrIdQueries" ref="bcrIDQueries"/>
+        <property name="codeTableQueries" ref="codeTableQueries"/>
+        <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+    </bean>
+
+    <bean id="barcodeTumorValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BarcodeTumorValidatorImpl">
+        <property name="bcrIdProcessor" ref="bcrIDProcessor"/>
+        <property name="tissueSourceSiteQueries" ref="tissueSourceSiteQueries"/>
+    </bean>
+
+    <bean id="experimentDeployerBcr" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentDeployer" scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="archiveDeployerBcr"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentDeployerGsc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentDeployer" scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="archiveDeployerGsc"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentDeployerGdac" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentDeployer" scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="archiveDeployerGdac"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="experimentDeployerCgcc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ExperimentDeployer" scope="singleton">
+                <property name="listProcessors">
+                    <list>
+                        <ref bean="archiveDeployerCgcc"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="changeLogCreator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ChangeLogCreator">
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="alteredFileListCreator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.AlteredFileListCreator">
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveDeployerBcr" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveDeployer">
+                <property name="visibilityQueries" ref="accessQueries"/>
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="dataTypeQueries" ref="dataTypeQueries"/>
+                <property name="experimentDAO" ref="experimentDAO"/>
+                <property name="inputValidationDoEmail" value="false"/>
+                <property name="fileCompressor">
+                    <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveCompressorTarGzImpl"/>
+                </property>
+                <property name="manifestParser" ref="manifestParser"/>
+                <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+                <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+                <property name="preProcessors">
+                    <list>
+                        <ref bean="clinicalDateObscurer"/>
+                        <ref bean="archiveReadmeCreator"/>
+                        <ref bean="changeLogCreator"/>
+                        <ref bean="alteredFileListCreator"/>
+                    </list>
+                </property>
+                <property name="inputValidators">
+                    <list>
+                        <ref bean="xsdSchemaValidator"/>
+                        <ref bean="biospecimenXmlValidator"/>
+                        <ref bean="auxiliaryXmlValidator"/>
+                    </list>
+                </property>
+                <property name="postProcessors">
+                    <list>
+                        <ref bean="archiveFileSaver"/>
+                        <ref bean="clinicalXmlProcessor"/>
+                        <ref bean="biospecimenMetaDataProcessor"/>
+                        <ref bean="archiveSaver"/>
+                        <ref bean="droppedBarcodeFinder"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveDeployerGdac" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveDeployer">
+                <property name="visibilityQueries" ref="accessQueries"/>
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="dataTypeQueries" ref="dataTypeQueries"/>
+                <property name="experimentDAO" ref="experimentDAO"/>
+                <property name="fileCompressor">
+                    <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveCompressorTarGzImpl"/>
+                </property>
+                <property name="manifestParser" ref="manifestParser"/>
+                <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+                <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+                <property name="preProcessors">
+                    <list>
+                        <ref bean="archiveReadmeCreator"/>
+                        <ref bean="changeLogCreator"/>
+                    </list>
+                </property>
+                <property name="postProcessors">
+                    <list>
+                        <ref bean="archiveFileSaver"/>
+                        <ref bean="archiveSaver"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveDeployerGsc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveDeployer">
+                <property name="visibilityQueries" ref="accessQueries"/>
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="dataTypeQueries" ref="dataTypeQueries"/>
+                <property name="experimentDAO" ref="experimentDAO"/>
+                <property name="fileCompressor">
+                    <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveCompressorTarGzImpl"/>
+                </property>
+                <property name="manifestParser" ref="manifestParser"/>
+                <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+                <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+                <property name="preProcessors">
+                    <list>
+                        <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveFileAdder">
+                            <constructor-arg index="0" value="GSC"/>
+                            <constructor-arg index="1" value="Level_2"/>
+                            <constructor-arg index="2" value="${tcga.dcc.dataUseDisclaimerLocation}"/>
+                            <property name="manifestParser" ref="manifestParser"/>
+                        </bean>
+                        <ref bean="sdrfRewriter"/>
+                        <ref bean="archiveReadmeCreator"/>
+                        <ref bean="changeLogCreator"/>
+                        <ref bean="alteredFileListCreator"/>
+                    </list>
+                </property>
+                <property name="postProcessors">
+                    <list>
+                        <ref bean="archiveFileSaver"/>
+                        <ref bean="mafFileProcessorDispatcher"/>
+                        <ref bean="traceFileProcessor"/>
+                        <ref bean="sdrfProcessor"/>
+                        <ref bean="vcfProcessor"/>
+                        <ref bean="archiveSaver"/>
+                        <ref bean="droppedBarcodeFinder"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveDeployerCgcc" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveDeployer">
+                <property name="visibilityQueries" ref="accessQueries"/>
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="dataTypeQueries" ref="dataTypeQueries"/>
+                <property name="experimentDAO" ref="experimentDAO"/>
+                <property name="fileCompressor">
+                    <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveCompressorTarGzImpl"/>
+                </property>
+                <property name="manifestParser" ref="manifestParser"/>
+                <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+                <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+                <property name="preProcessors">
+                    <list>
+                        <ref bean="dataMatrixSplitter"/>
+                        <ref bean="sdrfRewriter"/>
+                        <ref bean="archiveReadmeCreator"/>
+                        <ref bean="changeLogCreator"/>
+                        <ref bean="alteredFileListCreator"/>
+                    </list>
+                </property>
+                <property name="postProcessors">
+                    <list>
+                        <ref bean="archiveFileSaver"/>
+                        <ref bean="mafFileProcessorDispatcher"/>
+                        <ref bean="sdrfProcessor"/>
+                        <ref bean="vcfProcessor"/>
+                        <ref bean="archiveSaver"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="clinicalLoaderCaller" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ClinicalLoaderCaller">
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="clinicalLoaderQueries" ref="clinicalLoaderQueries"/>
+        <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+        <property name="logger" ref="logger"/>
+        <property name="archiveLogger" ref="archiveLogger"/>
+        <property name="validClinicalPlatforms" value="${tcga.dcc.validClinicalPlatforms}"/>
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="mailTo" value="${tcga.dcc.failedmailto}"/>
+        <property name="bcrUtils" ref="bcrUtils"/>
+    </bean>
+
+    <bean id="autoloaderCaller" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.AutoloaderCaller"
+                  parent="qcLiveActionParent"/>
+        </property>
+    </bean>
+
+    <bean id="bcrFilesExistenceValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.BcrFilesExistenceValidator">
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="manifestParser" ref="manifestParser"/>
+        <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+    </bean>
+
+    <bean id="archiveExpander" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveExpander"
+                  parent="qcLiveActionParent">
+                <property name="outputValidators">
+                    <list>
+                        <ref bean="bcrFilesExistenceValidator"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="mageTabExperimentChecker" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MageTabExperimentChecker">
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="centerQueries" ref="centerQueries"/>
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveFileSaver" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveFileSaver">
+                <property name="commonFileInfoQueries" ref="fileQueries"/>
+                <property name="diseaseFileInfoQueries" ref="diseaseFileQueries"/>
+                <property name="fileArchiveQueries" ref="fileArchiveQueries"/>
+                <property name="diseaseFileArchiveQueries" ref="diseaseFileArchiveQueries"/>
+                <property name="additionalFiles" value="${tcga.dcc.archive.additionalFiles}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="mafFileProcessorDispatcher" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MafFileProcessorDispatcher">
+                <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
+                <property name="mafHandlers">
+                    <map>
+                        <entry key="${tcga.dcc.mafVersion.FirstGen}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MafFileProcessor">
+                                <property name="fileInfoQueries" ref="fileQueries"/>
+                                <property name="mafInfoQueries" ref="mafinfoQueries"/>
+                                <property name="bcrDataService" ref="bcrDataService"/>
+
+                            </bean>
+                        </entry>
+                        <entry key="${tcga.dcc.mafVersion.NextGen}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.Maf2FileProcessor">
+                                <property name="fileInfoQueries" ref="fileQueries"/>
+                                <property name="mafInfoQueries" ref="mafinfoQueries"/>
+                                <property name="bcrDataService" ref="bcrDataService"/>
+                            </bean>
+                        </entry>
+                        <entry key="${tcga.dcc.mafVersion.RNASeq}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.RNASeqMafProcessor"/>
+                        </entry>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="traceFileProcessor" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.TraceFileProcessor">
+                <property name="bcrIdQueries" ref="bcrIDQueries"/>
+                <property name="fileInfoQueries" ref="fileQueries"/>
+                <property name="commonTraceRelationshipQueries" ref="traceRelationshipQueries"/>
+                <property name="bcrDataService" ref="bcrDataService"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="vcfProcessor" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.VcfProcessor">
+                <property name="barcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+                <property name="bcrDataService" ref="bcrDataService"/>
+                <property name="fileInfoQueries" ref="fileQueries"/>
+                <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="sdrfProcessor" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.SdrfProcessor">
+                <property name="archiveQueries" ref="archiveQueries"/>
+                <property name="bcrIdProcessor" ref="bcrIDProcessor"/>
+                <property name="diseaseBcrIdProcessor" ref="diseaseBcrIDProcessor"/>
+                <property name="fileInfoQueries" ref="fileQueries"/>
+                <property name="droppedBarcodeFinder" ref="droppedBarcodeFinder"/>
+                <property name="annotationService" ref="annotationService"/>
+                <property name="barcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="commonShippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+                <property name="diseaseShippedBiospecimenQueries" ref="diseaseShippedBiospecimenQueries"/>
+                <property name="uuidService" ref="uuidService"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="clinicalXmlProcessor" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ClinicalXmlProcessor">
+                <property name="bcrDataService" ref="bcrDataService"/>
+                <property name="bcrProcessor" ref="bcrIDProcessor"/>
+                <property name="uuidDAOService" ref="uuidDAOImpl"/>  
+                <property name="diseaseUuidDAOService" ref="diseaseUUIDDAO"/>                                                   
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="biospecimenMetaDataProcessor" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.BiospecimenMetaDataProcessor">
+                <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+                <property name="uuidHierarchyQueries" ref="uuidHierarchyQueriesImpl"/>
+                <property name="controlQueries" ref="controlQueries"/>
+                <property name="diseaseControlQueries" ref="diseaseControlQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="clinicalDateObscurer" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ClinicalDateObscurer">
+                <!-- the date to use as the basis for elapsed time calculations for clinical files -->
+                <property name="basisDateNameForClinical" value="${tcga.dcc.bcr.basisDateNameForClinical}"/>
+                <!-- the date to use as the basis for elapsed time calculations for biospecimen files -->
+                <property name="basisDateNameForBiospecimen" value="${tcga.dcc.bcr.basisDateNameForBiospecimen}"/>
+                <!-- the CDE for age at diagnosis element -->
+                <property name="ageAtBasisDateCDE" value="${tcga.dcc.bcr.ageAtBasisDateCDE}"/>
+                <!-- the base name of the elapsed time element.  will get date element type appended -->
+                <property name="elapsedElementBase" value="${tcga.dcc.bcr.elapsedElementPrefix}"/>
+                <!-- name of date representing birth -->
+                <property name="birthDateName" value="${tcga.dcc.bcr.birthDateElementName}"/>
+                <property name="datesNotToObscureString" value="${tcga.dcc.bcr.datesNotToObscure}"/>
+                <property name="cdeForDatesToObscureString" value="${tcga.dcc.bcr.cdeForDatesToObscure}"/>
+                <property name="ageAtPrefix" value="${tcga.dcc.bcr.ageAtPrefix}"/>
+                <property name="dayOfPrefix" value="${tcga.dcc.bcr.dayOfPrefix}"/>
+                <property name="monthOfPrefix" value="${tcga.dcc.bcr.monthOfPrefix}"/>
+                <property name="yearOfPrefix" value="${tcga.dcc.bcr.yearOfPrefix}"/>
+                <property name="cutoffAgeAtInitialDiagnosis" value="${tcga.dcc.bcr.cutoffAgeAtInitialDiagnosis}"/>
+                <property name="daysToBirthLowerBound" value="${tcga.dcc.bcr.daysToBirthLowerBound}"/>
+                <property name="bcrPatientBarcodeElementName" value="${tcga.dcc.bcr.bcrPatientBarcodeElementName}"/>
+                <property name="archiveUtilImpl" ref="archiveUtilImpl"/>
+                <property name="bcrUtils" ref="bcrUtils"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dataMatrixSplitter" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.DataMatrixSplitter">
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="sdrfRewriter" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.SdrfRewriter"/>
+        </property>
+    </bean>
+
+    <!-- VALIDATORS -->
+    <bean id="md5Validator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MD5Validator"
+                  parent="qcLiveActionParent"/>
+        </property>
+    </bean>
+
+    <bean id="archiveNameValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ArchiveNameValidator"
+                  parent="qcLiveActionParent">
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="diseaseTypeValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.DiseaseTypeValidator"
+                  parent="qcLiveActionParent">
+                <property name="diseaseQueries" ref="tumorQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="batchNumberValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.BCRBatchNumberValidator"
+                  parent="qcLiveActionParent">
+                <property name="batchNumberQueries" ref="batchNumberAssignmentQueries"/>
+                <property name="platformQueries" ref="platformQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveTypeValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ArchiveTypeValidator"
+                  parent="qcLiveActionParent">
+                <property name="archiveTypeQueries" ref="archiveTypeQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="domainNameValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.DomainNameValidator"
+                  parent="qcLiveActionParent">
+                <property name="centerQueries" ref="centerQueries"/>
+                <property name="platformQueries" ref="platformQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="platformValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.PlatformValidator"
+                  parent="qcLiveActionParent">
+                <property name="platformQueries" ref="platformQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveExistenceValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ArchiveExistenceValidator"
+                  parent="qcLiveActionParent">
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveRevisionValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ArchiveRevisionValidator"
+                  parent="qcLiveActionParent">
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="manifestValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ManifestValidator">
+                <constructor-arg index="0" ref="manifestParser"/>
+                <property name="archiveQueries" ref="archiveQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="controlArchiveValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ControlArchiveValidator">
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dataMatrixValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.DataMatrixValidator"
+                  parent="qcLiveActionParent"/>
+        </property>
+    </bean>
+
+    <bean id="gccIdfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.GccIdfValidator"/>
+        </property>
+    </bean>
+
+    <bean id="gscIdfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.GscIdfValidator"/>
+        </property>
+    </bean>
+
+    <bean id="sdrfValidatorDispatcher" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.SdrfValidatorDispatcher">
+                <property name="arraySdrfValidator" ref="arraySdrfValidator"/>
+                <property name="rnaSeqSdrfValidator" ref="rnaSeqSdrfValidator"/>
+                <property name="miRnaSeqSdrfValidator" ref="miRrnaSeqSdrfValidator"/>
+                <property name="proteinArraySdrfValidator" ref="proteinArraySdrfValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="proteinArraySdrfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ProteinArraySdrfValidator">
+                <property name="shippedBioQueries" ref="commonShippedBiospecimenQueries"/>
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="arraySdrfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ArraySdrfValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="rnaSeqSdrfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RnaSeqSdrfValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="miRrnaSeqSdrfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MiRnaSeqSdrfValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dnaSeqSdrfValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.DNASeqSdrfValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="mafFileValidatorDispatcher" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorDispatcher">
+                <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
+                <property name="mafHandlers">
+                    <map>
+                        <entry key="${tcga.dcc.mafVersion.FirstGen}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidator">
+                                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                                <property name="barcodeValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                                <property name="chromInfoUtils" ref="chromInfoUtils"/>
+                                <property name="sampleTypeQueries" ref="sampleTypeQueries"/>
+                                <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+                            </bean>
+                        </entry>
+                        <entry key="${tcga.dcc.mafVersion.NextGen}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.Maf2FileValidator">
+                                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                                <property name="barcodeValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                                <property name="chromInfoUtils" ref="chromInfoUtils"/>
+                                <property name="sampleTypeQueries" ref="sampleTypeQueries"/>
+                                <property name="centerQueries" ref="centerQueries"/>
+                                <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+                            </bean>
+                        </entry>
+                        <entry key="${tcga.dcc.mafVersion.RNASeq}">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqMafValidator"/>
+                        </entry>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="traceFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.TraceFileValidator">
+                <constructor-arg ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="ProteinArrayLevelThreeDataFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ProteinArrayLevelThreeDataFileValidator">
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="proteinArrayLevelTwoDataFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ProteinArrayLevelTwoDataFileValidator">
+                <property name="centerQueries" ref="centerQueries"/>
+                <property name="platformQueries" ref="platformQueries"/>
+                <property name="diseaseQueries" ref="tumorQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="proteinArrayLevelTwoFileHeaderValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ProteinArrayLevelTwoFileHeaderValidator"/>
+        </property>
+    </bean>
+
+    <bean id="rnaSeqMessagePropertyType"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.util.MessagePropertyType"
+          factory-method="valueOf">
+        <constructor-arg>
+            <value>RNA_SEQ_DATA_FILE_VALIDATION_ERROR</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="mirnaSeqMessagePropertyType"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.util.MessagePropertyType"
+          factory-method="valueOf">
+        <constructor-arg>
+            <value>MIRNA_SEQ_DATA_FILE_VALIDATION_ERROR</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="abstractRNASeqDataFileValidator" abstract="true" parent="qcLiveActionParent"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqDataFileValidator">
+        <property name="chromInfoUtils" ref="chromInfoUtils"/>
+    </bean>
+
+    <bean id="rnaSeqGeneFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqGeneFileValidator"
+                  parent="abstractRNASeqDataFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="rnaSeqRSEMGeneNormalizedFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMGeneNormalizedFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+    
+	<bean id="rnaSeqRSEMGeneResultsFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMGeneResultsFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="rnaSeqRSEMIsoformNormalizedFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMIsoformNormalizedFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="rnaSeqRSEMIsoformFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMIsoformFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="rnaSeqExonFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqExonFileValidator"
+                  parent="abstractRNASeqDataFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="rnaSeqJunctionFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqJunctionFileValidator"
+                  parent="abstractRNASeqDataFileValidator">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="rnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="miRNASeqFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MiRNASeqFileValidator"
+                  parent="qcLiveActionParent">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="mirnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="miRNASeqIsoformFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MiRNASeqIsoformFileValidator"
+                  parent="qcLiveActionParent">
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="seqDataFileValidationErrorMessagePropertyType" ref="mirnaSeqMessagePropertyType"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="vcfFileValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.VcfValidator"
+                  parent="qcLiveActionParent">
+                <lookup-method name="getVcfFileDataLineValidator" bean="vcfFileDataLineValidator"/>
+                <property name="tcgaVcfVersion" value="${tcga.dcc.tcgaVcfVersion}"/>
+                <property name="vcfFileHeaderValidator" ref="vcfFileHeaderValidator"/>
+                <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="vcfHeaderDefinitionStore" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.VcfHeaderDefinitionStoreDBImpl">
+        <property name="vcfHeaderDefinitionQueries" ref="vcfHeaderDefinitionQueries"/>
+    </bean>
+
+    <bean id="vcfFileHeaderValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.TcgaVcfFileHeaderValidator">
+        <property name="vcfHeaderDefinitionStore" ref="vcfHeaderDefinitionStore"/>
+    </bean>
+
+    <bean id="vcfFileDataLineValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.TcgaVcfFileDataLineValidatorImpl" scope="prototype"/>
+
+    <bean id="directoryLister" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.DirectoryListerImpl"/>
+
+    <bean id="clinicalXmlValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ClinicalXmlValidator">
+                <constructor-arg ref="qcLiveBarcodeAndUUIDValidator"/>
+                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                <property name="bcridProcessor" ref="bcrIDProcessor"/>
+                <property name="shippedPortionIdProcessor" ref="shippedPortionIdProcessor"/>
+                <property name="bcrUtils" ref="bcrUtils"/>
+                <property name="dayOfPrefix" value="${tcga.dcc.bcr.dayOfPrefix}"/>
+                <property name="monthOfPrefix" value="${tcga.dcc.bcr.monthOfPrefix}"/>
+                <property name="yearOfPrefix" value="${tcga.dcc.bcr.yearOfPrefix}"/>
+                <property name="datesToValidateString" value="${tcga.dcc.bcr.datesToValidate}"/>
+                <property name="dateComparatorsString" value="${tcga.dcc.bcr.datesToCompare}"/>
+                <property name="uuidService" ref="uuidService"/>
+                <property name="clinicalLoaderQueries" ref="clinicalLoaderQueries"/>
+                <property name="codeTableQueries" ref="codeTableQueries"/>
+                <property name="qCliveXMLSchemaValidator" ref="qCliveXMLSchemaValidator"/>
+                <property name="uuidsRequired" value="${tcga.dcc.bcr.uuidsRequiredInXml}"/>
+                <property name="allowLocalSchema" value="${tcga.dcc.bcr.allowLocalSchema}"/>
+                <property name="shipmentPortionPath" value="${tcga.dcc.bcr.shipmentPortionPath}"/>
+                <property name="bcrShipmentPortionUuidElementName"
+                          value="${tcga.dcc.bcr.bcrShipmentPortionUuidElementName}"/>
+                <property name="centerIdElementName" value="${tcga.dcc.bcr.centerIdElementName}"/>
+                <property name="plateIdElementName" value="${tcga.dcc.bcr.plateIdElementName}"/>
+                <property name="shipmentPortionBcrAliquotBarcodeElementName"
+                          value="${tcga.dcc.bcr.shipmentPortionBcrAliquotBarcodeElementName}"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="xsdSchemaValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.XSDSchemaValidator">
+                <property name="qCliveXMLSchemaValidator" ref="qCliveXMLSchemaValidator"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="qCliveXMLSchemaValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.util.QCliveXMLSchemaValidator">
+        <property name="allowLocalSchema" value="${tcga.dcc.bcr.allowLocalSchema}"/>
+        <property name="validXsdDomainPattern" value="${tcga.dcc.bcr.validXsdDomainPattern}"/>
+        <property name="validXsdPrefixPattern" value="${tcga.dcc.bcr.validXsdPrefixPattern}"/>
+        <property name="validXsdVersionPattern" value="${tcga.dcc.bcr.validXsdVersionPattern}"/>
+    </bean>
+
+    <bean id="biospecimenXmlValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.BiospecimenXmlValidator">
+                <property name="codeTableQueries" ref="codeTableQueries"/>
+                <property name="bcrUtils" ref="bcrUtils"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="auxiliaryXmlValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean parent="qcLiveActionParent"
+                  class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.AuxiliaryXmlValidator">
+                <property name="bcrUtils" ref="bcrUtils"/>
+                <property name="codeTableQueries" ref="codeTableQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="mageTabExperimentValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MageTabExperimentValidator"
+                  parent="qcLiveActionParent">
+                <property name="matrixValidator" ref="dataMatrixValidator"/>
+                <property name="matrixParser">
+                    <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.DataMatrixParser"/>
+                </property>
+                <property name="manifestParser" ref="manifestParser"/>
+                <property name="remote" value="false"/>
+                <property name="experimentQueries" ref="experimentQueries"/>                
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="previousArchiveFileCopier" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.PreviousArchiveFileCopier"
+                  parent="qcLiveActionParent">
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="bcrExperimentValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.BcrExperimentValidator"
+                  parent="qcLiveActionParent">
+                <property name="clinicalPlatform" value="bio"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="bcrExperimentFieldValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.BcrExperimentFieldValidator"
+                  parent="qcLiveActionParent">
+                <property name="clinicalPlatform" value="bio"/>
+                <property name="clinicalLoaderQueries" ref="clinicalLoaderQueries"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="gscExperimentValidator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.GscExperimentValidator"
+                  parent="qcLiveActionParent"/>
+        </property>
+    </bean>
+
+    <bean id="archiveReadmeCreator" parent="qcProxyParent">
+        <property name="target">
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ArchiveReadmeCreator"
+                  parent="qcLiveActionParent">
+                <property name="manifestParser" ref="manifestParser"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="archiveUtilImpl" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveUtilImpl">
+        <property name="manifestParser" ref="manifestParser"/>
+    </bean>
+
+    <bean id="manifestParser" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.ManifestParserImpl"/>
+
+    <!-- QUARTZ-RELATED BEANS -->
+
+    <bean id="tcgaPollManagerService" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.TCGAPollManagerService"
+          depends-on="qcLive" scope="prototype">
+        <property name="logger" ref="logger"/>
+        <property name="mailErrorHelper" ref="mailErrorHelper"/>
+        <property name="dirsToPoll" value="${tcga.dcc.dirsToWatch}"/>
+        <property name="delayBeforeStartProcess" value="${tcga.dcc.delayBeforeStartingQCLiveChecking}"/>
+        <property name="extensionToExclude" value=".md5"/>
+        <property name="jobScheduler" ref="liveScheduler"/>
+        <property name="timeBetweenFileDoneCheck" value="${tcga.dcc.delayBetweenFileDoneUploadingCheck}"/>
+        <property name="timeToWaitForMd5" value="${tcga.dcc.timeToWaitForMD5}"/>
+        <property name="bulkReceivedWorkingDirectory" value="${tcga.dcc.bulkReceivedWorkingDirectory}"/>
+
+    </bean>
+
+    <bean id="tcgaFileFilter" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.TCGAFileFilter">
+        <property name="fileExtensions">
+            <list>
+                <value>.tar.gz</value>
+                <value>.tar.gz.md5</value>
+                <value>.tar</value>
+                <value>.tar.md5</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="directoryChecker" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.TCGADirectoryPoller"
+          lazy-init="false"
+          init-method="start" destroy-method="shutdown" depends-on="tcgaPollManagerService">
+        <property name="mailHelper" ref="mailErrorHelper"/>
+        <property name="pollInterval" value="${tcga.dcc.depositDirectoryPollInterval}"/>
+        <property name="timeBased" value="true"/>
+        <property name="pollingTimeBased" value="false"/>
+        <property name="sendSingleFileEvent" value="true"/>
+        <property name="tpoll" ref="tcgaPollManagerService"/>
+        <property name="startBySleeping" value="true"/>
+        <property name="filter" ref="tcgaFileFilter"/>
+    </bean>
+    <bean id="uploadCheckerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="group" value="QCLive"/>
+        <property name="jobGroup" value="QCLive"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+    <bean id="clinicalLoaderTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="group" value="QCLive"/>
+        <property name="jobGroup" value="QCLive"/>
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="biotabSchedulerTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="biotabSchedulerJob"/>
+        <property name="cronExpression" value="${tcga.dcc.biotabGenerationCronExpression}"/>
+    </bean>
+
+    <bean id="biospecimenMetadataPlatformsTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="biospecimenMetadataPlatformsJob"/>
+        <property name="cronExpression" value="${tcga.dcc.biospecimenMetadataPlatformsCronExpression}"/>
+    </bean>
+
+    <bean id="uploadCheckerJob" class="org.springframework.scheduling.quartz.JobDetailBean" scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.UploadCheckerJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
+    <bean id="experimentCheckerJob" class="org.springframework.scheduling.quartz.JobDetailBean" scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.ExperimentCheckerJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
+    <bean id="clinicalLoaderJob" class="org.springframework.scheduling.quartz.JobDetailBean" scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.ClinicalLoaderJob"/>
+        <property name="group" value="QCLive"/>
+        <property name="durability" value="true"/>
+    </bean>
+    <bean id="archiveCleanupJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.ArchiveCleanupJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
+
+    <bean id="biotabSchedulerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.BiotabSchedulerJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
+
+    <bean id="biospecimenMetadataPlatformsJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass"
+                  value="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.BiospecimenMetadataPlatformsJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
+
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="qcLiveScheduler"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.dcc.qcLiveNumberOfQueues}</prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+            </props>
+        </property>
+        <property name="waitForJobsToCompleteOnShutdown"
+                  value="${tcga.dcc.quartzSchedulerWaitForJobsToCompleteOnShutdown}"/>
+    </bean>
+        <bean id="uploadSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="qcLiveUploadScheduler"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.dcc.qcLiveUploaderNumberOfQueues}</prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">LOADER_</prop>
+
+            </props>
+        </property>
+        <property name="waitForJobsToCompleteOnShutdown"
+                  value="${tcga.dcc.quartzSchedulerWaitForJobsToCompleteOnShutdown}"/>
+    </bean>
+
+    <bean id="loaderScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="clinicalScheduler"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.dcc.qcLiveClinicalLoaderThreadCount}</prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+
+                <prop key="org.quartz.jobStore.tablePrefix">LOADER_</prop>
+            </props>
+        </property>
+        <property name="waitForJobsToCompleteOnShutdown"
+                  value="${tcga.dcc.quartzSchedulerWaitForJobsToCompleteOnShutdown}"/>
+
+    </bean>
+
+    <bean id="qcliveCronJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="qcliveCronJobScheduler"/>
+
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">${tcga.dcc.biotabSchedulerThreadPool}</prop>
+            </props>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="biotabSchedulerTrigger"/>
+                <ref bean="biospecimenMetadataPlatformsTrigger"/>
+            </list>
+        </property>
+        <property name="schedulerContextAsMap">
+            <map>
+                <entry key="biotabGeneratorDelay" value="${tcga.dcc.biotabGeneratorDelayMinutes}"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="experimentCheckerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+          scope="prototype">
+        <property name="group" value="QCLive"/>
+        <property name="jobGroup" value="QCLive"/>
+        <property name="repeatCount" value="0"/>
+        <property name="description"
+                  value="Calls job which checks if an experiment is completely uploaded, and if so, begins validation and processing"/>
+    </bean>
+
+    <bean id="archiveCleanupTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="archiveCleanupJob"/>
+        <property name="group" value="QCLive"/>
+        <property name="repeatCount" value="0"/>
+        <property name="description" value="Calls job which cleans up an archive after processing is done"/>
+    </bean>
+
+    <bean id="level2DataService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.Level2DataService">
+        <property name="level2DataQueries" ref="level2DataQueries"/>
+        <property name="minExpectedRowsToUseHintQuery" value="${tcga.dcc.minExpectedRowsToUseHintQuery}"/>
+    </bean>
+
+    <bean id="level2DataCacheGenerator"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.Level2DataCacheGenerator">
+        <property name="loaderQueries" ref="loaderQueries"/>
+        <property name="level2DataQueries" ref="level2DataQueries"/>
+        <property name="errorMailSender" ref="mailErrorHelper"/>
+        <property name="level2DataService" ref="level2DataService"/>
+        <property name="cacheFileDirectory" value="${tcga.dcc.cachefileDirectory}"/>
+        <property name="tmpCacheFileDirectory" value="${tcga.dcc.tmp_cachefileDirectory}"/>
+        <property name="cacheFileDistroDirectory" value="${tcga.dcc.cacheFileDistroDirectory}"/>
+
+    </bean>
+
+    <bean name="level2DataCacheJobDetailBean" class="org.springframework.scheduling.quartz.JobDetailBean"
+          scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheGenerationJob"/>
+        <property name="durability" value="true"/>
+    </bean>
+
+    <bean id="level2DataCacheTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="level2DataCacheEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheEnqueuer">
+        <!-- inject reference to level2DataCacheEnqueuer -->
+        <lookup-method name="getJobDetail" bean="level2DataCacheJobDetailBean"/>
+        <lookup-method name="getTrigger" bean="level2DataCacheTrigger"/>
+
+    </bean>
+
+    <bean id="liveMonitor" class="gov.nih.nci.ncicb.tcga.dcc.qclive.live.service.LiveMonitorImpl">
+        <property name="schedulers">
+            <map>
+                <entry key-ref="autoLoaderScheduler" value="loaderGroup"/>
+                <entry key-ref="schedulerFactoryBean" value="QCLive"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="chromInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ChromInfoQueriesImpl">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="chromInfoUtils" class="gov.nih.nci.ncicb.tcga.dcc.qclive.util.ChromInfoUtilsImpl" init-method="init">
+        <property name="chromInfoQueries" ref="chromInfoQueries"/>
+    </bean>
+
+    <bean id="bcrXmlFileParser" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BcrXMLFileParser" lazy-init="true"
+          init-method="init">
+    </bean>
+
+    <bean id="bioTabDataProcessorUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabDataProcessorUtil" />
+
+    <bean id="bioTabFileGenerator" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabFileGenerator"
+          lazy-init="true" init-method="init">
+        <property name="bcrXMLFileParser" ref="bcrXmlFileParser"/>
+        <property name="fileArchiveQueries" ref="diseaseFileArchiveQueries"/>
+        <property name="bioTabFilesHomeDir" value="${tcga.dcc.publicCacheFilesRootDir}"/>
+        <property name="bioTabFilesTmpDir" value="${tcga.dcc.tmp_cachefileDirectory}"/>
+        <property name="templateFilesDir" value="${tcga.dcc.bioTabTemplateFilesRootDir}"/>
+        <property name="packageName" value="gov.nih.nci.ncicb.tcga.dcc.common.jaxb.generated.template"/>
+        <property name="fileCollectionQueries" ref="fileCollectionQueries"/>
+        <property name="bioTabDataProcessorUtil" ref="bioTabDataProcessorUtil"/>
+    </bean>
+
+    <bean id="bcrUtils" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BCRUtilsImpl"/>
+
+
+
+</beans>

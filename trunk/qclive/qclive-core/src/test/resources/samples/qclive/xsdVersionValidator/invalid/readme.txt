@@ -1,0 +1,1 @@
+This directory contains XSDs that have an unsupported version number in their schema element.

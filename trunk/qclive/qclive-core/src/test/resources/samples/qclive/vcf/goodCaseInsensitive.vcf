@@ -1,0 +1,24 @@
+##Fileformat=VCFv4.0
+##FileDate=20110627
+##Reference=<ID=hg18,source=.>
+##Phasing=none
+##INDIVIDUAL=TCGA-00-0000
+##SaMPLE=<ID=NORMAL,Individual=TCGA-00-0000,Description="Normal",file=test.bam,platform=Illumina,Source=dbGAP,Accession=.>
+##SaMPLE=<ID=PRIMARY,Individual=TCGA-00-0000,Description="Primary tumor",file=test.bam,platform=Illumina,Source=dbGAP,Accession=.>
+##InFO=<ID=VT,Number=.,Type=String,Description="Variant type">
+##InFO=<ID=VAS,Number=1,Type=Integer,Description="Sequencing variant status relative to normal 0=Wildtype, 1=Germline, 2=Somatic, 3=LOH, 4=Unknown">
+##FiLTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+##FoRMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FoRMAT=<ID=GQ,Number=1,Type=Integer,Description="Average variant base quality">
+##FOrMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FOrMAT=<ID=AD,Number=1,Type=String,Description="Allele depth corresponding to alleles 0/1/2/3">
+##FORmAT=<ID=FA,Number=.,Type=Float,Description="Fractions of reads supporting alternate allele 1, per sample">
+##FORmAT=<ID=MQ60,Number=1,Type=Integer,Description="Number of reads (mapping quality=60) supporting variant">
+##AlT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##CusTom1=hello
+##CusTom2=<a=b,c=d,e="f">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	PRIMARY
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60	0/0:.:468:./1:0.002:0	0/1:37:543:./2:0.004:0
+1	59498	id3	G	<DEL:ME:ALU>	37	CA	VT=abc;VAS=2	GT:GQ:DP:AD:FA:MQ60	0/0:.:468:./1:0.002:0	0/1:37:543:./2:0.004:0
+1	856390	id2	A	T	76	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60	0/0:.:3:./0:0.000:0	0/1:76:3:./1:0.333:1
+1	970323	.	G	A	38	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60	0/0:.:0:./0:0.000:0	0/1:38:3:./3:1.000:3

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="DataVisibility" table="data_visibility" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="data_visibility_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the DataVisibility class -->
+		<!-- Associations mapping for the DataVisibility class -->
+			<many-to-one name="visibility" class="gov.nih.nci.ncicb.tcga.dccws.Visibility" column="visibility_id" lazy="proxy" not-null="false" cascade="none"/>
+			<many-to-one name="dataLevel" class="gov.nih.nci.ncicb.tcga.dccws.DataLevel" column="level_number" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="dataType" class="gov.nih.nci.ncicb.tcga.dccws.Datatype" column="data_type_id" lazy="proxy" not-null="false" cascade="none"/>
+	</class>
+</hibernate-mapping>

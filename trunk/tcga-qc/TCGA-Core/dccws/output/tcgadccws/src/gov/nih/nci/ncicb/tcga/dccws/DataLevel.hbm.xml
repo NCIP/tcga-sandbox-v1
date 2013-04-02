@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="DataLevel" table="data_level" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="level_number">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the DataLevel class -->
+		<property name="definition" type="string" column="level_definition"/>
+		<!-- Associations mapping for the DataLevel class -->
+		<set name="archiveTypeCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="data_level" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.ArchiveType"/>
+		</set>
+		<set name="dataVisibilityCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="level_number" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.DataVisibility"/>
+		</set>
+		<set name="fileCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="level_number" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.FileInfo"/>
+		</set>
+	</class>
+</hibernate-mapping>

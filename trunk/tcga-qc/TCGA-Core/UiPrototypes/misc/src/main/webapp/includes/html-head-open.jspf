@@ -1,0 +1,56 @@
+<%--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--%>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="/<%=rootDir%>/images/general/tcga.a" />
+<!--Common js -->
+		<script type="text/javascript" src="/<%=rootDir%>/scripts/utilities/mergedjs.jsp?js=/scripts/thirdParty/ext/ext-base.js,/scripts/thirdParty/ext/ext-all.js,util.js,textDisplay.js,hover.js,hoverSVG.js,colorUtil.js,linkConfig.js,/scripts/extensions/extOverrides.js,/scripts/extensions/buttonPlus.js,/scripts/thirdParty/jquery/jquery-1.4.2.js,/scripts/thirdParty/jquery/jquery.hoverIntent.js"></script>
+
+<!-- site css -->
+        <link rel="stylesheet" href="/<%=rootDir%>/styles/tcga_main.css" type="text/css" media="all" />
+        <script type="text/javascript">
+            Ext.onReady(function() {
+                if (Ext.isWebKit) {
+                    Ext.util.CSS.updateRule('.ext-strict .x-small-editor .x-form-text', 'height', '14px !important');
+                }
+            }, this);
+        </script>
+
+
+        <script type="text/javascript">
+            var checkForIe6 = function() {
+                var ua = navigator.userAgent;
+                var re  = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+                if (re.exec(ua) != null) {
+                    var rv = parseFloat( RegExp.$1 );
+                    if ( rv < 7) {
+                        document.getElementById('browserWarning').style.display = 'block';
+                    }
+                }
+            }
+
+            var checkForIe7 = function() {
+                var ua = navigator.userAgent;
+                var re  = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+                if (re.exec(ua) != null) {
+                    var rv = parseFloat( RegExp.$1 );
+                    if ( rv == 7) {
+                        return true;
+                    }
+                }
+
+                 return false;
+            }
+
+            $(document).ready(function() {
+                 checkForIe6();
+            });
+        </script>
+
+
+

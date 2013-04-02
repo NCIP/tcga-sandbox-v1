@@ -1,0 +1,64 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="1" ARCHIVE_TYPE="Level_3" DATA_LEVEL="3"/>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="2" ARCHIVE_TYPE="mage-tab" DATA_LEVEL="0"/>
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="TEST" DISEASE_NAME="TEST Disease" ACTIVE="1"/>
+    <CENTER_TYPE CENTER_TYPE_CODE="BCR" CENTER_TYPE_DEFINITION="BCR"/>
+    <CENTER CENTER_ID="1" DOMAIN_NAME="test.org" CENTER_TYPE_CODE="BCR" DISPLAY_NAME="Test"/>
+    <CENTER CENTER_ID="2" DOMAIN_NAME="mskcc.org" CENTER_TYPE_CODE="BCR" DISPLAY_NAME="MSKCC CENTER"/>
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="BCR" NAME="testType"/>
+    <PLATFORM PLATFORM_ID="1" CENTER_TYPE_CODE="BCR" PLATFORM_NAME="HumanMethylation27" PLATFORM_ALIAS="hm"
+              PLATFORM_DISPLAY_NAME="HumanMethylation27 platform" SORT_ORDER="1" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+    <PLATFORM PLATFORM_ID="2" CENTER_TYPE_CODE="BCR" PLATFORM_NAME="BROAD_SNP" PLATFORM_ALIAS="SNP"
+              PLATFORM_DISPLAY_NAME="Genome_Wide_SNP_6 platform" SORT_ORDER="2" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="1234" ARCHIVE_NAME="testArchive" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1"
+                  SERIAL_INDEX="1" REVISION="1" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000"
+                  DEPLOY_STATUS="Uploaded" is_latest="1" DEPLOY_LOCATION="/tcgafiles/" ARCHIVE_TYPE_ID="1"/>
+    <ARCHIVE_INFO ARCHIVE_ID="1235" ARCHIVE_NAME="testArchiveMage" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1"
+                  SERIAL_INDEX="1" REVISION="1" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000"
+                  DEPLOY_STATUS="Uploaded" is_latest="1" DEPLOY_LOCATION="/tcgafiles/mage" ARCHIVE_TYPE_ID="2"/>
+
+    <EXPERIMENT EXPERIMENT_ID="1" BASE_NAME="base_name" DATA_DEPOSIT_BATCH="1" DATA_REVISION="1" CENTER_ID="1"
+                PLATFORM_ID="1"/>
+
+    <DATA_SET DATA_SET_ID="1" EXPERIMENT_ID="1"
+              SOURCE_FILE_NAME="jhu-usc.edu_GBM.HumanMethylation27.Level_3.2.1.0/*.lvl-3.*.txt"
+              SOURCE_FILE_TYPE="signal_intensity"
+              ACCESS_LEVEL="PUBLIC" DATA_LEVEL="3" CENTER_ID="1" PLATFORM_ID="1"/>
+
+ <FILE_INFO FILE_ID="1" FILE_NAME="test_file" FILE_SIZE="100" LEVEL_NUMBER="3"/>
+    <DATA_SET_FILE DATA_SET_FILE_ID="1" DATA_SET_ID="1" FILE_NAME="TEST_FILE_NAME"
+                   LOAD_START_DATE="2010-01-28 12:00:00.000000000" FILE_ID="1"/>
+
+   
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="1" FILE_ID="1" ARCHIVE_ID="1234"/>
+
+    <HYBRIDIZATION_REF HYBRIDIZATION_REF_ID="1" BESTBARCODE="TCGA-02-0014-01A-01D-0186-05" SAMPLE_NAME="TCGA-02-0014-01"
+                       ALIQUOT_ID="7400" UUID="976166cc-6e18-4fe7-85f8-19dfb982f353"/>
+
+    <HYBRID_REF_DATA_SET HYBREF_DATASET_ID="1" HYBRIDIZATION_REF_ID="1" DATA_SET_ID="1" HYBRIDIZATION_REF_NAME="name"/>
+
+    <METHYLATION_VALUE METHYLATION_VALUE_ID="100" DATA_SET_ID="1" HYBRIDIZATION_REF_ID="1" BETA_VALUE="something"
+                       ENTREZ_GENE_SYMBOL="something" CHROMOSOME="11" CHR_POSITION="123"/>
+
+    <CNA_VALUE CNA_VALUE_ID="100" DATA_SET_ID="1" HYBRIDIZATION_REF_ID="1" CHROMOSOME="11" CHR_START="1" CHR_STOP="1"
+               NUM_MARK="1" SEG_MEAN="1"/>
+
+    <EXPGENE_VALUE EXPGENE_VALUE_ID="100" DATA_SET_ID="1" HYBRIDIZATION_REF_ID="1" ENTREZ_GENE_SYMBOL="something"
+                   EXPRESSION_VALUE="val"/>
+
+    <mirnaseq_value mirnaseq_id="1" data_set_id="1" hybridization_ref_id="1" feature="feature" read_count="1" reads_per_million="1" cross_mapped="N" isoform_coords="isoformCoords" mirna_region_annotation="mirnaRegionAnnotation" mirna_region_accession="mirnaRegionAccession"/>
+
+    <rnaseq_value rnaseq_id="1" data_set_id="1" hybridization_ref_id="1" feature="feature" raw_counts="1.0" median_length_normalized="1.0" rpkm="1.0"/>
+
+    <proteinexp_value proteinexp_id="1" data_set_id="1" hybridization_ref_id="1" antibody_name="antibody" hugo_gene_symbol="gene" protein_expression_value="0000"/>
+
+</dataset>

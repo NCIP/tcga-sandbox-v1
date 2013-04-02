@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_dccws" default="compile.module.dccws">
+    <dirname property="module.dccws.basedir" file="${ant.file.module_dccws}"/>
+
+    <property environment="env"/>
+
+    <property name="compiler.args.dccws" value="${compiler.args}"/>
+
+    <property name="dccws.distro.dir" value="${tcga.distro}/dccws"/>
+    <mkdir dir="${dccws.distro.dir}"/>
+    <property name="jboss.home.stage" value="${dccws.distro.dir}/jboss"/>
+    <mkdir dir="${jboss.home.stage}"/>
+    <property name="dccws.service.home" value="${module.dccws.basedir}/output/tcgadccws/package/remote-client"/>
+    <property name="dccws.service.antfile" value="${dccws.service.home}/build.xml"/>
+
+    <property name="dccws.output.dir" value="${module.dccws.basedir}/../out/production/dccws"/>
+    <property name="dccws.testoutput.dir" value="${module.dccws.basedir}/../out/test/dccws"/>
+    <property name="dccws.conf.dir" value="${module.dccws.basedir}/resources/conf/"/>
+
+    <path id="library.dccws.classpath">
+        <fileset dir="${dccws.service.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="dccws.module.classpath">
+        <path refid="library.dccws.classpath"/>
+        <path refid="library.oracle.classpath"/>
+        <pathelement location="${dccws.testoutput.dir}"/>
+        <pathelement location="${dccws.output.dir}"/>
+    </path>
+
+    <path id="dccws.runtime.module.classpath">
+        <pathelement location="${dccws.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.dccws">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.dccws">
+        <patternset refid="excluded.from.module.dccws"/>
+    </patternset>
+
+    <path id="dccws.module.sourcepath">
+        <dirset dir="${module.dccws.basedir}">
+            <include name="${dccws.service.home}/src"/>
+        </dirset>
+    </path>
+
+    <path id="dccws.module.test.sourcepath">
+        <dirset dir="${module.dccws.basedir}">
+            <include name="test/fast"/>
+            <include name="test/slow"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.dccws" depends="compile.module.dccws.production,compile.module.dccws.tests"
+            description="Compile module dccws"/>
+
+    <target name="compile.module.dccws.production" description="Compile module dccws; production classes">
+        <mkdir dir="${dccws.output.dir}"/>
+        <javac srcdir="${module.dccws.basedir}/src" destdir="${dccws.output.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.dccws}"/>
+            <classpath refid="dccws.module.classpath"/>
+            <src refid="dccws.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.dccws"/>
+        </javac>
+
+        <copy todir="${dccws.output.dir}">
+            <fileset dir="${dccws.service.home}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.dccws.tests" depends="compile.module.dccws.production"
+            description="compile module dccws; test classes" unless="skip.tests">
+        <mkdir dir="${dccws.testoutput.dir}"/>
+        <javac destdir="${dccws.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.dccws}"/>
+            <classpath refid="dccws.module.classpath"/>
+            <src refid="dccws.module.test.sourcepath"/>
+            <patternset refid="excluded.from.compilation.dccws"/>
+        </javac>
+
+        <copy todir="${dccws.testoutput.dir}">
+            <fileset dir="${module.dccws.basedir}/test/fast">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${module.dccws.basedir}/test/slow">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean.module.dccws" description="cleanup module">
+        <delete dir="${dccws.output.dir}"/>
+        <delete dir="${dccws.testoutput.dir}"/>
+        <delete dir="${dccws.distro.dir}"/>
+    </target>
+
+    <target name="package.module.dccws" description="package the web service so that it will be ready for anthill to deploy">
+
+        <copy todir="${dccws.distro.dir}" file="${module.dccws.basedir}/output/tcgadccws/package/webapp/tcgadccws.war"/>
+        <unzip src="${dccws.distro.dir}/tcgadccws.war" dest="${dccws.distro.dir}/tcgadccws.war.temp"/>
+        <war destfile="${dccws.distro.dir}/tcgadccws.war" webxml="${dccws.distro.dir}/tcgadccws.war.temp/WEB-INF/web.xml">
+           <fileset dir="${dccws.distro.dir}/tcgadccws.war.temp">
+               <exclude name="WEB-INF/**/*.jsp"/>
+               <exclude name="WEB-INF/jsp/**/*"/>
+               <exclude name="*.jsp"/>
+               <exclude name="*.html"/>
+               <exclude name="*.js"/>
+               <exclude name="docs/**/*"/>
+               <exclude name="docs"/>
+           </fileset>
+        </war>
+    </target>
+
+    <!-- Define the environment variable -->
+    <property environment="env" />
+
+    <!-- UNIT TEST TARGETS -->
+    <property name="test.reports.out" value="${module.dccws.basedir}/test/reports/"/>
+    <target name="test.dccws.slow" depends="compile.module.dccws">
+
+        <mkdir dir="${test.reports.out}"/>
+        <mkdir dir="out/production/dccws/lib"/>
+        <junit printsummary="yes" haltonerror="no" haltonfailure="no" fork="yes">
+            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${test.reports.out}">
+                <fileset dir="${module.dccws.basedir}/test/slow">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+            <classpath refid="library.junit.classpath"/>
+            <classpath refid="dccws.module.classpath"/>
+        </junit>
+        <antcall target="test.dccws.report"/>
+    </target>
+
+    <target name="test.dccws.report" >
+        <junitreport todir="${test.reports.out}">
+            <fileset dir="${test.reports.out}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report todir="${test.reports.out}"/>
+        </junitreport>
+    </target>
+
+</project>

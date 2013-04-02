@@ -1,0 +1,191 @@
+/*
+ * Welcome to the example Pipeline Report (PRep) data file!
+ * 
+ * The PRep data file can have up to three sections.
+ * 	graphConfig - used to describe the features of the report to be drawn.  All of these
+ *			values do have defaults, which can be found in graphDraw.js.  If only defaults, are
+ *			being used, then this section is not required.  You only need to include to the
+ *			parameters that are changing.
+ *	
+ *			Parameters:
+ * 		renderTo - the id of the DOM element, typically a DIV, in which to render the graph.
+ *			paperSize - the size of the picture area to set up, it has a width and a height with
+ *				the numbers being specified in pixels.
+ *			scale - used to specify whether a scale is being provided for the outputs in the graph
+ *				or not.  Null indicates that the outputs in the graph will be scaled relative to each
+ *				other.  That is, if you have 3 outputs with counts of 30, 40 and 50, and scale is null,
+ *				the first output will have a size of 30/(30+40+50) percent of the available space for
+ *				the outputs.  If a number is provided for the scale, then the first output will have
+ *				a size of 30/scale percent of the available space.  The available space is defined by
+ *				the pathHeight parameter. (See pRepDataSubsetScaled.sjson for a scaling example.)
+ *			squareCorners - the rounding of the corners of the box around the node.  0 is square corners,
+ * 			and any other number will round progressively more as it increases.
+ *			squareSize - the width and height of the first node, others will be scaled relative to the
+ * 			path coming into them.
+ *			squareColor - the color of the square in the background of a node.
+ *			pathHeight - the height of the space provided for the outputs.
+ *			pathLength - the length of the space provided for the outputs.
+ *			pathColors - the colors to be used, in order, for the outputs.  The colors may be specified
+ *				as either the names of web colors (http://www.tayloredmktg.com/rgb/ - if you use a name,
+ *				like "Indian Red", with a space in it, specify it as "indianred"), or in the usual hex
+ *				#AABBCC format.
+ *	
+ *		nodeData - ok, this really should be included, otherwise you won't end up drawing anything!
+ *			nodeData consists of a varying number of node specifications. Each node specification
+ *			may or may not include "outputs".  Outputs are specifications for the lines that are 
+ *			to be drawn going out of the node.
+ *	
+ *			Node Parameters:
+ *			name - an id for the node, used to refer to it in the code if needed.
+ *			image - an image to display in the node.  This really should be optional, but it's
+ * 			required for now.
+ *			label - a label to be displayed below the image in the node.
+ *			numericLabel - hmm, really needs a different name.  The label to go with the counts on
+ * 			the outputs.
+ *			listeners - listeners to be added to the node.  This is a recovering feature.  That is, I have
+ * 			note reimplemented the full feature set yet.  As requirements come in, this can be expanded.
+ * 			The name given each listener is an arbitrary key for the listener object at the moment (for
+ * 			example - as in this file: "linkToSub".)
+ * 			The listeners have the following parameters:
+ * 				type - this is one of [hover, link, load] which defines the action to take.
+ *						hover - currently defunct
+ *						link - links to a new page specified by the url parameter.
+ *						load - loads a new data file specified by the url parameter into the current page.
+ * 				url - the parameter used for the url by the link and load listener types.
+ *			pathLength - used to override the pathLength specified for the graph as a whole.  Applies to
+ * 			any outputs coming from this node.
+ *			outputs - these are the lines that go out of a node.  There may be 0 or more outputs.
+ *				Each output is specified with a set of parameters.
+ *	
+ *			Output Parameters:
+ *			count - a number used to specify the relative width of this path.  It will be printed along
+ * 			with the numeric label parameter from the node. 
+ *			label - (optional) a label to be printed on this path along with the count and the numeric label.
+ *			connectToNextNode - tells the path to go straight and connect to the next node.  This is only
+ * 			allowed once, although an excellent upgrade would be to allow it to occur more than once.
+ *			arrow - boolean flag to indicate whether or not to draw an arrow on the end of the output line.
+ *			color - the color of the output line.  This is used to override the default color that would
+ *				otherwise be assigned from the color list.
+ *	
+ *		totals - totals are an optional section that specify the display of a totals block along
+ * 		with the graph.
+ *	
+ *			Parameters:
+ *			textSize - the pixel size of the text in the totals box.  Just a number, the specification is
+ * 			for pixels.
+ *			width - the width of the totals box in pixels.
+ *			pos - an object for the x,y position of the box.  This is x and y from the upper left corner
+ * 			of the box.  Hmm, perhaps this should be top,left rather than x,y.
+ *			fill - the fill color or a gradient for the background of the totals box.
+ *			counts - a list of objects defining the numbers to be shown in the totals box.
+ *	
+ *			Counts Parameters:
+ *			count - the number to be displayed to the right of the box.  The counts will be totaled 
+ * 			and displayed at the bottom of the totals box with the label "Total".
+ *			label - the label to be displayed to the left of the box.
+ *	
+*/
+{
+	"graphConfig": {
+		"renderTo": "raphgraph",
+		"scale": null,
+		"squareCorners": 5,
+		"squareSize": {"width": 150, "height": 200},
+		"pathHeight": 200,
+		"pathLength": 100
+	},
+	"nodeData": [{
+		"name": "igc",
+		"label": "Received at IGC",
+		"image": "images/igc.jpg",
+		"numericLabel": "samples",
+		"listeners": {
+			"linkToSub": {
+				"type": "link",
+				"url": "graph6raphSub.htm"
+			}
+		},
+		"outputs" : [{
+			"count": 97,
+			"pathDir": "up",
+			"label": "WInitial Screen Failures"
+		}, {
+			"count": 3744,
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "dodgerblue"
+		}, {
+			"count": 44,
+			"label": "Pending BCR Initial Screening"
+		}]
+   }, {
+		"name": "pathology",
+		"label": "Pathology QC",
+		"image": "images/breast_cancer_slide_narrow.jpeg",
+		"numericLabel": "samples",
+		"outputs" : [{
+			"count": 965,
+			"pathDir": "up",
+			"label": "Pathology Failures"
+		}, {
+			"count": 2575,
+			"label": "Pathology Pass",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "dodgerblue"
+		}, {
+			"count": 204,
+			"label": "Pathology Pending"
+		}]
+   }, {
+		"name": "molecular",
+		"label": "Molecular QC",
+		"image": "images/DNA_Science.jpeg",
+		"numericLabel": "samples",
+		"pathLength": 150,
+		"outputs" : [{
+			"count": 659,
+			"pathDir": "up",
+			"label": "DQ Molecular"
+		}, {
+			"count": 73,
+			"pathDir": "up",
+			"label": "DQ Genotype"
+		}, {
+			"count": 42,
+			"pathDir": "up",
+			"label": "DQ Other"
+		}, {
+			"count": 1676,
+			"label": "Molecular Passanova And Hello and a shave and a haircut, two bits, my my, how much text will fit here?",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "dodgerblue"
+		}, {
+			"count": 218,
+			"label": "Awaiting Shipment"
+		}, {
+			"count": 241,
+			"label": "Molecular Pending"
+		}]
+	}, {
+		"name": "totals",
+		"label": "Shipped",
+		"image": "images/box.jpg"
+	}],
+   "totals": {
+		"counts" : [{
+			"count": 1343,
+			"label": "Total Shipped"
+		}, {
+			"count": 218,
+			"label": "Awaiting Shipment"
+		}, {
+			"count": 285,
+			"label": "Other Pending"
+		}]
+	},
+   "tumorTypes": {
+		"types" : "COAD, GBM, HNSC, KIRC, KIRP, LGG, LIHC, LUAD, LUSC, OV, READ, STAD"
+	}
+}

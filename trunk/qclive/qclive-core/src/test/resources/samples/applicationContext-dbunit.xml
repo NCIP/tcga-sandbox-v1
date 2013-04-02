@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:samples/common.unittest.properties</value>
+                <value>classpath:qcLiveParameters-local.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          lazy-init="false">
+        <property name="driverClassName" value="${dbUnitJDBCDriver}"/>
+        <property name="url" value="${dbUnitConnectionURL}"/>
+        <property name="username" value="${dbUnitUserName}"/>
+        <property name="password" value="${dbUnitPassword}"/>
+    </bean>
+
+
+    <bean id="experimentQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ExperimentQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="archiveTypeQueries" ref="archiveTypeQueries"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <bean id="platformQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="dataTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DataTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="archiveTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ArchiveTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+
+    <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="accessQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VisibilityQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+
+    <bean id="archiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="experimentDAO" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ExperimentDAOImpl">
+        <property name="commonArchiveQueries" ref="archiveQueries"/>
+        <property name="accessQueries" ref="accessQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="publicDeployRoot" value="${tcga.dcc.publicDeployRoot}"/>
+        <property name="privateDeployRoot" value="${tcga.dcc.privateDeployRoot}"/>
+    </bean>
+
+
+    <bean name="level2DataCacheJobDetailBean" class="org.springframework.scheduling.quartz.JobDetailBean"
+          scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheGenerationJob"/>
+        <property name="durability" value="true"/>
+    </bean>
+
+    <bean id="level2DataCacheTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="level2DataCacheEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheEnqueuer">
+        <!-- inject reference to level2DataCacheEnqueuer -->
+        <lookup-method name="getJobDetail" bean="level2DataCacheJobDetailBean"/>
+        <lookup-method name="getTrigger" bean="level2DataCacheTrigger"/>
+
+    </bean>
+
+</beans>

@@ -1,0 +1,24 @@
+##fileformat=VCFv4.1
+##fileDate=20090805
+##tcgaversion=1.1
+##center="Broad,UCSC,BCM"
+##vcfProcessLog=<InputVCF=<file1.vcf>,InputVCFSource=<varCaller1>,InputVCFVer=<1.0>,InputVCFParam=<a1>,InputVCFgeneAnno=<anno1.gaf>>
+##reference=1000GenomesPilot-NCBI36
+##phasing=none
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant type">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of Structural Variant">
+##INFO=<ID=MATEID,Number=.,Type=String,Description="Mate of the breakend record id">
+##INFO=<ID=PARID,Number=.,Type=String,Description="Partner of the breakend record id">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	VT=SNP
+1	59498	id2	G	<DEL:ME:ALU>	37	CA	VT=INS
+1	59498	id3	G	<DEL:ME:ALU>	37	CA	VT=DEL
+1	59498	id4	G	<DEL:ME:ALU>	37	CA	SVTYPE=BND;MATEID=id2
+1	59498	id5	G	<DEL:ME:ALU>	37	CA	SVTYPE=FND;PARID=id3
+1	59498	id6	G	<DEL:ME:ALU>	37	CA	SVTYPE=BND;PARID=id4
+1	59498	id7	G	<DEL:ME:ALU>	37	CA	SVTYPE=FND;MATEID=id5
+1	59498	id8	G	<DEL:ME:ALU>	37	CA	SVTYPE=FND;MATEID=id1;PARID=id7
+1	59498	id9	G	<DEL:ME:ALU>	37	CA	SVTYPE=FND;MATEID=id1,id5,id4;PARID=id5,id4,id9
+

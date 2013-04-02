@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="TCGA_BCR">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="PATIENT"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PATIENT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="BCRPATIENTBARCODE"/>
+                <xs:element ref="TUMORTISSUESITE"/>
+                <xs:element maxOccurs="unbounded" ref="SAMPLE"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SAMPLE">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref=" BCRSAMPLEBARCODE"/>
+                <xs:element ref="PRIMARYORMETASTATICSTATUS"/>
+                <xs:element ref="HISTOLOGICTYPE"/>
+                <xs:element ref="TUMORSAMPLEANATOMICLOCATION"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BCRPATIENTBARCODE">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:NCName">
+                    <xs:attribute name="cde" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BCRSAMPLEBARCODE">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:NCName">
+                    <xs:attribute name="cde" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TUMORTISSUESITE">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="cdeattr">
+                    <xs:enumeration value=""/>
+                    <xs:enumeration value="GBM"/>
+                    <xs:enumeration value="LUNG"/>
+                    <xs:enumeration value="OVARIAN"/>
+                    <xs:enumeration value="GLIOBLASTOMA"/>
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="cdeattr">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="cde" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="PRIMARYORMETASTATICSTATUS">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="cdeattr">
+                    <xs:enumeration value=""/>
+                    <xs:enumeration value="PRIMARY"/>
+                    <xs:enumeration value="METASTATIC"/>
+                    <xs:enumeration value="MALIGNANT"/>
+                    <xs:enumeration value="NON-MALIGNANT"/>
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="HISTOLOGICTYPE">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="cdeattr">
+                    <xs:enumeration value=""/>
+                    <xs:enumeration value="ANAPLASTIC ASTROCYTOMA"/>
+                    <xs:enumeration value="GIANT CELL GLIOBLASTOMA"/>
+                    <xs:enumeration value="GLIOBLASTOMA"/>
+                    <xs:enumeration value="GLIOSARCOMA"/>
+                    <xs:enumeration value="GLIOBLASTOMA MULTIFORME"/>
+                    <xs:enumeration value="NO HISTOLOGY AVAILABLE"/>
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TUMORSAMPLEANATOMICLOCATION">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="cdeattr">
+                    <xs:enumeration value=""/>
+                    <xs:enumeration value="C70.0"/>
+                    <xs:enumeration value="C71.0"/>
+                    <xs:enumeration value="C71.1"/>
+                    <xs:enumeration value="C71.2"/>
+                    <xs:enumeration value="C71.3"/>
+                    <xs:enumeration value="C71.4"/>
+                    <xs:enumeration value="C71.5"/>
+                    <xs:enumeration value="C71.6"/>
+                    <xs:enumeration value="C71.7"/>
+                    <xs:enumeration value="C71.8"/>
+                    <xs:enumeration value="C71.9"/>
+                    <xs:enumeration value="C72.0"/>
+                    <xs:enumeration value="C72.9"/>
+                    <xs:enumeration value="C34.0"/>
+                    <xs:enumeration value="C34.1"/>
+                    <xs:enumeration value="C34.2"/>
+                    <xs:enumeration value="C34.3"/>
+                    <xs:enumeration value="C34.8"/>
+                    <xs:enumeration value="C34.9"/>
+                    <xs:enumeration value="BRAIN, NOS"/>
+                    <xs:enumeration value="BLOOD"/>
+                    <xs:enumeration value="CEREBRAL MENINGES"/>
+                    <xs:enumeration value="CEREBRUM"/>
+                    <xs:enumeration value="FRONTAL LOBE"/>
+                    <xs:enumeration value="TEMPORAL LOBE"/>
+                    <xs:enumeration value="PARIETAL LOBE"/>
+                    <xs:enumeration value="OCCIPITAL LOBE"/>
+                    <xs:enumeration value="VENTRICLE, NOS"/>
+                    <xs:enumeration value="CEREBELLUM, NOS"/>
+                    <xs:enumeration value="BRAIN STEM"/>
+                    <xs:enumeration value="OVERLAPPING LESION OF BRAIN"/>
+                    <xs:enumeration value="SPINAL CORD"/>
+                    <xs:enumeration value="NERVOUS SYSTEM, NOS"/>
+                    <xs:enumeration value="NOT SPECIFIED"/>
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

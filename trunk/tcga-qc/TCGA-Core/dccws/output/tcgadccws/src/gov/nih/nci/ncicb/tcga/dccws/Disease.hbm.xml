@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Disease" table="disease" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="disease_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Disease class -->
+		<property name="abbreviation" type="string" column="disease_abbreviation"/>
+		<property name="name" type="string" column="disease_name"/>
+		<!-- Associations mapping for the Disease class -->
+		<set name="archiveCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="disease_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Archive"/>
+		</set>
+		<set name="tissueCollection" table="tissue_to_disease" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="disease_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.Tissue" column="tissue_id" />
+		</set>
+		<set name="tssCollection" table="tss_to_disease" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="disease_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.TissueSourceSite" column="tss_code" />
+		</set>
+	</class>
+</hibernate-mapping>

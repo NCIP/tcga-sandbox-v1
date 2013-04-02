@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xs:schema elementFormDefault="qualified" version="2.5.5" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5"
+  xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5"
+  xmlns="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5"
+  targetNamespace="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5">
+
+    <xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd" />
+
+    <xs:element name="drugs">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="drug" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="drug">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element ref="tx_on_clinical_trial" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="regimen_number" />
+                <xs:element ref="bcr_drug_barcode" />
+                <xs:element ref="bcr_drug_uuid" />
+                <xs:element ref="drug_category" />
+                <xs:element ref="total_dose" />
+                <xs:element ref="total_dose_units" />
+                <xs:element ref="prescribed_dose" />
+                <xs:element ref="prescribed_dose_units" />
+                <xs:element ref="number_cycles" />
+        
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="day_of_drug_therapy_start" />
+                        <xs:element ref="month_of_drug_therapy_start" />
+                        <xs:element ref="year_of_drug_therapy_start" />
+                    </xs:sequence>
+          
+                    <xs:element ref="days_to_drug_therapy_start" />
+                </xs:choice>
+        
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="day_of_drug_therapy_end" />
+                        <xs:element ref="month_of_drug_therapy_end" />
+                        <xs:element ref="year_of_drug_therapy_end" />
+                    </xs:sequence>
+          
+                    <xs:element ref="days_to_drug_therapy_end" />
+                </xs:choice>
+        
+                <xs:element ref="therapy_types" />
+                <xs:element ref="drug_name" />
+				<xs:element ref="clinical_trail_drug_classification" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="shared:regimen_indication" />
+                <xs:element ref="shared:regimen_indication_notes" />
+                <xs:element ref="route_of_administrations" />
+                <xs:element ref="therapy_ongoing" />
+				
+				<xs:element ref="shared:measure_of_response" minOccurs="0" maxOccurs="1" />
+        
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />
+                        <xs:element ref="shared:month_of_form_completion" />
+                        <xs:element ref="shared:year_of_form_completion" />
+                    </xs:sequence>
+          
+                    <xs:element ref="shared:days_to_form_completion" />
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="tx_on_clinical_trial">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2503808" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+    <xs:element name="therapy_types">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="therapy_type" minOccurs="1" maxOccurs="unbounded" />
+                <xs:element ref="therapy_type_notes" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="therapy_type">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+					<xs:enumeration value="Ancillary" />
+                    <xs:enumeration value="Chemotherapy" />
+                    <xs:enumeration value="Hormone Therapy" />
+                    <xs:enumeration value="Immunotherapy" />
+                    <xs:enumeration value="Targeted Molecular therapy" />
+					<xs:enumeration value="Other, specify" />
+					<xs:enumeration value="Vaccine" />
+                    <xs:attribute name="cde" type="xs:string" default="2793530" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="therapy_type_notes">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:attribute name="cde" type="xs:string" default="2001762" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="regimen_number">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2673845" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bcr_drug_barcode">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:NCName">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.15" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bcr_drug_uuid">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="total_dose">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="1515" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="total_dose_units">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3088785" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="prescribed_dose">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2184728" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="prescribed_dose_units">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3065815" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.1" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="number_cycles">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="62590" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.8" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="day_of_drug_therapy_start">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_day">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103070" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="month_of_drug_therapy_start">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_month">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103072" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="year_of_drug_therapy_start">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_year">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103074" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="day_of_drug_therapy_end">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_day">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103078" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="month_of_drug_therapy_end">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_month">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103080" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="year_of_drug_therapy_end">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_year">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103082" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.12" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="drug_name">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2975232" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.10" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="clinical_trail_drug_classification">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3378323" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="drug_category">
+		<xs:annotation>
+            <xs:documentation>
+                DEPRECATED: As of 2.6.0 this element will be completely removed. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="CHEMO" />
+                    <xs:enumeration value="HORMONAL" />
+                    <xs:enumeration value="IMMUNO" />
+                    <xs:enumeration value="TARGETED" />
+                    <xs:attribute name="cde" type="xs:string" default="729" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.10" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="route_of_administrations">
+        <xs:complexType>
+            <xs:sequence >
+                <xs:element ref="route_of_administration" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="route_of_administration">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Inhalation" />
+                    <xs:enumeration value="Intrahepatic" />
+                    <xs:enumeration value="Intramuscular (IM)" />
+                    <xs:enumeration value="Intra-peritoneal (IP)" />
+                    <xs:enumeration value="Intrathecal" />
+                    <xs:enumeration value="Intratumoral" />
+                    <xs:enumeration value="Intravenous (IV)" />
+                    <xs:enumeration value="Intravesical" />
+                    <xs:enumeration value="Oral" />
+                    <xs:enumeration value="Subcutaneous (SC)" />
+                    <xs:enumeration value="Topical" />
+                    <xs:enumeration value="Transdermal" />
+                    <xs:enumeration value="Vaginal" />
+					<xs:enumeration value="IV and IP" />
+					<xs:enumeration value="Other (specify below)" />
+                    <xs:attribute name="cde" type="xs:string" default="2003586" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="days_to_drug_therapy_start">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:attribute name="cde" type="xs:string" default="" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="days_to_drug_therapy_end">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:attribute name="cde" type="xs:string" default="" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="therapy_ongoing">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3103479" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

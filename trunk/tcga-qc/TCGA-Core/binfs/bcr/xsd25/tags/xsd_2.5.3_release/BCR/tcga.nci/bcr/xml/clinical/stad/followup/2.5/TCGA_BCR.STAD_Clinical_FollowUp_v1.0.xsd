@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- $Id: TCGA_BCR.STAD_Clinical_FollowUp_v1.0.xsd dcanning $-->
+
+<xs:schema elementFormDefault="qualified" version="2.5.3"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5"
+   xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5"
+   xmlns:admin="http://tcga.nci/bcr/xml/administration/2.5"
+   xmlns="http://tcga.nci/bcr/xml/clinical/stad/followup/2.5/1.0"
+   targetNamespace="http://tcga.nci/bcr/xml/clinical/stad/followup/2.5/1.0"
+   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" >
+
+   <xs:import schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd" namespace="http://tcga.nci/bcr/xml/utility/2.5" />
+   <xs:import schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/administration/2.5/TCGA_BCR.Administration.xsd" namespace="http://tcga.nci/bcr/xml/administration/2.5" />
+   <xs:import schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd" namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" />
+
+   <xs:annotation>
+      <xs:appinfo>
+          <jaxb:globalBindings generateIsSetMethod="true" />
+          <jaxb:schemaBindings>
+              <jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.stad" />
+          </jaxb:schemaBindings>
+      </xs:appinfo>
+   </xs:annotation>
+
+   <xs:annotation>
+      <xs:documentation xml:lang="en">Schema to define the elements of the TCGA Clinical Data Follow-up Form within the STAD study.</xs:documentation>
+   </xs:annotation>
+
+   <xs:element name="follow_up_v1.0">
+      <xs:complexType>
+         <xs:sequence>
+           <xs:element ref="shared:bcr_followup_barcode" />
+           <xs:element ref="shared:bcr_followup_uuid" />
+           <xs:element ref="shared:vital_status" />
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_last_followup" />
+                 <xs:element ref="shared:month_of_last_followup" />
+                 <xs:element ref="shared:year_of_last_followup" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_last_followup" />
+           </xs:choice>
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_death" />
+                 <xs:element ref="shared:month_of_death" />
+                 <xs:element ref="shared:year_of_death" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_death" />
+           </xs:choice>
+           <xs:element ref="new_tumor_event_after_initial_treatment" />
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_new_tumor_event_after_initial_treatment" />
+                 <xs:element ref="shared:month_of_new_tumor_event_after_initial_treatment" />
+                 <xs:element ref="shared:year_of_new_tumor_event_after_initial_treatment" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_new_tumor_event_after_initial_treatment" />
+           </xs:choice>
+           <xs:element ref="shared:additional_surgery_locoregional_procedure" />
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_additional_surgery_locoregional_procedure" />
+                 <xs:element ref="shared:month_of_additional_surgery_locoregional_procedure" />
+                 <xs:element ref="shared:year_of_additional_surgery_locoregional_procedure" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_additional_surgery_locoregional_procedure" />
+           </xs:choice>
+           <xs:element ref="shared:person_neoplasm_cancer_status" />
+           <xs:element ref="shared:additional_radiation_therapy" />
+           <xs:element ref="shared:radiation_therapy" />
+           <xs:element ref="shared:targeted_molecular_therapy" />
+           <xs:element ref="shared:additional_pharmaceutical_therapy" />
+           <xs:element ref="shared:additional_surgery_metastatic_procedure" />
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_additional_surgery_metastatic_procedure" />
+                 <xs:element ref="shared:month_of_additional_surgery_metastatic_procedure" />
+                 <xs:element ref="shared:year_of_additional_surgery_metastatic_procedure" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_additional_surgery_metastatic_procedure" />
+           </xs:choice>
+           <xs:choice>
+              <xs:sequence>
+                 <xs:element ref="shared:day_of_form_completion" />
+                 <xs:element ref="shared:month_of_form_completion" />
+                 <xs:element ref="shared:year_of_form_completion" />
+              </xs:sequence>
+              <xs:element ref="shared:days_to_form_completion" />
+           </xs:choice>
+
+           <xs:element ref="shared:followup_case_report_form_submission_reason" />
+
+           <xs:element ref="shared:progression_determined_by" />
+           <xs:element ref="new_neoplasm_event_occurrence_anatomic_site" />
+           <xs:element ref="new_neoplasm_occurrence_anatomic_site_text" />
+           <xs:element ref="primary_therapy_outcome_success" minOccurs="0"/>
+           <xs:element ref="shared:primary_therapy_outcome_success" minOccurs="0"/>
+           <xs:element ref="followup_treatment_success" />
+           <xs:element ref="patient_death_reason" minOccurs="0"/>
+           <xs:element ref="shared:patient_death_reason" minOccurs="0"/>
+           <xs:element ref="shared:new_neoplasm_event_type" />
+           <xs:element ref="shared:followup_met_assessment_outcome_success_margin_status" />
+        </xs:sequence>
+
+        <xs:attribute name="version" type="xs:string" default="1.0" use="optional"/>
+     </xs:complexType>
+   </xs:element>
+
+   <xs:element name="patient_death_reason" nillable="true">
+     <xs:complexType mixed="true">
+         <xs:simpleContent>
+            <xs:restriction base="utility:clinical_res_attributes">
+               <xs:enumeration value="" />
+               <xs:enumeration value="Stomach Cancer" />
+               <xs:enumeration value="Other Malignancy (not stomach cancer related)" />
+               <xs:enumeration value="Other Non-Malignant Disease" />
+               <xs:enumeration value="Unknown cause of death" />
+               <xs:attribute name="cde" type="xs:string" default="2554674" />
+               <xs:attribute name="xsd_ver" type="xs:string" default="2.3" />
+               <xs:attribute name="tier" type="xs:string" default="2" />
+            </xs:restriction>
+         </xs:simpleContent>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="new_tumor_event_after_initial_treatment" nillable="true">
+      <xs:complexType>
+         <xs:simpleContent>
+            <xs:extension base="utility:yes_or_no">
+               <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+               <xs:attribute name="cde" type="xs:string" default="3121376" />
+               <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+               <xs:attribute name="tier" type="xs:string" default="1" />
+            </xs:extension>
+         </xs:simpleContent>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="new_neoplasm_event_occurrence_anatomic_site" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Anus" />
+                    <xs:enumeration value="Bladder" />
+                    <xs:enumeration value="Bone" />
+                    <xs:enumeration value="Brain" />
+                    <xs:enumeration value="Cervical Lymph Node" />
+                    <xs:enumeration value="Cervix" />
+                    <xs:enumeration value="Distant Metastasis" />
+                    <xs:enumeration value="Distant Metastasis " />	
+                    <xs:enumeration value="Head &amp; Neck" />
+                    <xs:enumeration value="Hypopharynx" />
+                    <xs:enumeration value="Larynx" />
+                    <xs:enumeration value="Liver" />
+                    <xs:enumeration value="Lung" />
+                    <xs:enumeration value="Lymph Node Only" />
+                    <xs:enumeration value="Non-regional / Distant Lymph Nodes" />
+                    <xs:enumeration value="Not Applicable" />
+                    <xs:enumeration value="Oral Cavity" />
+                    <xs:enumeration value="Oropharynx" />
+                    <xs:enumeration value="Other, specify" />
+                    <xs:enumeration value="Peritoneal Surfaces" />
+                    <xs:enumeration value="Renal Pelvis" />
+                    <xs:enumeration value="Ureter" />
+                    <xs:enumeration value="Urethra" />
+                    <xs:enumeration value="Vulva" />
+                    <xs:attribute name="cde" type="xs:string" default="3108271" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="new_neoplasm_occurrence_anatomic_site_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3128033" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="followup_treatment_success" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Complete Remission/Response" />
+                    <xs:enumeration value="Not Applicable" />
+                    <xs:enumeration value="Partial Remission/Response" />
+                    <xs:enumeration value="Persistent Disease" />
+                    <xs:enumeration value="Progressive Disease" />
+                    <xs:enumeration value="Stable Disease" />
+                    <xs:enumeration value="Unknown" />
+                    <xs:attribute name="cde" type="xs:string" default="3104050" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="primary_therapy_outcome_success" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Progressive Disease" />
+                    <xs:enumeration value="Stable Disease" />
+                    <xs:enumeration value="Partial Response" />
+                    <xs:enumeration value="Complete Response" />
+                    <xs:attribute name="cde" type="xs:string" default="2786727" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="1.11" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

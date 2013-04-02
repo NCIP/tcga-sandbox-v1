@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Archive" table="archive_v" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="archive_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Archive class -->
+		<property name="addedDate" type="java.util.Date" column="date_added"/>
+		<property name="baseName" type="string" column="archive_base_name"/>
+		<property name="deployLocation" type="string" column="deploy_location"/>
+		<property name="deployStatus" type="string" column="deploy_status"/>
+		<property name="isLatest" type="integer" column="is_latest"/>
+		<property name="name" type="string" column="archive_name"/>
+		<property name="revision" type="integer" column="revision"/>
+		<property name="serialIndex" type="integer" column="serial_index"/>
+		<!-- Associations mapping for the Archive class -->
+			<many-to-one name="disease" class="gov.nih.nci.ncicb.tcga.dccws.Disease" column="disease_id" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="platform" class="gov.nih.nci.ncicb.tcga.dccws.Platform" column="platform_id" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="center" class="gov.nih.nci.ncicb.tcga.dccws.Center" column="center_id" lazy="proxy" not-null="true" cascade="none"/>
+		<set name="archiveFileCollection" lazy="true" cascade="none" inverse="true">
+			<cache usage="read-write" />
+			<key column="archive_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.ArchiveFile"/>
+		</set>
+			<many-to-one name="archiveType" class="gov.nih.nci.ncicb.tcga.dccws.ArchiveType" column="archive_type_id" lazy="proxy" not-null="false" cascade="none"/>
+		<set name="bcrBiospecimenBarcodeCollection" table="bcr_biospecimen_to_archive" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="archive_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.BiospecimenBarcode" column="biospecimen_id" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="tcgadccwsServiceInfo" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="APPLICATION_SERVICE_BEAN" value-ref="tcgadccwsApplicationService"/>
+				<entry key="AUTHENTICATION_SERVICE_BEAN" value-ref="tcgadccwsAuthenticationManager"/>
+				<entry key="APPLICATION_SERVICE_CONFIG"  value-ref="tcgadccwsApplicationServiceConfig"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="tcgadccwsInterceptor" class="gov.nih.nci.system.client.proxy.ApplicationServiceProxy" singleton="true">
+		<property name="proxyFactory">
+			<bean class="gov.nih.nci.system.client.proxy.ProxyHelperImpl"/>
+		</property>
+	</bean>
+	
+	<bean id="tcgadccwsApplicationService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<bean class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+				<property name="serviceUrl" value="http://tcga-data-dev.nci.nih.gov/tcgadccws/http/applicationService"/>
+				<property name="serviceInterface" value="gov.nih.nci.system.applicationservice.ApplicationService"/>
+				<property name="httpInvokerRequestExecutor">
+				<bean class="gov.nih.nci.system.springframework.remoting.httpinvoker.GSIHttpInvokerRequestExecutor"/>
+				</property>
+			</bean>
+		</property>
+		<property name="interceptorNames" value="tcgadccwsInterceptor"/>
+		<property name="interfaces" value="gov.nih.nci.system.applicationservice.ApplicationService"/>
+	</bean>	
+	
+	<bean id="tcgadccwsAuthenticationManager" class="org.acegisecurity.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<bean class="org.acegisecurity.providers.rcp.RemoteAuthenticationProvider">
+					<property name="remoteAuthenticationManager">
+						<bean class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+						    <property name="serviceUrl" value="http://tcga-data-dev.nci.nih.gov/tcgadccws/http/remoteAuthenticationManager"/>
+						    <property name="serviceInterface" value="org.acegisecurity.providers.rcp.RemoteAuthenticationManager"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="gov.nih.nci.system.security.acegi.authentication.NullGroupNameAuthenticationProvider"/>
+				<bean class="gov.nih.nci.system.security.acegi.authentication.NullX509AuthenticationProvider"/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Dont touch this unless you know what you are doing -->
+	<bean id="tcgadccwsApplicationServiceConfig" class="java.lang.String">
+		<constructor-arg>
+			<value>
+				&lt;bean id=&quot;tcgadccwsServiceInfo&quot; class=&quot;java.util.HashMap&quot;&gt;
+					&lt;constructor-arg&gt;
+						&lt;map&gt;
+							&lt;entry key=&quot;APPLICATION_SERVICE_BEAN&quot; value-ref=&quot;tcgadccwsApplicationService&quot;/&gt;
+							&lt;entry key=&quot;AUTHENTICATION_SERVICE_BEAN&quot; value-ref=&quot;tcgadccwsAuthenticationManager&quot;/&gt;
+						&lt;/map&gt;
+					&lt;/constructor-arg&gt;
+				&lt;/bean&gt;
+			
+				&lt;bean id=&quot;tcgadccwsInterceptor&quot; class=&quot;gov.nih.nci.system.client.proxy.ApplicationServiceProxy&quot; singleton=&quot;true&quot;&gt;
+					&lt;property name=&quot;proxyFactory&quot;&gt;
+						&lt;bean class=&quot;gov.nih.nci.system.client.proxy.ProxyHelperImpl&quot;/&gt;
+					&lt;/property&gt;
+				&lt;/bean&gt;
+				
+				&lt;bean id=&quot;tcgadccwsApplicationService&quot; class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
+					&lt;property name=&quot;target&quot;&gt;
+						&lt;bean class=&quot;org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean&quot;&gt;
+							&lt;property name=&quot;serviceUrl&quot; value=&quot;http://tcga-data-dev.nci.nih.gov/tcgadccws/http/applicationService&quot;/&gt;
+							&lt;property name=&quot;serviceInterface&quot; value=&quot;gov.nih.nci.system.applicationservice.ApplicationService&quot;/&gt;
+							&lt;property name=&quot;httpInvokerRequestExecutor&quot;&gt;
+							&lt;bean class=&quot;gov.nih.nci.system.springframework.remoting.httpinvoker.GSIHttpInvokerRequestExecutor&quot;/&gt;
+							&lt;/property&gt;
+						&lt;/bean&gt;
+					&lt;/property&gt;
+					&lt;property name=&quot;interceptorNames&quot; value=&quot;tcgadccwsInterceptor&quot;/&gt;
+					&lt;property name=&quot;interfaces&quot; value=&quot;gov.nih.nci.system.applicationservice.ApplicationService&quot;/&gt;
+				&lt;/bean&gt;	
+				
+				&lt;bean id=&quot;tcgadccwsAuthenticationManager&quot; class=&quot;org.acegisecurity.providers.ProviderManager&quot;&gt;
+					&lt;property name=&quot;providers&quot;&gt;
+						&lt;list&gt;
+							&lt;bean class=&quot;org.acegisecurity.providers.rcp.RemoteAuthenticationProvider&quot;&gt;
+								&lt;property name=&quot;remoteAuthenticationManager&quot;&gt;
+									&lt;bean class=&quot;org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean&quot;&gt;
+									    &lt;property name=&quot;serviceUrl&quot; value=&quot;http://tcga-data-dev.nci.nih.gov/tcgadccws/http/remoteAuthenticationManager&quot;/&gt;
+									    &lt;property name=&quot;serviceInterface&quot; value=&quot;org.acegisecurity.providers.rcp.RemoteAuthenticationManager&quot;/&gt;
+									&lt;/bean&gt;
+								&lt;/property&gt;
+							&lt;/bean&gt;
+							&lt;bean class=&quot;gov.nih.nci.system.security.acegi.authentication.NullGroupNameAuthenticationProvider&quot;/&gt;
+							&lt;bean class=&quot;gov.nih.nci.system.security.acegi.authentication.NullX509AuthenticationProvider&quot;/&gt;
+						&lt;/list&gt;
+					&lt;/property&gt;
+				&lt;/bean&gt;
+			</value>
+		</constructor-arg>
+	</bean>
+
+</beans>

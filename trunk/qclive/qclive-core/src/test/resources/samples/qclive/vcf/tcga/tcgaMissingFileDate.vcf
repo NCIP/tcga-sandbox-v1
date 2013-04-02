@@ -1,0 +1,14 @@
+##fileformat=VCFv4.1
+##tcgaversion=1.1
+##center="Broad,UCSC,BCM"
+##vcfProcessLog=<InputVCF=<file1.vcf>,InputVCFSource=<varCaller1>,InputVCFVer=<1.0>,InputVCFParam=<a1>,InputVCFgeneAnno=<anno1.gaf>>
+##reference=1000GenomesPilot-NCBI36
+##phasing=none
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant type">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	VT=SNP
+1	59498	id2	G	<DEL:ME:ALU>	37	CA	VT=INS
+1	59498	id3	G	<DEL:ME:ALU>	37	CA	VT=DEL
+

@@ -1,0 +1,32 @@
+<%
+    String bodyOnLoadjs ="";
+    String bodyClass = "";
+    String bodyDesign = "";
+    String pageCategory = "";
+    String layout = "";
+    String secureHost = "";
+    String host = "";
+    String dbHost = "";
+    String pageTitle = "TCGA Data Portal";
+    String serverName = request.getServerName();
+    String servletPath = request.getServletPath().substring(request.getServletPath().lastIndexOf('/'));
+    String requestURI = request.getRequestURI();
+    String rootDir = "";
+    String h1String = "";
+    String metaKeywords = "";
+    String metaDescription = "";
+	String jsOverride = "";
+	String cssOverride = "";
+
+    if(serverName.indexOf("tcga") < 0){
+        secureHost = "https://" + serverName + ":8443";
+        host = "http://" + serverName + ":8080";
+        dbHost = "http://" + serverName + ":8080";
+    } else {
+        secureHost = "https://" + serverName.replace("portal", "data");
+        host = "http://" + serverName.replace("portal", "data");
+        dbHost = "http://" + serverName.replace("data", "portal");
+    }
+
+%>
+

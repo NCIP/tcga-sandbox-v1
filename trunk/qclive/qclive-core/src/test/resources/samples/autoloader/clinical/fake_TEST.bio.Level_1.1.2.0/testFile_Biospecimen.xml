@@ -1,0 +1,85 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<tcga_bcr>
+    <patient>
+        <samples>
+            <sample>
+                <bcr_sample_barcode>sample-1</bcr_sample_barcode>
+                <bcr_sample_uuid>uuid-sample-1</bcr_sample_uuid>
+                <sample_type>tumor</sample_type>
+                <weight>10 mg</weight>
+                <portions>
+                    <portion>
+                        <bcr_portion_barcode>portion-1-1</bcr_portion_barcode>
+                        <bcr_portion_uuid>uuid-portion-1-1</bcr_portion_uuid>
+                        <portion_number>A</portion_number>
+                        <analytes>
+                            <analyte>
+                                <bcr_analyte_barcode>analyte-1-1-1</bcr_analyte_barcode>
+                                <bcr_analyte_uuid>uuid-analyte-1-1-1</bcr_analyte_uuid>
+                                <analyte_type>DNA</analyte_type>
+                                <aliquots>
+                                    <aliquot>
+                                        <bcr_aliquot_barcode>aliquot-1-1-1-1</bcr_aliquot_barcode>
+                                        <bcr_aliquot_uuid>uuid-aliquot-1-1-1-1</bcr_aliquot_uuid>
+                                        <volume>1 uL</volume>
+                                    </aliquot>
+                                    <aliquot>
+                                        <bcr_aliquot_barcode>aliquot-1-1-1-2</bcr_aliquot_barcode>
+                                        <bcr_aliquot_uuid>uuid-aliquot-1-1-1-2</bcr_aliquot_uuid>
+                                        <volume>1.5 uL</volume>
+                                    </aliquot>
+                                </aliquots>
+                                <protocols>
+                                    <protocol>
+                                      <protocol_name>Fred</protocol_name>
+                                    </protocol>
+                                </protocols>
+                                <dna>
+                                    <pcr_successful>YES</pcr_successful>
+                                </dna>
+                            </analyte>
+                            <analyte>
+                                <bcr_analyte_barcode>analyte-1-1-2</bcr_analyte_barcode>
+                                <bcr_analyte_uuid>uuid-analyte-1-1-2</bcr_analyte_uuid>
+                                <analyte_type>RNA</analyte_type>
+                                <aliquots>
+                                    <aliquot>
+                                        <bcr_aliquot_barcode>aliquot-1-1-2-1</bcr_aliquot_barcode>
+                                        <bcr_aliquot_uuid>uuid-aliquot-1-1-2-1</bcr_aliquot_uuid>
+                                        <volume>2 uL</volume>
+                                    </aliquot>
+                                </aliquots>
+                                <rna>
+                                    <rinvalue>8.2</rinvalue>
+                                </rna>
+                            </analyte>
+                        </analytes>
+                        <slides>
+                            <slide>
+                                <bcr_slide_barcode>slide-1-1-1</bcr_slide_barcode>
+                                <bcr_slide_uuid>uuid-slide-1-1-1</bcr_slide_uuid>
+                                <section_location>top</section_location>
+                            </slide>
+                        </slides>
+                    </portion>
+                </portions>
+                <tumor_pathology>
+                    <lymphatic_invasion>NO</lymphatic_invasion>
+                </tumor_pathology>
+            </sample>
+        </samples>
+        <follow_ups>
+            <follow_up  version="2.0">
+                <age>31</age>
+                <status>alive</status>
+            </follow_up>
+        </follow_ups>
+    </patient>
+</tcga_bcr>

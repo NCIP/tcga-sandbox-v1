@@ -1,0 +1,33 @@
+Description of dbGaP Submission Creation and Validation Process
+
+In the current workflow, I start with either a DB query results or tables from 
+a manuscript; these constitute the data files.   Next, I run a script to 
+create the DDs from the DS file headings using definitions retrieved from the 
+TCGA master DD, plus DD file structure and formatting rules.  After creating 
+the file manifest, I run a validation script which creates an internal 
+representation of how the clinical data submission should look, based on the 
+manifest and DD files, and saves it in JSON format for easy inspection.  The 
+script then validates the contents of the DS files based on the JSON 
+specification and internal rules specifying required column headings, the 
+format of certain data fields (e.g., TCGA barcode format for the various 
+biospecimen types), field delimiters, lack of quotes for text, absence of 
+spaces adjacent to delimiters, etc., etc. 
+
+So, to answer your question, I check DS headings against DD column 1, and DD 
+column 1 against DS headings-- when creating the data submission.  What I 
+don't have at the moment is a fully integrated package that would allow me to 
+make modifications to one file and then execute all of the submission 
+integrity checks that occur while building the submission.  However, it is not 
+unreasonable to rebuild parts of the submission to ensure that a modified 
+file, for example, is consistent with the rest of the submission.  Next week, 
+I plan to work with our local Perl guru (Mark Jensen) to abstract the 
+validation routines embedded in the submission prep scripts into a test system 
+which will allow us to test both code and data simultaneously.
+
+Another thing to keep in mind is that the CRC data you are currently 
+processing reflects the state of my submission prep and validation scripts as 
+they were back in June.  BRCA and LUSC were built with code at least 3 months 
+more mature that CRC.  Hopefully, you will notice the difference.
+
+If you have additional data-validation ideas, please share them, even if you 
+think I might have already implemented them.

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>qclive/data-matrix-splitter-standalone/src/test/resources/common.unittest.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          lazy-init="false">
+        <property name="driverClassName" value="${dbUnitJDBCDriver}"/>
+        <property name="url" value="${dbUnitConnectionURL}"/>
+        <property name="username" value="${dbUnitUserName}"/>
+        <property name="password" value="${dbUnitPassword}"/>
+    </bean>
+
+	<bean id="diseaseJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dccCommonDataSource" />
+	</bean>
+
+    <bean id="dataMatrixQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.DataMatrixQueriesJDBCImpl"
+          lazy-init="true" autowire="byName">
+    </bean>
+
+
+</beans>

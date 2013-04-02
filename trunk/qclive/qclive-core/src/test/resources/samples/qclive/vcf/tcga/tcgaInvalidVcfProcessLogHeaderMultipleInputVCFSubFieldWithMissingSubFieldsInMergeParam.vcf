@@ -1,0 +1,15 @@
+##fileformat=VCFv4.1
+##fileDate=20090805
+##tcgaversion=1.1
+##center="Broad,UCSC,BCM"
+##vcfProcessLog=<InputVCF=<file1.vcf,file2.vcf,.>, InputVCFSource=<varCaller1,varCaller2,varCaller3>, InputVCFVer=<1.0,2.1,2.0>, InputVCFParam=<a1,c2;a1,b1;a1,b1>, InputVCFgeneAnno=<anno1.gaf,anno2.gaf,anno3.gaf>, MergeSoftware=<sw1,sw2>, MergeParam=<a1,a2>, MergeVer=<.>, MergeContact=<johndoe@xyz.edu>>
+##reference=1000GenomesPilot-NCBI36
+##phasing=none
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant type">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	VT=SNP
+1	59498	id2	G	<DEL:ME:ALU>	37	CA	VT=INS
+1	59498	id3	G	<DEL:ME:ALU>	37	CA	VT=DEL
+

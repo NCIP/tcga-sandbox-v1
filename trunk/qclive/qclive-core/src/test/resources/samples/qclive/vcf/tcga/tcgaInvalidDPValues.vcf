@@ -1,0 +1,22 @@
+##fileformat=VCFv4.1
+##fileDate=20090805
+##tcgaversion=1.1
+##center="Broad,UCSC,BCM"
+##vcfProcessLog=<InputVCF=<file1.vcf>,InputVCFSource=<varCaller1>,InputVCFVer=<1.0>,InputVCFParam=<a1>,InputVCFgeneAnno=<anno1.gaf>>
+##reference=1000GenomesPilot-NCBI36
+##phasing=none
+##SAMPLE=<ID=S1,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##SAMPLE=<ID=S2,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##SAMPLE=<ID=S3,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##SAMPLE=<ID=S4,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,SampleUUID=00000000-0000-0000-0000-000000000000,SampleTCGABarcode=TCGA-00-0000-00A-00A-0000-00,MetadataResource=todo,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Depth of Read">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+##FORMAT=<ID=BQ,Number=.,Type=Integer,Description="Average base quality for reads supporting alleles">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Depth of reads supporting alleles 0/1/2/3">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	S1	S2	S3	S4
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	DP=10	GT:DP:SS:BQ:AD	0/0:2:0:7:8	0/0:5:0:7:8	0/0:3:0:7:8	0/0:5:0:7:8
+

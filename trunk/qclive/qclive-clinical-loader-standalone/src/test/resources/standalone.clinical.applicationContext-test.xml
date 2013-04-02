@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- import data source bean declarations -->
+    <import resource="clinical-data-sources-test.xml"/>
+
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:test.clinical.standalone.jdbc.properties</value>
+            </list>
+        </property>
+    </bean>		
+   
+	<!-- Data source based on disease name -->
+    <bean id="diseaseDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource"
+          lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.SpringDataSourceMaker" lazy-init="default"
+                  autowire="default" dependency-check="default">
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${tcga.dcc.diseaseDataSources}"/>
+    </bean>
+
+    <bean id="clinicalLoaderQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ClinicalLoaderQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+   
+    <bean id="archiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>  
+   
+    <!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->   
+    <bean id="diseaseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+	
+	
+	 <bean id="uuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    
+     <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+     <bean id="emailManager" class="gov.nih.nci.ncicb.tcga.dcc.common.util.EmailManager"/>
+    
+	 <bean id="uuidService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDServiceImpl">
+        <property name="uuidDAO" ref="uuidDAOImpl"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="emailManager" ref="emailManager"/>
+     </bean>
+	
+	<bean id="qcLiveBarcodeAndUUIDValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.QcLiveBarcodeAndUUIDValidatorImpl"/>
+	    	
+	<bean id="barcodeUuidResolver" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BarcodeUuidResolverImpl">
+        <property name="uuidService" ref="uuidService"/>
+        <property name="uuidDAO" ref="uuidDAOImpl"/>
+        <property name="barcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+    </bean>
+	  <bean id="logger" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.LoggerImpl">
+        <property name="destinations">
+            <list>
+                <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.Log4JLoggerDestination">
+                    <constructor-arg value="TCGALogger"/>
+                    <property name="minLevel">
+                        <util:constant static-field="org.apache.log4j.Level.INFO"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+     <!-- archive logger logs major validation/processing info to db  -->
+    <bean id="archiveLogger" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.logging.ArchiveLoggerImpl">
+        <property name="local" value="true"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="logQueries" ref="logImpl"/>
+    </bean>
+        
+     <bean id="logImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.LogQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="lobHandler">
+            <ref local="lobHandler"/>
+        </property>
+    </bean>	
+ 	<!-- LobHandler for Oracle JDBC drivers -->
+    <bean id="lobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+        <property name="nativeJdbcExtractor">
+            <ref local="nativeJdbcExtractor"/>
+        </property>
+    </bean>	
+
+    <!-- NativeJdbcExtractor -->
+    <bean id="nativeJdbcExtractor"
+          class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor" lazy-init="true"/>
+
+
+	 <bean id="clinicalLoaderCaller" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ClinicalLoaderCaller">
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="clinicalLoaderQueries" ref="clinicalLoaderQueries"/>
+        <property name="barcodeUuidResolver" ref="barcodeUuidResolver"/>
+        <property name="logger" ref="logger"/>
+        <property name="archiveLogger" ref="archiveLogger"/>
+        <property name="validClinicalPlatforms" value="${tcga.dcc.validClinicalPlatforms}"/>
+        <property name="transactionManager" ref="diseaseTransactionManager" />
+    </bean>
+
+</beans>

@@ -1,0 +1,48 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="1" ARCHIVE_TYPE="Level_1" />
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="TEST" DISEASE_NAME="TestDisease" ACTIVE="1"/>
+    <CENTER_TYPE CENTER_TYPE_CODE="BCR" CENTER_TYPE_DEFINITION="BCR" />
+    <CENTER CENTER_ID="1" DOMAIN_NAME="fake" CENTER_TYPE_CODE="BCR" DISPLAY_NAME="FakeBCR" />
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="BCR" NAME="clinical"/>
+    <PLATFORM PLATFORM_ID="1" CENTER_TYPE_CODE="BCR" PLATFORM_NAME="bio" PLATFORM_ALIAS="bio" PLATFORM_DISPLAY_NAME="biospecimen" SORT_ORDER="1" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+    <ARCHIVE_INFO ARCHIVE_ID="123" ARCHIVE_NAME="fake_TEST.bio.Level_1.1.2.0" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1" SERIAL_INDEX="1" REVISION="0" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000" DEPLOY_STATUS="Available" is_latest="1" DEPLOY_LOCATION="somewhere" ARCHIVE_TYPE_ID="1" />
+
+    <clinical_xsd_element clinical_xsd_element_id="1" element_name="bcr_patient_barcode" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="2" element_name="bcr_sample_barcode" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="3" element_name="weight" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="4" element_name="sample_type" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="5" element_name="gender" is_protected="1" expected_element='Y'/>
+    <clinical_xsd_element clinical_xsd_element_id="6" element_name="age_at_diagnosis" is_protected="1" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="7" element_name="freezing_method" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="8" element_name="bcr_patient_uuid" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="9" element_name="bcr_sample_uuid" is_protected="0" expected_element='Y' />
+    <clinical_xsd_element clinical_xsd_element_id="10" element_name="bcr_not_expected_element" is_protected="0" expected_element='N' />
+    
+    
+    <patient patient_id="12345" uuid="patient-1" patient_barcode="TCGA-00-0001" />
+    <patient patient_id="12346" uuid="patient-2" patient_barcode="TCGA-00-0002" />
+    
+    <sample sample_id="9876" uuid="sample-1" sample_barcode="TCGA-00-0001-00A" patient_id="12345" />
+    <sample_element sample_element_id="1" clinical_xsd_element_id="3" element_value="42" sample_id="9876" />
+    <sample_element sample_element_id="2" clinical_xsd_element_id="4" element_value="populated_test" sample_id="9876" />
+
+    <sample sample_id="9877" uuid="sample-2" sample_barcode="TCGA-00-0002-00A" patient_id="12346" />
+    <sample_element sample_element_id="3" clinical_xsd_element_id="3" element_value="16" sample_id="9877" />
+    <sample_element sample_element_id="4" clinical_xsd_element_id="4" element_value="different_value" sample_id="9877" />
+
+    <follow_up follow_up_id="2020" follow_up_version="follow_up_v2.4" patient_id="12345"/>
+    
+    <clinical_table clinical_table_id="1" table_name="PATIENT" archive_link_table_name="PATIENT_ARCHIVE" barcode_element_id="1" uuid_element_id="8" barcode_column_name="PATIENT_BARCODE" element_node_name="patient" element_table_name="PATIENT_ELEMENT" table_id_column_name="PATIENT_ID" join_for_sample=" " join_for_patient=" " is_dynamic="0" />
+    <clinical_table clinical_table_id="2" table_name="SAMPLE" archive_link_table_name="SAMPLE_ARCHIVE" barcode_element_id="2" uuid_element_id="9" barcode_column_name="SAMPLE_BARCODE" element_node_name="sample" element_table_name="SAMPLE_ELEMENT" table_id_column_name="SAMPLE_ID" join_for_sample=" " join_for_patient=" " parent_table_id="1" is_dynamic="0" dynamic_identifier_column_name="lion"/>
+    <clinical_table clinical_table_id="3" table_name="TUMORPATHOLOGY" archive_link_table_name="TUMORPATHOLOGY_ARCHIVE" element_node_name="tumor_pathology" element_table_name="TUMORPATHOLOGY_ELEMENT" join_for_patient=" " join_for_sample=" " parent_table_id="2" table_id_column_name="TUMORPATHOLOGY_ID"  is_dynamic="0" dynamic_identifier_column_name=""/>
+    <clinical_table clinical_table_id="4" table_name="FOLLOW_UP" archive_link_table_name="FOLLOW_UP_ARCHIVE" is_dynamic="1" dynamic_identifier_column_name="follow_up_version" element_node_name="follow_up_.+" element_table_name="FOLLOW_UP_ELEMENT" join_for_patient="FOLLOW_UP.PATIENT_ID(+)=PATIENT.PATIENT_ID" join_for_sample="FOLLOW_UP.PATIENT_ID(+)=PATIENT.PATIENT_ID AND PATIENT.PATIENT_ID=SAMPLE.PATIENT_ID" parent_table_id="1" table_id_column_name="FOLLOW_UP_ID" />
+   
+</dataset>

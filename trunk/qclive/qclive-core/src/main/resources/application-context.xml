@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+	Copyright Notice. The software subject to this notice and license includes
+	both human ~ readable source code form and machine readable, binary, object
+	code form (the "caBIG ~ Software"). ~ ~ Please refer to the complete License
+	text for full details at the root of the project. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="restfulWebserviceClient" class="gov.nih.nci.ncicb.tcga.dcc.qclive.webservice.util.RestfulWebserviceClientImpl" />
+
+
+	<bean id="biospecimenIdWsQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.webservice.client.impl.BiospecimenIdWsQueriesImpl">
+        <property name="baseBiospecimenJsonWs" value="https://tcga-data.nci.nih.gov/uuid/uuidws/metadata/json/barcodeExists"/>
+        <property name ="client"  ref ="restfulWebserviceClient"  />
+	</bean>
+
+    <bean id="validationWebServiceQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.webservice.client.impl.ValidationWebServiceQueriesImpl">
+        <property name="baseValidationWebServiceURL" value="https://tcga-data.nci.nih.gov/uuid/uuidws/validation/json/uuidExists"/>
+        <property name="validateUuidsAndBarcodesJsonURL" value="https://tcga-data.nci.nih.gov/uuid/uuidws/validation/json/validateAliquotUuidsAndBarcodes/"/>
+        <property name="restfulWebserviceClient" ref="restfulWebserviceClient"/>
+    </bean>
+
+    <bean id="shippedBiospecimenWSQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.webservice.client.impl.ShippedBiospecimenWSQueriesImpl">
+        <property name="baseUUIDMetaDataURI" value="https://tcga-data.nci.nih.gov/uuid/uuidws/metadata"/>
+    </bean>
+    
+</beans>

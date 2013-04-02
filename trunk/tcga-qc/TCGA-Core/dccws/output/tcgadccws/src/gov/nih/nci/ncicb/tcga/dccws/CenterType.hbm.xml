@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="CenterType" table="center_type" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="string" column="center_type_code">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the CenterType class -->
+		<property name="definition" type="string" column="center_type_definition"/>
+		<!-- Associations mapping for the CenterType class -->
+		<set name="centerCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="center_type_code" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Center"/>
+		</set>
+		<set name="platformCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="center_type_code" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Platform"/>
+		</set>
+	</class>
+</hibernate-mapping>

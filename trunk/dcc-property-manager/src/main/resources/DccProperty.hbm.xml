@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping> 
+  <class name="gov.nih.nci.ncicb.tcga.dcc.propertymanager.DccProperty" table="DCC_PROPERTY"> 
+  	<cache usage="read-write" />   
+    <id column="PROPERTY_ID" name="propertyId" type="java.lang.Long" unsaved-value="0">
+       <generator class="sequence">
+                <param name="sequence">DCC_PROPERTY_SEQ</param>
+        </generator>
+    </id>         
+	<property column="APPLICATION_NAME" name="applicationName" type="java.lang.String"/>
+	<property column="PROPERTY_DESCRIPTION" name="propertyDescription" type="java.lang.String"/>
+	<property column="PROPERTY_NAME" name="propertyName" type="java.lang.String"/>
+	<property column="PROPERTY_VALUE" name="propertyValue" type="java.lang.String"/>
+	<property column="SERVER_NAME" name="serverName" type="java.lang.String"/>	     
+  </class>       
+</hibernate-mapping> 

@@ -1,0 +1,20 @@
+
+BIN=/usr/local/gatk/singerma/dist/
+Syntax:
+java -jar $BIN/GenomeAnalysisTK.jar -T CombineVariants -R [assemblyPath] -B:[fileTitle],VCF [filePath] -B:[fileTitle],VCF [filePath] -o outfile ... [options]
+
+You use a "-B" argument for each VCF file. 
+For the options, you will likely want to use "-genotypeMergeOptions UNIQUIFY" to keep the genotype names from colliding and clobbering each other. 
+
+All runs are currently set to only keep a call which exists from all centers. 
+You can use "-minN [number]" to choose the minimum number of those calls which must be passing. 
+Thus, with no -minN, you are taking all calls which exist in all 4 regardless of passing or filters. 
+With -minN 1 you get all calls which exist in all 4 and at least 1 of those calls passes. 
+With -minN 4 you get all of the calls with 4 passing calls.
+
+If a center does not correctly specify the "#SAMPLE" header according to TCGA spec, then the program will likely fail as the code there is a bit fragile. 
+Make sure that all VCFs and the assembly that you are using name chromosomes the same way (chr1 vs 1).
+
+Notify Singer Ma with any issues
+Singer Ma  singer@soe.ucsc.edu
+

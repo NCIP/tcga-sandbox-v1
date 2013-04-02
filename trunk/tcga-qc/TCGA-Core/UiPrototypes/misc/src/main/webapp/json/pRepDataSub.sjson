@@ -1,0 +1,57 @@
+{
+	"graphConfig": {
+		"startPos": {"x": 100, "y": 300},
+	},
+	"nodeData": [{
+		"name": "igc",
+		"label": "Tigger",
+		"image": "images/haw/tigger91.gif",
+		"numericLabel": "samples",
+		"outputs" : [{
+			"count": 100,
+			"label": "Fun"
+		}, {
+			"count": 303,
+			"label": "Springs",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "#0f0"
+		}]
+   }, {
+		"name": "pathology",
+		"label": "Owl",
+		"image": "images/haw/owl.gif",
+		"numericLabel": "samples",
+		"outputs" : [{
+			"count": 20,
+			"label": "Wise"
+		}, {
+			"count": 40,
+			"label": "Prognostications",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "#0f0"
+		}, {
+			"count": 50,
+			"label": "Mice"
+		}]
+	}, {
+		"name": "totals",
+		"label": "Eeyore",
+		"vertLoc": -60,
+		"image": "images/haw/kt_Eeyore.JPG"
+	}],
+   "totals": {
+   	"textSize": 14,
+		"width": 180,
+		"pos": {x: 719, y: 1},
+		"fill": "0-#ffff00:50-#ffd700",
+		"counts" : [{
+			"count": 40,
+			"label": "Prognostications"
+		}, {
+			"count": 70,
+			"label": "Supplies"
+		}]
+	}
+}

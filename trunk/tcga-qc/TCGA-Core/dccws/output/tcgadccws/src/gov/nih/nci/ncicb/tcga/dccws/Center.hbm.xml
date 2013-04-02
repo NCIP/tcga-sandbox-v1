@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Center" table="center" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="center_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Center class -->
+		<property name="displayName" type="string" column="display_name"/>
+		<property name="name" type="string" column="domain_name"/>
+		<!-- Associations mapping for the Center class -->
+		<set name="archiveCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="center_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.Archive"/>
+		</set>
+		<set name="bcrCenterCollection" lazy="true" cascade="none" inverse="true">
+			<cache usage="read-write" />
+			<key column="center_id" not-null="true" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.BcrCenter"/>
+		</set>
+		<set name="bcrTssCollection" lazy="true" cascade="none" inverse="false">
+			<cache usage="read-write" />
+			<key column="receiving_center_id" not-null="false" />
+			<one-to-many class="gov.nih.nci.ncicb.tcga.dccws.TissueSourceSite"/>
+		</set>
+			<many-to-one name="centerType" class="gov.nih.nci.ncicb.tcga.dccws.CenterType" column="center_type_code" lazy="proxy" not-null="true" cascade="none"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="BiospecimenBarcode" table="biospecimen_barcode" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="biospecimen_id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the BiospecimenBarcode class -->
+		<property name="barcode" type="string" column="barcode"/>
+		<property name="isValid" type="boolean" column="is_valid"/>
+		<property name="patient" type="string" column="patient"/>
+		<property name="plateId" type="string" column="plate_id"/>
+		<property name="portionSequence" type="string" column="portion_sequence"/>
+		<property name="sampleSequence" type="string" column="sample_sequence"/>
+		<property name="shipDate" type="java.util.Date" column="ship_date"/>
+		<!-- Associations mapping for the BiospecimenBarcode class -->
+			<many-to-one name="bcrCenter" class="gov.nih.nci.ncicb.tcga.dccws.BcrCenter" column="bcr_center_id" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="tissueSourceSite" class="gov.nih.nci.ncicb.tcga.dccws.TissueSourceSite" column="tss_code" lazy="proxy" not-null="true" cascade="none"/>
+		<set name="fileCollection" table="biospecimen_to_file" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="biospecimen_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.FileInfo" column="file_id" />
+		</set>
+		<set name="bcrArchiveCollection" table="bcr_biospecimen_to_archive" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="biospecimen_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.Archive" column="archive_id" />
+		</set>
+			<many-to-one name="project" class="gov.nih.nci.ncicb.tcga.dccws.Project" column="project_code" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="sampleType" class="gov.nih.nci.ncicb.tcga.dccws.SampleType" column="sample_type_code" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="portionAnalyte" class="gov.nih.nci.ncicb.tcga.dccws.PortionAnalyte" column="portion_analyte_code" lazy="proxy" not-null="true" cascade="none"/>
+	</class>
+</hibernate-mapping>

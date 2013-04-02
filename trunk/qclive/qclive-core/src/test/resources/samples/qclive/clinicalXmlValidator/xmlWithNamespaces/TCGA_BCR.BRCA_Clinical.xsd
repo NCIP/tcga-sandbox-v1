@@ -1,0 +1,1277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema elementFormDefault="qualified" version="2.3.0" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:utility="http://tcga.nci/bcr/xml/utility/2.3" 
+	xmlns:admin="http://tcga.nci/bcr/xml/administration/2.3" 
+	xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.3" 
+	xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.3" 
+	xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.3"
+	xmlns="http://tcga.nci/bcr/xml/clinical/brca"
+	targetNamespace="http://tcga.nci/bcr/xml/clinical/brca"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
+	  
+  <xs:annotation>
+    <xs:appinfo>
+      <jaxb:globalBindings generateIsSetMethod="true"/>
+      <jaxb:schemaBindings>
+        <jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.brca"/>
+      </jaxb:schemaBindings>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      Schema to define the elements of the BRCA study. 
+    </xs:documentation>
+  </xs:annotation>
+  
+  <xs:import namespace="http://tcga.nci/bcr/xml/utility/2.3" schemaLocation="./TCGA_BCR.Utility.xsd" />
+  <xs:import namespace="http://tcga.nci/bcr/xml/administration/2.3" schemaLocation="./TCGA_BCR.Administration.xsd" />
+  <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.3" schemaLocation="./TCGA_BCR.Shared_Clinical_Elements.xsd" />
+  <xs:import namespace="http://tcga.nci/bcr/xml/clinical/radiation/2.3" schemaLocation="./TCGA_BCR.Radiation.xsd" />
+  <xs:import namespace="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.3" schemaLocation="./TCGA_BCR.Pharmaceutical.xsd" />
+    
+    <xs:element name="tcga_bcr">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="admin:admin" />
+                <xs:element ref="patient" />
+            </xs:sequence>
+            <xs:attribute name="schemaVersion" type="xs:decimal" use="required" fixed="2.3"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="patient">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:tumor_tissue_site" />
+                <xs:element ref="shared:prior_diagnosis" />
+                <xs:element ref="shared:gender" />
+                <xs:element ref="shared:vital_status" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_birth" />
+                        <xs:element ref="shared:month_of_birth" />
+                        <xs:element ref="shared:year_of_birth" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_birth" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_known_alive" />
+                        <xs:element ref="shared:month_of_last_known_alive" />
+                        <xs:element ref="shared:year_of_last_known_alive" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_last_known_alive" />
+                    <!-- shared. and not in OC-->
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_death" />
+                        <xs:element ref="shared:month_of_death" />
+                        <xs:element ref="shared:year_of_death" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_death" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_followup" />
+                        <xs:element ref="shared:month_of_last_followup" />
+                        <xs:element ref="shared:year_of_last_followup" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_last_followup" />
+                </xs:choice>
+                <xs:element ref="shared:race" />
+                <xs:element ref="shared:bcr_patient_barcode" />
+                <xs:element ref="shared:bcr_patient_uuid" />
+                <xs:element ref="shared:pretreatment_history" />
+                <xs:element ref="shared:radiation_therapy" />
+                <xs:element ref="shared:informed_consent_verified" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_initial_pathologic_diagnosis" />
+                        <xs:element ref="shared:month_of_initial_pathologic_diagnosis" />
+                        <xs:element ref="shared:year_of_initial_pathologic_diagnosis" />
+                    </xs:sequence>
+                    <xs:sequence>
+                        <xs:element ref="shared:days_to_initial_pathologic_diagnosis" />
+                        <xs:element ref="shared:age_at_initial_pathologic_diagnosis" />
+                    </xs:sequence>
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_new_tumor_event_after_initial_treatment" />
+                        <xs:element ref="shared:month_of_new_tumor_event_after_initial_treatment" />
+                        <xs:element ref="shared:year_of_new_tumor_event_after_initial_treatment" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_new_tumor_event_after_initial_treatment" />
+                </xs:choice>
+                <xs:element ref="shared:ethnicity" />
+                <xs:element ref="shared:additional_radiation_therapy" />
+                <xs:element ref="shared:additional_pharmaceutical_therapy" />
+                <xs:element ref="shared:additional_surgery_locoregional_procedure" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_additional_surgery_locoregional_procedure" />
+                        <xs:element ref="shared:month_of_additional_surgery_locoregional_procedure" />
+                        <xs:element ref="shared:year_of_additional_surgery_locoregional_procedure" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_additional_surgery_locoregional_procedure" />
+                </xs:choice>
+                <xs:element ref="shared:additional_surgery_metastatic_procedure" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_additional_surgery_metastatic_procedure" />
+                        <xs:element ref="shared:month_of_additional_surgery_metastatic_procedure" />
+                        <xs:element ref="shared:year_of_additional_surgery_metastatic_procedure" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_additional_surgery_metastatic_procedure" />
+                </xs:choice>
+                <xs:element ref="shared:person_neoplasm_cancer_status" />
+                <xs:element ref="lymph_node_examined_count" />
+                <xs:element ref="er_detection_method_text" />
+                <xs:element ref="breast_tumor_stage_grouping_stage" />
+                <xs:element ref="pgr_detection_method_text" />
+                <xs:element ref="breast_tumor_pathologic_t_stage" />
+                <xs:element ref="breast_tumor_pathologic_n_stage" />
+                <xs:element ref="anatomic_site_location_descriptors" />
+                <xs:element ref="her2_neu_chromosone_17_signal_ratio_value" />
+                <xs:element ref="axillary_lymph_node_stage_method_type" />
+                <xs:element ref="axillary_lymph_node_stage_other_method_descriptive_text" />
+                <xs:element ref="primary_other_site_of_disease_name" />
+                <xs:element ref="breast_carcinoma_surgical_procedure_name" />
+                <xs:element ref="breast_neoplasm_other_surgical_procedure_descriptive_text" />
+                
+                <xs:element ref="breast_carcinoma_first_surgical_procedure_name" />
+                <xs:element ref="surgical_procedure_purpose_other_text" />
+                
+                <xs:element ref="breast_cancer_optical_measurement_histologic_type" />
+                <xs:element ref="tumor_other_histologic_subtype_descriptive_text" />
+                <xs:element ref="person_menopause_status" />
+                <xs:element ref="breast_carcinoma_progesterone_receptor_status" />
+                <xs:element ref="cytokeratin_immunohistochemistry_staining_method_micrometastasis_indicator" />
+                <xs:element ref="immunohistochemistry_positive_cell_score" />
+                <xs:element ref="her2_immunohistochemistry_level_result" />
+                <xs:element ref="breast_cancer_surgery_margin_status" />
+                <xs:element ref="disease_surgical_margin_status" />
+                <xs:element ref="first_pathologic_diagnosis_biospecimen_acquisition_method_type" />
+                <xs:element ref="first_pathologic_diagnosis_biospecimen_acquisition_other_method_text" />
+                <xs:element ref="adjuvant_postop_targeted_therapy_admin_indicator" />
+                <xs:element ref="lab_procedure_her2_neu_in_situ_hybrid_outcome_type" />
+                <xs:element ref="breast_carcinoma_estrogen_receptor_status" />
+                <xs:element ref="lab_proc_her2_neu_immunohistochemistry_receptor_status" />
+                <xs:element ref="pos_finding_lymph_node_keratin_immunohistochemistry_staining_method_count" />
+                <xs:element ref="pos_finding_lymph_node_hematoxylin_and_eosin_staining_microscopy_count" />
+                <xs:element ref="pos_finding_progesterone_receptor_other_measurement_scale_text" />
+                <xs:element ref="positive_finding_estrogen_receptor_other_measurement_scale_text" />
+                <xs:element ref="her2_erbb_pos_finding_cell_percent_category" />
+                <xs:element ref="pos_finding_her2_erbb2_other_measurement_scale_text" />
+                <xs:element ref="her2_erbb_method_calculation_method_text" />
+                <xs:element ref="her2_neu_and_centromere_17_copy_number_analysis_input_total_number_count" />
+                <xs:element ref="her2_and_centromere_17_positive_finding_other_measurement_scale_text" />
+                <xs:element ref="her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text" />
+                <xs:element ref="tissue_prospective_collection_indicator" />
+                <xs:element ref="tissue_retrospective_collection_indicator" />
+                <xs:element ref="fluorescence_in_situ_hybridization_diagnostic_procedure_chromosome_17_signal_result_range" />
+                <xs:element ref="first_nonlymph_node_metastasis_anatomic_sites" />
+                <xs:element ref="breast_tumor_clinical_m_stage" />
+                <xs:element ref="er_level_cell_percentage_category" />
+                <xs:element ref="progesterone_receptor_level_cell_percent_category" />
+                <xs:element ref="metastatic_breast_carcinoma_estrogen_receptor_status" />
+                <xs:element ref="metastatic_breast_carcinoma_estrogen_receptor_level_cell_percent_category" />
+                <xs:element ref="metastatic_breast_carcinoma_immunohistochemistry_er_pos_cell_score" />
+                <xs:element ref="pos_finding_metastatic_breast_carcinoma_estrogen_receptor_other_measuremenet_scale_text" />
+                <xs:element ref="metastatic_breast_carcinoma_estrogen_receptor_detection_method_text" />
+                <xs:element ref="metastatic_breast_carcinoma_progesterone_receptor_status" />
+                <xs:element ref="metastatic_breast_carcinoma_lab_proc_her2_neu_immunohistochemistry_receptor_status" />
+                <xs:element ref="metastatic_breast_carcinoma_progesterone_receptor_level_cell_percent_category" />
+                <xs:element ref="metastatic_breast_carcinoma_immunohistochemistry_pr_pos_cell_score" />
+                <xs:element ref="metastatic_breast_carcinoma_pos_finding_progesterone_receptor_other_measure_scale_text" />
+                <xs:element ref="metastatic_breast_carcinoma_progesterone_receptor_detection_method_text" />
+                <xs:element ref="metastatic_breast_carcinoma_her2_erbb_pos_finding_cell_percent_category" />
+                <xs:element ref="metastatic_breast_carcinoma_erbb2_immunohistochemistry_level_result" />
+                <xs:element ref="metastatic_breast_carcinoma_pos_finding_her2_erbb2_other_measure_scale_text" />
+                <xs:element ref="metastatic_breast_carcinoma_her2_erbb_method_calculation_method_text" />
+                <xs:element ref="metastatic_breast_carcinoma_lab_proc_her2_neu_in_situ_hybridization_outcome_type" />
+                <xs:element ref="metastatic_breast_carcinoma_fluorescence_in_situ_hybridization_diagnostic_proc_centromere_17_signal_result_range" />
+                <xs:element ref="her2_neu_and_centromere_17_copy_number_metastatic_breast_carcinoma_analysis_input_total_number_count" />
+                <xs:element ref="metastatic_breast_carcinoma_her2_neu_chromosone_17_signal_ratio_value" />
+                <xs:element ref="metastatic_breast_carcinoma_pos_finding_other_scale_measurement_text" />
+                <xs:element ref="metastatic_breast_carcinoma_her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text" />
+                <xs:element ref="her2_neu_metastatic_breast_carcinoma_copy_analysis_input_total_number" />
+                <xs:element ref="her2_neu_breast_carcinoma_copy_analysis_input_total_number" />
+                <xs:element ref="breast_carcinoma_immunohistochemistry_pos_cell_score" />
+                <xs:element ref="breast_tumor_pathologic_grouping_stage" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />
+                        <xs:element ref="shared:month_of_form_completion" />
+                        <xs:element ref="shared:year_of_form_completion" />
+                    </xs:sequence>
+                    <xs:element ref="shared:days_to_form_completion" />
+                </xs:choice>
+                <xs:element ref="rx:drugs" />
+                <xs:element ref="rad:radiations" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lymph_node_examined_count" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="er_detection_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="69" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_tumor_stage_grouping_stage" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="0" />
+                    <xs:enumeration value="I" />
+                    <xs:enumeration value="IIA" />
+                    <xs:enumeration value="IIB" />
+                    <xs:enumeration value="IIIA" />
+                    <xs:enumeration value="IIIB" />
+                    <xs:enumeration value="IIIC" />
+                    <xs:enumeration value="IV" />
+                    <xs:attribute name="cde" type="xs:string" default="85" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pgr_detection_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="785" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_tumor_pathologic_t_stage" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="T0" />
+                    <xs:enumeration value="T1" />
+                    <xs:enumeration value="T1a" />
+                    <xs:enumeration value="T1b" />
+                    <xs:enumeration value="T1c" />
+                    <xs:enumeration value="T1mic" />
+                    <xs:enumeration value="Tis (DCIS)" />
+                   	<xs:enumeration value="Tis (LCIS)" />
+                    <xs:enumeration value="T2" />
+                    <xs:enumeration value="T3" />
+                    <xs:enumeration value="T4" />
+                    <xs:enumeration value="T4a" />
+                    <xs:enumeration value="T4b" />
+                    <xs:enumeration value="T4c" />
+                    <xs:enumeration value="T4d" />
+                    <xs:enumeration value="TX" />
+                    <xs:enumeration value="Tis" />
+                    <xs:attribute name="cde" type="xs:string" default="2370" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_tumor_pathologic_n_stage" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="pN0" />
+                    <xs:enumeration value="pN1" />
+                    <xs:enumeration value="pN2" />
+                    <xs:enumeration value="pN3" />
+                    <xs:enumeration value="pNX" />
+                    <xs:enumeration value="pN0(i-)" />
+                    <xs:enumeration value="pN0(i+)" />
+                    <xs:enumeration value="pN0(mol-)" />
+                    <xs:enumeration value="pN0(mol+)" />
+                    <xs:enumeration value="pN1mi" />
+                    <xs:enumeration value="pN1a" />
+                    <xs:enumeration value="pN1b" />
+                    <xs:enumeration value="pN1c" />
+                    <xs:enumeration value="pN2a" />
+                    <xs:enumeration value="pN2b" />
+                    <xs:enumeration value="pN3a" />
+                    <xs:enumeration value="pN3b" />
+                    <xs:enumeration value="pN3c" />
+                    <xs:attribute name="cde" type="xs:string" default="2372" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="anatomic_site_location_descriptors">
+	    <xs:complexType>
+	      <xs:sequence>
+	        <xs:element ref="anatomic_site_location_descriptor" minOccurs="0" maxOccurs="unbounded" />
+	      </xs:sequence>
+	    </xs:complexType>
+    </xs:element>
+    <xs:element name="anatomic_site_location_descriptor" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Right Upper Inner Quadrant" />
+					<xs:enumeration value="Right Upper Outer Quadrant" />
+					<xs:enumeration value="Right Lower Inner Quadrant" />
+					<xs:enumeration value="Right Lower Outer Quadrant" />
+					<xs:enumeration value="Left Upper Inner Quadrant" />
+					<xs:enumeration value="Left Upper Outer Quadrant" />
+					<xs:enumeration value="Left Lower Inner Quadrant" />
+					<xs:enumeration value="Left Lower Outer Quadrant" />
+					<xs:enumeration value="Left" />
+					<xs:enumeration value="Right" />
+                    <xs:attribute name="cde" type="xs:string" default="2008006" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_neu_chromosone_17_signal_ratio_value" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:decimal">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2497552" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="axillary_lymph_node_stage_method_type" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="No axillary staging" />
+                    <xs:enumeration value="Sentinel node biopsy alone" />
+                    <xs:enumeration value="Sentinel lymph node biopsy plus axillary dissection" />
+                    <xs:enumeration value="Axillary lymph node dissection alone" />
+                    <xs:enumeration value="Other (specify)" />
+                    <xs:attribute name="cde" type="xs:string" default="2516112" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="primary_other_site_of_disease_name" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2584114" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_carcinoma_surgical_procedure_name" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Surgery not Performed" />
+                    <xs:enumeration value="Lumpectomy" />
+                    <xs:enumeration value="Simple Mastectomy" />
+                    <xs:enumeration value="Modified Radical Mastectomy" />
+                    <xs:enumeration value="Other" />
+                    <xs:attribute name="cde" type="xs:string" default="2739580" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    
+    <xs:element name="breast_carcinoma_first_surgical_procedure_name" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Surgery not Performed" />
+                    <xs:enumeration value="Lumpectomy" />
+                    <xs:enumeration value="Simple Mastectomy" />
+                    <xs:enumeration value="Modified Radical Mastectomy" />
+                    <xs:enumeration value="Other" />
+                    <xs:attribute name="cde" type="xs:string" default="2739580" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="surgical_procedure_purpose_other_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2467630" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:element name="first_pathologic_diagnosis_biospecimen_acquisition_other_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2757948" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_cancer_optical_measurement_histologic_type" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Infiltrating Ductal" />
+                    <xs:enumeration value="Infiltrating Lobular" />
+                    <xs:enumeration value="Mucinous" />
+                    <xs:enumeration value="Medullary" />
+                    <xs:enumeration value="Infiltrating Carcinoma, NOS" />
+                    <xs:enumeration value="Mixed Histology" />
+                    <xs:enumeration value="Other" />
+                    <xs:attribute name="cde" type="xs:string" default="2549638" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="person_menopause_status" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Pre (&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)" />
+                    <xs:enumeration value="Peri (6-12 months since last menstrual period)" />
+                    <xs:enumeration value="Post (prior bilateral ovariectomy OR &gt;12 mo since LMP with no prior hysterectomy)" />
+                    <xs:enumeration value="Indeterminate (neither Pre or Postmenopausal)" />
+                    <xs:attribute name="cde" type="xs:string" default="2957270" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_carcinoma_progesterone_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2957357" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="cytokeratin_immunohistochemistry_staining_method_micrometastasis_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086152" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="immunohistochemistry_positive_cell_score" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2230166" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_immunohistochemistry_level_result" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2178402" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_cancer_surgery_margin_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegClose">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2241252" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="disease_surgical_margin_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegClose">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3114007" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="first_pathologic_diagnosis_biospecimen_acquisition_method_type" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Cytology (e.g. Peritoneal or pleural fluid)" />
+                    <xs:enumeration value="Fine needle aspiration biopsy" />
+                    <xs:enumeration value="Core needle biopsy" />
+                    <xs:enumeration value="Incisional Biopsy" />
+                    <xs:enumeration value="Excisional Biopsy" />
+                    <xs:enumeration value="Tumor resection" />
+                    <xs:enumeration value="Other method, specify:" />
+                    <xs:attribute name="cde" type="xs:string" default="2757941" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="adjuvant_postop_targeted_therapy_admin_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2785850" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lab_procedure_her2_neu_in_situ_hybrid_outcome_type" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2854089" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_carcinoma_estrogen_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2957359" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lab_proc_her2_neu_immunohistochemistry_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="2957563" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pos_finding_lymph_node_keratin_immunohistochemistry_staining_method_count" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:integer">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086383" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pos_finding_lymph_node_hematoxylin_and_eosin_staining_microscopy_count" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:integer">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086388" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pos_finding_progesterone_receptor_other_measurement_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086857" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="positive_finding_estrogen_receptor_other_measurement_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086851" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_erbb_pos_finding_cell_percent_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3086980" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pos_finding_her2_erbb2_other_measurement_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3087479" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_erbb_method_calculation_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3087487" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_neu_and_centromere_17_copy_number_analysis_input_total_number_count" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:integer">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3087902" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_and_centromere_17_positive_finding_other_measurement_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3087923" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3087929" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tissue_prospective_collection_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3088492" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tissue_retrospective_collection_indicator" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:yes_or_no">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3088528" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fluorescence_in_situ_hybridization_diagnostic_procedure_chromosome_17_signal_result_range" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3104295" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tumor_other_histologic_subtype_descriptive_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3124492" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_neoplasm_other_surgical_procedure_descriptive_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3124493" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="axillary_lymph_node_stage_other_method_descriptive_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3124496" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="first_nonlymph_node_metastasis_anatomic_sites">
+	    <xs:complexType>
+	      <xs:sequence>
+	        <xs:element ref="first_nonlymph_node_metastasis_anatomic_site" minOccurs="1" maxOccurs="unbounded" />
+	        <xs:element ref="first_recurrent_non_nodal_metastatic_anatomic_site_descriptive_text" minOccurs="1" maxOccurs="1" />
+	      </xs:sequence>
+	    </xs:complexType>
+    </xs:element>    
+    <xs:element name="first_nonlymph_node_metastasis_anatomic_site" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Lung" />
+                    <xs:enumeration value="Bone" />
+                    <xs:enumeration value="Liver" />
+                    <xs:enumeration value="Brain" />
+                    <xs:enumeration value="Other, specify" />
+                    <xs:attribute name="cde" type="xs:string" default="3124499" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="first_recurrent_non_nodal_metastatic_anatomic_site_descriptive_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3124503" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_tumor_clinical_m_stage" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="cM0(i+)" />
+                    <xs:enumeration value="M1" />
+                    <xs:enumeration value="M0" />
+                    <xs:attribute name="cde" type="xs:string" default="3128320" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="er_level_cell_percentage_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3128341" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="progesterone_receptor_level_cell_percent_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3128342" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_estrogen_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131865" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_estrogen_receptor_level_cell_percent_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131869" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_immunohistochemistry_er_pos_cell_score" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131873" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pos_finding_metastatic_breast_carcinoma_estrogen_receptor_other_measuremenet_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131877" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_estrogen_receptor_detection_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131881" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_progesterone_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131884" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_lab_proc_her2_neu_immunohistochemistry_receptor_status" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131997" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_progesterone_receptor_level_cell_percent_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131891" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_immunohistochemistry_pr_pos_cell_score" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131988" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_pos_finding_progesterone_receptor_other_measure_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131992" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_progesterone_receptor_detection_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3131993" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_her2_erbb_pos_finding_cell_percent_category" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="percentByTens">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132322" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_erbb2_immunohistochemistry_level_result" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132444" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_pos_finding_her2_erbb2_other_measure_scale_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132448" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_her2_erbb_method_calculation_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132452" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_lab_proc_her2_neu_in_situ_hybridization_outcome_type" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="posNegStat">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132455" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_fluorescence_in_situ_hybridization_diagnostic_proc_centromere_17_signal_result_range" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132887" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_neu_and_centromere_17_copy_number_metastatic_breast_carcinoma_analysis_input_total_number_count" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:integer">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132899" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_her2_neu_chromosone_17_signal_ratio_value" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:decimal">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132903" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_pos_finding_other_scale_measurement_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132907" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastatic_breast_carcinoma_her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3132910" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_neu_metastatic_breast_carcinoma_copy_analysis_input_total_number" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3133734" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="her2_neu_breast_carcinoma_copy_analysis_input_total_number" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3133738" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_carcinoma_immunohistochemistry_pos_cell_score" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="onePlusToFourPlus">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3133874" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="breast_tumor_pathologic_grouping_stage" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="IA" />
+                    <xs:enumeration value="IB" />
+                    <xs:enumeration value="IIA" />
+                    <xs:enumeration value="IIB" />
+                    <xs:enumeration value="IIIA" />
+                    <xs:enumeration value="IIIB" />
+                    <xs:enumeration value="IIIC" />
+                    <xs:enumeration value="IV" />
+                    <xs:attribute name="cde" type="xs:string" default="3134022" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.2" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:simpleType name="percentByTens">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="&lt;10%" />
+            <xs:enumeration value="10-19%" />
+            <xs:enumeration value="20-29%" />
+            <xs:enumeration value="30-39%" />
+            <xs:enumeration value="40-49%" />
+            <xs:enumeration value="50-59%" />
+            <xs:enumeration value="60-69%" />
+            <xs:enumeration value="70-79%" />
+            <xs:enumeration value="80-89%" />
+            <xs:enumeration value="90-99%" />
+            <xs:enumeration value="" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="posNegStat">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+            <xs:enumeration value="Positive" />
+            <xs:enumeration value="Negative" />
+            <xs:enumeration value="Unknown" />
+            <xs:enumeration value="Equivocal" />
+            <xs:enumeration value="Indeterminate" />
+            <xs:enumeration value="Performed but Not Available" />
+            <xs:enumeration value="Not Performed" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="posNegClose">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+            <xs:enumeration value="Positive" />
+            <xs:enumeration value="Negative" />
+            <xs:enumeration value="Close" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="onePlusToFourPlus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+            <xs:enumeration value="0" />
+            <xs:enumeration value="1+" />
+            <xs:enumeration value="2+" />
+            <xs:enumeration value="3+" />
+            <xs:enumeration value="4+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="noneToGreaterThanTwenty">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None" />
+            <xs:enumeration value="Greater than 20" />
+            <xs:enumeration value="16-20" />
+            <xs:enumeration value="11-15" />
+            <xs:enumeration value="6-10 Lymph nodes" />
+            <xs:enumeration value="5" />
+            <xs:enumeration value="4" />
+            <xs:enumeration value="3" />
+            <xs:enumeration value="2" />
+            <xs:enumeration value="1" />
+            <xs:enumeration value="" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

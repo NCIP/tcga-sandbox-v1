@@ -1,0 +1,35 @@
+<assembly>
+  <id>service</id>
+  <formats>
+    <format>sar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>  
+  	<fileSet>
+      <directory>target/classes</directory>
+      <outputDirectory>/</outputDirectory>
+    <!-- <includes>
+        <include>**/DccPropertyCache*</include>
+        <include>**/*Dao*</include>              
+      </includes>
+      -->     
+      <excludes>
+      	  <exclude>**/*Util*</exclude>
+      	  <exclude>**/DccProperty.class</exclude>
+      </excludes>
+    </fileSet>  	      
+     <fileSet>
+      <directory>target/classes</directory>
+      <outputDirectory>/META-INF</outputDirectory>
+      <includes>
+        <include>**/jboss-service.xml</include>	  
+      </includes>      
+    </fileSet>
+  </fileSets>
+  <dependencySets>
+    <dependencySet>
+      <outputFileNameMapping>${artifact.artifactId}.jar</outputFileNameMapping>
+      <outputDirectory>lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+</assembly>

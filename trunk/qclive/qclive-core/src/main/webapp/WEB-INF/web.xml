@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the ?caBIG?
+  ~ Software?).
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>qclive.root</param-value>
+    </context-param>
+
+    <!--
+       - Location of the Log4J config file, for initialization and refresh checks.
+       - Applied by Log4jConfigListener.
+       -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>
+
+    <!--
+       - Location of the XML file that defines the root application context.
+       - Applied by ContextLoaderServlet.
+         -
+         - Can be set to "/WEB-INF/applicationContext-hibernate.xml" for the Hibernate
+         - implementation, "/WEB-INF/applicationContext-ojb.xml" for the Apache OJB one,
+         - "/WEB-INF/applicationContext-toplink.xml" for the Oracle TopLink one,
+         - "/WEB-INF/applicationContext-jpa.xml" for the JPA one,
+         - or "/WEB-INF/applicationContext-jdbc.xml" for the JDBC one.
+       -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext-jdbc.xml</param-value>
+    </context-param>
+
+
+    <!--
+       - Loads the root application context of this web app at startup,
+       - by default from "/WEB-INF/applicationContext.xml".
+         - Note that you need to fall back to Spring's ContextLoaderServlet for
+         - J2EE servers that do not follow the Servlet 2.4 initialization order.
+         -
+       - Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+       - to access it anywhere in the web application, outside of the framework.
+       -
+       - The root context is the parent of all servlet-specific contexts.
+       - This means that its beans are automatically available in these child contexts,
+       - both for getBean(name) calls and (external) bean references.
+       -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--
+       - Servlet that dispatches request to registered handlers (Controller implementations).
+       - Has its own application context, by default defined in "{servlet-name}-servlet.xml",
+       - i.e. "petclinic-servlet.xml".
+       -
+       - A web app can contain any number of such servlets.
+       - Note that this web app has a shared root application context, serving as parent
+       - of all DispatcherServlet contexts.
+       -->
+    <servlet>
+        <servlet-name>qclive</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>qclive</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+
+
+</web-app>

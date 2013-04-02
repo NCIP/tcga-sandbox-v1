@@ -1,0 +1,1765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: TCGA_BCR.CQCF.xsd 18077 2013-02-07 04:29:35Z deardurj $ -->
+<xs:schema 
+ xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5" 
+ xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5" 
+ xmlns="http://tcga.nci/bcr/xml/clinical/cqcf/2.5" 
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://tcga.nci/bcr/xml/clinical/cqcf/2.5" 
+ elementFormDefault="qualified" 
+ version="2.5.6">
+	<xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd"/>
+	<xs:annotation>
+		<xs:documentation xml:lang="en">Schema to define the elements of the CQCF Data.</xs:documentation>
+	</xs:annotation>
+	<xs:element name="biospecimen_cqcf">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="maximum_tumor_dimension"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_sample_procurement"/>
+						<xs:element ref="month_of_sample_procurement"/>
+						<xs:element ref="year_of_sample_procurement"/>
+					</xs:sequence>
+					<xs:element ref="days_to_sample_procurement"/>
+				</xs:choice>
+				<xs:element ref="method_of_sample_procurement"/>
+				<xs:element ref="other_method_of_sample_procurement" minOccurs="0"/>
+				<xs:element ref="country"/>
+				<xs:element ref="vessel_used"/>
+				<xs:element ref="other_vessel_used" minOccurs="0"/>
+				<xs:element ref="submitted_for_lce"/>
+				<xs:element ref="sample_prescreened"/>
+				<xs:element ref="top_slide_submitted"/>
+				<xs:element ref="digital_image_submitted"/>
+				<xs:element ref="ffpe_tumor_slide_submitted"/>
+				<xs:element ref="b_cell_tumor_slide_submitted"/>
+				<xs:element ref="t_cell_tumor_slide_submitted"/>
+				<xs:element ref="tumor_samples"/>
+				<xs:element ref="normal_controls"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_pathology_review"/>
+						<xs:element ref="month_of_pathology_review"/>
+						<xs:element ref="year_of_pathology_review"/>
+					</xs:sequence>
+					<xs:element ref="days_to_pathology_review"/>
+				</xs:choice>
+				<xs:element ref="path_confirm_tumor_nuclei_metrics"/>
+				<xs:element ref="path_confirm_tumor_necrosis_metrics"/>
+				<xs:element ref="path_confirm_report_attached"/>
+				<xs:element ref="path_confirm_diagnosis_matching"/>
+				<xs:element ref="reason_path_confirm_diagnosis_not_matching"/>
+				<xs:element ref="cytogenetic_report_submitted"/>
+				<xs:element ref="differential_report_submitted"/>
+				<xs:element ref="hiv_positive_status"/>
+				<xs:element ref="total_cells_submitted"/>
+				<xs:element ref="percent_myeloblasts_for_submitted_specimen"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_samples">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tumor_sample" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_sample">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="vial_number"/>
+				<xs:element ref="bcr_sample_uuid"/>
+				<xs:element ref="tumor_weight"/>
+				<xs:element ref="tumor_nuclei_percent"/>
+				<xs:element ref="tumor_necrosis_percent"/>
+				<xs:element ref="tumor_pathology"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="normal_controls">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="normal_control" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="normal_control">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="vial_number"/>
+				<xs:element ref="bcr_sample_uuid"/>
+				<xs:element ref="normal_control_type"/>
+				<xs:element ref="method_of_normal_sample_procurement"/>
+				<xs:element ref="other_method_of_normal_sample_procurement" minOccurs="0"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_normal_sample_procurement"/>
+						<xs:element ref="month_of_normal_sample_procurement"/>
+						<xs:element ref="year_of_normal_sample_procurement"/>
+					</xs:sequence>
+					<xs:element ref="days_to_normal_sample_procurement"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element ref="extracted_dna"/>
+					<xs:element ref="normal_tissue"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="extracted_dna">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ncedna_dna_conc"/>
+				<xs:element ref="ncedna_dna_qm"/>
+				<xs:element ref="ncedna_dna_qty"/>
+				<xs:element ref="ncedna_dna_vol"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="normal_tissue">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="normal_tissue_anatomic_site"/>
+				<xs:element ref="normal_tissue_proximity"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="vial_number" nillable="false">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:length value="1"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="bcr_sample_uuid">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="day_of_preop_psa" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_day">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3333727" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="month_of_preop_psa" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_month">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3333542" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="year_of_preop_psa" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:generic_year">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="3333729" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="days_to_preop_psa">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="utility:clinical_res_attributes">
+                    <xs:attribute name="cde" type="xs:string" default="3335436" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.4" />
+                    <xs:attribute name="tier" type="xs:string" default="1" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="psa_result_preop" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="utility:number_or_null">
+                    <xs:attributeGroup ref="utility:common_ext_attribute_group" />
+                    <xs:attribute name="cde" type="xs:string" default="1806" />
+                    <xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+                    <xs:attribute name="tier" type="xs:string" default="2" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:element name="gleason_score_primary">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="1282" />
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+					<xs:attribute name="tier" type="xs:string" default="1" />
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="gleason_score_secondary">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="1284" />
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+					<xs:attribute name="tier" type="xs:string" default="1" />
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="gleason_score_combined">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2634976" />
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+					<xs:attribute name="tier" type="xs:string" default="1" />
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+		<xs:element name="highest_gleason_score">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="2548509"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+
+	<xs:element name="consent_or_death_status">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Consented"/>
+					<xs:enumeration value="Deceased"/>
+					<xs:enumeration value="Exemption 4"/>
+					<xs:enumeration value="Waiver"/>
+					<xs:attribute name="cde" type="xs:string" default="3288361"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="day_of_consent">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081957"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_consent">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081955"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_consent">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081959"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_consent">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288498"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+		<xs:element name="prior_head_radiation_therapy">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3120926"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="diagnosis_subtype">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Non-papillary"/>
+					<xs:enumeration value="Papillary"/>
+					<xs:attribute name="cde" type="xs:string" default="2783887"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="history_of_neoadjuvant_treatment">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3382737"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="history_of_prior_malignancy">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3382736"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="normal_tissue_anatomic_site">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="BLADDER"/>
+					<xs:enumeration value="BLOOD"/>
+					<xs:enumeration value="BONE MARROW"/>
+					<xs:enumeration value="BRAIN"/>
+					<xs:enumeration value="BREAST"/>
+					<xs:enumeration value="CENTRAL NERVOUS SYSTEM"/>
+					<xs:enumeration value="CERVIX"/>
+					<xs:enumeration value="COLON"/>
+					<xs:enumeration value="ENDOMETRIAL"/>
+					<xs:enumeration value="HEAD/NECK"/>
+					<xs:enumeration value="KIDNEY"/>
+					<xs:enumeration value="Kidney"/>
+					<xs:enumeration value="Liver"/>
+					<xs:enumeration value="LUNG"/>
+					<xs:enumeration value="Lung"/>
+					<xs:enumeration value="Bronchus"/>
+					<xs:enumeration value="LYMPH NODE"/>
+					<xs:enumeration value="OMENTUM"/>
+					<xs:enumeration value="OVARY"/>
+					<xs:enumeration value="PERITONEUM (OVARY)"/>
+					<xs:enumeration value="Prostate"/>
+					<xs:enumeration value="RECTUM"/>
+					<xs:enumeration value="Rectum"/>
+					<xs:enumeration value="STOMACH"/>
+					<xs:enumeration value="Thyroid gland"/>
+					<xs:enumeration value="Skin"/>
+					<xs:enumeration value="Subcutaneous tissue"/>
+					<xs:enumeration value="Lymph node(s) Regional"/>
+					<xs:enumeration value="Lymph node(s) Distant"/>
+					<xs:enumeration value="Alveolor Ridge"/>
+					<xs:enumeration value="Buccal Mucosa"/>
+					<xs:enumeration value="Floor of Mouth"/>
+					<xs:enumeration value="Hard Palate"/>
+					<xs:enumeration value="Hypopharynx"/>
+					<xs:enumeration value="Larynx"/>
+					<xs:enumeration value="Lip"/>
+					<xs:enumeration value="Oral Cavity"/>
+					<xs:enumeration value="Oropharynx"/>
+					<xs:enumeration value="Tongue, Base of tongue"/>
+					<xs:enumeration value="Tongue"/>
+					<xs:enumeration value="Tonsil"/>
+					<xs:enumeration value="Fundus of stomach"/>
+					<xs:enumeration value="Gastroesophageal Junction"/>
+					<xs:enumeration value="Cardia"/>
+					<xs:enumeration value="Antrum"/>
+					<xs:enumeration value="Cecum" />
+					<xs:enumeration value="Ascending Colon" />
+					<xs:enumeration value="Hepatic Flexure" />
+					<xs:enumeration value="Transverse Colon" />
+					<xs:enumeration value="Splenic Flexure" />
+					<xs:enumeration value="Descending Colon" />
+					<xs:enumeration value="Sigmoid Colon" />
+					<xs:enumeration value="Other"/>
+					<xs:attribute name="cde" type="xs:string" default="3081938"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="normal_tissue_proximity">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Adjacent (&lt; or = 2cm)"/>
+					<xs:enumeration value="Distal (&gt;2cm)"/>
+					<xs:attribute name="cde" type="xs:string" default="3088708"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="other_anatomic_site_normal_tissue" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288189"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_focality">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Multifocal"/>
+					<xs:enumeration value="Unifocal"/>
+					<xs:attribute name="cde" type="xs:string" default="3174022"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_type">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Metastatic"/>
+					<xs:enumeration value="Recurrent"/>
+					<xs:enumeration value="Primary"/>
+					<xs:enumeration value="Tumor specimen from de novo untreated malignancy of the bladder"/>
+					<xs:attribute name="cde" type="xs:string" default="3288124"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_diagnosis" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3124492"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="aml_world_health_organization">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Acute basophilic leukemia"/>
+					<xs:enumeration value="Acute erythroid leukemia"/>
+					<xs:enumeration value="Acute megakaryoblastic leukemia"/>
+					<xs:enumeration value="Acute monoblastic/monocytic leukemia"/>
+					<xs:enumeration value="Acute myelomonocytic leukemia"/>
+					<xs:enumeration value="Acute panmyelosis with myelofibrosis"/>
+					<xs:enumeration value="AML (megakaryoblastic) with t(1;22) (p13;q13); RBM15-MKL1"/>
+					<xs:enumeration value="AML with inv(16)(p13q22) or t(16;16) (p13.1;q22), (CBFß/MYH11)"/>
+					<xs:enumeration value="AML with inv(3)(q21;q26.2) or t(3;3) (q21;q26.2);RPNI-EVI1"/>
+					<xs:enumeration value="AML with maturation"/>
+					<xs:enumeration value="AML with minimal differentiation"/>
+					<xs:enumeration value="AML with mutated CEBPA"/>
+					<xs:enumeration value="AML with mutated NPM1"/>
+					<xs:enumeration value="AML with myelodysplasia-related changes"/>
+					<xs:enumeration value="AML with t(6;9)(p23;q34);DEK-NUP214"/>
+					<xs:enumeration value="AML with t(8;21)(q22;q22), RUNX1 RUNX1T1"/>
+					<xs:enumeration value="AML with t(9;11)(p22;q33);MLLT3-MLL"/>
+					<xs:enumeration value="AML without maturation"/>
+					<xs:enumeration value="Classified by FAB Only"/>
+					<xs:enumeration value="Erythroleukemia, erythroid/myeloid"/>
+					<xs:attribute name="cde" type="xs:string" default="3257714"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fab_category">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Biphenotypic"/>
+					<xs:enumeration value="M0 Undifferentiated"/>
+					<xs:enumeration value="M1"/>
+					<xs:enumeration value="M2"/>
+					<xs:enumeration value="M3"/>
+					<xs:enumeration value="M3v"/>
+					<xs:enumeration value="M4"/>
+					<xs:enumeration value="M4EOS"/>
+					<xs:enumeration value="M5"/>
+					<xs:enumeration value="M6"/>
+					<xs:enumeration value="M7"/>
+					<xs:enumeration value="Not classified"/>
+					<xs:enumeration value="Not Classified"/>
+					<xs:enumeration value="Not Classified"/>
+					<xs:attribute name="cde" type="xs:string" default="3124352"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="diagnosis_cytogenetic_analysis">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="TDT Negative"/>
+					<xs:enumeration value="NSE Positive"/>
+					<xs:enumeration value="NSE Not Tested"/>
+					<xs:enumeration value="NSE Negative"/>
+					<xs:enumeration value="MPX Not Tested"/>
+					<xs:enumeration value="MPX Positive"/>
+					<xs:enumeration value="MPX Negative"/>
+					<xs:enumeration value="NA Not Tested"/>
+					<xs:enumeration value="NA Positive"/>
+					<xs:enumeration value="NA Negative"/>
+					<xs:enumeration value="CD56 Not Tested"/>
+					<xs:enumeration value="CD56 Positive"/>
+					<xs:enumeration value="CD56 Negative"/>
+					<xs:enumeration value="CD45 Not Tested"/>
+					<xs:enumeration value="CD45 Positive"/>
+					<xs:enumeration value="CD45 Negative"/>
+					<xs:enumeration value="CD34 Not Tested"/>
+					<xs:enumeration value="CD34 Positive"/>
+					<xs:enumeration value="CD34 Negative"/>
+					<xs:enumeration value="CD33 Not Tested"/>
+					<xs:enumeration value="CD33 Positive"/>
+					<xs:enumeration value="CD33 Negative"/>
+					<xs:enumeration value="CD25 Not Tested"/>
+					<xs:enumeration value="CD25 Positive"/>
+					<xs:enumeration value="CD25 Negative"/>
+					<xs:enumeration value="CD23 Not Tested"/>
+					<xs:enumeration value="CD23 Positive"/>
+					<xs:enumeration value="CD23 Negative"/>
+					<xs:enumeration value="CD20 Not Tested"/>
+					<xs:enumeration value="CD20 Positive"/>
+					<xs:enumeration value="CD20 Negative"/>
+					<xs:enumeration value="CD19 Not Tested"/>
+					<xs:enumeration value="CD19 Positive"/>
+					<xs:enumeration value="CD19 Negative"/>
+					<xs:enumeration value="CD15 Not Tested"/>
+					<xs:enumeration value="CD15 Positive"/>
+					<xs:enumeration value="CD15 Negative"/>
+					<xs:enumeration value="CD14 Not Tested"/>
+					<xs:enumeration value="CD14 Positive"/>
+					<xs:enumeration value="CD14 Negative"/>
+					<xs:enumeration value="CD10 Not Tested"/>
+					<xs:enumeration value="CD10 Positive"/>
+					<xs:enumeration value="CD10 Negative"/>
+					<xs:enumeration value="CD7 Not Tested"/>
+					<xs:enumeration value="CD7 Positive"/>
+					<xs:enumeration value="CD7 Negative"/>
+					<xs:enumeration value="CD5 Not Tested"/>
+					<xs:enumeration value="CD5 Positive"/>
+					<xs:enumeration value="CD5 Negative"/>
+					<xs:enumeration value="CD3 Not Tested"/>
+					<xs:enumeration value="CD3 Positive"/>
+					<xs:enumeration value="CD3 Negative"/>
+					<xs:enumeration value="TDT Not Tested"/>
+					<xs:enumeration value="TDT Positive"/>
+					<xs:enumeration value="Other CD Not Tested"/>
+					<xs:enumeration value="Other CD Positive"/>
+					<xs:enumeration value="Other CD Negative"/>
+					<xs:enumeration value="HLA-DR Not Tested"/>
+					<xs:enumeration value="HLA-DR Positive"/>
+					<xs:enumeration value="HLA-DR  Negative"/>
+					<xs:enumeration value="CD 117 Not Tested"/>
+					<xs:enumeration value="CD117 Positive"/>
+					<xs:enumeration value="CD117 Negative"/>
+					<xs:enumeration value="CD13 Not Tested"/>
+					<xs:enumeration value="CD13 Positive"/>
+					<xs:enumeration value="CD13 Negative"/>
+					<xs:attribute name="cde" type="xs:string" default="3121483"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="histological_subtype">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3081934"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="nodal_anatomic_site">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:attribute name="cde" type="xs:string" default="2180591"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="extranodal_anatomic_site">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:attribute name="cde" type="xs:string" default="3153874"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+		<xs:element name="frozen_specimen_anatomic_site" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value="" />
+					<xs:enumeration value="Cecum" />
+					<xs:enumeration value="Ascending Colon" />
+					<xs:enumeration value="Hepatic Flexure" />
+					<xs:enumeration value="Transverse Colon" />
+					<xs:enumeration value="Splenic Flexure" />
+					<xs:enumeration value="Descending Colon" />
+					<xs:enumeration value="Sigmoid Colon" />
+					<xs:enumeration value="Oral Cavity" />
+					<xs:enumeration value="Lip" />
+					<xs:enumeration value="Alveolar Ridge" />
+					<xs:enumeration value="Floor of Mouth" />
+					<xs:enumeration value="Hard Palate" />
+					<xs:enumeration value="Buccal mucosa" />
+					<xs:enumeration value="Oropharynx" />
+					<xs:enumeration value="Tonsil" />
+					<xs:enumeration value="Tongue" />
+					<xs:enumeration value="Tongue, Base of tongue"/>
+					<xs:enumeration value="Hypopharynx" />
+					<xs:enumeration value="Larynx" />
+					<xs:enumeration value="Supratentorial" />
+					<xs:enumeration value="Spinal Cord" />
+					<xs:enumeration value="Posterior Fossa" />
+					<xs:enumeration value="Location Not Specified" />
+					<xs:enumeration value="Prostate" />
+					<xs:enumeration value="Seminal Vesicle" />
+					<xs:enumeration value="Rectosigmoid Junction" />
+					<xs:enumeration value="Rectum" />
+					<xs:enumeration value="Gastroesophageal Junction" />
+					<xs:enumeration value="Cardia" />
+					<xs:enumeration value="Fundus of Stomach" />
+					<xs:enumeration value="Antrum" />
+					<xs:enumeration value="Lymph Node(s) Axilla"/>
+					<xs:enumeration value="Lymph Node(s) Cervical"/>
+					<xs:enumeration value="Lymph Node(s) Epitroclear"/>
+					<xs:enumeration value="Lymph Node(s) Femoral"/>
+					<xs:enumeration value="Lymph Node(s) Hilar"/>
+					<xs:enumeration value="Lymph Node(s) Iliac-common"/>
+					<xs:enumeration value="Lymph Node(s) Iliac-external"/>
+					<xs:enumeration value="Lymph Node(s) Inguinal"/>
+					<xs:enumeration value="Lymph node(s) Mediastinal"/>
+					<xs:enumeration value="Lymph Node(s) Mesenteric"/>
+					<xs:enumeration value="Lymph Node(s) Occipital"/>
+					<xs:enumeration value="Lymph node(s) Para aortic"/>
+					<xs:enumeration value="Lymph Node(s) Parotid"/>
+					<xs:enumeration value="Lymph Node(s) Popliteal"/>
+					<xs:enumeration value="Lymph Node(s) Retroperitoneal"/>
+					<xs:enumeration value="Lymph Node(s) Splenic"/>
+					<xs:enumeration value="Lymph Node(s) Supraclav"/>
+					<xs:enumeration value="Lymph Node(s) Submandibular"/>
+					<xs:enumeration value="Adrenal gland"/>
+					<xs:enumeration value="Bone"/>
+					<xs:enumeration value="Bone Marrow"/>
+					<xs:enumeration value="Breast"/>
+					<xs:enumeration value="Blood"/>
+					<xs:enumeration value="Skin"/>
+					<xs:enumeration value="Soft Tissue"/>
+					<xs:enumeration value="Brain"/>
+					<xs:enumeration value="Epidural space"/>
+					<xs:enumeration value="Leptomeninges"/>
+					<xs:enumeration value="Intraocular"/>
+					<xs:enumeration value="Nasal Soft Tissue"/>
+					<xs:enumeration value="Nasopharynx"/>
+					<xs:enumeration value="Oropharyngeal Soft Tissue"/>
+					<xs:enumeration value="Parotid Gland"/>
+					<xs:enumeration value="Peri-orbital Soft Tissue"/>
+					<xs:enumeration value="Salivary Gland"/>
+					<xs:enumeration value="Sinus"/>
+					<xs:enumeration value="Thyroid Gland"/>
+					<xs:enumeration value="Peritoneum"/>
+					<xs:enumeration value="Appendix"/>
+					<xs:enumeration value="Colon"/>
+					<xs:enumeration value="Esophagus"/>
+					<xs:enumeration value="Stomach"/>
+					<xs:enumeration value="Gallbladder"/>
+					<xs:enumeration value="Small Intestine"/>
+					<xs:enumeration value="Liver"/>
+					<xs:enumeration value="Pancreas"/>
+					<xs:enumeration value="Epididymis"/>
+					<xs:enumeration value="Kidney"/>
+					<xs:enumeration value="Ovary"/>
+					<xs:enumeration value="Testes"/>
+					<xs:enumeration value="Uterus"/>
+					<xs:enumeration value="Heart"/>
+					<xs:enumeration value="Lung"/>
+					<xs:enumeration value="Bronchus"/>
+					<xs:enumeration value="Bronchus and Lung"/>
+					<xs:enumeration value="Mediastinal Soft Tissue (including thymus)"/>
+					<xs:enumeration value="Pericardium"/>
+					<xs:enumeration value="Pleura"/>
+					<xs:enumeration value="Other Extranodal Site (please specify)"/>
+					<xs:attribute name="cde" type="xs:string" default="3081961" />
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5" />
+					<xs:attribute name="tier" type="xs:string" default="1" />
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="other_anatomic_site" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3320289"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="country" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3203072"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="digital_image_submitted">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081948"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pcr_amplification_successful">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ncedna_dna_qm" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288186"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ncedna_dna_qty" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288185"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ncedna_dna_conc" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288187"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ncedna_dna_vol" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288188"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_necrosis_percent" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2841237"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="normal_control_type" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3081936"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_vessel_used" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288137"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="path_confirm_report_attached" default="" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288292"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="path_confirm_tumor_necrosis_metrics" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288524"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="path_confirm_tumor_nuclei_metrics" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288520"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="sample_prescreened" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081942"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="top_slide_submitted" default="" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3081944"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_nuclei_percent" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2841225"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="vessel_used" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3081940"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="method_of_normal_sample_procurement" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288147"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_method_of_sample_procurement" default="" nillable="true">
+			<xs:complexType mixed="true">
+				<xs:simpleContent>
+					<xs:restriction base="utility:common_res_attributes">
+						<xs:attribute name="cde" type="xs:string" default="2006730"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					</xs:restriction>
+				</xs:simpleContent>
+			</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_weight" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3081946"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_cancer_sample_procurement" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3008199"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="sample_type_of_frozen_biospecimen_submitted" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3220470"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="total_cells_submitted" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="percent_myeloblasts_for_submitted_specimen" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cytogenetic_report_submitted" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_method_of_normal_sample_procurement" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288151"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="path_confirm_diagnosis_matching" default="" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288300"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="day_of_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3008195"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3008197"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3008199"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="day_of_pathology_review" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_pathology_review" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_pathology_review" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="day_of_normal_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288196"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_normal_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288195"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_normal_sample_procurement" default="">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288197"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_pathology">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="primary_or_metastatic_status" minOccurs="0"/>
+				<xs:element ref="margins_involved" minOccurs="0"/>
+				<xs:element ref="venous_invasion" minOccurs="0"/>
+				<xs:element ref="lymphatic_invasion" minOccurs="0"/>
+				<xs:element ref="number_regional_lymphnodes_exam" minOccurs="0"/>
+				<xs:element ref="number_regional_lymphnodes_pos" minOccurs="0"/>
+				<xs:element ref="verification_by_bcr" minOccurs="0"/>
+				<xs:element ref="type" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="primary_or_metastatic_status">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="PRIMARY"/>
+					<xs:enumeration value="METASTATIC"/>
+					<xs:enumeration value="MALIGNANT"/>
+					<xs:enumeration value="NON-MALIGNANT"/>
+					<xs:attribute name="cde" type="xs:string" default="2673765"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="margins_involved">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="2608099"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="venous_invasion">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="64358"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lymphatic_invasion">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="64171"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="number_regional_lymphnodes_exam">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2673768"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="number_regional_lymphnodes_pos">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2673770"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="verification_by_bcr">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:NCName">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="2673771"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="type">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="gbm_pathology"/>
+				<xs:element ref="lung_pathology"/>
+				<xs:element ref="ovarian_pathology"/>
+				<xs:element ref="gbm_slide"/>
+				<xs:element ref="lung_slide"/>
+				<xs:element ref="ovarian_slide"/>
+				<xs:element ref="radiation_type"/>
+				<xs:element ref="analyte_type"/>
+			</xs:choice>
+			<xs:attribute name="cde"/>
+			<xs:attribute name="procurement_status"/>
+			<xs:attribute name="xsd_ver" default="1.8"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="gbm_pathology">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="histologic_type"/>
+				<xs:element ref="histologic_nuclear_grade"/>
+				<xs:element ref="tumor_sample_anatomic_location"/>
+				<xs:element ref="gemistocytes_present"/>
+				<xs:element ref="oligodendroglial_component"/>
+				<xs:element ref="leptomeningeal_involement"/>
+				<xs:element ref="gfap_positive"/>
+				<xs:element ref="mib1_positive"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="histologic_type">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="ANAPLASTIC ASTROCYTOMA"/>
+					<xs:enumeration value="GIANT CELL GLIOBLASTOMA"/>
+					<xs:enumeration value="GLIOBLASTOMA"/>
+					<xs:enumeration value="GLIOSARCOMA"/>
+					<xs:enumeration value="GLIOBLASTOMA MULTIFORME"/>
+					<xs:enumeration value="NO HISTOLOGY AVAILABLE"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="histologic_nuclear_grade">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="LOW"/>
+					<xs:enumeration value="HIGH"/>
+					<xs:enumeration value="1"/>
+					<xs:enumeration value="2"/>
+					<xs:enumeration value="3"/>
+					<xs:enumeration value="4"/>
+					<xs:attribute name="cde" type="xs:string" default="2673857"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_sample_anatomic_location">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="C70.0"/>
+					<xs:enumeration value="C71.0"/>
+					<xs:enumeration value="C71.1"/>
+					<xs:enumeration value="C71.2"/>
+					<xs:enumeration value="C71.3"/>
+					<xs:enumeration value="C71.4"/>
+					<xs:enumeration value="C71.5"/>
+					<xs:enumeration value="C71.6"/>
+					<xs:enumeration value="C71.7"/>
+					<xs:enumeration value="C71.8"/>
+					<xs:enumeration value="C71.9"/>
+					<xs:enumeration value="C72.0"/>
+					<xs:enumeration value="C72.9"/>
+					<xs:enumeration value="C34.0"/>
+					<xs:enumeration value="C34.1"/>
+					<xs:enumeration value="C34.2"/>
+					<xs:enumeration value="C34.3"/>
+					<xs:enumeration value="C34.8"/>
+					<xs:enumeration value="C34.9"/>
+					<xs:enumeration value="BRAIN, NOS"/>
+					<xs:enumeration value="BLOOD"/>
+					<xs:enumeration value="CEREBRAL MENINGES"/>
+					<xs:enumeration value="CEREBRUM"/>
+					<xs:enumeration value="FRONTAL LOBE"/>
+					<xs:enumeration value="TEMPORAL LOBE"/>
+					<xs:enumeration value="PARIETAL LOBE"/>
+					<xs:enumeration value="OCCIPITAL LOBE"/>
+					<xs:enumeration value="VENTRICLE, NOS"/>
+					<xs:enumeration value="CEREBELLUM, NOS"/>
+					<xs:enumeration value="BRAIN STEM"/>
+					<xs:enumeration value="OVERLAPPING LESION OF BRAIN"/>
+					<xs:enumeration value="SPINAL CORD"/>
+					<xs:enumeration value="NERVOUS SYSTEM, NOS"/>
+					<xs:attribute name="cde" type="xs:string" default="2673858"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="gemistocytes_present">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="oligodendroglial_component">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="leptomeningeal_involement">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="gfap_positive">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mib1_positive">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lung_pathology">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="histologic_nuclear_grade"/>
+				<xs:element ref="tumor_sample_anatomic_location"/>
+				<xs:element ref="tumor_sample_anatomic_location"/>
+				<xs:element ref="tnm_pathology_stage_grouping"/>
+				<xs:element ref="tnm_pathology_tumor_status"/>
+				<xs:element ref="tnm_pathology_lymphnode_status"/>
+				<xs:element ref="tnm_pathology_metastatic_status"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tnm_pathology_stage_grouping">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="0"/>
+					<xs:enumeration value="IA"/>
+					<xs:enumeration value="IB"/>
+					<xs:enumeration value="IC"/>
+					<xs:enumeration value="II"/>
+					<xs:enumeration value="IIA"/>
+					<xs:enumeration value="IIB"/>
+					<xs:enumeration value="IIC"/>
+					<xs:enumeration value="III"/>
+					<xs:enumeration value="IIIA"/>
+					<xs:enumeration value="IIIB"/>
+					<xs:enumeration value="IIIC"/>
+					<xs:enumeration value="IV"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tnm_pathology_tumor_status">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="T0"/>
+					<xs:enumeration value="T1"/>
+					<xs:enumeration value="T1A"/>
+					<xs:enumeration value="T1B"/>
+					<xs:enumeration value="T1C"/>
+					<xs:enumeration value="T2"/>
+					<xs:enumeration value="T2A"/>
+					<xs:enumeration value="T2B"/>
+					<xs:enumeration value="T2C"/>
+					<xs:enumeration value="T3"/>
+					<xs:enumeration value="T3A"/>
+					<xs:enumeration value="T3B"/>
+					<xs:enumeration value="T3C"/>
+					<xs:enumeration value="T4"/>
+					<xs:enumeration value="TIS"/>
+					<xs:enumeration value="TX"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tnm_pathology_lymphnode_status">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="N0"/>
+					<xs:enumeration value="N1"/>
+					<xs:enumeration value="N2"/>
+					<xs:enumeration value="N3"/>
+					<xs:enumeration value="NX"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tnm_pathology_metastatic_status">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="M0"/>
+					<xs:enumeration value="M1"/>
+					<xs:enumeration value="MX"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ovarian_pathology">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="histologic_nuclear_grade"/>
+				<xs:element ref="tumor_sample_anatomic_location"/>
+				<xs:element ref="tnm_pathology_stage_grouping"/>
+				<xs:element ref="tnm_pathology_tumor_status"/>
+				<xs:element ref="tnm_pathology_lymphnode_status"/>
+				<xs:element ref="tnm_pathology_metastatic_status"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="gbm_slide">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="endothelial_proliferation"/>
+				<xs:element ref="nuclear_pleomorphism"/>
+				<xs:element ref="palisading_necrosis"/>
+				<xs:element ref="cellularity"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="endothelial_proliferation">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="2841309"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="nuclear_pleomorphism">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="palisading_necrosis">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="2841321"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cellularity">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="LOW"/>
+					<xs:enumeration value="MEDIUM"/>
+					<xs:enumeration value="HIGH"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lung_slide">
+		<xs:complexType/>
+	</xs:element>
+	<xs:element name="ovarian_slide">
+		<xs:complexType/>
+	</xs:element>
+	<xs:element name="radiation_type">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="EXTERNAL BEAM"/>
+					<xs:enumeration value="IMPLANTS"/>
+					<xs:enumeration value="RADIOISOTOPES"/>
+					<xs:enumeration value="COMBINATION"/>
+					<xs:enumeration value="OTHER: SPECIFY IN NOTES"/>
+					<xs:attribute name="cde" type="xs:string" default="2842944"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="analyte_type">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="DNA"/>
+					<xs:enumeration value="EBV Immortalized Normal"/>
+					<xs:enumeration value="GenomePlex (Rubicon) Amplified DNA"/>
+					<xs:enumeration value="Repli-G (Qiagen) DNA"/>
+					<xs:enumeration value="Repli-G X (Qiagen) DNA"/>
+					<xs:enumeration value="RNA"/>
+					<xs:enumeration value="Total RNA"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.10"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="method_of_sample_procurement">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3103514"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="differential_report_submitted" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="hiv_positive_status" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="2180464"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="b_cell_tumor_slide_submitted" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3320292"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="t_cell_tumor_slide_submitted" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3320295"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="submitted_for_lce">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288488"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.8"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="maximum_tumor_dimension" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="64215"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ffpe_tumor_slide_submitted" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3295811"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="reason_path_confirm_diagnosis_not_matching" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3288315"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_sample_procurement" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288495"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_normal_sample_procurement" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288496"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_pathology_review" default="" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:common_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3288497"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

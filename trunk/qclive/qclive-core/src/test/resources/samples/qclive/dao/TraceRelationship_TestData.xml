@@ -1,0 +1,39 @@
+<dataset>
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+    <center center_id="1" domain_name="test.test" center_type_code="BCR" display_name="test" short_name="t" sort_order="1"/>
+    <center_to_bcr_center bcr_center_id="99" center_id="1" center_type_code="BCR"/>
+    <sample_type sample_type_code="01" definition="sample 01"/>
+    <sample_type sample_type_code="33" definition="sample 33"/>
+    <project project_code="TCGA" definition="TCGA project"/>
+    <portion_analyte portion_analyte_code="R" definition="R analyte"/>
+    <portion_analyte portion_analyte_code="W" definition="W analyte"/>
+    <tissue_source_site tss_code="02" tss_definition="TSS 2" receiving_center_id="01"/>
+    <tissue_source_site tss_code="11" tss_definition="TSS 11" receiving_center_id="01"/>
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliqot" />
+    <file_info file_id="7725" file_name="Test file 1 for TraceRelationshipQueries" level_number="1"/>
+    <file_info file_id="8000" file_name="Test file 2 for TraceRelationshipQueries" level_number="1"/>
+
+    <biospecimen_barcode biospecimen_id="8653" barcode="TCGA-02-0001-01C-01R-0178-03" project_code="TCGA"
+                         tss_code="02" patient="0001" sample_type_code="01" sample_sequence="C"
+                         portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="uuid1"/>
+    <biospecimen_barcode biospecimen_id="9139" barcode="TCGA-02-0001-01C-01R-0179-03" project_code="TCGA"
+                         tss_code="02" patient="0001" sample_type_code="01" sample_sequence="C"
+                         portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="uuid2"/>
+    <biospecimen_barcode biospecimen_id="3000" barcode="TCGA-02-0001-01C-01R-0180-03" project_code="TCGA"
+                          tss_code="02" patient="0001" sample_type_code="01" sample_sequence="C"
+                          portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="uuid3"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="8653" uuid="uuid1" shipped_item_type_id="1" built_barcode="barcode" project_code="TCGA" tss_code="02" bcr_center_id="99" participant_code="0001" is_viewable="1" is_redacted="0" />
+    <shipped_biospecimen shipped_biospecimen_id="9139" uuid="uuid2" shipped_item_type_id="1" built_barcode="barcode2" project_code="TCGA" tss_code="02" bcr_center_id="99" participant_code="0001" is_viewable="1" is_redacted="0" />
+    <shipped_biospecimen shipped_biospecimen_id="3000" uuid="uuid3" shipped_item_type_id="1" built_barcode="barcode3" project_code="TCGA" tss_code="02" bcr_center_id="99" participant_code="0001" is_viewable="1" is_redacted="0" />
+    <trace_info ncbi_trace_id="2041828391" trace_name="BI1bf494b7beaf4ba6c59e4709e694038f.R.3.T0" center_name="WIBR"
+                 submission_type="NEW" gene_name="MYST4" reference_accession="NC_000010.9" reference_acc_max="76455167"
+                 reference_acc_min="76454576" basecall_length="867" load_date="2008-06-04 02:06:00.0" state="active"/>
+    <trace_info ncbi_trace_id="2041842289" trace_name="BI1bff8570589ca827c37f056695794d86.F.3.T0" center_name="WIBR"
+                 submission_type="NEW" gene_name="CAST" reference_accession="NC_000005.8" reference_acc_max="96123997"
+                 reference_acc_min="96123521" basecall_length="831" load_date="2008-06-04 02:06:00.0" state="active"/>
+    <biospecimen_ncbi_trace biospecimen_trace_id="100" biospecimen_id="8653" ncbi_trace_id="2041828391" dcc_date_received="2008-03-07" file_id="7725" />
+    <biospecimen_ncbi_trace biospecimen_trace_id="101" biospecimen_id="9139" ncbi_trace_id="2041842289" dcc_date_received="2008-03-07" file_id="7725" />
+    <shipped_biospec_ncbi_trace biospecimen_trace_id="100" shipped_biospecimen_id="8653" ncbi_trace_id="2041828391" dcc_date_received="2008-03-07" file_id="7725" />
+    <shipped_biospec_ncbi_trace biospecimen_trace_id="101" shipped_biospecimen_id="9139" ncbi_trace_id="2041842289" dcc_date_received="2008-03-07" file_id="7725" />
+</dataset>

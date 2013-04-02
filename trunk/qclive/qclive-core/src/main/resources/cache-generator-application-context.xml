@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>./resources/cache-generator-db.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- Initializes the applicationContext which can be accessed anywhere in the application -->
+    <bean id="applicationContextProvider" class="gov.nih.nci.ncicb.tcga.dcc.common.framework.SpringApplicationContext"
+          lazy-init="false">
+    </bean>
+
+    <bean id="diseaseDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          lazy-init="false">
+        <property name="driverClassName" value="${JDBCDriver}"/>
+        <property name="url" value="${diseaseConnectionURL}"/>
+        <property name="username" value="${diseaseUserName}"/>
+        <property name="password" value="${diseasePassword}"/>
+    </bean>
+
+    <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="false">
+        <property name="driverClassName" value="${JDBCDriver}"/>
+        <property name="url" value="${quartzConnectionURL}"/>
+        <property name="username" value="${quartzUserName}"/>
+        <property name="password" value="${quartzPassword}"/>
+    </bean>
+    <bean id="xmlGenerator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.XMLGenerator"
+          lazy-init="false">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="level2DataCacheScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="level2DataCacheScheduler"/>
+        <property name="autoStartup" value="false"/>
+        <property name="startupDelay" value="60"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.threadCount">4
+                </prop>
+                <!-- specify quartz datasource bean name -->
+                <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.QueueJobStore</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">L2DCACHE_</prop>
+            </props>
+        </property>
+    </bean>
+    <bean name="level2DataCacheJobDetailBean" class="org.springframework.scheduling.quartz.JobDetailBean"
+          scope="prototype">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheGenerationJob"/>
+        <property name="durability" value="true"/>
+    </bean>
+
+    <bean id="level2DataCacheTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" scope="prototype">
+        <property name="repeatCount" value="0"/>
+    </bean>
+
+    <bean id="level2DataCacheEnqueuer" class="gov.nih.nci.ncicb.tcga.dcc.qclive.service.Level2DataCacheEnqueuer">
+        <property name="scheduler" ref="level2DataCacheScheduler"/>
+        <!-- inject reference to level2DataCacheEnqueuer -->
+        <lookup-method name="getJobDetail" bean="level2DataCacheJobDetailBean"/>
+        <lookup-method name="getTrigger" bean="level2DataCacheTrigger"/>
+    </bean>
+
+    <bean id="jobGenerator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.JOBGenerator"
+          lazy-init="false">
+        <property name="level2DataCacheEnqueuer" ref="level2DataCacheEnqueuer"/>
+    </bean>
+</beans>

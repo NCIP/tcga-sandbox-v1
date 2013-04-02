@@ -1,0 +1,1 @@
+This directory contains XSD(s) that do not have the version specified in the schema element.

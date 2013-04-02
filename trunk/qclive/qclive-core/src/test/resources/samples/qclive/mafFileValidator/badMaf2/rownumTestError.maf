@@ -1,0 +1,23 @@
+#version 2.3
+HUGO_SYMBOL	ENTREZ_GENE_ID	CENTER	NCBI_BUILD	Chromosome	START_POSITION	END_POSITION	STRAND	VARIANT_CLASSIFICATION	VARIANT_TYPE	REFERENCE_ALLELE	TUMOR_SEQ_ALLELE1	TUMOR_SEQ_ALLELE2	DBSNP_RS	DBSNP_VAL_STATUS	Tumor_Sample_Barcode	Matched_Norm_Sample_Barcode	MATCH_NORM_SEQ_ALLELE1	MATCH_NORM_SEQ_ALLELE2	TUMOR_VALIDATION_ALLELE1	TUMOR_VALIDATION_ALLELE2	MATCH_NORM_VALIDATION_ALLELE1	MATCH_NORM_VALIDATION_ALLELE2	VERIFICATION_STATUS	VALIDATION_STATUS	Mutation_Status	Sequencing_Phase	Sequence_Source	Validation_Method	Score	BAM_File	Sequencer
+TEST1	1	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	INS	-	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	-	-	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+
+TEST2	2	hgsc.bcm.3du	36	1	206025059	206025061	+	Missense_Mutation	INS	AAA	AAAA	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AAA	AAA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+TEST3	3	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	DEL	AA	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AA	AA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+TEST4	4	hgsc.bcm.1du	36	1	206025059	206025059	+	Missense_Mutation	SNP	A	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	A	A	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+#test of rownum
+TEST5	5	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	DNP	AA	AA	GG	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AA	AA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+
+TEST6	6	hgsc.bcm.edu	36	1	206025059	206025061	+	Missense_Mutation	TNP	AAA	AAA	GGG	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AAA	AAA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+TEST7	7	hgsc.bcm.edu	36df	1	206025059	206025062	+	Missense_Mutation	ONP	AAAA	AAAA	GGGG	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AAAA	AAAA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+#test 2 of rownum
+TEST8	8	hgsc.bcm.edu	36	1	206025059	206025062	+	Missense_Mutation	Consolidated	TCGA	AGCT	TCA	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	TCGA	TCGA	A	G	TCGA	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+
+TEST9	9	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	SNP	G	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	A	A	G	G	G	G	Unknown	Wildtype	Somatic		 PCR	 	 	 	 454
+TEST1	1	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	INS	-	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	-	-	A	G	-	-	Verified	Valid	Somatic		 PCR	 	 	 	 SOLID
+#test 3
+TEST3	3	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	DEL	AA	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AA	AA	AA	G	AA	AA	Verified	Valid	Somatic		 PCR	 	 	 	 SOLID
+TEST4	4	hgsc.bcm.edu	36e	1	206025059	206025059	+	Missense_Mutation	SNP	A	A	G	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	A	A	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+TEST5	5	hgsc.bcm.edu	36	1	206025059	206025060	+	Missense_Mutation	DNP	AA	AA	GG	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AA	AA	A	A	AA	AA	Verified	Valid	Somatic		 PCR	 	 	 	 SOLID
+TEST6	6	hgsc.bcm.sdfs	36f	1	206025059	206025061	+	Missense_Mutation	TNP	AAA	AAA	AAA	novel	unknown	TCGA-02-0010-00A-01W-0188-10	TCGA-02-0010-01A-01W-0188-10	AAA	AAA	A	G	A	A	Verified	Unknown	Somatic		 PCR	 	 	 	 SOLID
+# test 4

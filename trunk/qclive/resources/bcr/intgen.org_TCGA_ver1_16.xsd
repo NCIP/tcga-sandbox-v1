@@ -1,0 +1,2281 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="cdeattr">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="cde" type="xs:string" use="required" />
+                <xs:attribute name="procurement_status" type="xs:string" use="required" />
+                <xs:attribute name="xsd_ver" type="xs:string" use="required" />
+                <xs:attribute name="precision" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="clinicalattr">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="cde" type="xs:string" use="required" />
+                <xs:attribute name="procurement_status" type="xs:string" use="required" />
+                <xs:attribute name="xsd_ver" type="xs:string" use="required" />
+                <xs:attribute name="tier" type="xs:string" use="required" />
+                <xs:attribute name="precision" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="TCGA_BCR">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="PATIENT" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PATIENT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="TUMORTISSUESITE" />
+                <xs:element ref="HISTOLOGICALTYPE" />
+                <xs:element ref="PRIORGLIOMA" />
+                <xs:element ref="GENDER" />
+                <xs:element ref="VITALSTATUS" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFBIRTH" />
+                        <xs:element ref="MONTHOFBIRTH" />
+                        <xs:element ref="YEAROFBIRTH" />
+                    </xs:sequence>
+                    <xs:element ref="DAYSTOBIRTH" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFDEATH" />
+                        <xs:element ref="MONTHOFDEATH" />
+                        <xs:element ref="YEAROFDEATH" />
+                    </xs:sequence>
+                    <xs:element ref="DAYSTODEATH" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFLASTFOLLOWUP" />
+                        <xs:element ref="MONTHOFLASTFOLLOWUP" />
+                        <xs:element ref="YEAROFLASTFOLLOWUP" />
+                    </xs:sequence>
+                    <xs:element ref="DAYSTOLASTFOLLOWUP" />
+                </xs:choice>
+                <xs:element ref="RACE" />
+                <xs:element ref="BCRPATIENTBARCODE" />
+                <xs:element ref="PRETREATMENTHISTORY" />
+                <xs:element ref="RADIATIONTHERAPY" />
+                <xs:element ref="INFORMEDCONSENTVERIFIED" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFINITIALPATHOLOGICDIAGNOSIS" />
+                        <xs:element ref="MONTHOFINITIALPATHOLOGICDIAGNOSIS" />
+                        <xs:element ref="YEAROFINITIALPATHOLOGICDIAGNOSIS" />
+                    </xs:sequence>
+                    <xs:sequence>
+                        <xs:element ref="DAYSTOINITIALPATHOLOGICDIAGNOSIS"/>
+                        <xs:element ref="AGEATINITIALPATHOLOGICDIAGNOSIS"/>
+                    </xs:sequence>
+                </xs:choice>
+                <xs:element ref="CHEMOTHERAPY" />
+                <xs:element ref="IMMUNOTHERAPY" />
+                <xs:element ref="HORMONALTHERAPY" />
+                <xs:element ref="TARGETEDMOLECULARTHERAPY" />
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFTUMORPROGRESSION" />
+                        <xs:element ref="MONTHOFTUMORPROGRESSION" />
+                        <xs:element ref="YEAROFTUMORPROGRESSION" />
+                    </xs:sequence>
+                    <xs:element ref="DAYSTOTUMORPROGRESSION" />
+                </xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="DAYOFTUMORRECURRENCE" />
+                        <xs:element ref="MONTHOFTUMORRECURRENCE" />
+                        <xs:element ref="YEAROFTUMORRECURRENCE" />
+                    </xs:sequence>
+                    <xs:element ref="DAYSTOTUMORRECURRENCE" />
+                </xs:choice>
+                <xs:element ref="SITEOFTUMORFIRSTRECURRENCE" />
+                <xs:element ref="TUMORSTAGE" />
+                <xs:element ref="TUMORGRADE" />
+                <xs:element ref="RESIDUALTUMOR" />
+                <xs:element ref="TUMORRESIDUALDISEASE" />
+                <xs:element ref="PRIMARYTHERAPYOUTCOMESUCCESS" />
+                <xs:element ref="ETHNICITY" />
+                <xs:element ref="JEWISHORIGIN" />
+                <xs:element ref="ADDITIONALRADIATIONTHERAPY" />
+                <xs:element ref="ADDITIONALCHEMOTHERAPY" />
+                <xs:element ref="ADDITIONALIMMUNOTHERAPY" />
+                <xs:element ref="ADDITIONALHORMONETHERAPY" />
+                <xs:element ref="ADDITIONALDRUGTHERAPY" />
+                <xs:element ref="ANATOMICORGANSUBDIVISION" />
+                <xs:element ref="INITIALPATHOLOGICDIAGNOSISMETHOD" />
+                <xs:element ref="PERSONNEOPLASMCANCERSTATUS" />
+                <xs:element ref="SAMPLES" />
+                <xs:element ref="DRUGS" />
+                <xs:element ref="RADIATIONS" />
+                <xs:element ref="EXAMINATIONS" />
+                <xs:element ref="SURGERIES" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="HISTOLOGICALTYPE" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PRIORGLIOMA" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="Yes" />
+                    <xs:enumeration value="No" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SITEOFTUMORFIRSTRECURRENCE" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="LOCO-REGIONAL" />
+                    <xs:enumeration value="METASTASIS" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TUMORRESIDUALDISEASE" nillable="true">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr">
+                    <xs:enumeration value="" />
+                    <xs:enumeration value="No Macroscopic disease" />
+                    <xs:enumeration value="1-10 mm" />
+                    <xs:enumeration value="11-20 mm" />
+                    <xs:enumeration value="&gt;20 mm" />
+                </xs:restriction>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYOFINITIALPATHOLOGICDIAGNOSIS" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MONTHOFINITIALPATHOLOGICDIAGNOSIS" nillable="true">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFINITIALPATHOLOGICDIAGNOSIS" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CHEMOTHERAPY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IMMUNOTHERAPY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HORMONALTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TARGETEDMOLECULARTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFLASTFOLLOWUP" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFLASTFOLLOWUP" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="YEAROFLASTFOLLOWUP" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFTUMORPROGRESSION" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFTUMORPROGRESSION" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="YEAROFTUMORPROGRESSION" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFTUMORRECURRENCE" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="MONTHOFTUMORRECURRENCE" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="YEAROFTUMORRECURRENCE" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TUMORSTAGE" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="IA" />
+          <xs:enumeration value="IB" />
+          <xs:enumeration value="IC" />
+          <xs:enumeration value="IIA" />
+          <xs:enumeration value="IIB" />
+          <xs:enumeration value="IIC" />
+          <xs:enumeration value="IIIA" />
+          <xs:enumeration value="IIIB" />
+          <xs:enumeration value="IIIC" />
+          <xs:enumeration value="IV" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TUMORGRADE" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="GX" />
+          <xs:enumeration value="GB" />
+          <xs:enumeration value="G1" />
+          <xs:enumeration value="G2" />
+          <xs:enumeration value="G3" />
+          <xs:enumeration value="G4" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RESIDUALTUMOR" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="RX" />
+          <xs:enumeration value="R0" />
+          <xs:enumeration value="R1" />
+          <xs:enumeration value="R2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRIMARYTHERAPYOUTCOMESUCCESS" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="PROGRESSIVE DISEASE" />
+          <xs:enumeration value="STABLE DISEASE" />
+          <xs:enumeration value="PARTIAL RESPONSE" />
+          <xs:enumeration value="COMPLETE RESPONSE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ETHNICITY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="HISPANIC OR LATINO" />
+          <xs:enumeration value="NOT HISPANIC OR LATINO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JEWISHORIGIN" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="ASHKENAZI" />
+          <xs:enumeration value="SEPHARDIC" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADDITIONALRADIATIONTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADDITIONALCHEMOTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADDITIONALIMMUNOTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADDITIONALHORMONETHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ADDITIONALDRUGTHERAPY" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ANATOMICORGANSUBDIVISION" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INITIALPATHOLOGICDIAGNOSISMETHOD" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="CYTOLOGY" />
+          <xs:enumeration value="FINE NEEDLE ASPIRATION BIOPSY" />
+          <xs:enumeration value="INCISION BIOPSY" />
+          <xs:enumeration value="EXCISIONAL BIOPSY" />
+          <xs:enumeration value="TUMOR RESECTION" />
+          <xs:enumeration value="OTHER METHOD, SPECIFY IN NOTES" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERSONNEOPLASMCANCERSTATUS" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="TUMOR FREE" />
+          <xs:enumeration value="WITH TUMOR" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TUMORTISSUESITE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="BRAIN" />
+          <xs:enumeration value="LUNG" />
+          <xs:enumeration value="OVARY" />
+          <xs:enumeration value="PERITONEUM (OVARY)" />
+          <xs:enumeration value="INDETERMINATE (OVARY)" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GENDER">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="MALE" />
+          <xs:enumeration value="FEMALE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VITALSTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="LIVING" />
+          <xs:enumeration value="DECEASED" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFBIRTH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFBIRTH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFBIRTH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFDEATH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFDEATH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFDEATH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RACE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="NOT REPORTED" />
+          <xs:enumeration value="WHITE" />
+          <xs:enumeration value="AMERICAN INDIAN OR ALASKA NATIVE" />
+          <xs:enumeration value="BLACK OR AFRICAN AMERICAN" />
+          <xs:enumeration value="ASIAN" />
+          <xs:enumeration value="NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRPATIENTBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRETREATMENTHISTORY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="Unknown" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RADIATIONTHERAPY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="Unknown" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INFORMEDCONSENTVERIFIED">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+          <xs:enumeration value="Not Required" />
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SAMPLES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="SAMPLE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SAMPLE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SAMPLETYPE" />
+        <xs:element ref="LONGESTDIMENSION" />
+        <xs:element ref="INTERMEDIATEDIMENSION" />
+        <xs:element ref="SHORTESTDIMENSION" />
+        <xs:element ref="INITIALWEIGHT" />
+        <xs:element ref="CURRENTWEIGHT" />
+        <xs:element ref="FREEZINGMETHOD" />
+        <xs:element ref="OCTEMBEDDED" />
+          <xs:choice>
+              <xs:sequence>
+                  <xs:element ref="DAYOFCOLLECTION" />
+                  <xs:element ref="MONTHOFCOLLECTION" />
+                  <xs:element ref="YEAROFCOLLECTION" />
+              </xs:sequence>
+              <xs:element ref="DAYSTOCOLLECTION" />
+          </xs:choice>
+        <xs:element ref="TIMEBETWEENCLAMPINGANDFREEZING" />
+        <xs:element ref="TIMEBETWEENEXCISIONANDFREEZING" />
+        <xs:element ref="BCRSAMPLEBARCODE" />
+        <xs:element ref="PORTIONS" />
+        <xs:element ref="TUMORPATHOLOGY" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SAMPLETYPE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="Blood Derived Normal" />
+          <xs:enumeration value="Buccal Cell Normal" />
+          <xs:enumeration value="Cell Line Control" />
+          <xs:enumeration value="DNA" />
+          <xs:enumeration value="EBV Immortalized Normal" />
+          <xs:enumeration value="GenomePlex (Rubicon) Amplified DNA" />
+          <xs:enumeration value="Primary Tumor" />
+          <xs:enumeration value="Recurrent Tumor" />
+          <xs:enumeration value="Repli-G (Qiagen) DNA" />
+          <xs:enumeration value="RNA" />
+          <xs:enumeration value="Slides" />
+          <xs:enumeration value="Solid Tissue Normal" />
+          <xs:enumeration value="Total RNA" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LONGESTDIMENSION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INTERMEDIATEDIMENSION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SHORTESTDIMENSION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INITIALWEIGHT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CURRENTWEIGHT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FREEZINGMETHOD">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="LIQUID N2 VAPOR" />
+          <xs:enumeration value="DRY ICE" />
+          <xs:enumeration value="-80 C" />
+          <xs:enumeration value="-20 C" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OCTEMBEDDED">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFCOLLECTION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFCOLLECTION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFCOLLECTION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TIMEBETWEENCLAMPINGANDFREEZING">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TIMEBETWEENEXCISIONANDFREEZING">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRSAMPLEBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PORTIONS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="PORTION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PORTION">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DAYOFCREATION" />
+        <xs:element ref="MONTHOFCREATION" />
+        <xs:element ref="YEAROFCREATION" />
+        <xs:element ref="WEIGHT" />
+        <xs:element ref="BCRPORTIONBARCODE" />
+        <xs:element ref="ANALYTES" />
+        <xs:element ref="SLIDES" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFCREATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFCREATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFCREATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WEIGHT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRPORTIONBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ANALYTES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ANALYTE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ANALYTE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ANALYTETYPE" />
+        <xs:element ref="CONCENTRATION" />
+        <xs:element ref="AMOUNT" />
+        <xs:element ref="A260A280RATIO" />
+        <xs:element ref="GELIMAGEFILE" />
+        <xs:element ref="WELLNUMBER" />
+        <xs:element ref="BCRANALYTEBARCODE" />
+        <xs:element ref="ALIQUOTS" />
+        <xs:element ref="PROTOCOLS" />
+        <xs:choice minOccurs="0">
+          <xs:element ref="DNA" />
+          <xs:element ref="RNA" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="A260A280RATIO">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GELIMAGEFILE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:anyURI">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WELLNUMBER">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRANALYTEBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ALIQUOTS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ALIQUOT" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ALIQUOT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="AMOUNT" />
+        <xs:element ref="DAYOFSHIPMENT" />
+        <xs:element ref="MONTHOFSHIPMENT" />
+        <xs:element ref="YEAROFSHIPMENT" />
+        <xs:element ref="BCRALIQUOTBARCODE" />
+        <xs:element ref="CONCENTRATION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFSHIPMENT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFSHIPMENT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFSHIPMENT">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRALIQUOTBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROTOCOLS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="PROTOCOL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROTOCOL" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="EXPERIMENTALPROTOCOLTYPE" />
+        <xs:element ref="PROTOCOLNAME" />
+        <xs:element ref="PROTOCOLFILENAME" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EXPERIMENTALPROTOCOLTYPE" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROTOCOLNAME" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROTOCOLFILENAME" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DNA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="NORMALTUMORGENOTYPEMATCH" />
+        <xs:element ref="PCRAMPLIFICATIONSUCCESSFUL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NORMALTUMORGENOTYPEMATCH">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PCRAMPLIFICATIONSUCCESSFUL">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RNA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="RATIO28S18S" />
+        <xs:element ref="RINVALUE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RATIO28S18S">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RINVALUE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SLIDES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="SLIDE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SLIDE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SECTIONLOCATION" />
+        <xs:element ref="NUMBERPROLIFERATINGCELLS" />
+        <xs:element ref="PERCENTTUMORCELLS" />
+        <xs:element ref="PERCENTTUMORNUCLEI" />
+        <xs:element ref="PERCENTNORMALCELLS" />
+        <xs:element ref="PERCENTNECROSIS" />
+        <xs:element ref="PERCENTSTROMALCELLS" />
+        <xs:element ref="PERCENTINFLAMINFILTRATION" />
+        <xs:element ref="PERCENTLYMPHOCYTEINFILTRATION" />
+        <xs:element ref="PERCENTMONOCYTEINFILTRATION" />
+        <xs:element ref="PERCENTGRANULOCYTEINFILTRATION" />
+        <xs:element ref="PERCENTNEUTROPHILINFILTRATION" />
+        <xs:element ref="PERCENTEOSINOPHILINFILTRATION" />
+        <xs:element ref="BCRSLIDEBARCODE" />
+        <xs:element ref="TYPE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TYPE">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="GBMPATHOLOGY" />
+        <xs:element ref="LUNGPATHOLOGY" />
+        <xs:element ref="OVARIANPATHOLOGY" />
+        <xs:element ref="GBMSLIDE" />
+        <xs:element ref="LUNGSLIDE" />
+        <xs:element ref="OVARIANSLIDE" />
+        <xs:element ref="RADIATIONTYPE" />
+        <xs:element ref="ANALYTETYPE" />
+      </xs:choice>
+      <xs:attribute name="cde" />
+      <xs:attribute name="procurement_status" />
+      <xs:attribute default="1.8" name="xsd_ver" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SECTIONLOCATION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="TOP" />
+          <xs:enumeration value="BOTTOM" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUMBERPROLIFERATINGCELLS">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTTUMORCELLS">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTTUMORNUCLEI">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTNORMALCELLS">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTNECROSIS">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTSTROMALCELLS">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTINFLAMINFILTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTLYMPHOCYTEINFILTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTMONOCYTEINFILTRATION" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTGRANULOCYTEINFILTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTNEUTROPHILINFILTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERCENTEOSINOPHILINFILTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRSLIDEBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TUMORPATHOLOGY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="PRIMARYORMETASTATICSTATUS" />
+        <xs:element minOccurs="0" ref="MARGINSINVOLVED" />
+        <xs:element minOccurs="0" ref="VENOUSINVASION" />
+        <xs:element minOccurs="0" ref="LYMPHATICINVASION" />
+        <xs:element minOccurs="0" ref="NUMBERREGIONALLYMPHNODESEXAM" />
+        <xs:element minOccurs="0" ref="NUMBERREGIONALLYMPHNODESPOS" />
+        <xs:element minOccurs="0" ref="VERIFICATIONBYBCR" />
+        <xs:element minOccurs="0" ref="TYPE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRIMARYORMETASTATICSTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="PRIMARY" />
+          <xs:enumeration value="METASTATIC" />
+          <xs:enumeration value="MALIGNANT" />
+          <xs:enumeration value="NON-MALIGNANT" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MARGINSINVOLVED">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VENOUSINVASION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LYMPHATICINVASION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUMBERREGIONALLYMPHNODESEXAM">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUMBERREGIONALLYMPHNODESPOS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VERIFICATIONBYBCR">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DRUGS">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="DRUG" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DRUG">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BCRDRUGBARCODE" />
+        <xs:element ref="DRUGCATEGORY" />
+        <xs:element ref="DRUGDOSAGE" />
+        <xs:element ref="DOSAGEUNITS" />
+        <xs:element ref="NUMBERCYCLES" />
+          <xs:choice>
+              <xs:sequence>
+                  <xs:element ref="DAYOFDRUGTREATMENTSTART" />
+                  <xs:element ref="MONTHOFDRUGTREATMENTSTART" />
+                  <xs:element ref="YEAROFDRUGTREATMENTSTART" />
+              </xs:sequence>
+              <xs:element ref="DAYSTODRUGTREATMENTSTART" />
+          </xs:choice>
+          <xs:choice>
+              <xs:sequence>
+                  <xs:element ref="DAYOFDRUGTREATMENTEND" />
+                  <xs:element ref="MONTHOFDRUGTREATMENTEND" />
+                  <xs:element ref="YEAROFDRUGTREATMENTEND" />
+              </xs:sequence>
+              <xs:element ref="DAYSTODRUGTREATMENTEND" />
+          </xs:choice>
+        <xs:element ref="INITIALCOURSE" />
+        <xs:element ref="DRUGNAME" />
+        <xs:element ref="REGIMENINDICATION" />
+        <xs:element ref="REGIMENINDICATIONNOTES" />
+        <xs:element ref="ROUTEOFADMINISTRATION" />        
+        <xs:element ref="ROUTEOFADMINISTRATIONNOTES" />        
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRDRUGBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="DRUGDOSAGE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DOSAGEUNITS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUMBERCYCLES">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFDRUGTREATMENTSTART">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFDRUGTREATMENTSTART">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFDRUGTREATMENTSTART">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="DAYOFDRUGTREATMENTEND">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFDRUGTREATMENTEND">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFDRUGTREATMENTEND">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.12" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DRUGNAME">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DRUGCATEGORY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="CHEMO" />
+          <xs:enumeration value="HORMONAL" />
+          <xs:enumeration value="IMMUNO" />
+          <xs:enumeration value="TARGETED" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INITIALCOURSE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ROUTEOFADMINISTRATION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="ORAL" />
+          <xs:enumeration value="INTRAVENOUS (IV)" />
+          <xs:enumeration value="INTRATUMORAL" />
+          <xs:enumeration value="INTRA-PERITONEAL (IP)" />
+          <xs:enumeration value="IV AND IP" />
+          <xs:enumeration value="OTHER: SPECIFY IN NOTES" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ROUTEOFADMINISTRATIONNOTES">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element> 
+  <xs:element name="RADIATIONS">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="RADIATION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RADIATION">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BCRRADIATIONBARCODE" />
+          <xs:choice>
+              <xs:sequence>
+                  <xs:element ref="DAYOFRADIATIONTREATMENTSTART" />
+                  <xs:element ref="MONTHOFRADIATIONTREATMENTSTART" />
+                  <xs:element ref="YEAROFRADIATIONTREATMENTSTART" />
+              </xs:sequence>
+              <xs:element ref="DAYSTORADIATIONTREATMENTSTART" />
+          </xs:choice>
+        <xs:choice>
+            <xs:sequence>
+                <xs:element ref="DAYOFRADIATIONTREATMENTEND" />
+                <xs:element ref="MONTHOFRADIATIONTREATMENTEND" />
+                <xs:element ref="YEAROFRADIATIONTREATMENTEND" />
+            </xs:sequence>
+          <xs:element ref="DAYSTORADIATIONTREATMENTEND" />
+        </xs:choice>
+        <xs:element ref="RADIATIONTYPE" />
+        <xs:element ref="RADIATIONTYPENOTES" />
+        <xs:element ref="RADIATIONDOSAGE" />
+        <xs:element ref="UNITS" />
+        <xs:element ref="NUMFRACTIONS" />
+        <xs:element ref="ANATOMICTREATMENTSITE" />
+        <xs:element ref="REGIMENINDICATION" />
+        <xs:element ref="REGIMENINDICATIONNOTES" />
+        <xs:element ref="RADIATIONTREATMENTONGOING" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRRADIATIONBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.15" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="REGIMENINDICATION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="ADJUVANT" />
+          <xs:enumeration value="PROGRESSION" />
+          <xs:enumeration value="RECURRENCE" />
+          <xs:enumeration value="PALLIATIVE" />
+          <xs:enumeration value="OTHER: SPECIFY IN NOTES" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element> 
+  <xs:element name="REGIMENINDICATIONNOTES">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RADIATIONTREATMENTONGOING" nillable="true">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RADIATIONTYPE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="EXTERNAL BEAM" />
+          <xs:enumeration value="IMPLANTS" />
+          <xs:enumeration value="RADIOISOTOPES" />
+          <xs:enumeration value="COMBINATION" />
+          <xs:enumeration value="OTHER: SPECIFY IN NOTES" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="RADIATIONTYPENOTES">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="ANATOMICTREATMENTSITE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UNITS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.8" name="xsd_ver" />
+          <xs:attribute name="tier" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="EXAMINATIONS">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="EXAMINATION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EXAMINATION">
+    <xs:complexType>
+    	<xs:sequence>
+    	  <xs:element ref="BCREXAMINATIONBARCODE" />           
+    		<xs:element ref="KARNOFSKYPERFORMANCESCORE" />
+    		<xs:element ref="EASTERNCANCERONCOLOGYGROUP" />
+    		<xs:element ref="PROGRESSIONSTATUS" />
+    		<xs:element ref="PERFORMANCESTATUSSCALETIMING" />
+    		<xs:element ref="PROGRESSIONDETERMINEDBY" />
+    		<xs:element ref="PROGRESSIONDETERMINEDBYNOTES" />
+    	</xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCREXAMINATIONBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.15" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="DAYOFEXAMINATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFEXAMINATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFEXAMINATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KARNOFSKYPERFORMANCESCORE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="0" />
+          <xs:enumeration value="10" />
+          <xs:enumeration value="20" />
+          <xs:enumeration value="30" />
+          <xs:enumeration value="40" />
+          <xs:enumeration value="50" />
+          <xs:enumeration value="60" />
+          <xs:enumeration value="70" />
+          <xs:enumeration value="80" />
+          <xs:enumeration value="90" />
+          <xs:enumeration value="100" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EASTERNCANCERONCOLOGYGROUP">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="0" />
+          <xs:enumeration value="1" />
+          <xs:enumeration value="2" />
+          <xs:enumeration value="3" />
+          <xs:enumeration value="4" />
+          <xs:enumeration value="5" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROGRESSIONSTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PERFORMANCESTATUSSCALETIMING">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="PREOPERATIVE" />
+          <xs:enumeration value="PRE-ADJUVANT THERAPY" />
+          <xs:enumeration value="POST-ADJUVANT THERAPY" />
+          <xs:enumeration value="OTHER" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROGRESSIONDETERMINEDBY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="LABORATORY" />
+          <xs:enumeration value="PATHOLOGY" />
+          <xs:enumeration value="RADIATION" />
+          <xs:enumeration value="PHYSICAL EXAMINATION" />
+          <xs:enumeration value="IMAGING STUDY" />
+          <xs:enumeration value="MOLECULAR MARKER(S)" />
+          <xs:enumeration value="FIRST SEEN AT FURTHER SURGERY" />
+          <xs:enumeration value="OTHER METHOD: SPECIFY IN NOTES" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROGRESSIONDETERMINEDBYNOTES">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SURGERIES">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="SURGERY" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SURGERY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BCRSURGERYBARCODE" />
+          <xs:choice>
+              <xs:sequence>
+                  <xs:element ref="DAYOFPROCEDURE" />
+                  <xs:element ref="MONTHOFPROCEDURE" />
+                  <xs:element ref="YEAROFPROCEDURE" />
+              </xs:sequence>              
+              <xs:element ref="DAYSTOPROCEDURE" />
+          </xs:choice>        
+        <xs:element ref="PROCEDURETYPE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BCRSURGERYBARCODE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="cde" use="required" />
+          <xs:attribute name="procurement_status" use="required" />
+          <xs:attribute default="1.15" name="xsd_ver" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="DAYOFPROCEDURE">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFPROCEDURE">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFPROCEDURE">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PROCEDURETYPE">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFRADIATIONTREATMENTSTART">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFRADIATIONTREATMENTSTART">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFRADIATIONTREATMENTSTART">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DAYOFRADIATIONTREATMENTEND">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MONTHOFRADIATIONTREATMENTEND">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="YEAROFRADIATIONTREATMENTEND">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>  
+  <xs:element name="RADIATIONDOSAGE" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUMFRACTIONS" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="clinicalattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBMPATHOLOGY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="HISTOLOGICTYPE" />
+        <xs:element ref="HISTOLOGICNUCLEARGRADE" />
+        <xs:element ref="TUMORSAMPLEANATOMICLOCATION" />
+        <xs:element ref="GEMISTOCYTESPRESENT" />
+        <xs:element ref="OLIGODENDROGLIALCOMPONENT" />
+        <xs:element ref="LEPTOMENINGEALINVOLEMENT" />
+        <xs:element ref="GFAP_POSITIVE" />
+        <xs:element ref="MIB1_POSITIVE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LUNGPATHOLOGY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="HISTOLOGICNUCLEARGRADE" />
+        <xs:element ref="TUMORSAMPLEANATOMICLOCATION" />
+        <xs:element ref="TUMORSAMPLEANATOMICLOCATION" />
+        <xs:element ref="TNMPATHOLOGYSTAGEGROUPING" />
+        <xs:element ref="TNMPATHOLOGYTUMORSTATUS" />
+        <xs:element ref="TNMPATHOLOGYLYMPHNODESTATUS" />
+        <xs:element ref="TNMPATHOLOGYMETASTATICSTATUS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OVARIANPATHOLOGY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="HISTOLOGICNUCLEARGRADE" />
+        <xs:element ref="TUMORSAMPLEANATOMICLOCATION" />
+        <xs:element ref="TNMPATHOLOGYSTAGEGROUPING" />
+        <xs:element ref="TNMPATHOLOGYTUMORSTATUS" />
+        <xs:element ref="TNMPATHOLOGYLYMPHNODESTATUS" />
+        <xs:element ref="TNMPATHOLOGYMETASTATICSTATUS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TNMPATHOLOGYSTAGEGROUPING">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="0" />
+          <xs:enumeration value="IA" />
+          <xs:enumeration value="IB" />
+          <xs:enumeration value="IC" />
+          <xs:enumeration value="II" />
+          <xs:enumeration value="IIA" />
+          <xs:enumeration value="IIB" />
+          <xs:enumeration value="IIC" />
+          <xs:enumeration value="III" />
+          <xs:enumeration value="IIIA" />
+          <xs:enumeration value="IIIB" />
+          <xs:enumeration value="IIIC" />
+          <xs:enumeration value="IV" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TNMPATHOLOGYTUMORSTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="T0" />
+          <xs:enumeration value="T1" />
+          <xs:enumeration value="T1A" />
+          <xs:enumeration value="T1B" />
+          <xs:enumeration value="T1C" />
+          <xs:enumeration value="T2" />
+          <xs:enumeration value="T2A" />
+          <xs:enumeration value="T2B" />
+          <xs:enumeration value="T2C" />
+          <xs:enumeration value="T3" />
+          <xs:enumeration value="T3A" />
+          <xs:enumeration value="T3B" />
+          <xs:enumeration value="T3C" />
+          <xs:enumeration value="T4" />
+          <xs:enumeration value="Tis" />
+          <xs:enumeration value="TX" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TNMPATHOLOGYLYMPHNODESTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="N0" />
+          <xs:enumeration value="N1" />
+          <xs:enumeration value="N2" />
+          <xs:enumeration value="N3" />
+          <xs:enumeration value="NX" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TNMPATHOLOGYMETASTATICSTATUS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="M0" />
+          <xs:enumeration value="M1" />
+          <xs:enumeration value="MX" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LUNGSLIDE">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="OVARIANSLIDE">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="HISTOLOGICTYPE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="ANAPLASTIC ASTROCYTOMA" />
+          <xs:enumeration value="GIANT CELL GLIOBLASTOMA" />
+          <xs:enumeration value="GLIOBLASTOMA" />
+          <xs:enumeration value="GLIOSARCOMA" />
+          <xs:enumeration value="GLIOBLASTOMA MULTIFORME" />
+          <xs:enumeration value="NO HISTOLOGY AVAILABLE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HISTOLOGICNUCLEARGRADE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="LOW" />
+          <xs:enumeration value="HIGH" />
+          <xs:enumeration value="1" />
+          <xs:enumeration value="2" />
+          <xs:enumeration value="3" />
+          <xs:enumeration value="4" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TUMORSAMPLEANATOMICLOCATION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="C70.0" />
+          <xs:enumeration value="C71.0" />
+          <xs:enumeration value="C71.1" />
+          <xs:enumeration value="C71.2" />
+          <xs:enumeration value="C71.3" />
+          <xs:enumeration value="C71.4" />
+          <xs:enumeration value="C71.5" />
+          <xs:enumeration value="C71.6" />
+          <xs:enumeration value="C71.7" />
+          <xs:enumeration value="C71.8" />
+          <xs:enumeration value="C71.9" />
+          <xs:enumeration value="C72.0" />
+          <xs:enumeration value="C72.9" />
+          <xs:enumeration value="C34.0" />
+          <xs:enumeration value="C34.1" />
+          <xs:enumeration value="C34.2" />
+          <xs:enumeration value="C34.3" />
+          <xs:enumeration value="C34.8" />
+          <xs:enumeration value="C34.9" />
+          <xs:enumeration value="BRAIN, NOS" />
+          <xs:enumeration value="BLOOD" />
+          <xs:enumeration value="CEREBRAL MENINGES" />
+          <xs:enumeration value="CEREBRUM" />
+          <xs:enumeration value="FRONTAL LOBE" />
+          <xs:enumeration value="TEMPORAL LOBE" />
+          <xs:enumeration value="PARIETAL LOBE" />
+          <xs:enumeration value="OCCIPITAL LOBE" />
+          <xs:enumeration value="VENTRICLE, NOS" />
+          <xs:enumeration value="CEREBELLUM, NOS" />
+          <xs:enumeration value="BRAIN STEM" />
+          <xs:enumeration value="OVERLAPPING LESION OF BRAIN" />
+          <xs:enumeration value="SPINAL CORD" />
+          <xs:enumeration value="NERVOUS SYSTEM, NOS" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GEMISTOCYTESPRESENT">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OLIGODENDROGLIALCOMPONENT">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LEPTOMENINGEALINVOLEMENT">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GFAP_POSITIVE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MIB1_POSITIVE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GBMSLIDE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ENDOTHELIALPROLIFERATION" />
+        <xs:element ref="NUCLEARPLEOMORPHISM" />
+        <xs:element ref="PALISADINGNECROSIS" />
+        <xs:element ref="CELLULARITY" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ENDOTHELIALPROLIFERATION">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NUCLEARPLEOMORPHISM">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PALISADINGNECROSIS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="YES" />
+          <xs:enumeration value="NO" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CELLULARITY">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="LOW" />
+          <xs:enumeration value="MEDIUM" />
+          <xs:enumeration value="HIGH" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CONCENTRATION">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AMOUNT" nillable="true">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ANALYTETYPE">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="cdeattr">
+          <xs:enumeration value="" />
+          <xs:enumeration value="DNA" />
+          <xs:enumeration value="EBV Immortalized Normal" />
+          <xs:enumeration value="GenomePlex (Rubicon) Amplified DNA" />
+          <xs:enumeration value="Repli-G (Qiagen) DNA" />
+          <xs:enumeration value="RNA" />
+          <xs:enumeration value="Total RNA" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="DAYSTODEATH">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOLASTFOLLOWUP">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOINITIALPATHOLOGICDIAGNOSIS">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOBIRTH">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOTUMORPROGRESSION">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOTUMORRECURRENCE">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOCOLLECTION">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="cdeattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTODRUGTREATMENTSTART">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTODRUGTREATMENTEND">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTORADIATIONTREATMENTSTART">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTORADIATIONTREATMENTEND">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOEXAMINATION">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DAYSTOPROCEDURE">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AGEATINITIALPATHOLOGICDIAGNOSIS">
+        <xs:complexType mixed="true">
+            <xs:simpleContent>
+                <xs:restriction base="clinicalattr" />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

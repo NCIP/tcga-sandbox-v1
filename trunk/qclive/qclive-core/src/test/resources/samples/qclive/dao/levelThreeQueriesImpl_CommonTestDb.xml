@@ -1,0 +1,56 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <PROJECT PROJECT_CODE="TCGA" DEFINITION="TCGA"/>
+    <DATA_LEVEL LEVEL_NUMBER="3" LEVEL_DEFINITION="level3"/>
+    <DATA_LEVEL LEVEL_NUMBER="0" LEVEL_DEFINITION="mage-tab"/>
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="CGCC"/>
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" NAME="testType"/>
+
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="1" ARCHIVE_TYPE="Level_3" DATA_LEVEL="3"/>
+    <ARCHIVE_TYPE ARCHIVE_TYPE_ID="2" ARCHIVE_TYPE="mage-tab" DATA_LEVEL="0"/>
+    <DISEASE DISEASE_ID="1" DISEASE_ABBREVIATION="TEST" DISEASE_NAME="TEST Disease" ACTIVE="1"/>
+
+    <CENTER CENTER_ID="1" DOMAIN_NAME="test.org" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="Test"/>
+    <CENTER CENTER_ID="2" DOMAIN_NAME="mskcc.org" CENTER_TYPE_CODE="CGCC" DISPLAY_NAME="MSKCC CENTER"/>
+    <PLATFORM PLATFORM_ID="1" CENTER_TYPE_CODE="CGCC" PLATFORM_NAME="HumanMethylation27" PLATFORM_ALIAS="hm"
+              PLATFORM_DISPLAY_NAME="HumanMethylation27 platform" SORT_ORDER="1" BASE_DATA_TYPE_ID="1" AVAILABLE="1"/>
+
+    <ARCHIVE_INFO ARCHIVE_ID="1234" ARCHIVE_NAME="testArchive" CENTER_ID="1" PLATFORM_ID="1" DISEASE_ID="1"
+                  SERIAL_INDEX="1" REVISION="1" SERIES="0" DATE_ADDED="2010-01-28 12:00:00.000000000"
+                  DEPLOY_STATUS="Uploaded" is_latest="1" DEPLOY_LOCATION="/tcgafiles/" ARCHIVE_TYPE_ID="1"/>
+
+
+    <FILE_INFO FILE_ID="100" FILE_NAME="test_file" FILE_SIZE="100" LEVEL_NUMBER="3"/>
+    <FILE_TO_ARCHIVE FILE_ARCHIVE_ID="1" FILE_ID="100" ARCHIVE_ID="1234"/>
+
+    <TISSUE_SOURCE_SITE TSS_CODE="AG" TSS_DEFINITION="Test" RECEIVING_CENTER_ID="02"/>
+    <CENTER_TO_BCR_CENTER BCR_CENTER_ID="02" CENTER_ID="1" CENTER_TYPE_CODE="CGCC"/>
+
+    <shipped_element_type element_type_id="1" element_type_name="sample_type_code" />
+    <shipped_element_type element_type_id="2" element_type_name="sample_sequence" />
+    <shipped_element_type element_type_id="3" element_type_name="portion_sequence" />
+    <shipped_element_type element_type_id="4" element_type_name="analyte_code" />
+    <shipped_element_type element_type_id="5" element_type_name="plate_id" />
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot" />
+    <shipped_item_type shipped_item_type_id="2" shipped_item_type="Portion" />
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="uuid1" shipped_item_type_id="1" built_barcode="TCGA-AG-A032-01A-01D-A077-02" project_code="TCGA" tss_code="AG" bcr_center_id="02" participant_code="A032" is_viewable="1" is_redacted="0" />
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="uuid2" shipped_item_type_id="1" built_barcode="TCGA-AG-A032-10A-01D-A078-02" project_code="TCGA" tss_code="AG" bcr_center_id="02" participant_code="A032" is_viewable="1" is_redacted="0" />
+    <Shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01"/>
+    <Shipped_biospecimen_element shipped_biospecimen_element_id="2" shipped_biospecimen_id="2" element_type_id="1" element_value="10"/>
+    <Shipped_biospecimen_element shipped_biospecimen_element_id="3" shipped_biospecimen_id="1" element_type_id="2" element_value="A"/>
+    <Shipped_biospecimen_element shipped_biospecimen_element_id="4" shipped_biospecimen_id="2" element_type_id="2" element_value="A"/>
+
+    <SAMPLE_TYPE SAMPLE_TYPE_CODE="01" DEFINITION="Metastatic" IS_TUMOR="1" />
+
+    <shipped_biospecimen_file shipped_biospecimen_id="1" file_id="100"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="2" file_id="100"/>
+</dataset>

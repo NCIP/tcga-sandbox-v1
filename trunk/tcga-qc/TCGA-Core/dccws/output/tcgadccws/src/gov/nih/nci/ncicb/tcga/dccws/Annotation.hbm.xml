@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="Annotation" table="annotation" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the Annotation class -->
+		<property name="columnName" type="string" column="annotation_column_name"/>
+		<property name="enteredDate" type="java.util.Date" column="date_entered"/>
+		<property name="modifiedDate" type="java.util.Date" column="date_modified"/>
+		<property name="note" type="string" column="note"/>
+		<property name="noteProvider" type="string" column="note_provided_by"/>
+		<property name="recordId" type="integer" column="table_record_id"/>
+		<property name="subject" type="string" column="subject"/>
+		<property name="tableName" type="string" column="annotation_table_name"/>
+	</class>
+</hibernate-mapping>

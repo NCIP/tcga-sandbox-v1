@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:tcgaDBConnect.properties" />
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" autowire="byName">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${dccCommonUserName}"/>
+        <property name="password" value="${dccCommonPassword}"/>
+    </bean>
+
+    <bean id="tcgaBLCADS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaBLCAUserName}"/>
+        <property name="password" value="${tcgaBLCAPassword}"/>
+    </bean>
+
+    <bean id="tcgaBRCADS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaBRCAUserName}"/>
+        <property name="password" value="${tcgaBRCAPassword}"/>
+    </bean>
+
+    <bean id="tcgaCESCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaCESCUserName}"/>
+        <property name="password" value="${tcgaCESCPassword}"/>
+    </bean>
+
+    <bean id="tcgaCNTLDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaCNTLUserName}"/>
+        <property name="password" value="${tcgaCNTLPassword}"/>
+    </bean>
+
+    <bean id="tcgaCOADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaCOADUserName}"/>
+        <property name="password" value="${tcgaCOADPassword}"/>
+    </bean>
+
+    <bean id="tcgaDLBCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaDLBCUserName}"/>
+        <property name="password" value="${tcgaDLBCPassword}"/>
+    </bean>
+
+    <bean id="tcgaESCADS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaESCAUserName}"/>
+        <property name="password" value="${tcgaESCAPassword}"/>
+    </bean>
+
+    <bean id="tcgaGBMDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaGBMUserName}"/>
+        <property name="password" value="${tcgaGBMPassword}"/>
+    </bean>
+
+    <bean id="tcgaHNSCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaHNSCUserName}"/>
+        <property name="password" value="${tcgaHNSCPassword}"/>
+    </bean>
+
+    <bean id="tcgaKICHDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaKICHUserName}"/>
+        <property name="password" value="${tcgaKICHPassword}"/>
+    </bean>
+
+    <bean id="tcgaKIRCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaKIRCUserName}"/>
+        <property name="password" value="${tcgaKIRCPassword}"/>
+    </bean>
+
+    <bean id="tcgaKIRPDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaKIRPUserName}"/>
+        <property name="password" value="${tcgaKIRPPassword}"/>
+    </bean>
+
+    <bean id="tcgaLAMLDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLAMLUserName}"/>
+        <property name="password" value="${tcgaLAMLPassword}"/>
+    </bean>
+
+    <bean id="tcgaLCLLDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLCLLUserName}"/>
+        <property name="password" value="${tcgaLCLLPassword}"/>
+    </bean>
+
+    <bean id="tcgaLGGDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLGGUserName}"/>
+        <property name="password" value="${tcgaLGGPassword}"/>
+    </bean>
+
+    <bean id="tcgaLIHCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLIHCUserName}"/>
+        <property name="password" value="${tcgaLIHCPassword}"/>
+    </bean>
+
+    <bean id="tcgaLUADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLUADUserName}"/>
+        <property name="password" value="${tcgaLUADPassword}"/>
+    </bean>
+
+    <bean id="tcgaLUSCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaLUSCUserName}"/>
+        <property name="password" value="${tcgaLUSCPassword}"/>
+    </bean>
+
+    <bean id="tcgaOVDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaOVUserName}"/>
+        <property name="password" value="${tcgaOVPassword}"/>
+    </bean>
+
+    <bean id="tcgaPAADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaPAADUserName}"/>
+        <property name="password" value="${tcgaPAADPassword}"/>
+    </bean>
+
+    <bean id="tcgaPRADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaPRADUserName}"/>
+        <property name="password" value="${tcgaPRADPassword}"/>
+    </bean>
+
+    <bean id="tcgaREADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaREADUserName}"/>
+        <property name="password" value="${tcgaREADPassword}"/>
+    </bean>
+
+    <bean id="tcgaSARCDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaSARCUserName}"/>
+        <property name="password" value="${tcgaSARCPassword}"/>
+    </bean>
+
+    <bean id="tcgaSKCMDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaSKCMUserName}"/>
+        <property name="password" value="${tcgaSKCMPassword}"/>
+    </bean>
+
+    <bean id="tcgaSTADDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaSTADUserName}"/>
+        <property name="password" value="${tcgaSTADPassword}"/>
+    </bean>
+
+    <bean id="tcgaTHCADS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaTHCAUserName}"/>
+        <property name="password" value="${tcgaTHCAPassword}"/>
+    </bean>
+
+    <bean id="tcgaUCECDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbConnectionURL}"/>
+        <property name="username" value="${tcgaUCECUserName}"/>
+        <property name="password" value="${tcgaUCECPassword}"/>
+    </bean>
+
+</beans>

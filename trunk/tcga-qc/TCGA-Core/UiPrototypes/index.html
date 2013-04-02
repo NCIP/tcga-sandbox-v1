@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<head>
+		<title>TCGA DCC Prototypes</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="portal3/styles/tcga_data.css">
+		<style type="text/css">
+			.demoTitle1 {
+				font-weight: bold;
+				font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+				font-size: 14px;
+			}
+			li {
+				margin-bottom: 7px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header" align="center">
+			<img src="portal3/images/header_3single.gif" alt="" usemap="#header" class="view-images" border="0">
+		</div>
+
+		<div style="width: 100%;margin: 15px 0 15px 0;">
+			<div style="width: 855px; margin: auto;">
+				<div class="stdTitle" style="margin-bottom: 10px;">Welcome to the TCGA DCC Prototypes page</div>
+				
+				<div style="margin-bottom: 10px;">The following pages are available for exploration.</div>
+				<ul class="triangle">
+					<li>
+						<span class="demoTitle1"><a href="misc/tcgaBunsen.htm#interactivePatient">Bunsen</a> - Prototype for an interactive selector of clinical data</span><br/>
+
+						This is a proposal only so far, which is why it has a totally unofficial name. ;-)  Bunsen pulls in a whole set of clinical
+						parameters to the front end and lets the user play with the parameters while the number of patients within the selected 
+						values is continually adjusted.  The adjustment takes place both for the number of patients in the selected parameter and
+						from the interaction with all of the parameters.  Hmm, I explained that poorly.  Just play with it and you'll see what I mean. 
+					</li>
+					<li>
+						<span class="demoTitle1">Watson - Prototype for the new version of the Data Browser</span><br/>
+
+						This is only partially complete.  Pick a disease and click on "Define Patient Classes". No results yet and just showing
+						patient classes.  The button for go on the 2nd page does not yet work.  More updates as I go along.
+						<ul>
+							<li><a href="misc/tcgaWatsonDemo.htm">Variation A</a>
+							<li><a href="misc/tcgaWatson.htm">Variation B</a>
+						</ul>
+					</li>
+					<!--li>
+						<a href="misc/overDash.htm"><span class="demoTitle1">Overview Dashboard</span></a><br/>
+						A prototype for the Grand OverDash.  Click on the nodes in the map in the upper right to
+						dash from dash to dash...
+					</li-->
+					<!--li>
+						<a href="portal3/tcgaHome2.htm"><span class="demoTitle1">Data Portal Refresh</span></a><br/>
+						The new look for the TCGA DCC data portal.
+					</li-->
+					<!--li>
+						<a href="misc/graph6raph.htm"><span class="demoTitle1">Pipeline Report - aka The Big Dashboard</span></a><br/>
+						A demonstration of a Sankey diagram driven from a json file which
+						describes the nodes to be displayed and contains the data.
+					</li-->
+					<li>
+						<span class="demoTitle1">Directory Access Interface</span><br/>
+						Two potential version of a javascript intermediated directory access interface
+						to the TCGA data.  Note: Only the GBM directory tree, and the first directory
+						of each of it's child directories, is populated.  In both cases, this is a very
+						limited implementation.  There are lots of behavioral tweaks I would add in
+						putting this out for public consumption.
+						<ul>
+							<li>
+								<a href="misc/dai1.htm"><span class="demoTitle1">DAI Version 1</span></a><br/>
+								A version with a single tree window where you just walk down the directory
+								tree in that window.  Double cliking on a directory in the panel will open
+								the directory, or you can use the +/- toggles.
+							</li>
+							<li>
+								<a href="misc/dai2.htm"><span class="demoTitle1">DAI Version 2</span></a><br/>
+								A version with two windows, one allows you to walk down the directory tree.
+								The other window just shows the files in a single directory.  The synchronize
+								button, when pressed, will synchronize the two windows.  Double cliking on a
+								directory in either panel will open the directory.
+							</li>
+						</ul>
+					</li>
+					<!--li>
+						<span class="demoTitle1">Graphing Libraries Demos</span><br/>
+						These will be growing.  g.Raphael is up next and is already in work.
+						<ul>
+							<li>
+								<a href="misc/graphProtovisDemo.htm"><span class="demoTitle1">Protovis Demo</span></a> - <img style="position:relative;top: 3px;" src="firefox-16.png"> FireFox only for now<br/>
+								<a target="newWin" href="http://vis.stanford.edu/protovis/">Protovis Library</a> <img src="portal3/images/newWin.gif"><br/>
+								A demonstration of putting Protovis graphs in an ExtJS context.  Also just an
+								exploration of the Protovis javascript graphing library.  The major problem I've
+								found, it's not very happy in IE, and for Chrome/Safari, the code has to be inlined
+								in the div.  Very odd.
+							</li>
+							<li>
+								<a href="misc/graphTufteDemo.htm"><span class="demoTitle1">TufteGraph Demo</span></a><br/>
+								<a target="newWin" href="http://xaviershay.github.com/tufte-graph/">TufteGraph Library</a> <img src="portal3/images/newWin.gif"><br/>
+								A demonstration of putting TufteGraph graphs in an ExtJS context.  This one doesn't do
+								much, just bar graphs and stacked bar graphs, but it makes them very simple and works in
+								multiple browsers.
+							</li>
+						</ul>
+					</li-->
+					<!--li>
+						<a href="misc/uuidProto.htm"><span class="demoTitle1">UUID Browser Prototype</span></a><br/>
+						To start, click on the nice big search button.  If you want to go directly to the uuid explorer,
+						as if you had typed in a single UUID, type a 1 into the UUID field and then hit the search button.
+					</li-->
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

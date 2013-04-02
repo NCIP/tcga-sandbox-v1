@@ -1,0 +1,50 @@
+##fileformat=VCFv4.0
+##fileDate=201163
+##tcgaversion=1.1
+##center=UCSC
+##source="bambam pipeline v1.3"
+##reference=<ID=grch37,source="http://www.broadinstitute.org/ftp/pub/seq/references/Homo_sapiens_assembly19.fasta">
+##phasing=none
+##INDIVIDUAL=TCGA-18-3417
+##SAMPLE=<ID=NORMAL,SampleName=TCGA-06-0881-10A-01W,Individual="TCGA-18-3417",Description="Normal Sample",File="/inside/home/cwilks/d/bams_production/lusc_mutcomp/staging/TCGA-18-3417-11A-01D-1441-08.2.bam",Platform="Illumina",Source="dbGaP">
+##SAMPLE=<ID=PRIMARY,SampleName=TCGA-06-0881-10A-01W,Individual="TCGA-18-3417",Description="Primary Tumor",File="/inside/home/cwilks/d/bams_production/lusc_mutcomp/staging/TCGA-18-3417-01A-01D-1441-08.2.bam",Platform="Illumina",Source="dbGaP">
+##INFO=<ID=DB,Number=0,Type=Flag,Description="dbSNP membership, build 130">
+##INFO=<ID=SOMATIC,Number=0,Type=Flag,Description="Somatic mutation in primary">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth for all samples">
+##INFO=<ID=DEL,Number=1,Type=Integer,Description="Deletion X bps away">
+##INFO=<ID=INS,Number=1,Type=Integer,Description="Insertion X bps away">
+##INFO=<ID=Gene,Number=1,Type=String,Description="Hugo Gene Symbol/UCSC Gene ID that overlaps variant">
+##INFO=<ID=VT,Number=1,Type=String,Description="Somatic variant type">
+##INFO=<ID=VC,Number=1,Type=String,Description="Somatic variant classification">
+##INFO=<ID=ProtCh,Number=1,Type=String,Description="Protein change due to somatic variant">
+##INFO=<ID=SS,Number=1,Type=String,Description="Somatic status of sample">
+##INFO=<ID=fa20,Number=0,Type=Flag,Description="Fraction of ALT below 20% of reads">
+##FILTER=<ID=q10,Description="Genotype Quality < 10">
+##FILTER=<ID=blq,Description="Position overlaps 1000 Genomes Project mapping quality blacklist">
+##FILTER=<ID=bldp,Description="Position overlap 1000 Genomes Project depth blacklist">
+##FILTER=<ID=ma,Description="Position in germline has 2+ support for 2+ alleles">
+##FILTER=<ID=idl10,Description="Position is within 10 bases of an indel">
+##FILTER=<ID=idls5,Description="Less than 5 reads supporting indel in appropriate tissue">
+##FILTER=<ID=pbias,Description="Positional bias, all reads supporting ALT are in first or last third of read">
+##FILTER=<ID=sbias,Description="Strand bias, majority of reads supporting ALT are on forward OR reverse strand">
+##FILTER=<ID=mc3,Description="Greater than 3 reads of somatic allele in germline">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=BQ,Number=.,Type=Float,Description="Avg base quality for reads supporting alleles 0/1/2/3">
+##FORMAT=<ID=MQ,Number=.,Type=Float,Description="Avg mapping quality for reads supporting alleles 0/1/2/3">
+##FORMAT=<ID=SB,Number=.,Type=Float,Description="Strand Bias for reads supporting alleles 0/1/2/3">
+##FORMAT=<ID=AD,Number=.,Type=Float,Description="Depth of reads supporting alleles 0/1/2/3">
+##FORMAT=<ID=FA,Number=1,Type=Float,Description="Fraction of reads supporting ALT">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	PRIMARY
+1	14907	rs6682375	A	G	87	bldp;blq	DB;VT=SNP;VC=Intergenic;SS=Germline;DP=26	GT:DP:AD:BQ:MQ:SB:FA	0/1:14:6,8:36.2,39.9:22.0,22.2:0.5,0.125:0.571	0/1:12:5,7:35.8,39.9:22.4,24.6:0.2,0.429:0.583
+1	14930	rs6682385	A	G	108	bldp;blq	DB;VT=SNP;VC=Intergenic;SS=Germline;DP=37	GT:DP:AD:BQ:MQ:SB:FA	0/1:20:8,12:33.9,31.8:22.2,25.1:0.375,0.083:0.6	0/1:17:7,10:31.4,33.4:22.6,25.5:0.143,0.3:0.588
+1	14948	.	G	A	23	bldp;blq	VT=SNP;VC=Intergenic;SS=Germline;DP=31	GT:DP:AD:BQ:MQ:SB:FA	1/0:14:12,2:33.2,34.5:25.8,28.5:0.333,0.0:0.143	1/0:17:12,5:33.1,34.0:22.5,28.0:0.167,0.2:0.294
+1	809687	.	G	C	19	bldp	SOMATIC;VT=LOH;SS=LOH;DP=365;fa20	GT:DP:AD:BQ:MQ:SB:FA	0/1:176:146,30:39.1,34.5:57.5,31.9:0.603,0.533:0.17	0/0:189:166,23:38.8,35.6:56.9,32.0:0.633,0.391:0.122
+1	809752	.	G	GT	15	idls5	VT=INS;VC=Intergenic;DP=210;SS=Germline;fa20	GT:DP:AD:BQ:MQ:SB:FA	0/1:114:112,2:.:.:.:0.018	0/1:96:94,2:.:.:.:0.021
+1	809876	rs57181708	A	G	44	PASS	DB;VT=SNP;VC=Intergenic;SS=Germline;DP=24	GT:DP:AD:BQ:MQ:SB:FA	1/1:12:1,11:35.0,38.0:60.0,60.0:1.0,1.0:0.917	1/1:12:0,12:0,36.8:0,55.8:0,1.0:1.0
+1	879676	rs6605067	G	A	45	PASS	DB;Gene=PDPN/uc001avd.2;VT=SNP;VC=3'UTR;SS=Germline;DP=20	GT:DP:AD:BQ:MQ:SB:FA	1/1:13:0,13:0,34.8:0,60.0:0,1.0:1.0	1/1:7:0,7:0,35.7:0,60.0:0,1.0:1.0
+1	879687	rs2839	T	C	25	blq	DB;Gene=SSMD11/uc001abw.1;VT=SNP;VC=3'UTR;SS=Germline;DP=11	GT:DP:AD:BQ:MQ:SB:FA	1/1:9:0,9:0,36.7:0,60.0:0,1.0:1.0	1/1:2:0,2:0,38.5:0,60.0:0,1.0:1.0
+1	881627	rs2272757	G	A	113	PASS	DB;Gene=NOC2L/uc001aby.3;VT=SNP;VC=Silent;ProtCh=p.L412L;SS=Germline;DP=72	GT:DP:AD:BQ:MQ:SB:FA	1/1:40:0,40:0,34.7:0,58.6:0,0.8:1.0	1/1:32:0,32:0,35.3:0,59.3:0,0.688:1.0
+1	879687	.	T	C	25	blq	DB;Gene=DPMD11/uc001abw.1;VT=SNP;VC=3'UTR;SS=Germline;DP=11	GT:DP:AD:BQ:MQ:SB:FA	1/1:9:0,9:0,36.7:0,60.0:0,1.0:1.0	1/1:2:0,2:0,38.5:0,60.0:0,1.0:1.0
+

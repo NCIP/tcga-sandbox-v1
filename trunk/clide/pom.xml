@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+		<artifactId>tcga-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>clide</artifactId>
+	<packaging>jar</packaging>
+	<name>CLIDE</name>
+	<scm>
+		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/clide/trunk</connection>
+		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/clide/trunk</developerConnection>
+		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/clide/trunk</url>
+	</scm>
+	<!--#############################################################################################################################################################################
+
+		To run a full build for the clide project, including all unit tests, execute the following command from the 'clide' project directory:
+
+		   mvn clean install
+
+		To run a full build and generate HTML unit test reports, include the "site" goal:
+
+		   mvn clean install site
+
+		Note that specifying the "site" goal will run the unit tests twice, which may not be desirable when only a
+		unit test report is required. To generate only the unit test report(s), use the "surefire-report:report-only"
+		goal instead of "site".
+		
+		To run just the unit tests and generate an HTML report, execute the following command:
+		
+		   mvn clean site
+		
+		To run just slow or fast tests, provide the '-Dtest=' argument:
+		
+		   mvn -Dtest=*FastTest clean site
+		  
+		   OR
+		  
+		   mvn -Dtest=*SlowTest clean site
+
+	##############################################################################################################################################################################-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<!-- Uncomment this plugin configuration when the clide test files are
+				 available.
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
+				<executions>
+					<execution>
+						<id>download-test-data</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>download</goal>
+						</goals>
+						<configuration>
+							<url>http://tcga-data-dev.nci.nih.gov/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/kirp/clideTesting</url>
+							<includes>**</includes>
+							<toDir>${basedir}/src/test/resources/samples/original_files</toDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+					<excludes>
+						<!-- Exclude all resources inside src/main/resources from the JAR. These resources
+							 will be provided outside of the JAR as part of the distribution via the
+							 assembly plugin configuration below. -->
+						<exclude>**/conf/*</exclude>
+						<exclude>**/*.properties</exclude>
+						<exclude>**/*.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<!-- Bind the assembly of the clide distribution to the package phase, so that
+					 the deployed artifacts for clide get automatically created when the
+					 "mvn install" or "mvn package" goals are executed. -->
+				<executions>
+					<execution>
+						<id>assemble-clide-distro</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/assembly/src.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<!-- Uncomment this resource definition when non-class files (.properties, .xml, etc.) exist within the source
+				 package structure that should be copied to the target/classes (${project.build.outputDirectory})
+				 directory during compilation. These resources will then be available on classpath during unit test
+				 execution and will be packaged up as part of the final build artifact(s) (JAR, WAR, EAR, etc.).
+			<resource>
+				<directory>${basedir}/src/main/java/gov</directory>
+				<targetPath>gov</targetPath>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource> -->
+		</resources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-junit4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.3.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc.qclive</groupId>
+			<artifactId>qclive-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<classifier>classes</classifier>
+		</dependency>
+	</dependencies>
+</project>

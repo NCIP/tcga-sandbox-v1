@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+    <center_type center_type_definition="Biospecimen Core Resource" center_type_code="BCR"/>
+    <center_type center_type_definition="CGCC" center_type_code="CGCC"/>
+    <center center_id="2" domain_name="hms.harvard.edu" center_type_code="BCR" display_name="Harvard Medical School" sort_order="3" short_name="HMS"/>
+    <data_type DATA_TYPE_ID="10" NAME="Complete Clinical Set" CENTER_TYPE_CODE="BCR" FTP_DISPLAY="clin" AVAILABLE="1" SORT_ORDER="11"/>
+    <data_type DATA_TYPE_ID="11" NAME="SNP" CENTER_TYPE_CODE="CGCC" FTP_DISPLAY="SNP" SORT_ORDER="1" AVAILABLE="1"/>
+    <data_type DATA_TYPE_ID="12" NAME="Expression-Gene" CENTER_TYPE_CODE="CGCC" FTP_DISPLAY="Expression-Gene" SORT_ORDER="2" AVAILABLE="1"/>
+    <!-- platform tests -->
+    <data_type DATA_TYPE_ID="13" NAME="Quantification-Exon" CENTER_TYPE_CODE="CGCC" FTP_DISPLAY="Expression-Gene" SORT_ORDER="2" AVAILABLE="1"/>
+    <data_type DATA_TYPE_ID="14" NAME="SNP Frequencies" CENTER_TYPE_CODE="CGCC" FTP_DISPLAY="snp" SORT_ORDER="7" AVAILABLE="1"/>
+
+    <visibility VISIBILITY_ID="1" IDENTIFIABLE="1" VISIBILITY_NAME="Private" />
+    <visibility VISIBILITY_ID="2" IDENTIFIABLE="0" VISIBILITY_NAME="Public" />
+
+    <!-- clinical data type has level 1 private -->
+    <data_visibility DATA_VISIBILITY_ID="1" DATA_TYPE_ID="10" VISIBILITY_ID="1" LEVEL_NUMBER="1"/>
+
+    <!-- SNP data type has private level 1 and 2, and public level 3 -->
+    <data_visibility DATA_VISIBILITY_ID="2" DATA_TYPE_ID="11" VISIBILITY_ID="1" LEVEL_NUMBER="1" />
+    <data_visibility DATA_VISIBILITY_ID="3" DATA_TYPE_ID="11" VISIBILITY_ID="1" LEVEL_NUMBER="2" />
+    <data_visibility DATA_VISIBILITY_ID="4" DATA_TYPE_ID="11" VISIBILITY_ID="2" LEVEL_NUMBER="3" />
+
+    <!-- gene expression data type has level 1, 2 and 3 public -->
+    <data_visibility DATA_VISIBILITY_ID="5" DATA_TYPE_ID="12" VISIBILITY_ID="2" LEVEL_NUMBER="1" />
+    <data_visibility DATA_VISIBILITY_ID="6" DATA_TYPE_ID="12" VISIBILITY_ID="2" LEVEL_NUMBER="2" />
+    <data_visibility DATA_VISIBILITY_ID="7" DATA_TYPE_ID="12" VISIBILITY_ID="2" LEVEL_NUMBER="3" />
+    
+    <!-- RNA Seq data is public -->
+    <data_visibility DATA_VISIBILITY_ID="8" DATA_TYPE_ID="13" VISIBILITY_ID="2" LEVEL_NUMBER="3" />
+
+    <!-- HumanHap550 data has level 0, 1, 2 and 3(Public) -->
+    <data_visibility DATA_VISIBILITY_ID="9" DATA_TYPE_ID="14" VISIBILITY_ID="1" LEVEL_NUMBER="0" />
+    <data_visibility DATA_VISIBILITY_ID="10" DATA_TYPE_ID="14" VISIBILITY_ID="1" LEVEL_NUMBER="1" />
+    <data_visibility DATA_VISIBILITY_ID="11" DATA_TYPE_ID="14" VISIBILITY_ID="1" LEVEL_NUMBER="2" />
+    <data_visibility DATA_VISIBILITY_ID="12" DATA_TYPE_ID="14" VISIBILITY_ID="2" LEVEL_NUMBER="3" />
+    
+    <!-- platform definitions -->
+    <platform PLATFORM_ID="1" PLATFORM_NAME="RNASeq" BASE_DATA_TYPE_ID="13" PLATFORM_DISPLAY_NAME="RNA Seq Display" PLATFORM_ALIAS="RNA" CENTER_TYPE_CODE="CGCC" SORT_ORDER="1" AVAILABLE="1" />
+    <platform PLATFORM_ID="2" PLATFORM_NAME="HumanHap550" BASE_DATA_TYPE_ID="14" PLATFORM_DISPLAY_NAME="Illumina 550K Infinium HumanHap550 SNP Chip" PLATFORM_ALIAS="HumanHap550" CENTER_TYPE_CODE="CGCC" SORT_ORDER="18" AVAILABLE="1" />
+    <platform PLATFORM_ID="3" PLATFORM_NAME="AgilentG4502A_07_1" BASE_DATA_TYPE_ID="12" PLATFORM_DISPLAY_NAME="Agilent 244K Custom Gene Expression G4502A-07-1" PLATFORM_ALIAS="AgilentG4502A_07" CENTER_TYPE_CODE="CGCC" SORT_ORDER="13" AVAILABLE="1" />
+    
+    <!-- data type to platform -->
+    <data_type_to_platform DATA_TYPE_PLATFORM_ID="1" DATA_TYPE_ID="13" PLATFORM_ID="1" />
+    <data_type_to_platform DATA_TYPE_PLATFORM_ID="2" DATA_TYPE_ID="14" PLATFORM_ID="2" />
+    <data_type_to_platform DATA_TYPE_PLATFORM_ID="3" DATA_TYPE_ID="12" PLATFORM_ID="3" />
+    
+</dataset>

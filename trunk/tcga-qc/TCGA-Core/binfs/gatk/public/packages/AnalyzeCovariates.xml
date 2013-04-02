@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="AnalyzeCovariates">
+  <executable name="AnalyzeCovariates">
+    <main-class name="org.broadinstitute.sting.analyzecovariates.AnalyzeCovariates" />
+    <resource-bundle file="StingText.properties" />
+    <dependencies>
+      <!-- Recalibration analysis script -->
+      <class name="org.broadinstitute.sting.analyzecovariates.AnalyzeCovariates" />
+      <class name="org.broadinstitute.sting.gatk.walkers.recalibration.DinucCovariate" />
+      <class name="org.broadinstitute.sting.gatk.walkers.recalibration.QualityScoreCovariate" />
+      <class name="org.broadinstitute.sting.gatk.walkers.recalibration.CycleCovariate" />
+      <class name="org.broadinstitute.sting.gatk.walkers.recalibration.ReadGroupCovariate" />
+      <class name="org.broadinstitute.sting.gatk.walkers.recalibration.TileCovariate" />
+    </dependencies>
+  </executable>
+  <resources>
+    <!-- Supplemental scripts for graph generation, etc. -->
+    <file name="R/plot_residualError_OtherCovariate.R" />
+    <file name="R/plot_residualError_QualityScoreCovariate.R" />
+  </resources>
+</package>

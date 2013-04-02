@@ -1,0 +1,164 @@
+{ "patientClassParameters" : [{
+		"id": "1",
+		"name": "Demographic Data",
+		"parameters": [{
+			"name": "Gender",
+			"selectType": "single",
+			"values": [{
+				"value": "Male",
+				"disabled": "false"
+			}, {
+				"value": "Female",
+				"disabled": "false"
+			}, {
+				"value": "Either",
+				"disabled": "false"
+			}]
+		}, {
+			"name": "Age at Pathologic Diagnosis",
+			"selectType": "range",
+			"range": {
+				"minValue": "0",
+				"maxValue": "93"
+			},
+			"unit": "years"
+		}, {
+			"name": "Race",
+			"selectType": "combo",
+			"values": [{
+				"desc": "American Indian or Alaskan Native",
+				"value": "1"
+			}, {
+				"desc": "Asian",
+				"value": "2"
+			}, {
+				"desc": "Black or African American",
+				"value": "3"
+			}, {
+				"desc": "Hispanic or Latino",
+				"value": "4"
+			}, {
+				"desc": "Native Hawaiian or Other Pacific Islander",
+				"value": "5"
+			}, {
+				"desc": "White",
+				"value": "6"
+			}]
+		}]
+	}, {
+		"id": "2",
+		"name": "Outcomes",
+		"parameters": [{
+			"name": "Days Survival Since Diagnosis",
+			"selectType": "range",
+			"range": {
+				"minValue": "1",
+				"maxValue": "613"
+			},
+			"unit": "days"
+		}, {
+			"name": "Days to Recurrence",
+			"selectType": "range",
+			"range": {
+				"minValue": "1",
+				"maxValue": "583"
+			},
+			"unit": "days"
+		}]
+	}, {
+		"id": "3",
+		"name": "Tissue Characteristics",
+		"parameters": [{
+			"name": "Tumor Grade",
+			"selectType": "multi",
+			"values": [{
+				"value": "G1"
+			}, {
+				"value": "G2"
+			}, {
+				"value": "G3"
+			}, {
+				"value": "G4"
+			}, {
+				"value": "GB",
+				"comment": "Borderline Malignancy"
+			}, {
+				"value": "GX",
+				"comment": "Undetermined"
+			}]
+		}, {
+			"name": "Tumor Stage",
+			"selectType": "multi",
+			"values": [{
+				"value": "IA"
+			}, {
+				"value": "IB"
+			}, {
+				"value": "IC"
+			}, {
+				"value": "IV"
+			}, {
+				"value": "IIA"
+			}, {
+				"value": "IIB"
+			}, {
+				"value": "IIC"
+			}, {
+				"value": "Unspecified"
+			}, {
+				"value": "IIIA"
+			}, {
+				"value": "IIIB"
+			}, {
+				"value": "IIIC"
+			}]
+		}, {
+			"name": "Tumor Site",
+			"selectType": "combo",
+			"values": [{
+				"desc": "Brain",
+				"value": "1"
+			}, {
+				"desc": "Liver",
+				"value": "2"
+			}, {
+				"desc": "Spleen",
+				"value": "3"
+			}, {
+				"desc": "Ego",
+				"value": "4"
+			}, {
+				"desc": "Lung",
+				"value": "5"
+			}, {
+				"desc": "Skin",
+				"value": "6"
+			}]
+		}, {
+			"name": "Tissue Collection Center",
+			"selectType": "combo",
+			"values": [{
+				"desc": "International Genomics Consortium",
+				"value": "01"
+			}, {
+				"desc": "MD Anderson Cancer Center",
+				"value": "02"
+			}, {
+				"desc": "Lung Cancer Tissue Bank of CALGB",
+				"value": "03"
+			}, {
+				"desc": "Gynecologic Oncology Group",
+				"value": "04"
+			}, {
+				"desc": "Indivumed",
+				"value": "05"
+			}, {
+				"desc": "Henry Ford Hospital",
+				"value": "06"
+			}, {
+				"desc": "TGen",
+				"value": "07"
+			}]
+		}]
+	}]
+}

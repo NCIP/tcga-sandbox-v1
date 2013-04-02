@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<project name="TCGA-Core">
+
+
+    <!-- Compiler options foo -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="on"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="128m"/>
+    <!-- create distro directory -->
+    <property name="distro.dir" value="${basedir}/distro/cache_generator"/>
+    <property name="src.dir" value="${basedir}/src/main/java"/>
+    <property name="common.src.dir" value="${basedir}/../common/src/main/java"/>
+    <property name="output.dir" value="${basedir}/out/cache_generator"/>
+    <mkdir dir="${basedir}/distro"/>
+    <mkdir dir="${basedir}/distro/cache_generator"/>
+    <mkdir dir="${distro.dir}/resources"/>
+    <mkdir dir="${distro.dir}/lib"/>
+    <mkdir dir="${basedir}/out"/>
+    <mkdir dir="${basedir}/out/cache_generator"/>
+
+    <path id="cache.classpath">
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="../common/lib/quartz-1.8.3/quartz-all-1.8.3.jar"/>
+        <pathelement location="../common/lib/spring-framework-2.5.6.SEC01/dist/spring.jar"/>
+        <pathelement location="../common/lib/xstream/xpp3_min-1.1.4c.jar"/>
+        <pathelement location="../common/lib/xstream/xstream-1.3.1.jar"/>
+        <pathelement location="../common/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+        <pathelement location="../common/lib/ojdbc5.jar"/>
+        <pathelement location="../common/lib/slf4j/slf4j-api-1.5.10.jar"/>
+        <pathelement location="../common/lib/slf4j/slf4j-log4j12-1.5.10.jar"/>
+        <pathelement location="../common/lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+        <pathelement location="../common/lib/cglib-nodep-2.2.jar"/>
+    </path>
+
+    <path id="common-sourcepath">
+        <dirset dir="${basedir}">
+
+
+        </dirset>
+    </path>
+    <path id="sourcepath">
+        <dirset dir="${basedir}">
+            <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/qclive/bean/Level2DataFilterBean*"/>
+            <!--            <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/ConstantValues*"/>
+          <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/common/framework/SpringApplicationContext*"/>
+          <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheEnqueuer*"/>
+          <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheEnqueuerI*"/>
+          <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheGenerationJob*"/>
+
+          <include name="src/main/java/gov/nih/nci/ncicb/tcga/dcc/qclive/standalone/**"/> -->
+        </dirset>
+    </path>
+
+    <target name="compile-common" description="Compile Cache generator classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" srcdir="${common.src.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <classpath refid="cache.classpath"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/ConstantValues*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/common/framework/SpringApplicationContext*"/>
+            <include name="org/quartz/impl/jdbcjobstore/QueueJobStore*"/>
+        </javac>
+    </target>
+
+    <target name="compile" depends="compile-common" description="Compile Cache generator classes">
+        <mkdir dir="${output.dir}"/>
+        <javac destdir="${output.dir}" srcdir="${src.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <classpath refid="cache.classpath"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/bean/Level2DataFilterBean*"/>
+
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheEnqueuer*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheEnqueuerI*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/service/Level2DataCacheGenerationJob*"/>
+            <include name="gov/nih/nci/ncicb/tcga/dcc/qclive/standalone/**"/>
+
+        </javac>
+    </target>
+
+    <target name="package" description="Build Cache Generator package"
+            depends="compile">
+
+        <!-- copy config files -->
+        <copy todir="${distro.dir}/lib" flatten="true">
+            <fileset file="../common/lib/quartz-1.8.3/quartz-all-1.8.3.jar"/>
+            <fileset file="../common/lib/spring-framework-2.5.6.SEC01/dist/spring.jar"/>
+            <fileset file="../common/lib/xstream/xpp3_min-1.1.4c.jar"/>
+            <fileset file="../common/lib/xstream/xstream-1.3.1.jar"/>
+            <fileset file="../common/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+            <fileset file="../common/lib/ojdbc5.jar"/>
+            <fileset file="../common/lib/slf4j/slf4j-api-1.5.10.jar"/>
+            <fileset file="../common/lib/slf4j/slf4j-log4j12-1.5.10.jar"/>
+            <fileset file="../common/lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+            <fileset file="../common/lib/cglib-nodep-2.2.jar"/>
+        </copy>
+
+        <copy todir="${distro.dir}/resources" flatten="true">
+            <fileset file="${basedir}/src/main/resources/cache-generator-application-context.xml"/>
+            <fileset file="${basedir}/src/main/resources/cache-generator-db.properties"/>
+        </copy>
+
+        <!-- create a manifest classpath -->
+        <manifestclasspath property="lib.list"
+                           jarfile="${distro.dir}/cache-generator.jar">
+            <classpath>
+                <fileset dir="${distro.dir}/lib">
+                    <include name="**/*.jar"/>
+                    <include name="./lib/quartz-all-1.8.3.jar"/>
+                    <include name="./lib/spring.jar"/>
+                    <include name="./lib/xpp3_min-1.1.4c.jar"/>
+                    <include name="./lib/xstream-1.3.1.jar"/>
+
+                </fileset>
+            </classpath>
+        </manifestclasspath>
+
+        <!-- Create the level three loader JAR file -->
+        <jar destfile="${distro.dir}/cache-generator.jar" duplicate="preserve">
+            <manifest>
+                <attribute name="Created-By" value="TCGA team"/>
+                <attribute name="Manifest-Version" value="1.0"/>
+                <attribute name="Main-Class"
+                           value="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.CacheGeneratorApp"/>
+                <attribute name="Class-Path"
+                           value=". ./resources/ ./lib/quartz-all-1.8.3.jar ./lib/spring.jar ./lib/xpp3_min-1.1.4c.jar ./lib/xstream-1.3.1.jar ./lib/commons-logging-1.1.1.jar ./lib/ojdbc5.jar ./lib/slf4j-api-1.5.10.jar ./lib/slf4j-log4j12-1.5.10.jar ./lib/log4j-1.2.15.jar ./lib/cglib-nodep-2.2.jar"/>
+            </manifest>
+            <fileset dir="${output.dir}">
+                <!--                <include name="**/dcc/**"/> -->
+                <include name="**"/>
+            </fileset>
+        </jar>
+
+    </target>
+
+
+</project>

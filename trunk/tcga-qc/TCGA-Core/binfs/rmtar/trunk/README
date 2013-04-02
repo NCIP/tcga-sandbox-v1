@@ -1,0 +1,20 @@
+README for rmtar.sh
+$Id: README 11433 2011-05-30 18:01:39Z jensenma $
+
+This bash script effectively removes a given list of archive files
+from a DCC tar-gzip archive. Given the archive and the files, rmtar
+generates a replacement archive with the given files removed and a new
+manifest that logs only the files that remain. A new archive md5 file
+is also created.
+
+The replacement archive has the SAME NAME as the original archive.
+The replacement archive will appear in the directory in which rmtar
+runs. If rmtar is run in the directory where the original archive
+exists, the orignal archive will be renamed <archivefilename>e
+(appended 'e', like sed -i does), as a backup.
+
+Usage is:
+$ ./rmtar.sh this_is_my_archive.tar.gz remove_me_1.ext remove_me_2.ext ...
+
+Do not give the full path of the file within the archive, only the
+filename.  This works as long as the DCC archive conventions are met.

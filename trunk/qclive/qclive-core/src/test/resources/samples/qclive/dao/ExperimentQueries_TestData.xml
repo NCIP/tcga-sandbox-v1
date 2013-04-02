@@ -1,0 +1,37 @@
+<dataset>
+    <data_level level_number="1" level_definition="Raw data"/>
+    <data_level level_number="2" level_definition="level 2"/>
+    <data_level level_number="3" level_definition="level 3"/>
+    <data_level level_number="0" level_definition="not data"/>
+    <archive_type archive_type_id="1" archive_type="Level_1" data_level="1"/>
+    <center_type center_type_code="CGCC" center_type_definition="CancerGCC"/>
+    <center center_id="5" center_type_code="CGCC" display_name="University of North Carolina" domain_name="unc.edu"/>
+    <DISEASE DISEASE_ID="3" ACTIVE="0" DISEASE_ABBREVIATION="OV" DISEASE_NAME="Ovarian serous cystadenocarcinoma"/>
+    <DATA_TYPE DATA_TYPE_ID="1" CENTER_TYPE_CODE="CGCC" NAME="type" FTP_DISPLAY="hi" AVAILABLE="1"/>
+    <platform BASE_DATA_TYPE_ID="1" platform_id="38" center_type_code="CGCC" platform_name="H-miRNA_8x15Kv2" available="1" sort_order="13" platform_display_name="Agilent Human miRNA Microarray Rel12.0" platform_alias="H-miRNA_8x15K"/>
+    <platform BASE_DATA_TYPE_ID="1" platform_id="39" center_type_code="CGCC" platform_name="H-miRNA_8x15K" available="1" sort_order="12" platform_display_name="Agilent Human miRNA Microarray" platform_alias="H-miRNA_8x15K"/>
+
+    <archive_info archive_id="1534" archive_name="unc.edu_OV.H-miRNA_8x15Kv2.Level_1.1.0.0" center_id="5" disease_id="3" platform_id="38" serial_index="1" revision="0" series="0" date_added="2010-01-20 13:26:49.728" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/unc.edu/h-mirna_8x15kv2/mirna/unc.edu_OV.H-miRNA_8x15Kv2.Level_1.1.0.0.tar.gz" is_latest="1" archive_type_id="1" initial_size_kb="89239" final_size_kb="89320"/>
+    <archive_info archive_id="1535" archive_name="unc.edu_OV.H-miRNA_8x15Kv2.Level_1.1.1.0" center_id="5" disease_id="3" platform_id="38" serial_index="1" revision="1" series="0" date_added="2011-01-20 13:26:49.728" deploy_status="Uploaded" deploy_location="/tcgafiles/ftp_auth/deposit_ftpusers/cgcunc/received/h-mirna_8x15kv2/mirna/unc.edu_OV.H-miRNA_8x15Kv2.Level_1.1.1.0.tar.gz" is_latest="0" archive_type_id="1" />
+    <archive_info archive_id="1536" archive_name="unc.edu_OV.H-miRNA_8x15Kv2.Level_1.2.0.0" center_id="5" disease_id="3" platform_id="38" serial_index="2" revision="0" series="0" date_added="2011-02-20 13:26:49.728" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/ov/cgcc/unc.edu/h-mirna_8x15kv2/mirna/unc.edu_OV.H-miRNA_8x15Kv2.Level_1.2.0.0.tar.gz" is_latest="1" archive_type_id="1" />
+
+    <archive_info archive_id="100" archive_name="unc.edu_OV.H-miRNA_8x15K.Level_1.1.2.0" center_id="5" disease_id="3" platform_id="39" serial_index="1" revision="2" series="0" date_added="2012-09-20 13:26:49.728" deploy_status="Uploaded" deploy_location="/somewhere" archive_type_id="1" is_latest="0" />
+
+    <file_info file_id="1" file_name="level_1_file" level_number="1"/>
+    <file_to_archive file_archive_id="1" file_id="1" archive_id="1534"/>
+
+    <file_info file_id="2" file_name="another_level_1_file" level_number="1"/>
+    <file_to_archive file_archive_id="2" file_id="2" archive_id="1536"/>
+
+    <file_info file_id="3" file_name="file_in_not_latest_archive" level_number="1"/>
+    <file_to_archive file_archive_id="3" file_id="3" archive_id="1535" />
+
+    <file_info file_id="4" file_name="MANIFEST.txt" level_number="0"/>
+    <file_to_archive file_archive_id="4" file_id="4" archive_id="1534"/>
+
+    <file_info file_id="5" file_name="DESCRIPTION.txt" level_number="0" />
+    <file_to_archive file_archive_id="5" file_id="5" archive_id="1536" />
+
+    <file_info file_id="6" file_name="level_2_Hello" level_number="2" />
+    <file_to_archive file_archive_id="6" file_id="6" archive_id="1534" />
+</dataset>

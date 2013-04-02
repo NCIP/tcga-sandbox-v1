@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--$Id: tcga.nci.nih.gov_BCR_DataDictionary.xsd 9733 2011-02-10 01:30:52Z jensenma $-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://tcga.nci.nih.gov/BCR/DataDictionary/1.0"
+	xmlns:tns="http://tcga.nci.nih.gov/BCR/DataDictionary/1.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	version="1.1"
+	elementFormDefault="qualified">
+  <import namespace="http://www.w3.org/1999/xlink"
+	  schemaLocation="http://www.w3.org/1999/xlink.xsd"/>
+  <annotation>
+    <documentation>
+      This schema describes the BCR data dictionary, a resource for
+      obtaining concise descriptions of clinical data elements
+      referred to in TCGA enrollment and followup questionnaires. See
+      the spec at https://wiki.nci.nih.gov/x/EA6eAQ -- 07/17/2010 MAJ
+    </documentation>
+  </annotation>
+  <simpleType name="versionNumberType" >
+    <restriction base="string">
+      <pattern value="[0-9.]+"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="diseaseAbbrevType">
+    <restriction base="string">
+      <pattern value="[A-Z]{2,4}"/>
+    </restriction>
+  </simpleType>
+  <attributeGroup name="XMLeltInfoAtts">
+    <attribute name="xml_elt_name" type="NCName" use="required">
+      <annotation>
+	<documentation>
+	  The element name from the BCR clinical XML which refers to
+	  this dictionary entry.
+	</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="xml_elt_ns" type="anyURI" use="required">
+      <annotation>
+	<documentation>
+	  The namespace to which this element belongs. (NOT the
+	  filename of the XSD.)
+	</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="xml_tier_level" type="integer" use="required">
+      <annotation>
+	<documentation>
+	  The tier level of the BCR clinical XML element which refers
+	  to this dictionary entry. Tier 1 means TSSs must provide
+	  this element (mandatory); tier 2 means TSSs are not required
+	  to provide this element (non-mandatory).
+	</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="xsd_current_ver" type="tns:versionNumberType" use="required">
+      <annotation>
+	<documentation>
+	  The BCR schema version from which the information included in this instance 
+	  of the dictionary was acquired.
+	</documentation>
+      </annotation>
+    </attribute>		
+    <attribute name="xsd_intro_ver" type="tns:versionNumberType" use="required">
+      <annotation>
+	<documentation>
+	  The BCR schema version in which the BCR clinical XML element
+	  which refers to this dictionary entry was first introduced.
+	</documentation>
+      </annotation>
+    </attribute>
+  </attributeGroup>
+  <complexType name="TCGAxmlEltsType">
+    <annotation>
+      <documentation>
+	A sequence of elts describing the xml representation of the
+	CDE in BCR schemas and data. At least one such elt is
+	required.
+      </documentation>
+    </annotation>
+    <sequence>
+      <element name="XMLeltInfo" maxOccurs="unbounded">
+	<complexType>
+	  <attributeGroup ref="tns:XMLeltInfoAtts"/>
+	</complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="entryAlternativesType">
+    <annotation>
+      <documentation>
+	An entryAlternativesType element describes the admissible values for the 
+	associated dictionary term. It can be a sequence of string elements which
+	are the possible choices, an XML type that the entry must satisfy,
+	a regular expression pattern that must be satified by an admissible entry,
+	or a simple element that flags the entry as free text.
+      </documentation>
+    </annotation>
+    <choice>
+      <sequence>
+	<element name="entryAlternative" type="string" maxOccurs="unbounded" minOccurs="0"/>
+      </sequence>
+      <element name="entryAlternativeXMLType" type="token"/>
+      <element name="entryAlternativeRegexp" type="token"/>
+      <element name="entryFreeText">
+	<complexType>
+	  <attribute name="freeText" fixed="true" type="string">
+	    <annotation>
+	      <documentation>
+		This is basically a flag that indicates the CRF field
+		is free text. Use it like
+		<entryAlternative><entryFreeText/></entryAlternative>.
+	      </documentation>
+	    </annotation>
+	  </attribute>
+	</complexType>
+      </element>
+    </choice>
+  </complexType>
+  
+  <complexType name="caDSRInfoType">
+    <annotation>
+      <documentation>
+	caDSRInfoType is a sequence of elements pertaining to the
+	Cancer Data Standards Registry and Repository
+	(https://cabig.nci.nih.gov/tools/caDSR_Database), including
+	the CDE ID and other standardized ontological items.
+      </documentation>
+    </annotation>
+    <sequence>
+      <element name="caDSRlongName" type="string" minOccurs="0"/>
+      <element name="caDSRshortName" type="string">
+	<annotation>
+	  <documentation>
+	    This may be referred to in the caDSR as "preferred name".
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="caDSRdefinition" type="string" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    This may be referred to in the caDSR as "preferred
+	    definition".
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="caDSRalternateDefinition" type="string" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    This should be a human-readable, natural language definition,
+	    probably in the 'caBIG context'. It may map to 
+	    CRFInfo/CRFcaBIGdefinition. 
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="caDSRlatestVersion" type="tns:versionNumberType" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    caDSR data elements are versioned. This is the latest
+	    version available at the time this dictionary entry was
+	    made.
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="caDSRvalueDomainHref" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    This element is the xlink:hrefs from the latest version
+	    over the class/field/@name="valueDomain" fields in the
+	    caDSR XML description obtained from the caDSR REST
+	    API. Use xlink:href and xlink:type as attributes in this
+	    element, rather than inserting the URL into the text of
+	    the element.
+	  </documentation>
+	</annotation>
+	<complexType>
+	  <attribute ref="xlink:href"/>
+	  <attribute ref="xlink:type" fixed="simple"/>
+	</complexType>
+      </element> 
+    </sequence>
+    <attribute name="public_id" type="integer" use="required">
+      <annotation>
+	<documentation>
+	  This is the caDSR public ID for the CDE described by the dictionary entry.
+	</documentation>
+      </annotation>
+    </attribute>
+    <!-- Can declare/import the xlink schema
+         (http:/www.w3.org/1999/xlink) and add xlink:href,
+         xlink:type="simple" attributes to the caDSRInfo element,
+         these would point to the caDSR Browser page for the specified
+         public ID. CDE browser may not allow a direct link with a
+         query attached[?] -->
+    <attribute ref="xlink:href"/>
+    <attribute ref="xlink:type" fixed="simple"/>
+  </complexType>	
+  
+  <complexType name="CRFInfoType">
+    <annotation>
+      <documentation>
+	CRFInfoType is a sequence of CRFInfo elements, each of which
+	has a 'name' attribute (name of the form as a normalized
+	string, reqd) and a 'version' attribute (version number of
+	form as decimal, reqd) A question_number attribute (integer,
+	optl) is also available.
+      </documentation>
+    </annotation>
+    <sequence>
+      <element name="FormInfo" maxOccurs="unbounded" minOccurs="0">
+	<complexType>
+	  <attribute name="name" type="normalizedString" use="required"/>
+	  <attribute name="version" type="tns:versionNumberType" use="required"/>
+	  <attribute name="question_number" type="integer" use="optional"/>
+	</complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="TCGAInfoType">
+    <annotation>
+      <documentation>
+	A TCGAInfoType element contains a sequence of information
+	elements pertaining to TCGA BCR descriptions of the dictionary
+	entry, including references into the relevant CRF, text and
+	explanations of the CRF question, and relationships with the
+	BCR XML Schemas that describe the archived data associated
+	with the dictionary entry.
+      </documentation>
+    </annotation>
+    <sequence>
+      <element name="TCGAxmlElts" type="tns:TCGAxmlEltsType"/>
+      <element name="CRFInfo" type="tns:CRFInfoType" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    CRFInfo contains a sequence of CRFInfoType elts, the
+	    attributes of which are the name, version, and related
+	    question number of each case report form in which this
+	    element appears.
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="CRFquestionText" type="string" minOccurs="0">
+	<annotation>
+	  <documentation>The question text as presented on the form.</documentation>
+      </annotation></element>
+      <element name="CRFdataEltLabel" type="NCName" minOccurs="0" />
+      <element name="CRFcaBIGdefinition" type="string"
+	       minOccurs="0" />
+      <element name="CRFadditionalInstructions" type="string"
+	       minOccurs="0" />
+      <element name="CRFentryAlternatives" type="tns:entryAlternativesType" minOccurs="0"/>
+      <element name="TCGAadditionalExplanation" type="string"
+	       minOccurs="0" />
+    </sequence>
+  </complexType>
+  <complexType name="dictEntryType">
+    <annotation>
+      <documentation>
+	The dictEntryType defines a sequence containing 
+	optional tags and studies elements, an optional
+	caDSRInfo element and exactly one TCGAInfo element. See
+	caDSRInfoType and TCGAInfoType.
+      </documentation>
+    </annotation>
+    <sequence>
+      <element name="tags" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    A list of tags associated with this entry, that can be used 
+	    for sorting.
+	  </documentation>
+	</annotation>
+	<complexType>
+	  <sequence>
+	    <element name="tag" type="string" maxOccurs="unbounded"/>
+	  </sequence>
+	</complexType>
+      </element>
+      <element name="studies" minOccurs="0">
+	<annotation>
+	  <documentation>
+	    A list of TCGA disease abbreviations. If the term is
+	    specific to certain diseases, those are listed here.
+	  </documentation>
+	</annotation>
+	<complexType>
+	  <sequence>
+	    <element name="study" type="tns:diseaseAbbrevType" maxOccurs="unbounded"/>
+	  </sequence>
+	</complexType>
+      </element>
+      <element name="caDSRInfo" type="tns:caDSRInfoType"
+	       minOccurs="0">
+	<annotation>
+	  <documentation>
+	    The caDSRInfo is not present when the CDE publicID for an
+	    entry dne or is unknown.
+	  </documentation>
+	</annotation>
+      </element>
+      <element name="TCGAInfo" type="tns:TCGAInfoType" />
+    </sequence>
+    <attribute name="id" type="integer" use="optional">
+      <annotation>
+	<documentation>
+	  This attribute can be used to provide a primary integer key
+	  for the dictionary entry.  Integer. Optional.
+	</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="cde" type="integer" use="required">
+      <annotation>
+	<documentation>
+	  The CDE public id number for this entry. Integer. Required.
+	</documentation>
+      </annotation>
+    </attribute>
+    <attribute name="name" type="normalizedString" use="required">
+      <annotation>
+	<documentation>
+	  The dictionary entry name should be a word or set of words
+	  separated by spaces that ideally reflects common usage or
+	  terminology. This can be simply the BCR clinical XML name,
+	  written with ordinary case and whitespace.
+	  normalizedString. Required.
+	</documentation>
+      </annotation>
+    </attribute>
+  </complexType>
+  
+  <element name="dictionary">
+    <annotation>
+      <documentation>
+	The dictionary element is the document root. It is comprised
+	of a sequence of dictEntry elements.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+	<element name="dictEntry" type="tns:dictEntryType"
+		 maxOccurs="unbounded"/>
+      </sequence>
+      <attribute name="version" type="decimal" use="required">
+	<annotation>
+	  <documentation>
+	    The version of the dictionary.
+	    Decimal. Required.
+	  </documentation>
+	</annotation>
+      </attribute>
+      <attribute name="schemaVersion" type="decimal" use="required">
+	<annotation>
+	  <documentation>
+	    Version of the data dictionary schema. Use the convention
+	    that the version attribute will track incremental changes
+	    that are backward-compatible to the release number (for
+	    .../DataDictionary/1.0, any instance XML created under
+	    version 1.X will be compatible will schemas in that
+	    series), and large changes that break compatibility will
+	    be made to the release number (in that case, the schema
+	    namespace would change to ../DataDictionary/2.0, e.g., and
+	    version starts at 2.0) The schemaVersion attribute will be
+	    set to the XSD version under which the XML instance was
+	    created. The XML should validate in at least all versions
+	    within the release series (indicated by whole number part
+	    of the version).  Decimal. Required.
+	  </documentation>
+	</annotation>
+      </attribute>
+    </complexType>
+  </element>
+</schema>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: TCGA_BCR.PRAD_Clinical_FollowUp_v1.0.xsd 17962 2012-12-17 19:35:47Z deardurj $ -->
+<xs:schema 
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+ xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5"
+ xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5" 
+ xmlns:admin="http://tcga.nci/bcr/xml/administration/2.5" 
+ xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.5" 
+ xmlns:prad_shared="http://tcga.nci/bcr/xml/clinical/prad/shared/2.5"
+ xmlns="http://tcga.nci/bcr/xml/clinical/prad/followup/2.5/1.0" 
+ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+ targetNamespace="http://tcga.nci/bcr/xml/clinical/prad/followup/2.5/1.0" 
+ elementFormDefault="qualified" 
+ version="2.5.5" 
+ jaxb:version="1.0">
+	<xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/administration/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/administration/2.5/TCGA_BCR.Administration.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/radiation/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/radiation/2.5/TCGA_BCR.Radiation.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd"/>
+	
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings generateIsSetMethod="true"/>
+			<jaxb:schemaBindings>
+				<jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.prad"/>
+			</jaxb:schemaBindings>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:annotation>
+		<xs:documentation xml:lang="en">Schema to define the elements of the TCGA Clinical Data Follow-up Form within the PRAD study.</xs:documentation>
+	</xs:annotation>
+	<xs:element name="follow_up_v1.0">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="shared:bcr_followup_barcode" />
+                <xs:element ref="shared:bcr_followup_uuid" />
+				<xs:element ref="shared:followup_case_report_form_submission_reason"/>
+				<xs:element ref="shared:radiation_therapy"/>
+				<xs:element ref="shared:targeted_molecular_therapy"/>
+				<xs:element ref="shared:vital_status"/>
+				<xs:element ref="shared:primary_therapy_outcome_success" minOccurs="0"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_last_followup"/>
+						<xs:element ref="shared:month_of_last_followup"/>
+						<xs:element ref="shared:year_of_last_followup"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_last_followup"/>
+				</xs:choice>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_death"/>
+						<xs:element ref="shared:month_of_death"/>
+						<xs:element ref="shared:year_of_death"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_death"/>
+				</xs:choice>
+				<xs:element ref="shared:person_neoplasm_cancer_status"/>
+				<xs:element ref="shared:patient_death_reason"/>
+				<xs:element ref="source_of_patient_death_reason"/>
+				<xs:element ref="shared:followup_treatment_success"/>
+				<xs:element ref="shared:new_tumor_event_after_initial_treatment"/>
+				<xs:element ref="shared:new_neoplasm_event_type"/>
+				<xs:element ref="new_neoplasm_event_occurrence_anatomic_site"/>
+				<xs:element ref="new_neoplasm_occurrence_anatomic_site_text"/>
+				<xs:element ref="shared:additional_radiation_therapy"/>
+				<xs:element ref="shared:additional_pharmaceutical_therapy"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_first_biochemical_recurrence"/>
+						<xs:element ref="month_of_first_biochemical_recurrence"/>
+						<xs:element ref="year_of_first_biochemical_recurrence"/>
+					</xs:sequence>
+					<xs:element ref="days_to_first_biochemical_recurrence"/>
+				</xs:choice>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_second_biochemical_recurrence"/>
+						<xs:element ref="month_of_second_biochemical_recurrence"/>
+						<xs:element ref="year_of_second_biochemical_recurrence"/>
+					</xs:sequence>
+					<xs:element ref="days_to_second_biochemical_recurrence"/>
+				</xs:choice>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="day_of_third_biochemical_recurrence"/>
+						<xs:element ref="month_of_third_biochemical_recurrence"/>
+						<xs:element ref="year_of_third_biochemical_recurrence"/>
+					</xs:sequence>
+					<xs:element ref="days_to_third_biochemical_recurrence"/>
+				</xs:choice>
+				<xs:element ref="type_ofprogression_of_disease_ht"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_form_completion"/>
+						<xs:element ref="shared:month_of_form_completion"/>
+						<xs:element ref="shared:year_of_form_completion"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_form_completion"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" use="optional" default="1.0"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="patient_death_reason" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Stomach Cancer"/>
+					<xs:enumeration value="Other Malignancy (not stomach cancer related)"/>
+					<xs:enumeration value="Other Non-Malignant Disease"/>
+					<xs:enumeration value="Unknown cause of death"/>
+					<xs:attribute name="cde" type="xs:string" default="2554674"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="new_neoplasm_event_occurrence_anatomic_site" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Renal Pelvis"/>
+					<xs:enumeration value="Ureter"/>
+					<xs:enumeration value="Lung"/>
+					<xs:enumeration value="Urethra"/>
+					<xs:enumeration value="Lymph Node Only"/>
+					<xs:enumeration value="Other, specify"/>
+					<xs:enumeration value="Liver"/>
+					<xs:enumeration value="Bone"/>
+					<xs:enumeration value="Bladder"/>
+					<xs:attribute name="cde" type="xs:string" default="3108271"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="new_neoplasm_occurrence_anatomic_site_text" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3128033"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.3"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="day_of_second_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351911"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_second_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351908"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_second_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351916"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_second_biochemical_recurrence">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="day_of_third_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_day">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351913"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="month_of_third_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_month">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351910"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year_of_third_biochemical_recurrence" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:generic_year">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3351917"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="days_to_third_biochemical_recurrence">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="type_ofprogression_of_disease_ht" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Biochemical Recurrence"/>
+					<xs:enumeration value="Distant Metastasis"/>
+					<xs:attribute name="cde" type="xs:string" default="3241479"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.5"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="day_of_first_biochemical_recurrence" nillable="true">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:extension base="utility:generic_day">
+						<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+						<xs:attribute name="cde" type="xs:string" default="3351906"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+						<xs:attribute name="tier" type="xs:string" default="2"/>
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="month_of_first_biochemical_recurrence" nillable="true">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:extension base="utility:generic_month">
+						<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+						<xs:attribute name="cde" type="xs:string" default="3351905"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+						<xs:attribute name="tier" type="xs:string" default="2"/>
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="year_of_first_biochemical_recurrence" nillable="true">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:extension base="utility:generic_year">
+						<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+						<xs:attribute name="cde" type="xs:string" default="3351907"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+						<xs:attribute name="tier" type="xs:string" default="2"/>
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="days_to_first_biochemical_recurrence">
+			<xs:complexType mixed="true">
+				<xs:simpleContent>
+					<xs:restriction base="utility:clinical_res_attributes">
+						<xs:attribute name="cde" type="xs:string" default=""/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+						<xs:attribute name="tier" type="xs:string" default="1"/>
+					</xs:restriction>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="source_of_patient_death_reason" nillable="true">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:restriction base="utility:clinical_res_attributes">
+						<xs:enumeration value=""/>
+						<xs:enumeration value="Death Certificate"/>
+						<xs:enumeration value="Medical Record"/>
+						<xs:enumeration value="Autopsy"/>
+						<xs:attribute name="cde" type="xs:string" default="2390921"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+						<xs:attribute name="tier" type="xs:string" default="1"/>
+					</xs:restriction>
+				</xs:simpleContent>
+			</xs:complexType>
+	</xs:element>
+</xs:schema>

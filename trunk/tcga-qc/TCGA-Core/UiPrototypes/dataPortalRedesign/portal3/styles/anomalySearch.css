@@ -1,0 +1,946 @@
+.titleText{
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    font-family: "Tahoma",sans-serif;
+
+}
+
+
+
+.filterPanel{
+
+    background-color: white;
+
+}
+
+
+
+.header{
+
+    font-weight: bold;
+
+    margin-bottom: 3px;
+
+    color: #444242;
+
+    width: 0;
+
+    white-space: nowrap;
+
+}
+
+
+
+.action {
+
+    text-decoration: underline;
+
+    cursor: pointer;    
+
+}
+
+
+
+.action_not_yet {   /* SortingLink that is not yet active */
+
+    cursor: pointer;    
+
+}
+
+
+
+.bigText_16px{
+
+    font-size: 1.1em;
+
+    font-weight: bold;
+
+}
+
+
+
+.gwt-TabPanelBottom {
+
+    border-bottom:1px solid black;
+
+    border-left:1px solid black;
+
+    border-right:1px solid black;
+
+    border-top:none;
+
+    padding:0;
+
+}
+
+
+
+.gwt-TabBar .gwt-TabBarItem {
+
+    padding:0;
+
+    background: #d3d3d3;
+
+}
+
+
+
+.gwt-TabBar .gwt-TabBarItem-selected{
+
+    color: white;
+
+    padding:0;
+
+    border-bottom:none;
+
+}
+
+
+
+.gwt-TabBar .gwt-TabBarRest {
+
+    border-bottom:1px solid black;
+
+}
+
+
+
+.gwt-ToggleButton{
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+
+
+.tab {
+
+    padding: 2px 5px 1px;
+
+    cursor:pointer;
+
+    border-top:1px solid black;
+
+    border-left:1px solid black;
+
+    border-right:1px solid black;
+
+    border-bottom:none;
+
+
+
+    color: #000000;
+
+}
+
+
+
+.gwt-TabBarItem .greenTab, .gwt-TabBarItem .greenLightTab {
+
+    background-color: #E0FAE0;
+
+    color:#555555;
+
+}
+
+
+
+.gwt-TabBarItem-selected .greenTab {
+
+    background-color:#53AA7E;
+
+    color:white;
+
+}
+
+
+
+.gwt-TabBarItem-selected .greenLightTab {
+
+    background-color: #84cfa9;
+
+    color:white;
+
+}
+
+
+
+.gwt-TabBarItem .blueTab, .gwt-TabBarItem .blueLightTab {
+
+    background-color: #e6ebf7;
+
+    color:#555555;
+
+}
+
+
+
+.gwt-TabBarItem-selected .blueTab {
+
+    background-color: #4664bf;
+
+    color:white;
+
+}
+
+
+
+.gwt-TabBarItem-selected .blueLightTab {
+
+    background-color: #8ca5cd;
+
+    color:white;
+
+}
+
+
+
+.gwt-TabBarItem .purpleTab, .gwt-TabBarItem .purpleLightTab {
+
+    background-color: #f2e0fa;
+
+    color:#555555;
+
+}
+
+
+
+.gwt-TabBarItem-selected .purpleLightTab {
+
+    background-color: #b891cc;
+
+    color:white;
+
+}
+
+
+
+.gwt-TabBarItem-selected .purpleTab {
+
+    background-color:#8f4bb1;
+
+    color:white;
+
+}
+
+.gwt-TabBarItem .whiteSmokeTab, .gwt-TabBarItem .whiteSmokeLightTab {
+
+    background-color: whitesmoke;
+
+    color:#555555;
+
+}
+
+
+
+.green {
+
+    background-color: #53AA7E;
+
+    color:white;
+
+}
+
+
+
+.blue {
+
+    background-color: #4664bf;
+
+    color:white;
+
+}
+
+
+
+.purple {
+
+    background-color:#8f4bb1;
+
+    color:white;
+
+}
+
+
+
+/* genes mode items */
+
+.geneTab > .gwt-TabBarItem{
+
+    background-color: #E0FAE0;
+
+}
+
+
+
+.geneTab > .gwt-TabBarItem-selected {
+
+    background-color: #53AA7E;
+
+}
+
+
+
+.greenTabPanel .gwt-TabPanelBottom{
+
+    border-top: 2px solid #84cfa9;
+
+}
+
+
+
+.greenResultsTableHeader{
+
+    background-color: #E0FAE0;
+
+}
+
+
+
+.gwt-ToggleButton-up-greenToggleButtonUp{
+
+    background: url(images/greenButtonUp.gif) repeat-x;
+
+}
+
+
+
+.gwt-ToggleButton-down-greenToggleButtonDown{
+
+    background: url(images/greenButtonDown.gif) repeat-x;
+
+}
+
+
+
+/* patient mode items */
+
+.patientTab > .gwt-TabBarItem{
+
+    background-color: #e6ebf7;
+
+}
+
+
+
+.patientTab > .gwt-TabBarItem-selected {
+
+    background-color: #4664bf;
+
+}
+
+
+
+.blueTabPanel .gwt-TabPanelBottom{
+
+    border-top: 2px solid #8ca5cd;
+
+}
+
+
+
+.blueResultsTableHeader{
+
+    background-color: #e6ebf7;
+
+}
+
+
+
+.gwt-ToggleButton-up-blueToggleButtonUp{
+
+    background: url(images/blueButtonUp.gif) repeat-x;
+
+}
+
+
+
+.gwt-ToggleButton-down-blueToggleButtonDown{
+
+    background: url(images/blueButtonDown.gif) repeat-x;
+
+}
+
+
+
+/* pathway mode items */
+
+.pathwayTab > .gwt-TabBarItem{
+
+    background-color: #f2e0fa;
+
+}
+
+
+
+.pathwayTab > .gwt-TabBarItem-selected {
+
+    background-color: #8f4bb1;
+
+}
+
+
+
+.purpleTabPanel .gwt-TabPanelBottom{
+
+    border-top: 2px solid #b891cc;
+
+}
+
+
+
+.purpleResultsTableHeader{
+
+    background-color: #f2e0fa;    
+
+}
+
+
+
+.silverResultsTableHeader {
+
+    background-color: silver;
+
+}
+
+
+
+.gwt-ToggleButton-up-purpleToggleButtonUp{
+
+    background: url(images/purpleButtonUp.gif) repeat-x;
+
+}
+
+
+
+.gwt-ToggleButton-down-purpleToggleButtonDown{
+
+    background: url(images/purpleButtonDown.gif) repeat-x;
+
+}
+
+
+
+.pathwayLinkText a{
+
+    color: #8f4bb1;
+
+}
+
+
+
+.pathwayLinkText a:hover{
+
+    color: black;
+
+}
+
+
+
+
+
+.resultsTable{
+
+    border-collapse: collapse;
+
+}
+
+
+
+.resultsTableHeader{
+
+    border: 1px solid black;
+
+    font-weight:bold;
+
+    padding: 1px 3px 1px 3px;
+
+}
+
+
+
+.resultsTableCell{
+
+    border: 1px solid black;
+
+    padding: 1px 3px 1px 3px;
+
+}
+
+
+
+.evenRow {
+
+    background-color: #eeeeee;
+
+}
+
+
+
+.resultsTableDynamic{
+
+    width: 125px;
+
+}
+
+
+
+.resultsTableCorrelation{
+
+    width: 150px;
+
+}
+
+
+
+.resultsTableLocation{
+
+    width: 200px;
+
+}
+
+
+
+.addButton{
+
+    margin-top: 3px;
+
+    text-decoration: underline;
+
+    color: #333333;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+}
+
+
+
+.clearButton{
+
+    font-size: 11px;
+
+    padding: 1px;
+
+}
+
+
+
+.pagingButton{
+
+    padding: 1px;
+
+    font-size: 12px;
+
+    font-weight:bold;
+
+}
+
+
+
+.marginLeft5px{
+
+    margin-left: 5px;
+
+}
+
+
+
+.marginLeft10px{
+
+    margin-left: 10px;
+
+}
+
+
+
+.marginLeft15px{
+
+    margin-left: 15px;
+
+}
+
+
+
+.marginRight10px{
+
+    margin-right: 10px;
+
+}
+
+
+
+.marginBottom5px{
+
+    margin-bottom: 5px;
+
+}
+
+
+
+.marginBottom10px{
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.marginTop10px {
+
+    margin-top:10px;
+
+}
+
+
+
+.marginTop5px{
+
+    margin-top: 5px;
+
+}
+
+
+
+.textBoxWidth{
+
+    width: 30px;
+
+}
+
+
+
+.correlationColumn{
+
+    width: 300px;
+
+}
+
+
+
+.greyText{
+
+    color: #999999;
+
+}
+
+
+
+.blackText{
+
+    color: #000000;
+
+}
+
+
+
+.darkGreyText{
+
+    color: #444242;
+
+}
+
+
+
+.darkBlueText{
+
+    color: darkblue;
+
+}
+
+
+
+.error {
+
+    color: red;
+
+    padding:5px;
+
+}
+
+
+
+.progressBarOuter {
+
+    border:1px solid black;
+
+    background-color: white;
+
+    height: 10px;
+
+    margin-left:5px;
+
+}
+
+
+
+.progressBar {
+
+    background-color: gray;
+
+    height:10px;
+
+}
+
+
+
+.busy {
+
+    cursor: wait;
+
+}
+
+
+
+.closeButton {
+
+    cursor:pointer;
+
+    margin-left:5px;
+
+    margin-right:5px;
+
+}
+
+
+
+.searchingDisplay {
+
+    width:500px;
+
+    text-align:center;
+
+    cursor:wait;
+
+    height:100%;
+
+}
+
+
+
+.helpIcon{
+
+    margin-left: 100px;
+
+    cursor:pointer;
+
+}
+
+
+
+.invisibleButton{
+
+    filter:alpha(opacity=0);
+
+    opacity:0;
+
+    position: absolute;
+
+}
+
+
+
+.tooltipHTML{
+
+    color: #333333;
+
+    border: solid #4e4b4b 1px;
+
+    background-color:#ffffdd;
+
+    padding: 5px;
+
+    font-size: 11px;
+
+    z-index: 3;
+
+    width: 250px;
+
+}
+
+
+
+.shadow{
+
+    color: black;
+
+    border: solid black 1px;
+
+    background-color: black;
+
+    /*background-color: #4e4b4b;*/
+
+    filter:alpha(opacity=30);
+
+    opacity: 0.3;
+
+    padding: 5px;
+
+    font-size: 11px;
+
+    z-index: 2;
+
+    width: 250px;
+
+}
+
+
+
+.anomalyWidgetLabel {
+
+    font-weight:bold;
+
+}
+
+
+
+.anomalyWidget {
+
+    border:1px outset #cccccc;
+
+    padding:3px;
+
+    width:350px;
+
+}
+
+
+
+.smallButton {
+
+    width:20px;
+
+    height:20px;
+
+    padding:1px;   
+
+}
+
+
+
+.anomalyListBox {
+
+    width:50px;
+
+}
+
+
+
+.closeableHeader {
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+.applicationHeader {
+
+    background: #192b3f url(images/header.jpg) no-repeat;
+
+    width:100%;
+
+    margin-bottom:10px;
+
+    height:83px;
+
+}
+
+
+
+.resultsInfoLabel {
+
+    font-size:0.9em;
+
+    padding-left:15px;
+
+}
+
+
+
+.smallRadioButton {
+
+    font-size:0.9em;
+
+    vertical-align:bottom;
+
+}
+
+
+
+.font9Point {
+
+    font-size: 9pt;
+
+}
+
+
+
+.font8Point {
+
+    font-size: 8pt;
+
+}
+
+
+
+.center {
+
+    text-align: center;
+
+}
+
+
+
+.padding5px {
+
+    padding: 5px;    
+
+}
+
+
+
+.addPopup {
+
+    background-color:#ffffdd;
+
+    border:1px outset black;
+
+    color:black;
+
+    padding:10px;
+
+}
+
+
+
+.paddingLeft10px {
+
+    padding-left:10px;
+
+}
+
+
+
+.actionNoUnderline {
+
+    cursor:pointer;
+
+}
+
+
+
+.smallFont {
+
+    font-size:0.9em;
+
+}
+

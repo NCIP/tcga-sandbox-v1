@@ -1,0 +1,50 @@
+h1. Patch for GBM and OV Clinical version 2.3 Archives
+
+OV and GBM version 2.3 clinical XML schemas do not currently break out shared clinical elements. This is preventing the DCC application from correctly calculating date information in the publically distributed archives.
+
+To be able to provide complete GBM and OV clinical data while GBM and OV schemas are being updated to comply with the 2.3 standard, DCC has produced patched versions of {{TCGA_BCR.GBM_Clinical.xsd}} and {{TCGA_BCR.OV_Clinical.xsd}} that can be used in conjunction with {{TCGA_BCR.Shared_Clinical_Elements.xsd}} in the clinical XML that will allow archives to be validated and differential dates to be calculated correctly.
+
+The attached [script and files|^tumor2shared.zip] will automatically convert an archive using the current GBM or OV clinical schema to an archive using the patched schemas and shared clinical elements. 
+
+h2. Script Usage
+
+* Download the [zip file|^tumor2shared.pl].
+* Unzip in a directory above the archive directory to be converted.
+** _The text files accompanying the script must be present in the directory from which the script is executed._
+* Execute the script. The single argument is the old archive directory. 
+
+{code}
+$ ls
+intgen.org_OV.bio.Level_1.11.19.0
+
+$ perl tumor2shared.pl intgen.org_OV.bio.Level_1.11.19.0
+{code}
+
+* The script will indicate what it's doing with messages to standard error.
+* When finished, the script will have created an archive directory with an incremented revision number:
+
+{code}
+$ ls
+intgen.org_OV.bio.Level_1.11.19.0
+intgen.org_OV.bio.Level_1.11.20.0
+{code}
+
+* The script does the following things for you:
+** Increments the revision
+** Replaces the clinical schema with the patched version
+** Adds a copy of the shared clinical elements schema
+** Converts all clinical xml to allow the use of the patched and shared schemas
+** Creates a md5 manifest that includes all new and converted files, as well as any biospecimen xml references found in the old manifest
+** Adds a message to the {{README_XSD.txt}} file indicating these modifications.
+
+To submit the new archive, tar the directory and create an accompanying md5 file, and submit these as usual.
+
+{code}
+$ ls
+intgen.org_OV.bio.Level_1.11.19.0
+intgen.org_OV.bio.Level_1.11.20.0
+
+$ tar -xzf intgen.org_OV.bio.Level_1.11.20.0.tar.gz intgen.org_OV.bio.Level_1.11.20.0
+$ md5sum intgen.org_OV.bio.Level_1.11.20.0.tar.gz >intgen.org_OV.bio.Level_1.11.20.0.tar.gz.md5
+{code}
+_$Id: deploy.wik 9173 2010-12-22 14:57:22Z jensenma $_

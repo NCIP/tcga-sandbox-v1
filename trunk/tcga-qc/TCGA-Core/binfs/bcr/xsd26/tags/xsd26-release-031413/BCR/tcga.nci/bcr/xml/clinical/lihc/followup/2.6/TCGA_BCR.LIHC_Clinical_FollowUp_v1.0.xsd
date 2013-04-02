@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- $Id -->
+
+<xs:schema elementFormDefault="qualified" version="2.6.0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.6" 
+  xmlns:nte="http://tcga.nci/bcr/xml/clinical/shared/new_tumor_event/2.6"
+  xmlns:lihc_shared="http://tcga.nci/bcr/xml/clinical/lihc/shared/2.6" 
+  xmlns="http://tcga.nci/bcr/xml/clinical/lihc/followup/2.6/1.0" 
+  targetNamespace="http://tcga.nci/bcr/xml/clinical/lihc/followup/2.6/1.0">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">Schema to define the elements of the TCGA Clinical Data Follow-up Form within the LIHC study.</xs:documentation>
+    </xs:annotation>
+    
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.6" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.6/TCGA_BCR.Shared_Clinical_Elements.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/new_tumor_event/2.6" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.6/TCGA_BCR.Shared_Clinical_New_Tumor_Event_Elements.xsd" />
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/lihc/shared/2.6" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/lihc/shared/2.6/TCGA_BCR.LIHC_Clinical_Shared_Datatypes.xsd" />
+
+    <xs:element name="follow_up">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:bcr_followup_barcode" />
+                <xs:element ref="shared:bcr_followup_uuid" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />
+                        <xs:element ref="shared:month_of_form_completion" />
+                        <xs:element ref="shared:year_of_form_completion" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="shared:days_to_form_completion" />
+                </xs:choice>
+                
+                <xs:element ref="shared:radiation_therapy" />
+                <xs:element ref="shared:targeted_molecular_therapy" />
+                <xs:element ref="lihc_shared:adjuvant_postoperative_embolization_or_ablation_therapeutic_procedure_performed_indicator" />
+                <xs:element ref="shared:vital_status" />
+                <xs:element ref="shared:person_neoplasm_cancer_status" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_followup" />
+                        <xs:element ref="shared:month_of_last_followup" />
+                        <xs:element ref="shared:year_of_last_followup" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="shared:days_to_last_followup" />
+                </xs:choice>
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_last_known_alive" />
+                        <xs:element ref="shared:month_of_last_known_alive" />
+                        <xs:element ref="shared:year_of_last_known_alive" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="shared:days_to_last_known_alive" />
+                </xs:choice>
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_death" />
+                        <xs:element ref="shared:month_of_death" />
+                        <xs:element ref="shared:year_of_death" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="shared:days_to_death" />
+                </xs:choice>
+
+                <xs:element ref="nte:new_tumor_event_after_initial_treatment" />
+                <xs:element ref="nte:new_neoplasm_event_type" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="nte:day_of_new_tumor_event_after_initial_treatment" />
+                        <xs:element ref="nte:month_of_new_tumor_event_after_initial_treatment" />
+                        <xs:element ref="nte:year_of_new_tumor_event_after_initial_treatment" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="nte:days_to_new_tumor_event_after_initial_treatment" />
+                </xs:choice>
+                
+                <xs:element ref="lihc_shared:extrahepatic_recurrent_disease_anatomic_site_name" />
+                <xs:element ref="lihc_shared:extrahepatic_recurrent_disease_location_text" />
+                <xs:element ref="nte:additional_surgery_locoregional_procedure" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="nte:day_of_additional_surgery_metastatic_procedure" />
+                        <xs:element ref="nte:month_of_additional_surgery_metastatic_procedure" />
+                        <xs:element ref="nte:year_of_additional_surgery_metastatic_procedure" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="nte:days_to_additional_surgery_metastatic_procedure" />
+                </xs:choice>
+                
+                <xs:element ref="nte:residual_disease_post_new_tumor_event_margin_status" />
+                <xs:element ref="lihc_shared:liver_graft_together_new_neoplasm_performed_indicator" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="lihc_shared:day_of_liver_graft_together_new_neoplasm_performed" />
+                        <xs:element ref="lihc_shared:month_of_liver_graft_together_new_neoplasm_performed" />
+                        <xs:element ref="lihc_shared:year_of_liver_graft_together_new_neoplasm_performed" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="lihc_shared:days_to_liver_graft_together_new_neoplasm_performed" />
+                </xs:choice>
+                
+                <xs:element ref="shared:additional_radiation_therapy" />
+                <xs:element ref="shared:additional_pharmaceutical_therapy" />
+                <xs:element ref="lihc_shared:additional_embolization_or_ablation_therapeutic_procedure_post_recurrent_disease_performed_indicator" />
+            </xs:sequence>
+            
+            <xs:attribute name="version" type="xs:string" default="1.0" use="optional"/>
+			<xs:attribute name="sequence" type="xs:integer" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

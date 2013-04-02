@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.ncicb.tcga.dccws" auto-import="false" default-cascade="none">
+	<class name="File" table="file_v" lazy="true" polymorphism="explicit" abstract="false" >
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="id">
+			<generator class="assigned"/>			
+		</id>
+		<!-- Attributes mapping for the File class -->
+		<property name="name" type="string" column="file_name"/>
+		<property name="size" type="long" column="file_size"/>
+		<property name="url" type="string" column="file_url"/>
+		<!-- Associations mapping for the File class -->
+			<many-to-one name="dataLevel" class="gov.nih.nci.ncicb.tcga.dccws.DataLevel" column="file_data_level" lazy="proxy" not-null="false" cascade="none"/>
+			<many-to-one name="archive" class="gov.nih.nci.ncicb.tcga.dccws.Archive" column="file_archive_id" lazy="proxy" not-null="true" cascade="none"/>
+			<many-to-one name="fileType" class="gov.nih.nci.ncicb.tcga.dccws.FileType" column="file_type_id" lazy="proxy" not-null="true" cascade="none"/>
+		<set name="biospecimenBarcodeCollection" table="biospecimen_to_file" lazy="true" inverse="false">
+			<cache usage="read-write" />
+			<key column="file_info_id" />
+			<many-to-many class="gov.nih.nci.ncicb.tcga.dccws.BiospecimenBarcode" column="biospecimen_id" />
+		</set>
+	</class>
+</hibernate-mapping>

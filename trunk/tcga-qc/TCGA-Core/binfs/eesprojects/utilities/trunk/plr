@@ -1,0 +1,89 @@
+#! /bin/perl -w
+####################################################################################################
+our $VERSION = "1.0.0";
+#	Fri Oct 14 12:51:49 EDT 2011
+####################################################################################################
+use strict;
+use warnings;
+use Getopt::Std;
+
+our( $opt_d, $opt_f, $opt_n );
+getopts('df:n');
+
+$0 =~ s/^.+\///;											# remove leading path from program name
+unless( $opt_f ){
+	die "$0: -f <int_list> required\n";
+}
+
+my $line_string = $opt_f;									# list of lines to print
+
+if ( $line_string =~ m/[^0-9,-]/ ){
+	die "$0: Line description string contains disallowed characters.\n";
+}
+
+my @ranges = split( ",", $line_string );
+my @range_list;
+foreach ( @ranges ){
+	my @int;
+	if ( m/^(\d+)-(\d+)$/ ){
+		push( @int, $1 );
+		push( @int, $2 );
+	} elsif ( m/^(\d+)$/ ){
+		push( @int, $1 );
+	} else {
+		die "$0: malformed range expression\n";
+	}
+	push( @range_list, \@int );
+}
+
+# print lines as specified by @range_list
+
+foreach ( @ARGV ){
+	open( FILE, $_ ) or die "Cannot open file: \"$_\" for reading.\n";
+	my @file = <FILE>;
+	&validate_range_list( scalar( @file ) , $line_string );
+	&number_lines( \@file ) if $opt_n;
+	foreach my $int ( @range_list ){
+		if ( @$int == 1 ){
+			print $file[ $int->[0] - 1 ];
+		} elsif ( @$int == 2 ){
+			if ( $int->[0] <= $int->[1] ){
+				for ( my $i = $int->[0]; $i <= $int->[1]; $i++ ){
+					print $file[ $i - 1 ];
+				}
+			} elsif( $int->[0] > $int->[1] ){
+				for ( my $i = $int->[0]; $i >= $int->[1]; $i-- ){
+					print $file[ $i - 1 ];
+				}
+			} else {
+				die "$0:  there is something strange about: \"$int->[0]\" and \"$int->[1]\"\n";
+			}
+		} else {
+			die "$0: problem with range list data structure\n";
+		}
+	}
+	close( FILE );
+}
+####################################################################################################
+sub validate_range_list {
+	my ( $max_lines, $range_string ) = @_;
+
+	my @line_numbers = split( /[,-]/, $range_string );
+	foreach ( @line_numbers ){
+		if ( $_ >= $max_lines ){
+			die "$0: range parameter(s) greater than number of lines in file\n";
+		}
+	}
+}
+####################################################################################################
+sub number_lines {
+	my ( $file ) = @_;
+
+	my @newfile = ();
+	my $max_lines = scalar( @$file );
+	my $digits = log( $max_lines ) / log( 10 ) + 2;
+	$digits = int($digits);
+	for( my $i = 0; $i < @$file; $i++ ){
+		$file->[$i] = sprintf("%$digits"."d  %s", $i+1, $file->[$i] );
+	}
+}

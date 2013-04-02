@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="qcLiveDataSource" class="org.springframework.jdbc.datasource.SingleConnectionDataSource" lazy-init="true">
+        <property name="url" value="jdbc:oracle:thin:@cbiodb540.nci.nih.gov:1521:TCGADEV"/>
+        <property name="username" value="dcccommon"/>
+        <property name="password" value="dcc58920dev"/>
+    </bean>
+    <!-- Dcc common datasource -->
+    <bean id="dccCommonDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true" autowire="default" dependency-check="default">
+           <property name="jndiName" value="java:dccCommon" />
+    </bean>
+    <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SingleConnectionDataSource" lazy-init="true" />
+
+    <bean id="archiveTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ArchiveTypeQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+
+    <bean id="traceInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TraceInfoQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="fileQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="traceRQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TraceRelationshipQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="mafinfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.MafInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="platformQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="accessQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VisibilityQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="bcrIdQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="collectionSiteQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.TissueSourceSiteQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="dataTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.DataTypeQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="logQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.LogQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="archiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+    </bean>
+
+    <bean id="experimentQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.ExperimentQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="qcLiveDataSource"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="archiveTypeQueries" ref="archiveTypeQueries"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="dataTypeQueries" ref="dataTypeQueries"/>
+        <property name="platformQueries" ref="platformQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+    </bean>
+
+    <!-- DAO for autoloader -->
+    <bean id="loaderQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.LoaderQueriesJdbcImpl">
+        <property name="dataSource" ref="oracleDataSource"/>
+    </bean>
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger"/>
+
+</beans>
+

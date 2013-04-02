@@ -1,0 +1,20 @@
+analysis_id TEXT PRIMARY KEY,  GCHub analysis ID value (primary key at CGHub)
+state TEXT, GCHub file state (only files with a value of "live" should be used)
+upload_date TEXT, GCHub upload date  FORMAT: YYYY-MM-DDTHH:MM:SSZ (example: 2013-03-05T07:08:34Z)
+last_modified TEXT, CGHub last modified date
+disease_abbr TEXT, Disease Abbreviation (from CGHub XML)
+center_name TEXT,	Center Name (from GCHUb XML)
+filename TEXT, BAM File name (from GCHub XML)
+aliquot_uuid TEXT, The aliquot UUID for the bam file (from CGHub XML)
+participant_uuid TEXT, The participant UUID (from CGHub XML)
+participant_barcode TEXT, The participant barcode (from DCC database lookup using participant UUID)
+sample_uuid TEXT, The sample UUID (from CGHub XML)
+analyte_code TEXT,  The CGHub analyte code
+library_strategy TEXT, The CGHub library strategy	
+filesize INTEGER, Size of the BAM file (from CGHub XML)
+checksum TEXT, MD5 value (from CGHUb XML)
+legacy_sample_id TEXT,  The aliquot barcode from the CGHub XML (in theory should match participant_barcode)
+center_type TEXT,  GSC or GCC.  Derived from sample type.  from DCC.
+center_id, INTEGER, The ID number from the DCC database "center" table
+center_code, TEXT, The center code from the Center view of the Data Portal Code Table Report
+bam_file_type INTEGER, The DCC bam file type

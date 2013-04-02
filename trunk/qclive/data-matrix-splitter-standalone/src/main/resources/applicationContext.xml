@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+	Copyright Notice. The software subject to this notice and license includes
+	both human ~ readable source code form and machine readable, binary, object
+	code form (the "caBIG ~ Software"). ~ ~ Please refer to the complete License
+	text for full details at the root of the project. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<context:property-placeholder
+		location="classpath:tcgaDBConnect.properties" />
+
+	<bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" autowire="byName">
+        <property name="url" value="${dccCommonConnectionURL}"/>
+        <property name="username" value="${dccCommonUserName}"/>
+        <property name="password" value="${dccCommonPassword}"/>
+	</bean>
+
+	<bean id="diseaseDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" autowire="byName">
+        <property name="url" value="${diseaseConnectionURL}"/>
+        <property name="username" value="${diseaseUserName}"/>
+        <property name="password" value="${diseasePassword}"/>
+	</bean>
+
+    <bean id="commonTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+    <bean id="diseaseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+	<bean id="dccCommonJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dccCommonDataSource" />
+	</bean>
+
+	<bean id="diseaseJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="diseaseDataSource" />
+	</bean>
+
+    <bean id="manifestParser" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.ManifestParserImpl"/>
+
+    <bean id="dataMatrixSplitter" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.DataMatrixSplitter">
+        <property name="manifestParser" ref="manifestParser"/>
+    </bean>
+
+    <bean id="diseaseArchiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="commonArchiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseFileInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+        <property name="archiveQueries" ref="diseaseArchiveQueries"/>
+    </bean>
+
+    <bean id="commonFileInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+        <property name="archiveQueries" ref="commonArchiveQueries"/>
+    </bean>
+
+    <bean id="diseaseFileArchiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="commonFileArchiveQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+
+    </bean>
+
+    <bean id="diseaseBCRIDQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="commonBCRIDQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.BCRIDQueriesImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+
+    </bean>
+
+    <bean id="level2DataService" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.Level2DataServiceImpl" lazy-init="true" autowire="byName">
+    </bean>
+
+    <bean id="dataMatrixQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.DataMatrixQueriesJDBCImpl" lazy-init="true" autowire="byName">
+    </bean>
+
+    <bean id="sdrfRewriter" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.SdrfRewriter">
+    </bean>
+
+    <bean id="archiveCompressor" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.ArchiveCompressorTarGzImpl">
+    </bean>
+
+    <bean id="dataMatrixSplitterTool" class="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.DataMatrixSplitterStandalone" lazy-init="true" autowire="byName">
+    </bean>
+</beans>

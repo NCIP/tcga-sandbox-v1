@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+    <DISEASE DISEASE_ID="1" DISEASE_NAME="Disease 1" DISEASE_ABBREVIATION="DIS1" ACTIVE="1" />
+    <Generation_Method GENERATION_METHOD_ID="1" GENERATION_METHOD="Web"/>    
+    <Generation_Method GENERATION_METHOD_ID="4" GENERATION_METHOD="API"/>    
+    <center_type center_type_code="CGCC" CENTER_TYPE_DEFINITION="CGCC"/>
+    <CENTER center_ID="1" domain_NAME="test.org" CENTER_TYPE_code="CGCC" DISPLAY_NAME="Test"/>
+    <CENTER center_ID="2" domain_NAME="test2.org" CENTER_TYPE_code="CGCC" DISPLAY_NAME="Test"/>
+    <Center_to_bcr_center BCR_CENTER_ID="01" CENTER_ID="1" CENTER_TYPE_CODE="CGCC" />
+    <Center_to_bcr_center BCR_CENTER_ID="66" CENTER_ID="1" CENTER_TYPE_CODE="CGCC" />
+    <Center_to_bcr_center BCR_CENTER_ID="03" CENTER_ID="2" CENTER_TYPE_CODE="CGCC" />
+    <Center_to_bcr_center BCR_CENTER_ID="05" CENTER_ID="2" CENTER_TYPE_CODE="CGCC" />
+    <data_type data_type_id="1" name="Level 1"/>
+    <PLATFORM  base_data_type_ID="1" sort_order="1" CENTER_TYPE_code="CGCC" platform_ID="16" PLATFORM_NAME="aPlatform" PLATFORM_display_NAME="aPlatform" PLATFORM_alias="aPlatform" AVAILABLE="1"/>
+    <archive_info archive_id="150" archive_name="intgen.org_GBM.bio.1.7.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="7" series="0" date_added="2008-01-19 22:31:03.058"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.7.0.tar.gz"
+                  is_latest="0"/>
+    <archive_info archive_id="236" archive_name="intgen.org_GBM.bio.1.9.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="9" series="0" date_added="2008-02-26 09:42:06.854"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.9.0.tar.gz"
+                  is_latest="0"/>
+    <archive_info archive_id="440" archive_name="intgen.org_GBM.bio.1.10.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="10" series="0" date_added="2008-04-09 06:40:44.796"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.10.0.tar.gz"
+                  is_latest="0"/>
+    <archive_info archive_id="449" archive_name="intgen.org_GBM.bio.1.11.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="11" series="0" date_added="2008-04-14 20:50:51.443"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.11.0.tar.gz"
+                  is_latest="0"/>
+
+    <archive_info archive_id="465" archive_name="intgen.org_GBM.bio.1.12.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="12" series="0" date_added="2008-04-25 01:40:33.453"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.12.0.tar.gz"
+                  is_latest="0"/>
+    <archive_info archive_id="473" archive_name="intgen.org_GBM.bio.1.13.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="13" series="0" date_added="2008-05-06 17:42:44.39"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.13.0.tar.gz"
+                  is_latest="0"/>
+
+    <archive_info archive_id="611" archive_name="intgen.org_GBM.bio.1.14.0" center_id="1" disease_id="1" platform_id="16"
+                  serial_index="1" revision="14" series="0" date_added="2008-08-15 11:52:46.897"
+                  deploy_status="Available"
+                  deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/gbm/bcr/intgen.org/bio/clin/intgen.org_GBM.bio.1.14.0.tar.gz"
+                  is_latest="1"/>
+    <sample_type sample_type_code="01" definition="sample 01"/>
+    <sample_type sample_type_code="33" definition="sample 33"/>
+    <project project_code="TCGA" definition="TCGA project"/>
+    <portion_analyte portion_analyte_code="R" definition="R analyte"/>
+    <portion_analyte portion_analyte_code="W" definition="W analyte"/>
+    <tissue_source_site tss_code="02" tss_definition="TSS 2" receiving_center_id="01"/>
+    <tissue_source_site tss_code="11" tss_definition="TSS 11" receiving_center_id="01"/>
+
+    <biospecimen_barcode biospecimen_id="6951" barcode="TCGA-02-0001-01C-01R-0178-03" project_code="TCGA"
+                         tss_code="02" patient="0001" sample_type_code="01" sample_sequence="C"
+                         portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="fake1"/>
+    <biospecimen_barcode biospecimen_id="254760" barcode="tcga-a3-3308-11a-01w-0898-10" project_code="TCGA" tss_code="02" patient="3308" sample_type_code="01" sample_sequence="a" portion_sequence="01" portion_analyte_code="R" plate_id="0898" bcr_center_id="10" is_valid="1" is_viewable="1" ship_date="2010-04-05 00:00:00.0" uuid="fb90b656-df4a-4352-99e6-ab696a638228"/>
+    <biospecimen_barcode biospecimen_id="254761" barcode="tcga-a3-3308-11a-01d-0859-05" project_code="TCGA" tss_code="02" patient="3308" sample_type_code="01" sample_sequence="a" portion_sequence="01" portion_analyte_code="R" plate_id="0859" bcr_center_id="05" is_valid="1" is_viewable="1" ship_date="2010-03-17 00:00:00.0" uuid="f9a723ff-3715-4a3c-972b-b329825f4f5f"/>
+
+    <biospecimen_barcode biospecimen_id="1002" barcode="TCGA-11-3333-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="11" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+
+    <biospecimen_barcode biospecimen_id="10000" barcode="TCGA-02-0001-02C-01R-0178-03" project_code="TCGA"
+                          tss_code="02" patient="0001" sample_type_code="01" sample_sequence="E"
+                          portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="uuid1"/>
+    <biospecimen_barcode biospecimen_id="10001" barcode="TCGA-02-0001-03C-01R-0178-03" project_code="TCGA"
+                          tss_code="02" patient="0001" sample_type_code="01" sample_sequence="F"
+                          portion_sequence="01" portion_analyte_code="R" plate_id="0178" bcr_center_id="03" is_viewable="1" uuid="uuid2"/>
+
+    <biospecimen_barcode biospecimen_id="12345" barcode="TCGA-02-0000-01A-01W-1111-66" project_code="TCGA" tss_code="02" patient="0000"
+                         sample_type_code="01" sample_sequence="A" portion_sequence="01" portion_analyte_code="W" plate_id="1111" bcr_center_id="66"
+                         is_valid="1" is_viewable="1" ship_date="2011-07-19 00:00:00.0" uuid="12345678-1234-abcd-5678-a1b2c3d4e5f6"/>
+
+    <bcr_biospecimen_to_archive biospecimen_archive_id="1" biospecimen_id="6951" archive_id="150"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="2" biospecimen_id="6951" archive_id="236"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="3" biospecimen_id="6951" archive_id="440"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="4" biospecimen_id="6951" archive_id="449"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="5" biospecimen_id="6951" archive_id="465"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="6" biospecimen_id="6951" archive_id="473"/>
+    <bcr_biospecimen_to_archive biospecimen_archive_id="7" biospecimen_id="6951" archive_id="611"/>
+
+
+    <file_info file_id="1" file_name="Test file 1 for BCRIDQueries" level_number="1"/>
+    <file_info file_id="2" file_name="Test file 2 for BCRIDQueries" level_number="1"/>
+    <file_info file_id="3" file_name="Test file 3 for BCRIDQueries" level_number="1"/>
+    <file_info file_id="4" file_name="Test file 4 for BCRIDQueries" level_number="1"/>
+    <file_info file_id="5" file_name="Test file 5 for BCRIDQueries" level_number="1"/>
+    <file_info file_id="6" file_name="Test file 6 for BCRIDQueries" level_number="1"/>
+
+    <uuid uuid="I-already-exist" center_id="1" generation_method_id="1" create_date="2008-04-09 06:40:44.796" created_by="unit test" latest_barcode_id="1"/>
+    <barcode_history barcode_id="1" disease_id="1" uuid="I-already-exist" barcode="TCGA-11-2222-33A-44W-5555-66" effective_date="2008-04-09 06:40:44.796"/>
+
+    <uuid uuid="uuid-for-11-3333" center_id="1" generation_method_id="1" create_date="2009-04-09 06:40:44.796" created_by="unit test" latest_barcode_id="2"/>
+    <barcode_history barcode_id="2" disease_id="1" uuid="uuid-for-11-3333" barcode="TCGA-11-3333-33A-44W-5555-66" effective_date="2009-04-09 06:40:44.796"/>
+
+    <uuid uuid="fake1" center_id="1" generation_method_id="1" create_date="2011-02-10 14:46:00.000" created_by="unit test" latest_barcode_id="3" />
+    <barcode_history barcode_id="3" barcode="TCGA-02-0001-01C-01R-0178-03" disease_id="1" effective_date="2011-02-10 14:46:00.000" uuid="fake1" />
+
+    <barcode_history uuid="12345678-1234-abcd-5678-a1b2c3d4e5f6" barcode="TCGA-02-0000-01A-01W-1111-66" barcode_id="4" disease_id="1" effective_date="2011-07-18 10:29:00.0"/>
+    <uuid uuid="12345678-1234-abcd-5678-a1b2c3d4e5f6" center_id="1" create_date="2011-07-18 10:29:00.0" created_by="me" generation_method_id="1" latest_barcode_id="4"/>
+    <uuid_item_type item_type_id="5" item_type="Slide" sort_order="1" xml_name="slide" />
+    <uuid_hierarchy disease_abbreviation="GBM" uuid="12345678-1234-abcd-5678-a1b2c3d4e5f6" parent_uuid="" item_type_id="5" tss_code="28" center_id_bcr="1"	batch_number="26" barcode="TCGA-28-2499" participant_number="2449" create_date="2011-02-24 00:00:00.0" />
+
+    <!-- Test data for getArchiveBarcodes -->
+    <archive_info archive_id="3053" archive_name="jhu-usc.edu_KIRC.HumanMethylation27.Level_1.1.0.0" center_id="1" disease_id="1" platform_id="16" serial_index="1" revision="0" series="0" date_added="2010-07-28 16:31:15.744" deploy_status="Available" deploy_location="/tcgafiles_dev/ftp_auth/distro_ftpusers/anonymous/tumor/kirc/cgcc/jhu-usc.edu/humanmethylation27/methylation/jhu-usc.edu_KIRC.HumanMethylation27.Level_1.1.0.0.tar.gz" is_latest="1" initial_size_kb="36798" final_size_kb="36819"/>
+    <file_info file_id="190564" file_name="jhu-usc.edu_kirc.file1.txt" file_size="1121824" level_number="2" md5="07b402fe704a7eaa1db69139129bd55a"/>
+    <file_info file_id="190565" file_name="jhu-usc.edu_kirc.file2.txt" file_size="1110014" level_number="2" md5="b4f4d0ec458e0b4d7db05143d9256298"/>
+    <file_info file_id="10000" file_name="jhu-usc.edu_kirc.file3.txt" file_size="1110014" level_number="2" md5="b4f4d0ec458e0b4d7db05143d9256297"/>
+    <file_info file_id="10001" file_name="jhu-usc.edu_kirc.split.file1.txt" file_size="1110014" level_number="2" md5="b4f4d0ec458e0b4d7db05143d9256297"/>
+    <file_info file_id="10002" file_name="jhu-usc.edu_kirc.split.file2.txt" file_size="1110014" level_number="2" md5="b4f4d0ec458e0b4d7db05143d9256297"/>
+
+
+    <file_to_archive file_archive_id="190564" file_id="190564" archive_id="3053" file_location_url="file1.txt"/>
+    <file_to_archive file_archive_id="190565" file_id="190565" archive_id="3053" file_location_url="file2.txt"/>
+    <file_to_archive file_archive_id="10000" file_id="10000" archive_id="3053" file_location_url="file3.txt"/>
+    <file_to_archive file_archive_id="10001" file_id="10001" archive_id="3053" file_location_url="file3.txt"/>
+    <file_to_archive file_archive_id="10002" file_id="10002" archive_id="3053" file_location_url="file3.txt"/>
+
+    <tissue_source_site tss_code="fake" tss_definition="something" receiving_center_id="1"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Shipping Portion" />
+    <shipped_item_type shipped_item_type_id="2" shipped_item_type="Aliquot" />
+
+    <shipped_element_type element_type_id="1" element_type_name="sample_type_code" />
+    <shipped_element_type element_type_id="2" element_type_name="sample_sequence" />
+    <shipped_element_type element_type_id="3" element_type_name="portion_sequence" />
+    <shipped_element_type element_type_id="4" element_type_name="analyte_code" />
+    <shipped_element_type element_type_id="5" element_type_name="plate_id" />
+
+    <shipped_biospecimen shipped_biospecimen_id="6951" uuid="fake1" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="254760" uuid="fb90b656-df4a-4352-99e6-ab696a638228" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="254761" uuid="f9a723ff-3715-4a3c-972b-b329825f4f5f" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="1002" uuid="uuid-for-11-3333" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="10000" uuid="uuid1" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="10001" uuid="uuid2" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+    <shipped_biospecimen shipped_biospecimen_id="99999" uuid="fake7" shipped_item_type_id="1" built_barcode="fake" project_code="TCGA" tss_code="fake" bcr_center_id="01" participant_code="fake"/>
+
+    <!-- this aliquot is missing shipped_biospecimen_element records -->
+    <shipped_biospecimen shipped_biospecimen_id="12345" uuid="12345678-1234-abcd-5678-a1b2c3d4e5f6" built_barcode="TCGA-02-0000-01A-01W-1111-66"
+                         project_code="TCGA" tss_code="02" participant_code="0000" bcr_center_id="66" shipped_item_type_id="1"/>
+
+    <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="6951" element_type_id="1" element_value="test"/>
+
+    <biospecimen_to_file biospecimen_file_id="226426" biospecimen_id="254760" file_id="190564" file_col_name="derived array data matrix file"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="254760" file_id="190564" />
+    <biospecimen_to_file biospecimen_file_id="226427" biospecimen_id="254761" file_id="190565" file_col_name="derived array data matrix file"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="254761" file_id="190565" />
+    <biospecimen_to_file biospecimen_file_id="10000" biospecimen_id="10000" file_id="10000" file_col_name="derived array data matrix file"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="10000" file_id="10000" />
+    <biospecimen_to_file biospecimen_file_id="10001" biospecimen_id="10001" file_id="10000" file_col_name="derived array data matrix file"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="10001" file_id="10000" />
+
+    <shipped_biospecimen_file shipped_biospecimen_id="99999" file_id="10000"/>
+    <shipped_biospecimen_file shipped_biospecimen_id="99999" file_id="10001" />
+
+    <shipped_biospec_bcr_archive shipped_biospecimen_id="99999" archive_id="150"/>
+</dataset>

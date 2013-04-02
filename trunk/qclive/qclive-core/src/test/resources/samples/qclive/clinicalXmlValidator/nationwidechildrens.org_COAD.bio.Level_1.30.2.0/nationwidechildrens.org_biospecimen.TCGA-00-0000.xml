@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bios:tcga_bcr xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bios="http://tcga.nci/bcr/xml/biospecimen/2.6"
+	xmlns:admin="http://tcga.nci/bcr/xml/administration/2.6"
+	xmlns:util="http://tcga.nci/bcr/xml/utility/2.6"
+	xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.6"
+    xmlns:bioshared="http://tcga.nci/bcr/xml/biospecimen/shared/2.6"
+    xmlns:cqcf="http://tcga.nci/bcr/xml/clinical/cqcf/2.6"
+	schemaVersion="2.6"
+	xsi:schemaLocation="https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/utility/2.6/TCGA_BCR.Utility.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/clinical/shared/2.6/TCGA_BCR.Shared_Clinical_Elements.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/administration/2.6/TCGA_BCR.Administration.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/biospecimen/2.6/TCGA_BCR.Biospecimen.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/biospecimen/2.6/TCGA_BCR.Shared_Bio_Elements.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd26/trunk/BCR/tcga.nci/bcr/xml/clinical/cqcf/2.6/TCGA_BCR.CQCF.xsd">
+    <admin:admin>
+        <admin:bcr xsd_ver="2.6">Nationwide Children's Hospital</admin:bcr>
+        <admin:batch_number xsd_ver="2.6">30.0.0</admin:batch_number>
+        <admin:disease_code xsd_ver="2.6">COAD</admin:disease_code>
+        <admin:day_of_dcc_upload xsd_ver="2.6">01</admin:day_of_dcc_upload>
+        <admin:month_of_dcc_upload xsd_ver="2.6">01</admin:month_of_dcc_upload>
+        <admin:year_of_dcc_upload xsd_ver="2.6">2010</admin:year_of_dcc_upload>
+    </admin:admin>
+    <bios:patient>
+    	<shared:bcr_patient_barcode cde="" xsd_ver="2.6" owner="TSS" procurement_status="Completed">TCGA-00-0000</shared:bcr_patient_barcode>
+        <shared:bcr_patient_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+        <shared:tissue_source_site cde="" xsd_ver="2.6" procurement_status="Completed" owner="">C4</shared:tissue_source_site>
+        <shared:patient_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">1234</shared:patient_id>
+        <bios:day_of_index cde="64191" xsd_ver="2.6" procurement_status="Pending" owner=""/>
+        <bios:month_of_index cde="64192" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_index>
+        <bios:year_of_index cde="64193" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_index>
+        <bios:bcr_canonical_check>
+            <bios:bcr_patient_canonical_status xsd_ver="2.6" procurement_status="Completed" owner="">Canonical</bios:bcr_patient_canonical_status>
+        </bios:bcr_canonical_check>
+
+        <bios:samples>
+            <bios:sample>
+            	<bios:sample_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:sample_type_id>
+            	<bios:vial_number cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A</bios:vial_number>
+                <bios:sample_type cde="2673865" xsd_ver="2.6" procurement_status="Completed" owner="">Blood Derived Normal</bios:sample_type>
+                <bios:longest_dimension cde="2673866" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:intermediate_dimension cde="2673867" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:shortest_dimension cde="2673868" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:initial_weight cde="2673869" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:current_weight cde="2673870" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:freezing_method cde="2673871" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:oct_embedded cde="2673872" xsd_ver="2.6" procurement_status="Completed" owner="">false</bios:oct_embedded>
+                <bios:day_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_collection>
+                <bios:month_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_collection>
+                <bios:year_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">2000</bios:year_of_collection>
+                <bios:time_between_clamping_and_freezing cde="2673873" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:time_between_excision_and_freezing cde="2673874" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:bcr_sample_barcode cde="2673864" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A</bios:bcr_sample_barcode>
+                <bios:bcr_sample_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:portions>
+                    <bios:portion>
+                    	<bios:portion_number cde="" xsd_ver="2.6" procurement_status="Completed" owner="">21</bios:portion_number>
+                        <bios:day_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_creation>
+                        <bios:month_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_creation>
+                        <bios:year_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_creation>
+                        <bios:weight cde="2673761" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                        <bios:bcr_portion_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01</bios:bcr_portion_barcode>
+                        <bios:bcr_portion_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                        <bios:analytes>
+                            <bios:analyte>
+                            	<bios:analyte_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">D</bios:analyte_type_id>
+                                <bios:analyte_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">DNA</bios:analyte_type>
+                                <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">16.78</bios:amount>
+                                <bios:a260_a280_ratio cde="2673841" xsd_ver="2.6" procurement_status="Completed" owner="">1.71</bios:a260_a280_ratio>
+                                <bios:gel_image_file cde="2673842" xsd_ver="2.6" procurement_status="Completed" owner="">https://sharedoc.nchri.org/tcga-bcr/default.aspx</bios:gel_image_file>
+                                <bios:well_number cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_analyte_barcode cde="2673835" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D</bios:bcr_analyte_barcode>
+                                <bios:bcr_analyte_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:aliquots>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10R</bios:plate_id>
+                                        <bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">26.70</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D-A004-05</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10S</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.60</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D-A003-01</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10T</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">13.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D-A078-02</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10W</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01W-A005-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12W</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01W-A00K-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10U</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.67</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D-A006-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10V</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.67</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01D-A00M-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.14</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12U</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01X-A00J-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12V</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-10A-01X-A00L-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                </bios:aliquots>
+                                <bios:protocols>
+                                    <bios:protocol>
+                                        <bios:experimental_protocol_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">aDNA Preparation Type</bios:experimental_protocol_type>
+                                        <bios:protocol_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:protocol_file_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:protocol>
+                                </bios:protocols>
+                                <bios:dna>
+                                    <bios:normal_tumor_genotype_match cde="" xsd_ver="2.6" procurement_status="Completed" owner="">YES</bios:normal_tumor_genotype_match>
+                                    <bios:pcr_amplification_successful cde="" xsd_ver="2.6" procurement_status="Completed" owner="">YES</bios:pcr_amplification_successful>
+                                </bios:dna>
+                                <bios:spectrophotometer_method cde="3008378" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:analyte>
+                        </bios:analytes>
+                        <bios:slides/>
+                        <bios:LCE cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                    </bios:portion>
+                </bios:portions>
+                <bios:tumor_pathology/>
+                <bios:method_of_sample_procurement cde="3103514" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:NCNNCT_OthMethONSP cde="3103514" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bioshared:other_method_of_sample_procurement cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:day_of_sample_procurement cde="3008195" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:month_of_sample_procurement cde="3008197" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:year_of_sample_procurement cde="3008199" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:pathology_report_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:diagnostic_slides>
+                <bios:ffpe_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                </bios:diagnostic_slides>
+            </bios:sample>
+            <bios:sample>
+            	<bios:sample_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">10</bios:sample_type_id>
+            	<bios:vial_number cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A</bios:vial_number>
+                <bios:sample_type cde="2673865" xsd_ver="2.6" procurement_status="Completed" owner="">Primary Tumor</bios:sample_type>
+                <bios:longest_dimension cde="2673866" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:intermediate_dimension cde="2673867" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:shortest_dimension cde="2673868" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:initial_weight cde="2673869" xsd_ver="2.6" procurement_status="Completed" owner="">160</bios:initial_weight>
+                <bios:current_weight cde="2673870" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:freezing_method cde="2673871" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:oct_embedded cde="2673872" xsd_ver="2.6" procurement_status="Completed" owner="">false</bios:oct_embedded>
+                <bios:day_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_collection>
+                <bios:month_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_collection>
+                <bios:year_of_collection cde="64191" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_collection>
+                <bios:time_between_clamping_and_freezing cde="2673873" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:time_between_excision_and_freezing cde="2673874" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:bcr_sample_barcode cde="2673864" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A</bios:bcr_sample_barcode>
+                <bios:bcr_sample_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:portions>
+                    <bios:portion>
+                    	<bios:portion_number cde="" xsd_ver="2.6" procurement_status="Completed" owner="">10</bios:portion_number>
+                        <bios:day_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_creation>
+                        <bios:month_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">07</bios:month_of_creation>
+                        <bios:year_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_creation>
+                        <bios:weight cde="2673761" xsd_ver="2.6" procurement_status="Completed" owner="">30.00</bios:weight>
+                        <bios:bcr_portion_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-21</bios:bcr_portion_barcode>
+                        <bios:bcr_portion_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                        <bios:analytes>
+                            <bios:analyte>
+                            	<bios:analyte_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">R</bios:analyte_type_id>
+                                <bios:analyte_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">RNA</bios:analyte_type>
+                                <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">65.70</bios:amount>
+                                <bios:a260_a280_ratio cde="2673841" xsd_ver="2.6" procurement_status="Completed" owner="">1.92</bios:a260_a280_ratio>
+                                <bios:gel_image_file cde="2673842" xsd_ver="2.6" procurement_status="Completed" owner="">https://sharedoc.nchri.org/tcga-bcr/default.aspx</bios:gel_image_file>
+                                <bios:well_number cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_analyte_barcode cde="2673835" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-21R</bios:bcr_analyte_barcode>
+                                <bios:bcr_analyte_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:aliquots>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10R</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">20.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">09</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-21R-A076-13</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                </bios:aliquots>
+                                <bios:protocols>
+                                    <bios:protocol>
+                                        <bios:experimental_protocol_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">mirVana (Allprep DNA) RNA</bios:experimental_protocol_type>
+                                        <bios:protocol_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:protocol_file_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:protocol>
+                                </bios:protocols>
+                                <bios:rna>
+                                    <bios:ratio_28s_18s cde="" xsd_ver="2.6" procurement_status="Completed" owner="">1.60</bios:ratio_28s_18s>
+                                    <bios:rinvalue cde="" xsd_ver="2.6" procurement_status="Completed" owner="">8.80</bios:rinvalue>
+                                </bios:rna>
+                                <bios:spectrophotometer_method cde="3008378" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:analyte>
+                        </bios:analytes>
+                        <bios:slides>
+                            <bios:slide>
+                                <bios:section_location cde="" xsd_ver="2.6" procurement_status="Completed" owner="">BOTTOM</bios:section_location>
+                                <bios:number_proliferating_cells cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_tumor_cells cde="2841219" xsd_ver="2.6" procurement_status="Completed" owner="">55</bios:percent_tumor_cells>
+                                <bios:percent_tumor_nuclei cde="2841225" xsd_ver="2.6" procurement_status="Completed" owner="">70</bios:percent_tumor_nuclei>
+                                <bios:percent_normal_cells cde="2841233" xsd_ver="2.6" procurement_status="Completed" owner="">5</bios:percent_normal_cells>
+                                <bios:percent_necrosis cde="2841237" xsd_ver="2.6" procurement_status="Completed" owner="">3</bios:percent_necrosis>
+                                <bios:percent_stromal_cells cde="2841241" xsd_ver="2.6" procurement_status="Completed" owner="">37</bios:percent_stromal_cells>
+                                <bios:percent_inflam_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_lymphocyte_infiltration cde="2841253" xsd_ver="2.6" procurement_status="Completed" owner="">12</bios:percent_lymphocyte_infiltration>
+                                <bios:percent_monocyte_infiltration cde="2841257" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_granulocyte_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_neutrophil_infiltration cde="2841267" xsd_ver="2.6" procurement_status="Completed" owner="">6</bios:percent_neutrophil_infiltration>
+                                <bios:percent_eosinophil_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_slide_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-02-BS2</bios:bcr_slide_barcode>
+                                <bios:bcr_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:slide>
+                            <bios:slide>
+                                <bios:section_location cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TOP</bios:section_location>
+                                <bios:number_proliferating_cells cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_tumor_cells cde="2841219" xsd_ver="2.6" procurement_status="Completed" owner="">85</bios:percent_tumor_cells>
+                                <bios:percent_tumor_nuclei cde="2841225" xsd_ver="2.6" procurement_status="Completed" owner="">85</bios:percent_tumor_nuclei>
+                                <bios:percent_normal_cells cde="2841233" xsd_ver="2.6" procurement_status="Completed" owner="">0</bios:percent_normal_cells>
+                                <bios:percent_necrosis cde="2841237" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_necrosis>
+                                <bios:percent_stromal_cells cde="2841241" xsd_ver="2.6" procurement_status="Completed" owner="">13</bios:percent_stromal_cells>
+                                <bios:percent_inflam_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_lymphocyte_infiltration cde="2841253" xsd_ver="2.6" procurement_status="Completed" owner="">4</bios:percent_lymphocyte_infiltration>
+                                <bios:percent_monocyte_infiltration cde="2841257" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_granulocyte_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_neutrophil_infiltration cde="2841267" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_neutrophil_infiltration>
+                                <bios:percent_eosinophil_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_slide_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0110-01A-01-BS1</bios:bcr_slide_barcode>
+                                <bios:bcr_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:slide>
+                        </bios:slides>
+                        <bios:LCE cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                    </bios:portion>
+                    <bios:portion>
+                    	<bios:portion_number cde="" xsd_ver="2.6" procurement_status="Completed" owner="">12</bios:portion_number>
+                        <bios:day_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:day_of_creation>
+                        <bios:month_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:month_of_creation>
+                        <bios:year_of_creation cde="2673760" xsd_ver="2.6" procurement_status="Completed" owner="">2001</bios:year_of_creation>
+                        <bios:weight cde="2673761" xsd_ver="2.6" procurement_status="Completed" owner="">110.00</bios:weight>
+                        <bios:bcr_portion_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01</bios:bcr_portion_barcode>
+                        <bios:bcr_portion_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                        <bios:analytes>
+                            <bios:analyte>
+                            	<bios:analyte_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">R</bios:analyte_type_id>
+                                <bios:analyte_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">Total RNA</bios:analyte_type>
+                                <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.10</bios:concentration>
+                                <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">37.53</bios:amount>
+                                <bios:a260_a280_ratio cde="2673841" xsd_ver="2.6" procurement_status="Completed" owner="">0.00</bios:a260_a280_ratio>
+                                <bios:gel_image_file cde="2673842" xsd_ver="2.6" procurement_status="Completed" owner="">https://sharedoc.nchri.org/tcga-bcr/default.aspx</bios:gel_image_file>
+                                <bios:well_number cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_analyte_barcode cde="2673835" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01T</bios:bcr_analyte_barcode>
+                                <bios:bcr_analyte_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:aliquots>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10R</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">30.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">22</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01T-A001-13</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.10</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                </bios:aliquots>
+                                <bios:protocols>
+                                    <bios:protocol>
+                                        <bios:experimental_protocol_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">Total RNA</bios:experimental_protocol_type>
+                                        <bios:protocol_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:protocol_file_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:protocol>
+                                </bios:protocols>
+                                <bios:rna>
+                                    <bios:ratio_28s_18s cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    <bios:rinvalue cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                </bios:rna>
+                                <bios:spectrophotometer_method cde="3008378" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:analyte>
+                            <bios:analyte>
+                            	<bios:analyte_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">R</bios:analyte_type_id>
+                                <bios:analyte_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">RNA</bios:analyte_type>
+                                <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">239.76</bios:amount>
+                                <bios:a260_a280_ratio cde="2673841" xsd_ver="2.6" procurement_status="Completed" owner="">1.73</bios:a260_a280_ratio>
+                                <bios:gel_image_file cde="2673842" xsd_ver="2.6" procurement_status="Completed" owner="">https://sharedoc.nchri.org/tcga-bcr/default.aspx</bios:gel_image_file>
+                                <bios:well_number cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_analyte_barcode cde="2673835" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01R</bios:bcr_analyte_barcode>
+                                <bios:bcr_analyte_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:aliquots>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10R</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">26.70</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">22</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01R-A002-07</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                </bios:aliquots>
+                                <bios:protocols>
+                                    <bios:protocol>
+                                        <bios:experimental_protocol_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">RNA</bios:experimental_protocol_type>
+                                        <bios:protocol_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:protocol_file_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:protocol>
+                                </bios:protocols>
+                                <bios:rna>
+                                    <bios:ratio_28s_18s cde="" xsd_ver="2.6" procurement_status="Completed" owner="">1.90</bios:ratio_28s_18s>
+                                    <bios:rinvalue cde="" xsd_ver="2.6" procurement_status="Completed" owner="">8.50</bios:rinvalue>
+                                </bios:rna>
+                                <bios:spectrophotometer_method cde="3008378" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:analyte>
+                            <bios:analyte>
+                            	<bios:analyte_type_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">D</bios:analyte_type_id>
+                                <bios:analyte_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">DNA</bios:analyte_type>
+                                <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">233.25</bios:amount>
+                                <bios:a260_a280_ratio cde="2673841" xsd_ver="2.6" procurement_status="Completed" owner="">1.69</bios:a260_a280_ratio>
+                                <bios:gel_image_file cde="2673842" xsd_ver="2.6" procurement_status="Completed" owner="">https://sharedoc.nchri.org/tcga-bcr/default.aspx</bios:gel_image_file>
+                                <bios:well_number cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_analyte_barcode cde="2673835" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D</bios:bcr_analyte_barcode>
+                                <bios:bcr_analyte_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:aliquots>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10R</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">26.70</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">22</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D-A004-05</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10S</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.60</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">22</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D-A003-01</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10T</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">13.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">22</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">09</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D-A077-02</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10U</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">24</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01X-A005-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10V</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">11</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">05</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01X-A00K-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A10W</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.67</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">24</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D-A006-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12R</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">02</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">6.67</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">11</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">05</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01D-A00M-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">0.15</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12S</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">08</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">11</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">05</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01X-A00J-10</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                    <bios:aliquot>
+                                    	<bios:plate_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">A12T</bios:plate_id>
+                                    	<bios:center_id cde="" xsd_ver="2.6" procurement_status="Completed" owner="">01</bios:center_id>
+                                        <bios:amount cde="2673838" xsd_ver="2.6" procurement_status="Completed" owner="">80.00</bios:amount>
+                                        <bios:day_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">11</bios:day_of_shipment>
+                                        <bios:month_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">05</bios:month_of_shipment>
+                                        <bios:year_of_shipment cde="" xsd_ver="2.6" procurement_status="Completed" owner="">2010</bios:year_of_shipment>
+                                        <bios:bcr_aliquot_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01X-A00L-09</bios:bcr_aliquot_barcode>
+                                        <bios:bcr_aliquot_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:concentration cde="2673837" xsd_ver="2.6" procurement_status="Completed" owner="">.5</bios:concentration>
+                                        <bios:plate_row cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:plate_column cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:biospecimen_barcode_bottom cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:aliquot>
+                                </bios:aliquots>
+                                <bios:protocols>
+                                    <bios:protocol>
+                                        <bios:experimental_protocol_type cde="" xsd_ver="2.6" procurement_status="Completed" owner="">aDNA Preparation Type</bios:experimental_protocol_type>
+                                        <bios:protocol_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                        <bios:protocol_file_name cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                    </bios:protocol>
+                                </bios:protocols>
+                                <bios:dna>
+                                    <bios:normal_tumor_genotype_match cde="" xsd_ver="2.6" procurement_status="Completed" owner="">YES</bios:normal_tumor_genotype_match>
+                                    <bios:pcr_amplification_successful cde="" xsd_ver="2.6" procurement_status="Completed" owner="">YES</bios:pcr_amplification_successful>
+                                </bios:dna>
+                                <bios:spectrophotometer_method cde="3008378" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:analyte>
+                        </bios:analytes>
+                        <bios:slides>
+                            <bios:slide>
+                                <bios:section_location cde="" xsd_ver="2.6" procurement_status="Completed" owner="">BOTTOM</bios:section_location>
+                                <bios:number_proliferating_cells cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_tumor_cells cde="2841219" xsd_ver="2.6" procurement_status="Completed" owner="">85</bios:percent_tumor_cells>
+                                <bios:percent_tumor_nuclei cde="2841225" xsd_ver="2.6" procurement_status="Completed" owner="">85</bios:percent_tumor_nuclei>
+                                <bios:percent_normal_cells cde="2841233" xsd_ver="2.6" procurement_status="Completed" owner="">0</bios:percent_normal_cells>
+                                <bios:percent_necrosis cde="2841237" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_necrosis>
+                                <bios:percent_stromal_cells cde="2841241" xsd_ver="2.6" procurement_status="Completed" owner="">13</bios:percent_stromal_cells>
+                                <bios:percent_inflam_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_lymphocyte_infiltration cde="2841253" xsd_ver="2.6" procurement_status="Completed" owner="">4</bios:percent_lymphocyte_infiltration>
+                                <bios:percent_monocyte_infiltration cde="2841257" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_granulocyte_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_neutrophil_infiltration cde="2841267" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_neutrophil_infiltration>
+                                <bios:percent_eosinophil_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_slide_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01-BS1</bios:bcr_slide_barcode>
+                                <bios:bcr_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:slide>
+                            <bios:slide>
+                                <bios:section_location cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TOP</bios:section_location>
+                                <bios:number_proliferating_cells cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_tumor_cells cde="2841219" xsd_ver="2.6" procurement_status="Completed" owner="">97</bios:percent_tumor_cells>
+                                <bios:percent_tumor_nuclei cde="2841225" xsd_ver="2.6" procurement_status="Completed" owner="">75</bios:percent_tumor_nuclei>
+                                <bios:percent_normal_cells cde="2841233" xsd_ver="2.6" procurement_status="Completed" owner="">0</bios:percent_normal_cells>
+                                <bios:percent_necrosis cde="2841237" xsd_ver="2.6" procurement_status="Completed" owner="">1</bios:percent_necrosis>
+                                <bios:percent_stromal_cells cde="2841241" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_stromal_cells>
+                                <bios:percent_inflam_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_lymphocyte_infiltration cde="2841253" xsd_ver="2.6" procurement_status="Completed" owner="">15</bios:percent_lymphocyte_infiltration>
+                                <bios:percent_monocyte_infiltration cde="2841257" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_granulocyte_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:percent_neutrophil_infiltration cde="2841267" xsd_ver="2.6" procurement_status="Completed" owner="">2</bios:percent_neutrophil_infiltration>
+                                <bios:percent_eosinophil_infiltration cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                                <bios:bcr_slide_barcode cde="" xsd_ver="2.6" procurement_status="Completed" owner="">TCGA-00-0000-01A-01-TS1</bios:bcr_slide_barcode>
+                                <bios:bcr_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                            </bios:slide>
+                        </bios:slides>
+                        <bios:LCE cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                    </bios:portion>
+                </bios:portions>
+                <bios:tumor_pathology/>
+                <bios:method_of_sample_procurement cde="3103514" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:NCNNCT_OthMethONSP cde="3103514" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bioshared:other_method_of_sample_procurement cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:day_of_sample_procurement cde="3008195" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:month_of_sample_procurement cde="3008197" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:year_of_sample_procurement cde="3008199" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:pathology_report_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                <bios:diagnostic_slides>
+                <bios:ffpe_slide_uuid cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+                </bios:diagnostic_slides>
+            </bios:sample>
+        </bios:samples>
+        <cqcf:biospecimen_cqcf>
+            <cqcf:maximum_tumor_dimension cde="64215" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:day_of_sample_procurement cde="3008195" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+            <cqcf:month_of_sample_procurement cde="3008197" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+            <cqcf:year_of_sample_procurement cde="3008199" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+            <cqcf:method_of_sample_procurement cde="3103514" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+            <cqcf:other_method_of_sample_procurement cde="" xsd_ver="2.6" procurement_status="Not Available" owner=""/>
+            <cqcf:country cde="3203072" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+
+            <cqcf:vessel_used cde="3081940" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:other_vessel_used cde="3081940" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+
+            <cqcf:submitted_for_lce cde="3288488" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+            <cqcf:sample_prescreened cde="3081942" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:top_slide_submitted cde="3081948" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+            <cqcf:digital_image_submitted cde="3081948" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+            <cqcf:ffpe_tumor_slide_submitted cde="3081944" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:b_cell_tumor_slide_submitted cde="3320292" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:t_cell_tumor_slide_submitted cde="3320295" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:tumor_samples>
+                <cqcf:tumor_sample>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">1</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_weight cde="3081946" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_nuclei_percent cde="2841225" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_necrosis_percent cde="2841237" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_pathology>
+                        <cqcf:primary_or_metastatic_status cde="2673765" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:margins_involved cde="2608099" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:venous_invasion cde="64358" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:lymphatic_invasion cde="64171" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:number_regional_lymphnodes_exam cde="2673768" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:number_regional_lymphnodes_pos cde="2673770" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:verification_by_bcr cde="2673771" xsd_ver="1.8" procurement_status="Completed" owner="">Yes</cqcf:verification_by_bcr>
+                        <cqcf:type/>
+                    </cqcf:tumor_pathology>
+                </cqcf:tumor_sample>
+                <cqcf:tumor_sample>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">1</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_weight cde="3081946" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_nuclei_percent cde="2841225" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_necrosis_percent cde="2841237" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:tumor_pathology>
+                        <cqcf:primary_or_metastatic_status cde="2673765" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:margins_involved cde="2608099" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:venous_invasion cde="64358" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:lymphatic_invasion cde="64171" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:number_regional_lymphnodes_exam cde="2673768" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:number_regional_lymphnodes_pos cde="2673770" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+                        <cqcf:verification_by_bcr cde="2673771" xsd_ver="1.8" procurement_status="Completed" owner="">Yes</cqcf:verification_by_bcr>
+                        <cqcf:type/>
+                    </cqcf:tumor_pathology>
+                </cqcf:tumor_sample>
+            </cqcf:tumor_samples>
+            <cqcf:normal_controls>
+                <cqcf:normal_control>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">2</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_control_type cde="3081936" xsd_ver="2.5" procurement_status="Completed" owner="">Extracted DNA from Blood</cqcf:normal_control_type>
+                    <cqcf:method_of_normal_sample_procurement cde="3288147" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:day_of_normal_sample_procurement cde="3288196" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:month_of_normal_sample_procurement cde="3288195" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:year_of_normal_sample_procurement cde="3288197" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:extracted_dna>
+                        <cqcf:ncedna_dna_conc cde="3288187" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_qm cde="3288186" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_qty cde="3288185" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_vol cde="3288188" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    </cqcf:extracted_dna>
+                </cqcf:normal_control>
+                <cqcf:normal_control>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">2</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_control_type cde="3081936" xsd_ver="2.5" procurement_status="Completed" owner="">Extracted DNA from Blood</cqcf:normal_control_type>
+                    <cqcf:method_of_normal_sample_procurement cde="3288147" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:day_of_normal_sample_procurement cde="3288196" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:month_of_normal_sample_procurement cde="3288195" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:year_of_normal_sample_procurement cde="3288197" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:extracted_dna>
+                        <cqcf:ncedna_dna_conc cde="3288187" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_qm cde="3288186" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_qty cde="3288185" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:ncedna_dna_vol cde="3288188" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    </cqcf:extracted_dna>
+                </cqcf:normal_control>
+                <cqcf:normal_control>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">3</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_control_type cde="3081936" xsd_ver="2.5" procurement_status="Completed" owner="">Normal Tissue</cqcf:normal_control_type>
+                    <cqcf:method_of_normal_sample_procurement cde="3288147" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:day_of_normal_sample_procurement cde="3288196" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:month_of_normal_sample_procurement cde="3288195" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:year_of_normal_sample_procurement cde="3288197" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_tissue>
+                        <cqcf:normal_tissue_anatomic_site cde="3081938" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:normal_tissue_proximity cde="3088708" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    </cqcf:normal_tissue>
+                </cqcf:normal_control>
+                <cqcf:normal_control>
+                    <cqcf:vial_number cde="" xsd_ver="2.4" procurement_status="Completed" owner="">3</cqcf:vial_number>
+                    <cqcf:bcr_sample_uuid cde="" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_control_type cde="3081936" xsd_ver="2.5" procurement_status="Completed" owner="">Normal Tissue</cqcf:normal_control_type>
+                    <cqcf:method_of_normal_sample_procurement cde="3288147" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    <cqcf:day_of_normal_sample_procurement cde="3288196" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:month_of_normal_sample_procurement cde="3288195" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:year_of_normal_sample_procurement cde="3288197" xsd_ver="2.3" procurement_status="Not Available" owner=""/>
+                    <cqcf:normal_tissue>
+                        <cqcf:normal_tissue_anatomic_site cde="3081938" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                        <cqcf:normal_tissue_proximity cde="3088708" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+                    </cqcf:normal_tissue>
+                </cqcf:normal_control>
+
+            </cqcf:normal_controls>
+            <cqcf:day_of_pathology_review cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:month_of_pathology_review cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:year_of_pathology_review cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:path_confirm_tumor_nuclei_metrics cde="3288520" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:path_confirm_tumor_necrosis_metrics cde="3288524" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:path_confirm_report_attached cde="3288292" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:path_confirm_diagnosis_matching cde="3288300" xsd_ver="1.8" procurement_status="Not Available" owner=""/>
+            <cqcf:reason_path_confirm_diagnosis_not_matching cde="3288315" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:cytogenetic_report_submitted cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:differential_report_submitted cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:hiv_positive_status cde="2180464" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:total_cells_submitted cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+            <cqcf:percent_myeloblasts_for_submitted_specimen cde="" xsd_ver="2.5" procurement_status="Not Available" owner=""/>
+        </cqcf:biospecimen_cqcf>
+    </bios:patient>
+
+</bios:tcga_bcr>

@@ -1,0 +1,29 @@
+# This README assumes you have all telemetry files in the current directory, 
+# as well as the BAM file / exchange area file named exchange.tab, 
+# (as well as tcga_subj.txt which lists patients by disease)
+
+# First, unzip all .tar.gz files
+for i in *.tar.gz; do tar -xzf $i; done
+
+# Then, delete all old .txt files from last report (or move them somewhere else)
+rm *.txt
+
+# Then create blank initial file:
+touch sra_samples.txt
+
+# Then get raw data from all dirs:
+for i in NCBI_SRA_Metadata_TCGA_*; do grep -P "\tTCGA-" $i/SRA_Accessions* | cut -f5,6,10 | sort -u >> sra_samples.txt; done
+
+# Then sort:
+sort -u sra_samples.txt > sra_samples_sorted.txt
+
+# Then clean:
+perl parse.pl sra_samples_sorted.txt
+
+# Then add BAM file info (need to copy exchange.tab to this dir, get in email from SRA)
+perl parseBAM.pl exchange.tab sra_samples_sorted.txt.clean.txt
+
+# Then run script to add disease name to the file for all samples
+perl addDiseaseColumn.pl sra_samples_sorted.txt.clean.txt tcga_subj.txt
+
+# finally, open sra_samples_sorted.txt.clean.txt in Excel, bold the headers, and sort by the first date column

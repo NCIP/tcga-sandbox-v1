@@ -1,0 +1,27 @@
+##fileformat=VCFv4.0
+##fileDate=20110627
+##reference=<ID=hg18,source=.>
+##phasing=none
+##INDIVIDUAL=TCGA-00-0000
+##SAMPLE=<ID=NORMAL,Individual=TCGA-00-0000,Description="Normal",file=test.bam,platform=Illumina,Source=dbGAP,Accession=.>
+##SAMPLE=<ID=PRIMARY,Individual=TCGA-00-0000,Description="Primary tumor",file=test.bam,platform=Illumina,Source=dbGAP,Accession=.>
+##INFO=<ID=VT,Number=.,Type=String,Description="Variant type">
+##INFO=<ID=VAS,Number=1,Type=Integer,Description="Sequencing variant status relative to normal 0=Wildtype, 1=Germline, 2=Somatic, 3=LOH, 4=Unknown">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Average variant base quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=AD,Number=1,Type=String,Description="Allele depth corresponding to alleles 0/1/2/3">
+##FORMAT=<ID=FA,Number=.,Type=Float,Description="Fractions of reads supporting alternate allele 1, per sample">
+##FORMAT=<ID=MQ60,Number=1,Type=Integer,Description="Number of reads (mapping quality=60) supporting variant">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+##FORMAT=<ID=BQ,Number=.,Type=Integer,Description="Average base quality for reads supporting alleles">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##custom1=hello
+##custom2=<a=b,c=d,e="f">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	PRIMARY
+1	970323	.	G	C,G,A	38	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0/2/3:.:0:./0:0.000:0:0:7	0/1/2/3:38:3:./3:1.000:3:0:7
+MT	970323	.	G	C,G,A	38	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0/2/3:.:0:./0:0.000:0:0:7	0/1/2/3:38:3:./3:1.000:3:0:7
+6	970323	.	GT	C,G,A,T	38	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0/2/2/3:.:0:./0:0.000:0:0:7	0/1/2/3/4:38:3:./3:1.000:3:0:7
+Y	970323	.	GT	C,G,A,T	38	CA	VT=SNP;VAS=2	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0/2/2/3:.:0:./0:0.000:0:0:7	1|2|3|4:38:3:./3:1.000:3:0:7
+

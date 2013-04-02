@@ -1,0 +1,73 @@
+{
+	"nodeData": [{
+		"name": "igc",
+		"label": "Received at IGC",
+		"image": "images/igc.jpg",
+		"numericLabel": "samples",
+		"outputs" : [{
+			"count": 18,
+			"label": "Initial Screen Failures"
+		}, {
+			"count": 685,
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "#0f0"
+		}]
+   }, {
+		"name": "pathology",
+		"label": "Pathology QC",
+		"image": "images/breast_cancer_slide_narrow.jpeg",
+		"numericLabel": "samples",
+		"outputs" : [{
+			"count": 201,
+			"label": "Pathology Failures"
+		}, {
+			"count": 481,
+			"label": "Pathology Pass",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "#0f0"
+		}, {
+			"count": 3,
+			"label": "Pathology Pending"
+		}]
+   }, {
+		"name": "molecular",
+		"label": "Molecular QC",
+		"image": "images/DNA_Science.jpeg",
+		"numericLabel": "samples",
+		"pathLength": 150,
+		"outputs" : [{
+			"count": 117,
+			"label": "Molecular DQ"
+		}, {
+			"count": 17,
+			"label": "Genotype DQ"
+		}, {
+			"count": 312,
+			"label": "Molecular Pass",
+			"connectToNextNode": "true",
+			"arrow": "false",
+			"color": "#0f0"
+		}, {
+			"count": 22,
+			"label": "Awaiting Shipment"
+		}, {
+			"count": 13,
+			"label": "Molecular Pending"
+		}]
+	}, {
+		"name": "totals",
+		"label": "Shipped",
+		"image": "images/box.jpg"
+	}],
+   "totals": {
+		"counts" : [{
+			"count": 312,
+			"label": "Total Shipped"
+		}, {
+			"count": 46,
+			"label": "Pending Shipment"
+		}]
+	}
+}

@@ -1,0 +1,32 @@
+Revision history for Perl module TCGA::Neo4j
+
+0.01 Tue Aug 21 14:10:01 2012
+    - original version; created by ExtUtils::ModuleMaker 0.51
+0.12
+    - added REST::Neo4p::Path to support paths returned by queries
+    - added a few more exception throws
+    - built out pod
+    - added pod tests
+0.121
+    - fixed the get_by_id methods in REST::Neo4p; they correctly return
+      all entities (including indexes) present already in database
+    - added tests for above in 005_db.t
+    - pod fixes 
+0.122
+    - auto creation of accessors now works on properties created in the constructor
+    - added tests for above in 007_accessors.t
+    - fixed the set_property pod (needs a hashref arg, not an array)
+0.123
+    - fixed a bug in index constructor
+0.124
+    - try/catch (with eval {}) all REST::Neo4p::Agent calls; rethrow
+    - REST::Neo4p::Agent - 'X-Stream: true' added as a default header
+      (use $agent->no_stream to remove)
+0.125
+    - Query responses are now sent to disk and rows are streamed from
+      there by the fetch() iterator
+0.1251
+    - Pod fixes (thanks Mat)
+0.126
+    - LWP::UserAgent v6.04 or greater required
+    - Batch feature implemented, new tests (008, 009)

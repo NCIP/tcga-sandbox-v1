@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the data in this is not real -->
+<brca:tcga_bcr xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:admin="http://tcga.nci/bcr/xml/administration/2.6" 
+	xmlns:util="http://tcga.nci/bcr/xml/utility/2.6" 
+	xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.6"
+	xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.6"
+	xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.6"
+	xmlns:brca="http://tcga.nci/bcr/xml/clinical/brca/2.6"
+	schemaVersion="2.6"
+    xsi:schemaLocation="https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd24/trunk/BCR/tcga.nci/bcr/xml/utility/2.6/TCGA_BCR.Utility.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd24/trunk/BCR/tcga.nci/bcr/xml/clinical/shared/2.6/TCGA_BCR.Shared_Clinical_Elements.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd24/trunk/BCR/tcga.nci/bcr/xml/administration/2.6/TCGA_BCR.Administration.xsd https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/bcr/xsd24/trunk/BCR/tcga.nci/bcr/xml/biospecimen/2.6/TCGA_BCR.Biospecimen.xsd">
+	<admin:admin>
+        <admin:bcr xsd_ver="2.6">Nationwide Children's Hospital</admin:bcr>
+        <admin:batch_number xsd_ver="2.6">0.0.0</admin:batch_number>
+        <admin:disease_code xsd_ver="2.6">BRCA</admin:disease_code>
+        <admin:day_of_dcc_upload xsd_ver="2.6">1</admin:day_of_dcc_upload>
+        <admin:month_of_dcc_upload xsd_ver="2.6">1</admin:month_of_dcc_upload>
+        <admin:year_of_dcc_upload xsd_ver="2.6">2010</admin:year_of_dcc_upload>
+    </admin:admin>
+    <brca:patient>
+        <shared:tumor_tissue_site cde="2735776" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">BREAST</shared:tumor_tissue_site>
+        <shared:prior_diagnosis cde="61396" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">NO</shared:prior_diagnosis>
+        <shared:gender cde="2200604" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">FEMALE</shared:gender>
+        <shared:vital_status cde="2939553" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">LIVING</shared:vital_status>
+        <shared:day_of_birth cde="2896952" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:day_of_birth>
+        <shared:month_of_birth cde="2896950" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:month_of_birth>
+        <shared:year_of_birth cde="2896954" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1950</shared:year_of_birth>
+        <shared:day_of_last_known_alive cde="2975724" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:day_of_last_known_alive>
+        <shared:month_of_last_known_alive cde="2975722" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:month_of_last_known_alive>
+        <shared:year_of_last_known_alive cde="2975726" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">2010</shared:year_of_last_known_alive>
+        <shared:day_of_death cde="2897028" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:month_of_death cde="2897026" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:year_of_death cde="2897030" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:day_of_last_followup cde="2897022" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:day_of_last_followup>
+        <shared:month_of_last_followup cde="2897020" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:month_of_last_followup>
+        <shared:year_of_last_followup cde="2897024" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">2010</shared:year_of_last_followup>
+        <shared:race cde="2192199" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Completed">WHITE</shared:race>
+        <shared:bcr_patient_barcode cde="2673794" xsd_ver="2.6" owner="TSS" procurement_status="Completed">TCGA-00-0000</shared:bcr_patient_barcode>
+        <shared:bcr_patient_uuid cde="" xsd_ver="2.6" owner="TSS" procurement_status="Pending"/>
+        <shared:pretreatment_history cde="64176" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">NO</shared:pretreatment_history>
+        <shared:radiation_therapy cde="2005312" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:informed_consent_verified cde="2714689" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">YES</shared:informed_consent_verified>
+        <shared:day_of_initial_pathologic_diagnosis cde="2896958" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:day_of_initial_pathologic_diagnosis>
+        <shared:month_of_initial_pathologic_diagnosis cde="2896956" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1</shared:month_of_initial_pathologic_diagnosis>
+        <shared:year_of_initial_pathologic_diagnosis cde="2896960" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">2000</shared:year_of_initial_pathologic_diagnosis>
+        <shared:day_of_new_tumor_event_after_initial_treatment cde="3104042" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:month_of_new_tumor_event_after_initial_treatment cde="3104044" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:year_of_new_tumor_event_after_initial_treatment cde="3104046" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:ethnicity cde="2192217" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Pending"/>
+        <shared:additional_radiation_therapy cde="3008761" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Pending"/>
+        <shared:additional_pharmaceutical_therapy cde="2650646" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Pending"/>
+        <shared:additional_surgery_locoregional_procedure cde="3008755" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:day_of_additional_surgery_locoregional_procedure cde="2897034" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:month_of_additional_surgery_locoregional_procedure cde="2897032" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:year_of_additional_surgery_locoregional_procedure cde="2897036" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:additional_surgery_metastatic_procedure cde="3008757" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:day_of_additional_surgery_metastatic_procedure cde="2897040" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:month_of_additional_surgery_metastatic_procedure cde="2897038" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:year_of_additional_surgery_metastatic_procedure cde="2897042" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <shared:person_neoplasm_cancer_status cde="2759550" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Completed">TUMOR FREE</shared:person_neoplasm_cancer_status>
+        <brca:lymph_node_examined_count cde="3" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">2+</brca:lymph_node_examined_count>
+        <brca:er_detection_method_text cde="69" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_tumor_stage_grouping_stage cde="85" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Stage IIA</brca:breast_tumor_stage_grouping_stage>
+        <brca:pgr_detection_method_text cde="785" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_tumor_pathologic_t_stage cde="2370" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">T2</brca:breast_tumor_pathologic_t_stage>
+        <brca:breast_tumor_pathologic_n_stage cde="2372" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">pN0(i-)</brca:breast_tumor_pathologic_n_stage>
+        <brca:anatomic_site_location_descriptors>
+            <brca:anatomic_site_location_descriptor cde="2008006" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Right</brca:anatomic_site_location_descriptor>
+        </brca:anatomic_site_location_descriptors>
+        <brca:her2_neu_chromosone_17_signal_ratio_value cde="2497552" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">3.0</brca:her2_neu_chromosone_17_signal_ratio_value>
+        <brca:axillary_lymph_node_stage_method_type cde="2516112" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Sentinel node biopsy alone</brca:axillary_lymph_node_stage_method_type>
+        <brca:axillary_lymph_node_stage_other_method_descriptive_text cde="3124496" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:primary_other_site_of_disease_name cde="2584114" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_carcinoma_surgical_procedure_name cde="2739580" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_neoplasm_other_surgical_procedure_descriptive_text cde="3124493" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_carcinoma_first_surgical_procedure_name cde="2739580" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Simple Mastectomy</brca:breast_carcinoma_first_surgical_procedure_name>
+        <brca:surgical_procedure_purpose_other_text cde="2467630" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_cancer_optical_measurement_histologic_type cde="2549638" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Infiltrating Ductal</brca:breast_cancer_optical_measurement_histologic_type>
+        <brca:tumor_other_histologic_subtype_descriptive_text cde="3124492" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:person_menopause_status cde="2957270" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Pre (&lt;6 months since LMP AND no prior bilateral ovariectomy AND not on estrogen replacement)</brca:person_menopause_status>
+        <brca:breast_carcinoma_progesterone_receptor_status cde="2957357" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Positive</brca:breast_carcinoma_progesterone_receptor_status>
+        <brca:cytokeratin_immunohistochemistry_staining_method_micrometastasis_indicator cde="3086152" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">YES</brca:cytokeratin_immunohistochemistry_staining_method_micrometastasis_indicator>
+        <brca:immunohistochemistry_positive_cell_score cde="2230166" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_immunohistochemistry_level_result cde="2178402" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">1+</brca:her2_immunohistochemistry_level_result>
+        <brca:breast_cancer_surgery_margin_status cde="2241252" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:disease_surgical_margin_status cde="3114007" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Negative</brca:disease_surgical_margin_status>
+        <brca:first_pathologic_diagnosis_biospecimen_acquisition_method_type cde="2757941" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Core needle biopsy</brca:first_pathologic_diagnosis_biospecimen_acquisition_method_type>
+        <brca:first_pathologic_diagnosis_biospecimen_acquisition_other_method_text cde="2757948" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:adjuvant_postop_targeted_therapy_admin_indicator cde="2785850" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Pending"/>
+        <brca:lab_procedure_her2_neu_in_situ_hybrid_outcome_type cde="2854089" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Positive</brca:lab_procedure_her2_neu_in_situ_hybrid_outcome_type>
+        <brca:breast_carcinoma_estrogen_receptor_status cde="2957359" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Positive</brca:breast_carcinoma_estrogen_receptor_status>
+        <brca:lab_proc_her2_neu_immunohistochemistry_receptor_status cde="2957563" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Positive</brca:lab_proc_her2_neu_immunohistochemistry_receptor_status>
+        <brca:pos_finding_lymph_node_keratin_immunohistochemistry_staining_method_count cde="3086383" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">0</brca:pos_finding_lymph_node_keratin_immunohistochemistry_staining_method_count>
+        <brca:pos_finding_lymph_node_hematoxylin_and_eosin_staining_microscopy_count cde="3086388" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">0</brca:pos_finding_lymph_node_hematoxylin_and_eosin_staining_microscopy_count>
+        <brca:pos_finding_progesterone_receptor_other_measurement_scale_text cde="3086857" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">moderate</brca:pos_finding_progesterone_receptor_other_measurement_scale_text>
+        <brca:positive_finding_estrogen_receptor_other_measurement_scale_text cde="3086851" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">strong</brca:positive_finding_estrogen_receptor_other_measurement_scale_text>
+        <brca:her2_erbb_pos_finding_cell_percent_category cde="3086980" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:pos_finding_her2_erbb2_other_measurement_scale_text cde="3087479" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_erbb_method_calculation_method_text cde="3087487" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_neu_and_centromere_17_copy_number_analysis_input_total_number_count cde="3087902" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending" xsi:nil="true"/>
+        <brca:her2_and_centromere_17_positive_finding_other_measurement_scale_text cde="3087923" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text cde="3087929" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:tissue_prospective_collection_indicator cde="3088492" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Completed">NO</brca:tissue_prospective_collection_indicator>
+        <brca:tissue_retrospective_collection_indicator cde="3088528" xsd_ver="2.6" tier="2" owner="TSS" procurement_status="Completed">YES</brca:tissue_retrospective_collection_indicator>
+        <brca:fluorescence_in_situ_hybridization_diagnostic_procedure_chromosome_17_signal_result_range cde="3104295" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:first_nonlymph_node_metastasis_anatomic_sites>
+            <brca:first_nonlymph_node_metastasis_anatomic_site cde="3124499" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Not Available"/>
+            <brca:first_recurrent_non_nodal_metastatic_anatomic_site_descriptive_text cde="3124503" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Not Applicable"/>
+        </brca:first_nonlymph_node_metastasis_anatomic_sites>
+        <brca:breast_tumor_clinical_m_stage cde="3128320" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">M0</brca:breast_tumor_clinical_m_stage>
+        <brca:er_level_cell_percentage_category cde="3128341" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">80-89%</brca:er_level_cell_percentage_category>
+        <brca:progesterone_receptor_level_cell_percent_category cde="3128342" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">50-59%</brca:progesterone_receptor_level_cell_percent_category>
+        <brca:metastatic_breast_carcinoma_estrogen_receptor_status cde="3131865" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_estrogen_receptor_level_cell_percent_category cde="3131869" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_immunohistochemistry_er_pos_cell_score cde="3131873" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:pos_finding_metastatic_breast_carcinoma_estrogen_receptor_other_measuremenet_scale_text cde="3131877" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_estrogen_receptor_detection_method_text cde="3131881" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_progesterone_receptor_status cde="3131884" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_lab_proc_her2_neu_immunohistochemistry_receptor_status cde="3131997" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_progesterone_receptor_level_cell_percent_category cde="3131891" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_immunohistochemistry_pr_pos_cell_score cde="3131988" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_pos_finding_progesterone_receptor_other_measure_scale_text cde="3131992" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_progesterone_receptor_detection_method_text cde="3131993" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_her2_erbb_pos_finding_cell_percent_category cde="3132322" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_erbb2_immunohistochemistry_level_result cde="3132444" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_pos_finding_her2_erbb2_other_measure_scale_text cde="3132448" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_her2_erbb_method_calculation_method_text cde="3132452" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_lab_proc_her2_neu_in_situ_hybridization_outcome_type cde="3132455" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_fluorescence_in_situ_hybridization_diagnostic_proc_centromere_17_signal_result_range cde="3132887" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_neu_and_centromere_17_copy_number_metastatic_breast_carcinoma_analysis_input_total_number_count cde="3132899" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending" xsi:nil="true"/>
+        <brca:metastatic_breast_carcinoma_her2_neu_chromosone_17_signal_ratio_value cde="3132903" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending" xsi:nil="true"/>
+        <brca:metastatic_breast_carcinoma_pos_finding_other_scale_measurement_text cde="3132907" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:metastatic_breast_carcinoma_her2_erbb_pos_finding_fluorescence_in_situ_hybridization_calculation_method_text cde="3132910" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:her2_neu_metastatic_breast_carcinoma_copy_analysis_input_total_number cde="3133734" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending" xsi:nil="true"/>
+        <brca:her2_neu_breast_carcinoma_copy_analysis_input_total_number cde="3133738" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending" xsi:nil="true"/>
+        <brca:breast_carcinoma_immunohistochemistry_pos_cell_score cde="3133874" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Pending"/>
+        <brca:breast_tumor_pathologic_grouping_stage cde="3134022" xsd_ver="2.6" tier="1" owner="TSS" procurement_status="Completed">Stage IIA</brca:breast_tumor_pathologic_grouping_stage>
+        <shared:day_of_form_completion cde="2975716" xsd_ver="2.6" tier="" owner="TSS" procurement_status="Completed">10</shared:day_of_form_completion>
+        <shared:month_of_form_completion cde="2975718" xsd_ver="2.6" tier="" owner="TSS" procurement_status="Completed">10</shared:month_of_form_completion>
+        <shared:year_of_form_completion cde="2975720" xsd_ver="2.6" tier="" owner="TSS" procurement_status="Completed">2010</shared:year_of_form_completion>
+        <rx:drugs/>
+        <rad:radiations/>
+    </brca:patient>
+</brca:tcga_bcr>

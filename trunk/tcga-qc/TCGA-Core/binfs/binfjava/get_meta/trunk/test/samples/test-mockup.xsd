@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.example.org/try" 
+	xmlns:tns="http://www.example.org/try" 
+	elementFormDefault="unqualified">		
+		
+  <element name="toplevel">
+    <complexType>
+      <sequence>
+	<!-- the element test_true is classed as metadata in its definition below -->
+	<element ref="tns:test_true"/>
+	<!-- the element test_false is not metadata -->
+	<element ref="tns:test_true"/>
+      </sequence> 
+    </complexType>
+  </element>
+  
+  <element name="test_true">
+    <complexType>
+      <simpleContent>
+	<restriction base="tns:common_res_attributes">
+	  <enumeration value="glurb"/>
+	  <attribute name="cde" type="string" default="233432"/>
+	  <attribute name="precision" type="string" default=""/>
+	  <!-- add the metadata attribute in the definition of the test_true element to 
+	       set as metadata -->
+	  <attribute name="is_uuid_associated_metadata" type="boolean" fixed="true" use="optional"/>
+	</restriction>
+      </simpleContent>
+    </complexType>
+  </element>
+  
+  <element name="test_false">
+    <complexType>
+      <simpleContent>
+	<restriction base="tns:common_res_attributes">
+	  <attribute name="cde" type="string" default="233433"/>
+	  <attribute name="precision" type="string" default=""/>
+	  <!-- no metadata attribute prescribed in the definition implies that
+	       the item is not metadata -->
+	</restriction>
+      </simpleContent>
+    </complexType>
+  </element>
+  
+  <!-- here, we're looking at mods to TCGA_BCR.Utility.xsd ... -->
+
+  <complexType name="common_res_attributes">
+    <simpleContent>
+      <extension base="string">
+	<attributeGroup ref="tns:common_res_attribute_group"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <attributeGroup name="common_res_attribute_group">
+    <attribute name="cde" type="string" default=""/>
+    <attribute name="precision" type="string" use="optional" />
+    <attribute name="xsd_ver" type="string" use="optional" default="" />
+    <!-- add the metadata attribute as an optional member of the common group -->
+    <attribute name="is_uuid_associated_metadata" type="boolean" default="false" use="optional"/>
+  </attributeGroup>
+  
+ 	
+	
+</schema>

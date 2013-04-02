@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: TCGA_BCR.STAD_Clinical.xsd 1257 2011-09-26 20:57:29Z kburnett $ -->
+<xs:schema 
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+ xmlns:utility="http://tcga.nci/bcr/xml/utility/2.5" 
+ xmlns:admin="http://tcga.nci/bcr/xml/administration/2.5" 
+ xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5" 
+ xmlns:rad="http://tcga.nci/bcr/xml/clinical/radiation/2.5" 
+ xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5" 
+ xmlns:follow_up_v1.0="http://tcga.nci/bcr/xml/clinical/stad/followup/2.5/1.0" 
+ xmlns:cqcf="http://tcga.nci/bcr/xml/clinical/cqcf/2.5" 
+ xmlns="http://tcga.nci/bcr/xml/clinical/stad/2.5" 
+ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+ targetNamespace="http://tcga.nci/bcr/xml/clinical/stad/2.5" 
+ elementFormDefault="qualified" 
+ version="2.5.3" 
+ jaxb:version="1.0">
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings generateIsSetMethod="true"/>
+			<jaxb:schemaBindings>
+				<jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.stad"/>
+			</jaxb:schemaBindings>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:annotation>
+		<xs:documentation xml:lang="en">Schema to define the elements of the STAD study.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://tcga.nci/bcr/xml/utility/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/utility/2.5/TCGA_BCR.Utility.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/administration/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/administration/2.5/TCGA_BCR.Administration.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/radiation/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/radiation/2.5/TCGA_BCR.Radiation.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/pharmaceutical/2.5/TCGA_BCR.Pharmaceutical.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/stad/followup/2.5/1.0" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/stad/followup/2.5/TCGA_BCR.STAD_Clinical_FollowUp_v1.0.xsd"/>
+	<xs:import namespace="http://tcga.nci/bcr/xml/clinical/cqcf/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/cqcf/2.5/TCGA_BCR.CQCF.xsd"/>
+	<xs:element name="tcga_bcr">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="admin:admin"/>
+				<xs:element ref="patient"/>
+			</xs:sequence>
+			<xs:attribute name="schemaVersion" type="xs:decimal" use="required" fixed="2.5"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="patient">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="shared:tumor_tissue_site"/>
+				<xs:element ref="histological_type"/>
+				<xs:element ref="shared:prior_diagnosis"/>
+				<xs:element ref="shared:gender"/>
+				<xs:element ref="shared:vital_status"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_birth"/>
+						<xs:element ref="shared:month_of_birth"/>
+						<xs:element ref="shared:year_of_birth"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_birth"/>
+				</xs:choice>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_death"/>
+						<xs:element ref="shared:month_of_death"/>
+						<xs:element ref="shared:year_of_death"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_death"/>
+				</xs:choice>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_last_followup"/>
+						<xs:element ref="shared:month_of_last_followup"/>
+						<xs:element ref="shared:year_of_last_followup"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_last_followup"/>
+				</xs:choice>
+				<xs:element ref="shared:race"/>
+				<xs:element ref="shared:bcr_patient_barcode"/>
+				<xs:element ref="shared:tissue_source_site"/>
+				<xs:element ref="shared:patient_id"/>
+				<xs:element ref="shared:bcr_patient_uuid"/>
+				<xs:element ref="shared:pretreatment_history"/>
+				<xs:element ref="shared:informed_consent_verified"/>
+				<xs:element ref="shared:icd_o_3_site"/>
+				<xs:element ref="shared:icd_o_3_histology"/>
+				<xs:element ref="shared:icd_10"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_initial_pathologic_diagnosis"/>
+						<xs:element ref="shared:month_of_initial_pathologic_diagnosis"/>
+					</xs:sequence>
+					<xs:sequence>
+						<xs:element ref="shared:days_to_initial_pathologic_diagnosis"/>
+						<xs:element ref="shared:age_at_initial_pathologic_diagnosis"/>
+					</xs:sequence>
+				</xs:choice>
+				<xs:element ref="shared:year_of_initial_pathologic_diagnosis"/>
+				<xs:element ref="shared:ethnicity"/>
+				<xs:element ref="shared:person_neoplasm_cancer_status"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="shared:day_of_form_completion"/>
+						<xs:element ref="shared:month_of_form_completion"/>
+						<xs:element ref="shared:year_of_form_completion"/>
+					</xs:sequence>
+					<xs:element ref="shared:days_to_form_completion"/>
+				</xs:choice>
+				<xs:element ref="shared:ajcc_cancer_staging_handbook_edition" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tumor_stage"/>
+				<xs:element ref="shared:anatomic_organ_subdivision" minOccurs="0"/>
+				<xs:element ref="stomach_neoplasm_anatomic_subsite" minOccurs="0"/>
+				<xs:element ref="shared:primary_lymph_node_presentation_assessment"/>
+				<xs:element ref="shared:lymph_node_examined_count"/>
+				<xs:element ref="shared:number_of_lymphnodes_positive_by_he"/>
+				<xs:element ref="shared:number_of_lymphnodes_positive_by_ihc"/>
+				<xs:element ref="primary_tumor_pathologic_spread"/>
+				<xs:element ref="lymphnode_pathologic_spread"/>
+				<xs:element ref="distant_metastasis_pathologic_spread"/>
+				<xs:element ref="shared:neoplasm_histologic_grade"/>
+				<xs:element ref="state_province_country_of_procurement"/>
+				<xs:element ref="city_of_procurement"/>
+				<xs:element ref="shared:residual_tumor"/>
+				<xs:element ref="reflux_history"/>
+				<xs:element ref="antireflux_treatment"/>
+				<xs:element ref="antireflux_treatment_types"/>
+				<xs:element ref="barretts_esophagus"/>
+				<xs:element ref="h_pylori_infection"/>
+				<xs:element ref="family_history_of_stomach_cancer"/>
+				<xs:element ref="number_of_relatives_with_stomach_cancer"/>
+				<xs:element ref="rx:drugs"/>
+				<xs:element ref="rad:radiations"/>
+				<xs:element ref="clinical_cqcf"/>
+				<xs:element name="follow_ups">
+					<xs:annotation>
+						<xs:documentation>We are using namespaces and version numbers to distinguish one version of followup from another.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="follow_up_v1.0:follow_up_v1.0" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="clinical_cqcf">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cqcf:frozen_specimen_anatomic_site"/>
+				<xs:element ref="cqcf:history_of_prior_malignancy"/>
+								<xs:element ref="cqcf:history_of_neoadjuvant_treatment"/>
+								<xs:element ref="cqcf:consent_or_death_status"/>
+								<xs:choice>
+									<xs:choice>
+										<xs:sequence>
+											<xs:element ref="cqcf:day_of_consent"/>
+											<xs:element ref="cqcf:month_of_consent"/>
+											<xs:element ref="cqcf:year_of_consent"/>
+										</xs:sequence>
+										<xs:element ref="cqcf:days_to_consent"/>
+									</xs:choice>
+									<xs:choice>
+										<xs:sequence>
+											<xs:element ref="shared:day_of_death"/>
+											<xs:element ref="shared:month_of_death"/>
+											<xs:element ref="shared:year_of_death"/>
+										</xs:sequence>
+										<xs:element ref="shared:days_to_death"/>
+									</xs:choice>
+								</xs:choice>
+								<xs:element ref="cqcf:diagnosis_subtype"/>
+								<xs:element ref="shared:prior_diagnosis"/>
+								<xs:element ref="cqcf:normal_tissue_anatomic_site" maxOccurs="unbounded"/>
+								<xs:element ref="cqcf:normal_tissue_proximity" maxOccurs="unbounded"/>
+								<xs:element ref="cqcf:tumor_type" maxOccurs="unbounded"/>
+								<xs:element ref="cqcf:histological_subtype" minOccurs="0"/>
+								<xs:element ref="cqcf:other_anatomic_site" minOccurs="0"/>
+								<xs:element ref="cqcf:other_anatomic_site_normal_tissue" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="cqcf:country"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="number_of_relatives_with_stomach_cancer" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3203277"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="antireflux_treatment_types">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="antireflux_treatment_type"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="antireflux_treatment_type" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Proton Pump Inhibitors"/>
+					<xs:enumeration value="H2 Blockers"/>
+					<xs:enumeration value="Antacids"/>
+					<xs:attribute name="cde" type="xs:string" default="3203127"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="h_pylori_infection" nillable="true">
+		<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="utility:yes_or_no">
+							<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+							<xs:attribute name="cde" type="xs:string" default="3203146"/>
+							<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+							<xs:attribute name="tier" type="xs:string" default="2"/>
+						</xs:extension>
+					</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="state_province_country_of_procurement" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default=""/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="city_of_procurement" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3203075"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="reflux_history" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3203079"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="antireflux_treatment" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3203107"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="barretts_esophagus" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3203140"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="family_history_of_stomach_cancer" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="utility:yes_or_no">
+					<xs:attributeGroup ref="utility:common_ext_attribute_group"/>
+					<xs:attribute name="cde" type="xs:string" default="3203179"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="2"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="histological_type" nillable="true">
+		<xs:complexType mixed="true">
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:attribute name="cde" type="xs:string" default="3081934"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.9"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tumor_stage" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="Stage I"/>
+					<xs:enumeration value="Stage IA"/>
+					<xs:enumeration value="Stage IB"/>
+					<xs:enumeration value="Stage II"/>
+					<xs:enumeration value="Stage IIA"/>
+					<xs:enumeration value="Stage IIB"/>
+					<xs:enumeration value="Stage III"/>
+					<xs:enumeration value="Stage IIIA"/>
+					<xs:enumeration value="Stage IIIB"/>
+					<xs:enumeration value="Stage IIIC"/>
+					<xs:enumeration value="Stage IV"/>
+					<xs:attribute name="cde" type="xs:string" default="3065862"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="1.11"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lymphnode_pathologic_spread" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="NX"/>
+					<xs:enumeration value="N0"/>
+					<xs:enumeration value="N1"/>
+					<xs:enumeration value="N2"/>
+					<xs:enumeration value="N3"/>
+					<xs:enumeration value="N3a"/>
+					<xs:enumeration value="N3b"/>
+					<xs:attribute name="cde" type="xs:string" default="3065858"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.1"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="distant_metastasis_pathologic_spread" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="M0"/>
+					<xs:enumeration value="M1"/>
+					<xs:enumeration value="MX"/>
+					<xs:attribute name="cde" type="xs:string" default="3045439"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.4"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="primary_tumor_pathologic_spread" nillable="true">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:restriction base="utility:clinical_res_attributes">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="TX"/>
+					<xs:enumeration value="T0"/>
+					<xs:enumeration value="T1"/>
+					<xs:enumeration value="T1a"/>
+					<xs:enumeration value="T1b"/>
+					<xs:enumeration value="T2"/>
+					<xs:enumeration value="T2a"/>
+					<xs:enumeration value="T2b"/>
+					<xs:enumeration value="T3"/>
+					<xs:enumeration value="T4"/>
+					<xs:enumeration value="T4a"/>
+					<xs:enumeration value="T4b"/>
+					<xs:attribute name="cde" type="xs:string" default="3045435"/>
+					<xs:attribute name="xsd_ver" type="xs:string" default="2.1"/>
+					<xs:attribute name="tier" type="xs:string" default="1"/>
+				</xs:restriction>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="stomach_neoplasm_anatomic_subsite" nillable="true">
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:restriction base="utility:clinical_res_attributes">
+						<xs:enumeration value=""/>
+						<xs:enumeration value="Antrum / Distal"/>
+						<xs:enumeration value="Cardia / Proximal"/>
+						<xs:enumeration value="Fundus / Body"/>
+						<xs:enumeration value="Gastroesophageal Junction"/>
+						<xs:enumeration value="Other "/>
+						<xs:attribute name="cde" type="xs:string" default="3212021"/>
+						<xs:attribute name="xsd_ver" type="xs:string" default="2.1"/>
+						<xs:attribute name="tier" type="xs:string" default="1"/>
+					</xs:restriction>
+				</xs:simpleContent>
+			</xs:complexType>
+	</xs:element>
+</xs:schema>

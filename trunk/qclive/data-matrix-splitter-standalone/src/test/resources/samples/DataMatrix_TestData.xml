@@ -1,0 +1,72 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<dataset>
+    <center_type center_type_code="CGCC" center_type_definition="cgcc"/>
+    <center center_id="1" domain_name="test.org" center_type_code="CGCC" display_name="test"/>
+    <center_to_bcr_center bcr_center_id="01" center_id="1" center_type_code="CGCC" />
+
+    <sample_type sample_type_code="01" definition="sample 01"/>
+    <sample_type sample_type_code="33" definition="sample 33"/>
+    <project project_code="TCGA" definition="TCGA project"/>
+    <portion_analyte portion_analyte_code="R" definition="R analyte"/>
+    <portion_analyte portion_analyte_code="W" definition="W analyte"/>
+    <tissue_source_site tss_code="02" tss_definition="TSS 2" receiving_center_id="1"/>
+    <tissue_source_site tss_code="11" tss_definition="TSS 11" receiving_center_id="1"/>
+
+
+
+    <data_type data_type_id="1" center_type_code="CGCC" name="Complete CGCC archives" ftp_display="level2" available="1" sort_order="11"/>
+
+    <platform platform_id="1" center_type_code="CGCC" platform_name="HG-U133A_2" available="0" sort_order="1" platform_display_name="Affymetrix Human Genome U133A 2.0 Array" platform_alias="HG-U133A_2" base_data_type_id="1"/>
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="Glioblastoma multiforme (GBM)" active="1"/>
+    <data_level level_number="2" level_definition="Raw data"/>
+    <archive_type archive_type_id="1" archive_type="level2" data_level="2"/>
+
+    <archive_info archive_id="1" archive_name="hms.12.0.0" center_id="1" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+    <archive_info archive_id="2" archive_name="hms.13.0.1" center_id="1" disease_id="1" platform_id="1" serial_index="1" revision="0" series="0" date_added="2009-04-01 16:44:50.387" deploy_status="Available" deploy_location="/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/ov/bcr/intgen.org/bio/clin/intgen.org_OV.bio.12.0.0.tar.gz" is_latest="1" archive_type_id="1" is_latest_loaded="1"/>
+
+
+    <file_info file_id="1" level_number="2" file_name="hms-111.txt" file_size="1024" md5="blah" data_type_id="1" />
+    <file_info file_id="2" level_number="2" file_name="hms-222.txt" file_size="1024" md5="blah" data_type_id="1" />
+    <file_info file_id="3" level_number="2" file_name="hms-333.txt" file_size="1024" md5="blah" data_type_id="1" />
+    <file_info file_id="4" level_number="2" file_name="hms-single.txt" file_size="1024" md5="blah" data_type_id="1" />
+
+    <file_to_archive file_archive_id="1" file_id="1" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="1"/>
+    <file_to_archive file_archive_id="2" file_id="2" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="2"/>
+    <file_to_archive file_archive_id="3" file_id="3" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="2"/>
+    <file_to_archive file_archive_id="4" file_id="4" file_location_url="/broad.mit.edu_GBM.HT_HG-U133A.1.sdrf.txt" archive_id="2"/>
+
+
+    <biospecimen_barcode biospecimen_id="1000" barcode="TCGA-11-3333-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+    <biospecimen_barcode biospecimen_id="1001" barcode="TCGA-11-4444-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+    <biospecimen_barcode biospecimen_id="1002" barcode="TCGA-11-5555-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+    <biospecimen_barcode biospecimen_id="1003" barcode="TCGA-11-6666-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+    <biospecimen_barcode biospecimen_id="1004" barcode="TCGA-11-7777-33A-44W-5555-66" project_code="TCGA"
+                         tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                         portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+    <biospecimen_barcode biospecimen_id="1005" barcode="TCGA-11-8888-33A-44W-5555-66" project_code="TCGA"
+                           tss_code="02" patient="3333" sample_type_code="33" sample_sequence="A"
+                           portion_sequence="44" portion_analyte_code="W" plate_id="5555" bcr_center_id="66" is_viewable="1" />
+
+    <biospecimen_to_file biospecimen_file_id = "1000" biospecimen_id="1000" file_id="1" file_col_name="Derived Array Data Matrix File"/>
+    <biospecimen_to_file biospecimen_file_id = "1001" biospecimen_id="1001" file_id="1" file_col_name="Derived Array Data Matrix File"/>
+    <biospecimen_to_file biospecimen_file_id = "1002" biospecimen_id="1002" file_id="2" file_col_name="Derived Array Data Matrix File"/>
+    <biospecimen_to_file biospecimen_file_id = "1003" biospecimen_id="1003" file_id="2" file_col_name="Derived Array Data Matrix File"/>
+    <biospecimen_to_file biospecimen_file_id = "1004" biospecimen_id="1004" file_id="3" file_col_name="Derived Array Data Matrix File"/>
+    <biospecimen_to_file biospecimen_file_id = "1005" biospecimen_id="1005" file_id="3" file_col_name="Derived Array Data Matrix File"/>
+
+</dataset>

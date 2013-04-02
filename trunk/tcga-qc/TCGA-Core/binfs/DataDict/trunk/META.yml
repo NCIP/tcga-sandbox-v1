@@ -1,0 +1,39 @@
+---
+abstract: 'Tools for maintaining a BCR data dictionary'
+author:
+  - 'Mark A. Jensen'
+build_requires:
+  IPC::Run3: 0
+  Test::Exception: 0
+  Test::More: 0
+  Test::Warn: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: restrictive
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: DataDict
+provides:
+  DataDict::Dictionary:
+    file: lib/DataDict/Dictionary.pm
+  DataDict::Dictionary::Entry:
+    file: lib/DataDict/Dictionary/Entry.pm
+  DataDict::OCDump:
+    file: lib/DataDict/OCDump.pm
+  DataDict::OCDump::Record:
+    file: lib/DataDict/OCDump.pm
+  DataDict::Validator:
+    file: lib/DataDict/Validator.pm
+  DataDict::XSDParser:
+    file: lib/DataDict/XSDParser.pm
+  DataDict::XSDParser::Elt:
+    file: lib/DataDict/XSDParser.pm
+  DataDict::caDSR:
+    file: lib/DataDict/caDSR.pm
+requires:
+  Scalar::Util: 0
+  XML::Twig: 0
+  perl: 5.008
+version: 0.2

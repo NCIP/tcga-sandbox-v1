@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tcga</groupId>
+  <artifactId>tcgaproto</artifactId>
+  <packaging>war</packaging>
+  <name>tcga</name>
+  <version>0.1</version>
+  <description>tcga</description>
+  <developers>
+    <developer>
+      <name>Jim Jordan</name>
+    </developer>
+  </developers>
+  <repositories>
+     <repository>
+       <id>maven-repository.dev.java.net</id>
+       <name>Java.net Repository for Maven 1</name>
+       <url>http://download.java.net/maven/1/</url>
+       <layout>legacy</layout>
+     </repository>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven 2</name>
+          <url>http://download.java.net/maven/2/</url>
+          <layout>default</layout>
+        </repository>
+	</repositories>
+  <profiles>
+  	<profile>
+  		<id>dev</id>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+	    <properties>
+	  	   <env>dev</env>
+	  	   <filter>dev</filter>
+	       <javaVersion>1.5</javaVersion>
+	    </properties> 		
+  	</profile>
+  </profiles>  
+  <build>
+    <filters>
+      <filter>src/main/filters/project-${filter}.properties</filter>
+    </filters>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/webapp/WEB-INF</directory>
+      </resource>
+    </resources>
+    <finalName>${artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <webappDirectory>c:\Program Files\Apache Group\Tomcat 6.0\webapps\${artifactId}</webappDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${javaVersion}</source>
+          <target>${javaVersion}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  </dependencies>
+</project>

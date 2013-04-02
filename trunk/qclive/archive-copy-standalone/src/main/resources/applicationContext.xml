@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+	Copyright Notice. The software subject to this notice and license includes
+	both human ~ readable source code form and machine readable, binary, object
+	code form (the "caBIG ~ Software"). ~ ~ Please refer to the complete License
+	text for full details at the root of the project. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:tcgaDBConnect.properties" />
+
+    <!-- import data source bean declarations -->
+    <import resource="data-sources.xml"/>
+
+    <bean id="commonTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+	<bean id="dccCommonJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dccCommonDataSource" />
+	</bean>
+
+    <!-- Data source based on disease name -->
+    <bean id="diseaseDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource"
+          lazy-init="default" autowire="default">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.SpringDataSourceMaker" lazy-init="default"
+                  autowire="default">
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${diseaseDataSources}"/>
+    </bean>
+
+    <bean id="dccCommonArchiveQueriesJDBCImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseArchiveQueriesJDBCImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+    <bean id="dccCommonFileInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseFileInfoQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.FileInfoQueriesJDBCImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="bcrIdProcessor" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BCRIDProcessorImpl" lazy-init="true">
+        <property name="patientElementUUIDXPath" value="//patient/bcr_patient_uuid"/>
+    </bean>
+
+    <bean id="dccCommonUUIDQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl" lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="diseaseUUIDQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl" lazy-init="true">
+        <property name="dataSource" ref="diseaseDataSource"/>
+    </bean>
+
+    <bean id="archiveCopyStandalone" class="gov.nih.nci.ncicb.tcga.dcc.qclive.standalone.ArchiveCopyStandalone" >
+        <property name="dccCommonArchiveQueries" ref="dccCommonArchiveQueriesJDBCImpl" />
+        <property name="diseaseArchiveQueries" ref="diseaseArchiveQueriesJDBCImpl" />
+        <property name="dccCommonFileInfoQueries" ref="dccCommonFileInfoQueries" />
+        <property name="diseaseFileInfoQueries" ref="diseaseFileInfoQueries" />
+        <property name="bcrIdProcessor" ref="bcrIdProcessor" />
+        <property name="dccCommonUUIDQueries" ref="dccCommonUUIDQueries"/>
+        <property name="diseaseUUIDQueries" ref="diseaseUUIDQueries"/>
+        <property name="actualDeployRootLocation" value="${tcga.dcc.ActualDeployRoot}" />
+        <property name="mountDeployRootLocation" value="${tcga.dcc.MountDeployRoot}" />
+    </bean>
+
+</beans>

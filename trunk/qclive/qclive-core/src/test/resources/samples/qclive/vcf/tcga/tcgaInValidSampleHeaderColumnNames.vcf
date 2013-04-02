@@ -1,0 +1,27 @@
+##fileformat=VCFv4.1
+##fileDate=20090805
+##tcgaversion=1.1
+##center="Broad,UCSC,BCM"
+##vcfProcessLog=<InputVCF=<file1.vcf>,InputVCFSource=<varCaller1>,InputVCFVer=<1.0>,InputVCFParam=<a1>,InputVCFgeneAnno=<anno1.gaf>>
+##reference=1000GenomesPilot-NCBI36
+##phasing=none
+##SAMPLE=foo
+##SAMPLE=<ID=NORMAL,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##SAMPLE=<ID=TUMOR,SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##SAMPLE=<SampleName=TCGA-06-0881-10A-01W,Individual=TCGA-06-0881,Description="Normal",File=TCGA-06-0881-10A-01W-0421-09.bam,Platform=Illumina,Source=dbGAP,Accession=1234,Genomes=<Germline,Tumor>,Mixture=<0.1,0.9>,Genome_Description=<"Germline contamination","Tumor genome">>
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant type">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##FILTER=<ID=CA,Description="Fail Carnac (Tumor and normal coverage, tumor variant count, mapping quality, allele fraction, strand, variant read position, base quality)">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Average variant base quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=AD,Number=1,Type=String,Description="Allele depth corresponding to alleles 0/1/2/3">
+##FORMAT=<ID=FA,Number=.,Type=Float,Description="Fractions of reads supporting alternate allele 1, per sample">
+##FORMAT=<ID=MQ60,Number=1,Type=Integer,Description="Number of reads (mapping quality=60) supporting variant">
+##FORMAT=<ID=SS,Number=1,Type=Integer,Description="Variant status relative to non-adjacent Normal,0=wildtype,1=germline,2=somatic,3=LOH,4=post-transcriptional modification,5=unknown">
+##FORMAT=<ID=BQ,Number=.,Type=Integer,Description="Average base quality for reads supporting alleles">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	PRIMARY
+1	59498	id1	G	<DEL:ME:ALU>	37	CA	VT=SNP	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0:.:468:./1:0.002:0:0:7	0/1:37:543:./2:0.004:0:0:7
+1	59498	id2	G	<DEL:ME:ALU>	37	CA	VT=INS	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0:.:468:./1:0.002:0:0:7	0/1:37:543:./2:0.004:0:0:7
+1	59498	id3	G	<DEL:ME:ALU>	37	CA	VT=DEL	GT:GQ:DP:AD:FA:MQ60:SS:BQ	0/0:.:468:./1:0.002:0:0:7	0/1:37:543:./2:0.004:0:0:7
+

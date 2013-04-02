@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- not connection pooled, proly doesn't matter for the standalne loader, if it does switch 3cp0    -->
+    <!-- implement   DiseaseRoutingDataSource biz -->
+    <bean id="tcgaCOADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="tcgaGBMDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="tcgaOVDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    
+    <bean id="tcgaREADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    
+    <bean id="tcgaDLBCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    
+    <bean id="tcgaPAADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    
+    <bean id="tcgaLUSCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="tcgaLAMLDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaBRCADS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaKIRCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaKIRPDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaUCECDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaLUADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+       <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaLNNHDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+       <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaLIHCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+       <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaLGGDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaLCLLDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaHNSCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaCESCDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaBLPDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaBLNPDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaTHCADS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaSTADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaSKCMDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+       <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaSALDDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="tcgaPRADDS" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406.nci.nih.gov:1562:tcgadb"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@ncias-c406:1562:tcgadb"/>
+       <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+</beans>

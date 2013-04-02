@@ -1,0 +1,56 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<tcga_bcr xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.3"
+          xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.3">
+    <admin>
+        <favorite_muppet>Beaker</favorite_muppet>
+    </admin>
+    <shared:patient>
+        <!-- test -->
+        <bcr_patient_barcode>patient-A</bcr_patient_barcode>
+        <bcr_patient_uuid>uuid-patient-A</bcr_patient_uuid>
+        <shared:gender>FEMALE</shared:gender>
+        <age_at_diagnosis>123</age_at_diagnosis>
+        <vital_status>ALIVE</vital_status>
+        <drugs>
+            <drug>
+                <rx:bcr_drug_barcode>drug-1</rx:bcr_drug_barcode>
+                <rx:bcr_drug_uuid>uuid-drug-1</rx:bcr_drug_uuid>
+                <drug_name>cisplatin</drug_name>
+                <drug_type>chemotherapy</drug_type>
+            </drug>
+        </drugs>
+        <surgeries>
+            <surgery>
+                <bcr_surgery_barcode>surgery-1</bcr_surgery_barcode>
+                <bcr_surgery_uuid>uuid-surgery-1</bcr_surgery_uuid>
+                <days_to_surgery>0</days_to_surgery>
+            </surgery>
+            <surgery>
+                <bcr_surgery_barcode>surgery-2</bcr_surgery_barcode>
+                <bcr_surgery_uuid>uuid-surgery-2</bcr_surgery_uuid>
+                <days_to_surgery>456</days_to_surgery>
+            </surgery>
+        </surgeries>
+        <radiations>
+            <radiation>
+                <bcr_radiation_barcode>radiation-1</bcr_radiation_barcode>
+                <bcr_radiation_uuid>uuid-radiation-1</bcr_radiation_uuid>
+                <days_to_radiation_start>4</days_to_radiation_start>
+                <days_to_radiation_end>60</days_to_radiation_end>
+            </radiation>
+        </radiations>        
+   		<loss_expression_of_mismatch_repair_proteins_by_ihc_results>
+            <loss_expression_of_mismatch_repair_proteins_by_ihc_result cde="1" xsd_ver="2.3" tier="2" owner="TSS" procurement_status="Not Available">value1</loss_expression_of_mismatch_repair_proteins_by_ihc_result>
+            <loss_expression_of_mismatch_repair_proteins_by_ihc_result cde="1" xsd_ver="2.3" tier="2" owner="TSS" procurement_status="Not Available">value2</loss_expression_of_mismatch_repair_proteins_by_ihc_result>
+            <loss_expression_of_mismatch_repair_proteins_by_ihc_result cde="1" xsd_ver="2.3" tier="2" owner="TSS" procurement_status="Not Available">value3</loss_expression_of_mismatch_repair_proteins_by_ihc_result>
+        </loss_expression_of_mismatch_repair_proteins_by_ihc_results>
+        <number_of_first_degree_relatives_with_cancer_diagnosis cde="1" xsd_ver="2.3" tier="1" owner="TSS" procurement_status="Completed">0</number_of_first_degree_relatives_with_cancer_diagnosis>     
+    </shared:patient>
+</tcga_bcr>

@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>The Cancer Genome Atlas Data Portal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="styles/tcga_data.css">
+<link rel="stylesheet" type="text/css" href="styles/tcga-datareports.css">
+<script type="text/javascript" src="jquery-1.4.2.js"></script> 
+<script type="text/javascript" src="jquery.hoverIntent.js"></script> 
+<script src="files/scripts.js" type="text/javascript"></script>
+<body>
+
+<script type="text/javascript">
+    var ua = navigator.userAgent;
+    var re  = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+    if (re.exec(ua) != null) {
+        var rv = parseFloat( RegExp.$1 );
+        if ( rv < 7) {
+            document.getElementById('browserWarning').style.display = 'block';
+        }
+    }
+	 
+	 var openCloseControl = function(controlId, controlledDivId) {
+	 	var control = document.getElementById(controlId);
+	 	var controlledDiv = document.getElementById(controlledDivId);
+		if (control.innerHTML == '+') {
+			control.innerHTML = '&minus;';
+			controlledDiv.style.display = 'none';
+		}
+		else {
+			control.innerHTML = '+';
+			controlledDiv.style.display = 'block';
+		}
+	 }
+
+	 $(document).ready(function() {
+	 
+	   function show() {
+	     var menu = $(this);
+	     menu.children(".actions").slideDown();
+	   }
+	  
+	   function hide() { 
+	     var menu = $(this);
+	     menu.children(".actions").slideUp();
+	   }
+	 
+	   $(".hover-menu").hoverIntent({
+	     sensitivity: 1, // number = sensitivity threshold (must be 1 or higher)
+	     interval: 50,   // number = milliseconds for onMouseOver polling interval
+	     over: show,     // function = onMouseOver callback (required)
+	     timeout: 300,   // number = milliseconds delay before onMouseOut
+	     out: hide       // function = onMouseOut callback (required)
+	   });
+	  
+	 });
+</script>
+
+<div id="browserWarning">
+    <div style="float: right; padding: 3px; cursor: pointer;" 
+onclick="document.getElementById('browserWarning').style.display='none'">
+        <img 
+src="images/x_red.png" 
+alt="Close">
+    </div>
+    <div style="float: left;">
+        Warning: Internet Explorer 6 is no longer supported by the TCGA 
+Data Portal. Please use one of these supported browsers: <a 
+href="http://www.microsoft.com/windows/internet-explorer/">Internet 
+Explorer 7+</a>, <a href="http://getfirefox.com/">Firefox</a>, <a 
+href="http://www.google.com/chrome">Google Chrome</a>, or <a 
+href="http://www.apple.com/safari/download/">Safari</a>.
+    </div>    
+</div>
+
+<div id="container">
+    <div id="top_header" align="center">
+        <img src="images/top_header.gif" alt="" usemap="#top_header" class="view-images" border="0">
+    </div>
+    <div id="header" align="center">
+		<img src="images/header_3.gif" alt="" usemap="#header" class="view-images" border="0">
+		<div id="extraNavLinks" style="text-align: right;">
+			<a class="whiteLink" href="#">TCGA Web Site</a><br/>
+			<a class="whiteLink" href="tcgaContact.htm">Contact Us</a> |
+			<a class="whiteLink" href="tcgaHelp.htm">Help</a>
+		</div>
+    </div>
+	 </div>
+    <div id="nav" style="width: 855px; margin: auto;">
+         <!-- Start Navigation Menu -->
+         <div class="navlink" onclick="location.href='tcgaHome2.htm'">Home</div>
+
+         <div class="navlink" onclick="location.href='tcgaSearch.htm'">Query the Data</div>
+
+         <div class="navlink" onclick="location.href='tcgaDataMatrix.htm'">View Progress & Download</div>
+
+         <div class="navlink" onclick="location.href='tcgaBulkDownload.htm'">Bulk Download</div>
+			
+         <div class="navlink hover-menu" style="position: relative" onclick="location.href='tcgaTools.htm'">
+         	Tools
+			   <ul class="actions no-style">
+			     <li class="dropdown"><a href="tcgaUuidManager.htm">Uuid Manager</a></li>
+			     <li class="dropdown"><a href="">Annotations Manager</a></li>
+			   </ul>
+			</div>
+
+         <div class="navlink navselected hover-menu" style="position: relative" onclick="location.href='tcgaAbout.htm'">
+			   About the Data
+			   <ul class="actions no-style">
+			     <li class="dropdown"><a href="tcgaDataType.htm">Data Type/Data Level Relationships</a></li>
+			     <li class="dropdown"><a href="tcgaAccessTiers.htm">Access Tiers</a></li>
+			     <li class="dropdown"><a href="tcgaDataTracking.htm">Data Tracking Reports</a></li>
+			     <li class="dropdown"><a href="tcgaPlatformDesign.htm">TCGA Platform Design</a></li>
+			     <li class="dropdown"><a href="tcgaAnnouncements.htm">Announcements</a></li>
+			   </ul>
+			</div>
+         <!-- End Navigation Menu -->
+    </div>
+</div>
+
+<div style="width: 100%;margin: 15px 0 15px 0;">
+	<div style="width: 855px; margin: auto;">
+		<div style="width: 640px;margin-bottom: 15px;border: solid 0px black;display: inline-block;vertical-align: top;">
+			<div class="trail"><a href="tcgaHome2.htm">Home</a> > <a href="tcgaAbout.htm">About the Data</a> > <span class="trailDest">Data Tracking Reports</span></div>
+
+			<div class="stdTitle" style="margin-bottom: 15px;">Data Tracking Reports</div>
+
+        <ul class="reportBullet" style="text-align:left">
+        <li>
+        <a href="sampleSummaryReport.htm"><span class="stdTertiaryTitle">Experiment Sample-Counts Summary Report</span></a>
+        <br/>The Experiment Sample-Counts Summary Report provides a count summary of Sample IDs by Disease Study, Center, Analyte Type, and Platform. [<a class="hand" onclick="tcga.detailPopup.show({title: 'Experiment Sample-Counts Summary Report', message: '<p>The Experiment Sample-Counts Summary Report provides a count summary of Sample IDs by Disease Study, Center, Analyte Type, and Platform. Sample counts are provided for Sample IDs a BCR Reported Sending to a Center, Sample IDs the DCC Received from a Center, unaccounted for BCR Sample IDs that a Center Reported, unaccounted for Center Sample IDs that a BCR Reported, and sample ID counts by data level. Links are provided for each positive count that resolve to list of Sample IDs for a specific count. This report is useful for determining how many and which Samples are in the TCGA pipeline. The counts are based on <i>reported</i> IDs either form a BCR or from a GSC/CGCC.</p>'})">more</a>]
+        </li>
+        <li style="margin-top: 10px;">
+        <a href="aliquotReport.htm"><span class="stdTertiaryTitle">Experiment Aliquot Report</span></a>
+        <span><br />The Experiment Aliquot Report provides a summary of experiment Aliquot IDs by Disease Study, BCR Batch number, Receiving Center, Platform, and data levels (1-3).</span> [<a class="hand" onclick="tcga.detailPopup.show({title: 'Experiment Aliquot Report', message: '<p>The Experiment Aliquot Report provides a summary of experiment Aliquot IDs by Disease Study, BCR Batch number, Receiving Center, Platform, and data levels (1-3). Aliquots are either described as <b>Submitted</b> or <b>Missing</b> for each data level. A value of <b>Missing</b> means that the DCC has not received data for an Aliquot ID for a particular data level. A value of <b>Submitted</b> means that the DCC has received data for an Aliquot ID for a particular data level. A <b>Submitted</b> value links to a list of files that represent the submitted data level for an aliquot ID. A filename may be clicked to download a file. This report is useful for determining which Aliquot IDs have outstanding data or locating the data for a specific Aliquot ID.</p>'})">more</a>]
+        </li>
+        <li style="margin-top: 10px;">
+        <a href="aliquotIdBreakdownReport.htm"><span class="stdTertiaryTitle">Aliquot Id Breakdown Report</span></a>
+        <span><br />The Aliquot ID Breakdown Report maps IDs for each step in the chain of provenance for each aliquot.</span> [<a class="hand" onclick="tcga.detailPopup.show({title: 'Aliquot Id Breakdown Report', message: '<p>The Aliquot ID Breakdown Report maps IDs for each step in the chain of provenance for each aliquot. Each row contains an Aliquot ID, mapped to its associated Analyte ID (from which the aliquot was made), Sample ID (from which the analyte was produced), Patient ID (from whom the sample was taken).</p> <p style=\'padding-top:5px;\'>The user can filter the table to a desired set of values; for example, to obtain all aliquot IDs for a particular analyte, click <b>Show Filters</b>, enter the Analyte ID in the corresponding text box, and click <b>Filter Now</b>. The resulting table can be exported to the user\'s machine by clicking <b>Export Data</b>, and selecting the desired format. More restrictive filters can be applied by entering further matching constraints in the <b>Filters Extended</b> pulldown.</p>'})">more</a>]
+        </li>
+        <li style="margin-top: 10px;">
+        <a href="orphanedAliquotReport.htm"><span class="stdTertiaryTitle">Orphaned Aliquot Report</span></a>
+        <span><br />The Orphaned Aliquot Report provides a list of biological IDs that failed linking between other data in TCGA.</span> [<a class="hand" onclick="tcga.detailPopup.show({title: 'Orphaned Aliquot Report', message: '<p>The Orphaned Aliquot Report provides a list of biological IDs that failed linking between other data in TCGA. For instance, an aliquot ID may have an incorrect format, or the ID may not be found in submitted clinical data. The ID\'s associated Archive Name, File Name, the Date the orphan was Reported On, the date the orphan was Repaired On, and the Failure Reason are also provided.</p><p style=\'padding-top:5px;\'>The report can be filtered by clicking on the Toggle Filters button and selecting the Failure Reason, Aliquot ID, or date range for Reported or Repaired. Clicking on a column header sorts the results by that column. Clicking on Export Data provides options for report download in different formats, or a URL that will recreate the report filter. This report is useful for identifying ID linkage breaks in a pipeline or for submitting centers to identify IDs and files that need triage.</p>'})">more</a>]
+        </li>
+        <li style="margin-top: 10px;">
+        <a href="latestArchiveReport.htm"><span class="stdTertiaryTitle">Latest Archive Report</span></a>
+        <span><br />The Latest Archive Report provides a list of archives that are the latest revision, the date the archive was added, and the archive type.</span> [<a class="hand" onclick="tcga.detailPopup.show({title: 'Latest Archive Report', message: '<p>The Latest Archive Report provides a list of archives that are the latest revision, the date the archive was added, and the archive type. If the submission is characterization-based (CGCC), then the associated sample-to-data relationship file (SDRF) is listed. If the submission is genomic sequencing-based, then the associated mutation (MAF) file is listed if the archive contains a MAF file. Archive Type reflects the aggregation of the data within the archive. A classic archive type can contain all levels and types of data, while all other types contain the specified type of data.</p> <p style=\'padding-top:5px;\'>Clicking on the blue text for Archive, Associated SDRF File, or Associated MAF file downloads the archive or file. The report can be filtered by clicking on the Toggle Filters button and selecting the archive type, or date range. Clicking on a column header sorts the results by that column. The report may be exported for other uses or a URL is provided to recreate the report filter. This report may be useful to those trying to mirror TCGA data. For example, a user could filter the report by date range to see what new data is available since the last download.</p>'})">more</a>]
+        </li>
+        <li style="margin-top: 10px;">
+        <a href="codeTablesReport.htm"><span class="stdTertiaryTitle">Code Tables Report</span></a>
+        <span><br />The Code Tables Report provides a set of tables associating metadata in English with standard short codes and abbreviations for that data.</span> [<a class="hand" onclick="tcga.detailPopup.show({title: 'Code Tables Report', message: '<p>The Code Tables Report provides a set of tables associating metadata in English with standard short codes and abbreviations for that data. The tables are organized by metadata type, e.g, the <b>Center</b> table is a list of TCGA participating centers and their abbreviations, while the <b>Tissue Source Site</b> table contains codes which map to kind of tissue, originating sample site, study abbreviation, and study name. Note that the tables themselves sometimes use codes or abbreviations in certain data columns; these codes can be translated using other code tables in this report.</p> <p style=\'padding-top:5px;\'>Browse the tables by using the scrollbar on the right of the panel, or by clicking the links on the left. Entire tables can be downloaded by clicking the <b>Export Data</b> pulldown at the top left of each table. Select the desired export format, and the download will begin automatically.</p>'})">more</a>]
+        </li>
+        </ul>
+
+        <div class="content" style="padding-top:10px;">
+        <div class="stdSecondaryTitle">Definitions</div>
+        <ul>
+        <li>
+        An <i>Experiment</i> is defined in TCGA as the sum of the results of assays for a particular platform from a particular center for all Samples of a particular disease study.
+        </li>
+        </ul>
+        </div>
+
+		</div>
+
+		<div style="float: right; width: 200px;">
+			<div class="boxtop" style="margin-top: 10px;">
+				More TCGA Information
+			</div>
+			<div class="boxbody">
+				More information about The Cancer Genome Atlas program can be found on the main TCGA Web site:
+				<ul class="triangle">
+					<li><a href="http://tcga.cancer.gov" target="newWin">TCGA site</a> <img src="images/newWin.gif"></li>
+					<li><a href="http://tcga.cancer.gov/publications/index.asp" target="newWin">Publications</a> <img src="images/newWin.gif"></li>
+					<li><a href="http://tcga.cancer.gov/about/policies/pgm.asp" target="newWin">How to cite TCGA data</a> <img src="images/newWin.gif"></li>
+				</ul>
+			</div>
+		</div>
+</div>
+
+
+<div id="footer" align="center">
+    
+<a href="#">TCGA Data Portal Home</a> |
+<a href="#">Site Map</a> |
+<a href="#">Contact Us</a> |
+<a href="#">Report a Problem</a>
+<br/>
+<a href="#">TCGA Web Site Home</a> |
+<a href="#">Web Site Policies</a> |
+<a href="#">Accessibility</a> |
+<img src="images/feed-icon-14x14.png" style="position: relative; top: 2px;"> <a href="#">RSS</a>
+
+<br><br>
+<a href="http://www.cancer.gov/" target="_blank"><img 
+src="images/footer_logo_nci.jpg"
+ alt="National Cancer Institute" class="view-images" border="0" 
+width="63" height="39"></a>
+<a href="http://www.genome.gov/" target="_blank"><img 
+src="images/logo_nhgri.gif"
+ alt="National Human Genome Research Institute" class="view-images" 
+border="0" width="76" height="39"></a>
+<a href="http://www.nih.gov/" target="_blank"><img 
+src="images/footer_logo_nih.jpg"
+ alt="National Institutes of Health" class="view-images" border="0" 
+width="48" height="39"></a>
+<img 
+src="images/spacer.gif" 
+alt="" class="view-images" width="6" height="39">
+<a href="http://www.dhhs.gov/" target="_blank"><img 
+src="images/footer_logo_hhs.jpg"
+ alt="Department of Health and Human Services" class="view-images" 
+border="0" width="41" height="39"></a>
+<a href="http://www.firstgov.gov/" target="_blank"><img 
+src="images/footer_logo_firstgov.jpg"
+ alt="FirstGov.gov" class="view-images" border="0" width="101" 
+height="39"></a>
+</div>
+
+
+<map id="top_header_map" name="top_header">
+    <area shape="rect" coords="6,0,223,27" href="http://www.cancer.gov/"
+ target="_blank" alt="National Cancer Institute">
+    <area shape="rect" coords="519,2,794,28" 
+href="http://www.genome.gov/" target="_blank" alt="National Human Genome
+ Research Institute">
+</map>
+
+<map id="header_map" name="header">
+    <area shape="rect" coords="31,15,394,86" 
+href="http://tcga.cancer.gov/dataportal/index.asp" alt="Data Portal 
+Home">
+    <area shape="rect" coords="77,106,356,127" 
+href="http://tcga.cancer.gov/" target="_blank" alt="Visit the Cancer 
+Genome Atlas Home Site">
+</map>
+
+</div></body></html>

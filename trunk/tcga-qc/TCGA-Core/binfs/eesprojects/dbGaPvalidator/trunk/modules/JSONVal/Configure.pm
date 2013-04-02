@@ -1,0 +1,1 @@
+/home/eesnyder/src/perl/projects/jsonval/trunk/lib/JSONVal/Configure.pm

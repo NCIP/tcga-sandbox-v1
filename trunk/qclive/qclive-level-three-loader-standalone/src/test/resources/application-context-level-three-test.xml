@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+    <bean id="loaderDAO" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.LevelThreeQueriesImpl">
+        <property name="dataSource" ref="testDs"/>
+    </bean>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:samples/common.unittest.properties</value>
+                <value>classpath:LevelThree.standalone.jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="disease.PropertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:samples/oracle.unittest.properties"/>
+        <property name="placeholderPrefix" value="$disease{"/>
+        <property name="placeholderSuffix" value="}"/>
+    </bean>
+
+
+    <bean id="dccCommonDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="${dbUnitConnectionURL}"/>
+        <property name="username" value="${dbUnitUserName}"/>
+        <property name="password" value="${dbUnitPassword}"/>
+    </bean>
+    <bean id="testDs" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="$disease{dbUnitConnectionURL}"/>
+        <property name="username" value="$disease{dbUnitUserName}"/>
+        <property name="password" value="$disease{dbUnitPassword}"/>
+    </bean>
+
+
+    <bean id="loaderQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="diseaseTransactionManager"/>
+        <property name="target" ref="loaderDAO"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="lThreeLoader" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.levelthree.LevelThreeLoader"
+          lazy-init="true">
+        <property name="levelThreeQueries" ref="loaderQueries"/>
+        <property name="archiveQueries" ref="archiveQueries"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuiddao" ref="uuiddao"/>
+        <property name="patternFile" value="${tcga.dcc.patternFile}"/>
+        <property name="batchSize" value="${tcga.dcc.batchSize}"/>
+    </bean>
+
+    <bean id="commonBarcodeAndUUIDValidator" class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="uuiddao" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl"/>
+
+    <bean id="diseaseTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="testDs"/>
+    </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+
+    <bean id="archiveQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="archiveDAO"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archiveDAO" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ArchiveQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
+</beans>

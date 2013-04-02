@@ -1,0 +1,114 @@
+{
+	"totals":{
+		"textSize":14,
+		"fill":"0-#ffff00:50-#ffd700",
+		"width":200,
+		"counts":[{
+			"label":"Received",
+			"count":4967
+		},{
+			"label":"Total Shipped",
+			"count":1882
+		},{
+			"label":"Awaiting Shipment",
+			"count":407
+		},{
+			"label":"Other Pending",
+			"count":216
+		}],
+		"pos":{"y":1,"x":700}
+	},
+	"nodeData":[{
+		"name":"igc",
+		"image":"images/igc.jpg",
+		"label":"Received at IGC",
+		"outputs":[{
+			"label":"Initial Screen Failures",
+			"count":128
+		},{
+			"count":4802,
+			"connectToNextNode":"true",
+			"color":"#0f0",
+			"arrow":
+			"false"
+		},{
+			"label":"Pending BCR Initial Screening",
+			"count":36
+		}],
+		"numericLabel":"samples"
+	},{
+		"name":"pathology",
+		"image":"images/breast_cancer_slide_narrow.jpeg",
+		"label":"Pathology QC",
+		"outputs":[{
+			"label":"Pathology Failures",
+			"count":1310
+		},{
+			"count":3449,
+			"color":"#0f0",
+			"arrow":"false",
+			"label":"Pathology Pass",
+			"connectToNextNode":"true"
+		},{
+			"label":"Pathology Pending",
+			"count":43
+		}],
+		"numericLabel":"samples"
+	},{
+		"name":"molecular",
+		"image":"images/DNA_Science.jpeg",
+		"label":"Molecular Fred QC",
+		"outputs":[{
+			"label":"DQ Molecular",
+			"count":919
+		},{
+			"count":2393,
+			"color":"#0f0",
+			"arrow":"false",
+			"label":"Molecular Pass",
+			"connectToNextNode":"true"
+		},{
+			"label":"Molecular Pending",
+			"count":137
+		}],
+		"numericLabel":"samples"
+	},{
+		"name":"genotype",
+		"image":"images/genotype.jpg",
+		"label":"Genotype",
+		"outputs":[{
+			"label":"DQ Genotype",
+			"count":95
+		},{
+			"label":"DQ Other",
+			"count":9
+		},{
+			"count":1882,
+			"color":"#0f0",
+			"arrow":"false",
+			"label":"",
+			"connectToNextNode":"true"
+		},{
+			"label":"Awaiting Shipment",
+			"count":407
+		}],
+		"numericLabel":"samples"
+	},{
+		"name":"totals",
+		"label":"Shipped: 1882"
+	}],
+	"graphConfig":{
+		"scale":4967,
+		"startPos":{"y":375,"x":1},
+		"pathHeight":200,
+		"paperSize":{"height":600,"width":1000},
+		"center":"true",
+		"pathColors":["red","orange","green","blue","yellow"],
+		"renderTo":"raphgraph",
+		"minPathwidth":3,
+		"squareColor":"#ddd",
+		"squareSize":{"height":200,"width":150},
+		"pathLength":100,
+		"squareCorners":5
+	}
+}

@@ -1,0 +1,41 @@
+Design for a set of Perl classes for getting barcodes and metadata,
+with facilities for added custom queries.
+
+idea:
+barcode factory class : creates object that represent items having
+barcodes, with accessors for the barcode, uuid, batch, disease study,
+etc.
+* factory would accept barcodes or uuids (single scalar or arrays of
+them) and return a(n array of) barcode object(s)
+* the accessors would lazily query a backend for the metadata; the
+metadata returned would memoized in a hash that backs up all the
+barcode objects
+* the hash could be serialized to provide a cache for later
+
+query backend : this would be pluggable. The lazy queries called by
+the metadata accessors could access the database directly with DBI,
+use the biospecimen metadata browser webservice, attach to a local
+file or sql database, etc. Each backend would be a separate class
+providing a standard set of functions. 
+
+The desired backend would be specified at the creation instance of the
+factory object instance.
+
+TCGA::BCFactory : barcode factory class
+TCGA::Barcode : barcode instance class
+TCGA::BCFactory::db : database backend
+TCGA::BCFactory::bmb : biospecimen metadata browser webservice backend
+
+* Configuration modules for specifying dbi connect information,
+webservice urls, and the like:
+	   TCGA::BCFactory::db::Config
+	   TCGA::BCFactory::bmb::Config
+
+
+
+perl Build.PL
+./Build
+./Build test
+./Build install
+
+If you are on a windows box you should use 'nmake' rather than 'make'.

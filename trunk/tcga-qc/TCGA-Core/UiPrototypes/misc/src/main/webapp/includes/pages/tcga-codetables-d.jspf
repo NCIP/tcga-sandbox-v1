@@ -1,0 +1,15 @@
+<script><!--
+	 Ext.onReady(tcga.datareports.codetables.initD);
+--></script>
+<div id="content">
+    <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaAbout.jsp">About the Data</a> > <span class="trailDest"><%=h1String%></span></div>
+    <h1><%=h1String%></h1>
+    <div class="indent">
+	    <div id="codeDesc" class="content" style="display:none;">
+	        <p style="text-align:left;">
+	            The Code Tables Report provides a set of tables associating metadata in English with standard short codes and abbreviations for that data. The tables are organized by metadata type, e.g, the 'Center' table is a list of TCGA participating centers and their abbreviations, while the 'Tissue Source Site' table contains codes which map to kind of tissue, originating sample site, study abbreviation, and study name. Note that the tables themselves sometimes use codes or abbreviations in certain data columns; these codes can be translated using other code tables in this report. Browse the tables by using the scrollbar on the right of the panel, or by clicking the links on the left. Entire tables can be downloaded by clicking the 'Export Data' pulldown at the top left of each table. Select the desired export format, and the download will begin automatically.
+	        </p>
+	    </div>
+	    <div id="codeTablesDiv"></div>
+   </div>
+</div>

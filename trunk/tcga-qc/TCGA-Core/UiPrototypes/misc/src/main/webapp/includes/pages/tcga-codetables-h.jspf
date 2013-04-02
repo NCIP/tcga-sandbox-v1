@@ -1,0 +1,123 @@
+<script><!--
+	 Ext.onReady(tcga.datareports.codetables.initH);
+--></script>
+<style>
+#browseLinkButton, #searchLinkButton {
+    text-decoration:none;
+    border:1px outset gray;
+    color:black;
+    padding: 0px 5px 1px 5px;
+    background-color:#f5f5f5;
+}
+
+#browseLinkButton:hover, #searchLinkButton:hover {
+    border-style:inset;
+}
+
+#browserWarning {
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:100;
+    border:1px solid red;
+    padding-left:3px;
+    padding-bottom:2px;
+    width:100%;
+    background-color:#FFEEFF;    
+}
+
+/*
+ * Tab Panel configuration for a new look - pairs with the tab panel overrides in ext-overrides.css
+ */
+ul.x-tab-strip-top.tcga-ext-tab{
+   margin:0px;
+   padding:0px 10px 0px 10px;
+   list-style:none;
+}
+
+.tcga-ext-tab a{
+	float: left;
+	display: block;
+	padding: 10px 15px 8px 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #999;
+}
+
+.tcga-ext-tab li{
+	float: left;
+   border-left: 1px solid #D0D0D0;
+	margin: 0px;
+	padding: 0px 0px 0px 1px;
+}
+
+.tcga-ext-tab .x-tab-edge {
+    height: 33px  !important;
+    width: 1px !important;
+}
+
+/*
+ * The new look for the horizontal code tables
+ */
+#content ul.tcga-ext-tabCTH li{
+   list-style:none; margin:0;
+}
+
+ul.x-tab-strip-top.tcga-ext-tabCTH{
+   margin:0px;
+   padding:0px 5px 0px 5px;
+   list-style:none;
+}
+
+.tcga-ext-tabCTH a{
+	float: left;
+	display: block;
+	padding: 10px 8px 8px 8px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #999;
+	font-size: 10px;
+}
+
+.tcga-ext-tabCTH li{
+	float: left;
+   border-left: 1px solid #D0D0D0;
+	margin: 0px;
+	padding: 0px 0px 0px 1px;
+}
+
+.tcga-ext-tabCTH .x-tab-edge {
+    height: 33px  !important;
+    width: 1px !important;
+}
+
+.hoverWin {
+	border: 2px solid black;
+	padding: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	color: white;
+	max-width: 150px;
+	min-width: 100px;
+	background-color: rgba(0, 0, 0, 0.6);
+	/* IE8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000)";
+	/* IE6 & IE7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+}
+</style>
+<div id="content">
+    <div class="trail"><a href="/tcga/tcgaHome2.jsp">Home</a> > <a href="/tcga/tcgaAbout.jsp">About the Data</a> > <span class="trailDest"><%=h1String%></span></div>
+    <h1><%=h1String%></h1>
+    <div class="indent">
+	    <div id="codeDesc" class="content" style="display:none;">
+	        <p style="text-align:left;">
+	            The Code Tables Report provides a set of tables associating metadata in English with standard short codes and abbreviations for that data. The tables are organized by metadata type, e.g, the 'Center' table is a list of TCGA participating centers and their abbreviations, while the 'Tissue Source Site' table contains codes which map to kind of tissue, originating sample site, study abbreviation, and study name. Note that the tables themselves sometimes use codes or abbreviations in certain data columns; these codes can be translated using other code tables in this report. Browse the tables by using the scrollbar on the right of the panel, or by clicking the links on the left. Entire tables can be downloaded by clicking the 'Export Data' pulldown at the top left of each table. Select the desired export format, and the download will begin automatically.
+	        </p>
+	    </div>
+	    <div id="codeTablesDiv"></div>
+   </div>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="schema1.xsd"/>
+    <xs:element name="TCGA_BCR">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="PATIENT" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PATIENT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="BCRPATIENTBARCODE" />
+                <xs:element ref="GENDER" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

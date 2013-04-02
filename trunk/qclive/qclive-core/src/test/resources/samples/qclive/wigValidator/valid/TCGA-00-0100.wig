@@ -1,0 +1,26 @@
+#comment
+# VALID : two fixed steps, no intervening track line
+browser position chr19:59304200-59310700
+browser hide all
+#	150 base wide bar graph at arbitrarily spaced positions,
+#	threshold line drawn at y=11.76
+#	autoScale off viewing range set to [0:25]
+#	priority = 10 positions this as the first graph
+#	Note, one-relative coordinate system in use for this format
+track type=wiggle_0 name="one track line" description="TCGA-00-0100.wig" visibility=full autoScale=off viewLimits=0.0:25.0 color=50,150,255 yLineMark=11.76 yLineOnOff=on priority=10
+#comment
+fixedStep chrom=chr19 start=59304901 step=200
+#comment
+12.5
+15.0
+17.5
+20.0
+17.5
+15.0
+12.5
+-10.0
+fixedStep chrom=chr19 start=59307999 step=10
+17.5
+15.0
+-10.0
+12.5

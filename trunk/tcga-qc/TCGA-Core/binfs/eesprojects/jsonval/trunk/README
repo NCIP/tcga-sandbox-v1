@@ -1,0 +1,37 @@
+jsonval.pl validates TCGA BCR dashboard JSON messages according to the
+specification found at https://wiki.nci.nih.gov/x/jqn9AQ. 
+
+To build, install and run this software, execute the following at the command
+lines:
+
+perl Build.PL
+./Build
+./Build test
+./Build install
+jsonval.pl your_json_message.txt
+
+To install and run locally (without root access)
+
+perl Build.PL --install_base=~
+./Build test
+./Build install
+PERL5LIB=~/lib/perl5; ~/bin/jsonval.pl your_json_message.txt
+
+For developers; to checkout, build, test, (modify, test,) cleanup
+and checkin this software, execute the following command lines:
+
+svn checkout -revision HEAD https://ncisvn.nci.nih.gov/svn/tcga-sandbox/tcga-qc/trunk/TCGA-Core/binfs/jsonval <TARGET_DIR>
+cd <TARGET_DIR>/trunk/
+perl Build.PL
+./Build
+./Build test
+./Build disttest
+./Build dist
+./Build distclean
+svn commit -m "<JIRA_TICKET_NUMBER> A_USEFUL MESSAGE" <TARGET_DIR> 
+
+Copyright 2010 SRA International, Inc.
+Copyright Notice.  The software subject to this notice and license
+includes both human-readable source code form and machine readable,
+binary, object code form. Please refer to the LICENSE file for full 
+details.

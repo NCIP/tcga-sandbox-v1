@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- $Id -->
+
+<xs:schema elementFormDefault="qualified" version="2.5.3"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.5" 
+  xmlns:blca_shared="http://tcga.nci/bcr/xml/clinical/laml/shared/2.5" 
+  xmlns="http://tcga.nci/bcr/xml/clinical/laml/followup/2.5/2.0" 
+  targetNamespace="http://tcga.nci/bcr/xml/clinical/laml/followup/2.5/2.0" 
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" >
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true" />
+            
+            <jaxb:schemaBindings>
+                <jaxb:package name="nci.tcga.bcr.xml.jaxb.clinical.laml" />
+            </jaxb:schemaBindings>
+        </xs:appinfo>
+    </xs:annotation>
+    
+    <xs:annotation>
+        <xs:documentation xml:lang="en">Schema to define the elements of the TCGA Clinical Data Follow-up Form within the LAML study.</xs:documentation>
+    </xs:annotation>
+    
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/shared/2.5/TCGA_BCR.Shared_Clinical_Elements.xsd" />
+    <xs:import namespace="http://tcga.nci/bcr/xml/clinical/laml/shared/2.5" schemaLocation="http://tcga-data.nci.nih.gov/docs/xsd/BCR/tcga.nci/bcr/xml/clinical/laml/shared/2.5/TCGA_BCR.LAML_Clinical_Shared_Datatypes.xsd" />
+
+    <xs:element name="follow_up_v2.0">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="shared:bcr_followup_barcode" />
+                <xs:element ref="shared:bcr_followup_uuid" />
+                
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element ref="shared:day_of_form_completion" />
+                        <xs:element ref="shared:month_of_form_completion" />
+                        <xs:element ref="shared:year_of_form_completion" />
+                    </xs:sequence>
+                    
+                    <xs:element ref="shared:days_to_form_completion" />
+                </xs:choice>
+            </xs:sequence>
+            
+            <xs:attribute name="version" type="xs:string" default="2.0" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

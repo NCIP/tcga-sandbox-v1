@@ -1,0 +1,45 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<tcga_bcr xmlns:shared="http://tcga.nci/bcr/xml/clinical/shared/2.3"
+          xmlns:rx="http://tcga.nci/bcr/xml/clinical/pharmaceutical/2.3">
+    <admin>
+        <favorite_muppet>Beaker</favorite_muppet>
+    </admin>
+    <shared:patient>
+        <!-- test -->
+        <bcr_patient_barcode>patient-A</bcr_patient_barcode>
+        <shared:gender>FEMALE</shared:gender>
+        <age_at_diagnosis>123</age_at_diagnosis>
+        <vital_status>ALIVE</vital_status>
+        <drugs>
+            <drug>
+                <rx:bcr_drug_barcode>drug-1</rx:bcr_drug_barcode>
+                <drug_name>cisplatin</drug_name>
+                <drug_type>chemotherapy</drug_type>
+            </drug>
+        </drugs>
+        <surgeries>
+            <surgery>
+                <bcr_surgery_barcode>surgery-1</bcr_surgery_barcode>
+                <days_to_surgery>0</days_to_surgery>
+            </surgery>
+            <surgery>
+                <bcr_surgery_barcode>surgery-2</bcr_surgery_barcode>
+                <days_to_surgery>456</days_to_surgery>
+            </surgery>
+        </surgeries>
+        <radiations>
+            <radiation>
+                <bcr_radiation_barcode>radiation-1</bcr_radiation_barcode>
+                <days_to_radiation_start>4</days_to_radiation_start>
+                <days_to_radiation_end>60</days_to_radiation_end>
+            </radiation>
+        </radiations>
+    </shared:patient>
+</tcga_bcr>

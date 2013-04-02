@@ -1,0 +1,16 @@
+<dataset>
+    <center_type center_type_code="BCR" center_type_definition="BCR"/>
+    <center center_id="1" domain_name="test.test" center_type_code="BCR" display_name="test" short_name="t" sort_order="1"/>
+    <center_to_bcr_center bcr_center_id="99" center_id="1" center_type_code="BCR"/>
+    <project project_code="TCGA" definition="TCGA"/>
+    <tissue_source_site tss_code="ZZ" tss_definition="Test" receiving_center_id="1"/>
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Shipping Portion" />
+    <shipped_item_type shipped_item_type_id="2" shipped_item_type="Aliqot" />
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="uuid1" shipped_item_type_id="1" built_barcode="barcode" project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1" is_redacted="0" />
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="uuid2" shipped_item_type_id="1" built_barcode="barcode" project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1" is_redacted="0" />
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="uuid3" shipped_item_type_id="2" built_barcode="barcode" project_code="TCGA" tss_code="ZZ" bcr_center_id="99" participant_code="0000" is_viewable="1" is_redacted="0" />
+    <file_info file_id="100" file_name="test.txt" />
+
+    <shipped_biospecimen_file shipped_biospecimen_id="2" file_id="100"/>
+</dataset>
