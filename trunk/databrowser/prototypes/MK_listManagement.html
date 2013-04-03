@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>List Management</TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <link rel="stylesheet" type="text/css" href="../../../styles/listPage.css">
+
+<!-- todo  add disease type select to page -->
+<script>
+    function renamePatientList() {
+        var select = document.getElementById("currentPatientList");
+        var newName = document.getElementById("renamePatientList").value;
+        var comment = document.getElementById("patientListComment").value;
+        select.options[0].text = newName;
+
+        select = document.getElementById("otherPatientList");
+        select.options[0].text = newName;
+
+        var table = document.getElementById("listTable");
+        table.rows[1].cells[1].innerHTML = newName;
+        table.rows[1].cells[2].innerHTML = comment;
+    }
+
+    function intersectPatientLists() {
+        var currentLists = document.getElementById("currentPatientList");
+        var otherLists = document.getElementById("otherPatientList");
+        var comment = document.getElementById("patientListComment");
+        var rename = document.getElementById("renamePatientList");
+
+        var currentListName = currentLists.value;
+        var otherListName = otherLists.value;
+
+        var newListName = "PList2 (TEMP)";
+        var commentTxt = '"' + currentListName + '" intersect "' + otherListName + '"';
+        var numElements = 10;
+        currentLists.add(new Option(newListName), currentLists.options[0]);
+        otherLists.add(new Option(newListName), otherLists.options[0]);
+
+        currentLists.selectedIndex = 0;
+        comment.value = commentTxt;
+        rename.value = "";
+
+        var table = document.getElementById("listTable");
+        var row = table.insertRow(1);
+        var cell = row.insertCell(0);
+        var txt = document.createTextNode("Patient");
+        cell.appendChild(txt);
+        cell = row.insertCell(1);
+        txt = document.createTextNode(newListName);
+        cell.appendChild(txt);
+        cell = row.insertCell(2);
+        txt = document.createTextNode(commentTxt);
+        cell.appendChild(txt);
+        cell = row.insertCell(3);
+        txt = document.createTextNode(numElements);
+        cell.appendChild(txt);
+    }
+    function displaySendPanel(){
+        document.getElementById("sendToLinks").style.display = "block";
+        document.getElementById("dim").style.display = "block";
+    }
+
+    function cancelSendTo(){
+        document.getElementById("sendToLinks").style.display = "none";
+        document.getElementById("dim").style.display = "none";
+    }
+</script>
+
+ </HEAD>
+
+<body>
+<div id="dim"></div>
+<div id="sendToLinks">
+    <span id="sendToTitle">Send List<img id="closeImg" src="../../../images/MK_anomaly/close_icon.gif" onclick="cancelSendTo()" alt="Click to close"></span><br>
+    Please select which page to send the patient and/or the genetic element list to:<br><br>
+    <table style="border: none;">
+        <tr>
+            <td><input type="radio" name="sendTo" checked onclick="document.getElementById('sendToGECheck').disabled = false">Pathways</td>
+            <td><input type="checkbox" checked>Patients</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = true">Clinical</td>
+            <td><input type="checkbox" id="sendToGECheck" checked>Genetic Elements</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">List Management</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">Data Acess Matrix</td>
+        </tr>
+    </table><br>
+    <form action="MK_clinicalPage.html">&nbsp;&nbsp;<button>Send</button> </form>
+    &nbsp;&nbsp;<button onclick="cancelSendTo()">Cancel</button>
+</div>
+<h3>List Management</h3> <br>
+<div id="contentArea">
+    <div id="sendList" onclick="displaySendPanel()">
+        Send List To...
+    </div>
+    <br>
+    <fieldset>
+        <br>
+        <legend>Patients</legend>
+        <span class="listSpan">
+            Current List:
+            <select id="currentPatientList" class="currentList" style="width: 250px">
+                <option>PList1 (TEMP)</option>
+                <option>Males over 50</option>
+                <option>mutated EGFR</option>
+                <option>amplified EGFR with other mutation</option>
+            </select>
+        </span>
+        <span class="listSpan">
+            Comment: <textArea id="patientListComment" class="listComment" type="text"  cols="30" rows="3"></textArea>
+        </span>
+        <span class="listSpan">
+            Rename: <input id="renamePatientList" class="renameList" type="text" size="20"/>
+            <button onclick="renamePatientList()">Save</button>
+        </span>
+        <br>
+        <span class="otherSpan">
+            Other List:&nbsp;&nbsp;&nbsp;
+            <select id="otherPatientList" class="currentList" style="width: 250px">
+                <option>PList1 (TEMP)</option>
+                <option>Males over 50</option>
+                <option>mutated EGFR</option>
+                <option>amplified EGFR with other mutation</option>
+            </select>
+        </span>
+        <br>
+        <span class="buttonSpan">
+            <button onclick="intersectPatientLists()">Intersect</button>
+            <button>Union</button>
+            <button>Complement</button>
+        </span>
+    </fieldset>
+    <br>
+    <fieldset>
+        <br>
+        <legend>Genetic Elements</legend>
+        <span class="listSpan">
+            Current List:
+            <select class="currentList" style="width: 250px">
+                <option>-none-</option>
+                <option>All Amplified</option>
+                <option>All Mutated and Overexpressed</option>
+                <option>(Not Mutated or Silent) and Overexpressed</option>
+                <option>Mutated in patients over 50</option>
+            </select>
+        </span>
+        <span class="listSpan">
+            Comment: <textArea class="listComment" type="text"  cols="30" rows="3"></textArea>
+        </span>
+        <span class="listSpan">
+            Rename: <input class="renameList" type="text" size="20"/>
+            <button onclick="renamePatientList()">Save</button>
+        </span>
+        <br>
+        <span class="otherSpan">
+            Other List:&nbsp;&nbsp;&nbsp;
+            <select class="currentList" style="width: 250px">
+                <option>-none-</option>
+                <option>All Amplified</option>
+                <option>All Mutated and Overexpressed</option>
+                <option>(Not Mutated or Silent) and Overexpressed</option>
+                <option>Mutated in patients over 50</option>
+            </select>
+        </span>
+        <br>
+        <span class="buttonSpan">
+            <button onclick="intersectPatientLists()">Intersect</button>
+            <button>Union</button>
+            <button>Complement</button>
+        </span>
+    </fieldset>
+    <br><br>                        
+
+    <table border="1" id="listTable" class="listTable">
+        <tr>
+            <th>Type</th><th>Name</th><th>Comment</th><th># Elements</th>
+        </tr>
+        <tr>
+            <td>Patient</td><td>PList1 (TEMP)</td><td/><td class="center">25</td>
+        </tr>
+        <tr>
+            <td>Patient</td><td>Males over 50</td><td>All males over 50</td><td class="center">185</td>
+        </tr>
+        <tr>
+            <td>Patient</td><td>mutated EGFR</td><td>All patients with mutated EGFR</td><td class="center">65</td>
+        </tr>
+        <tr>
+            <td>Patient</td><td>amplified EGFR with other mutation</td><td>amplified EGFR with any mutation</td><td class="center">52</td>
+        </tr>
+        <tr>
+            <td>GE</td><td>GList1 (TEMP)</td><td/><td class="center">32</td>
+        </tr>
+        <tr>
+            <td>GE</td><td>All Amplified</td><td>Any gene that is amplified for these patients</td><td class="center">248</td>
+        </tr>
+        <tr>
+            <td>GE</td><td>All Mutated and Overexpressed</td><td>Any gene that is both mutated and overexpressed in same patient</td><td class="center">73</td>
+        </tr>
+        <tr>
+            <td>GE</td><td>(Not Mutated or Silent) and Overexpressed</td><td>Any gene that is not mutated significantly and is overexpressed in the same patient</td><td class="center">45</td>
+        </tr>
+        <tr>
+            <td>GE</td><td>Mutated in patients over 50</td><td>Any gene mutated in patients over 50</td><td class="center">217</td>
+        </tr>
+    </table>
+    <br>
+</div>
+</body>
+
+</html>

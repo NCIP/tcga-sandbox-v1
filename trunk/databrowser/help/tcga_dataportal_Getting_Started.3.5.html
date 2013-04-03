@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <!-- MOTW-DISABLED saved from url=(0014)about:internet -->
+    <title>Step 2. Apply Sample Thresholds</title>
+    <link rel="StyleSheet" href="css/tcga_dataportal_Getting_Started.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="css/webworks.css" type="text/css" media="all" />
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/context.js"></script>
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/towwhdir.js"></script>
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/wwhpagef.js"></script>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        var  WebWorksRootPath = "";
+      // -->
+    </script>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        // Set reference to top level help frame
+        //
+        var  WWHFrame = WWHGetWWHFrame("", true);
+      // -->
+    </script>
+    <script type="text/javascript" language="JavaScript1.2" src="scripts/expand.js"></script>
+  </head>
+  <body style="" onLoad="WWHUpdate();" onUnload="WWHUnload();" onKeyDown="WWHHandleKeyDown((document.all||document.getElementById||document.layers)?event:null);" onKeyPress="WWHHandleKeyPress((document.all||document.getElementById||document.layers)?event:null);" onKeyUp="WWHHandleKeyUp((document.all||document.getElementById||document.layers)?event:null);">
+    <br />
+    <div class="WebWorks_Breadcrumbs" style="text-align: left;">
+      <a class="WebWorks_Breadcrumb_Link" href="tcga_dataportal_Getting_Started.3.1.html#1150688">Getting Started with TCGA Data Portal Prototype </a> &gt; <a class="WebWorks_Breadcrumb_Link" href="tcga_dataportal_Getting_Started.3.2.html#1150688">About TCGA Data Portal Prototype</a> &gt; <a class="WebWorks_Breadcrumb_Link" href="tcga_dataportal_Getting_Started.3.3.html#1150688">Determining Anomalies for Copy Number</a> &gt; Step 2. Apply Sample Thresholds</div>
+    <hr align="left" />
+    <blockquote>
+      <div class="Heading3"><a name="1150688">Step 2. Apply Sample Thresholds</a></div>
+      <div class="Body_Text"><a name="1159537">Once the value threshold is applied, a sample threshold completes the process to </a>create a final table of results listing the genes and number of samples residing in each anomaly category. There is a sample threshold percentage value for each Anomaly category (Mutation, Overexpression, Underexpression, Amplification, Deletion). The following table shows a list of example sample thresholds. These are examples and may not be the the current values used in TCGA Data Portal Prototype. As you can see, the lower the sample threshold, the more anomalies appear in the list.</div>
+      <div class="Note_Main_Body_outer" style="margin-left: 54pt;">
+        <table border="0" cellspacing="0" cellpadding="0" id="SummaryNotRequired_np1159544">
+          <tr style="vertical-align: baseline;">
+            <td>
+              <div class="Note_Main_Body_inner" style="width: 15px; white-space: nowrap;">
+                <span style="left: -20px; position: relative; top: 23px;">
+                  <img src="Lightbulb.gif" alt="*" id="bullet1159544" border="0" width="30" height="30" />
+                </span>
+              </div>
+            </td>
+            <td width="100%">
+              <div class="Note_Main_Body_inner"><a name="1159544">Because the same genes appear in multiple pathways, you get more pathways than </a>genes for any threshold level.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <table id="1159545" class="Table_-_Header" style="margin-bottom: pt; margin-left: pt; margin-right: pt; margin-top: pt; padding-bottom: pt; padding-left: pt; padding-right: pt; padding-top: pt; text-align: left;" cellspacing="2">
+        <caption></caption>
+        <tr>
+          <td id="tc1159547" style="background-color: LightSteelBlue; border-bottom-color: Black; border-bottom-style: solid; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: middle; width: 105.18768pt;">
+            <div class="Table_Header"><a name="1159547">Anomaly</a></div>
+          </td>
+          <td id="tc1159549" style="background-color: LightSteelBlue; border-bottom-color: Black; border-bottom-style: solid; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: middle; width: 105.18768pt;">
+            <div class="Table_Header"><a name="1159549">Sample Threshold</a></div>
+          </td>
+          <td id="tc1159551" style="background-color: LightSteelBlue; border-bottom-color: Black; border-bottom-style: solid; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: middle; width: 105.18768pt;">
+            <div class="Table_Header"><a name="1159551">Number of Genes </a>Anomalies</div>
+          </td>
+          <td id="tc1159553" style="background-color: LightSteelBlue; border-bottom-color: Black; border-bottom-style: solid; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: middle; width: 105.18768pt;">
+            <div class="Table_Header"><a name="1159553">Number of </a>Pathways Anomalies</div>
+          </td>
+        </tr>
+        <tr>
+          <td id="tc1159556" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159556">Mutated</a></div>
+          </td>
+          <td id="tc1159558" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159558">5%</a></div>
+          </td>
+          <td id="tc1159560" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159560">14</a></div>
+          </td>
+          <td id="tc1159562" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159562">105</a></div>
+          </td>
+        </tr>
+        <tr>
+          <td id="tc1159565" style="background-color: White; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159565">Amplified</a></div>
+          </td>
+          <td id="tc1159567" style="background-color: White; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159567">5%</a></div>
+          </td>
+          <td id="tc1159569" style="background-color: White; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159569">25</a></div>
+          </td>
+          <td id="tc1159571" style="background-color: White; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159571">75</a></div>
+          </td>
+        </tr>
+        <tr>
+          <td id="tc1159574" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159574">Deleted</a></div>
+          </td>
+          <td id="tc1159576" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159576">10%</a></div>
+          </td>
+          <td id="tc1159578" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159578">23</a></div>
+          </td>
+          <td id="tc1159580" style="background-color: WhiteSmoke; border-bottom-color: Black; border-bottom-style: none; border-bottom-width: 1px; border-left-color: #000000; border-left-style: none; border-left-width: 1px; border-right-color: #000000; border-right-style: none; border-right-width: 1px; border-top-color: #000000; border-top-style: none; border-top-width: 1px; padding-bottom: 6px; padding-left: 6px; padding-right: 6px; padding-top: 6px; vertical-align: top;">
+            <div class="Table_Text"><a name="1159580">38</a></div>
+          </td>
+        </tr>
+      </table>
+      <div class="Body_Text"><a name="1159608">Sample thresholds are defined in the product database </a><span class="Bold">(insert html link to </span><span class="Bold">samplethresholds.htm)</span>. These values can currently only be changed by the TCGA Data Portal Prototype System Administrator.</div>
+      <script type="text/javascript" language="JavaScript1.2">
+        <!--
+          // Clear related topics
+          //
+          WWHClearRelatedTopics();
+
+          // Add related topics
+          //
+          WWHAddRelatedTopic("Step 1. Calculate Amplified and Deleted Regions", "TCGA_Data_Portal_Online_Help", "tcga_dataportal_Getting_Started.3.4.html#1146588");
+          WWHAddRelatedTopic("Determining Anomalies for Copy Number", "TCGA_Data_Portal_Online_Help", "tcga_dataportal_Getting_Started.3.3.html#1158237");
+
+          document.writeln(WWHRelatedTopicsInlineHTML());
+        // -->
+      </script>
+    </blockquote>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        document.write(WWHRelatedTopicsDivTag() + WWHPopupDivTag() + WWHALinksDivTag());
+      // -->
+    </script>
+  </body>
+</html>

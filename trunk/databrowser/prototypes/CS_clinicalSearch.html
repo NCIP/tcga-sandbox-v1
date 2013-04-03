@@ -1,0 +1,806 @@
+<!-- clickable model for clinical search -->                                                                         
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Clinical Search </TITLE>
+  <link rel="stylesheet" type="text/css" href="../../../styles/clinicalSearchPage.css">
+ </HEAD>
+
+<BODY onload="uncheckall();showWidget('age');">
+
+
+<script>
+
+	searchParams = new Array();
+	var searchParamsCount = 0;
+
+	searchParams[searchParamsCount++]="age";
+	searchParams[searchParamsCount++]="survival";
+	searchParams[searchParamsCount++]="tumorTissueSite";
+	searchParams[searchParamsCount++]="histologicalType";
+	searchParams[searchParamsCount++]="gender";
+	searchParams[searchParamsCount++]="vitalStatus";
+	searchParams[searchParamsCount++]="tumorStage";
+	searchParams[searchParamsCount++]="tumorGrade";
+	searchParams[searchParamsCount++]="residualTumor";
+	searchParams[searchParamsCount++]="priorGlioma";
+	searchParams[searchParamsCount++]="pretreatmentHistory";
+	searchParams[searchParamsCount++]="radiation";
+	searchParams[searchParamsCount++]="chemoTherapy";
+	searchParams[searchParamsCount++]="immunoTherapy";
+	searchParams[searchParamsCount++]="hormonalTherapy";
+	searchParams[searchParamsCount++]="targetMolecularTherapy";
+	searchParams[searchParamsCount++]="informedConsentVerified";
+
+</script>
+
+<script type="text/javascript" src="jscharts.js"></script>
+<script type="text/javascript">
+
+ID=0;
+AGE=1;
+SEX=2;
+TUMORSITE=3;
+SURVIVAL=4;
+RADIATION=5;
+
+patientData = new Array();
+var patientCount = 0;
+//header row
+patientData[patientCount++] = ["Patient ID", "Age", "Sex", "Tumor Site", "Survival (months)", "Radiation"];
+patientData[patientCount++] = ["TCGA-01-0001", 64, "MALE", "CORTEX", 12, false]
+patientData[patientCount++] = ["TCGA-01-0002", 57, "FEMALE", "CEREBELLUM", 15, true];
+patientData[patientCount++] = ["TCGA-01-0003", 69, "MALE", "CORTEX", 4, false];
+patientData[patientCount++] = ["TCGA-01-0004", 73, "MALE", "AMYGDALA", 18, false];
+patientData[patientCount++] = ["TCGA-01-0005", 61, "FEMALE", "CORTEX", -1, true];
+patientData[patientCount++] = ["TCGA-01-0006", 76, "MALE", "CEREBELLUM", 16, false];
+patientData[patientCount++] = ["TCGA-01-0007", 83, "FEMALE", "BRAIN STEM", -1, true];
+
+
+function drawAge() {
+
+    var myData = [["< 30",0], ["30-39",0], ["40-49",0], ["50-59",0], ["60-69",0], ["70-79",0], ["80-89",0],[">= 90",0]];
+
+    for (var igroup=0; igroup<myData.length; igroup++) {
+        for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+            var patientAge = patientData[ipatient][AGE];
+            var increment = false;
+            switch (myData[igroup][0]) {
+            case "< 30":
+                increment = (patientAge < 30);
+                break;
+            case "30-39":
+                increment = (patientAge >= 30 && patientAge < 40);
+                break;
+            case "40-49":
+                increment = (patientAge >= 40 && patientAge < 50);
+                break;
+            case "50-59":
+                increment = (patientAge >= 50 && patientAge < 60);
+                break;
+            case "60-69":
+                increment = (patientAge >= 60 && patientAge < 70);
+                break;
+            case "70-79":
+                increment = (patientAge >= 70 && patientAge < 80);
+                break;
+            case "80-89":
+                increment = (patientAge >= 80 && patientAge < 90);
+                break;
+            case ">= 90":
+                increment = (patientAge >= 90);
+                break;
+            }
+            if (increment) {
+                myData[igroup][1]++;
+            }
+        }
+    }
+    ageGraph = new JSChart("agegraph", "bar");
+    ageGraph.setTitle("Age Distribution");
+    ageGraph.setAxisNameX("Age");
+    ageGraph.setAxisNameY("# Patients");
+    ageGraph.setAxisValuesDecimals(1);
+    ageGraph.setDataArray(myData);
+    //can put in more code here to set colors and other visuals
+    ageGraph.draw();
+
+    agestats.innerHTML = calcStats(AGE);
+}
+
+function calcStats(column) {
+    var ret = "Average: " + calcAverage(column) + "<br>";
+    ret += "Median: " + calcMedian(column);
+    return ret;
+}
+
+function numOrdA(a, b){ return (a-b); }
+
+function calcMedian(column) {
+    var numbers = Array();
+    var count = 0;
+    for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+        if (patientData[ipatient][column] >= 0) {
+            numbers[count++] = patientData[ipatient][column];
+        }
+    }
+    numbers.sort(numOrdA);
+    var iseven = (numbers.length % 2 == 0);
+    var ret;
+    if (iseven) {  //average the two middle numbers
+        var lowermiddleidx = parseInt(numbers.length/2);
+        ret = (numbers[lowermiddleidx] + numbers[lowermiddleidx+1])/2;
+    } else {
+        var middleidx = Math.ceil(numbers.length/2);
+        ret = numbers[middleidx];
+    }
+    return ret;
+}
+
+function calcAverage(column) {
+    var total=0;
+    var count=0;
+    for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+        if (patientData[ipatient][column] >= 0) {
+            total += patientData[ipatient][column];
+            count++;
+        }
+    }
+    return total/count;
+}
+
+function drawSurvival() {
+    var myData = [["< 4",0], ["4-7",0], ["8-11",0], ["12-14",0], ["15-17",0], ["18-20",0], ["21-23",0],[">= 24",0], ["Living",0]];
+
+    for (var igroup=0; igroup<myData.length; igroup++) {
+        for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+            var survival = patientData[ipatient][SURVIVAL];
+            var increment = false;
+            switch (myData[igroup][0]) {
+            case "< 4":
+                increment = (survival < 4 && survival >= 0);
+                break;
+            case "4-7":
+                increment = (survival >= 4 && survival < 7);
+                break;
+            case "8-11":
+                increment = (survival >= 8 && survival < 11);
+                break;
+            case "12-14":
+                increment = (survival >= 12 && survival < 14);
+                break;
+            case "15-17":
+                increment = (survival >= 15 && survival < 17);
+                break;
+            case "18-20":
+                increment = (survival >= 18 && survival < 20);
+                break;
+            case "21-23":
+                increment = (survival >= 21 && survival < 23);
+                break;
+            case ">= 24":
+                increment = (survival >= 24);
+                break;
+            case "Living":
+                increment = (survival < 0);
+                break;
+            }
+            if (increment) {
+                myData[igroup][1]++;
+            }
+        }
+    }
+    survivalGraph = new JSChart("survivalgraph", "bar");
+    survivalGraph.setTitle("Survival Distribution");
+    survivalGraph.setAxisNameX("Survival (months)");
+    survivalGraph.setAxisNameY("# Patients");
+    survivalGraph.setAxisValuesDecimals(1);
+    survivalGraph.setDataArray(myData);
+    //can put in more code here to set colors and other visuals
+    survivalGraph.draw();
+
+    survivalstats.innerHTML = calcStats(SURVIVAL);
+}
+
+function drawSex() {
+    var myData = [["Male",0], ["Female",0]];
+
+    for (var igroup=0; igroup<myData.length; igroup++) {
+        for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+            var patientSex = patientData[ipatient][SEX];
+            var increment = false;
+            switch (myData[igroup][0]) {
+            case "Male":
+                increment = (patientSex == "MALE");
+                break;
+            case "Female":
+                increment = (patientSex == "FEMALE");
+                break;
+            }
+            if (increment) {
+                myData[igroup][1]++;
+            }
+        }
+    }
+    sexGraph = new JSChart("sexgraph", "pie");
+    sexGraph.setTitle("Sex Distribution");
+    sexGraph.setDataArray(myData);
+    //can put in more code here to set colors and other visuals
+    sexGraph.draw();
+}
+
+function drawTumorSite() {
+    var myData = [["Cortex",0], ["Amygdala",0], ["Brain Stem",0], ["Cerebellum",0]];
+
+    for (var igroup=0; igroup<myData.length; igroup++) {
+        for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+            var site = patientData[ipatient][TUMORSITE];
+            var increment = false;
+            switch (myData[igroup][0]) {
+            case "Cortex":
+                increment = (site == "CORTEX");
+                break;
+            case "Amygdala":
+                increment = (site == "AMYGDALA");
+                break;
+            case "Brain Stem":
+                increment = (site == "BRAIN STEM");
+                break;
+            case "Cerebellum":
+                increment = (site == "CEREBELLUM");
+                break;
+            }
+            if (increment) {
+                myData[igroup][1]++;
+            }
+        }
+    }
+    siteGraph = new JSChart("sitegraph", "pie");
+    siteGraph.setTitle("Tumor Sites");
+    siteGraph.setDataArray(myData);
+    //can put in more code here to set colors and other visuals
+    siteGraph.draw();
+}
+
+function drawRadiation() {
+    var myData = [["True",0], ["False",0]];
+
+    for (var igroup=0; igroup<myData.length; igroup++) {
+        for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+            var radiation = patientData[ipatient][RADIATION];
+            var increment = false;
+            switch (myData[igroup][0]) {
+            case "True":
+                increment = radiation;
+                break;
+            case "False":
+                increment = !radiation;
+                break;
+            }
+            if (increment) {
+                myData[igroup][1]++;
+            }
+        }
+    }
+    radiationGraph = new JSChart("radiationgraph", "pie");
+    radiationGraph.setTitle("Patient had Radiation");
+    radiationGraph.setDataArray(myData);
+    //can put in more code here to set colors and other visuals
+    radiationGraph.draw();
+}
+
+function drawPatientTable() {
+    var table = "<table id='resultsTable' border=1 rules=below><tr>";
+    table += "<th><input type=checkbox>" + patientData[0][0] + "</th>";
+    for (var ii=1; ii<patientData[0].length; ii++) {
+        table += "<th>" + patientData[0][ii] + "</th>";
+    }
+    for (var i=1; i<patientData.length; i++) {
+        var row = "<tr>";
+        row += "<td><input type=checkbox>" + patientData[i][0] + "</td>";
+        for (ii=1; ii<patientData[i].length; ii++) {
+            row += ("<td>" + patientData[i][ii] + "</td>");
+        }
+        row += "</tr>";
+        table += row;
+    }
+    table += "</table>";
+    patienttable.innerHTML = table;
+}
+
+function findHitsExact(column, exactval) {
+    var hits = new Array();
+    for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+        hits[ipatient-1] = (patientData[ipatient][column] == exactval);
+    }
+    return hits;
+}
+
+function findHitsRange(column, low, high) {
+    var hits = new Array();
+    for (var ipatient=1; ipatient<patientData.length; ipatient++) {
+        var val = patientData[ipatient][column]
+        hits[ipatient-1] = (val >= low && val <= high);
+    }
+    return hits;
+}
+
+function countHits(hits) {
+    var count = 0;
+    for (var i=0; i<hits.length; i++) {
+        if (hits[i]) {
+            count++;
+        }
+    }
+    return count;
+}
+
+function intersectHits(hits1, hits2) {
+    var hits3 = new Array();
+    for (var i=0; i<hits1.length; i++) {
+        hits3[i] = (hits1[i] && hits2[i]);
+    }
+    return hits3;
+}
+
+function countSex(sex) {
+    countsex.innerHTML = "<br>Count of " + sex + ": <b>" + countHits(findHitsExact(SEX, sex)) + "</b>";
+}
+
+function countAge(low, high) {
+    countage.innerHTML = "<br>Count of between " + low + " and " + high + ": <b>" + countHits(findHitsRange(AGE, low, high)) + "</b>";
+}
+
+function countAgeAndSex(sex, lowage, highage) {
+    var hits1 = findHitsExact(SEX, sex);
+    var hits2 = findHitsRange(AGE, lowage, highage);
+    var hits3 = intersectHits(hits1, hits2);
+    countintersection.innerHTML = "<br>Count intersection: <b>" + countHits(hits3) + "</b>";
+}
+
+</script>
+
+<script type="text/javascript">
+
+    function togglePortlet( id, heaerText, bodyText ) {
+        var portletBody = document.getElementById(id + "Body");
+        if(portletBody.style.display == 'block') {
+            portletBody.style.display = 'none';
+            document.getElementById(id + "Toggle").innerHTML = "  ^  " + heaerText;
+        } else {
+            portletBody.style.display = 'block';
+            document.getElementById(id + "Toggle").innerHTML = "  v  " + bodyText;
+        }
+    }
+
+	function uncheckall() {
+
+		for (var isearchParam=1; isearchParam<searchParams.length; isearchParam++) {
+            var searchParamName= searchParams[isearchParam];
+			document.getElementById(searchParamName).checked = false;
+		}
+
+		//document.getElementById("age").checked = true;
+	}
+
+    function clearText(){
+
+		for (var isearchParam=1; isearchParam<searchParams.length; isearchParam++) {
+            var searchParamName= searchParams[isearchParam];
+			document.getElementById(searchParamName).checked = false;
+		}
+
+		for (var isearchParam=1; isearchParam<searchParams.length; isearchParam++) {
+            var searchParamName= searchParams[isearchParam];
+			document.getElementById(searchParamName +'Widget').style.display = 'none';
+		}
+
+    }
+
+
+    function showWidget(widgetFor) {
+		displayWidgets(widgetFor);
+
+		//if none of them is selected, do not show the search button
+		if(noWidgetSelected()) {
+			document.getElementById("directionsPane").style.display = 'block';
+			document.getElementById("widgetPane").style.display = 'none';
+		}
+
+    }
+
+    function displayWidgets(widgetFor) {
+
+			if(document.getElementById(widgetFor).checked == true) {
+				document.getElementById("widgetPane").style.display = 'block';
+				document.getElementById(widgetFor +'Widget').style.display = 'block';
+				document.getElementById("directionsPane").style.display = 'none';
+
+			} else {
+				document.getElementById(widgetFor + 'Widget').style.display = 'none';
+				//document.getElementById("widgetPane").style.display = 'none';
+				//document.getElementById("directionsPane").style.display = 'block';
+			}
+	}
+
+
+	function noWidgetSelected() {
+		// age, survival, radiation,  tumorsite, gender
+		// todo : loop thru the array and check
+
+
+		var notSelected = true;
+
+
+		/*
+		if(document.getElementById("ageWidget").style.display == 'block')
+			notSelected = false;
+		if(document.getElementById("radiationWidget").style.display == 'block')
+			notSelected = false;
+		if(document.getElementById("survivalWidget").style.display == 'block')
+			notSelected = false;
+		if(document.getElementById("tumorTissueSiteWidget").style.display == 'block')
+			notSelected = false;
+		if(document.getElementById("genderWidget").style.display == 'block')
+			notSelected = false;
+			*/
+
+
+
+		for (var isearchParam=1; isearchParam<searchParams.length; isearchParam++) {
+            var searchParamName= searchParams[isearchParam];
+			if(document.getElementById(searchParamName +"Widget").style.display == 'block') {
+				notSelected = false;
+				break;
+			}
+		}
+		return notSelected;
+	}
+
+
+
+    function showTable(){
+        //document.getElementById("directionsPane").style.display = 'none';
+		togglePortlet('top', '<b>Search Criteria Summary </b><br> &nbsp;&nbsp;&nbsp;<br>Age : 10-30 Years <br> Tumor Site : Brain', '<b>Search Criteria</b>')
+
+        document.getElementById("bottomPortlet").style.display = 'block';
+        document.getElementById("menuPane").style.display = 'block';
+        document.getElementById("menuBorder").style.display = 'block';
+        document.getElementById("tablePane").style.display = 'block';
+
+        drawPatientTable();
+    }
+
+
+    function switchMenu(selectedItem, unselectedItem1, unselectedItem2){
+
+        var selectedItemA = selectedItem + "A";
+        var selectedItemSpan = selectedItem + "Span";
+
+        var unselectedItem1A = unselectedItem1 + "A";
+        var unselectedItem1Span = unselectedItem1 + "Span";
+
+        var unselectedItem2A = unselectedItem2 + "A";
+        var unselectedItem2Span = unselectedItem2 + "Span";
+
+        document.getElementById(selectedItemA).style.background = '#53AA7E url("../../../images/MK_anomaly/tab-green-left2.gif") left top no-repeat';
+        document.getElementById(selectedItemA).style.color = 'white';
+        document.getElementById(selectedItemSpan).style.background = 'url("../../../images/MK_anomaly/tab-green-right2.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem1A).style.background = '#E0FAE0 url("../../../images/MK_anomaly/tab-green-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem1A).style.color = 'black';
+        document.getElementById(unselectedItem1Span).style.background = 'url("../../../images/MK_anomaly/tab-green-right.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem2A).style.background = '#E0FAE0 url("../../../images/MK_anomaly/tab-green-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem2A).style.color = 'black';
+        document.getElementById(unselectedItem2Span).style.background = 'url("../../../images/MK_anomaly/tab-green-right.gif") right top no-repeat';
+
+        document.getElementById(selectedItem).style.display = 'block';
+        document.getElementById(unselectedItem1).style.display = 'none';
+        document.getElementById(unselectedItem2).style.display = 'none';
+    }
+
+    function showGraphTab() {
+        document.getElementById("graphTab").style.display = 'block';
+        document.getElementById("tablePane").style.display = 'none';
+        document.getElementById("geneGraphPane").style.display = 'block';
+
+        document.getElementById("geneGraphPaneA").style.background = '#53AA7E url("../../../images/MK_anomaly/tab-green-left2.gif") left top no-repeat';
+        document.getElementById("geneGraphPaneA").style.color = 'white';
+        document.getElementById("geneGraphPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-green-right2.gif") right top no-repeat';
+
+		showAllGraphs();
+
+
+    }
+
+
+	function showAllGraphs()
+	{
+		 drawSex();
+		 drawTumorSite();
+		 drawRadiation();
+		 drawAge();
+		 drawSurvival();
+		 //drawPatientTable();
+	}
+
+
+</script>
+
+<h3>Clinical Search</h3>
+
+<div id="contentArea">
+
+		<div class="portlet">
+			<div class="portletHeader" onclick="togglePortlet('top', ' <b>Search Criteria Summary </b><br><br> Age : 10-30 Years <br> Tumor Site : Brain', '<b>Search Criteria</b>');">
+				   <span id="topToggle"> <b>v Search Criteria</b></span>
+			</div>
+			<div class="portletBody" id="topBody" style="display:block;">
+				<div id="leftPane">
+					<fieldset id="clinicalParamsSet">
+						<input type="checkbox" checked id="age" onClick="showWidget('age')">Age <br>
+						<input type="checkbox" id="survival" onClick="showWidget('survival')">Survival <br>
+						<input type="checkbox" id="tumorTissueSite" onClick="showWidget('tumorTissueSite')">Tumor Tissue  Site<br>
+						<input type="checkbox" id="histologicalType" onClick="showWidget('histologicalType')">Histological Type<br>
+						<input type="checkbox" id="gender" onClick="showWidget('gender')">Gender<br>
+						<input type="checkbox" id="vitalStatus" onClick="showWidget('vitalStatus')">Vital Status<br>
+						<input type="checkbox" id="tumorStage" onClick="showWidget('tumorStage')">Tumor Stage<br>
+						<input type="checkbox" id="tumorGrade" onClick="showWidget('tumorGrade')">Tumor Grade<br>
+						<input type="checkbox" id="residualTumor" onClick="showWidget('survival')">Residual Tumor<br>
+						<input type="checkbox" id="priorGlioma" onClick="showWidget('priorGlioma')">Prior Glioma<br>
+						<input type="checkbox" id="pretreatmentHistory" onClick="showWidget('pretreatmentHistory')">Pre-Treatment History<br>
+						<input type="checkbox" id="radiation" onClick="showWidget('radiation')">Radiation Therapy<br>
+						<input type="checkbox" id="chemoTherapy" onClick="showWidget('chemoTherapy')">Chemo Therapy<br>
+						<input type="checkbox" id="immunoTherapy" onClick="showWidget('immunoTherapy')">Immuno Therapy<br>
+						<input type="checkbox" id="hormonalTherapy" onClick="showWidget('hormonalTherapy')">Hormonal Therapy<br>
+						<input type="checkbox" id="targetMolecularTherapy" onClick="showWidget('targetMolecularTherapy')">Target Molecular Therapy<br>
+						<input type="checkbox" id="informedConsentVerified" onClick="showWidget('informedConsentVerified')">Informed Consent Verified<br><br><br>
+
+						<a align= "right" class="clearText" onclick="clearText();">Clear</a><br>
+
+					</fieldset>
+				</div>
+
+				<div id="instructionsPane">
+					<br><br><br><br><br><br>
+					Maybe here we can have directions on how to use <br>
+					the panel When users click the 'Search' button, <br>
+					this will disappear.
+				</div>
+
+				<div id="widgetPane">
+					<div id="ageWidget">
+						<br>
+						<fieldset>
+						<legend>Select Age Range</legend><br>
+						<button id="age1" >Age (10-30) </button>
+						<button id="age2" >Age (30-60) </button>
+						<button id="age3" >Age (60-100) </button>
+						</fieldset>
+					</div>
+					<div id="survivalWidget">
+						<br>
+						<fieldset>
+						<legend>Survival</legend>
+						<button id="survival1"> &lt; 4 months </button>
+						<button id="survival2">   between 4 and 8 months</button>
+						<button id="survival3">  > 8 months</button>
+						<br>
+						</fieldset>
+					</div>
+					<div id="tumorTissueSiteWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Tumor Site </legend>
+						<select name="tumorsiteselect" multiple="1" STYLE="width: 25em">
+							<option selected> All </option>
+							<option > Brain </option>
+							<option> Ovary </option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="histologicalTypeWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Histological Type</legend>
+						<select name="histologicalType" multiple="1" style="width: 25em">
+							<option selected> All </option>
+							<option> Untreated primary (De Nova) GBM </option>
+							<option> xyz </option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="genderWidget">
+						<br>
+						<fieldset>
+						<legend>Gender</legend>
+						<input type="radio" id="gender_input1"> Male </input>
+						<input type="radio" id="gender_input2"> Female </input>
+						<input type="radio" id="gender_input3" > Either</input>
+						<br>
+						</fieldset>
+					</div>
+					<div id="vitalStatusWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Vital Status </legend>
+						<select name="vitalStatus" multiple="1" style="width: 25em">
+							<option selected> All </option>
+							<option> Living </option>
+							<option> Deceased</option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="tumorStageWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Tumor Stage</legend>
+						<select name="tumorStage" multiple="1" style="width: 25em">
+							<option selected> All </option>
+							<option> Stage 1</option>
+							<option> Stage 2 </option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="tumorGradeWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Tumor Grade </legend>
+						<select name="tumorGrade" multiple="1" style="width: 25em">
+							<option selected> All </option>
+							<option> Grade 1</option>
+							<option> Grade 2 </option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="residualTumorWidget" class="anyWidget">
+						<br>
+						<fieldset>
+							<legend>Residual Tumor </legend>
+							<select name="residualTumor" multiple="1" style="width: 25em">
+								<option selected> All </option>
+								<option> Residual 1</option>
+								<option> Residual 2 </option>
+						</select>
+						<br>
+						</fieldset>
+					</div>
+					<div id="priorGliomaWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Prior Glioma</legend>
+						<input type="radio" id="priorGlioma_input"> Yes
+						<input type="radio" id="priorGlioma_input"> No
+						<input type="radio" checked id="priorGlioma_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="pretreatmentHistoryWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Pre Treatment History</legend>
+						<input type="radio" id="pretreatmentHistory_input"> Yes
+						<input type="radio" id="pretreatmentHistory_input"> No
+						<input type="radio" checked id="pretreatmentHistory_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="radiationWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Radiation</legend>
+						<input type="radio" id="radiation_input"> Yes
+						<input type="radio" id="radiation_input"> No
+						<input type="radio" checked id="radiation_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="chemoTherapyWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>ChemoTherapy</legend>
+						<input type="radio" id="chemoTherapy_input"> Yes
+						<input type="radio" id="chemoTherapy_input"> No
+						<input type="radio" checked id="chemoTherapy_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="immunoTherapyWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Immuno Therapy</legend>
+						<input type="radio" id="immunoTherapy_input"> Yes
+						<input type="radio" id="immunoTherapy_input"> No
+						<input type="radio" checked id="immunoTherapy_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="hormonalTherapyWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Hormonal Therapy</legend>
+						<input type="radio" id="hormonalTherapy_input"> Yes
+						<input type="radio" id="hormonalTherapy_input"> No
+						<input type="radio" checked id="hormonalTherapy_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="targetMolecularTherapyWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Target Molecular Therapy</legend>
+						<input type="radio" id="targetMolecular_input"> Yes
+						<input type="radio" id="targetMolecular_input"> No
+						<input type="radio" checked id="targetMolecular_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<div id="informedConsentVerifiedWidget" class="anyWidget">
+						<br>
+						<fieldset>
+						<legend>Informed Consent Verified</legend>
+						<input type="radio" id="informedConsentVerified_input"> Yes
+						<input type="radio" id="informedConsentVerified_input"> No
+						<input type="radio" checked id="informedConsentVerified_input"> Either
+						<br>
+						</fieldset>
+					</div>
+					<br>
+					<button id="retrieveButton" onclick="showTable();" >Search</button>
+				</div> <!-- div for widgetPane -->
+	        </div> <!-- div for portletBody -->
+	   </div> <!-- div for portlet -->
+
+		<div class="bottomPortlet" id="bottomPortlet">
+			<div class="bottomPortletHeader" onclick="togglePortlet('bottom', '<b>Search Results</b>', '<b>Search Results </b>');">
+				 <span id="bottomToggle"> <b>v Search Results </b></span>
+			</div>
+			<div class="bottomPortletBody" id="bottomBody">
+				<div id="menuPane">
+					<ul>
+						<li><a id="tablePaneA" onclick="switchMenu('tablePane', 'geneGraphPane', 'patientPane');"><span id="tablePaneSpan">Patients</span></a></li>
+						<li id="graphTab"><a id="geneGraphPaneA" onclick="switchMenu('geneGraphPane', 'tablePane','patientPane');"><span id="geneGraphPaneSpan">Anomaly Summary Graph</span></a></li>
+					</ul>
+				</div>
+    			<div id="menuBorder"></div>
+				<div id="tablePane">
+					<br>
+			        Send<a onclick="copyGEsToSearch()">Patients</a> for Anomaly Search&nbsp;&nbsp;&nbsp;<a onclick="showGraphTab();">Graph Data</a>&nbsp;&nbsp;&nbsp;<a>Export Table</a><br><br>
+
+					 <div id="scrollDiv">
+						<div id="patienttable"></div>
+					</div>
+				</div>
+				<div id="geneGraphPane">
+					<h2>Genetic Element Summary Graph</h2><br>
+
+						<div id="agegraph"> </div>
+						<div id="survivalgraph"></div>
+						<div id="sexgraph"></div>
+						<div id="sitegraph"></div>
+						<div id="radiationgraph"></div>
+
+						<!--
+						<td><div id="agestats"></div></td>
+						<div id="survivalgraph"></div>
+						<div id="sexgraph"></div>
+						<div id="sitegraph"></div>
+						<div id="radiationgraph"></div>
+						<div id="patienttable"></div>
+						<div id="countsex"></div>
+						<div id="countage"></div>
+						<div id="countintersection"></div>
+						-->
+				</div>
+			</div>
+		</div>
+</div>
+
+ </BODY>
+</HTML>

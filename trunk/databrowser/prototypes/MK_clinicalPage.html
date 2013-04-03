@@ -1,0 +1,959 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Clinical Data Search </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <link rel="stylesheet" type="text/css" href="../../../styles/clinicalPage.css">
+
+ </HEAD>
+
+ <BODY>
+<script type="text/javascript">
+
+    function clearText(textBox, list, all){
+        document.getElementById(textBox).value = "";
+        document.getElementById(list).checked = false;
+        document.getElementById(all).checked = true;
+    }
+
+    function addToGeneList(geneName){
+        document.getElementById("allGeneticElements").checked = false;
+        document.getElementById("geneticElementList").checked = true;
+        if (document.getElementById("geneticElementListText").value == "") {
+            document.getElementById("geneticElementListText").value = geneName;
+        }
+        else {
+            document.getElementById("geneticElementListText").value += ", " + geneName;
+        }
+
+    }
+
+    function showTable(){
+        document.getElementById("directionsPane").style.display = 'none';
+        document.getElementById("tablePane").style.display = 'block';
+        document.getElementById("patientPane").style.display = 'block';
+    }
+
+    function showCorrelation(){
+        document.getElementById("correlation").style.display = 'block';
+    }
+
+    function switchMenu(selectedItem, unselectedItem1, unselectedItem2){
+        var selectedItemA = selectedItem + "A";
+        var selectedItemSpan = selectedItem + "Span";
+
+        var unselectedItem1A = unselectedItem1 + "A";
+        var unselectedItem1Span = unselectedItem1 + "Span";
+
+        var unselectedItem2A = unselectedItem2 + "A";
+        var unselectedItem2Span = unselectedItem2 + "Span";
+
+        document.getElementById(selectedItemA).style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById(selectedItemA).style.color = 'white';
+        document.getElementById(selectedItemSpan).style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem1A).style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem1A).style.color = 'black';
+        document.getElementById(unselectedItem1Span).style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem2A).style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem2A).style.color = 'black';
+        document.getElementById(unselectedItem2Span).style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById(selectedItem).style.display = 'block';
+        document.getElementById(unselectedItem1).style.display = 'none';
+        document.getElementById(unselectedItem2).style.display = 'none';
+    }
+
+    function displayTab(){
+
+    }
+
+    function createNewTab(){
+        document.getElementById("patientData").style.display = 'block';
+        document.getElementById("patientPane").style.display = 'block';
+        document.getElementById("tablePane").style.display = 'none';
+        document.getElementById("geneGraphPane").style.display = 'none';
+
+        document.getElementById("patientPaneA").style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById("patientPaneA").style.color = 'white';
+        document.getElementById("patientPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById("tablePaneA").style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById("tablePaneA").style.color = 'black';
+        document.getElementById("tablePaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById("geneGraphPaneA").style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById("geneGraphPaneA").style.color = 'black';
+        document.getElementById("geneGraphPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+    }
+
+    function showGraphTab(){
+        document.getElementById("graphTab").style.display = 'block';
+        document.getElementById("patientPane").style.display = 'none';
+        document.getElementById("tablePane").style.display = 'none';
+        document.getElementById("geneGraphPane").style.display = 'block';
+
+        document.getElementById("geneGraphPaneA").style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById("geneGraphPaneA").style.color = 'white';
+        document.getElementById("geneGraphPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById("patientPaneA").style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById("patientPaneA").style.color = 'white';
+        document.getElementById("patientPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById("tablePaneA").style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById("tablePaneA").style.color = 'black';
+        document.getElementById("tablePaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+    }
+
+    function showData(lessThan, greaterThan){
+        var lessThanSelect = lessThan + "Select";
+        var greaterThanSelect = greaterThan + "Select";
+
+        document.getElementById(lessThan).value = "0.5";
+        document.getElementById(greaterThan).value = "2";
+
+        document.getElementById(lessThan).disabled = false;
+        document.getElementById(greaterThan).disabled = false;
+        document.getElementById(lessThanSelect).disabled = false;
+        document.getElementById(greaterThanSelect).disabled = false;
+
+    }
+
+    function copyPatientsToSearch() {
+        document.getElementById("allPatients").checked = false;
+        document.getElementById("patientList").checked = true;
+        var table = document.getElementById("resultsTablePatient");
+        var s = "";
+        for (var i=1; i<table.rows.length; i++) {
+            if (i > 1) s += ", ";
+            s += table.rows[i].cells[0].innerHTML;
+        }
+        var patientTextbox = document.getElementById("patientListText");
+        var list = patientTextbox.value;
+        if (list != undefined && list.length > 0) list += ",";
+        list += s;
+        patientTextbox.value = list;
+    }
+
+    function copyGEsToSearch() {
+        var table = document.getElementById("resultsTable");
+        var s = "";
+        for (var i=1; i<table.rows.length; i++) {
+            if (i > 1) s += ", ";
+            s += table.rows[i].cells[0].innerHTML;
+        }
+        var geTextbox = document.getElementById("geneticElementListText");
+        var list = geTextbox.value;
+        if (list != undefined && list.length > 0) list += ",";
+        list += s;
+        geTextbox.value = list;
+    }
+
+    function resultsAsRatios(){
+        var table = document.getElementById("resultsTable");
+        for (var i=1; i<table.rows.length; i++) {
+            for (var j=1; j<3; j++){
+                var str = table.rows[i].cells[j].innerHTML.charAt(0);
+                str += table.rows[i].cells[j].innerHTML.charAt(1);
+                var decimal = parseInt(str)/100;
+                var numerator = decimal * 400;
+                numerator = parseInt(numerator);
+
+                table.rows[i].cells[j].innerHTML = numerator + "/" + 400;
+            }
+        }
+    }
+
+    function resultsAsPercentages(){
+        var table = document.getElementById("resultsTable");
+        for (var i=1; i<table.rows.length; i++) {
+            for (var j=1; j<3; j++){
+                var str_array = table.rows[i].cells[j].innerHTML.split("/");
+                var numerator = parseFloat(str_array[0]);
+                var denominator = parseFloat(str_array[1]);
+                var percent = parseInt(numerator/denominator * 100);
+
+                table.rows[i].cells[j].innerHTML = percent + "%";
+            }
+        }
+    }
+
+    function enableMutationOptions(select){
+        document.getElementById(select).disabled = false;
+
+    }
+    function displaySendPanel(){
+        document.getElementById("sendToLinks").style.display = "block";
+        document.getElementById("dim").style.display = "block";
+    }
+
+    function cancelSendTo(){
+        document.getElementById("sendToLinks").style.display = "none";
+        document.getElementById("dim").style.display = "none";
+    }
+</script>
+<div id="dim"></div>
+<div id="sendToLinks">
+    <span id="sendToTitle">Send List<img id="closeImg" src="../../../images/MK_anomaly/close_icon.gif" onclick="cancelSendTo()" alt="Click to close"></span><br>
+    Please select which page to send the patient and/or the genetic element list to:<br><br>
+    <table style="border: none;">
+        <tr>
+            <td><input type="radio" name="sendTo" checked>Pathways</td>
+            <td><input type="checkbox" checked>Patients</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo">Clinical</td>
+            <td><input type="checkbox" id="sendToGECheck" disabled>Genetic Elements</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo">List Management</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo">Data Acess Matrix</td>
+        </tr>
+    </table><br>
+    <form action="MK_listManagement.html">&nbsp;&nbsp;<button>Send</button> </form>
+    &nbsp;&nbsp;<button onclick="cancelSendTo()">Cancel</button>
+</div>
+<h3>Clinical Search</h3>
+<div id="contentArea">
+    <div id="leftPane">
+        <div id="sendList" onclick="displaySendPanel()">
+            Send List To...
+        </div>
+        <br><br>
+        <fieldset>
+            <legend>Patients</legend>
+            <input type="radio" id="allPatients" name="patients" value="allPatients">All Patients<br>
+            <input type="radio" checked="checked" id="patientList" name="patients" value="patientList">Patient List<br>
+            <textarea id="patientListText" name="patientListText" cols="44" rows="5">TCGA-02-0001, TCGA-02-0003, TCGA-04-0008, TCGA-06-0012, TCGA-08-0002, TCGA-08-0016, TCGA-09-0011</textarea><br>
+            <a class="clearText" onclick="clearText('patientListText', 'patientList', 'allPatients');">Clear</a><br>
+        </fieldset>
+        <br>
+        <h1>Gender</h1>
+        <div class="sublist">
+            <span class="checkbx"><input type="checkbox" checked="checked">Male</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Female</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Unknown</span>
+        </div><br>
+        <h1>Age at Procedure</h1>
+        <div class="sublist">
+            <input type="text" size="3"> to <input type="text" size="3"> years
+        </div><br>
+        <h1>Diagnosis</h1>
+        <div class="sublist">
+            <span class="checkbx"><input type="checkbox" checked="checked">Untreated</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Secondary</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Recurrent</span>
+        </div><br>
+        <h1>Survival</h1>
+        <div class="sublist">
+            <input type="text" size="3"> to <input type="text" size="3"> months
+        </div><br>
+
+        <h1>Vital Status</h1>
+        <div class="sublist">
+            <span class="checkbx"><input type="checkbox" checked="checked">Deceased</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Living</span>
+            <span class="checkbx"><input type="checkbox" checked="checked">Unknown</span>
+        </div><br>
+
+        <h1>Race</h1>
+        <div class="sublist">
+            <table id="mutationTable">
+                <tr>
+                    <td><input type="checkbox" checked="checked">White</td>
+                    <td><input type="checkbox" checked="checked">Black</td>
+                    <td><input type="checkbox" checked="checked">Asian</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" checked="checked">Am. Indian</td>
+                    <td><input type="checkbox" checked="checked">Hawaiian</td>
+                    <td><input type="checkbox" checked="checked">Unknown</td>
+                </tr>
+            </table>
+        </div><br>
+
+        <h1>Speciman Acrual Sites</h1>
+        <div class="sublist">
+            <select id="acrualSites" multiple size="13">
+                <option selected>All</option>
+                <option>Case Western</option>
+                <option>Cedars Sinai</option>
+                <option>Duke</option>
+                <option>Emory University</option>
+                <option>Fox Chase Cancer Center</option>
+                <option>Gynecologic Oncology Group</option>
+                <option>Harvard</option>
+                <option>Henry Ford Hospital</option>
+                <option>International Genomics Consortium</option>
+                <option>Lung Cancer Tissue Bank of CALGB</option>
+                <option>Mayo Clinic - Rochester</option>
+                <option>MD Anderson Cancer Center</option>
+                <option>Memorial Sloan Ketterling</option>
+                <option>Fondazione IRCCS Instituto Neuroligico C. Besta</option>
+                <option>National Cancer Institute</option>
+                <option>Prince Charles Hospital (Australia)</option>
+                <option>Princess Margaret Hospital (Canada)</option>
+                <option>TGen</option>
+                <option>Toronto Western Hospital</option>
+                <option>UCSF</option>
+                <option>University of Florida</option>
+                <option>Washington University</option>
+            </select>
+        </div><br>
+
+        <button id="retrieveButton" onclick="showTable();" >Search</button>
+    </div>
+    <div id="directionsPane">
+        Maybe here we can have directions on how to use the panel to the left.<br>
+        When users click the 'Retrieve Results' button, this will disappear.
+    </div>
+    <div id="menuPane">
+        <ul>
+            <li><a id="tablePaneA" onclick="switchMenu('tablePane', 'geneGraphPane', 'patientPane');"><span id="tablePaneSpan">Anomaly Summary</span></a></li>
+            <li id="graphTab"><a id="geneGraphPaneA" onclick="switchMenu('geneGraphPane', 'tablePane','patientPane');"><span id="geneGraphPaneSpan">Anomaly Summary Graph</span></a></li>
+            <li id="patientData"><a id="patientPaneA" onclick="switchMenu('patientPane', 'tablePane', 'geneGraphPane');"><span id="patientPaneSpan">ARF1 Patients</span></a></li>
+        </ul>
+    </div>
+    <div id="menuBorder"></div>
+    <div id="tablePane">
+        <h2>Patient Summary</h2>
+        <a>Download Table</a><br><br>
+        <div id="scrollDiv">
+            <table id="mainTable">
+                <tr>
+                    <td colspan="2"><b>Total cases(n)</b></td>
+                    <td><b>206</b></td>
+                </tr>
+                <tr><td class="grey" colspan="3">Gender</td></tr>
+                <tr>
+                    <td class="rightAlign">Male</td>
+                    <td>128</td>
+                    <td>62%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Female</td>
+                    <td>78</td>
+                    <td>38%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Unknown</td>
+                    <td>0</td>
+                    <td>0%</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Age at Procedure (Years)</td></tr>
+                <tr>
+                    <td class="rightAlign">Mean</td>
+                    <td>56</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Median</td>
+                    <td>57</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Range (Low, High)</td>
+                    <td>15</td>
+                    <td>86</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Newly diagnosed untreated vs. Treated cases</td></tr>
+                <tr>
+                    <td class="rightAlign">New DX Untreated</td>
+                    <td>185</td>
+                    <td>90%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Secondary</td>
+                    <td>5</td>
+                    <td>2%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Recurrent</td>
+                    <td>16</td>
+                    <td>8%</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Survival (Months)</td></tr>
+                <tr>
+                    <td class="rightAlign">Mean</td>
+                    <td>12</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Median</td>
+                    <td>15</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Range (Low, High)</td>
+                    <td>0</td>
+                    <td>116</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Vital Status (As of Q1, 2008)</td></tr>
+                <tr>
+                    <td class="rightAlign">Deceased</td>
+                    <td>191</td>
+                    <td>93%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Living</td>
+                    <td>15</td>
+                    <td>7%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Unknown</td>
+                    <td>0</td>
+                    <td>0%</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Race</td></tr>
+                <tr>
+                    <td class="rightAlign">White</td>
+                    <td>81</td>
+                    <td>39%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Black</td>
+                    <td>2</td>
+                    <td>1%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Asian</td>
+                    <td>1</td>
+                    <td>0%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Am. Indian</td>
+                    <td>1</td>
+                    <td>0%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Hawaiian</td>
+                    <td>0</td>
+                    <td>0%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Unknown</td>
+                    <td>121</td>
+                    <td>59%</td>
+                </tr>
+                <tr><td class="grey" colspan="3">Speciman Acrual Sites</td></tr>
+                <tr>
+                    <td class="rightAlign">Case Western</td>
+                    <td>5</td>
+                    <td>2%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Cedars Sinai</td>
+                    <td>73</td>
+                    <td>35%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Duke</td>
+                    <td>86</td>
+                    <td>42%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Emory University</td>
+                    <td>42</td>
+                    <td>20%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Fox Chase Cancer Center</td>
+                    <td>0</td>
+                    <td>0%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Gynecologic Oncology Group</td>
+                    <td>10</td>
+                    <td>4%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Harvard</td>
+                    <td>5</td>
+                    <td>2%</td>
+                </tr>
+                <tr>
+                    <td class="rightAlign">Henry Ford Hospital</td>
+                    <td>12</td>
+                    <td>5%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="geneGraphPane">
+        <h2>Genetic Element Summary Graph</h2><br>
+        <img src="../../../images/MK_anomaly/geneGraph.gif" alt="graph of genes">
+    </div>
+    <div id="patientPane">
+        <h2>Patient List</h2>
+        Copy <a onclick="copyPatientsToSearch()">Patients</a> to Search&nbsp;&nbsp;&nbsp;<a>Download Table</a><br><br>
+        <div id="scrollDivPatient">
+            <table id="resultsTablePatient">
+                <tr>
+                    <th colspan="2">Patient ID <img src="../../../images/MK_anomaly/arrow-down_purple.gif" alt="Click to sort"></th>
+                    <th>Age <img src="../../../images/MK_anomaly/arrow-down_purple.gif" alt="Click to sort"></th>
+                    <th>Gender <img src="../../../images/MK_anomaly/arrow-down_purple.gif" alt="Click to sort"></th>
+                    <th>Survival <img src="../../../images/MK_anomaly/arrow-down_purple.gif" alt="Click to sort"></th>
+                    <th>Vital Status <img src="../../../images/MK_anomaly/arrow-down_purple.gif" alt="Click to sort"></th>
+               </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0001</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>52</td>
+                    <td>Male</td>
+                    <td>10</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-02-0003</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>67</td>
+                    <td>Male</td>
+                    <td>12</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-04-0008</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>45</td>
+                    <td>Female</td>
+                    <td>9</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-06-0012</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>48</td>
+                    <td>Male</td>
+                    <td>32</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0002</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>63</td>
+                    <td>Female</td>
+                    <td>17</td>
+                    <td>Deceased</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-08-0016</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>61</td>
+                    <td>Female</td>
+                    <td>28</td>
+                    <td>Living</td>
+                </tr>
+                <tr>
+                    <td class="geneName">TCGA-09-0011</td>
+                    <td><input type="checkbox" checked></td>
+                    <td>55</td>
+                    <td>Male</td>
+                    <td>22</td>
+                    <td>Living</td>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+    </div>
+</div>
+ </BODY>
+</HTML>

@@ -1,0 +1,442 @@
+body{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+h1{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    margin-bottom: .3em;
+}
+
+h2{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0em;
+    margin-bottom: .5em;
+
+}
+
+h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+    color: #725b86;
+    margin: 10px 0px 0px 10px;
+    padding: 0em;
+}
+
+a{
+    color: #113636;
+    text-decoration: underline;
+    padding-left: .5em;
+    cursor: pointer;
+}
+
+table, select, textarea, input, button{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+form{
+    float: left;
+}
+
+#contentArea{
+    margin-top: 10px;
+}
+
+#leftPane{
+    position: absolute;
+    border: .2em ridge #20619d;
+    padding: .5em;
+    background-color: #ede1f7;
+    width: 29em;
+}
+
+#scrollDiv{
+    position: absolute;
+    width: 28em;
+    overflow-y: scroll;
+    left: 4em;
+    height: 61.5em;
+
+}
+
+#mainTable{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+#mainTable td{
+    border: 1px solid black;
+    padding: .2em .3em .2em .3em;
+}
+.grey{
+    background-color: #ede1f7;
+}
+.rightAlign{
+    text-align: right;
+}
+
+#geneticElementListText, #patientListText{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.clearText{
+    position: relative;
+    left: 23em;
+    top: .4em;
+}
+
+.sublist{
+    margin-left: .5em;
+}
+
+#leftPane span.checkbx{
+    padding-right: 1em;
+}
+
+#mutationTable{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse
+}
+
+#mutationTable td {
+    margin: 0em;
+    padding-right: .45em;
+}
+
+#leftPane span.limits{
+    position: relative;
+    right: 0em;
+}
+
+#correlation{
+    display: none;
+}
+
+
+#menuPane{
+    position: absolute;
+    width: 65%;
+    margin: 0em;
+    left: 37em;
+    display: none;
+}
+
+#menuPane ul{
+    list-style: none;
+    margin: 0em;
+    padding: 0em;
+    height: 2em;
+}
+
+#menuPane ul a{
+    color: black;
+    font-weight: bold;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background: #ddddee url("../images/MK_anomaly/tab-blue-left.gif") left top no-repeat;
+    text-decoration: none;
+    padding-left: 1em;
+    display: block;
+    float: left;
+}
+
+#menuPane ul a span{
+    background: url("../images/MK_anomaly/tab-blue-right.gif") right top no-repeat;
+    padding: .2em;
+    padding-right: 1em;
+    display: block;
+    float: left;
+}
+
+#menuPane ul li{
+    float: left;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+#menuPane a:hover
+{
+    color: white;
+    background: #8a729e url("../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat;
+    text-decoration: none;
+    padding-left: 1em;
+}
+
+#menuPane a:hover span
+{
+    background: url("../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat;
+    padding-right: 1em;
+}
+
+#menuPane ul a#tablePaneA{
+    color: white;
+    background: #20619d url("../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat;
+}
+
+#menuPane ul a span#tablePaneSpan{
+    background: url("../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat;
+}
+
+#menuBorder{
+    position: absolute;
+    border-top: 2px solid #20619d;
+    border-left: 2px solid #20619d;
+    left: 37em;
+    top: 3.8em;
+    min-width: 64%;
+    height: 71em;
+    display: none;
+}
+
+#menuPane li#patientData{
+    display: none;
+}
+
+#menuPane li#graphTab{
+    display:none;
+}
+
+#directionsPane{
+    position: absolute;
+    left: 33em;
+    min-width: 65%;
+    padding: .5em;
+    padding-left: 4em;
+    text-align: left;
+}
+
+#tablePane{
+    position: absolute;
+    left: 29em;
+    min-width: 63%;
+    padding: .5em;
+    text-align: left;
+    padding-left: 4em;
+    display: none;
+}
+
+
+#resultsTable{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+#resultsTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+#resultsTable th{
+    font-weight: bold;
+    background-color: #ede1f7;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+#resultsTable td.geneName{
+    background-color: #ede1f7;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: right;
+    color: black;
+    text-decoration: none;
+}
+
+#resultsTable td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+/* todo this is almost the same as resultsTable. How to combine them? */
+table.listTable {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+table.listTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+table.listTable th{
+    font-weight: bold;
+    background-color: #ede1f7;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+table.listTable td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    /*text-decoration:underline;*/
+    cursor: pointer;
+}
+
+/* another ugly near-repetition */
+table.listSelectTable {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+table.listTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+table.listTable th{
+    font-weight: bold;
+    background-color: #ede1f7;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+table.listTable td{
+    /*border: 1px solid black;*/
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    /*text-decoration:underline;*/
+    cursor: pointer;
+}
+
+
+#downloadButton{
+    margin-left: 1em;
+}
+
+#patientPane{
+    position: absolute;
+    left: 64em;
+    padding: .5em;
+    text-align: left;
+    top: 4em;
+    display:none;
+}
+
+#scrollDivPatient{
+    position: absolute;
+    max-height: 61em;
+    width: 41.5em;
+    overflow-y: scroll;
+    margin-top: .4em;
+    top: 5em;
+}
+
+#resultsTablePatient{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+    margin-right: 1.5em;
+    width: 40em;
+}
+
+#resultsTablePatient td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+#resultsTablePatient th{
+    font-weight: bold;
+    background-color: #ede1f7;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+#resultsTablePatient td.geneName{
+    font-weight: bold;
+    cursor: pointer;
+    text-align: right;
+    color: #446969;
+    text-decoration: underline;
+}
+
+#resultsTablePatient td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;
+}
+
+#geneGraphPane{
+    display: none;
+    position: absolute;
+    left: 35em;
+    min-width: 63%;
+    padding: .5em;
+    text-align: left;
+    padding-left: 4em;
+    top: 6em;    
+}
+
+#sendToLinks {
+    position: absolute;
+    border: 2px outset #446969;
+    background-color: white;
+    width: 47em;
+    padding: .5em;
+    left: 35%;
+    top: 15%;
+    z-index: 6;
+    display: none;
+}
+
+#sendToTitle {
+    display: block;
+    background-color: #ebc849;
+    width: 100%;
+    margin: 0px;
+    padding: 5px 6px 5px 5px;
+    margin: -5px 0px 0px -6px;
+    color: black;
+    font-weight: 600;
+}
+
+#closeImg{
+    position: absolute;
+    left: 508px;
+}
+
+#sendList{
+    position: absolute;
+    left: 220px;
+    top: 7px;
+    padding: 3px;
+    z-index: 3;
+    border: 2px outset #53AA7E;
+    background-color: #ebc849;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#dim{
+    margin: -10px 0px 0px -8px;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-color: #003333;
+    opacity: .45;
+    filter:alpha(opacity=45);
+    display: none;
+}
+

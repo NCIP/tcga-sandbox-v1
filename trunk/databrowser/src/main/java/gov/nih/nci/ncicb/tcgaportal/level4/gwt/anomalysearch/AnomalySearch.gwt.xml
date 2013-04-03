@@ -1,0 +1,22 @@
+<module rename-to="AnomalySearch">
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name="com.google.gwt.core.Core"/>
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.ClippedImage'/>
+    <inherits name='gov.nih.nci.ncicb.tcgaportal.level4.gwtEnabled'/>
+
+    <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.gwt.user.ClippedImage"/>
+
+    <!-- Specify the app entry point class.                   -->
+    <entry-point class='gov.nih.nci.ncicb.tcgaportal.level4.gwt.anomalysearch.client.AnomalySearch'/>
+
+    <!-- Specify the app servlets.                   -->
+    <servlet path='/anomalysearch.AnomalySearch/AnomalySearchService'
+             class='gov.nih.nci.ncicb.tcgaportal.level4.gwt.anomalysearch.server.AnomalySearchServiceImpl'/>
+
+    <stylesheet src='AnomalySearch.css' />
+
+</module>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>pathway_cn</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">pathway_cn</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga-portal/AnomalySearch.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ModePathways</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>GeneListText</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>GeneListText</td>
+	<td>egfr</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>AddCnBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>SearchBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Pathway Summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Agrin in Postsynaptic Differentiation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>mCalpain and Friends in Cell Motility</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Agrin in Postsynaptic Differentiation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Agrin in Postsynaptic Differentiation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>6000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Chr 7: 55054218 - 55242524</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>gwt-uid-9</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>ACTA1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>UTRN</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns="http://tcga-data.nci.nih.gov/tcga" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://tcga-data.nci.nih.gov/tcga" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:annotation>
+        <xs:documentation>Template to convert bcr xml files into tab delimited files</xs:documentation>
+        <xs:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="gov.nih.nci.ncicb.tcga.dcc.common.jaxb.generated.template" />
+            </jaxb:schemaBindings>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:element name="tcgaBcrDataTemplate">
+        <xs:annotation>
+            <xs:documentation>Root element  </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tcgaBcrData">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:annotation>
+                                <xs:documentation>xml file type (clinical ,biospecimen or auxiliary)</xs:documentation>
+                            </xs:annotation>
+                            <xs:element name="bcrFileType" type ="bcrFileType" maxOccurs="unbounded" />
+                            <xs:element name="biotabFileType">
+                                <xs:annotation>
+                                    <xs:documentation>bio-tab file type.
+									</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="clinical_aliquot" />
+                                        <xs:enumeration value="clinical_analyte" />
+                                        <xs:enumeration value="clinical_drug" />
+                                        <xs:enumeration value="clinical_examination" />
+                                        <xs:enumeration value="clinical_patient" />
+                                        <xs:enumeration value="clinical_portion" />
+                                        <xs:enumeration value="clinical_protocol" />
+                                        <xs:enumeration value="clinical_radiation" />
+                                        <xs:enumeration value="clinical_sample" />
+                                        <xs:enumeration value="clinical_shipment_portion" />
+                                        <xs:enumeration value="clinical_slide" />
+                                        <xs:enumeration value="clinical_surgery" />
+                                        <xs:enumeration value="auxiliary" />
+                                        <xs:enumeration value="clinical_dynamic" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="xmlData">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="parentNode" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>parent node details
+									</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="absoluteXPath" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Parent node absolute XPath expression
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="elementsToBeIncluded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Parent elements to be included in the bio-tab file
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="elementName" type="xs:string" maxOccurs="unbounded" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="dataNode">
+                                            <xs:annotation>
+                                                <xs:documentation>Data node details
+											</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="relativePath" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Relative XPath expression from parent path.
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="alternateAttributeValue" type="xs:string">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Alternative attribute value which wil be printed in the bio-tab file in case if the element value is null
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="dynamicFileSuffixAttribute" type="xs:string"  minOccurs="0" maxOccurs="1" />
+
+                                                    <xs:element name="protectedElements">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Protected elements list. These elements will not be available in public bio-tab files
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="elementName" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="elements">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Elements to be included or ignored. These elements will not be  printed in the bio-tab file
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="elementName" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                                                            </xs:sequence>
+                                                            <xs:attribute name="filterType" type="elementFilterType" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="biotabData">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="keyColumns">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="columnName" type="xs:string" maxOccurs="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Specifies column header names that goes first in the biotab file. Column header names are same as xml element names. Only two key columns are allowed. It goes in the order it was specified. The data will be sorted by key columns
+											</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element ref="dataColumnsOrder" />
+                                        <xs:element name="diseaseSpecificData">
+                                            <xs:annotation>
+                                                <xs:documentation>Specifies disease specific column details.
+											</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="diseaseData" minOccurs="0" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="diseaseName" type="xs:string" />
+                                                                <xs:element ref="dataColumnsOrder" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="type" type="templateType" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dataColumnsOrder">
+        <xs:annotation>
+            <xs:documentation>Specifies column header names that follows common  columns.It goes in the order it was specified. The columns which are not specified in this list are added at the end of key column list and data column order list.
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>Specifies column header names that follows key columns.It goes in the order it was specified. The columns which are not specified in this list are added at the end of key column list and data column order list.
+			</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="columnName" type="xs:string" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="elementFilterType">
+        <xs:annotation>
+            <xs:documentation>Specifies elements filter type, it can be either include or ignore</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="include" />
+            <xs:enumeration value="ignore" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="templateType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="static" />
+            <xs:enumeration value="dynamic" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bcrFileType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="clinical" />
+            <xs:enumeration value="biospecimen" />
+            <xs:enumeration value="auxiliary" />
+            <xs:enumeration value="control" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

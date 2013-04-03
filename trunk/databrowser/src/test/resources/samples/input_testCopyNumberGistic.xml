@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  -->
+
+<filter>
+    <disease>GBM</disease>
+    <listBy>gene</listBy>
+    <patientListOptions value='All'></patientListOptions>
+    <geneListOptions value='All'>
+        <gene></gene>
+    </geneListOptions>
+    <pickedColumns pickedColumnSize='1'>
+        <column type="copyNumber">
+            <calculationType>gistic</calculationType>
+            <limits>
+                <uLimitOperator>&gt;</uLimitOperator>
+                <uLimit>0.05</uLimit>
+                <lLimitOperator>&lt;</lLimitOperator>
+                <lLimit>-.05</lLimit>
+            </limits>
+            <platformTypeId>4</platformTypeId>
+            <anomalyTypeId>13</anomalyTypeId>
+            <datasetId>10</datasetId>
+            <displayPlatformType>displayPlatformTypeValue</displayPlatformType>
+            <displayCenter>broad.mit.edu</displayCenter>
+            <displayPlatform>displayPlatformValue</displayPlatform>
+            <frequency>0.20</frequency>
+            <colTypeId>1</colTypeId>
+        </column>
+    </pickedColumns>
+</filter>

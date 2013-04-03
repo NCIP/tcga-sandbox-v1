@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>tcgaPortalDS</jndi-name>
+    <connection-url>jdbc:oracle:thin:@@@serverName:@@port:@@sid</connection-url>
+    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+    <user-name>@@userName</user-name>
+    <password>@@password</password>
+    <min-pool-size>@@minPoolSize</min-pool-size>
+    <max-pool-size>@@maxPoolSize</max-pool-size>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+      <metadata>
+         <type-mapping>Oracle9i</type-mapping>
+      </metadata>
+  </local-tx-datasource>
+</datasources>

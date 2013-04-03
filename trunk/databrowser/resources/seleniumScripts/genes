@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>genes</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">genes</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tcga-portal/AnomalySearch.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>RatioThresholdText</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>AddCnBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>AddExpBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>AddMutBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>AddCorrBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>SearchBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Gene</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>hms.harvard.edu HG-CGH-244A</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>broad.mit.edu HT_HG-U133A</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Any Non-Silent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>HMS Copy Number vs BI Gene Expression</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>CNV</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Location</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>EGFR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>53%</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>74%</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>12%</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>0.88 (p-Value:0E0)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Chr 7: 55054218 - 55242524</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>SelectAllGenesCb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>CopyToFilterBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>GeneListText</td>
+	<td>EGFR, PTEN, RB1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>SearchBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>EGFR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>PTEN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>RB1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ClearGeneListBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>SelectGeneCb_EGFR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>CopyToFilterBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>GeneListText</td>
+	<td>EGFR</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ViewAsRatioCb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>91/172</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ViewAsPercentCb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>53%</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

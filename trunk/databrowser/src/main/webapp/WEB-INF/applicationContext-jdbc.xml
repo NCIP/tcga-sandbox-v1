@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcgaportal.level4"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file://@DATABROWSER.PROPERTIES"/>
+            </bean>
+
+    <bean id="dataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource">
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
+                <property name="prefix" value="java:" />
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" />
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${tcga.dataportal.diseaseDataSources}" />
+    </bean>
+
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+
+    <bean id="pathwayQueries" class="gov.nih.nci.ncicb.tcgaportal.pathway.dao.jdbc.PathwayQueriesJDBCImpl"
+          lazy-init="true">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="pathwayDiagramHandler" class="gov.nih.nci.ncicb.tcgaportal.pathway.util.PathwayDiagramHandlerImpl">
+        <property name="tempFileLocation" value="${tcga.dataportal.svg.imagelocation}"/>
+        <property name="svgFetcher" ref="pathwaySVGFetcher"/>
+        <property name="locationsUtility" ref="locations"/>
+    </bean>
+
+    <bean id="pathwaySVGFetcher" class="gov.nih.nci.ncicb.tcgaportal.pathway.util.PathwaySVGFetcher">
+        <property name="prototypeQueries" ref="pathwayQueries"/>
+        <property name="svgSite" value="${tcga.dataportal.svg.site}"/>
+        <property name="cssURL" value="${tcga.dataportal.svg.cssURL}"/>
+    </bean>
+
+    <bean id="geneListHandler" class="gov.nih.nci.ncicb.tcgaportal.pathway.util.GeneListHandler">
+        <property name="pathwayQueries" ref="pathwayQueries"/>
+    </bean>
+
+    <!-- level 4 business objects -->
+
+    <bean id="level4QueriesGetter" class="gov.nih.nci.ncicb.tcgaportal.level4.dao.Level4QueriesGetterJDBCImpl" scope="singleton">
+        <constructor-arg value="1000" />
+        <constructor-arg ref="correlationCalculator" />
+        <constructor-arg ref="fishersExact" />
+        <constructor-arg ref="processLogger" />
+        <constructor-arg>
+            <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
+                <property name="prefix" value="java:" />
+                <property name="jndiDataSourceLookup">
+                    <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" />
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="${tcga.dataportal.diseaseDataSources}" />
+    </bean>
+
+    <bean id="correlationCalculator" class="gov.nih.nci.ncicb.tcgaportal.level4.util.PearsonCorrelationCalculator"/>
+    <bean id="fishersExact" class="gov.nih.nci.ncicb.tcgaportal.level4.util.FishersExactImpl"/>
+
+    <bean id="resultsPagingProcessor" class="gov.nih.nci.ncicb.tcgaportal.level4.util.ResultsPagingProcessor">
+        <property name="rowsPerPage" value="25"/>
+    </bean>
+
+    <bean id="locations" class="gov.nih.nci.ncicb.tcgaportal.level4.util.Locations">
+        <property name="userGuideLocation"
+                  value="http://tcga-data.nci.nih.gov/web/docs/tcga_DataBrowser_UserGuide.pdf"/>
+        <property name="tooltipFileLocation"
+                  value="${tcga.dataportal.tooltipfile}"/>
+        <property name="onlineHelpLocation"
+                  value="http://tcga-data.nci.nih.gov/docs/help/TCGA_data_browser/wwhelp/wwhimpl/js/html/wwhelp.htm"/>
+        <property name="tempFileLocation"
+                  value="${tcga.dataportal.tempfilelocation}"/>
+    </bean>
+
+    <bean id="exportHelper" class="gov.nih.nci.ncicb.tcgaportal.level4.util.ExportHelper">
+        <property name="timesToWaitForFile" value="${tcga.dataportal.export.numberofwaits}" />
+        <property name="waitLengthInMilliseconds" value="${tcga.dataportal.export.waittimemilliseconds}" />
+        <property name="waitTimeToDeleteInMilliseconds" value="${tcga.dataportal.export.waittimetodeleteinmilliseconds}" />
+        <property name="logger" ref="processLogger" />
+    </bean>
+
+    <bean id="processLogger" class="gov.nih.nci.ncicb.tcgaportal.util.ProcessLogger"/>
+    
+</beans>

@@ -1,0 +1,2725 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+	"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+	<!ENTITY % gExt " ">
+	<!ATTLIST g
+	xmlns:nci_cmap CDATA #FIXED "http://www.celebration.saic.com/nci_cmap"
+		nci_cmap:objectName CDATA #IMPLIED
+>
+]>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="500" width="600">
+<style type="text/css"><![CDATA[
+/*________________________________________________________________________________________
+                                           COLOR TABLE (colors used in this stylesheet)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+0,0,0 black               0,0,127 darkBlue
+0,0,255 blue              0,102,153 slateBlue
+0,127,0 darkGreen         0,153,204 marineBlue
+0,255,0 green             0,255,204 aqua
+51,204,255 skyBlue        102,51,204 nightPurple
+102,153,255 lightBlue     102,204,255 lightSkyBlue
+127,0,0 darkRed           127,0,127 darkPurple
+127,51,0 brown            127,102,51 lightBrown
+127,127,127 gray          127,255,127 lightGreen
+153,204,204 aquaGray      204,0,255 purple
+204,51,153 violet         204,127,255 lightPurple
+204,204,127 desert        255,0,0 red
+255,102,204 hotPink       255,127,0 orange
+255,127,127 lightRed      255,204,153 cream
+255,204,204 pink          255,255,0 yellow
+255,255,127 lightYellow   255,255,255 white
+*/
+
+
+/*________________________________________________________________________________________
+                                           ARROWS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = [colorName]Arrow[Options]
+
+colorName = from the color table
+Options
+	Big = stroke-width = 2
+	2 = double arrowhead
+*/
+.aquaGrayArrow{fill:none;stroke:rgb(153,204,204);stroke-width:1;marker-end:url(#aquaGrayTri)}
+marker#aquaGrayTri{shape-rendering:geometricPrecision;fill:rgb(153,204,204)}
+.blackArrow{fill:none;stroke:rgb(0,0,0);stroke-width:1;marker-end:url(#blackTri)}
+marker#blackTri{shape-rendering:geometricPrecision;fill:rgb(0,0,0)}
+.brownArrowBig{fill:none;stroke:rgb(127,51,0);stroke-width:2;marker-end:url(#brownTri)}
+marker#brownTri{shape-rendering:geometricPrecision;fill:rgb(127,51,0)}
+.darkBlueArrow{fill:none;stroke:rgb(0,0,127);stroke-width:1;marker-end:url(#darkBlueTri)}
+marker#darkBlueTri{shape-rendering:geometricPrecision;fill:rgb(0,0,127)}
+.darkGreenArrowBig{fill:none;stroke:rgb(0,127,0);stroke-width:2;marker-end:url(#darkGreenTri)}
+marker#darkGreenTri{shape-rendering:geometricPrecision;fill:rgb(0,127,0)}
+.hotPinkArrow{fill:none;stroke:rgb(255,102,204);stroke-width:1;marker-end:url(#hotPinkTri)}
+marker#hotPinkTri{shape-rendering:geometricPrecision;fill:rgb(255,102,204)}
+.lightBlueArrow{fill:none;stroke:rgb(102,153,255);stroke-width:1;marker-end:url(#lightBlueTri)}
+marker#lightBlueTri{shape-rendering:geometricPrecision;fill:rgb(102,153,255)}
+.lightPurpleArrow{fill:none;stroke:rgb(204,127,255);stroke-width:1;marker-end:url(#lightPurpleTri)}
+marker#lightPurpleTri{shape-rendering:geometricPrecision;fill:rgb(204,127,255)}
+.lightSkyBlueArrow{fill:none;stroke:rgb(102,204,255);stroke-width:1;marker-end:url(#lightSkyBlueTri)}
+marker#lightSkyBlueTri{shape-rendering:geometricPrecision;fill:rgb(102,204,255)}
+.lightYellowArrowBig{fill:none;stroke:rgb(255,255,127);stroke-width:2;marker-end:url(#lightYellowTri)}
+marker#lightYellowTri{shape-rendering:geometricPrecision;fill:rgb(255,255,127)}
+.marineBlueArrow{fill:none;stroke:rgb(0,153,204);stroke-width:1;marker-end:url(#marineBlueTri)}
+.marineBlueArrowBig{fill:none;stroke:rgb(0,153,204);stroke-width:2;marker-end:url(#marineBlueTri)}
+marker#marineBlueTri{shape-rendering:geometricPrecision;fill:rgb(0,153,204)}
+.orangeArrow{fill:none;stroke:rgb(255,127,0);stroke-width:1;marker-end:url(#orangeTri)}
+.orangeArrowBig{fill:none;stroke:rgb(255,127,0);stroke-width:2;marker-end:url(#orangeTri)}
+marker#orangeTri{shape-rendering:geometricPrecision;fill:rgb(255,127,0)}
+.orangeArrow2{fill:none;stroke:rgb(255,127,0);stroke-width:1;marker-end:url(#orangeTri2)}
+marker#orangeTri2{shape-rendering:geometricPrecision;fill:rgb(255,127,0)}
+.pinkArrow{fill:none;stroke:rgb(255,204,204);stroke-width:1;marker-end:url(#pinkTri)}
+marker#pinkTri{shape-rendering:geometricPrecision;fill:rgb(255,204,204)}
+.purpleArrow{fill:none;stroke:rgb(204,0,255);stroke-width:1;marker-end:url(#purpleTri)}
+marker#purpleTri{shape-rendering:geometricPrecision;fill:rgb(204,0,255)}
+.redArrow{fill:none;stroke:rgb(255,0,0);stroke-width:1;marker-end:url(#redTri)}
+marker#redTri{shape-rendering:geometricPrecision;fill:rgb(255,0,0)}
+.skyBlueArrow{fill:none;stroke:rgb(51,204,255);stroke-width:1;marker-end:url(#skyBlueTri)}
+marker#skyBlueTri{shape-rendering:geometricPrecision;fill:rgb(51,204,255)}
+.whiteArrow{fill:none;stroke:rgb(255,255,255);stroke-width:1;marker-end:url(#whiteTri)}
+.whiteArrowBig{fill:none;stroke:rgb(255,255,255);stroke-width:2;marker-end:url(#whiteTri)}
+marker#whiteTri{shape-rendering:geometricPrecision;fill:rgb(255,255,255)}
+.yellowArrow{fill:none;stroke:rgb(255,255,0);stroke-width:1;marker-end:url(#yellowTri)}
+.yellowArrowBig{fill:none;stroke:rgb(255,255,0);stroke-width:2;marker-end:url(#yellowTri)}
+marker#yellowTri{shape-rendering:geometricPrecision;fill:rgb(255,255,0)}
+.yellowArrow2{fill:none;stroke:rgb(255,255,0);stroke-width:1;marker-end:url(#yellowTri2)}
+.yellowArrow2Big{fill:none;stroke:rgb(255,255,0);stroke-width:2;marker-end:url(#yellowTri2)}
+marker#yellowTri2{shape-rendering:geometricPrecision;fill:rgb(255,255,0)}
+
+
+/*________________________________________________________________________________________
+                                           FILLS NO STROKES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = [colorName]FillnoStroke[Options]
+colorName = from the color table
+Options
+	Basic = Basic_Shadow filter
+	Bevel = Bevel_Shadow filter
+	Fade = fill-opacity set to 50%
+*/
+.aquaFillNoStroke{fill:rgb(0,255,204)}
+.aquaFillNoStrokeBasic{fill:rgb(0,255,204);filter:url(#Basic_Shadow)}
+.aquaFillNoStrokeBevel{fill:rgb(0,255,204);filter:url(#Bevel_Shadow)}
+.aquaGrayFillNoStroke{fill:rgb(153,204,204)}
+.aquaGrayFillNoStrokeBasic{fill:rgb(153,204,204);filter:url(#Basic_Shadow)}
+.aquaGrayFillNoStrokeBevel{fill:rgb(153,204,204);filter:url(#Bevel_Shadow)}
+.blackFillNoStroke{fill:rgb(0,0,0)}
+.blueFillNoStroke{fill:rgb(0,0,255)}
+.blueFillNoStrokeBasic{fill:rgb(0,0,255);filter:url(#Basic_Shadow)}
+.blueFillNoStrokeBevel{fill:rgb(0,0,255);filter:url(#Bevel_Shadow)}
+.blueFillNoStrokeFade{fill:rgb(0,0,255);fill-opacity:0.5}
+.brownFillNoStroke{fill:rgb(127,51,0)}
+.brownFillNoStrokeBasic{fill:rgb(127,51,0);filter:url(#Basic_Shadow)}
+.brownFillNoStrokeBevel{fill:rgb(127,51,0);filter:url(#Bevel_Shadow)}
+.creamFillNoStroke{fill:rgb(255,204,153)}
+.creamFillNoStrokeBasic{fill:rgb(255,204,153);filter:url(#Basic_Shadow)}
+.creamFillNoStrokeBevel{fill:rgb(255,204,153);filter:url(#Bevel_Shadow)}
+.darkBlueFillNoStroke{fill:rgb(0,0,127)}
+.darkBlueFillNoStrokeBasic{fill:rgb(0,0,127);filter:url(#Basic_Shadow)}
+.darkBlueFillNoStrokeBevel{fill:rgb(0,0,127);filter:url(#Bevel_Shadow)}
+.darkBlueNoStrokeBevel{fill:rgb(0,0,127);filter:url(#Bevel_Shadow)}
+.darkGreenFillNoStroke{fill:rgb(0,127,0)}
+.darkGreenFillNoStrokeBasic{fill:rgb(0,127,0);filter:url(#Basic_Shadow)}
+.darkGreenFillNoStrokeBevel{fill:rgb(0,127,0);filter:url(#Bevel_Shadow)}
+.darkGreenFillNoStrokeFade{fill:rgb(0,127,0);fill-opacity:0.5}
+.darkPurpleFillNoStroke{fill:rgb(127,0,127)}
+.darkPurpleFillNoStrokeBasic{fill:rgb(127,0,127);filter:url(#Basic_Shadow)}
+.darkPurpleFillNoStrokeBevel{fill:rgb(127,0,127);filter:url(#Bevel_Shadow)}
+.darkPurpleFillNoStrokeFade{fill:rgb(127,0,127);fill-opacity:0.5}
+.darkRedFillNoStroke{fill:rgb(127,0,0)}
+.darkRedFillNoStrokeBasic{fill:rgb(127,0,0);filter:url(#Basic_Shadow)}
+.darkRedFillNoStrokeBevel{fill:rgb(127,0,0);filter:url(#Bevel_Shadow)}
+.darkRedFillNoStrokeFade{fill:rgb(127,0,0);fill-opacity:0.5}
+.desertFillNoStroke{fill:rgb(204,204,127)}
+.desertFillNoStrokeBasic{fill:rgb(204,204,127);filter:url(#Basic_Shadow)}
+.desertFillNoStrokeBevel{fill:rgb(204,204,127);filter:url(#Bevel_Shadow)}
+.grayFillNoStroke{fill:rgb(127,127,127)}
+.grayFillNoStrokeBasic{fill:rgb(127,127,127);filter:url(#Basic_Shadow)}
+.grayFillNoStrokeBevel{fill:rgb(127,127,127);filter:url(#Bevel_Shadow)}
+.grayFillNoStrokeFade{fill:rgb(127,127,127);fill-opacity:0.5}
+.greenFillNoStroke{fill:rgb(0,255,0)}
+.greenFillNoStrokeBevel{fill:rgb(0,255,0);filter:url(#Bevel_Shadow)}
+.hotPinkFillNoStroke{fill:rgb(255,102,204)}
+.hotPinkFillNoStrokeBasic{fill:rgb(255,102,204);filter:url(#Basic_Shadow)}
+.hotPinkFillNoStrokeBevel{fill:rgb(255,102,204);filter:url(#Bevel_Shadow)}
+.lightBlueFillNoStroke{fill:rgb(102,153,255)}
+.lightBlueFillNoStrokeBasic{fill:rgb(102,153,255);filter:url(#Basic_Shadow)}
+.lightBlueFillNoStrokeBevel{fill:rgb(102,153,255);filter:url(#Bevel_Shadow)}
+.lightBrownFillNoStroke{fill:rgb(127,102,51)}
+.lightBrownFillNoStrokeBasic{fill:rgb(127,102,51);filter:url(#Basic_Shadow)}
+.lightBrownFillNoStrokeBevel{fill:rgb(127,102,51);filter:url(#Bevel_Shadow)}
+.lightGreenFillNoStroke{fill:rgb(127,255,127)}
+.lightGreenFillNoStrokeBasic{fill:rgb(127,255,127);filter:url(#Basic_Shadow)}
+.lightGreenFillNoStrokeBevel{fill:rgb(127,255,127);filter:url(#Bevel_Shadow)}
+.lightGreenFillNoStrokeFade{fill:rgb(127,255,127);fill-opacity:0.5}
+.lightPurpleFillNoStroke{fill:rgb(102,51,204)}
+.lightPurpleFillNoStrokeBasic{fill:rgb(102,51,204);filter:url(#Basic_Shadow)}
+.lightPurpleFillNoStrokeBevel{fill:rgb(102,51,204);filter:url(#Bevel_Shadow)}
+.lightPurpleFillNoStrokeFade{fill:rgb(102,51,204);fill-opacity:0.5}
+.lightRedFillNoStroke{fill:rgb(255,127,127)}
+.lightRedFillNoStrokeBasic{fill:rgb(255,127,127);filter:url(#Basic_Shadow)}
+.lightRedFillNoStrokeBevel{fill:rgb(255,127,127);filter:url(#Bevel_Shadow)}
+.lightSkyBlueFillNoStroke{fill:rgb(102,204,255)}
+.lightSkyBlueFillNoStrokeBasic{fill:rgb(102,204,255);filter:url(#Basic_Shadow)}
+.lightSkyBlueFillNoStrokeBevel{fill:rgb(102,204,255);filter:url(#Bevel_Shadow)}
+.lightSkyBlueFillNoStrokeFade{fill:rgb(102,204,255);fill-opacity:0.5}
+.lightYellowFillNoStroke{fill:rgb(255,255,127)}
+.lightYellowFillNoStrokeBasic{fill:rgb(255,255,127);filter:url(#Basic_Shadow)}
+.lightYellowFillNoStrokeBevel{fill:rgb(255,255,127);filter:url(#Bevel_Shadow)}
+.marineBlueFillNoStroke{fill:rgb(0,153,204)}
+.marineBlueFillNoStrokeBasic{fill:rgb(0,153,204);filter:url(#Basic_Shadow)}
+.marineBlueFillNoStrokeBevel{fill:rgb(0,153,204);filter:url(#Bevel_Shadow)}
+.marineBlueFillNoStrokeFade{fill:rgb(0,153,204);fill-opacity:0.5}
+.nightPurpleFillNoStroke{fill:rgb(102,51,204)}
+.nightPurpleFillNoStrokeBasic{fill:rgb(102,51,204);filter:url(#Basic_Shadow)}
+.nightPurpleFillNoStrokeBevel{fill:rgb(102,51,204);filter:url(#Bevel_Shadow)}
+.nightPurpleFillNoStrokeFade{fill:rgb(102,51,204);fill-opacity:0.5}
+.orangeFillNoStroke{fill:rgb(255,127,0)}
+.orangeFillNoStrokeBasic{fill:rgb(255,127,0);filter:url(#Basic_Shadow)}
+.orangeFillNoStrokeBevel{fill:rgb(255,127,0);filter:url(#Bevel_Shadow)}
+.orangeFillNoStrokeFade{fill:rgb(255,127,0);fill-opacity:0.5}
+.pinkFillNoStroke{fill:rgb(255,204,204)}
+.pinkFillNoStrokeBasic{fill:rgb(255,204,204);filter:url(#Basic_Shadow)}
+.pinkFillNoStrokeBevel{fill:rgb(255,204,204);filter:url(#Bevel_Shadow)}
+.pinkFillNoStrokeFade{fill:rgb(255,204,204);fill-opacity:0.5}
+.purpleFillNoStroke{fill:rgb(204,0,255)}
+.purpleFillNoStrokeBasic{fill:rgb(204,0,255);filter:url(#Basic_Shadow)}
+.purpleFillNoStrokeBevel{fill:rgb(204,0,255);filter:url(#Bevel_Shadow)}
+.redFillNoStroke{fill:rgb(255,0,0)}
+.redFillNoStrokeBasic{fill:rgb(255,0,0);filter:url(#Basic_Shadow)}
+.redFillNoStrokeBevel{fill:rgb(255,0,0);filter:url(#Bevel_Shadow)}
+.redFillNoStrokeFade{fill:rgb(255,0,0);fill-opacity:0.5}
+.skyBlueFillNoStroke{fill:rgb(51,204,255)}
+.skyBlueFillNoStrokeBevel{fill:rgb(51,204,255);filter:url(#Bevel_Shadow)}
+.slateBlueFillNoStroke{fill:rgb(0,102,153)}
+.slateBlueFillNoStrokeBasic{fill:rgb(0,102,153);filter:url(#Basic_Shadow)}
+.slateBlueFillNoStrokeBevel{fill:rgb(0,102,153);filter:url(#Bevel_Shadow)}
+.slateBlueFillNoStrokeFade{fill:rgb(0,102,153);fill-opacity:0.5}
+.violetFillNoStroke{fill:rgb(204,51,153)}
+.violetFillNoStrokeBasic{fill:rgb(204,51,153);filter:url(#Basic_Shadow)}
+.violetFillNoStrokeBevel{fill:rgb(204,51,153);filter:url(#Bevel_Shadow)}
+.whiteFillNoStroke{fill:rgb(255,255,255)}
+.whiteFillNoStrokeBasic{fill:rgb(255,255,255);filter:url(#Basic_Shadow)}
+.whiteFillNoStrokeFade{fill:rgb(255,255,255);fill-opacity:0.5}
+.yellowFillNoStroke{fill:rgb(255,255,0)}
+.yellowFillNoStrokeBasic{fill:rgb(255,255,0);filter:url(#Basic_Shadow)}
+.yellowFillNoStrokeBevel{fill:rgb(255,255,0);filter:url(#Bevel_Shadow)}
+.yellowFillNoStrokeFade{fill:rgb(255,255,0);fill-opacity:0.5}
+
+/*________________________________________________________________________________________
+                                           FILLS WITH STROKES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = [colorName]Fill[ColorName]Stroke[StrokeWidth][Options]
+colorName = from the color table
+StrokeWidth = 1, 2, 5, 10, or 20
+Options
+	Basic = Basic_Shadow filter
+	Bevel = Bevel_Shadow filter
+	Fade = fill-opacity set to 50%
+*/
+.aquaFillBlackStroke1Basic{fill:rgb(0,255,204);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.aquaFillBlackStroke1Bevel{fill:rgb(0,255,204);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.aquaFillDarkGreenStroke2Basic{fill:rgb(0,255,204);stroke:rgb(0,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaFillMarineBlueStroke1Basic{fill:rgb(0,255,204);stroke:rgb(0,153,204);stroke-width:1;filter:url(#Basic_Shadow)}
+.aquaFillMarineBlueStroke5Basic{fill:rgb(0,255,204);stroke:rgb(0,153,204);stroke-width:5;filter:url(#Basic_Shadow)}
+.aquaFillSlateBlueStroke2Basic{fill:rgb(0,255,204);stroke:rgb(0,102,153);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaFillWhiteStroke1Basic{fill:rgb(0,255,204);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.aquaFillWhiteStroke1Bevel{fill:rgb(0,255,204);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Bevel_Shadow)}
+.aquaFillWhiteStroke2Basic{fill:rgb(0,255,204);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaGrayFillAquaStroke2Basic{fill:rgb(153,204,204);stroke:rgb(0,255,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaGrayFillBlackStroke1Basic{fill:rgb(153,204,204);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.aquaGrayFillBlueStroke1Basic{fill:rgb(153,204,204);stroke:rgb(0,0,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.aquaGrayFillDarkGreenStroke2Basic{fill:rgb(153,204,204);stroke:rgb(0,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaGrayFillLightYellowStroke2Basic{fill:rgb(153,204,204);stroke:rgb(255,255,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.aquaGrayFillSlateBlueStroke1{fill:rgb(153,204,204);stroke:rgb(0,102,153);stroke-width:1}
+.blueFillBlackStroke1{fill:rgb(0,0,255);stroke:rgb(0,0,0);stroke-width:1}
+.blueFillBlackStroke1Basic{fill:rgb(0,0,255);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.blueFillDarkBlueStroke1{fill:rgb(0,0,255);stroke:rgb(0,0,127);stroke-width:1}
+.blueFillDarkBlueStroke1Basic{fill:rgb(0,0,255);stroke:rgb(0,0,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.blueFillYellowStroke1{fill:rgb(0,0,255);stroke:rgb(255,255,0);stroke-width:1}
+.creamFillBrownStroke2{fill:rgb(255,204,153);stroke:rgb(127,51,0);stroke-width:1}
+.creamFillBrownStroke2Basic{fill:rgb(255,204,153);stroke:rgb(127,51,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.creamFillLightRedStroke2Basic{fill:rgb(255,204,153);stroke:rgb(255,127,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.creamFillLightRedStroke5Basic{fill:rgb(255,204,153);stroke:rgb(255,127,127);stroke-width:5;filter:url(#Basic_Shadow)}
+.creamFillOrangeStroke1{fill:rgb(255,204,153);stroke:rgb(255,127,0);stroke-width:1}
+.creamFillOrangeStroke2Basic{fill:rgb(255,204,153);stroke:rgb(255,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.creamFillOrangeStroke5Basic{fill:rgb(255,204,153);stroke:rgb(255,127,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.creamFillOrangeStroke5Bevel{fill:rgb(255,204,153);stroke:rgb(255,127,0);stroke-width:5;filter:url(#Bevel_Shadow)}
+.creamFillRedStroke1{fill:rgb(255,204,153);stroke:rgb(255,255,255);stroke-width:1}
+.creamFillWhiteStroke1{fill:rgb(255,204,153);stroke:rgb(255,255,255);stroke-width:1}
+.creamFillWhiteStroke2Basic{fill:rgb(255,204,153);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.creamFillWhiteStroke5Basic{fill:rgb(255,204,153);stroke:rgb(255,255,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.darkBlueFillBlackStroke1{fill:rgb(0,0,127);stroke:rgb(0,0,0);stroke-width:1}
+.darkBlueFillBlueStroke2Bevel{fill:rgb(0,0,127);stroke:rgb(0,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.darkGreenFillBlackStroke1Basic{fill:rgb(0,127,0);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.darkGreenFillLightGreenStroke2Bevel{fill:rgb(0,127,0);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.darkGreenFillWhiteStroke1{fill:rgb(0,127,0);stroke:rgb(255,255,255);stroke-width:1}
+.darkPurpleFillDarkRedStroke1{fill:rgb(127,0,127);stroke:rgb(127,0,0);stroke-width:1}
+.darkRedFillBlackStroke1{fill:rgb(127,0,0);stroke:rgb(0,0,0);stroke-width:1}
+.darkRedFillBlackStroke2Fade{fill:rgb(127,0,0);stroke:rgb(0,0,0);stroke-width:2;fill-opacity:0.5}
+.darkRedFillBrownStroke1Basic{fill:rgb(127,0,0);stroke:rgb(127,51,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.darkRedFillBrownStroke2{fill:rgb(127,0,0);stroke:rgb(127,51,0);stroke-width:2}
+.darkRedFillBrownStroke20Bevel{fill:rgb(127,0,0);stroke:rgb(127,51,0);stroke-width:20;filter:url(#Bevel_Shadow)}
+.darkRedFillBrownStroke5Bevel{fill:rgb(127,0,0);stroke:rgb(127,51,0);stroke-width:5;filter:url(#Bevel_Shadow)}
+.darkRedFillVioletStroke1{fill:rgb(127,0,0);stroke:rgb(204,51,153);stroke-width:1}
+.darkRedFillYellowStroke1{fill:rgb(127,0,0);stroke:rgb(255,255,0);stroke-width:1}
+.desertFillBlackStroke1Bevel{fill:rgb(204,204,127);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.desertFillCreamStroke1{fill:rgb(204,204,127);stroke:rgb(255,204,153);stroke-width:1}
+.desertFillDarkRedStroke1{fill:rgb(204,204,127);stroke:rgb(127,0,0);stroke-width:1}
+.desertFillDarkRedStroke2{fill:rgb(204,204,127);stroke:rgb(127,0,0);stroke-width:2}
+.desertFillLightBrownStroke2Basic{fill:rgb(204,204,127);stroke:rgb(127,102,51);stroke-width:2;filter:url(#Basic_Shadow)}
+.desertFillLightYellowStroke2{fill:rgb(204,204,127);stroke:rgb(255,255,127);stroke-width:2}
+.desertFillLightYellowStroke2Basic{fill:rgb(204,204,127);stroke:rgb(255,255,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.desertFillWhiteStroke1Basic{fill:rgb(204,204,127);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.desertFillWhiteStroke2Basic{fill:rgb(204,204,127);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.grayFillBlackStroke1{fill:rgb(127,127,127);stroke:rgb(0,0,0);stroke-width:1}
+.grayFillBlackStroke1Basic{fill:rgb(127,127,127);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.grayFillDarkGreenStroke1Basic{fill:rgb(127,127,127);stroke:rgb(0,127,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.grayFillDesertStroke2Basic{fill:rgb(127,127,127);stroke:rgb(204,204,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.grayFillHotPinkStroke2Basic{fill:rgb(127,127,127);stroke:rgb(255,102,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.grayFillWhiteStroke2Basic{fill:rgb(127,127,127);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.greenFillAquaGrayStroke1{fill:rgb(0,255,0);stroke:rgb(153,204,204);stroke-width:1}
+.greenFillBlackStroke1{fill:rgb(0,255,0);stroke:rgb(0,0,0);stroke-width:1}
+.greenFillDarkGreenStroke5Basic{fill:rgb(0,255,0);stroke:rgb(0,127,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.hotPinkFillBlackStroke1{fill:rgb(255,102,204);stroke:rgb(0,0,0);stroke-width:1}
+.hotPinkFillBlackStroke1Bevel{fill:rgb(255,102,204);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.hotPinkFillDarkRedStroke1{fill:rgb(255,102,204);stroke:rgb(127,0,0);stroke-width:1}
+.hotPinkFillDarkRedStroke1Basic{fill:rgb(255,102,204);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.hotPinkFillWhiteStroke1{fill:rgb(255,102,204);stroke:rgb(255,255,255);stroke-width:1}
+.hotPinkFillWhiteStroke2Basic{fill:rgb(255,102,204);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightBlueFillBlueStroke2Basic{fill:rgb(102,153,255);stroke:rgb(0,0,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightBlueFillDarkBlueStroke1{fill:rgb(102,153,255);stroke:rgb(0,0,127);stroke-width:2}
+.lightBlueFillDarkRedStroke1Basic{fill:rgb(102,153,255);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightBlueFillLightBlueStroke1{fill:rgb(102,153,255);stroke:rgb(102,153,255);stroke-width:1}
+.lightBlueFillMarineBlueStroke1{fill:rgb(102,153,255);stroke:rgb(0,153,204);stroke-width:1}
+.lightBlueFillMarineBlueStroke1Basic{fill:rgb(102,153,255);stroke:rgb(0,153,204);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightBlueFillMarineBlueStroke5Bevel{fill:rgb(102,153,255);stroke:rgb(0,153,204);stroke-width:5;filter:url(#Bevel_Shadow)}
+.lightBlueFillNightPurpleStroke2Bevel{fill:rgb(102,153,255);stroke:rgb(102,51,204);stroke-width:2;filter:url(#Bevel_Shadow)}
+.lightBlueFillSkyBlueStroke1{fill:rgb(102,153,255);stroke:rgb(51,204,255);stroke-width:1;filter:url(#Bevel_Shadow)}
+.lightBlueFillSlateBlueStroke2Basic{fill:rgb(102,153,255);stroke:rgb(0,102,153);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightBlueFillSlateBlueStroke2Bevel{fill:rgb(102,153,255);stroke:rgb(0,102,153);stroke-width:2;filter:url(#Bevel_Shadow)}
+.lightBlueFillWhiteStroke1Basic{fill:rgb(102,153,255);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightBlueFillWhiteStroke2{fill:rgb(102,153,255);stroke:rgb(255,255,255);stroke-width:2}
+.lightGreenFillDarkGreenStroke1Basic{fill:rgb(127,255,127);stroke:rgb(0,127,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightGreenFillDarkGreenStroke2Bevel{fill:rgb(127,255,127);stroke:rgb(0,127,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.lightGreenFillDarkGreenStroke5Basic{fill:rgb(127,255,127);stroke:rgb(0,127,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightGreenFillWhiteStroke1Basic{fill:rgb(127,255,127);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightPurpleFillBlackStroke1Bevel{fill:rgb(204,127,255);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.lightPurpleFillDarkPurpleStroke1Basic{fill:rgb(204,127,255);stroke:rgb(127,0,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightPurpleFillDarkPurpleStroke5Basic{fill:rgb(204,127,255);stroke:rgb(127,0,127);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightPurpleFillGrayStroke2Basic{fill:rgb(204,127,255);stroke:rgb(127,127,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightPurpleFillHotPinkStroke1Basic{fill:rgb(204,127,255);stroke:rgb(255,102,204);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightPurpleFillLightRedStroke1{fill:rgb(204,127,255);stroke:rgb(255,127,127);stroke-width:1}
+.lightPurpleFillPurpleStroke2Bevel{fill:rgb(204,127,255);stroke:rgb(204,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.lightPurpleFillSlateBlueStroke5Basic{fill:rgb(204,127,255);stroke:rgb(0,102,153);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightPurpleFillVioletStroke1{fill:rgb(204,127,255);stroke:rgb(204,51,153);stroke-width:1}
+.lightPurpleFillVioletStroke1Basic{fill:rgb(204,127,255);stroke:rgb(204,51,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightRedFillDarkRedStroke1{fill:rgb(255,127,127);stroke:rgb(127,0,0);stroke-width:1}
+.lightRedFillDarkRedStroke1Basic{fill:rgb(255,127,127);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightRedFillGrayStroke1{fill:rgb(255,127,127);stroke:rgb(127,127,127);stroke-width:1}
+.lightRedFillLightYellowStroke2Basic{fill:rgb(255,127,127);stroke:rgb(255,255,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightRedFillPinkStroke2{fill:rgb(255,127,127);stroke:rgb(255,204,204);stroke-width:2}
+.lightRedFillRedStroke1Bevel{fill:rgb(255,127,127);stroke:rgb(255,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.lightRedFillRedStroke2Bevel{fill:rgb(255,127,127);stroke:rgb(255,0,0);stroke-width:5;filter:url(#Bevel_Shadow)}
+.lightRedFillRedStroke5Basic{fill:rgb(255,127,127);stroke:rgb(255,0,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightRedFillWhiteStroke2{fill:rgb(255,127,127);stroke:rgb(255,255,255);stroke-width:2}
+.lightSkyBlueFillBlackStroke1Basic{fill:rgb(102,204,255);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightSkyBlueFillBlackStroke1Bevel{fill:rgb(102,204,255);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.lightSkyBlueFillBlueStroke2Bevel{fill:rgb(102,204,255);stroke:rgb(0,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.lightSkyBlueFillDarkBlueStroke1Basic{fill:rgb(102,204,255);stroke:rgb(0,0,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightSkyBlueFillNightPurpleStroke1{fill:rgb(102,204,255);stroke:rgb(102,51,204);stroke-width:1}
+.lightSkyBlueFillSlateBlueStroke2Basic{fill:rgb(102,204,255);stroke:rgb(0,102,153);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightSkyBlueFillSlateBlueStroke5{fill:rgb(102,204,255);stroke:rgb(0,102,153);stroke-width:5}
+.lightSkyBlueFillVioletStroke2Fade{fill:rgb(102,204,255);stroke:rgb(204,51,153);stroke-width:2;fill-opacity:0.5}
+.lightSkyBlueFillWhiteStroke1{fill:rgb(102,204,255);stroke:rgb(255,255,255);stroke-width:1}
+.lightSkyBlueFillWhiteStroke1Basic{fill:rgb(102,204,255);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightSkyBlueFillWhiteStroke2Basic{fill:rgb(102,204,255);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightSkyBlueFillWhiteStroke5Basic{fill:rgb(102,204,255);stroke:rgb(255,255,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightYellowFillCreamStroke1Basic{fill:rgb(255,255,127);stroke:rgb(255,204,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightYellowFillPinkStroke2Basic{fill:rgb(255,255,127);stroke:rgb(255,204,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.lightYellowFillPinkStroke5Basic{fill:rgb(255,255,127);stroke:rgb(255,204,204);stroke-width:5;filter:url(#Basic_Shadow)}
+.lightYellowFillPinkStroke5Bevel{fill:rgb(255,255,127);stroke:rgb(255,204,204);stroke-width:5;filter:url(#Bevel_Shadow)}
+.lightYellowFillWhiteStroke1{fill:rgb(255,255,127);stroke:rgb(255,255,255);stroke-width:1}
+.lightYellowFillWhiteStroke1Basic{fill:rgb(255,255,127);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.lightYellowFillYellowStroke1{fill:rgb(255,255,127);stroke:rgb(255,255,0);stroke-width:1}
+.marineBlueFillBlackStroke1{fill:rgb(0,153,204);stroke:rgb(0,0,0);stroke-width:1}
+.marineBlueFillBlueStroke10{fill:rgb(0,153,204);stroke:rgb(0,0,255);stroke-width:10}
+.marineBlueFillBlueStroke2{fill:rgb(0,153,204);stroke:rgb(0,0,255);stroke-width:2}
+.marineBlueFillBlueStroke5{fill:rgb(0,153,204);stroke:rgb(0,0,255);stroke-width:5}
+.marineBlueFilldarkBlueStroke5{fill:rgb(0,153,204);stroke:rgb(0,0,127);stroke-width:5}
+.marineBlueFillDarkGreenStroke2Basic{fill:rgb(0,153,204);stroke:rgb(0,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.marineBlueFillLightBlueStroke5Basic{fill:rgb(0,153,204);stroke:rgb(102,153,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.marineBlueFillLightBlueStroke5Bevel{fill:rgb(0,153,204);stroke:rgb(102,153,255);stroke-width:5;filter:url(#Bevel_Shadow)}
+.marineBlueFillMarineBlueStroke1{fill:rgb(0,153,204);stroke:rgb(0,153,204);stroke-width:1}
+.marineBlueFillSlateBlueStroke1{fill:rgb(0,153,204);stroke:rgb(0,102,153);stroke-width:1}
+.marineBlueFillSlateBlueStroke1Basic{fill:rgb(0,153,204);stroke:rgb(0,102,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.marineBlueFillSlateBlueStroke2{fill:rgb(0,153,204);stroke:rgb(0,102,153);stroke-width:2}
+.marineBlueFillSlateBlueStroke5{fill:rgb(0,153,204);stroke:rgb(0,102,153);stroke-width:5}
+.marineBlueFillSlateBlueStroke5Basic{fill:rgb(0,153,204);stroke:rgb(0,102,153);stroke-width:5;filter:url(#Basic_Shadow)}
+.marineBlueFillVioletStroke1Basic{fill:rgb(0,153,204);stroke:rgb(204,51,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.marineBlueFillWhiteStroke1Basic{fill:rgb(0,153,204);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.nightPurpleFillDarkBlueStroke2Bevel{fill:rgb(102,51,204);stroke:rgb(0,0,127);stroke-width:2;filter:url(#Bevel_Shadow)}
+.nightPurpleFillDarkPurpleStroke1{fill:rgb(102,51,204);stroke:rgb(127,0,127);stroke-width:1}
+.nightPurpleFillPurpleStroke2Bevel{fill:rgb(102,51,204);stroke:rgb(204,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.orangeFillCreamStroke1{fill:rgb(255,127,0);stroke:rgb(255,204,153);stroke-width:1}
+.orangeFillCreamStroke1Basic{fill:rgb(255,127,0);stroke:rgb(255,204,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.orangeFillDarkRedStroke1{fill:rgb(255,127,0);stroke:rgb(127,0,0);stroke-width:1}
+.orangeFillDarkRedStroke1Bevel{fill:rgb(255,127,0);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.orangeFillLightRedStroke1{fill:rgb(255,127,0);stroke:rgb(255,127,127);stroke-width:1}
+.orangeFillLightRedStroke1Basic{fill:rgb(255,127,0);stroke:rgb(255,127,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.orangeFillRedStroke1Bevel{fill:rgb(255,127,0);stroke:rgb(255,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.orangeFillRedStroke2{fill:rgb(255,127,0);stroke:rgb(255,0,0);stroke-width:2}
+.orangeFillWhiteStroke5Basic{fill:rgb(255,127,0);stroke:rgb(255,255,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.orangeFillYellowStroke1Basic{fill:rgb(255,127,0);stroke:rgb(255,255,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.pinkFillBlueStroke1{fill:rgb(255,204,204);stroke:rgb(0,0,255);stroke-width:1}
+.pinkFillBrownStroke2Basic{fill:rgb(255,204,204);stroke:rgb(127,51,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.pinkFillCreamStroke1Basic{fill:rgb(255,204,204);stroke:rgb(255,204,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.pinkFillDarkRedStroke1Basic{fill:rgb(255,204,204);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.pinkFillDarkRedStroke2{fill:rgb(255,204,204);stroke:rgb(127,0,0);stroke-width:2}
+.pinkFillDarkRedStroke2Basic{fill:rgb(255,204,204);stroke:rgb(127,0,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.pinkFillGrayStroke1{fill:rgb(255,204,204);stroke:rgb(127,127,127);stroke-width:1}
+.pinkFillHotPinkStroke1Basic{fill:rgb(255,204,204);stroke:rgb(255,102,204);stroke-width:1;filter:url(#Basic_Shadow)}
+.pinkFillLightPurpleStroke1{fill:rgb(255,204,204);stroke:rgb(204,127,255);stroke-width:1}
+.pinkFillLightRedStroke2{fill:rgb(255,204,204);stroke:rgb(255,127,127);stroke-width:2}
+.pinkFillRedStroke2{fill:rgb(255,204,204);stroke:rgb(255,0,0);stroke-width:2}
+.pinkFillVioletStroke1{fill:rgb(255,204,204);stroke:rgb(204,51,153);stroke-width:1}
+.pinkFillWhiteStroke1{fill:rgb(255,204,204);stroke:rgb(255,255,255);stroke-width:1}
+.pinkFillWhiteStroke1Basic{fill:rgb(255,204,204);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.pinkFillWhiteStroke2Basic{fill:rgb(255,204,204);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.pinkFillWhiteStroke5Basic{fill:rgb(255,204,204);stroke:rgb(255,255,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.purpleFillBlackStroke1{fill:rgb(204,0,255);stroke:rgb(0,0,0);stroke-width:1}
+.purpleFillDarkPurpleStroke5Basic{fill:rgb(204,0,255);stroke:rgb(127,0,127);stroke-width:5;filter:url(#Basic_Shadow)}
+.redFillAquaGrayStroke1{fill:rgb(255,0,0);stroke:rgb(153,204,204);stroke-width:1}
+.redFillBlackStroke1{fill:rgb(255,0,0);stroke:rgb(0,0,0);stroke-width:1}
+.redFillBlackStroke1Bevel{fill:rgb(255,0,0);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.redFillDarkRedStroke1{fill:rgb(255,0,0);stroke:rgb(127,0,0);stroke-width:1}
+.redFillDarkRedStroke1Basic{fill:rgb(255,0,0);stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.redFillDarkRedStroke5Basic{fill:rgb(255,0,0);stroke:rgb(127,0,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.redFillWhiteStroke2Basic{fill:rgb(255,0,0);stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.skyBlueFillLightBlueStroke2Basic{fill:rgb(51,204,255);stroke:rgb(102,153,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.skyBlueFillLightBlueStroke5Basic{fill:rgb(51,204,255);stroke:rgb(102,153,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.skyBlueFillMarineBlueStroke2{fill:rgb(51,204,255);stroke:rgb(0,153,204);stroke-width:2}
+.skyBlueFillMarineBlueStroke2Basic{fill:rgb(51,204,255);stroke:rgb(0,153,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.skyBlueFillMarineBlueStroke2Bevel{fill:rgb(51,204,255);stroke:rgb(0,153,204);stroke-width:2;filter:url(#Bevel_Shadow)}
+.skyBlueFillWhiteStroke1Basic{fill:rgb(51,204,255);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.slateBlueFillBlackStroke1{fill:rgb(0,102,153);stroke:rgb(0,0,0);stroke-width:1}
+.slateBlueFillBlackStroke1Bevel{fill:rgb(0,102,153);stroke:rgb(0,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.slateBlueFillBlackStroke2{fill:rgb(0,102,153);stroke:rgb(0,0,0);stroke-width:2}
+.slateBlueFillDarkBlueStroke1{fill:rgb(0,102,153);stroke:rgb(0,0,127);stroke-width:1}
+.slateBlueFillDarkGreenStroke1{fill:rgb(0,102,153);stroke:rgb(0,127,0);stroke-width:1}
+.violetFillDarkPurpleStroke1{fill:rgb(204,51,153);stroke:rgb(127,0,127);stroke-width:1}
+.violetFillDarkRedStroke2Basic{fill:rgb(204,51,153);stroke:rgb(127,0,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.violetFillDarkRedStroke2Bevel{fill:rgb(204,51,153);stroke:rgb(127,0,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.violetFillOrangeStroke1{fill:rgb(204,51,153);stroke:rgb(255,127,0);stroke-width:2}
+.violetFillRedStroke1Basic{fill:rgb(204,51,153);stroke:rgb(255,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.violetFillWhiteStroke1Basic{fill:rgb(204,51,153);stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.whiteFillBlackStroke1{fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1}
+.whiteFillBrownStroke1{fill:rgb(255,255,255);stroke:rgb(127,51,0);stroke-width:1}
+.whiteFillDarkRedStroke2Bevel{fill:rgb(255,255,255);stroke:rgb(127,0,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.whiteFillGrayStroke1{fill:rgb(255,255,255);stroke:rgb(127,127,127);stroke-width:1}
+.yellowFillLightYellowStroke1{fill:rgb(255,255,0);stroke:rgb(255,255,127);stroke-width:1}
+.yellowFillLightYellowStroke1Basic{fill:rgb(255,255,0);stroke:rgb(255,255,127);stroke-width:1;filter:url(#Basic_Shadow)}
+
+/*________________________________________________________________________________________
+                                           NO FILLS NO STROKES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = noFillnoStroke[Options]
+Options
+	Basic = Basic_Shadow filter
+	Bevel = Bevel_Shadow filter
+	Fade = fill-opacity set to 50%
+*/
+.noFillNoStrokeBasic{filter:url(#Basic_Shadow)}
+.noFillNoStrokeBevel{filter:url(#Bevel_Shadow)}
+
+/*________________________________________________________________________________________
+                                           NO FILLS WITH STROKES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = noFill[ColorName]Stroke[StrokeWidth][Options]
+colorName = from the color table
+StrokeWidth = 1, 2, 5, 10, or 20
+Options
+	Basic = Basic_Shadow filter
+	Bevel = Bevel_Shadow filter
+	Fade = fill-opacity set to 50%
+*/
+.noFillAnyStroke1{fill:none;stroke-width:1}
+.noFillAnyStroke10{fill:none;stroke-width:10}
+.noFillAnyStroke2{fill:none;stroke-width:2}
+.noFillAnyStroke5{fill:none;stroke-width:5}
+.noFillAquaGrayStroke1{fill:none;stroke:rgb(153,204,204);stroke-width:1}
+.noFillAquaGrayStroke2{fill:none;stroke:rgb(153,204,204);stroke-width:2}
+.noFillAquaGrayStroke2Basic{fill:none;stroke:rgb(153,204,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillAquaStroke1{fill:none;stroke:rgb(0,255,204);stroke-width:1}
+.noFillAquaStroke10{fill:none;stroke:rgb(0,255,204);stroke-width:10}
+.noFillAquaStroke5{fill:none;stroke:rgb(0,255,204);stroke-width:5}
+.noFillBlackStroke1{fill:none;stroke:rgb(0,0,0);stroke-width:1}
+.noFillBlackStroke1Basic{fill:none;stroke:rgb(0,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillBlackStroke2{fill:none;stroke:rgb(0,0,0);stroke-width:2}
+.noFillBlackStroke5{fill:none;stroke:rgb(0,0,0);stroke-width:5}
+.noFillBlueStroke1{fill:none;stroke:rgb(0,0,255);stroke-width:1}
+.noFillBlueStroke1Basic{fill:none;stroke:rgb(0,0,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillBlueStroke1Bevel{fill:none;stroke:rgb(0,0,255);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillBlueStroke2{fill:none;stroke:rgb(0,0,255);stroke-width:2}
+.noFillBlueStroke2Basic{fill:none;stroke:rgb(0,0,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillBlueStroke2Bevel{fill:none;stroke:rgb(0,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillBlueStroke5{fill:none;stroke:rgb(0,0,255);stroke-width:5}
+.noFillBlueStroke5Bevel{fill:none;stroke:rgb(0,0,255);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillBrownStroke1{fill:none;stroke:rgb(127,51,0);stroke-width:1}
+.noFillBrownStroke1Basic{fill:none;stroke:rgb(127,51,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillBrownStroke2{fill:none;stroke:rgb(127,51,0);stroke-width:2}
+.noFillBrownStroke2Bevel{fill:none;stroke:rgb(127,51,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillBrownStroke5{fill:none;stroke:rgb(127,51,0);stroke-width:5}
+.noFillCreamStroke1Bevel{fill:none;stroke:rgb(255,204,153);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillCreamStroke2Basic{fill:none;stroke:rgb(255,204,153);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillCreamStroke2Bevel{fill:none;stroke:rgb(255,204,153);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillDarkBlueStroke1{fill:none;stroke:rgb(0,0,127);stroke-width:1}
+.noFillDarkBlueStroke1Basic{fill:none;stroke:rgb(0,0,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillDarkBlueStroke1Bevel{fill:none;stroke:rgb(0,0,127);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillDarkBlueStroke2{fill:none;stroke:rgb(0,0,127);stroke-width:2}
+.noFillDarkBlueStroke2Bevel{fill:none;stroke:rgb(0,0,127);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillDarkBlueStroke5{fill:none;stroke:rgb(0,0,127);stroke-width:5}
+.noFillDarkGreenStroke1{fill:none;stroke:rgb(0,127,0);stroke-width:1}
+.noFillDarkGreenStroke2{fill:none;stroke:rgb(0,127,0);stroke-width:2}
+.noFillDarkGreenStroke2Basic{fill:none;stroke:rgb(0,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillDarkPurpleStroke1{fill:none;stroke:rgb(127,0,127);stroke-width:1}
+.noFillDarkPurpleStroke1Basic{fill:none;stroke:rgb(127,0,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillDarkPurpleStroke2{fill:none;stroke:rgb(127,0,127);stroke-width:2}
+.noFillDarkPurpleStroke2Basic{fill:none;stroke:rgb(127,0,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillDarkPurpleStroke2Bevel{fill:none;stroke:rgb(127,0,127);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillDarkPurpleStroke5Basic{fill:none;stroke:rgb(127,0,127);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillDarkRedStroke1{fill:none;stroke:rgb(127,0,0);stroke-width:1}
+.noFillDarkRedStroke1Basic{fill:none;stroke:rgb(127,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillDarkRedStroke2{fill:none;stroke:rgb(127,0,0);stroke-width:2}
+.noFillDesertStroke1{fill:none;stroke:rgb(204,204,127);stroke-width:1}
+.noFillDesertStroke1Basic{fill:none;stroke:rgb(204,204,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillDesertStroke5{fill:none;stroke:rgb(204,204,127);stroke-width:5}
+.noFillGrayStroke1{fill:none;stroke:rgb(127,127,127);stroke-width:1}
+.noFillGrayStroke1Basic{fill:none;stroke:rgb(127,127,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillGrayStroke1Bevel{fill:none;stroke:rgb(127,127,127);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillGrayStroke2{fill:none;stroke:rgb(127,127,127);stroke-width:2}
+.noFillGreenStroke1{fill:none;stroke:rgb(0,255,0);stroke-width:1}
+.noFillGreenStroke2Basic{fill:none;stroke:rgb(0,255,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillGreenStroke5{fill:none;stroke:rgb(0,255,0);stroke-width:5}
+.noFillGreenStroke5Bevel{fill:none;stroke:rgb(0,255,0);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillHotPickStroke2{fill:none;stroke:rgb(255,102,204);stroke-width:2}
+.noFillHotPickStroke2Basic{fill:none;stroke:rgb(255,102,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillHotPinkStroke1{fill:none;stroke:rgb(255,102,204);stroke-width:1}
+.noFillHotPinkStroke10Bevel{fill:none;stroke:rgb(255,102,204);stroke-width:10;filter:url(#Bevel_Shadow)}
+.noFillHotPinkStroke2{fill:none;stroke:rgb(255,102,204);stroke-width:2}
+.noFillHotPinkStroke2Basic{fill:none;stroke:rgb(255,102,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillHotPinkStroke2Bevel{fill:none;stroke:rgb(255,102,204);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillHotPinkStroke5Bevel{fill:none;stroke:rgb(255,102,204);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillLightBlueStroke2{fill:none;stroke:rgb(102,153,255);stroke-width:2}
+.noFillLightBlueStroke5Basic{fill:none;stroke:rgb(102,204,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillLightBlueStroke5Bevel{fill:none;stroke:rgb(102,153,255);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillLightBrownStroke1{fill:none;stroke:rgb(127,102,51);stroke-width:1}
+.noFillLightBrownStroke1Basic{fill:none;stroke:rgb(127,102,51);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillLightBrownStroke2Basic{fill:none;stroke:rgb(127,102,51);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillLightBrownStroke2Bevel{fill:none;stroke:rgb(127,102,51);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillLightGreenStroke1{fill:none;stroke:rgb(127,255,127);stroke-width:1}
+.noFillLightGreenStroke2Bevel{fill:none;stroke:rgb(127,255,127);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillLightPurpleStroke1{fill:none;stroke:rgb(204,127,255);stroke-width:1}
+.noFillLightPurpleStroke1Basic{fill:none;stroke:rgb(204,127,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillLightPurpleStroke2{fill:none;stroke:rgb(204,127,255);stroke-width:2}
+.noFillLightPurpleStroke2Basic{fill:none;stroke:rgb(204,127,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillLightPurpleStroke2Bevel{fill:none;stroke:rgb(204,127,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillLightRedStroke1{fill:none;stroke:rgb(255,127,127);stroke-width:1}
+.noFillLightRedStroke1Basic{fill:none;stroke:rgb(255,127,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillLightRedStroke2{fill:none;stroke:rgb(255,127,127);stroke-width:2}
+.noFillLightRedStroke2Bevel{fill:none;stroke:rgb(255,127,127);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillLightRedStroke5{fill:none;stroke:rgb(255,127,127);stroke-width:5}
+.noFillLightSkyBlueStroke1{fill:none;stroke:rgb(102,204,255);stroke-width:1}
+.noFillLightSkyBlueStroke1Basic{fill:none;stroke:rgb(102,204,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillLightSkyBlueStroke2{fill:none;stroke:rgb(102,204,255);stroke-width:2}
+.noFillLightSkyBlueStroke20{fill:none;stroke:rgb(102,204,255);stroke-width:20}
+.noFillLightSkyBlueStroke5{fill:none;stroke:rgb(102,204,255);stroke-width:5}
+.noFillLightSkyBlueStroke5Basic{fill:none;stroke:rgb(102,204,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillLightYellowStroke1{fill:none;stroke:rgb(255,255,127);stroke-width:1}
+.noFillLightYellowStroke10{fill:none;stroke:rgb(255,255,127);stroke-width:10}
+.noFillLightYellowStroke1Basic{fill:none;stroke:rgb(255,255,127);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillLightYellowStroke2{fill:none;stroke:rgb(255,255,127);stroke-width:2}
+.noFillLightYellowStroke2Basic{fill:none;stroke:rgb(255,255,127);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillLightYellowStroke5{fill:none;stroke:rgb(255,255,127);stroke-width:5}
+.noFillMarineBlueStroke1{fill:none;stroke:rgb(0,153,204);stroke-width:1}
+.noFillMarineBlueStroke10{fill:none;stroke:rgb(0,153,204);stroke-width:10}
+.noFillMarineBlueStroke2{fill:none;stroke:rgb(0,153,204);stroke-width:2}
+.noFillNightPurpleStroke1{fill:none;stroke:rgb(102,51,204);stroke-width:1}
+.noFillNightPurpleStroke2{fill:none;stroke:rgb(102,51,204);stroke-width:2}
+.noFillNightPurpleStroke2Basic{fill:none;stroke:rgb(102,51,204);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillNightPurpleStroke2Bevel{fill:none;stroke:rgb(102,51,204);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillOrangeStroke1{fill:none;stroke:rgb(255,127,0);stroke-width:1}
+.noFillOrangeStroke1Basic{fill:none;stroke:rgb(255,127,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillOrangeStroke2{fill:none;stroke:rgb(255,127,0);stroke-width:2}
+.noFillOrangeStroke2Basic{fill:none;stroke:rgb(255,127,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillOrangeStroke5{fill:none;stroke:rgb(255,127,0);stroke-width:5}
+.noFillPinkStroke1{fill:none;stroke:rgb(255,204,204);stroke-width:1}
+.noFillPinkStroke10{fill:none;stroke:rgb(255,204,204);stroke-width:10}
+.noFillPinkStroke2{fill:none;stroke:rgb(255,204,204);stroke-width:2}
+.noFillPinkStroke20{fill:none;stroke:rgb(255,204,204);stroke-width:20}
+.noFillPinkStroke5{fill:none;stroke:rgb(255,204,204);stroke-width:5}
+.noFillPurpleStroke1{fill:none;stroke:rgb(204,0,255);stroke-width:1}
+.noFillPurpleStroke10{fill:none;stroke:rgb(204,0,255);stroke-width:10}
+.noFillPurpleStroke10Bevel{fill:none;stroke:rgb(204,0,255);stroke-width:10;filter:url(#Bevel_Shadow)}
+.noFillPurpleStroke1Basic{fill:none;stroke:rgb(204,0,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillPurpleStroke2{fill:none;stroke:rgb(204,0,255);stroke-width:2}
+.noFillPurpleStroke2Basic{fill:none;stroke:rgb(204,0,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillPurpleStroke2Bevel{fill:none;stroke:rgb(204,0,255);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillPurpleStroke5{fill:none;stroke:rgb(204,0,255);stroke-width:5}
+.noFillPurpleStroke5Basic{fill:none;stroke:rgb(204,0,255);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillPurpleStroke5Bevel{fill:none;stroke:rgb(204,0,255);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillRedStroke1{fill:none;stroke:rgb(255,0,0);stroke-width:1}
+.noFillRedStroke1Basic{fill:none;stroke:rgb(255,0,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillRedStroke1Bevel{fill:none;stroke:rgb(255,0,0);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillRedStroke2{fill:none;stroke:rgb(255,0,0);stroke-width:2}
+.noFillRedStroke2Basic{fill:none;stroke:rgb(255,0,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillRedStroke2Bevel{fill:none;stroke:rgb(255,0,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillSkyBlueStroke1{fill:none;stroke:rgb(51,204,255);stroke-width:1}
+.noFillSkyBlueStroke2{fill:none;stroke:rgb(51,204,255);stroke-width:2}
+.noFillSlateBlueStroke1{fill:none;stroke:rgb(0,102,153);stroke-width:1}
+.noFillSlateBlueStroke10{fill:none;stroke:rgb(0,102,153);stroke-width:10}
+.noFillSlateBlueStroke1Basic{fill:none;stroke:rgb(0,102,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillSlateBlueStroke1Bevel{fill:none;stroke:rgb(0,102,153);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillSlateBlueStroke2{fill:none;stroke:rgb(0,102,153);stroke-width:2}
+.noFillSlateBlueStroke2Bevel{fill:none;stroke:rgb(0,102,153);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillSlateBlueStroke5{fill:none;stroke:rgb(0,102,153);stroke-width:5}
+.noFillSlateBlueStroke5Basic{fill:none;stroke:rgb(0,102,153);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillSlateBlueStroke5Bevel{fill:none;stroke:rgb(0,102,153);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillVioletStroke1{fill:none;stroke:rgb(204,51,153);stroke-width:1}
+.noFillVioletStroke10Basic{fill:none;stroke:rgb(204,51,153);stroke-width:10;filter:url(#Basic_Shadow)}
+.noFillVioletStroke1Basic{fill:none;stroke:rgb(204,51,153);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillVioletStroke1Bevel{fill:none;stroke:rgb(204,51,153);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillVioletStroke2{fill:none;stroke:rgb(204,51,153);stroke-width:2}
+.noFillVioletStroke2Basic{fill:none;stroke:rgb(204,51,153);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillVioletStroke2Bevel{fill:none;stroke:rgb(204,51,153);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillVioletStroke5{fill:none;stroke:rgb(204,51,153);stroke-width:5}
+.noFillVioletStroke5Basic{fill:none;stroke:rgb(204,51,153);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillVioletStroke5Bevel{fill:none;stroke:rgb(204,51,153);stroke-width:5;filter:url(#Bevel_Shadow)}
+.noFillWhiteStroke1{fill:none;stroke:rgb(255,255,255);stroke-width:1}
+.noFillWhiteStroke1Basic{fill:none;stroke:rgb(255,255,255);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillWhiteStroke2{fill:none;stroke:rgb(255,255,255);stroke-width:2}
+.noFillWhiteStroke2Basic{fill:none;stroke:rgb(255,255,255);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillWhiteStroke5{fill:none;stroke:rgb(255,255,255);stroke-width:5}
+.noFillWhiteStroke1Bevel{fill:none;stroke:rgb(255,255,255);stroke-width:1;filter:url(#Bevel_Shadow)}
+.noFillYellowStroke1{fill:none;stroke:rgb(255,255,0);stroke-width:1}
+.noFillYellowStroke10{fill:none;stroke:rgb(255,255,0);stroke-width:10}
+.noFillYellowStroke1Basic{fill:none;stroke:rgb(255,255,0);stroke-width:1;filter:url(#Basic_Shadow)}
+.noFillYellowStroke2{fill:none;stroke:rgb(255,255,0);stroke-width:2}
+.noFillYellowStroke2Basic{fill:none;stroke:rgb(255,255,0);stroke-width:2;filter:url(#Basic_Shadow)}
+.noFillYellowStroke2Bevel{fill:none;stroke:rgb(255,255,0);stroke-width:2;filter:url(#Bevel_Shadow)}
+.noFillYellowStroke5{fill:none;stroke:rgb(255,255,0);stroke-width:5}
+.noFillYellowStroke5Basic{fill:none;stroke:rgb(255,255,0);stroke-width:5;filter:url(#Basic_Shadow)}
+.noFillYellowStroke5Bevel{fill:none;stroke:rgb(255,255,0);stroke-width:5;filter:url(#Bevel_Shadow)}
+
+
+/*________________________________________________________________________________________
+                                           SPECIAL SHAPES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = [shapeName]
+*/
+.er{fill:rgb(51,204,204);stroke:rgb(0,153,153);stroke-width:5;filter:url(#Bevel_Shadow)}
+.golgi{fill:rgb(204,204,204);stroke:rgb(204,153,102);stroke-width:3;filter:url(#Bevel_Shadow)}
+.nucleus{fill:rgb(51,204,255);stroke:rgb(102,153,255);stroke-width:5;filter:url(#Bevel_Shadow)}
+.membraneFill{fill:rgb(0,0,255);filter:url(#Division);fill-opacity:0.5}
+.membraneStroke20{fill:none;stroke:rgb(0,0,255);stroke-width:20;stroke-opacity:0.5;filter:url(#Division)}
+
+/*________________________________________________________________________________________
+                                           TEXT
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = txt[ColorName][Options]
+
+colorName = from the color table
+Options
+	Big = large font-size
+	Small = small font-size
+	Italics = italic font-style
+	Basic = Basic_Shadow filter
+*/
+text{fill:rgb(0,0,0);font-size:11;font-family:Arial}
+/* needed? strip instead? -- .txtBlack{fill:rgb(0,0,0);font-size:11;font-family:Arial} */
+.txtBlackBig{font-size:18}
+.txtBlackItalics{font-style:italic}
+.txtBlackSmall{font-size:8}
+.txtBlue{fill:rgb(0,0,255)}
+.txtBlueBasic{fill:rgb(0,0,255);filter:url(#Basic_Shadow)}
+.txtBlueBig{fill:rgb(0,0,255);font-size:18}
+.txtBlueItalics{fill:rgb(0,0,255);font-style:italic}
+.txtBrown{fill:rgb(127,51,0)}
+.txtBrownItalics{fill:rgb(127,51,0);font-style:italic}
+.txtDarkGreen{fill:rgb(0,127,0)}
+.txtDarkGreenItalics{fill:rgb(0,127,0);font-style:italic}
+.txtOrange{fill:rgb(255,127,0)}
+.txtRed{fill:rgb(255,0,0)}
+.txtRedBasic{fill:rgb(255,0,0);filter:url(#Basic_Shadow)}
+.txtRedBig{fill:rgb(255,0,0);font-size:18}
+.txtRedItalics{fill:rgb(255,0,0);font-style:italic}
+.txtRedSmall{fill:rgb(255,0,0);font-size:8}
+.txtWhite{fill:rgb(255,255,255)}
+.txtWhiteBasic{fill:rgb(255,255,255);filter:url(#Basic_Shadow)}
+.txtWhiteBig{fill:rgb(255,255,255);font-size:18}
+.txtWhiteItalics{fill:rgb(255,255,255);font-style:italic}
+.txtWhiteSmall{fill:rgb(255,255,255);font-size:8}
+.txtYellow{fill:rgb(255,255,0)}
+.txtYellowBasic{fill:rgb(255,255,0);filter:url(#Basic_Shadow)}
+.txtYellowBig{fill:rgb(255,255,0);font-size:18}
+.txtYellowItalics{fill:rgb(255,255,0);font-style:italic}
+.txtPink{fill:rgb(255,204,204)}
+/*________________________________________________________________________________________
+                                           GENES and PATHWAYS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+format = [bcid]
+         -(dash) replaces _(underscore) character for CSS class name to work properly
+         a- is prepended to names that start with numbers for CSS class names (i.e. .a-1433 for .1433) to work properly
+
+bcid = unique identifier and used by gene links
+*/
+
+/* uncomment g#genes line to cascade the filter to every gene class;
+   would then need to strip noFillNoStrokeBevel class from inside gene elements;
+   not currently used because it makes objects on top of each other look like blobs (e.g. proteasomePathway);
+   also tried putting the filter in the gene classes below but it increased file size by about 40% */
+/* g#genes > a > g{filter:url(#Bevel-Shadow)} */
+.a-1433{fill:rgb(153,0,0)}
+.a-1433s{fill:rgb(102,51,255)}
+.a-4ebp{fill:rgb(102,102,0)}
+.a-5ht2c{fill:rgb(246,114,114)}
+.a20{fill:rgb(204,51,102)}
+.abc1{fill:rgb(204,204,255)}
+.abca1{fill:rgb(102,153,255)}
+.abcb1{fill:rgb(204,204,0)}
+.abcb11{fill:rgb(8,8,156)}
+.abcb1a{fill:rgb(102,51,204)}
+.abcb1b{fill:rgb(9,206,9)}
+.abcc1{fill:rgb(146,98,3)}
+.abcc2{fill:rgb(204,153,153)}
+.abcc3{fill:rgb(251,9,9)}
+.abcd2{fill:rgb(254,168,254)}
+.abcd3{fill:rgb(255,0,153)}
+.abcg1{fill:rgb(11,104,61)}
+.abcg5{fill:rgb(20,162,163)}
+.abi2{fill:rgb(255,153,204)}
+.abl{fill:rgb(255,204,51)}
+.ac{fill:rgb(0,0,255)}
+.acat{fill:rgb(255,102,204)}
+.acatenin{fill:rgb(129,80,5)}
+.acc{fill:rgb(0,204,0)}
+.ace{fill:rgb(255,102,255)}
+.ace2{fill:rgb(0,204,51)}
+.achb{fill:rgb(69,187,191)}
+.achg{fill:rgb(57,59,131)}
+.achr{fill:rgb(153,102,255)}
+.achrm1{fill:rgb(246,114,114)}
+.acly{fill:rgb(0,102,153)}
+.acoas{fill:rgb(204,102,153)}
+.acox1{fill:rgb(102,51,153)}
+.acs{fill:rgb(0,51,255)}
+.act{fill:rgb(58,156,156)}
+.actb{fill:rgb(208,208,114)}
+.actr{fill:rgb(153,153,255)}
+.adam12{fill:rgb(102,51,153)}
+.adam17{fill:rgb(0,204,204)}
+.adar{fill:rgb(51,102,255)}
+.add1{fill:rgb(109,158,158)}
+.adipoq{fill:rgb(255,51,255)}
+.adra1b{fill:rgb(0,0,153)}
+.afx{fill:rgb(153,102,204)}
+.agrin{fill:rgb(50,143,143)}
+.agt{fill:rgb(255,102,102)}
+.agtr2{fill:rgb(153,102,51)}
+.ahr{fill:rgb(255,0,102)}
+.ahsp{fill:rgb(255,102,51)}
+.aif{fill:rgb(102,0,51)}
+.aiolos{fill:rgb(255,123,50)}
+.akad{fill:rgb(28,102,140)}
+.akap13{fill:rgb(255,105,225)}
+.akap8{fill:rgb(255,153,0)}
+.akap9{fill:rgb(255,153,204)}
+.akt1{fill:rgb(153,102,204)}
+.alad{fill:rgb(153,102,102)}
+.alas1{fill:rgb(163,163,255)}
+.alas2{fill:rgb(153,153,204)}
+.aldoa{fill:rgb(102,153,204)}
+.aldob{fill:rgb(153,153,51)}
+.alien{fill:rgb(187,47,94)}
+.alk2{fill:rgb(51,0,153)}
+.alox5{fill:rgb(51,102,102)}
+.alox5ap{fill:rgb(102,204,51)}
+.alpha-actin{fill:rgb(255,0,255)}
+.alpha-actinin{fill:rgb(255,102,204)}
+.alpl{fill:rgb(51,102,102)}
+.ampk{fill:rgb(204,153,0)}
+.angiotensinii{fill:rgb(255,102,102)}
+.angiotensinr2{fill:rgb(255,102,102)}
+.ankyrin{fill:rgb(206,158,12)}
+.anp32a{fill:rgb(51,153,255)}
+.ant{fill:rgb(102,51,204)}
+.anxa1{fill:rgb(153,0,153)}
+.ap1{fill:rgb(51,204,0)}
+.ap2{fill:rgb(51,204,102)}
+.apaf1{fill:rgb(128,0,0)}
+.apc{fill:rgb(236,13,58)}
+.apex1{fill:rgb(153,102,0)}
+.api1{fill:rgb(102,0,51)}
+.api2{fill:rgb(102,0,51)}
+.api3{fill:rgb(7,183,7)}
+.aplp1{fill:rgb(51,153,255)}
+.apo2l{fill:rgb(153,51,51)}
+.apo3l{fill:rgb(0,51,153)}
+.apoa1{fill:rgb(102,51,153)}
+.apoa2{fill:rgb(102,51,153)}
+.apoer2{fill:rgb(255,102,153)}
+.app{fill:rgb(51,204,255)}
+.april{fill:rgb(211,167,255)}
+.arf1{fill:rgb(51,204,102)}
+.arfgap1{fill:rgb(255,51,153)}
+.arfgap3{fill:rgb(255,51,153)}
+.arfgef2{fill:rgb(153,102,255)}
+.arg{fill:rgb(0,102,153)}
+.arhgap1{fill:rgb(153,102,153)}
+.arhgap4{fill:rgb(153,102,153)}
+.arhgap5{fill:rgb(153,102,153)}
+.arhgap6{fill:rgb(153,102,153)}
+.arhgef1{fill:rgb(153,102,153)}
+.arhgef11{fill:rgb(153,102,153)}
+.arhgef5{fill:rgb(153,102,153)}
+.arhgef6{fill:rgb(204,153,153)}
+.arnt{fill:rgb(138,37,138)}
+.arp2{fill:rgb(255,0,0)}
+.arr{fill:rgb(54,58,210)}
+.asah1{fill:rgb(153,0,153)}
+.ask1{fill:rgb(255,51,0)}
+.asph{fill:rgb(153,153,204)}
+.at1r{fill:rgb(204,153,0)}
+.atf{fill:rgb(102,0,0)}
+.atf2{fill:rgb(107,11,252)}
+.atf4{fill:rgb(102,204,153)}
+.atk1{fill:rgb(255,64,255)}
+.atm{fill:rgb(204,153,255)}
+.atp5a1{fill:rgb(0,153,204)}
+.atr{fill:rgb(230,233,3)}
+.axin{fill:rgb(206,9,107)}
+.b2{fill:rgb(153,0,0)}
+.b2ar{fill:rgb(255,153,0)}
+.b2m{fill:rgb(153,0,0)}
+.b3galt1{fill:rgb(100,13,98)}
+.b3galt2{fill:rgb(209,168,209)}
+.b7h{fill:rgb(192,167,0)}
+.baat{fill:rgb(254,65,207)}
+.bace{fill:rgb(110,62,218)}
+.bad{fill:rgb(0,0,192)}
+.baf53a{fill:rgb(204,204,153)}
+.baff{fill:rgb(204,153,153)}
+.baffr{fill:rgb(204,153,153)}
+.bag4{fill:rgb(0,102,0)}
+.bard1{fill:rgb(255,153,153)}
+.bax{fill:rgb(102,0,102)}
+.baz1b{fill:rgb(211,78,255)}
+.bb{fill:rgb(255,102,51)}
+.bcatenin{fill:rgb(0,0,255)}
+.bcl2{fill:rgb(0,255,51)}
+.bclxl{fill:rgb(102,125,1)}
+.bcma{fill:rgb(102,153,51)}
+.bcr{fill:rgb(97,3,120)}
+.bdkrb2{fill:rgb(255,153,0)}
+.bdp1{fill:rgb(153,153,255)}
+.bid{fill:rgb(0,102,51)}
+.big1{fill:rgb(153,102,255)}
+.biglycan{fill:rgb(0,102,153)}
+.bik{fill:rgb(167,9,139)}
+.birc5{fill:rgb(51,51,102)}
+.blnk{fill:rgb(139,18,140)}
+.blvra{fill:rgb(204,102,153)}
+.bmal1{fill:rgb(0,102,51)}
+.bmi1{fill:rgb(200,183,64)}
+.bmp10{fill:rgb(102,204,102)}
+.bmp2{fill:rgb(102,204,102)}
+.bmp4{fill:rgb(102,204,102)}
+.bmp5{fill:rgb(102,204,102)}
+.bmp7{fill:rgb(102,204,102)}
+.bradykinin{fill:rgb(255,0,0)}
+.brca1{fill:rgb(102,0,51)}
+.brca2{fill:rgb(102,0,51)}
+.brf1{fill:rgb(153,102,153)}
+.btg1{fill:rgb(102,102,204)}
+.btg2{fill:rgb(54,54,141)}
+.btk{fill:rgb(99,32,150)}
+.btrc{fill:rgb(204,0,51)}
+.c1complex{fill:rgb(255,204,102)}
+.c1q{fill:rgb(255,204,102)}
+.c1r{fill:rgb(255,153,0)}
+.c1s{fill:rgb(255,51,204)}
+.c2{fill:rgb(153,51,153)}
+.c2a{fill:rgb(153,51,153)}
+.c2b{fill:rgb(153,51,153)}
+.c3{fill:rgb(153,0,255)}
+.c3a{fill:rgb(153,0,255)}
+.c3b{fill:rgb(153,0,255)}
+.c3g{fill:rgb(153,0,51)}
+.c4{fill:rgb(204,102,0)}
+.c4a{fill:rgb(204,102,0)}
+.c4b{fill:rgb(204,102,0)}
+.c5{fill:rgb(51,102,51)}
+.c5a{fill:rgb(51,102,51)}
+.c5b{fill:rgb(51,102,51)}
+.c6{fill:rgb(51,102,255)}
+.c7{fill:rgb(40,166,166)}
+.c8{fill:rgb(51,51,153)}
+.c9{fill:rgb(204,153,102)}
+.cabin1{fill:rgb(153,0,255)}
+.cabl{fill:rgb(153,51,153)}
+.cad{fill:rgb(204,153,255)}
+.caf1{fill:rgb(153,102,204)}
+.cak{fill:rgb(255,164,209)}
+.calcineurin{fill:rgb(246,87,0)}
+.calmodulin{fill:rgb(0,153,0)}
+.calpain{fill:rgb(140,78,184)}
+.calr{fill:rgb(255,162,53)}
+.camitine-palmitoyltransferase1{fill:rgb(102,51,153)}
+.camk{fill:rgb(204,153,51)}
+.camk4{fill:rgb(255,153,102)}
+.camki{fill:rgb(204,153,51)}
+.camkii{fill:rgb(153,0,153)}
+.camkk{fill:rgb(0,153,0)}
+.camodulin{fill:rgb(0,0,128)}
+.canx{fill:rgb(204,0,0)}
+.cap{fill:rgb(102,51,153)}
+.capn1{fill:rgb(255,1,222)}
+.capn2{fill:rgb(153,0,153)}
+.cargor{fill:rgb(255,51,153)}
+.carm1{fill:rgb(0,204,0)}
+.cask{fill:rgb(51,102,102)}
+.casp2{fill:rgb(51,153,255)}
+.casp3{fill:rgb(0,102,0)}
+.casp6{fill:rgb(0,153,0)}
+.casp7{fill:rgb(0,153,102)}
+.casp8{fill:rgb(255,102,0)}
+.casp9{fill:rgb(51,153,255)}
+.caspase1{fill:rgb(47,124,135)}
+.caspase10{fill:rgb(101,207,133)}
+.caspase2{fill:rgb(35,51,40)}
+.caspase3{fill:rgb(0,102,0)}
+.caspase4{fill:rgb(54,220,101)}
+.caspase6{fill:rgb(32,194,116)}
+.caspase7{fill:rgb(0,153,102)}
+.caspase8{fill:rgb(66,160,143)}
+.caspase9{fill:rgb(0,153,153)}
+.cat{fill:rgb(139,5,94)}
+.cat1{}
+.caveolin-1{fill:rgb(161,59,12)}
+.caveoline-1{fill:rgb(153,204,0)}
+.cbl{fill:rgb(255,153,0)}
+.cbp{fill:rgb(204,0,51)}
+.cbs{fill:rgb(28,102,140)}
+.cbx4{fill:rgb(25,47,108)}
+.ccnb1-2{fill:rgb(102,0,204)}
+.ccnd1{fill:rgb(51,51,255)}
+.ccnd2{fill:rgb(0,102,204)}
+.ccnd3{fill:rgb(0,102,255)}
+.ccr1{fill:rgb(255,102,153)}
+.ccr2{fill:rgb(255,102,153)}
+.ccr3{fill:rgb(255,0,0)}
+.ccr4{fill:rgb(255,102,153)}
+.ccr5{fill:rgb(255,0,0)}
+.ccr7{fill:rgb(255,102,153)}
+.cct4{fill:rgb(242,97,97)}
+.cd11a{fill:rgb(189,85,85)}
+.cd11b{fill:rgb(204,102,51)}
+.cd11c{fill:rgb(255,204,102)}
+.cd13{fill:rgb(102,204,204)}
+.cd134{fill:rgb(153,51,0)}
+.cd14{fill:rgb(204,102,51)}
+.cd18{fill:rgb(189,85,85)}
+.cd2{fill:rgb(102,102,255)}
+.cd21{fill:rgb(192,0,0)}
+.cd28{fill:rgb(255,51,102)}
+.cd29{fill:rgb(255,51,153)}
+.cd3{fill:rgb(0,153,0)}
+.cd32{fill:rgb(192,0,0)}
+.cd33{fill:rgb(153,204,0)}
+.cd34{fill:rgb(255,102,102)}
+.cd35{fill:rgb(192,0,0)}
+.cd36{fill:rgb(102,153,255)}
+.cd3d{fill:rgb(0,0,102)}
+.cd3e{fill:rgb(0,0,102)}
+.cd3g{fill:rgb(0,0,102)}
+.cd3z{fill:rgb(0,0,102)}
+.cd4{fill:rgb(255,102,153)}
+.cd40{fill:rgb(153,102,102)}
+.cd40l{fill:rgb(153,102,0)}
+.cd44{fill:rgb(102,204,0)}
+.cd45{fill:rgb(0,128,0)}
+.cd49d{fill:rgb(255,51,153)}
+.cd5{fill:rgb(255,102,255)}
+.cd54{fill:rgb(192,0,192)}
+.cd58{fill:rgb(51,102,0)}
+.cd7{fill:rgb(0,51,255)}
+.cd79a{fill:rgb(102,0,102)}
+.cd79b{fill:rgb(102,0,102)}
+.cd8{fill:rgb(255,51,0)}
+.cd80{fill:rgb(0,51,255)}
+.cd86{fill:rgb(255,67,178)}
+.cd94{fill:rgb(153,153,204)}
+.cdc2{fill:rgb(102,0,102)}
+.cdc25{fill:rgb(204,0,0)}
+.cdc25a{fill:rgb(204,0,0)}
+.cdc25b{fill:rgb(153,0,204)}
+.cdc25c{fill:rgb(102,51,51)}
+.cdc34{fill:rgb(8,102,202)}
+.cdc42{fill:rgb(51,204,153)}
+.cdc6{fill:rgb(102,204,102)}
+.cdcrel1{fill:rgb(204,102,102)}
+.cdh1{fill:rgb(102,153,255)}
+.cdk1{fill:rgb(128,0,0)}
+.cdk2{fill:rgb(192,0,0)}
+.cdk4{fill:rgb(153,0,255)}
+.cdk5{fill:rgb(153,102,51)}
+.cdk6{fill:rgb(228,121,235)}
+.cdk7{fill:rgb(150,91,169)}
+.cdkn1a{fill:rgb(204,153,153)}
+.cdkn1b{fill:rgb(204,153,204)}
+.cdkn2a{fill:rgb(51,153,102)}
+.cdkn2b{fill:rgb(153,51,0)}
+.cdkn2c{fill:rgb(204,51,102)}
+.cdkn2d{fill:rgb(204,102,102)}
+.cdks{fill:rgb(0,51,204)}
+.cdlc{fill:rgb(204,51,153)}
+.cdt1{fill:rgb(51,153,153)}
+.cebpa{fill:rgb(204,102,153)}
+.cebpb{fill:rgb(102,102,153)}
+.centd1{fill:rgb(255,51,153)}
+.centd2{fill:rgb(255,51,153)}
+.cfl1{fill:rgb(234,174,46)}
+.cflar{fill:rgb(0,153,102)}
+.cfos{fill:rgb(102,51,102)}
+.c-fos{fill:rgb(102,51,102)}
+.c-Fos{fill:rgb(186,122,173)}
+.cftr{fill:rgb(0,102,153)}
+.chaf1a{fill:rgb(159,110,198)}
+.chc1{fill:rgb(153,102,255)}
+.chk1{fill:rgb(153,102,51)}
+.chk2{fill:rgb(153,153,51)}
+.chn1{fill:rgb(153,153,204)}
+.chop{fill:rgb(255,102,0)}
+.chrd{fill:rgb(255,102,102)}
+.chrebp{fill:rgb(102,51,204)}
+.chymase{fill:rgb(51,102,255)}
+.ciap{fill:rgb(25,129,25)}
+.ciap1{fill:rgb(88,152,88)}
+.cin85{fill:rgb(0,51,255)}
+.cited2{fill:rgb(255,102,51)}
+.c-jun{fill:rgb(102,51,153)}
+.ck1{fill:rgb(153,102,102)}
+.ck1a{fill:rgb(255,172,214)}
+.ck1d{fill:rgb(204,0,102)}
+.ck1e{fill:rgb(204,102,153)}
+.ck2{fill:rgb(153,102,153)}
+.ckm{fill:rgb(235,179,146)}
+.cks1{fill:rgb(153,51,255)}
+.clip{fill:rgb(94,142,144)}
+.clock{fill:rgb(102,0,153)}
+.cmaf{fill:rgb(102,153,0)}
+.cmyc{fill:rgb(204,102,204)}
+.cnap1{fill:rgb(204,153,0)}
+.cng-hcn{fill:rgb(51,204,153)}
+.cnr1{fill:rgb(204,122,200)}
+.cnr2{fill:rgb(202,161,202)}
+.coat{fill:rgb(204,204,0)}
+.col4{}
+.comp1{fill:rgb(255,153,0)}
+.comp2{fill:rgb(255,102,0)}
+.comp3{fill:rgb(102,153,51)}
+.comp4{fill:rgb(204,102,0)}
+.corin{fill:rgb(204,153,255)}
+.cpkc{fill:rgb(102,153,255)}
+.cpo{fill:rgb(51,153,255)}
+.cpsf{fill:rgb(204,204,0)}
+.cpt1{fill:rgb(153,0,153)}
+.cpt2{fill:rgb(102,0,102)}
+.cradd{fill:rgb(102,51,255)}
+.creb{fill:rgb(255,102,153)}
+.crem{fill:rgb(204,0,102)}
+.crk{fill:rgb(255,153,102)}
+.crkl{fill:rgb(0,0,255)}
+.cry{fill:rgb(153,102,51)}
+.cs{fill:rgb(204,51,51)}
+.csf1{fill:rgb(0,153,51)}
+.csf1r{fill:rgb(255,153,153)}
+.csk{fill:rgb(102,0,255)}
+.csl{fill:rgb(249,155,14)}
+.cstf{fill:rgb(255,153,255)}
+.csx{fill:rgb(255,51,204)}
+.ct{fill:rgb(204,153,255)}
+.ctbp{fill:rgb(102,51,153)}
+.ctcf{fill:rgb(51,153,153)}
+.ctf1{fill:rgb(0,0,128)}
+.cth{fill:rgb(28,102,140)}
+.ctip{fill:rgb(51,51,204)}
+.ctla4{fill:rgb(161,41,89)}
+.ctsd{fill:rgb(102,153,255)}
+.cul1{fill:rgb(204,0,255)}
+.cxcr3{fill:rgb(189,44,59)}
+.cxcr4{fill:rgb(153,51,51)}
+.cyca{fill:rgb(0,0,102)}
+.cycb{fill:rgb(51,0,153)}
+.cycd{fill:rgb(102,51,255)}
+.cyce{fill:rgb(0,102,204)}
+.cych{fill:rgb(0,153,255)}
+.cylcooxygenase2{fill:rgb(102,51,153)}
+.cyp1a2{fill:rgb(0,157,245)}
+.cyp24a1{fill:rgb(255,51,255)}
+.cyp26a1{fill:rgb(102,204,204)}
+.cyp2b6{fill:rgb(0,153,255)}
+.cyp2c9{fill:rgb(0,102,204)}
+.cyp2e1{fill:rgb(0,0,255)}
+.cyp2j2{fill:rgb(102,102,153)}
+.cyp3a{fill:rgb(0,10,131)}
+.cyp3a4{fill:rgb(51,102,153)}
+.cyp4a11{fill:rgb(59,157,157)}
+.cyp4b1{fill:rgb(204,153,255)}
+.cyp7a1{fill:rgb(204,0,153)}
+.cyp8b1{fill:rgb(204,102,255)}
+.cysltr1{fill:rgb(249,94,169)}
+.cysltr2{fill:rgb(204,51,102)}
+.cytochromec{fill:rgb(0,192,0)}
+.d1{fill:rgb(196,152,19)}
+.d2{fill:rgb(246,202,115)}
+.d4gdi{fill:rgb(0,128,128)}
+.dab1{fill:rgb(252,161,116)}
+.dag1{fill:rgb(152,101,152)}
+.darpp32{fill:rgb(153,51,255)}
+.daxx{fill:rgb(102,102,153)}
+.dctn{fill:rgb(255,153,255)}
+.dcx{fill:rgb(144,144,97)}
+.ddef1{fill:rgb(255,51,153)}
+.ddef2{fill:rgb(255,51,153)}
+.decorin{fill:rgb(0,102,153)}
+.delta{fill:rgb(204,144,33)}
+.dffa{fill:rgb(192,0,0)}
+.dhfr{fill:rgb(51,0,204)}
+.dicer1{fill:rgb(0,204,204)}
+.dkk1{fill:rgb(255,51,51)}
+.dkk2{fill:rgb(255,102,153)}
+.dlg1{fill:rgb(162,104,162)}
+.dlg2{fill:rgb(162,104,162)}
+.dlg3{fill:rgb(162,104,162)}
+.dlg4{fill:rgb(144,96,238)}
+.dll3{fill:rgb(204,144,33)}
+.dmd{fill:rgb(0,4,154)}
+.dnajb6{fill:rgb(102,153,102)}
+.dnm{fill:rgb(51,102,204)}
+.dnm1{fill:rgb(255,135,163)}
+.dock1{fill:rgb(153,102,0)}
+.dp103{fill:rgb(204,102,255)}
+.dr3{fill:rgb(102,102,204)}
+.dr45{fill:rgb(255,51,51)}
+.dral{fill:rgb(204,0,255)}
+.dream{fill:rgb(102,153,0)}
+.dsh{fill:rgb(255,102,51)}
+.dtr{fill:rgb(0,0,128)}
+.dusp2{fill:rgb(205,167,205)}
+.dusp4{fill:rgb(226,29,186)}
+.dusp6{fill:rgb(90,56,167)}
+.dusp8{fill:rgb(255,170,170)}
+.dusp9{fill:rgb(134,134,206)}
+.dut{fill:rgb(153,102,153)}
+.dvl1{fill:rgb(102,152,102)}
+.dynein{fill:rgb(102,102,204)}
+.dyrk1{fill:rgb(10,108,254)}
+.e12{fill:rgb(0,153,0)}
+.e2f{fill:rgb(102,51,102)}
+.e2f1{fill:rgb(102,51,102)}
+.e2f4{fill:rgb(204,153,0)}
+.ecsit{fill:rgb(119,170,110)}
+.edem{fill:rgb(255,204,102)}
+.edg1{fill:rgb(255,153,204)}
+.edn1{fill:rgb(255,0,102)}
+.ednr{fill:rgb(204,0,0)}
+.edrf{fill:rgb(208,69,162)}
+.eea1{fill:rgb(255,153,0)}
+.eed{fill:rgb(63,103,144)}
+.eef1a1{fill:rgb(254,165,210)}
+.eef2{fill:rgb(153,102,51)}
+.eef2k{fill:rgb(204,153,102)}
+.egf{fill:rgb(0,153,51)}
+.egfr{fill:rgb(0,102,204)}
+.egr1{fill:rgb(0,204,0)}
+.egr2{fill:rgb(255,204,0)}
+.egr3{fill:rgb(255,153,0)}
+.ehhadh{fill:rgb(102,51,153)}
+.eif1{fill:rgb(255,0,255)}
+.eif1a{fill:rgb(255,153,255)}
+.eif2{fill:rgb(51,153,102)}
+.eif2a{fill:rgb(102,102,0)}
+.eif2b{fill:rgb(64,157,64)}
+.eif2bk{fill:rgb(102,153,0)}
+.eif2c1{fill:rgb(204,102,255)}
+.eif2c2{fill:rgb(253,163,163)}
+.eif2c3{fill:rgb(51,102,204)}
+.eif2c4{fill:rgb(204,153,102)}
+.eif2g{fill:rgb(0,204,102)}
+.eif3{fill:rgb(53,53,247)}
+.eif4a{fill:rgb(63,107,107)}
+.eif4b{fill:rgb(255,204,0)}
+.eif4e{fill:rgb(153,102,153)}
+.eif4ebp{fill:rgb(102,102,0)}
+.eif4f{fill:rgb(96,163,208)}
+.eif4g{fill:rgb(204,51,255)}
+.eif5{fill:rgb(204,153,102)}
+.eif6{fill:rgb(153,102,255)}
+.elastase{fill:rgb(204,153,255)}
+.elk1{fill:rgb(102,102,153)}
+.ems1{fill:rgb(204,51,0)}
+.end{fill:rgb(153,204,51)}
+.endog{fill:rgb(153,204,0)}
+.eno1{fill:rgb(153,153,51)}
+.enpp1{fill:rgb(153,0,102)}
+.eotaxin{fill:rgb(38,106,38)}
+.epac1{fill:rgb(204,0,153)}
+.epb41{fill:rgb(95,5,95)}
+.epha4{fill:rgb(102,204,102)}
+.ephb1{fill:rgb(153,0,153)}
+.ephx{fill:rgb(51,153,102)}
+.epn1{fill:rgb(78,97,239)}
+.epo{fill:rgb(0,204,51)}
+.epor{fill:rgb(0,204,51)}
+.eps15{fill:rgb(204,153,0)}
+.erbb2{fill:rgb(0,51,204)}
+.erbb3{fill:rgb(255,102,153)}
+.erbb4{fill:rgb(255,51,102)}
+.erg1{fill:rgb(102,51,102)}
+.erk{fill:rgb(255,195,67)}
+.erk1{fill:rgb(255,102,102)}
+.erk2{fill:rgb(255,102,153)}
+.erk6{fill:rgb(204,153,102)}
+.erm{fill:rgb(102,204,255)}
+.eselectin{fill:rgb(204,0,153)}
+.esr1{fill:rgb(51,153,0)}
+.esrra{fill:rgb(102,153,255)}
+.ets{fill:rgb(204,153,0)}
+.ets1{fill:rgb(51,204,153)}
+.ets2{fill:rgb(0,153,102)}
+.ezh1{fill:rgb(139,162,255)}
+.ezh2{fill:rgb(255,51,204)}
+.f10{fill:rgb(136,165,121)}
+.f11{fill:rgb(51,204,153)}
+.f12{fill:rgb(0,204,204)}
+.f13a{fill:rgb(0,102,255)}
+.f2r{fill:rgb(16,55,255)}
+.f3{fill:rgb(255,153,153)}
+.f5{fill:rgb(61,191,17)}
+.f7{fill:rgb(102,204,102)}
+.f8{fill:rgb(51,153,51)}
+.f9{fill:rgb(153,204,0)}
+.faah{fill:rgb(0,0,255)}
+.fabp1{fill:rgb(102,51,153)}
+.fadd{fill:rgb(153,102,0)}
+.faf1{fill:rgb(102,102,51)}
+.fak{fill:rgb(0,0,64)}
+.fanca{fill:rgb(23,76,178)}
+.fancc{fill:rgb(168,43,54)}
+.fancd2{fill:rgb(102,204,153)}
+.fance{fill:rgb(17,124,57)}
+.fancf{fill:rgb(247,138,60)}
+.fancg{fill:rgb(180,84,203)}
+.fap{fill:rgb(255,102,0)}
+.fas{fill:rgb(204,51,0)}
+.fasl{fill:rgb(153,0,0)}
+.fb{fill:rgb(255,102,51)}
+.fbi1{fill:rgb(2,127,167)}
+.fbl{fill:rgb(0,153,255)}
+.fbw7{fill:rgb(103,54,104)}
+.fbxo2{fill:rgb(102,204,51)}
+.fcer1a{fill:rgb(204,0,204)}
+.fcer1b{fill:rgb(204,0,204)}
+.fcer1g{fill:rgb(102,51,102)}
+.fd{fill:rgb(254,16,112)}
+.fech{fill:rgb(255,153,204)}
+.fgf1{fill:rgb(204,153,102)}
+.fgf2{fill:rgb(0,0,128)}
+.fgr{fill:rgb(204,204,0)}
+.fibrinogen{fill:rgb(214,128,16)}
+.fibromodulin{fill:rgb(0,102,153)}
+.fkbp12{fill:rgb(0,204,204)}
+.fkhlr1{fill:rgb(92,130,0)}
+.fkhr{fill:rgb(153,102,204)}
+.fkhrl1{fill:rgb(51,102,51)}
+.flip{fill:rgb(255,153,255)}
+.flt3{fill:rgb(153,51,0)}
+.fodrin{fill:rgb(204,0,0)}
+.fosb{fill:rgb(51,102,0)}
+.fpr1{fill:rgb(153,51,255)}
+.fra1{fill:rgb(51,153,153)}
+.fra2{fill:rgb(153,153,0)}
+.frap{fill:rgb(210,73,224)}
+.frat1{fill:rgb(45,153,227)}
+.fshb{fill:rgb(51,102,255)}
+.fshr{fill:rgb(26,74,170)}
+.furin{fill:rgb(51,102,204)}
+.futs{fill:rgb(52,161,125)}
+.fxr{fill:rgb(255,102,102)}
+.fyn{fill:rgb(153,102,153)}
+.fz{fill:rgb(255,128,128)}
+.g1213{fill:rgb(51,204,153)}
+.g22p1{fill:rgb(211,167,255)}
+.g2an{fill:rgb(0,153,204)}
+.gab1{fill:rgb(153,102,255)}
+.gabar{fill:rgb(255,153,51)}
+.gabarap{fill:rgb(51,102,204)}
+.gactin{fill:rgb(153,153,204)}
+.gadd45{fill:rgb(204,0,102)}
+.gah{fill:rgb(102,204,102)}
+.gale{fill:rgb(0,102,153)}
+.galk{fill:rgb(0,102,153)}
+.galt{fill:rgb(0,102,153)}
+.gammac{fill:rgb(255,102,153)}
+.gapd{fill:rgb(153,153,51)}
+.gas2{fill:rgb(102,0,0)}
+.gat{fill:rgb(204,153,255)}
+.gata1{fill:rgb(0,204,153)}
+.gata3{fill:rgb(102,102,153)}
+.gata4{fill:rgb(0,153,102)}
+.gbf1{fill:rgb(153,102,255)}
+.gcn2{fill:rgb(102,102,204)}
+.gcs1{fill:rgb(51,102,255)}
+.gelsolin{fill:rgb(204,153,153)}
+.gfap{fill:rgb(255,153,255)}
+.gfr{fill:rgb(153,153,204)}
+.gh{fill:rgb(153,0,0)}
+.ghr{fill:rgb(153,0,0)}
+.ghrh{fill:rgb(204,102,204)}
+.ghrl{fill:rgb(68,155,155)}
+.git2{fill:rgb(204,204,0)}
+.gja1{fill:rgb(204,153,0)}
+.gli1{fill:rgb(153,0,204)}
+.gli2{fill:rgb(204,153,255)}
+.gli3{fill:rgb(205,112,252)}
+.gls{fill:rgb(0,102,153)}
+.glud{fill:rgb(0,102,153)}
+.glut1{fill:rgb(153,153,255)}
+.glut3{fill:rgb(153,153,255)}
+.glut4{fill:rgb(204,51,204)}
+.glycam1{fill:rgb(51,102,153)}
+.gmcsf{fill:rgb(153,51,102)}
+.gna{fill:rgb(220,135,88)}
+.gna11{fill:rgb(153,102,153)}
+.gna12{fill:rgb(102,204,153)}
+.gnai{fill:rgb(51,102,102)}
+.gnaq{fill:rgb(0,102,0)}
+.gnas{fill:rgb(2,108,2)}
+.gnb{fill:rgb(220,135,88)}
+.gng{fill:rgb(220,135,88)}
+.got{fill:rgb(204,51,51)}
+.gp130{fill:rgb(204,102,153)}
+.gpcr{fill:rgb(255,153,153)}
+.gpds{fill:rgb(153,0,102)}
+.gphn{fill:rgb(255,102,51)}
+.gpi{fill:rgb(153,153,51)}
+.gpld1{fill:rgb(153,102,255)}
+.gpt{fill:rgb(255,153,255)}
+.gpx{fill:rgb(187,140,94)}
+.gr{fill:rgb(255,102,204)}
+.granzymeb{fill:rgb(0,0,128)}
+.grasp{fill:rgb(255,62,207)}
+.grb2{fill:rgb(153,51,204)}
+.greb1{fill:rgb(154,101,178)}
+.gria2{fill:rgb(153,102,51)}
+.grip1{fill:rgb(255,102,153)}
+.grk2{fill:rgb(192,0,0)}
+.grks{fill:rgb(193,111,157)}
+.grn{fill:rgb(255,51,0)}
+.gro{fill:rgb(219,99,100)}
+.gsadh{fill:rgb(0,102,153)}
+.gsf3{fill:rgb(0,204,153)}
+.gsh{fill:rgb(102,51,204)}
+.gsk3a{fill:rgb(109,109,39)}
+.gsk3b{fill:rgb(204,153,0)}
+.gsr{fill:rgb(255,153,204)}
+.gstp1{fill:rgb(235,2,95)}
+.gtf3c1{fill:rgb(254,168,211)}
+.gtf3c3{fill:rgb(51,204,153)}
+.gtf3c4{fill:rgb(204,153,0)}
+.gtf3c5{fill:rgb(255,102,0)}
+.guca1a{fill:rgb(102,102,51)}
+.guk{fill:rgb(0,153,153)}
+.gzma{fill:rgb(61,199,153)}
+.h-actinYPathway{fill:rgb(255,102,204)}
+.h-aktPathway{fill:rgb(104,127,1)}
+.h-alternativePathway{fill:rgb(255,204,102)}
+.h-At1rPathway{fill:rgb(102,204,204)}
+.h-atrbrcaPathway{fill:rgb(255,153,153)}
+.h-badPathway{fill:rgb(153,102,204)}
+.h-bcrmolecule{fill:rgb(102,0,102)}
+.h-caspasePathway{fill:rgb(51,204,204)}
+.h-cblPathway{fill:rgb(255,102,153)}
+.h-cdc42racPathway{fill:rgb(0,204,204)}
+.h-chemicalPathway{fill:rgb(255,102,102)}
+.h-classicPathway{fill:rgb(255,204,102)}
+.h-cptPathway{fill:rgb(153,0,153)}
+.h-deathPathway{fill:rgb(252,63,63)}
+.h-erkPathway{fill:rgb(51,153,0)}
+.h-fasPathway{fill:rgb(204,102,51)}
+.h-fibrinolysisPathway{fill:rgb(0,0,0)}
+.h-glycolysispathway{fill:rgb(102,204,0)}
+.h-gsPathway{fill:rgb(102,204,204)}
+.h-hdacPathway{fill:rgb(164,6,185)}
+.h-hifPathway{fill:rgb(102,51,51)}
+.h-il10Pathway{fill:rgb(153,153,204)}
+.h-il4Pathway{fill:rgb(153,153,204)}
+.h-il6Pathway{fill:rgb(51,153,0)}
+.h-integrinPathway{fill:rgb(204,153,204)}
+.h-intrinsicPathway{fill:rgb(0,0,0)}
+.h-lectinPathway{fill:rgb(255,204,102)}
+.h-mapkPathway{fill:rgb(51,204,204)}
+.h-mitochondriaPathway{fill:rgb(0,153,0)}
+.h-myosinPathway{fill:rgb(0,102,0)}
+.h-nfkbPathway{fill:rgb(255,102,204)}
+.h-no1Pathway{fill:rgb(255,102,204)}
+.h-p38mapkPathway{fill:rgb(255,204,51)}
+.h-p53hypoxiaPathway{fill:rgb(51,204,153)}
+.h-p53Pathway{fill:rgb(255,102,153)}
+.h-plcPathway{fill:rgb(51,0,102)}
+.h-pparaPathway{fill:rgb(102,51,153)}
+.h-rac1Pathway{fill:rgb(255,102,153)}
+.h-ranklPathway{fill:rgb(102,153,255)}
+.h-rasPathway{}
+.h-rhoPathway{fill:rgb(255,255,153)}
+.h-stat3Pathway{fill:rgb(255,255,0)}
+.h-sumoPathway{fill:rgb(204,102,153)}
+.h-SWI-SNFpathway{fill:rgb(204,204,153)}
+.h-tcraPathway{fill:rgb(51,153,204)}
+.h-tcrmolecule{fill:rgb(0,0,51)}
+.h-tcrPathway{fill:rgb(204,153,204)}
+.h-tgfbPathway{fill:rgb(102,204,102)}
+.h-tidPathway{fill:rgb(255,102,0)}
+.h-tnfr1Pathway{fill:rgb(153,102,0)}
+.h-tollPathway{fill:rgb(255,153,255)}
+.h-vegfPathway{fill:rgb(255,51,204)}
+.h-wntPathway{fill:rgb(102,204,102)}
+.hand1{fill:rgb(204,153,0)}
+.hand2{fill:rgb(153,153,102)}
+.hba{fill:rgb(204,153,51)}
+.hbb{fill:rgb(204,51,153)}
+.hbxip{fill:rgb(204,153,0)}
+.hck{fill:rgb(153,102,255)}
+.hd{fill:rgb(102,0,255)}
+.hdac{fill:rgb(153,153,51)}
+.hdac2-5{fill:rgb(255,51,204)}
+.hdac2{fill:rgb(255,51,204)}
+.hdac3{fill:rgb(255,51,255)}
+.hdac4{fill:rgb(255,51,102)}
+.hdac5{fill:rgb(51,153,0)}
+.hdac6{fill:rgb(102,102,255)}
+.hds17b4{fill:rgb(102,51,153)}
+.hes1{fill:rgb(100,152,190)}
+.hes7{fill:rgb(153,102,204)}
+.hey2{fill:rgb(204,153,153)}
+.hgf{fill:rgb(204,51,204)}
+.hgfr{fill:rgb(204,51,204)}
+.hgs{}
+.hif1a{fill:rgb(204,0,255)}
+.hk1{fill:rgb(153,153,51)}
+.hla-dra{fill:rgb(153,0,0)}
+.hla-drb{fill:rgb(153,0,0)}
+.hla-drb1{fill:rgb(153,0,0)}
+.hmbs{fill:rgb(209,116,209)}
+.hmg1{fill:rgb(0,153,153)}
+.hmg14{fill:rgb(204,51,255)}
+.hmg2{fill:rgb(153,51,255)}
+.hmgcs1{fill:rgb(204,153,51)}
+.hmox1{fill:rgb(0,51,255)}
+.hoxa7{fill:rgb(0,0,204)}
+.hoxb9{fill:rgb(204,0,204)}
+.hph1{fill:rgb(102,153,102)}
+.hras{fill:rgb(255,102,51)}
+.hri{fill:rgb(153,0,102)}
+.hsd11b1{fill:rgb(255,51,255)}
+.hsp27{fill:rgb(153,153,255)}
+.hsp40{fill:rgb(255,102,153)}
+.hsp70{fill:rgb(153,102,102)}
+.hsp90{fill:rgb(0,0,153)}
+.hspa5{fill:rgb(102,153,255)}
+.htatip{fill:rgb(0,0,153)}
+.hur{fill:rgb(5,103,14)}
+.hus1{fill:rgb(95,45,95)}
+.iap{fill:rgb(0,0,64)}
+.ibabp{fill:rgb(51,0,255)}
+.ibsp{fill:rgb(255,153,51)}
+.icad{fill:rgb(204,51,51)}
+.icam2{fill:rgb(255,51,153)}
+.icos{fill:rgb(64,64,255)}
+.if5{fill:rgb(204,0,102)}
+.ifna{fill:rgb(153,51,102)}
+.ifnb{fill:rgb(88,47,5)}
+.ifng{fill:rgb(127,102,51)}
+.ifngr2{fill:rgb(153,51,102)}
+.ifngra{fill:rgb(153,51,102)}
+.ifnr1{fill:rgb(204,102,255)}
+.ifnr2{fill:rgb(204,153,204)}
+.ifs{fill:rgb(102,51,204)}
+.igf1{fill:rgb(102,153,102)}
+.igf1r{fill:rgb(0,102,0)}
+.igfals{fill:rgb(153,102,255)}
+.igfbp1{fill:rgb(51,153,102)}
+.igfbp2{fill:rgb(51,153,102)}
+.igfbp3{fill:rgb(51,153,102)}
+.igfbp4{fill:rgb(51,153,102)}
+.igfbp5{fill:rgb(51,153,102)}
+.igfbp6{fill:rgb(51,153,102)}
+.ikba{fill:rgb(153,153,204)}
+.ikbb{fill:rgb(255,153,102)}
+.ikk{fill:rgb(87,136,187)}
+.ikk1{fill:rgb(102,102,0)}
+.ikk2{fill:rgb(153,102,0)}
+.ikk3{fill:rgb(102,204,0)}
+.ikka{fill:rgb(102,102,0)}
+.ikkap2{fill:rgb(204,51,153)}
+.ikkb{fill:rgb(153,102,0)}
+.ikkg{fill:rgb(153,204,0)}
+.ikks{fill:rgb(102,204,0)}
+.il1{fill:rgb(204,0,51)}
+.il10{fill:rgb(153,102,204)}
+.il10r{fill:rgb(153,102,204)}
+.il10r2c{fill:rgb(255,153,153)}
+.il11{fill:rgb(122,83,211)}
+.il12{fill:rgb(255,153,0)}
+.il12p35{fill:rgb(255,153,0)}
+.il12p40{fill:rgb(204,102,204)}
+.il12rb1{fill:rgb(239,158,11)}
+.il12rb2{fill:rgb(239,158,11)}
+.il13{fill:rgb(204,102,153)}
+.il14{fill:rgb(204,102,204)}
+.il15{fill:rgb(204,102,153)}
+.il16{fill:rgb(236,160,179)}
+.il17{fill:rgb(220,149,255)}
+.il18{fill:rgb(204,51,153)}
+.il18r1{fill:rgb(204,0,51)}
+.il1a{fill:rgb(99,28,136)}
+.il1b{fill:rgb(99,28,136)}
+.il1r1{fill:rgb(153,102,102)}
+.il1ra{fill:rgb(99,28,136)}
+.il1rap{fill:rgb(172,108,40)}
+.il1ri{fill:rgb(123,69,69)}
+.il2{fill:rgb(153,102,51)}
+.il22{fill:rgb(51,204,153)}
+.il22bp{fill:rgb(51,204,153)}
+.il22r1{fill:rgb(51,204,153)}
+.il2ra{fill:rgb(153,102,51)}
+.il2rb{fill:rgb(153,102,51)}
+.il2rg{fill:rgb(204,102,0)}
+.il3{fill:rgb(153,51,51)}
+.il3r{fill:rgb(153,51,51)}
+.il3ra{fill:rgb(153,0,0)}
+.il3rb{fill:rgb(102,0,0)}
+.il4{fill:rgb(153,102,204)}
+.il4r{fill:rgb(102,0,102)}
+.il4ra{fill:rgb(102,0,102)}
+.il5{fill:rgb(102,0,102)}
+.il5r{fill:rgb(204,0,102)}
+.il6{fill:rgb(153,102,153)}
+.il6ra{fill:rgb(102,51,51)}
+.il7{fill:rgb(255,102,102)}
+.il7ra{fill:rgb(255,102,102)}
+.il8{fill:rgb(204,0,255)}
+.il9{fill:rgb(102,51,204)}
+.ilk{fill:rgb(0,153,153)}
+.ins{fill:rgb(0,0,102)}
+.insr{fill:rgb(0,0,204)}
+.integrina{fill:rgb(153,102,51)}
+.integrinb{fill:rgb(153,102,51)}
+.irak{fill:rgb(0,51,102)}
+.irak2{fill:rgb(129,237,165)}
+.irf1-7{fill:rgb(204,0,255)}
+.irs1{fill:rgb(51,0,153)}
+.isgf3{fill:rgb(204,153,102)}
+.ita{fill:rgb(153,51,102)}
+.itgav{fill:rgb(255,153,51)}
+.itgb3{fill:rgb(255,153,51)}
+.itk{fill:rgb(255,67,147)}
+.i-traf{fill:rgb(102,0,204)}
+.jab1{fill:rgb(255,255,0)}
+.jak{fill:rgb(102,51,204)}
+.jak1{fill:rgb(102,0,0)}
+.jak2{fill:rgb(102,51,51)}
+.jak3{fill:rgb(102,51,102)}
+.jjaz1{fill:rgb(204,153,204)}
+.jnk{fill:rgb(102,102,204)}
+.jnk1{fill:rgb(51,102,153)}
+.jnkk{fill:rgb(102,102,255)}
+.junb{fill:rgb(153,102,0)}
+.jund{fill:rgb(254,158,13)}
+.kappa{fill:rgb(191,166,255)}
+.kcna{fill:rgb(102,204,255)}
+.keap1{fill:rgb(51,51,204)}
+.keratocan{fill:rgb(0,102,153)}
+.khdrbs1{fill:rgb(204,0,153)}
+.kis{fill:rgb(255,153,255)}
+.klkb1{fill:rgb(102,102,255)}
+.kng{fill:rgb(255,102,153)}
+.knsl7{fill:rgb(204,153,102)}
+.kpna2{fill:rgb(204,204,0)}
+.kpnb1{fill:rgb(255,153,153)}
+.kras2{fill:rgb(213,170,213)}
+.kremen2{fill:rgb(255,204,204)}
+.l1cam{fill:rgb(51,102,255)}
+.lagy{fill:rgb(231,185,3)}
+.lama1{fill:rgb(212,212,129)}
+.lamb1{fill:rgb(255,204,51)}
+.lamc1{fill:rgb(249,169,48)}
+.laminin{fill:rgb(255,153,0)}
+.lamr1{fill:rgb(153,153,255)}
+.lat{fill:rgb(153,51,204)}
+.lbp{fill:rgb(255,204,153)}
+.lck{fill:rgb(153,153,102)}
+.ldb1{fill:rgb(102,204,102)}
+.ldh{fill:rgb(38,155,223)}
+.ldha{fill:rgb(204,153,153)}
+.ldlr{fill:rgb(153,0,51)}
+.lef1{fill:rgb(255,153,204)}
+.lep{fill:rgb(204,51,102)}
+.lepr{fill:rgb(204,51,102)}
+.lfng{fill:rgb(255,51,153)}
+.lif{fill:rgb(0,0,128)}
+.limk{fill:rgb(255,67,195)}
+.lmna{fill:rgb(213,23,99)}
+.lmnb1{fill:rgb(212,62,182)}
+.lmnb2{fill:rgb(162,16,109)}
+.lpar{fill:rgb(180,51,137)}
+.lpl{fill:rgb(153,204,0)}
+.lrp6{fill:rgb(0,204,51)}
+.lselectin{fill:rgb(204,0,153)}
+.lta{fill:rgb(153,153,204)}
+.lumican{fill:rgb(0,102,153)}
+.lxr{fill:rgb(204,102,153)}
+.lyn{fill:rgb(178,144,110)}
+.m-aktPathway{fill:rgb(104,127,1)}
+.m-alternativePathway{fill:rgb(255,204,102)}
+.m-At1rPathway{fill:rgb(102,204,204)}
+.m-badPathway{fill:rgb(153,102,204)}
+.m-bcrmolecule{fill:rgb(102,0,102)}
+.m-caspasePathway{fill:rgb(51,204,204)}
+.m-cblPathway{fill:rgb(255,102,153)}
+.m-cdc42racPathway{fill:rgb(0,204,204)}
+.m-classicPathway{fill:rgb(255,204,102)}
+.m-cptPathway{fill:rgb(153,0,153)}
+.m-deathPathway{fill:rgb(252,63,63)}
+.m-erkPathway{fill:rgb(51,153,0)}
+.m-fasPathway{fill:rgb(204,102,51)}
+.m-fibrinolysisPathway{fill:rgb(0,0,0)}
+.m-gsPathway{fill:rgb(102,204,204)}
+.m-hdacPathway{fill:rgb(164,6,185)}
+.m-hSWI-SNFpathway{fill:rgb(204,204,153)}
+.m-il10Pathway{fill:rgb(153,153,204)}
+.m-il4Pathway{fill:rgb(153,153,204)}
+.m-il6Pathway{fill:rgb(51,153,0)}
+.m-integrinPathway{fill:rgb(204,153,204)}
+.m-intrinsicPathway{fill:rgb(0,0,0)}
+.m-lectinPathway{fill:rgb(255,204,102)}
+.m-mapkPathway{fill:rgb(51,204,204)}
+.m-mitochondriaPathway{fill:rgb(0,153,0)}
+.m-myosinPathway{fill:rgb(0,102,0)}
+.m-nfkbPathway{fill:rgb(255,102,204)}
+.m-p38mapkPathway{fill:rgb(255,204,51)}
+.m-p53Pathway{fill:rgb(255,102,153)}
+.m-plcPathway{fill:rgb(51,0,102)}
+.m-ptc1Pathway{}
+.m-rac1Pathway{fill:rgb(255,102,153)}
+.m-rasPathway{}
+.m-rhoPathway{fill:rgb(255,255,153)}
+.m-slprMolecule{fill:rgb(255,102,0)}
+.m-stat3Pathway{fill:rgb(255,255,0)}
+.m-sumoPathway{fill:rgb(204,102,153)}
+.m-tcraPathway{fill:rgb(51,153,204)}
+.m-tcrmolecule{fill:rgb(0,0,51)}
+.m-tcrPathway{fill:rgb(204,153,204)}
+.m-tnfr1Pathway{fill:rgb(153,102,0)}
+.m-tollPathway{fill:rgb(255,153,255)}
+.m-wntPathway{fill:rgb(192,192,0)}
+.madcam1{fill:rgb(0,0,255)}
+.madd{fill:rgb(153,102,153)}
+.madh1{fill:rgb(51,0,153)}
+.madh2{fill:rgb(51,0,102)}
+.madh3{fill:rgb(59,10,157)}
+.madh4{fill:rgb(51,0,153)}
+.madh5{fill:rgb(51,0,153)}
+.madh6{fill:rgb(51,0,255)}
+.madh7{fill:rgb(51,102,255)}
+.maff{fill:rgb(255,102,255)}
+.mafg{fill:rgb(204,51,0)}
+.mafk{fill:rgb(255,102,102)}
+.makt{fill:rgb(255,153,255)}
+.mal{fill:rgb(204,204,0)}
+.man1{fill:rgb(254,170,212)}
+.man2{fill:rgb(234,53,189)}
+.map2{fill:rgb(247,104,8)}
+.map2k1{fill:rgb(251,11,11)}
+.map2k2{fill:rgb(255,51,102)}
+.map2k3{fill:rgb(255,0,153)}
+.map2k4{fill:rgb(255,0,0)}
+.map2k6{fill:rgb(255,51,204)}
+.map2k7{fill:rgb(153,51,255)}
+.map3k1{fill:rgb(255,102,204)}
+.map3k14{fill:rgb(255,102,102)}
+.map3k5{fill:rgb(254,58,9)}
+.map3k7{fill:rgb(153,0,254)}
+.map4k1{fill:rgb(204,153,102)}
+.map4k2{fill:rgb(149,92,169)}
+.map4k5{fill:rgb(255,102,255)}
+.mapk{fill:rgb(204,0,102)}
+.mapk1{fill:rgb(255,102,153)}
+.mapk11{fill:rgb(204,102,153)}
+.mapk13{fill:rgb(255,153,102)}
+.mapk14{fill:rgb(153,102,102)}
+.mapk3{fill:rgb(255,102,102)}
+.mapk7{fill:rgb(254,165,31)}
+.mapk8{fill:rgb(51,102,153)}
+.mapkap2{fill:rgb(204,153,153)}
+.mapkapk2{fill:rgb(204,153,153)}
+.mapkapk3{fill:rgb(153,102,51)}
+.mapkk1{fill:rgb(179,37,104)}
+.mapkk2{fill:rgb(202,86,135)}
+.mapl11{fill:rgb(0,204,102)}
+.marcks{fill:rgb(51,204,153)}
+.masp{fill:rgb(153,0,102)}
+.masp2{fill:rgb(153,0,204)}
+.matr3{fill:rgb(51,204,204)}
+.max{fill:rgb(0,0,255)}
+.mbd3{fill:rgb(51,153,153)}
+.mbl{fill:rgb(255,153,102)}
+.mbtps1{fill:rgb(0,0,204)}
+.mbtps2{fill:rgb(102,102,255)}
+.mcm2-7{fill:rgb(153,102,0)}
+.mcp1{fill:rgb(38,106,38)}
+.mcsf{fill:rgb(0,153,51)}
+.md2{fill:rgb(138,51,205)}
+.mdcr{fill:rgb(102,204,0)}
+.mdh{fill:rgb(204,51,51)}
+.mdm{fill:rgb(204,51,51)}
+.mdm2{fill:rgb(149,101,247)}
+.me{fill:rgb(0,102,153)}
+.mef2{fill:rgb(245,11,11)}
+.mef2c{fill:rgb(153,102,102)}
+.mef2d{fill:rgb(181,181,4)}
+.mek{fill:rgb(255,64,64)}
+.mek1{fill:rgb(255,0,0)}
+.mek2{fill:rgb(255,51,102)}
+.mek3{fill:rgb(177,15,114)}
+.mek4{fill:rgb(255,0,0)}
+.mek6{fill:rgb(177,15,114)}
+.mekk{fill:rgb(233,133,161)}
+.mekk1{fill:rgb(255,102,204)}
+.mets{fill:rgb(153,51,204)}
+.mglur1{fill:rgb(253,154,26)}
+.mhc1{fill:rgb(153,0,0)}
+.mhcb{fill:rgb(153,102,102)}
+.mip-1a{fill:rgb(102,0,0)}
+.mip-1b{fill:rgb(38,106,38)}
+.mitf{fill:rgb(153,0,255)}
+.mitr{fill:rgb(255,153,153)}
+.miz1{fill:rgb(252,168,210)}
+.mkk3{fill:rgb(153,0,0)}
+.mkk3-6{fill:rgb(0,153,0)}
+.mkk4{fill:rgb(153,0,0)}
+.mkk7{fill:rgb(153,51,255)}
+.mkp{fill:rgb(153,102,153)}
+.mkp1{fill:rgb(255,0,255)}
+.mlc{fill:rgb(0,0,255)}
+.mlc2v{fill:rgb(153,102,102)}
+.mlck{fill:rgb(153,0,153)}
+.mlcp{fill:rgb(38,106,38)}
+.mlk{fill:rgb(204,102,51)}
+.mmp2{fill:rgb(102,0,153)}
+.mmp9{fill:rgb(0,51,204)}
+.mnk{fill:rgb(0,0,153)}
+.mnk1{fill:rgb(51,153,0)}
+.mnk2{fill:rgb(51,102,51)}
+.mpr{fill:rgb(198,154,20)}
+.mre11{fill:rgb(255,51,0)}
+.mrlc{fill:rgb(255,64,64)}
+.msin3a{fill:rgb(255,102,204)}
+.msk1{fill:rgb(51,102,255)}
+.msp{fill:rgb(255,102,51)}
+.mt1mmp{fill:rgb(153,102,0)}
+.mta1{fill:rgb(204,204,0)}
+.mta3{fill:rgb(153,153,0)}
+.mtor{fill:rgb(195,102,241)}
+.muc2{}
+.musk{fill:rgb(104,51,204)}
+.mut{fill:rgb(28,102,140)}
+.myd88{fill:rgb(204,0,0)}
+.myh2{fill:rgb(0,0,128)}
+.myod{fill:rgb(0,102,153)}
+.myodpub{}
+.myosin{fill:rgb(204,102,51)}
+.mypt{fill:rgb(255,102,51)}
+.myt1{fill:rgb(102,204,0)}
+.mzf2{fill:rgb(153,0,0)}
+.nadph{fill:rgb(192,0,0)}
+.naked{fill:rgb(196,0,94)}
+.ncam1{fill:rgb(162,104,162)}
+.ncf1{fill:rgb(153,0,0)}
+.ncf2{fill:rgb(204,102,0)}
+.nck1{fill:rgb(102,102,0)}
+.nckap1{fill:rgb(153,0,204)}
+.ncl{fill:rgb(232,224,79)}
+.ncoa62{fill:rgb(251,207,74)}
+.ncor{fill:rgb(51,0,255)}
+.ncor1{fill:rgb(102,51,102)}
+.ncor2{fill:rgb(0,0,255)}
+.ndel1{fill:rgb(102,102,255)}
+.ndk{fill:rgb(102,204,51)}
+.nedd8{fill:rgb(153,0,0)}
+.nf1{fill:rgb(204,204,153)}
+.nfasc{fill:rgb(165,160,96)}
+.nfat{fill:rgb(153,102,255)}
+.nfatc{fill:rgb(146,101,207)}
+.nfkb{fill:rgb(102,51,102)}
+.nfya{fill:rgb(153,0,102)}
+.nfyb{fill:rgb(204,51,51)}
+.nfyc{fill:rgb(153,0,255)}
+.ngf{fill:rgb(102,153,0)}
+.ngfb{fill:rgb(255,204,102)}
+.ngfr{fill:rgb(102,153,0)}
+.nibrin{fill:rgb(204,153,51)}
+.nik{fill:rgb(255,102,102)}
+.nkg2{fill:rgb(204,153,255)}
+.nkx2-5{fill:rgb(102,204,51)}
+.nlk{fill:rgb(255,102,51)}
+.nmda{fill:rgb(255,153,0)}
+.nmdar{fill:rgb(255,153,0)}
+.nme1{fill:rgb(51,153,153)}
+.nmi{fill:rgb(51,102,0)}
+.nog{fill:rgb(77,211,166)}
+.nono{fill:rgb(51,153,153)}
+.nos1{fill:rgb(255,153,204)}
+.nos2{fill:rgb(153,0,102)}
+.nos2a{fill:rgb(102,51,153)}
+.nos3{fill:rgb(255,51,204)}
+.notch{fill:rgb(204,144,33)}
+.notch2{fill:rgb(204,144,33)}
+.npkc{fill:rgb(0,102,255)}
+.nppa{fill:rgb(153,102,102)}
+.nppb{fill:rgb(153,102,102)}
+.nqo1{fill:rgb(102,153,153)}
+.nr1i3{fill:rgb(0,102,255)}
+.nr2f1{fill:rgb(102,51,255)}
+.nrf2{fill:rgb(0,102,51)}
+.nrg{fill:rgb(163,16,1)}
+.nrg1{fill:rgb(255,102,153)}
+.nrg2{fill:rgb(51,204,255)}
+.nrg3{fill:rgb(51,204,255)}
+.nrg4{fill:rgb(51,204,255)}
+.nrip1{fill:rgb(51,204,0)}
+.nrob2{fill:rgb(0,204,102)}
+.nrxn{fill:rgb(164,101,47)}
+.nsep1{fill:rgb(0,153,51)}
+.nsf{fill:rgb(0,102,255)}
+.nsmaf{fill:rgb(255,153,102)}
+.numa{fill:rgb(153,153,204)}
+.nup153{fill:rgb(204,204,255)}
+.nup210{fill:rgb(204,102,153)}
+.nup214-358{fill:rgb(204,204,204)}
+.nup62{fill:rgb(102,153,0)}
+.nutf2{fill:rgb(0,0,102)}
+.nwasp{fill:rgb(255,0,0)}
+.oat{fill:rgb(0,102,153)}
+.orc1-6{fill:rgb(255,153,102)}
+.p100{fill:rgb(255,255,255)}
+.p107{fill:rgb(102,102,153)}
+.p110{fill:rgb(153,0,0)}
+.p130{fill:rgb(10,206,10)}
+.p2y2r{fill:rgb(0,51,204)}
+.p300{fill:rgb(153,153,204)}
+.p35{fill:rgb(255,204,0)}
+.p38mapk{fill:rgb(204,0,102)}
+.p48{fill:rgb(102,153,204)}
+.p4hb{fill:rgb(153,153,204)}
+.p53{fill:rgb(102,153,153)}
+.p67phox{fill:rgb(153,153,204)}
+.p68{fill:rgb(153,102,255)}
+.p70s6k{fill:rgb(0,153,0)}
+.p85{fill:rgb(153,0,0)}
+.pa{fill:rgb(169,31,171)}
+.pabnp1{fill:rgb(51,153,255)}
+.pabp{fill:rgb(153,51,255)}
+.pabpn1{fill:rgb(51,153,255)}
+.paelr{fill:rgb(0,0,255)}
+.pai1{fill:rgb(147,147,235)}
+.pai2{fill:rgb(204,153,255)}
+.pak{fill:rgb(153,153,0)}
+.pak1{fill:rgb(153,153,0)}
+.pak2{fill:rgb(153,153,102)}
+.pak65{fill:rgb(153,102,51)}
+.papola{fill:rgb(153,102,102)}
+.par1-4{fill:rgb(255,51,102)}
+.par3{fill:rgb(255,51,102)}
+.par4{fill:rgb(255,51,102)}
+.park2{fill:rgb(52,52,134)}
+.parkin{fill:rgb(51,51,153)}
+.parp{fill:rgb(255,0,0)}
+.pax3{fill:rgb(254,13,158)}
+.paxillin{fill:rgb(34,131,87)}
+.pc{fill:rgb(204,51,51)}
+.pcaf{fill:rgb(255,153,102)}
+.pcip{fill:rgb(0,102,255)}
+.pclo{fill:rgb(152,62,242)}
+.pcna{fill:rgb(102,102,51)}
+.pde2{fill:rgb(204,153,0)}
+.pde3{fill:rgb(153,102,102)}
+.pde6a{fill:rgb(204,153,255)}
+.pde6b{fill:rgb(153,153,255)}
+.pde6g{fill:rgb(163,31,163)}
+.pdgf{fill:rgb(0,153,102)}
+.pdgfb{fill:rgb(51,204,153)}
+.pdgfra{fill:rgb(0,153,102)}
+.pdha{fill:rgb(204,51,51)}
+.pdk1{fill:rgb(160,160,254)}
+.pdk2{fill:rgb(255,206,61)}
+.pdzk1{fill:rgb(204,204,0)}
+.pecam1{fill:rgb(0,0,204)}
+.pelp1{fill:rgb(255,153,153)}
+.per{fill:rgb(153,0,102)}
+.perforin{fill:rgb(239,151,93)}
+.pericentrin{fill:rgb(153,102,255)}
+.perk{fill:rgb(102,0,255)}
+.pfk{fill:rgb(159,207,16)}
+.pfkl{fill:rgb(153,153,51)}
+.pgam1{fill:rgb(153,153,51)}
+.pgc1{fill:rgb(51,204,0)}
+.pgds{fill:rgb(255,51,255)}
+.pge1r{fill:rgb(54,6,245)}
+.pgk1{fill:rgb(153,153,51)}
+.pg-lb{fill:rgb(0,102,153)}
+.pglyrp{fill:rgb(204,51,204)}
+.pgr{fill:rgb(153,0,102)}
+.pi3k{fill:rgb(255,64,64)}
+.pi3kg{fill:rgb(110,194,110)}
+.pi4p5k{fill:rgb(0,204,0)}
+.pias{fill:rgb(0,0,64)}
+.pias1{fill:rgb(0,55,138)}
+.picalm{fill:rgb(255,51,255)}
+.pik1{fill:rgb(51,51,255)}
+.pin1{fill:rgb(255,204,0)}
+.pir{fill:rgb(102,153,255)}
+.pitslre{fill:rgb(153,153,204)}
+.pitx2{fill:rgb(204,153,0)}
+.pka{fill:rgb(25,153,25)}
+.pka1{fill:rgb(0,153,102)}
+.pkac{fill:rgb(0,153,51)}
+.pkar{fill:rgb(255,153,255)}
+.pkb{fill:rgb(113,113,19)}
+.pkca{fill:rgb(0,102,102)}
+.pkcd{fill:rgb(153,153,204)}
+.pkg{fill:rgb(153,0,153)}
+.pklr{fill:rgb(153,153,51)}
+.pla2{fill:rgb(102,102,0)}
+.plau{fill:rgb(204,153,153)}
+.plc{fill:rgb(0,153,0)}
+.plcb{fill:rgb(95,95,9)}
+.plcb1{fill:rgb(102,102,0)}
+.plcd1{fill:rgb(0,0,153)}
+.plce{fill:rgb(0,153,0)}
+.plcg{fill:rgb(45,205,150)}
+.pld1{fill:rgb(0,204,0)}
+.pld2{fill:rgb(197,151,59)}
+.pld3{fill:rgb(153,204,153)}
+.plg{fill:rgb(144,126,46)}
+.plk3{fill:rgb(255,51,102)}
+.pml{fill:rgb(102,153,153)}
+.pol1{fill:rgb(255,51,102)}
+.polr{fill:rgb(153,102,51)}
+.por1{fill:rgb(255,0,0)}
+.pp1{fill:rgb(102,0,0)}
+.pp2a{fill:rgb(255,51,204)}
+.pp2b{fill:rgb(16,156,250)}
+.ppara{fill:rgb(156,9,93)}
+.pparb{fill:rgb(255,153,51)}
+.pparbp{fill:rgb(51,204,0)}
+.ppard{fill:rgb(240,129,13)}
+.pparg{fill:rgb(153,102,51)}
+.ppia{fill:rgb(204,153,51)}
+.prak{fill:rgb(102,0,102)}
+.presenilin{fill:rgb(153,153,204)}
+.prgfra{fill:rgb(0,153,102)}
+.prkar2a{fill:rgb(0,204,153)}
+.prkar2b{fill:rgb(51,204,102)}
+.prkc{fill:rgb(220,135,88)}
+.prkcb1{fill:rgb(204,153,0)}
+.prkce{fill:rgb(102,0,102)}
+.prkcl1{fill:rgb(0,0,192)}
+.prkcz{fill:rgb(209,43,167)}
+.prkdc{fill:rgb(102,51,0)}
+.prkr{fill:rgb(153,102,102)}
+.prkr1{fill:rgb(255,153,51)}
+.prmt1{fill:rgb(255,51,153)}
+.prnp{fill:rgb(204,102,204)}
+.proc{fill:rgb(204,0,51)}
+.procr{fill:rgb(255,144,1)}
+.prodh{fill:rgb(0,102,153)}
+.profilin{fill:rgb(204,102,0)}
+.properdin{fill:rgb(255,218,169)}
+.pros{fill:rgb(62,138,173)}
+.proteasomePathway{fill:rgb(102,0,255)}
+.prr{fill:rgb(102,0,0)}
+.pscd1{fill:rgb(153,102,255)}
+.pscd2{fill:rgb(153,102,255)}
+.pscd3{fill:rgb(153,102,255)}
+.pscd4{fill:rgb(153,102,255)}
+.pselectin{fill:rgb(204,0,153)}
+.psen1{fill:rgb(51,204,255)}
+.pslplg{fill:rgb(153,102,204)}
+.psma7{fill:rgb(204,102,255)}
+.psmbs{fill:rgb(155,203,12)}
+.ptbp1{fill:rgb(0,204,153)}
+.ptch{fill:rgb(51,204,0)}
+.pten{fill:rgb(231,149,149)}
+.ptger2{fill:rgb(0,153,153)}
+.ptger3{fill:rgb(102,102,204)}
+.ptger4{fill:rgb(51,0,102)}
+.ptges{fill:rgb(153,102,51)}
+.ptgfr{fill:rgb(255,153,51)}
+.ptgir{fill:rgb(204,0,153)}
+.ptgis{fill:rgb(204,153,153)}
+.ptgs1{fill:rgb(102,153,255)}
+.ptgs2{fill:rgb(204,153,255)}
+.ptp1{fill:rgb(204,51,204)}
+.ptpn6{fill:rgb(204,153,51)}
+.ptpn7{fill:rgb(204,153,0)}
+.ptprb{fill:rgb(102,51,204)}
+.pxr{fill:rgb(0,15,198)}
+.pycr{fill:rgb(204,0,51)}
+.pyk2{fill:rgb(229,147,31)}
+.rab1{fill:rgb(102,204,102)}
+.rab11{fill:rgb(255,0,0)}
+.rab2{fill:rgb(51,204,153)}
+.rab27{fill:rgb(153,51,204)}
+.rab3{fill:rgb(102,204,204)}
+.rab4{fill:rgb(0,204,102)}
+.rab5{fill:rgb(102,204,153)}
+.rab6{fill:rgb(51,153,51)}
+.rab7{fill:rgb(0,153,153)}
+.rab8{fill:rgb(0,102,0)}
+.rab9{fill:rgb(102,153,0)}
+.rac1{fill:rgb(255,102,153)}
+.racgap1{fill:rgb(255,102,153)}
+.rad1{fill:rgb(51,102,51)}
+.rad17{fill:rgb(51,204,0)}
+.rad50{fill:rgb(153,102,102)}
+.rad51{fill:rgb(153,51,153)}
+.rad9{fill:rgb(51,204,102)}
+.raf1{fill:rgb(153,102,204)}
+.raftk{fill:rgb(204,51,153)}
+.ral{fill:rgb(102,0,102)}
+.ralbp1{fill:rgb(153,153,204)}
+.ralgds{fill:rgb(204,153,153)}
+.ran{fill:rgb(51,204,102)}
+.ranbp1{fill:rgb(51,153,255)}
+.ranbp2{fill:rgb(0,190,209)}
+.rangap1{fill:rgb(255,51,255)}
+.rank{fill:rgb(102,153,255)}
+.rankl{fill:rgb(102,153,255)}
+.rap{fill:rgb(0,0,255)}
+.rap1a{fill:rgb(255,153,153)}
+.rap1b{fill:rgb(102,204,102)}
+.rap2b{fill:rgb(153,102,51)}
+.rapsyn{fill:rgb(128,0,128)}
+.rar{fill:rgb(255,153,0)}
+.rarb{fill:rgb(153,204,153)}
+.rarg{fill:rgb(255,51,255)}
+.ras{fill:rgb(255,102,51)}
+.rasa1{fill:rgb(204,51,102)}
+.rasgap{fill:rgb(153,153,204)}
+.rasgef{fill:rgb(255,0,102)}
+.rb1{fill:rgb(153,102,102)}
+.rb1cc1{fill:rgb(102,204,204)}
+.rbbp4{fill:rgb(45,180,164)}
+.rbbp7{fill:rgb(201,187,22)}
+.rbl2{fill:rgb(255,0,153)}
+.rbx1{fill:rgb(194,146,0)}
+.rcv1{fill:rgb(153,102,51)}
+.reck{fill:rgb(51,204,0)}
+.reelin{fill:rgb(102,153,204)}
+.rela{fill:rgb(204,102,153)}
+.ren{fill:rgb(204,204,153)}
+.req{fill:rgb(204,51,204)}
+.resistin{fill:rgb(255,51,255)}
+.rho{fill:rgb(153,102,153)}
+.rhoa{fill:rgb(68,39,135)}
+.rhoagtp{fill:rgb(0,204,0)}
+.rhogap{fill:rgb(51,51,153)}
+.rhogefs{fill:rgb(153,102,255)}
+.rhok{fill:rgb(204,51,102)}
+.rhokinasedia{fill:rgb(255,102,51)}
+.ring1{fill:rgb(214,172,214)}
+.rip{fill:rgb(153,0,0)}
+.ripk2{fill:rgb(153,51,102)}
+.rnf41{fill:rgb(255,204,0)}
+.rock{fill:rgb(0,102,153)}
+.rock1{fill:rgb(5,105,141)}
+.rock2{fill:rgb(0,127,192)}
+.ron{fill:rgb(0,51,255)}
+.rpa{fill:rgb(204,0,255)}
+.rps6{fill:rgb(255,102,153)}
+.rps6ka1{fill:rgb(255,172,255)}
+.rps6ka3{fill:rgb(0,153,0)}
+.rps6kb1{fill:rgb(0,153,0)}
+.rptpa{fill:rgb(1,1,178)}
+.rsk{fill:rgb(255,153,255)}
+.rsn{fill:rgb(204,204,0)}
+.rxr{fill:rgb(0,102,51)}
+.ryr2{}
+.sae1{fill:rgb(102,0,51)}
+.sae1-2{fill:rgb(90,189,132)}
+.sae2{fill:rgb(255,153,0)}
+.sag{fill:rgb(204,102,153)}
+.sara{fill:rgb(255,0,0)}
+.scap{fill:rgb(255,51,255)}
+.scf{fill:rgb(25,4,126)}
+.scfr{fill:rgb(0,0,153)}
+.scya5{fill:rgb(51,102,255)}
+.sdf1{fill:rgb(0,153,102)}
+.sec61a1{fill:rgb(153,102,51)}
+.sek1{fill:rgb(153,102,102)}
+.serpinc1{fill:rgb(101,123,211)}
+.serping1{fill:rgb(204,153,204)}
+.set{fill:rgb(255,102,204)}
+.sfn{fill:rgb(255,153,102)}
+.sfpq{fill:rgb(0,153,204)}
+.sfrs2{fill:rgb(207,118,251)}
+.sgc{fill:rgb(204,153,153)}
+.shc1{fill:rgb(204,51,102)}
+.shh{fill:rgb(255,153,102)}
+.ship2{fill:rgb(2,22,134)}
+.shp2{fill:rgb(192,0,0)}
+.siat{fill:rgb(73,150,228)}
+.sin3{fill:rgb(102,204,0)}
+.sir2{fill:rgb(102,153,153)}
+.skip{fill:rgb(255,0,153)}
+.skp1{fill:rgb(0,189,216)}
+.skp2{fill:rgb(255,0,102)}
+.slc25a18{fill:rgb(204,51,102)}
+.slc25a22{fill:rgb(255,204,204)}
+.slc9a3r1{fill:rgb(204,102,255)}
+.slpi{fill:rgb(0,153,255)}
+.slprMolecule{fill:rgb(255,102,0)}
+.smac{fill:rgb(102,0,204)}
+.smarca4{fill:rgb(204,0,204)}
+.smarcb1{fill:rgb(204,162,204)}
+.smarcc1{fill:rgb(51,153,204)}
+.smarcc2{fill:rgb(102,153,255)}
+.smarcd1{fill:rgb(148,169,255)}
+.smarce1{fill:rgb(12,206,158)}
+.smarcf1{fill:rgb(52,176,216)}
+.smo{fill:rgb(204,153,153)}
+.smpd{fill:rgb(204,153,51)}
+.smpd1{fill:rgb(51,0,153)}
+.smurf{fill:rgb(61,158,158)}
+.snail{fill:rgb(255,153,102)}
+.snap25{fill:rgb(255,153,153)}
+.snca{fill:rgb(204,102,102)}
+.snon{fill:rgb(153,51,153)}
+.snpre{fill:rgb(204,204,255)}
+.snrp70{fill:rgb(102,153,153)}
+.snrpa{fill:rgb(204,153,51)}
+.snrpa1{fill:rgb(153,102,0)}
+.snrpb{fill:rgb(51,204,0)}
+.snrpb2{fill:rgb(101,166,242)}
+.snrpc{fill:rgb(153,153,102)}
+.snrpd1{fill:rgb(255,153,51)}
+.snrpd2{fill:rgb(255,204,204)}
+.snrpd3{fill:rgb(255,153,153)}
+.snrpf{fill:rgb(51,102,204)}
+.snrpg{fill:rgb(255,153,255)}
+.soc-racc{fill:rgb(153,102,204)}
+.socs{fill:rgb(255,0,0)}
+.socs3{fill:rgb(0,153,0)}
+.sod1{fill:rgb(102,204,51)}
+.sod2{fill:rgb(255,0,0)}
+.sods{fill:rgb(102,204,102)}
+.sos{fill:rgb(0,0,255)}
+.sp1{fill:rgb(255,153,204)}
+.sp100{fill:rgb(102,153,153)}
+.sp3{fill:rgb(255,153,153)}
+.sphk1{fill:rgb(51,153,255)}
+.spp1{fill:rgb(153,153,51)}
+.spry{fill:rgb(255,0,204)}
+.sptan1{fill:rgb(204,102,255)}
+.sptbn1{}
+.sra1{fill:rgb(204,102,102)}
+.src{fill:rgb(0,128,0)}
+.src1{fill:rgb(51,204,0)}
+.srebp{fill:rgb(255,204,51)}
+.srebp1{fill:rgb(153,204,51)}
+.srebp2{fill:rgb(204,153,51)}
+.srf{fill:rgb(0,51,0)}
+.ssb{fill:rgb(41,156,194)}
+.sst{fill:rgb(102,153,255)}
+.stat1{fill:rgb(51,102,0)}
+.stat1a{fill:rgb(51,102,102)}
+.stat2{fill:rgb(51,153,0)}
+.stat3{fill:rgb(0,153,102)}
+.stat4{fill:rgb(204,102,153)}
+.stat5{fill:rgb(51,204,0)}
+.stat6{fill:rgb(51,204,153)}
+.stats{fill:rgb(51,102,51)}
+.stk6{fill:rgb(51,153,255)}
+.stmn1{fill:rgb(255,102,204)}
+.stx1a{fill:rgb(255,51,51)}
+.sufu{fill:rgb(153,0,0)}
+.sumo1{fill:rgb(204,102,153)}
+.sumo2-3{fill:rgb(8,156,8)}
+.supt16h{fill:rgb(158,158,15)}
+.svct1{fill:rgb(102,183,168)}
+.svct2{fill:rgb(102,153,102)}
+.syk{fill:rgb(99,32,150)}
+.synj{fill:rgb(153,102,255)}
+.synphilin1{fill:rgb(204,102,102)}
+.t{fill:rgb(255,153,0)}
+.t3r{fill:rgb(153,102,255)}
+.tab1{fill:rgb(6,88,100)}
+.tab2{fill:rgb(51,204,153)}
+.tace{fill:rgb(255,102,204)}
+.taci{fill:rgb(102,204,102)}
+.taf1{fill:rgb(102,204,102)}
+.tak1{fill:rgb(153,0,204)}
+.talin{fill:rgb(0,0,102)}
+.tank{fill:rgb(204,51,153)}
+.tap1{fill:rgb(102,102,204)}
+.tap2{fill:rgb(15,15,247)}
+.tau{fill:rgb(0,102,153)}
+.tbid{fill:rgb(0,102,51)}
+.tbp{fill:rgb(161,3,245)}
+.tbx2{fill:rgb(153,153,0)}
+.tbxa2r{fill:rgb(0,51,102)}
+.tbxas1{fill:rgb(51,102,0)}
+.tcf{fill:rgb(167,70,134)}
+.tcf8{fill:rgb(204,153,0)}
+.tcra{fill:rgb(0,0,51)}
+.tcrb{fill:rgb(0,0,51)}
+.tcrg{fill:rgb(0,0,102)}
+.tdht{fill:rgb(28,102,140)}
+.tensin{fill:rgb(0,0,255)}
+.tep1{fill:rgb(255,51,102)}
+.terf1{fill:rgb(51,153,255)}
+.tert{fill:rgb(247,165,23)}
+.tf{fill:rgb(204,51,204)}
+.tf2a{fill:rgb(34,145,139)}
+.tf2b{fill:rgb(102,153,0)}
+.tf2e{fill:rgb(16,159,16)}
+.tf2f{fill:rgb(52,100,130)}
+.tf2h{fill:rgb(16,159,16)}
+.tfdp1{fill:rgb(153,51,51)}
+.tffs{}
+.tfiid{fill:rgb(204,0,255)}
+.tfpi{fill:rgb(207,112,207)}
+.tfr{fill:rgb(204,51,204)}
+.tgfa1{fill:rgb(153,153,204)}
+.tgfb1{fill:rgb(51,0,153)}
+.tgfbr{fill:rgb(0,102,153)}
+.tgfbr1{fill:rgb(51,0,153)}
+.tgfbr2{fill:rgb(153,102,102)}
+.tgfbr3{fill:rgb(204,153,0)}
+.thpo{fill:rgb(204,51,102)}
+.thrombin{fill:rgb(32,88,3)}
+.thy1{fill:rgb(153,0,51)}
+.tia1{fill:rgb(204,153,51)}
+.tial1{fill:rgb(51,204,102)}
+.tid1{fill:rgb(0,204,153)}
+.tif2{fill:rgb(255,51,153)}
+.timp1{fill:rgb(204,153,0)}
+.timp2{fill:rgb(255,153,102)}
+.timp3{fill:rgb(0,102,51)}
+.timp4{fill:rgb(51,153,102)}
+.tip1{fill:rgb(153,153,255)}
+.tirap{fill:rgb(51,204,255)}
+.tk{fill:rgb(51,0,204)}
+.tlr2{fill:rgb(255,153,51)}
+.tlr3{fill:rgb(204,51,204)}
+.tlr4{fill:rgb(0,204,102)}
+.tlr6{fill:rgb(204,51,204)}
+.tlr7{fill:rgb(204,0,153)}
+.tlr9{fill:rgb(204,0,0)}
+.tnf{fill:rgb(102,51,102)}
+.tnfr{fill:rgb(102,204,102)}
+.tnfrsf1a{fill:rgb(0,153,102)}
+.tnfrsf1b{fill:rgb(102,204,0)}
+.tnfrsf9{fill:rgb(255,153,51)}
+.tnfsf9{fill:rgb(204,51,102)}
+.tnks{fill:rgb(0,153,153)}
+.tnni{fill:rgb(255,255,0)}
+.tob{fill:rgb(204,102,255)}
+.toll{fill:rgb(153,51,0)}
+.tollip{fill:rgb(51,102,255)}
+.topo2{fill:rgb(255,51,255)}
+.topo2b{fill:rgb(255,51,255)}
+.tp73{fill:rgb(102,153,102)}
+.tpa{fill:rgb(182,113,51)}
+.tpor{fill:rgb(204,51,102)}
+.tpx2{fill:rgb(51,102,153)}
+.tr{fill:rgb(204,51,0)}
+.tradd{fill:rgb(102,51,102)}
+.traf1{fill:rgb(51,0,153)}
+.traf2{fill:rgb(51,0,255)}
+.traf3{fill:rgb(51,102,153)}
+.traf5{fill:rgb(51,153,255)}
+.traf6{fill:rgb(51,102,255)}
+.trap220{fill:rgb(204,153,153)}
+.trex1{fill:rgb(153,0,204)}
+.trio{fill:rgb(153,153,204)}
+.trka{fill:rgb(153,102,102)}
+.trrap{fill:rgb(51,153,153)}
+.trx{fill:rgb(51,153,255)}
+.tsc2{fill:rgb(152,225,252)}
+.tsg101{fill:rgb(153,0,102)}
+.tsp1{fill:rgb(102,153,255)}
+.tub{fill:rgb(255,153,0)}
+.tuba{fill:rgb(255,204,153)}
+.twist1{fill:rgb(204,153,102)}
+.tyk2{fill:rgb(153,51,51)}
+.u2af1{fill:rgb(204,204,0)}
+.u2af65{fill:rgb(204,153,0)}
+.uba1{fill:rgb(204,102,102)}
+.ubc6-7{fill:rgb(255,102,153)}
+.ubc9{fill:rgb(151,104,8)}
+.ubch7-8{fill:rgb(255,102,153)}
+.ube2d1{fill:rgb(102,102,153)}
+.ube2m{fill:rgb(204,153,102)}
+.ubqln1{fill:rgb(153,102,204)}
+.ugcgl1{fill:rgb(153,153,153)}
+.urod{fill:rgb(255,153,102)}
+.uros{fill:rgb(51,153,153)}
+.utrn{fill:rgb(51,153,204)}
+.vamp2{fill:rgb(0,204,0)}
+.vav1{fill:rgb(25,89,149)}
+.vav2{fill:rgb(255,192,255)}
+.vcam1{fill:rgb(71,83,140)}
+.vdr{fill:rgb(153,102,255)}
+.vegf{fill:rgb(204,51,102)}
+.vegfr{fill:rgb(204,51,102)}
+.veli1{fill:rgb(255,204,0)}
+.vhl{fill:rgb(0,153,51)}
+.vil2{fill:rgb(255,0,0)}
+.vinculin{fill:rgb(192,0,0)}
+.vip{fill:rgb(255,153,153)}
+.vldlr{fill:rgb(0,153,0)}
+.vpac2r{fill:rgb(51,102,153)}
+.wave{fill:rgb(255,153,0)}
+.wave1-3{fill:rgb(255,102,102)}
+.wee1{fill:rgb(255,153,0)}
+.wif-1{fill:rgb(153,102,102)}
+.wnt{fill:rgb(155,108,227)}
+.wnt8{fill:rgb(204,102,204)}
+.wt1{fill:rgb(255,51,153)}
+.xap2{fill:rgb(51,153,51)}
+.xdh{fill:rgb(51,102,204)}
+.xiap{fill:rgb(99,196,34)}
+.xpo1{fill:rgb(159,112,255)}
+.xrcc5{fill:rgb(52,146,188)}
+.yy1{fill:rgb(255,153,102)}
+.zap70{fill:rgb(153,102,0)}
+.znf145{fill:rgb(204,153,0)}
+.znf147{fill:rgb(255,51,204)}
+.zyxin{fill:rgb(0,153,51)}
+
+/* the following classes are not in SVG files, but are used for the dynamic highlighting and fading */
+.genericGene{fill:rgb(220,220,220)}
+.allTargets{fill:rgb(255,0,255)}
+.mutated{fill:rgb(0,255,0)}
+.underExpressed{fill:rgb(0,0,255)}
+.overExpressed{fill:rgb(255,0,0)}
+.fadeShapes{opacity:0.25}
+
+]]></style>
+<!-- metadata starts -->
+	<metadata>
+		<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/qualifiers/1.0/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description about="http://www.celebration.saic.com/nci_cmap">
+				<dc:title>h_atmPathway</dc:title>
+				<dc:description>ATM Signaling Pathway</dc:description>
+				<dc:date>
+					<dcq:created>3/5/2003</dcq:created>
+					<dcq:modified>5/21/2004</dcq:modified>
+				</dc:date>
+				<dc:creator>SAIC SmarTech</dc:creator>
+				<dc:source>http://cgap.nci.nih.gov/Pathways/BioCarta/h_atmPathway</dc:source>
+				<dc:identifier>h_atmPathway_02</dc:identifier>
+			</rdf:Description>
+		</rdf:RDF>
+	</metadata>
+<!-- metadata ends -->
+	<defs>
+	<filter filterUnits="objectBoundingBox" height="150%" id="Division" width="150%" x="-10%" y="-10%">
+		<feTurbulence baseFrequency="0.51" numOctaves="3" result="image0" seed="3" type="fractalNoise"/>
+		<feGaussianBlur in="image0" result="image1" stdDeviation="2.3"/>
+		<feDiffuseLighting diffuseConstant="1" in="image1" result="image3" style="lighting-color:rgb(255,255,255)" surfaceScale="5">
+			<feDistantLight azimuth="0" elevation="175"/>
+		</feDiffuseLighting>
+		<feComposite in="image3" in2="SourceGraphic" k2="0.5" k3="0.5" operator="arithmetic" result="image4"/>
+		<feComposite in="image4" in2="SourceGraphic" operator="in" result="image5"/>
+	</filter>
+	<filter filterUnits="objectBoundingBox" height="150%" id="Basic_Shadow" width="150%" x="-10%" y="-10%">
+		<feGaussianBlur in="SourceAlpha" result="blurredAlpha" stdDeviation="1"/>
+		<feOffset dx="1" dy="1" in="blurredAlpha" result="offsetBlurredAlpha"/>
+		<feFlood result="flooded" style="flood-color:rgb(0,0,0);flood-opacity:0.3"/>
+		<feComposite in="flooded" in2="offsetBlurredAlpha" operator="in" result="coloredShadow"/>
+		<feComposite in="SourceGraphic" in2="coloredShadow" operator="over"/>
+	</filter>
+	<filter filterUnits="objectBoundingBox" height="150%" id="Bevel_Shadow" width="150%" x="-10%" y="-10%">
+		<feGaussianBlur in="SourceAlpha" result="blurredAlpha" stdDeviation="1"/>
+		<feOffset dx="1" dy="1" in="blurredAlpha" result="offsetBlurredAlpha"/>
+		<feDiffuseLighting diffuseConstant="0.8" in="blurredAlpha" result="bumpMapDiffuse" style="lighting-color:rgb(255,255,255)" surfaceScale="1">
+			<feDistantLight azimuth="105" elevation="75"/>
+		</feDiffuseLighting>
+		<feComposite in="bumpMapDiffuse" in2="SourceGraphic" k1="1" k2="0" k3="0" k4="0" operator="arithmetic" result="litPaint"/>
+		<feSpecularLighting in="blurredAlpha" result="bumpMapSpecular" specularConstant="0.5" specularExponent="20" style="lighting-color:rgb(255,255,255)" surfaceScale="3">
+			<feDistantLight azimuth="0" elevation="145"/>
+		</feSpecularLighting>
+		<feComposite in="litPaint" in2="bumpMapSpecular" k1="0" k2="1" k3="1" k4="0" operator="arithmetic" result="litPaint"/>
+		<feComposite in="litPaint" in2="SourceAlpha" operator="in" result="litPaint"/>
+		<feMerge>
+			<feMergeNode in="offsetBlurredAlpha"/>
+			<feMergeNode in="litPaint"/>
+		</feMerge>
+	</filter>
+		<marker id="yellowTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="yellowTri2" markerHeight="4" markerUnits="strokeWidth" markerWidth="4" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L10 -4 L25 5 L10 14 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="orangeTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="orangeTri2" markerHeight="4" markerUnits="strokeWidth" markerWidth="4" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L10 -4 L25 5 L10 14 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="lightSkyBlueTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="lightBlueTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="aquaGrayTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="purpleTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="whiteTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="darkGreenTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="brownTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="blackTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="darkBlueTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="redTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="hotPinkTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="lightYellowTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="marineBlueTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="pinkTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="skyBlueTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+		<marker id="lightPurpleTri" markerHeight="6" markerUnits="strokeWidth" markerWidth="6" orient="auto" overflow="visible" refX="0" refY="5" viewBox="0 0 10 10">
+			<path d="M0 0 L10 5 L0 10 z"/>
+		</marker>
+	</defs>
+	<g id="background">
+		<path class="marineBlueFillSlateBlueStroke5Basic" d="M593 480.656 C593 488.578 584.702 495 574.467 495 L26.5328 495 C16.2975 495 8 488.578 8 480.656 L8 20.344 C8 12.4221 16.2975     6 26.5328 6 L574.467 6 C584.702 6 593 12.4221 593 20.344 z"/>
+	</g>
+	<g id="genes">
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=CDKN1A">
+			<g class="cdkn1a" nci_cmap:objectName="cdkn1a">
+				<path class="noFillNoStrokeBevel" d="M97.0024 69.3782 L104.726 58.8364 C129.087 69.0934 103.322 82.393 117.191 93.5794 L104.904 106.884 C92.5562 85.7721 114.5       81.4489 97.0024 69.3782 z"/>
+				<text class="txtWhiteBasic" transform="translate(-0.574713 -8.04598)" x="99px" y="94px">p21</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=JUN">
+			<g class="c-jun" nci_cmap:objectName="c-jun">
+				<path class="noFillNoStrokeBevel" d="M142.599 86.118 C146.188 83.906 154.724 83.369 163.927 86.237 C164.769 84.884 165.25 83.427 165.25 81.9 C165.251 74.993 155.849       69.393 144.25 69.393 C132.652 69.393 123.25 74.993 123.25 81.901 C123.25 88.699 132.36 94.219 143.703 94.393       C141.822 91.15 140.406 87.47 142.599 86.118 z"/>
+				<text class="txtWhiteBasic" x="128px" y="82px">c-Jun</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=TP73">
+			<g class="tp73" nci_cmap:objectName="tp73">
+				<path class="noFillNoStrokeBevel" d="M193.242 86.118 C196.831 83.906 205.367 83.369 214.57 86.237 C215.412 84.884 215.893 83.427 215.893 81.9 C215.894 74.993       206.492 69.393 194.893 69.393 C183.295 69.393 173.893 74.993 173.893 81.901 C173.893 88.699 183.003 94.219 194.346       94.393 C192.465 91.15 191.049 87.47 193.242 86.118 z"/>
+				<text class="txtWhiteBasic" transform="translate(3.44828 0.574713)" x="182px" y="82px">p73</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=RAD51">
+			<g class="rad51" nci_cmap:objectName="rad51">
+				<path class="noFillNoStrokeBevel" d="M284 75.0271 C284 68.9365 276.166 64 266.5 64 C256.834 64 249 68.9365 249 75.0271 C249 80.0179 254.266 84.2293 261.485 85.5895       C261.613 91.3874 263.645 96 266.14 96 C268.618 96 270.64 91.45 270.792 85.7073 C278.378 84.4989 284 80.1827       284 75.0271 z"/>
+				<text class="txtWhiteBasic" transform="translate(-6.32184 2.29885)" x="257px" y="76px">Rad51</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=MDM2">
+			<g class="mdm2" nci_cmap:objectName="mdm2">
+				<path class="noFillNoStrokeBevel" d="M114.666 304.437 C114.792 308.551 122.848 311.817 129.393 311.333 C135.939 310.849 139.967 309.276 142.233 307.583 C144.75       309.155 146.009 311.575 154.569 311.333 C163.128 311.091 168.666 306.494 168.666 304.075 C168.666 301.655 163.883       296.575 154.317 296.575 C144.75 296.575 144.499 298.39 141.478 299.479 C138.457 298.269 132.037 296.212 127.757       296.333 C123.478 296.454 123.1 296.937 119.702 297.905 C116.68 299.599 114.666 301.414 114.666 304.437 z"/>
+				<text class="txtWhiteBasic" transform="translate(-27.0115 86.7816)" x="154px" y="221px">mdm2</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=GADD45A">
+			<g class="gadd45" nci_cmap:objectName="gadd45">
+				<path class="noFillNoStrokeBevel" d="M61.8929 284.407 L40.4129 285.155 C40.4129 285.155 34.8334 286.351 37.9026 289.568 C40.9719 292.785 45.2482 297.572 45.2482       297.572 C45.2482 297.572 46.2713 298.096 49.8046 298.096 C53.3379 298.096 64.8684 296.749 64.8684 296.749 C64.8684       296.749 66.9133 299.517 71.0983 299.667 C75.2832 299.817 87.1863 291.289 87 289.868 C86.8137 288.447 70.9131 280.592       68.8669 280.667 C66.8208 280.741 61.8929 284.407 61.8929 284.407 z"/>
+				<text class="txtWhiteBasic" transform="translate(-8.62069 -6.89655)" x="50px" y="301px">GADD45</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=TP53">
+			<g class="p53" nci_cmap:objectName="p53">
+				<path class="noFillNoStrokeBevel" d="M119.349 248.725 C122.938 246.513 131.474 245.976 140.677 248.844 C141.519 247.491 142 246.034 142 244.507 C142.001 237.6       132.599 232 121 232 C109.402 232 100 237.6 100 244.508 C100 251.306 109.11 256.826 120.453 257 C118.572 253.757 117.156       250.077 119.349 248.725 z"/>
+				<text class="txtWhiteBasic" transform="translate(-1.14943 2.29885)" x="109px" y="240px">p53</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=RBBP8">
+			<g class="ctip" nci_cmap:objectName="ctip">
+				<path class="noFillNoStrokeBevel" d="M234.893 287.407 L213.413 288.155 C213.413 288.155 207.833 289.351 210.903 292.568 C213.972 295.785 218.248 300.572 218.248       300.572 C218.248 300.572 218.605 303.096 222.138 303.096 C225.671 303.096 237.868 299.749 237.868 299.749 C237.868       299.749 239.913 302.517 244.098 302.667 C248.283 302.817 260.186 294.289 260 292.868 C259.814 291.447 243.913       283.592 241.867 283.667 C239.821 283.741 234.893 287.407 234.893 287.407 z"/>
+				<text class="txtWhiteBasic" transform="translate(2.87356 0) translate(-2.29885 0.574713)" x="231px" y="299px">CTIP</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=BRCA1">
+			<g class="brca1" nci_cmap:objectName="brca1">
+				<path class="noFillNoStrokeBevel" d="M216.849 292.868 C220.438 290.656 228.974 290.119 238.177 292.987 C239.019 291.634 239.5 290.177 239.5 288.65 C239.501 281.743       230.099 276.143 218.5 276.143 C206.902 276.143 197.5 281.743 197.5 288.651 C197.5 295.449 206.61 300.969 217.953       301.143 C216.072 297.9 214.656 294.22 216.849 292.868 z"/>
+				<text class="txtWhiteBasic" transform="translate(-6.32184 -0.574713) translate(1.14943 2.29885)" x="209px" y="287px">BRCA1</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=BRCA1">
+			<g class="brca1" nci_cmap:objectName="brca1">
+				<path class="noFillNoStrokeBevel" d="M221.992 361.475 C225.581 359.263 234.117 358.726 243.32 361.594 C244.162 360.241 244.643 358.784 244.643 357.257 C244.644       350.35 235.242 344.75 223.643 344.75 C212.045 344.75 202.643 350.35 202.643 357.258 C202.643 364.056 211.753 369.576       223.096 369.75 C221.215 366.507 219.799 362.827 221.992 361.475 z"/>
+				<text class="txtWhiteBasic" transform="translate(55.1724 136.207)" x="151px" y="221px">BRCA1</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=CHEK1">
+			<g class="chk1" nci_cmap:objectName="chk1">
+				<path class="noFillNoStrokeBevel" d="M281.6 204.703 C281.648 201.014 292.461 195.47 303.841 195.89 C314.433 196.282 315.301 199.513 318.766 198.534 C322.231 197.554       324.639 195.429 328.682 195.4 C333.907 195.362 332.636 198.796 332.489 205.223 C332.371 210.394 333.515 213.879       329.06 213.4 C322.377 212.682 321.559 209.697 318.767 210.088 C315.975 210.479 312.424 212.633 303.072 212.633       C293.443 212.633 281.526 210.394 281.6 204.703 z"/>
+				<text class="txtWhiteBasic" transform="translate(-4.02299 5.74713)" x="300px" y="203px">chk1</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=TP53">
+			<g class="p53" nci_cmap:objectName="p53">
+				<path class="noFillNoStrokeBevel" d="M111.742 180.618 C115.331 178.406 123.867 177.869 133.07 180.737 C133.912 179.384 134.393 177.927 134.393 176.4 C134.394       169.493 124.992 163.893 113.393 163.893 C101.795 163.893 92.3929 169.493 92.3929 176.401 C92.3929 183.199 101.503       188.719 112.846 188.893 C110.965 185.65 109.549 181.97 111.742 180.618 z"/>
+				<text class="txtYellow" transform="translate(0.574713 -5.74713)" x="102px" y="182px">p53</text>
+			</g>
+		</a>
+		<a xlink:href="">
+			<g class="jnk" nci_cmap:objectName="jnk">
+				<path class="noFillNoStrokeBevel" d="M177.4 168.703 C177.448 165.014 188.261 159.47 199.641 159.89 C210.233 160.282 211.101 163.513 214.566 162.534 C218.031 161.554       220.439 159.429 224.482 159.4 C229.707 159.362 228.436 162.796 228.289 169.223 C228.171 174.394 229.315 177.879       224.86 177.4 C218.177 176.682 217.359 173.697 214.567 174.088 C211.775 174.479 208.224 176.633 198.872 176.633       C189.243 176.633 177.326 174.394 177.4 168.703 z"/>
+				<text class="txtYellow" transform="translate(1.14943 -2.29885)" x="189px" y="174px">SAPK</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=CHEK1">
+			<g class="chk1" nci_cmap:objectName="chk1">
+				<path class="noFillNoStrokeBevel" d="M181.4 213.103 C181.448 209.414 192.261 203.87 203.641 204.29 C214.233 204.682 215.101 207.913 218.566 206.934 C222.031 205.954       224.439 203.829 228.482 203.8 C233.707 203.762 232.436 207.196 232.289 213.623 C232.171 218.794 233.315 222.279       228.86 221.8 C222.177 221.082 221.359 218.097 218.567 218.488 C215.775 218.879 212.224 221.033 202.872 221.033       C193.243 221.033 181.326 218.794 181.4 213.103 z"/>
+				<text class="txtYellow" x="194px" y="217px">chk1</text>
+			</g>
+		</a>
+		<a xlink:href="">
+			<g class="cabl" nci_cmap:objectName="cabl">
+				<path class="noFillNoStrokeBevel" d="M299.4 165.503 C299.448 161.814 310.261 156.27 321.641 156.69 C332.233 157.082 333.101 160.313 336.566 159.334 C340.031 158.354       342.439 156.229 346.482 156.2 C351.707 156.162 350.436 159.596 350.289 166.023 C350.171 171.194 351.315 174.679       346.86 174.2 C340.177 173.482 339.359 170.497 336.567 170.888 C333.775 171.279 330.224 173.433 320.872 173.433       C311.243 173.433 299.326 171.194 299.4 165.503 z"/>
+				<text class="txtYellow" x="310px" y="168px">c-Abl</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=RBBP8">
+			<g class="ctip" nci_cmap:objectName="ctip">
+				<path class="noFillNoStrokeBevel" d="M289.432 347.05 L269.175 354.233 C269.175 354.233 264.214 357.054 268.11 359.197 C272.006 361.34 277.525 364.617 277.525       364.617 C277.525 364.617 278.626 366.916 281.995 365.852 C285.364 364.788 295.986 357.923 295.986 357.923 C295.986       357.923 298.77 359.946 302.806 358.829 C306.841 357.711 315.623 345.994 315.018 344.695 C314.412 343.396 296.884       340.695 294.955 341.383 C293.027 342.07 289.432 347.05 289.432 347.05 z"/>
+				<text class="txtYellow" transform="translate(4.02299 5.17241)" x="267px" y="356px">CTIP</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=MDM2">
+			<g class="mdm2" nci_cmap:objectName="mdm2">
+				<path class="noFillNoStrokeBevel" d="M116.333 252.104 C116.459 256.218 124.515 259.484 131.06 259 C137.606 258.516 141.634 256.943 143.9 255.25 C146.417 256.822       147.676 259.242 156.236 259 C164.795 258.758 170.333 254.161 170.333 251.742 C170.333 249.322 165.55 244.242 155.984       244.242 C146.417 244.242 146.166 246.057 143.145 247.146 C140.124 245.936 133.704 243.879 129.424 244 C125.145       244.121 124.767 244.604 121.369 245.572 C118.347 247.266 116.333 249.081 116.333 252.104 z"/>
+				<text class="txtWhiteBasic" x="129px" y="254px">mdm2</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=CHEK1">
+			<g class="chk1" nci_cmap:objectName="chk1">
+				<path class="noFillNoStrokeBevel" d="M383.8 75.303 C383.848 71.614 394.661 66.07 406.041 66.49 C416.633 66.882 417.501 70.113 420.966 69.134 C424.431 68.154 426.839       66.029 430.882 66 C436.107 65.962 434.836 69.396 434.689 75.823 C434.571 80.994 435.715 84.479 431.26 84 C424.577       83.282 423.759 80.297 420.967 80.688 C418.175 81.079 414.624 83.233 405.272 83.233 C395.643 83.233 383.726       80.994 383.8 75.303 z"/>
+				<text class="txtYellow" transform="translate(-2.07612 3.46021)" x="398px" y="75px">chk1</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=CHEK2">
+			<g class="chk2" nci_cmap:objectName="chk2">
+				<path class="noFillNoStrokeBevel" d="M447.2 75.903 C447.248 72.214 458.061 66.67 469.441 67.09 C480.033 67.482 480.901 70.713 484.366 69.734 C487.831 68.754 490.239       66.629 494.282 66.6 C499.507 66.562 498.236 69.996 498.089 76.423 C497.971 81.594 499.115 85.079 494.66 84.6       C487.977 83.882 487.159 80.897 484.367 81.288 C481.575 81.679 478.024 83.833 468.672 83.833 C459.043 83.833 447.126       81.594 447.2 75.903 z"/>
+				<text class="txtYellow" transform="matrix(1 0 0 1 75.9239 90.4602) translate(-13.1488 -86.1592)" x="398px" y="75px">chk2</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=ATM">
+			<g class="atm" nci_cmap:objectName="atm">
+				<path class="noFillNoStrokeBevel" d="M375 254.703 C375.048 251.014 385.861 245.47 397.241 245.89 C407.833 246.282 408.701 249.513 412.166 248.534 C415.631 247.554       418.039 245.429 422.082 245.4 C427.307 245.362 426.036 248.796 425.889 255.223 C425.771 260.394 426.915 263.879       422.46 263.4 C415.777 262.682 414.959 259.697 412.167 260.088 C409.375 260.479 405.824 262.633 396.472 262.633       C386.843 262.633 374.926 260.394 375 254.703 z"/>
+				<text class="txtYellow" transform="translate(1.7301 3.11419)" x="385px" y="255px">ATM</text>
+			</g>
+		</a>
+		<a xlink:href="">
+			<g class="cabl" nci_cmap:objectName="cabl">
+				<path class="noFillNoStrokeBevel" d="M530 254.303 C530.048 250.614 540.861 245.07 552.241 245.49 C562.833 245.882 563.701 249.113 567.166 248.134 C570.631 247.154       573.039 245.029 577.082 245 C582.307 244.962 581.036 248.396 580.889 254.823 C580.771 259.994 581.915 263.479       577.46 263 C570.777 262.282 569.959 259.297 567.167 259.688 C564.375 260.079 560.824 262.233 551.472 262.233 C541.843       262.233 529.926 259.994 530 254.303 z"/>
+				<text class="txtYellow" transform="translate(-0.346021 -1.7301)" x="543px" y="259px">c-Abl</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=TP73">
+			<g class="tp73" nci_cmap:objectName="tp73">
+				<path class="noFillNoStrokeBevel" d="M544.599 332.868 C548.188 330.656 556.724 330.119 565.927 332.987 C566.769 331.634 567.25 330.177 567.25 328.65 C567.251       321.743 557.849 316.143 546.25 316.143 C534.652 316.143 525.25 321.743 525.25 328.651 C525.25 335.449 534.36 340.969       545.703 341.143 C543.822 337.9 542.406 334.22 544.599 332.868 z"/>
+				<text class="txtWhiteBasic" transform="translate(-9.03614 -6.62651)" x="546px" y="335px">p73</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=TP53">
+			<g class="p53" nci_cmap:objectName="p53">
+				<path class="noFillNoStrokeBevel" d="M496.063 332.297 C499.652 330.085 508.188 329.548 517.391 332.416 C518.233 331.063 518.714 329.606 518.714 328.079 C518.715       321.172 509.313 315.572 497.714 315.572 C486.116 315.572 476.714 321.172 476.714 328.08 C476.714 334.878 485.824       340.398 497.167 340.572 C495.286 337.329 493.87 333.649 496.063 332.297 z"/>
+				<text class="txtWhiteBasic" x="488px" y="330px">p53 </text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NFKB1">
+			<g class="nfkb" nci_cmap:objectName="nfkb">
+				<path class="noFillNoStrokeBevel" d="M469.778 368.332 C473.367 366.12 481.903 365.583 491.106 368.451 C491.948 367.098 492.429 365.641 492.429 364.114 C492.43       357.207 483.028 351.607 471.429 351.607 C459.831 351.607 450.429 357.207 450.429 364.115 C450.429 370.913 459.539       376.433 470.882 376.607 C469.001 373.364 467.585 369.684 469.778 368.332 z"/>
+				<text class="txtWhiteBasic" transform="translate(-3.61446 -3.01205)" x="461px" y="368px">NFkB</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NFKBIA">
+			<g class="ikba" nci_cmap:objectName="ikba">
+				<ellipse class="noFillNoStrokeBevel" cx="389" cy="344.667" rx="19" ry="7.33333"/>
+				<text class="txtWhiteBasic" transform="translate(0.60241 -2.40964)" x="377px" y="352px">IkB&#x3b1;</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NFKBIA">
+			<g class="ikba" nci_cmap:objectName="ikba">
+				<ellipse class="noFillNoStrokeBevel" cx="423.667" cy="405.334" rx="18" ry="7.33333"/>
+				<text class="txtYellow" transform="translate(13.8554 14.4578)" x="396px" y="394px">IkB&#x3b1;</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NBN">
+			<g class="nibrin" nci_cmap:objectName="nibrin">
+				<path class="noFillNoStrokeBevel" d="M337.81 441.011 C340.057 441.011 342.091 441.786 343.598 443.041 C343.851 442.063 344 441.049 344 440 C344 432.821 337.731       427 330.001 427 C322.269 427 316 432.821 316 440 C316 447.179 322.269 453 330.001 453 C330.425 453 330.843 452.976       331.26 452.94 C330.106 451.683 329.412 450.089 329.412 448.352 C329.411 444.298 333.171 441.011 337.81 441.011 z"/>
+				<text class="txtWhiteBasic" transform="translate(-1.20482 2.40964)" x="318px" y="439px">nibrin</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NBN">
+			<g class="nibrin" nci_cmap:objectName="nibrin">
+				<path class="noFillNoStrokeBevel" d="M223.183 441.616 C225.43 441.616 227.464 442.391 228.971 443.646 C229.224 442.668 229.373 441.654 229.373 440.605 C229.373       433.426 223.104 427.605 215.374 427.605 C207.642 427.605 201.373 433.426 201.373 440.605 C201.373 447.784 207.642       453.605 215.374 453.605 C215.798 453.605 216.216 453.581 216.633 453.545 C215.479 452.288 214.785 450.694 214.785       448.957 C214.784 444.903 218.544 441.616 223.183 441.616 z"/>
+				<text class="txtWhiteBasic" transform="matrix(1 0 0 1 57.7952 -131.59) translate(-174.096 133.133)" x="318px" y="439px">nibrin</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=MRE11A">
+			<g class="mre11" nci_cmap:objectName="mre11">
+				<path class="noFillNoStrokeBevel" d="M222.978 465.163 C223.262 463.167 224.287 461.448 225.723 460.251 C224.784 459.916 223.797 459.669 222.757 459.55 C215.635       458.739 209.069 463.65 208.094 470.516 C207.118 477.384 212.102 483.61 219.224 484.421 C226.345 485.232 232.911       480.321 233.886 473.454 C233.94 473.077 233.969 472.703 233.986 472.328 C232.593 473.211 230.924 473.648 229.201 473.452       C225.179 472.994 222.393 469.283 222.978 465.163 z"/>
+				<text class="txtWhiteBasic" transform="translate(-63.8554 1.20482)" x="272px" y="481px">Mre11</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=RAD50">
+			<g class="rad50" nci_cmap:objectName="rad50">
+				<path class="noFillNoStrokeBevel" d="M245.2 452.027 C245.2 445.937 237.366 441 227.7 441 C218.034 441 210.2 445.937 210.2 452.027 C210.2 457.018 215.466 461.229       222.685 462.59 C222.813 468.387 224.845 473 227.34 473 C229.818 473 231.84 468.45 231.992 462.707 C239.578 461.499       245.2 457.183 245.2 452.027 z"/>
+				<text class="txtWhiteBasic" transform="translate(-55.4217 4.81928)" x="267px" y="452px">Rad50</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=NFKB1">
+			<g class="nfkb" nci_cmap:objectName="nfkb">
+				<path class="noFillNoStrokeBevel" d="M374.242 339.939 C377.831 337.727 386.367 337.19 395.57 340.058 C396.412 338.705 396.893 337.248 396.893 335.721 C396.894       328.814 387.492 323.214 375.893 323.214 C364.295 323.214 354.893 328.814 354.893 335.722 C354.893 342.52 364.003       348.04 375.346 348.214 C373.465 344.971 372.049 341.291 374.242 339.939 z"/>
+				<text class="txtWhiteBasic" transform="translate(-15.6627 58.4337)" x="377px" y="278px">NFkB</text>
+			</g>
+		</a>
+		<a xlink:href="http://cgwb.nci.nih.gov/cgi-bin/hgTracks?org=Hs&amp;db=hg18&amp;position=RAD51">
+			<g class="rad51" nci_cmap:objectName="rad51">
+				<path class="noFillNoStrokeBevel" d="M174.4 394.627 C174.4 388.537 166.566 383.6 156.9 383.6 C147.234 383.6 139.4 388.537 139.4 394.627 C139.4 399.618 144.666       403.829 151.885 405.19 C152.013 410.987 154.045 415.6 156.54 415.6 C159.018 415.6 161.04 411.05 161.192 405.307 C168.778       404.099 174.4 399.783 174.4 394.627 z"/>
+				<text class="txtWhiteBasic" x="142px" y="399px">Rad51</text>
+			</g>
+		</a>
+	</g>
+	<g id="pathGraphics">
+		<g>
+			<ellipse class="blueFillNoStrokeBevel" cx="317.5" cy="76.5" rx="17.5" ry="8.5"/>
+			<text class="txtWhiteBasic" transform="translate(0.574713 -3.44828)" x="309px" y="81px">rpa</text>
+		</g>
+		<circle class="noFillRedStroke2Basic" cx="190" cy="205.5" r="7"/>
+		<circle class="noFillRedStroke2Basic" cx="168.364" cy="309.955" r="7"/>
+		<circle class="noFillRedStroke2Basic" cx="134.637" cy="176.773" r="7"/>
+		<circle class="noFillRedStroke2Basic" cx="219.001" cy="425.228" r="7"/>
+		<circle class="noFillPurpleStroke2Basic" cx="187.001" cy="289.228" r="7" transform="translate(116.818 50.9091)"/>
+		<circle class="noFillPurpleStroke2Basic" cx="310.546" cy="354.137" r="7"/>
+		<circle class="noFillRedStroke2Basic" cx="405.721" cy="400.062" r="7"/>
+		<text class="txtWhiteBasic" transform="translate(-5.88235 -17.6471)" x="137px" y="198px">P</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 87.1176 72.3529) translate(-38.2353 -60.6618)" x="137px" y="198px">P</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 86.8823 72.6911) translate(-58.8235 43.75)" x="137px" y="198px">P</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 87.0588 72.4411) translate(75.7353 73.5294)" x="137px" y="198px">P</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 86.7941 71.9705) translate(82.7206 88.2353)" x="137px" y="198px">P</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 207.515 183.206) translate(56.9264 22.9437)" x="137px" y="198px">P</text>
+		<line class="yellowArrow" x1="93" x2="189" y1="21" y2="21"/>
+		<line class="yellowArrow" x1="229" x2="327" y1="22" y2="22"/>
+		<line class="yellowArrow" x1="317" x2="317" y1="63" y2="35"/>
+		<line class="yellowArrow" x1="267" x2="267" y1="56" y2="35"/>
+		<line class="yellowArrow" x1="141" x2="141" y1="63" y2="36"/>
+		<line class="yellowArrow" x1="299" x2="213" y1="156" y2="102"/>
+		<line class="yellowArrow" x1="206" x2="158" y1="152" y2="105"/>
+		<line class="yellowArrow" x1="294" x2="253" y1="167" y2="167"/>
+		<line class="yellowArrow" x1="105" x2="105" y1="156" y2="120"/>
+		<line class="yellowArrow" x1="170" x2="145" y1="212" y2="212"/>
+		<line class="yellowArrow" x1="372" x2="341" y1="239" y2="188"/>
+		<line class="yellowArrow" x1="361" x2="156" y1="264" y2="270"/>
+		<line class="yellowArrow" x1="101" x2="69" y1="196" y2="263"/>
+		<line class="yellowArrow" x1="201" x2="94" y1="350" y2="307"/>
+		<line class="yellowArrow" x1="207" x2="187" y1="370" y2="383"/>
+		<line class="yellowArrow" x1="133" x2="111" y1="398" y2="398"/>
+		<line class="yellowArrow" x1="249" x2="274" y1="310" y2="336"/>
+		<path class="yellowArrow" d="M55.248 305.778 C46.8036 332.444 51.248 363.556 55.6925 374.222"/>
+		<path class="yellowArrow" d="M188.581 464.444 C188.581 464.444 122.359 470.667 73.9147 420"/>
+		<path class="yellowArrow" d="M244.581 313.333 C256.137 324 259.248 332.444 253.026 337.778"/>
+		<line class="yellowArrow" x1="377" x2="267" y1="266" y2="311"/>
+		<line class="yellowArrow" x1="402" x2="402" y1="275" y2="322"/>
+		<line class="yellowArrow" x1="414" x2="436" y1="347" y2="358"/>
+		<line class="yellowArrow" x1="505" x2="518" y1="345" y2="392"/>
+		<line class="yellowArrow" x1="440" x2="511" y1="252" y2="252"/>
+		<path class="yellowArrow" d="M408.759 353.778 C421.648 359.111 422.981 367.556 424.759 380.444"/>
+		<line class="yellowArrow" x1="549" x2="543" y1="353" y2="394"/>
+		<line class="yellowArrow" x1="548" x2="548" y1="268" y2="297"/>
+		<line class="yellowArrow" x1="421" x2="467" y1="233" y2="96"/>
+		<line class="yellowArrow" x1="410" x2="410" y1="226" y2="94"/>
+		<line class="yellowArrow" x1="364" x2="485" y1="21" y2="21"/>
+		<line class="noFillRedStroke1" x1="106" x2="106" y1="26" y2="57"/>
+		<line class="noFillRedStroke1" x1="102" x2="110" y1="26" y2="26"/>
+		<line class="noFillRedStroke1" x1="171" x2="179" y1="28" y2="28"/>
+		<path class="noFillRedStroke1" d="M181.197 66.0781 C175.973 51.899 174.48 28.3915 174.48 28.3915"/>
+		<line class="noFillRedStroke1" x1="277" x2="311" y1="94" y2="152"/>
+		<line class="noFillRedStroke1" x1="273.429" x2="281.429" y1="96.4286" y2="91.4286"/>
+		<line class="noFillRedStroke1" x1="407" x2="415" y1="29" y2="29"/>
+		<line class="noFillRedStroke1" x1="411" x2="411" y1="29" y2="59"/>
+		<line class="noFillRedStroke1" x1="459" x2="467" y1="29" y2="29"/>
+		<line class="noFillRedStroke1" x1="463" x2="463" y1="29" y2="59"/>
+		<line class="noFillRedStroke1" x1="321" x2="328" y1="89" y2="86"/>
+		<line class="noFillRedStroke1" x1="325" x2="394" y1="88" y2="232"/>
+		<line class="noFillRedStroke1" x1="430" x2="473" y1="271" y2="317"/>
+		<line class="noFillRedStroke1" x1="469" x2="476" y1="320" y2="315"/>
+		<line class="noFillRedStroke1" x1="477" x2="500" y1="374" y2="404"/>
+		<line class="noFillRedStroke1" x1="497" x2="503" y1="405" y2="402"/>
+		<line class="skyBlueArrow" x1="117" x2="117" y1="225" y2="202"/>
+		<line class="skyBlueArrow" x1="141" x2="141" y1="264" y2="285"/>
+		<line class="skyBlueArrow" x1="365" x2="277" y1="251" y2="218"/>
+		<line class="skyBlueArrow" x1="311" x2="254" y1="437" y2="437"/>
+		<line class="orangeArrow" x1="386" x2="286" y1="269" y2="426"/>
+		<line class="orangeArrow" x1="277" x2="244" y1="204" y2="211"/>
+		<text class="txtWhiteBasic" transform="translate(17 -26)" x="482px" y="448px">Apoptosis</text>
+		<text class="txtWhiteBasic" transform="translate(-43 26)" x="78px" y="375px">DNA Repair</text>
+		<text class="txtWhiteBasic" transform="translate(-15.3333 12)" x="296px" y="307px">Serine 664</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 -23.3333 -44) translate(7.33333 68)" x="296px" y="307px">Serine 745</text>
+		<text class="txtBlack" x="291px" y="389px">?</text>
+		<text class="txtBlack" x="261px" y="203px">?</text>
+		<text class="txtWhiteBasic" transform="translate(-10.7143 -21.4286)" x="80px" y="49px">G1</text>
+		<text class="txtWhiteBasic" transform="translate(-6.25 -18.75)" x="216px" y="46px">S</text>
+		<text class="txtWhiteBasic" transform="translate(-2.67857 -20.5357)" x="350px" y="47px">G2</text>
+		<text class="txtWhiteBasic" transform="translate(-16.0714 -18.75)" x="522px" y="47px">M</text>
+		<text class="txtWhiteBasic" transform="matrix(1 0 0 1 90.0588 185.441) translate(-11.8644 45.7627)" x="137px" y="198px">P</text>
+	</g>
+</svg>

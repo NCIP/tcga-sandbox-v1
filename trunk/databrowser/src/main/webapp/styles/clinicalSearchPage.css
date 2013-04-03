@@ -1,0 +1,584 @@
+body{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+h1{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    margin-bottom: .3em;
+}
+
+h2{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0em;
+    margin-bottom: .5em;
+
+}
+
+h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+    color: #3e8661;
+    margin: 10px 0px 0px 10px;
+    padding: 0em;
+}
+
+a{
+    color: #113636;
+    text-decoration: underline;
+    padding-left: .5em;
+    cursor: pointer;
+}
+
+table, select, textarea, input, button{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+form{
+    float: left;
+}
+
+table{
+    vertical-align: top;
+}
+
+#contentArea{
+    margin-top: 10px;
+}
+
+#instructionsPane{
+    position: absolute;
+    top: 120px;
+    left: 22.5em;
+    height : 265px;
+    text-align: left;
+    width: 30em;
+    
+}
+
+
+#leftPane{
+    position: absolute;
+    top: 64px;
+    background-color: #E0FAE0;
+    width: 19em;
+    height : 520px
+}
+
+
+#widgetPane{
+    position: absolute;
+    left: 20em;
+    top: 64px;
+    border: .2em ridge #53AA7E;
+    padding: .5em;
+    background-color: #E0FAE0;
+    width: 43em;
+    display : none;
+    overflow-y: scroll;
+    height : 510px    
+}
+
+#clinicalParamsSet {
+    top: 880px;
+    height : 510px;
+    width: 17.5em;    
+
+}
+
+
+#geneticElementListText, #patientListText{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.clearText{
+    position: relative;
+    left: 0em;
+    top: .4em;
+}
+
+.sublist{
+    margin-left: .5em;
+}
+
+#leftPane span.checkbx{
+    display: block;
+    float: left;
+    width: 20%
+}
+
+#mutationTable{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse
+}
+
+#mutationTable td {
+    margin: 0em;
+    padding-right: 5em;
+}
+
+#leftPane span.limits{
+    position: relative;
+    right: 0em;
+}
+
+#correlation{
+    display: none;
+}
+
+#menuPane{
+    width: 65%;
+    margin: 0em;
+    left: 10em;
+    display: none;
+    top: 220em;
+}
+
+#menuPane ul{
+    list-style: none;
+    margin: 0em;
+    padding: 0em;
+    height: 2em;
+}
+
+#menuPane ul a{
+    color: black;
+    font-weight: bold;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background: #53AA7E url("../images/MK_anomaly/tab-green-left.gif") left top no-repeat;
+    text-decoration: none;
+    padding-left: 1em;
+    display: block;
+    float: left;
+}
+
+#menuPane ul a span{
+    background: url("../images/MK_anomaly/tab-green-right.gif") right top no-repeat;
+    padding: .2em;
+    padding-right: 1em;
+    display: block;
+    float: left;
+}
+
+#menuPane ul li{
+    float: left;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+#menuPane a:hover
+{
+    color: white;
+    background: #20619d url("../images/MK_anomaly/tab-green-left2.gif") left top no-repeat;
+    text-decoration: none;
+    padding-left: 1em;
+}
+
+#menuPane a:hover span
+{
+    background: url("../images/MK_anomaly/tab-green-right2.gif") right top no-repeat;
+    padding-right: 1em;
+}
+
+#menuPane ul a#tablePaneA{
+    color: white;
+    background: #53AA7E url("../images/MK_anomaly/tab-green-left2.gif") left top no-repeat;
+}
+
+#menuPane ul a span#tablePaneSpan{
+    background: url("../images/MK_anomaly/tab-green-right2.gif") right top no-repeat;
+}
+
+#menuBorder{
+    border-top: 2px solid #53AA7E;
+    left: 10em;
+    top: 220em;
+    min-width: 64%;
+    display: none;
+}
+
+#menuPane li#patientData{
+    display: none;
+}
+
+#menuPane li#graphTab{
+    display:none;
+}
+
+#directionsPane{
+    position: absolute;
+    top: 70px;
+    left: 33em;
+    min-width: 65%;
+    padding: .5em;
+    padding-left: 4em;
+    text-align: left;
+}
+
+#patientTablePane{
+    position: absolute;
+    min-width: 63%;
+    text-align: left;
+    top: 120px;        
+    margin: 0em;    
+    display: none;
+}
+
+
+#tablePane{    
+    min-width: 63%;
+    padding: .5em;
+    text-align: left;
+    padding-left: 2em;
+    bottom: 20em;
+    left: 10em;
+    display: block;
+}
+
+#scrollDivClinicalData{
+    position: absolute;
+    max-height: 10.1em;
+    overflow-y: scroll;
+    left: 4em;
+    margin-top: .4em;
+}
+
+
+
+#scrollDiv{
+    position: absolute;
+    max-height: 50.1em;
+    overflow-y: scroll;
+    left: 4em;
+    margin-top: .4em;
+}
+
+#resultsTable{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+#resultsTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+#resultsTable th{
+    font-weight: bold;
+    background-color: #E0FAE0;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+#resultsTable td.geneName{
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    color: #113636;
+    text-decoration: underline;
+}
+
+#resultsTable td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+/* todo this is almost the same as resultsTable. How to combine them? */
+table.listTable {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+table.listTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+table.listTable th{
+    font-weight: bold;
+    background-color: #E0FAE0;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+table.listTable td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    /*text-decoration:underline;*/
+    cursor: pointer;
+}
+
+/* another ugly near-repetition */
+table.listSelectTable {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+table.listTable td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+table.listTable th{
+    font-weight: bold;
+    background-color: #E0FAE0;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+table.listTable td{
+    /*border: 1px solid black;*/
+    padding: .5em;
+    text-align: center;
+    color: #446969;
+    /*text-decoration:underline;*/
+    cursor: pointer;
+}
+
+
+#downloadButton{
+    margin-left: 1em;
+}
+
+#patientPane{
+    position: absolute;
+    left: 34em;
+    min-width: 63%;
+    padding: .5em;
+    text-align: left;
+    padding-left: 4em;
+    top: 6em;
+    display:none;
+}
+
+#scrollDivPatient{
+    position: absolute;
+    max-height: 56.95em;
+    overflow-y: scroll;
+    left: 4em;
+    margin-top: .4em;
+}
+
+#resultsTablePatient{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+    margin-right: 1.5em;
+}
+
+#resultsTablePatient td.emptyCell{
+    border: none;
+    background-color: white;
+    text-decoration: none;
+}
+
+#resultsTablePatient th{
+    font-weight: bold;
+    background-color: #E0FAE0;
+    border: 1px solid black;
+    padding: .5em;
+}
+
+#resultsTablePatient td.geneName{
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    color: #113636;
+    text-decoration: underline;
+}
+
+#resultsTablePatient td{
+    border: 1px solid black;
+    padding: .5em;
+    text-align: center;;
+}
+
+#geneGraphPane{
+    display: none;
+    left: 10em;
+    min-width: 63%;
+    padding: .5em;
+    text-align: left;
+    padding-left: 4em;
+    bottom: 20em;
+}
+
+#geneExpression{
+    display: none;
+}
+
+#cn{
+    display: none;
+}
+
+#geLocation{
+    display: none;
+    margin: 5px 0px 5px 17px;
+}
+
+#gistic{
+    text-align: right;
+    margin: 5px 32px 0px 0px;
+}
+
+#mutationOption{
+    display: none;
+    margin-top: 5px;
+}
+
+#sendToLinks {
+    position: absolute;
+    border: 2px outset #446969;
+    background-color: white;
+    width: 47em;
+    padding: .5em;
+    left: 35%;
+    top: 15%;
+    z-index: 6;
+    display: none;
+}
+
+#sendToTitle {
+    display: block;
+    background-color: #ebc849;
+    width: 100%;
+    margin: 0px;
+    padding: 5px 6px 5px 5px;
+    margin: -5px 0px 0px -6px;
+    color: black;
+    font-weight: 600;
+}
+
+#closeImg{
+    position: absolute;
+    left: 508px;    
+}
+
+#sendList{
+    position: absolute;
+    left: 275px;
+    top: 7px;
+    padding: 3px;
+    z-index: 3;
+    border: 2px outset #53AA7E;
+    background-color: #ebc849;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#dim{
+    margin: -10px 0px 0px -8px;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-color: #003333;
+    opacity: .45;
+    filter:alpha(opacity=45);
+    display: none;
+}
+
+#ageWidget {
+    float: center;
+    display : none;
+}
+
+#radiationWidget {
+    float: center;
+    display : none;
+}
+
+#survivalWidget {
+    float: center;
+    display : none;
+}
+
+#tumorsiteWidget {
+    float: center;
+    display : none;
+}
+
+#genderWidget {
+    float: center;
+    display : none;
+}
+
+.anyWidget {
+    float: center;
+    display : none;
+}
+
+
+
+.portlet {
+    border: .2em ridge #53AA7F;
+    margin: 3px;
+    width: 63em;
+    height : 60px;
+
+}
+
+.portletHeader {
+    cursor: pointer;
+    background-color: #E0FAE0;
+    padding-left: .5em;
+    vertical-align: middle;
+    text-align: left;
+    height : 20px;
+}
+
+.portletBody {
+    top: 100px;
+    height : 40px
+
+}
+
+.bottomPortlet {
+    border: .2em ridge #53AA7F;
+    margin: 3px;
+    width: 63em;
+    height : 530px;
+    display : none;
+    overflow-y: scroll;    
+
+}
+
+.bottomPortletHeader {
+    cursor: pointer;
+    background-color: #E0FAE0;
+    padding-left: .5em;
+    vertical-align: middle;
+    text-align: left;
+    height : 20px;
+}
+
+.bottomPortletBody {
+    top: 100px;
+    height : 510px
+    overflow-y: scroll;    
+
+}
+
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Cross-Gene Correlations </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <link rel="stylesheet" type="text/css" href="../../../styles/correlations.css">
+
+ </HEAD>
+
+ <BODY>
+<script type="text/javascript">
+    function showTable(){
+        document.getElementById("directionsPane").style.display = 'none';
+        //if (document.getElementById("correlationType1").checked) {
+            document.getElementById("tablePane").style.display = 'block';
+//            document.getElementById("tablePane2").style.display = 'none';
+//        } else {
+//            document.getElementById("tablePane2").style.display = 'block';
+//            document.getElementById("tablePane").style.display = 'none';
+//        }
+        document.getElementById("menuPane").style.display = 'block';
+        document.getElementById("menuBorder").style.display = 'block';
+    }
+
+    function showOption(element){
+        if (element == "geLocation"){
+            document.getElementById("geneticElementLocation").checked = true;
+        }
+        document.getElementById(element).style.display = 'block';
+    }
+
+    function displaySendPanel(){
+        document.getElementById("sendToLinks").style.display = "block";
+        document.getElementById("dim").style.display = "block";
+    }
+
+    function cancelSendTo(){
+        document.getElementById("sendToLinks").style.display = "none";
+        document.getElementById("dim").style.display = "none";    
+    }
+
+//    function correlation2() {
+//        document.getElementById("geneList1").style.display = "none";
+//        document.getElementById("geneList2").style.display = "block";
+//        document.getElementById("geneList3").style.display = "block";
+//    }
+//
+//    function correlation1() {
+//        document.getElementById("geneList1").style.display = "block";
+//        document.getElementById("geneList2").style.display = "none";
+//        document.getElementById("geneList3").style.display = "none";
+//    }
+
+    
+</script>
+<div id="dim"></div>
+<div id="sendToLinks">
+    <span id="sendToTitle">Send List<img id="closeImg" src="../../../images/MK_anomaly/close_icon.gif" onclick="cancelSendTo()" alt="Click to close"></span><br>
+    Please select which page to send the patient and/or the genetic element list to:<br><br>
+    <table style="border: none;">
+        <tr>
+            <td><input type="radio" name="sendTo" checked onclick="document.getElementById('sendToGECheck').disabled = false">Pathways</td>
+            <td><input type="checkbox" checked>Patients</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = true">Clinical</td>
+            <td><input type="checkbox" id="sendToGECheck" checked>Genetic Elements</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">List Management</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">Data Acess Matrix</td>
+        </tr>
+    </table><br>
+    <form action="MK_pathwayPage.html">&nbsp;&nbsp;<button>Send</button> </form>
+    &nbsp;&nbsp;<button onclick="cancelSendTo()">Cancel</button>
+</div>
+<h3>Cross-Gene Correlations</h3>
+<div id="contentArea">
+    <div id="leftPane">
+        <div id="sendList" onclick="displaySendPanel()">
+            Send List To...
+        </div>
+        <br><br><br>
+        <fieldset>
+            <legend>Patients</legend>
+            <input type="radio" checked="checked" id="allPatients" name="patients" value="allPatients">All Patients<br>
+            <input type="radio" id="patientList" name="patients" value="patientList">Patient List<br>
+            <textarea id="patientListText" name="patientListText" cols="52" rows="5"></textarea><br>
+            <a class="clearText" onclick="clearText('patientListText', 'patientList', 'allPatients');">Clear</a><br>
+       </fieldset><br>
+       <fieldset>
+            <legend>Genes</legend>
+<!--
+            <input type="radio" checked="checked" id="allGeneticElements" name="geneticElements" value="allGeneticElements">All Genetic Elements<br>
+            <div id="geLocation"><input type="checkbox" checked>Chromosome <input type="text" size="2"> &nbsp;&nbsp;Start:<input type="text" size="3"> Stop:<input type="text" size="3"></div>
+            <input type="radio" id="geneticElementList" name="geneticElements" value="geneticElementList">Genetic Element List<br>
+-->
+<!-- need a way to calculate 3 way correlations - haven't found an algorithm so we'll take it out
+            <input id="correlationType1" type="radio" name="correlationType" checked onclick="correlation1()">A,B,C x A,B,C
+            <input id="correlationType2" type="radio" name="correlationType" onclick="correlation2()">A,B x C,D<br>
+-->
+            <textarea id="geneList1" cols="52" rows="5">p53, EGFR, PDGFR, VEGFR</textarea><br>
+<!--
+            <textarea id="geneList2" cols="52" rows="1" style="display: none;">p53, EGFR</textarea><br>
+            <textarea id="geneList3" cols="52" rows="3" style="display: none;">PDGFR, VEGFR</textarea>
+-->
+            <a class="clearText">Clear</a><br>
+       </fieldset><br>
+
+<!--        <h1>Correlations</h1>  -->
+<div id="genelistTabs">
+
+<!--
+<h1>Correlations</h1>
+<ul>
+	<li id="CorrelateAllByAllA" onclick="switchMenu('CorrelateAllByAll','CorrelateSomeBySome')"><a>a,b,c X a,b,c</a></li>
+	<li id="CorrelateSomeBySomeA" onclick="switchMenu('CorrelateSomeBySome','CorrelateAllByAll')"><a>a,b X c,d</a></li>
+</ul>
+-->
+</div>
+
+    <div class="sublist">
+        <select>
+            <option>Copy Number</option>
+            <option>Gene Expression</option>
+            <option>Mutations</option>
+        </select>
+        &
+        <select>
+            <option>Copy Number</option>
+            <option>Gene Expression</option>
+            <option>Mutations</option>
+        </select>
+        <a onclick="showOption('correlation');">Add</a><br><br>
+        <div id="correlation">
+            <span><input type="checkbox" checked=checked name="copyExp" value="copyExp">CN/Gene Expression</span>
+        </div>
+        <br>
+    </div>
+    <button id="retrieveButton" onclick="showTable();" >Search</button>
+</div>
+        
+
+    </div>
+    <div id="directionsPane">
+        Maybe here we can have directions on how to use the panel to the left.<br>
+        When users click the 'Search' button, this will disappear.
+    </div>
+    <div id="menuPane">
+        <ul>
+            <li><a id="tablePaneA" onclick="switchMenu('tablePane', 'geneGraphPane', 'patientPane');"><span id="tablePaneSpan">Correlations</span></a></li>
+            <li id="graphTab"><a id="geneGraphPaneA" onclick="switchMenu('geneGraphPane', 'tablePane','patientPane');"><span id="geneGraphPaneSpan">Anomaly Summary Graph</span></a></li>
+            <li id="patientData"><a id="patientPaneA" onclick="switchMenu('patientPane', 'tablePane', 'geneGraphPane');"><span id="patientPaneSpan">ARF1 Patients</span></a></li>
+        </ul>
+    </div>
+    <div id="menuBorder"></div>
+    <div id="tablePane" class="tablePane">
+         <div class="scrollDiv">
+            <table class="resultsTable">
+                <tr>
+                    <th></th>
+                    <th>p53 Exp</th>
+                    <th>EGFR Exp</th>
+                    <th>PDGFR Exp</th>
+                    <th>VEGFR Exp</th>
+                </tr>
+                <tr>
+                    <td class="geneName">p53 CN</td>
+                    <td>.03</td>
+                    <td>.34</td>
+                    <td>.25</td>
+                    <td>-.36</td>
+                </tr>
+                <tr>
+                    <td class="geneName">EGFR CN</td>
+                    <td>.16</td>
+                    <td>-.24</td>
+                    <td>-.15</td>
+                    <td>.14</td>
+                </tr>
+                <tr>
+                    <td class="geneName">PDGFR CN</td>
+                    <td>.53</td>
+                    <td>.24</td>
+                    <td>-.14</td>
+                    <td>.02</td>
+                </tr>
+                <tr>
+                    <td class="geneName">VEGFR CN</td>
+                    <td>.43</td>
+                    <td>-.25</td>
+                    <td>.31</td>
+                    <td>.05</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+ </BODY>
+</HTML>

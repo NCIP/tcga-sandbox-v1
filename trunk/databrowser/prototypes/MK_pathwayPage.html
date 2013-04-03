@@ -1,0 +1,682 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Pathway Search</TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <link rel="stylesheet" type="text/css" href="../../../styles/pathwayPage.css">
+
+
+ </HEAD>
+
+ <BODY>
+<script type="text/javascript">
+    function clearText(textBox, list, all){
+        document.getElementById(textBox).value = "";
+        document.getElementById(list).checked = false;
+        document.getElementById(all).checked = true;
+    }
+
+    function addToGeneList(geneName){
+        document.getElementById("allGeneticElements").checked = false;
+        document.getElementById("geneticElementList").checked = true;
+        if (document.getElementById("geneticElementListText").value == "") {
+            document.getElementById("geneticElementListText").value = geneName;
+        }
+        else {
+            document.getElementById("geneticElementListText").value += ", " + geneName;
+        }
+
+    }
+
+    function showTable(){
+        document.getElementById("directionsPane").style.display = 'none';
+        document.getElementById("tablePane").style.display = 'block';
+        document.getElementById("menuPane").style.display = 'block';
+        document.getElementById("menuBorder").style.display = 'block';
+    }
+
+    function showCorrelation(){
+        document.getElementById("correlation").style.display = 'block';
+    }
+
+    function switchMenu(selectedItem, unselectedItem1, unselectedItem2){
+        var selectedItemA = selectedItem + "A";
+        var selectedItemSpan = selectedItem + "Span";
+
+        var unselectedItem1A = unselectedItem1 + "A";
+        var unselectedItem1Span = unselectedItem1 + "Span";
+
+        var unselectedItem2A = unselectedItem2 + "A";
+        var unselectedItem2Span = unselectedItem2 + "Span";
+
+        document.getElementById(selectedItemA).style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById(selectedItemA).style.color = 'white';
+        document.getElementById(selectedItemSpan).style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem1A).style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem1A).style.color = 'black';
+        document.getElementById(unselectedItem1Span).style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById(unselectedItem2A).style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById(unselectedItem2A).style.color = 'black';
+        document.getElementById(unselectedItem2Span).style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById(selectedItem).style.display = 'block';
+        document.getElementById(unselectedItem1).style.display = 'none';
+        document.getElementById(unselectedItem2).style.display = 'none';
+    }
+
+    function displayTab(){
+
+    }
+
+    function showGraphTab(){
+        document.getElementById("graphTab").style.display = 'block';
+        document.getElementById("geneGraphPane").style.display = 'block';
+        document.getElementById("tablePane").style.display = 'none';
+
+        document.getElementById("geneGraphPaneA").style.background = '#20619d url("../../../images/MK_anomaly/tab-blue-left2.gif") left top no-repeat';
+        document.getElementById("geneGraphPaneA").style.color = 'white';
+        document.getElementById("geneGraphPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right2.gif") right top no-repeat';
+
+        document.getElementById("patientPaneA").style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById("patientPaneA").style.color = 'black';
+        document.getElementById("patientPaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+
+        document.getElementById("tablePaneA").style.background = '#ddddee url("../../../images/MK_anomaly/tab-blue-left.gif") left top no-repeat';
+        document.getElementById("tablePaneA").style.color = 'black';
+        document.getElementById("tablePaneSpan").style.background = 'url("../../../images/MK_anomaly/tab-blue-right.gif") right top no-repeat';
+    }
+
+//    function showData(lessThan, greaterThan){
+//        document.getElementById(lessThan).value = "0.5";
+//        document.getElementById(greaterThan).value = "2";
+//    }
+
+    function showData(lessThan, greaterThan){
+        var lessThanSelect = lessThan + "Select";
+        var greaterThanSelect = greaterThan + "Select";
+
+        document.getElementById(lessThan).value = "0.5";
+        document.getElementById(greaterThan).value = "2";
+
+        document.getElementById(lessThan).disabled = false;
+        document.getElementById(greaterThan).disabled = false;
+        document.getElementById(lessThanSelect).disabled = false;
+        document.getElementById(greaterThanSelect).disabled = false;
+
+    }
+
+    function copyGenesToSearch() {
+        document.getElementById("allGeneticElements").checked = false;
+        document.getElementById("geneticElementList").checked = true;
+        var table = document.getElementById("pathwayGeneTable");
+        var s = "";
+        for (var i=1; i<table.rows.length; i++) {
+            if (i > 1) s += ", ";
+            var gene = table.rows[i].cells[1].innerHTML;
+            if (gene.indexOf("(") >= 0) {
+                gene = gene.substring(0, gene.indexOf("(")-1);
+            }
+            s += gene;
+        }
+        var geTextbox = document.getElementById("geneticElementListText");
+        var list = geTextbox.value;
+        if (list != undefined && list.length > 0) list += ",";
+        list += s;
+        geTextbox.value = list;
+    }
+
+    function checkUnCheckAll(){
+        var table = document.getElementById("pathwayGeneTable");
+        var isChecked = true;
+        if (document.getElementById("checkAll").checked == false){
+            isChecked = false;
+        }
+
+        for (var row=1; row<table.rows.length; row++){
+            if(isChecked){
+                table.rows[row].cells[0].innerHTML = "<input type='checkbox' checked>";
+            }
+            else{
+                table.rows[row].cells[0].innerHTML = "<input type='checkbox'>";
+            }
+        }
+    }
+
+    function removeLimits(){
+        document.getElementById("244KHMSLimit1").value = "";
+        document.getElementById("244KHMSLimit2").value = "";
+    }
+
+    function addLimits(){
+        document.getElementById("244KHMSLimit1").value = "0.5";
+        document.getElementById("244KHMSLimit2").value = "2";
+    }
+    
+    function showOption(element){
+        if (element == "geLocation"){
+            document.getElementById("geneticElementLocation").checked = true;    
+        }
+        document.getElementById(element).style.display = 'block';
+    }
+    function displaySendPanel(){
+        document.getElementById("sendToLinks").style.display = "block";
+        document.getElementById("dim").style.display = "block";
+    }
+
+    function cancelSendTo(){
+        document.getElementById("sendToLinks").style.display = "none";
+        document.getElementById("dim").style.display = "none";
+    }
+</script>
+<div id="dim"></div>
+<div id="sendToLinks">
+    <span id="sendToTitle">Send List<img id="closeImg" src="../../../images/MK_anomaly/close_icon.gif" onclick="cancelSendTo()" alt="Click to close"></span><br>
+    Please select which page to send the patient and/or the genetic element list to:<br><br>
+    <table style="border: none;">
+        <tr>
+            <td><input type="radio" name="sendTo" checked onclick="document.getElementById('sendToGECheck').disabled = false">Pathways</td>
+            <td><input type="checkbox" checked>Patients</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = true">Clinical</td>
+            <td><input type="checkbox" id="sendToGECheck" checked>Genetic Elements</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">List Management</td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="sendTo" onclick="document.getElementById('sendToGECheck').disabled = false">Data Acess Matrix</td>
+        </tr>
+    </table><br>
+    <form action="MK_clinicalPage.html">&nbsp;&nbsp;<button>Send</button> </form>
+    &nbsp;&nbsp;<button onclick="cancelSendTo()">Cancel</button>
+</div>
+<h3>Pathways Search</h3>
+<div id="contentArea">
+    <div id="leftPane">
+<!--
+        <h1>List Results By</h1>
+        <div class="sublist">
+            <input type="radio" checked="checked" name="searchBy" value="allGeneticElements">Genetic Element
+            <input type="radio" name="searchBy" value="geneticElementList">Patient<br><br>
+        </div>
+-->
+        <div id="sendList" onclick="displaySendPanel()">
+            Send List To...
+        </div>
+        <br><br> 
+        <fieldset>
+            <legend>Patients</legend>
+            <input type="radio" id="allPatients" name="patients" value="allPatients">All Patients<br>
+            <input type="radio" checked="checked" id="patientList" name="patients" value="patientList">Patient List<br>
+            <textarea id="patientListText" name="patientListText" cols="47" rows="5">TCGA-02-0001, TCGA-02-0003, TCGA-04-0008, TCGA-06-0012, TCGA-08-0002, TCGA-08-0016, TCGA-09-0011</textarea><br>
+            <a class="clearText" onclick="clearText('patientListText', 'patientList', 'allPatients');">Clear</a><br>
+       </fieldset><br>
+       <fieldset>
+            <legend>Genetic Elements</legend>
+            <input type="radio" checked="checked" id="allGeneticElements" name="geneticElements" value="allGeneticElements">All Genetic Elements<br>
+            <input type="radio" id="geneticElementLocation" name="geneticElements">Gentic Element Region <a onclick="showOption('geLocation')">Add</a><br>
+            <div id="geLocation"><input type="checkbox" checked>Chromosome <input type="text" size="2"> &nbsp;&nbsp;Start:<input type="text" size="3"> Stop:<input type="text" size="3"></div>
+            <input type="radio" id="geneticElementList" name="geneticElements" value="geneticElementList">Genetic Element List<br>
+            <textarea id="geneticElementListText" name="geneticElementListText" cols="47" rows="5"></textarea><br>
+            <a class="clearText" onclick="clearText('geneticElementListText', 'geneticElementList', 'allGeneticElements');">Clear</a><br>
+       </fieldset><br>
+
+        <h1>Copy Number (Limit: Copies)</h1>
+        <div class="sublist">
+            <select>
+                <option>Agilent 224K HMS</option>
+                <option>Agilent 244K MSKCC</option>
+            </select>
+            <a onclick="showOption('cn')" > Add</a><br>
+            <div id="cn">
+                <br>
+                <span class="checkbx"><input onclick="showData('244KHMSLimit1', '244KHMSLimit2');" checked type="checkbox" name="244KHMS" value="244KHMS">Agilent 244K HMS</span>
+                <span class="limits">
+                    <select id="244KHMSLimit1Select">
+                        <option><=</option>
+                        <option><</option>
+                        <option>>=</option>
+                        <option>></option>
+                    </select>
+                    <input type="text" id="244KHMSLimit1" name="244KHMSLimit" size="2" value="0.5" > or
+                    <select id="244KHMSLimit2Select">
+                        <option>>=</option>
+                        <option>></option>
+                        <option><=</option>
+                        <option><</option>
+                    </select>
+                    <input type="text" id="244KHMSLimit2" name="244KHMSLimit" size="2" value="2" >
+                </span><br>
+                <div id="gistic"><input checked type="radio" name="gistic" onclick="addLimits()">Copy Number <input type="radio" name="gistic" onclick="removeLimits()">GISTIC</div>
+            </div><br>
+            <!--<span class="checkbx"><input type="checkbox" name="244KMSKCC" value="244KMSKCC">Agilent 244K MSKCC</span>-->
+            <!--<span class="limits">-->
+                <!--<select disabled>-->
+                    <!--<option><=</option>-->
+                    <!--<option><</option>-->
+                    <!--<option>>=</option>-->
+                    <!--<option>></option>-->
+                <!--</select>-->
+                <!--<input disabled type="text" name="244KHMSLimit" size="2"> or-->
+                <!--<select disabled>-->
+                    <!--<option>>=</option>-->
+                    <!--<option>></option>-->
+                    <!--<option><=</option>-->
+                    <!--<option><</option>-->
+                <!--</select>-->
+                <!--<input disabled type="text" name="244KHMSLimit" size="2">-->
+            <!--</span><br><br>-->
+        </div>
+
+        <h1>Gene Expression (Limit: Fold Ratio)</h1>
+        <div class="sublist">
+            <select>
+                <option>Affymetrix U133 Broad</option>
+                <option>Agilent UNC</option>
+            </select>
+            <a onclick="showOption('geneExpression')"> Add</a>
+            <div id="geneExpression">
+                <br>
+                <span class="checkbx"><input type="checkbox" checked name="U133Broad" value="U133Broad">Agilent UNC</span>
+                <span class="limits">
+                    <select>
+                        <option><=</option>
+                        <option><</option>
+                        <option>>=</option>
+                        <option>></option>
+                    </select>
+                    <input type="text" name="244KHMSLimit" size="2" value="0.5"> or
+                    <select>
+                        <option>>=</option>
+                        <option>></option>
+                        <option><=</option>
+                        <option><</option>
+                    </select>
+                    <input type="text" name="244KHMSLimit" size="2" value="2">
+                </span>
+            </div>
+            <!--<span class="checkbx"><input onclick="showData('UNCAligentLimit1', 'UNCAligentLimit2');" type="checkbox" name="UNCAligent" value="UNCAligent">Agilent UNC</span>-->
+            <!--<span class="limits">-->
+                <!--<select id="UNCAligentLimit1Select" disabled>-->
+                    <!--<option><=</option>-->
+                    <!--<option><</option>-->
+                    <!--<option>>=</option>-->
+                    <!--<option>></option>-->
+                <!--</select>-->
+                <!--<input disabled type="text" id="UNCAligentLimit1" name="244KHMSLimit" size="2"> or-->
+                <!--<select id="UNCAligentLimit2Select" disabled>-->
+                    <!--<option>>=</option>-->
+                    <!--<option>></option>-->
+                    <!--<option><=</option>-->
+                    <!--<option><</option>-->
+               <!--</select>-->
+                <!--<input disabled type="text" id="UNCAligentLimit2" name="244KHMSLimit" size="2">-->
+            <!--</span><br><br>-->
+        </div><br>
+
+        <h1>Validated Somatic Mutations</h1>
+        <div class="sublist">
+            <select>
+                <option>Missense</option>
+                <option>Nonsense</option>
+                <option>Frameshift</option>
+                <option>Splice Site</option>
+                <option>Any Non-Silent</option>
+                <option>Silent</option>
+            </select>
+            <a onclick="showOption('mutationOption')">Add</a>
+            <div id="mutationOption"><input type="checkbox" checked>Frameshift</div>
+            <!--<table id=mutationTable>-->
+                <!--<tr>-->
+                    <!--<td><input onclick="enableMutationOptions('missenseSelect');" type="checkbox" name="missense" value="missense">Missense</td>-->
+                    <!--<td><input onclick="enableMutationOptions('nonsenseSelect');" type="checkbox" name="missense" value="missense">Nonsense</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><input onclick="enableMutationOptions('frameSelect');" type="checkbox" name="missense" value="missense">Frameshift</td>-->
+                    <!--<td><input onclick="enableMutationOptions('spliceSelect');" type="checkbox" name="missense" value="missense">Splice Site</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><input onclick="enableMutationOptions('nonsilentSelect');" type="checkbox" name="missense" value="missense">Any Non-Silent</td>-->
+                    <!--<td><input onclick="enableMutationOptions('silentSelect');" type="checkbox" name="missense" value="missense">Silent</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        </div>
+        <br><hr>
+        <h1>Correlations</h1>
+        <div class="sublist">
+            <select>
+                <option>Copy Number</option>
+                <option>Gene Expression</option>
+                <option>Mutations</option>
+            </select>
+            &
+            <select>
+                <option>Copy Number</option>
+                <option selected>Gene Expression</option>
+                <option>Mutations</option>
+            </select>
+            <a onclick="showOption('correlation');">Add</a><br><br>
+            <div id="correlation">
+                <span><input type="checkbox" checked=checked name="copyExp" value="copyExp">CN/Gene Expression</span>
+<!--
+                <span class="limits">
+                    <select>
+                        <option><</option>
+                        <option><=</option>
+                        <option>></option>
+                        <option>>=</option>
+                    </select>
+                    <input type="text" name="244KHMSLimit" size="2">
+                    <select>
+                        <option>></option>
+                        <option>>=</option>
+                        <option><</option>
+                        <option><=</option>
+                    </select>
+                    <input type="text" name="244KHMSLimit" size="2">
+                </span>
+-->
+            </div>
+            <br>
+        </div>
+        <button id="retrieveButton" onclick="showTable();" >Search</button>
+    </div>
+    <div id="directionsPane">
+        Maybe here we can have directions on how to use the panel to the left.<br>
+        When users click the 'Retrieve Results' button, this will disappear.
+    </div>
+
+
+    <div id="menuPane">
+        <ul>
+            <li><a id="tablePaneA" onclick="switchMenu('tablePane', 'geneGraphPane', 'patientPane');"><span id="tablePaneSpan">Pathways</span></a></li>
+            <li id="graphTab"><a id="geneGraphPaneA" onclick="switchMenu('geneGraphPane', 'tablePane','patientPane');"><span id="geneGraphPaneSpan">Argin in Postsynaptic Differentiation</span></a></li>
+            <li id="patientData"><a id="patientPaneA" onclick="switchMenu('patientPane', 'tablePane', 'geneGraphPane');"><span id="patientPaneSpan">Pathway Detail</span></a></li>
+        </ul>
+    </div>
+    <div id="menuBorder"></div>
+
+
+    <div id="tablePane">
+        <h2>Pathways Summary Data</h2>
+        <br>
+<!--
+        <a>Pathway Page</a> <a>Clinical Data Page</a> <a>List Management Page</a> <a>Data Access Matrix</a>
+-->
+        <a>Download Table</a><br><br>
+        <input type="radio" name="howToSummarize" checked>Ratio of Genes Affected
+        <input type="radio" name="howToSummarize">Percentage of Genes Affected<br><br>
+        
+        <div id="scrollDiv">
+            <table class="resultsTable">
+                <tr>
+                    <th>Pathway <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                    <th>Genes Affected <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                    <th>Agilent 244K HMS <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                    <th>Agilent UNC <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                    <!--<th>CN/Gene Expression <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>-->
+                </tr>
+                <tr>
+                    <td class="geneName" onclick="showGraphTab()"><a>Agrin in Postsynaptic Differentiation</a></td>
+                    <td>6/50</td>
+                    <td>3/50</td>
+                    <td>4/50</td>
+                    <!--<td>.43</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Alternative Complement Pathway</a></td>
+                    <td>5/23</td>
+                    <td>2/23</td>
+                    <td>3/23</td>
+                    <!--<td>.73</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>B Cell Receptor Complex</a></td>
+                    <td>7/104</td>
+                    <td>4/104</td>
+                    <td>5/104</td>
+                    <!--<td>.26</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Bioactive Peptide Induced Signaling Pathway</a></td>
+                    <td>6/41</td>
+                    <td>2/41</td>
+                    <td>4/41</td>
+                    <!--<td>.48</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>CTL Mediated Immune Response Against Target Cells</a></td>
+                    <td>3/75</td>
+                    <td>1/75</td>
+                    <td>3/75</td>
+                    <!--<td>.67</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>CXCR4 Signaling Pathway</a></td>
+                    <td>2/83</td>
+                    <td>0/83</td>
+                    <td>2/83</td>
+                    <!--<td>.28</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Catabolic Pathways for Methionine, Isoleucine, Threonine and Valine</a></td>
+                    <td>5/92</td>
+                    <td>3/92</td>
+                    <td>2/92</td>
+                    <!--<td>.25</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Chaperones Modulate Interferon Signaling Pathway</a></td>
+                    <td>8/55</td>
+                    <td>2/55</td>
+                    <td>6/55</td>
+                    <!--<td>.43</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Control of Gene Expression by Vitamin D Receptor</a></td>
+                    <td>7/30</td>
+                    <td>2/30</td>
+                    <td>6/30</td>
+                    <!--<td>.73</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Degradation of the RAR and RXR by the Proteasome</a></td>
+                    <td>5/78</td>
+                    <td>4/78</td>
+                    <td>2/78</td>
+                    <!--<td>.26</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Effects of calcineurin in Keratinocyte Differentiation</a></td>
+                    <td>7/43</td>
+                    <td>3/43</td>
+                    <td>4/43</td>
+                    <!--<td>.48</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Erythropoietin Induced Differentiation</a></td>
+                    <td>9/111</td>
+                    <td>2/111</td>
+                    <td>7/111</td>
+                    <!--<td>.67</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>FOSB Gene Expression and Drug Abuse</a></td>
+                    <td>7/94</td>
+                    <td>1/94</td>
+                    <td>6/94</td>
+                    <!--<td>.28</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Fibrinolysis Pathway</a></td>
+                    <td>8/48</td>
+                    <td>4/48</td>
+                    <td>6/48</td>
+                    <!--<td>.25</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>HIV Induced T Cell Apoptosis</a></td>
+                    <td>9/27</td>
+                    <td>5/27</td>
+                    <td>4/27</td>
+                    <!--<td>.43</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Hypoxia-Inducible Factor in the Cardiovascular System</a></td>
+                    <td>3/120</td>
+                    <td>1/120</td>
+                    <td>3/120</td>
+                    <!--<td>.67</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>IL-10 Anti-inflammatory Signaling Pathway</a></td>
+                    <td>5/77</td>
+                    <td>2/77</td>
+                    <td>3/77</td>
+                    <!--<td>.73</td>-->
+                </tr>
+                <tr>
+                    <td class="geneName"><a>Inhibition of Matrix Metalloproteinases</a></td>
+                    <td>2/99</td>
+                    <td>2/99</td>
+                    <td>0/99</td>
+                    <!--<td>.48</td>-->
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="geneGraphPane">
+        <h2>Agrin in Postsynaptic Differentiation</h2>
+        <br>
+        <table id="highlightTable">
+            <tr>
+                <th style="width: 100px">Highlight By</th>
+                <td><input type="checkbox" id="mutated" name="mutated" value="true" checked>Agilent 244K HMS</td>
+                <td><input type="checkbox" id="amplified" name="amplified" value="true" checked>Agilent UNC </td>
+                <td><input type="checkbox" id="deleted" name="deleted" value="true" checked>CN/Gene Expression</td>
+            </tr>
+            <tr>
+                <th>Threshold %</th>
+                <td>
+                    <input id="mutationThreshold" name="mutationThreshold" type="texbox" size="10" value="5" />
+                </td>
+                 <td>
+                    <input id="amplificationThreshold" name="amplificationThreshold" type="texbox" size="10" value="10" />
+                </td>
+                 <td>
+                    <input id="deletionThreshold" name="deletionThreshold" type="texbox" size="10" value="10" />
+                </td>
+            </tr>
+        </table>
+        <button id="redrawButton">Redraw Image</button> <br>
+        <img id="pathwayImage" src="../../../images/agrin.jpg" alt="agrin.jpg" />
+
+        <br><br>
+        <h2>Genes for Pathway</h2>
+        <br>
+        Copy<a onclick="copyGenesToSearch()">Genetic Elements</a> to Search&nbsp;&nbsp;&nbsp;<a>Download Table</a><br><br>
+        Results as
+        <input type="radio" name="resultsType" checked="checked" value="percentages" onclick="resultsAsPercentages();">Percentages
+        <input type="radio" name="resultsType" value="Ratios" onclick="resultsAsRatios();">Ratios(affected patients over total patients)
+
+        <!-- <img id="tableLoaderImage" src="/tcga-portal/images/ajax-loader.gif"> -->
+        <br><br>
+        <table class="resultsTable" id="pathwayGeneTable">
+            <tr>
+                <th><input id="checkAll" type="checkbox" onclick="checkUnCheckAll()" checked></th>
+                <th>Gene <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                <th>Agilent 244K HMS <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                <th>Agilent UNC <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+                <th>CN/Gene Expression <img src="../../../images/MK_anomaly/arrow-down.gif" alt="Click to sort"></th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">ACTA1 (alpha actin)</td>
+                <td onclick="createNewTab();">25%</td>
+                <td>35%</td>
+                <td>.43</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">ARHGEF6 (arhgef6)</td>
+                <td>33%</td>
+                <td>56%</td>
+                <td>.73</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">CDC42 (cdc42)</td>
+                <td>94%</td>
+                <td>23%</td>
+                <td>.26</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">CHRM1 (achr)</td>
+                <td>83%</td>
+                <td>38%</td>
+                <td>.48</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">CTTN (ems1)</td>
+                <td>58%</td>
+                <td>3%</td>
+                <td>.67</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">DAG1 (dag1)</td>
+                <td>12%</td>
+                <td>66%</td>
+                <td>.28</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">DMD (dmd)</td>
+                <td>73%</td>
+                <td>58%</td>
+                <td>.25</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">ARF1</td>
+                <td onclick="createNewTab();">25%</td>
+                <td>35%</td>
+                <td>.43</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">DVL1 (dvl1)</td>
+                <td>33%</td>
+                <td>56%</td>
+                <td>.73</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">EGFR (egfr)</td>
+                <td>94%</td>
+                <td>23%</td>
+                <td>.26</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td class="geneName">GIT2 (git2)</td>
+                <td>83%</td>
+                <td>38%</td>
+                <td>.48</td>
+            </tr>
+        </table>
+        <br><br>
+    </div>
+</div>
+ </BODY>
+</HTML>

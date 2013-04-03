@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+		<artifactId>tcga-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>databrowser</artifactId>
+    <packaging>war</packaging>
+    <name>Data Browser</name>
+    <description />
+    <scm>
+		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/databrowser/trunk</connection>
+		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/databrowser/trunk</developerConnection>
+		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/databrowser/trunk</url>
+	</scm>
+	<properties>
+		<!-- List of allowable redirect paths for this application separated by a vertical bar '|' with no spaces.
+   	     For example: foo|bar|crawl -->
+		<allowable.redirect.paths>tcga-portal</allowable.redirect.paths>
+        <gwt.style>DETAILED</gwt.style>
+        <gwt.version>1.5.3</gwt.version>
+    </properties>
+    <!--#############################################################################################################################################################################
+
+        To run a full build for the databrowser project, including all unit tests, execute the following command from the 'databrowser' project directory:
+
+           mvn -Denv=<build-for-env> -Dprops.loc='<properties-file-path>' -Dgwt.os.version=<linux | windows> clean install
+
+        where <build-for-env> is either local, dev, prod, qa, or stage, and <properties-file-path> is the path to the
+        databrowser.properties file that should be replaced in the "applicationContext-jdbc.xml" file.
+        For example:
+
+            ... -Denv=dev -Dprops.loc='C:\\dev\\jboss-4.0.5.GA\\server\\default\\conf' ...
+
+        To run a full build and generate HTML unit test reports, include the "site" goal:
+
+           mvn -Denv=<build_for_env> -Dprops.loc='<properties-file-path>' clean install site
+
+        Note that specifying the "site" goal will run the unit tests twice, which may not be desirable when only a
+        unit test report is required. To generate only the unit test report(s), use the "surefire-report:report-only"
+        goal instead of "site".
+        
+        To run just the unit tests and generate an HTML report, execute the following command:
+        
+           mvn clean site
+        
+        To run just slow or fast tests, provide the '-Dtest=' argument:
+        
+           mvn -Dtest=*FastTest clean site
+          
+           OR
+          
+           mvn -Dtest=*SlowTest clean site
+
+    ##############################################################################################################################################################################-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                        	<goal>compile</goal>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                             <extraJvmArgs>-Xms1024M -Xmx1024M -Djava.awt.headless=true</extraJvmArgs>
+                             <module>gov.nih.nci.ncicb.tcgaportal.level4.gwt.anomalysearch.AnomalySearch</module>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                	<!-- <additionalClasspathElements>
+                		<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+                		<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+               		</additionalClasspathElements> -->
+               		<excludes>
+               			<exclude>**/CopyNumberDisplayFastTest.java</exclude>
+               			<exclude>**/CopyNumberWidgetFastTest.java</exclude>
+               			<exclude>**/CorrelationDisplayFastTest.java</exclude>
+               			<exclude>**/CorrelationWidgetFastTest.java</exclude>
+               			<exclude>**/MutationDisplayFastTest.java</exclude>
+               			<exclude>**/MutationWidgetFastTest.java</exclude>
+               			<exclude>**/NonMutationAnomalyWidgetFastTest.java</exclude>
+               			<exclude>**/PagingWidgetFastTest.java</exclude>
+               			<exclude>**/RegionWidgetFastTest.java</exclude>
+               			<exclude>**/ResultTableGeneFastTest.java</exclude>
+               			<exclude>**/DataBrowserConstantsFastTest.java</exclude>
+               		</excludes>
+              	</configuration>
+            </plugin>
+			<!-- Bind the "war:exploded" goal to the "prepare-package" phase so that other plugins can access and
+                 process build artifacts before they are packaged into the final WAR archive. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>explode-databrowser-war</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                	<webResources>
+                		<resource>
+                			<directory>src/main/resources</directory>
+                			<includes>
+                				<include>**/level4_tooltips.txt</include>
+                			</includes>
+                		</resource>
+                	</webResources>
+					<overlays>
+						<overlay>
+							<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+							<artifactId>common-web</artifactId>
+							<filtered>true</filtered>
+							<excludes>
+								<exclude>**/Charts/**</exclude>
+							</excludes>
+						</overlay>
+					</overlays>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <executions>
+                    <!-- Bind the replacer plugin to the prepare-package phase so that the tokens specified below get
+                         replaced in the specified file(s).
+                     -->
+                    <execution>
+                        <id>replace-properties-path</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>target/${project.build.finalName}/WEB-INF/applicationContext-jdbc.xml</file>
+                            <replacements>
+                                <replacement>
+                                    <token>@DATABROWSER.PROPERTIES</token>
+                                    <value>${props.loc}/databrowser.properties</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <!-- Bind the assembly of the databrowser distribution to the package phase, so that
+                     the deployed artifacts for databrowser get automatically created when the
+                     "mvn install" or "mvn package" goals are executed. -->
+                <executions>
+                    <execution>
+                        <id>assemble-databrowser-distro</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/src.xml</descriptor>
+                            </descriptors>
+                            <filters>
+                                <filter>${project.basedir}/src/main/assembly/common-filter-values.properties</filter>
+                                <filter>${project.basedir}/src/main/assembly/${env}-filter-values.properties</filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-maven-plugin</artifactId>
+				<configuration>
+					<fileNames>
+						<fileName>${project.build.directory}/${project.build.finalName}-distribution/${project.artifactId}/tcga-portal.${project.packaging}</fileName>
+					</fileNames>
+				</configuration>
+			</plugin>
+        </plugins>
+        <resources>
+            <!-- Uncomment this resource definition when non-class files (.properties, .xml, etc.) exist within the source
+                 package structure that should be copied to the target/classes (${project.build.outputDirectory})
+                 directory during compilation. These resources will then be available on classpath during unit test
+                 execution and will be packaged up as part of the final build artifact(s) (JAR, WAR, EAR, etc.). -->
+            <resource>
+                <directory>src/main/java/gov</directory>
+                <targetPath>gov</targetPath>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>databrowser.properties</exclude>
+                    <exclude>databrowser-local.properties</exclude>
+                    <exclude>level4_tooltips.txt</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+        	<testResource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                	<include>**/level4_tooltips.txt</include>
+                </includes>
+            </testResource>
+        	<testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                	<include>**/databrowserDbunitTest.properties</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                	<exclude>**/databrowserDbunitTest.properties</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+    </build>
+    <dependencies>
+        <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-junit4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>1.7</version>
+			<exclusions>
+            	<exclusion>
+            		<groupId>xml-apis</groupId>
+            		<artifactId>xml-apis</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>distlib</groupId>
+            <artifactId>distlib</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.xmlbeans</groupId>
+					<artifactId>xmlbeans</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+			<artifactId>common-web</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>war</type>
+			<scope>provided</scope>
+		</dependency>
+    </dependencies>
+</project>

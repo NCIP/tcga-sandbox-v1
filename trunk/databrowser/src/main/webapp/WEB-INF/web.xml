@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" >
+
+	<display-name>TCGA Data Browser</display-name>
+
+	<description>TCGA Data Browser</description>
+
+	<!--
+	  - Key of the system property that should specify the root directory of this
+	  - web app. Applied by WebAppRootListener or Log4jConfigListener.
+	  -->
+<!-- needed?
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>tcgaportal.root</param-value>
+	</context-param>
+-->
+	<!--
+	  - Location of the Log4J config file, for initialization and refresh checks.
+	  - Applied by Log4jConfigListener.
+	  -->
+<!-- needed?
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+-->
+
+	<!--
+	  - Location of the XML file that defines the root application context.
+	  - Applied by ContextLoaderServlet.
+		-
+		- Can be set to "/WEB-INF/applicationContext-hibernate.xml" for the Hibernate
+		- implementation, "/WEB-INF/applicationContext-ojb.xml" for the Apache OJB one,
+		- "/WEB-INF/applicationContext-toplink.xml" for the Oracle TopLink one,
+		- "/WEB-INF/applicationContext-jpa.xml" for the JPA one,
+		- or "/WEB-INF/applicationContext-jdbc.xml" for the JDBC one.
+	  -->
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+
+        <param-value>/WEB-INF/applicationContext-jdbc.xml</param-value>
+    </context-param>
+
+	<filter>
+		<display-name>Security Filter</display-name>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>allowableResourcesRoot</param-name>
+			<param-value>/</param-value>
+		</init-param>
+		
+		<!-- The following initialization parameters are optional. -->
+		
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>paramValueMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>queryStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>uriStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- If not provided, default is java.lang.Integer.MAX_VALUE (2^31 - 1). -->
+		<init-param>
+		    <param-name>urlStringMaxLength</param-name>
+		    <param-value>4000</param-value>
+		</init-param>
+		<!-- Boolean indicating whether or not to bypass the default HTTP 
+			 response status code (200 OK) provided by the ESAPI security 
+			 framework and allow status codes set by the container to pass
+			 through. -->
+		<init-param>
+			<param-name>bypassDefaultResponseStatusCode</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+ 
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!--
+	  - Configures Log4J for this web app.
+	  - As this context specifies a context-param "log4jConfigLocation", its file path
+	  - is used to load the Log4J configuration, including periodic refresh checks.
+	  -
+	  - Would fall back to default Log4J initialization (non-refreshing) if no special
+	  - context-params are given.
+	  -
+	  - Exports a "web app root key", i.e. a system property that specifies the root
+	  - directory of this web app, for usage in log file paths.
+	  - This web app specifies "petclinic.root" (see log4j.properties file).
+	  -->
+	<!-- Leave the listener commented-out if using JBoss -->
+	<!--
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	-->
+
+	<!--
+	  - Loads the root application context of this web app at startup,
+	  - by default from "/WEB-INF/applicationContext.xml".
+		- Note that you need to fall back to Spring's ContextLoaderServlet for
+		- J2EE servers that do not follow the Servlet 2.4 initialization order.
+		-
+	  - Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+	  - to access it anywhere in the web application, outside of the framework.
+	  -
+	  - The root context is the parent of all servlet-specific contexts.
+	  - This means that its beans are automatically available in these child contexts,
+	  - both for getBean(name) calls and (external) bean references.
+	  -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--
+	  - Servlet that dispatches request to registered handlers (Controller implementations).
+	  - Has its own application context, by default defined in "{servlet-name}-servlet.xml",
+	  - i.e. "petclinic-servlet.xml".
+	  -
+	  - A web app can contain any number of such servlets.
+	  - Note that this web app has a shared root application context, serving as parent
+	  - of all DispatcherServlet contexts.
+	  -->
+	<servlet>
+		<servlet-name>tcgaPortal</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!--
+	  - Maps the petclinic dispatcher to *.htm. All handler mappings in
+	  - petclinic-servlet.xml will by default be applied to this subpath.
+	  - If a mapping isn't a /* subpath, the handler mappings are considered
+	  - relative to the web app root.
+	  -
+	  - NOTE: A single dispatcher can be mapped to multiple paths, like any servlet.
+	  -->
+<!--
+	<servlet-mapping>
+		<servlet-name>tcgaPortal</servlet-name>
+		<url-pattern>*.portal</url-pattern>
+	</servlet-mapping>
+-->
+    
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+
+   	<mime-mapping>
+		<extension>svg</extension>
+		<mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>svgz</extension>
+		<mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+
+    <welcome-file-list>
+		<!-- Redirects to "welcome.htm" for dispatcher handling -->
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+<!--
+	<taglib>
+	   <taglib-uri>/tld/extremecomponents</taglib-uri>
+	   <taglib-location>/WEB-INF/tld/extremecomponents.tld</taglib-location>
+	</taglib>
+-->
+    <servlet>
+        <servlet-name>AnomalySearchService</servlet-name>
+        <servlet-class>gov.nih.nci.ncicb.tcgaportal.level4.gwt.anomalysearch.server.AnomalySearchServiceImpl</servlet-class>
+        <init-param>
+            <param-name>appcontext</param-name>
+            <param-value>/WEB-INF/applicationContext-jdbc.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>local</param-name>
+            <param-value>@LOCAL</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnomalySearchService</servlet-name>
+        <url-pattern>/AnomalySearch/anomalysearch.AnomalySearch/AnomalySearchService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ExportServlet</servlet-name>
+        <servlet-class>gov.nih.nci.ncicb.tcgaportal.level4.export.ui.ExportServlet</servlet-class>
+        <init-param>
+            <param-name>appcontext</param-name>
+            <param-value>/WEB-INF/applicationContext-jdbc.xml</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExportServlet</servlet-name>
+        <url-pattern>/exportServlet</url-pattern>
+    </servlet-mapping>
+
+   <servlet>
+        <display-name>Jersey-Spring</display-name>
+        <servlet-name>Jersey-Spring</servlet-name>
+        <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+        <init-param>
+            <description>REST resource package</description>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>gov.nih.nci.ncicb.tcgaportal.level4.webservice</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey-Spring</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>maincss</servlet-name>
+        <jsp-file>/styles/commonCSS.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>maincss</servlet-name>
+        <url-pattern>/styles/main.css</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>mainjs</servlet-name>
+        <jsp-file>/scripts/commonjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mainjs</servlet-name>
+        <url-pattern>/scripts/main.js</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>mergedjs</servlet-name>
+        <jsp-file>/scripts/mergedjs.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mergedjs</servlet-name>
+        <url-pattern>/scripts/merged.js</url-pattern>
+    </servlet-mapping>
+</web-app>
