@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts ASP Class API -HTML Embedding  </title>
+<link rel="stylesheet" href="../../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "Guide for web developers", "FusionCharts ASP Class|../Overview.html", "Advanced Usage", "Using HTML embedding method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  
+  <tr> 
+    <td class="pageHeader">FusionCharts ASP Class API &gt;HTML Embedding  </td>
+  </tr>
+  
+  
+  <tr>
+     <td valign="top" class="text">
+        
+           <p>Here we  create a chart  using HTML embedding method. We don't need to include       <span class="codeInline">FusionCharts.js</span> - FusionCharts JavaScript Embedding Class. Let's see how to use FusionCharts ASP Class to create a chart through HTML embedding method:</p> </td>
+   
+   <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;html&gt;
+&nbsp;&nbsp;&nbsp; &lt;head&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Render as HTML Using FusionCharts ASP Class&lt;/title&gt;
+&nbsp;&nbsp;&nbsp; &lt;/head&gt;
+&nbsp;&nbsp;&nbsp; &lt;body&gt;
+     &nbsp;&nbsp;&nbsp; &lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+&nbsp;&nbsp;&nbsp; &lt;%
+<span class="codeComment">&nbsp; &nbsp;&nbsp;&nbsp; ' Include FusionCharts ASP Class</span>
+&nbsp;&nbsp;&nbsp; %&gt; 
+&nbsp;&nbsp;&nbsp; &lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;
+&nbsp;&nbsp;&nbsp; &lt;%
+      dim FC
+       ...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="codeComment"> ' Pass True to renderChart() function
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' to use HTML Embedding Method.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' This is helpful if you wish not use FusionCharts.js
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' or when rendering the chart using AJAX</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Call FC.renderChart(True)</strong>        
+&nbsp; &nbsp;&nbsp;%&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre></td>
+  </tr>
+   <tr>
+     <td valign="top" class="text"><p>Let's analyze the steps involved in the above code:</p>
+       <ul>
+         <li>We don't use <span class="codeInline">FusionCharts.js</span>.<br />
+           
+         </li>
+         <li>Here, we render the chart as: <br />
+           <br />
+           <pre class="prettyprint code_container">Call FC.renderChart(<strong>True</strong>)</pre>
+           <br />
+           The <span class="codeInline">renderChart</span>() function takes a parameter with value - 'True'. This helps in using<span class="codeInline"> HTML  Embedding Method</span>. Setting this parameter to 'True' helps us not to use <span class="codeInline">FusionCharts.js</span>.&nbsp; This  helps to render  chart while using <span class="codeInline">AJAX </span><span class="text">as well</span>. 
+</li>
+     </ul></td>
+  </tr>
+   
+  <tr><td></td></tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Handling Delimiter|Adv_delim.html","FusionCharts ASP Class API reference|../Functions.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Single Series Chart JSON </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "JSON|Overview.html", "Single series chart JSON" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Single Series Chart JSON </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>The JSON structure for a single series chart looks as under:</p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <pre class="prettyprint code_container lang-js">{
+  &quot;chart&quot;:{&quot;caption&quot;:&quot;Monthly Sales Summary&quot;, 
+    &quot;subcaption&quot;:&quot;For the year 2006&quot;, &quot;xaxisname&quot;:&quot;Month&quot;, 
+    &quot;yaxisname&quot;:&quot;Sales&quot;, &quot;numberprefix&quot;:&quot;$&quot; },
+  &quot;data&quot;:[
+    { &quot;label&quot;:&quot;January&quot;,&quot;value&quot;:&quot;17400&quot;  },
+    { &quot;label&quot;:&quot;February&quot;,&quot;value&quot;:&quot;19800&quot; },
+    { &quot;label&quot;:&quot;March&quot;,&quot;value&quot;:&quot;21800&quot;    },
+    { &quot;label&quot;:&quot;April&quot;,&quot;value&quot;:&quot;23800&quot;    },
+    { &quot;label&quot;:&quot;May&quot;,&quot;value&quot;:&quot;29600&quot;      },
+    { &quot;label&quot;:&quot;June&quot;,&quot;value&quot;:&quot;27600&quot;     },
+    { &quot;vline&quot;:&quot;true&quot;,&quot;color&quot;:&quot;FF5904&quot;,&quot;thickness&quot;:&quot;2&quot;},
+    { &quot;label&quot;:&quot;July&quot;,&quot;value&quot;:&quot;31800&quot;     },
+    { &quot;label&quot;:&quot;August&quot;,&quot;value&quot;:&quot;39700&quot;   },
+    { &quot;label&quot;:&quot;September&quot;,&quot;value&quot;:&quot;37800&quot;},
+    { &quot;label&quot;:&quot;October&quot;,&quot;value&quot;:&quot;21900&quot;  },
+    { &quot;label&quot;:&quot;November&quot;,&quot;value&quot;:&quot;32900&quot; },
+    { &quot;label&quot;:&quot;December&quot;,&quot;value&quot;:&quot;39800&quot; }
+  ],
+
+  &quot;trendlines&quot;:{
+    &quot;line&quot;:[
+      {&quot;startvalue&quot;:&quot;22000&quot;,&quot;color&quot;:&quot;00cc00&quot;,
+      &quot;displayvalue&quot;:&quot;Average&quot;}
+    ]
+  },
+
+   &quot;styles&quot;: {
+    &quot;definition&quot;: [
+      {
+        &quot;name&quot;: &quot;CanvasAnim&quot;,
+        &quot;type&quot;: &quot;animation&quot;,
+        &quot;param&quot;: &quot;_xScale&quot;,
+        &quot;start&quot;: &quot;0&quot;,
+        &quot;duration&quot;: &quot;1&quot;
+      }
+    ],
+    &quot;application&quot;: [
+      {
+        &quot;toobject&quot;: &quot;Canvas&quot;,
+        &quot;styles&quot;: &quot;CanvasAnim&quot;
+      }
+    ]
+  }
+}</pre> 
+       <br /> </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>The <span class="codeInline">chart</span> 
+        object defines all the settings which helps to manipulate the chart. 
+        You can find the list of all the attribute for this Object in &quot;<span class="codeInline">Chart 
+        XML Sheet</span>&quot; of each chart.</p>
+       <p>In the most general form, chart attributes represent the following JSON format:<br />
+          <br>
+        <span class="codeInline">&quot;attributeName&quot; : &quot;Value&quot;<br>
+        e.g., &quot;xAxisName&quot; : &quot;Month&quot;</span><br />
+        <br />
+       The attributes can occur in any order and quotes can be single or double 
+        like <span class="codeInline">xAxisName:'Month'. </span>However, 
+        you need to make sure that a particular attribute occurs only once for 
+        a given element.</p>
+       <p class="highlightBlock">Please note that the XML attributes declared for each chart in &quot;Chart XML Sheet&quot; are same as the JSON properties in FusionCharts JSON data format.</p>
+       <p>Moving on, <span class="codeInline">data</span> Array  represents a set of chart numeric data which is to be plotted on the graph 
+        and determines a set of labels which would appear as categories on the graph. Each data element in data Array is an unnamed object. A typical data element would look like this. </p>
+       <pre class="code_container prettyprint lang-js">{ &quot;label: &quot;Jan&quot;, &quot;value&quot; : &quot;17400&quot;, &quot;color&quot; : &quot;3300FF&quot;, &quot;toolTip&quot; : &quot;January, 17400&quot;, &quot;link&quot; : &quot;details.asp?month=jan&quot;, &quot;showLabel&quot; : &quot;1&quot; }</pre>
+       <p>Between data elements, we can 
+        have <strong>vLine </strong>object, which indicates 
+        vertical separator lines running along the height/width of the chart canvas. A <strong>vLine</strong> is similar to a data element except that it should have a property with key &quot;vLine&quot; with value &quot;true&quot;. </p>
+       <pre class="code_container prettyprint lang-js">{ &quot;vLine&quot; : &quot;true&quot; , &quot;color&quot; : &quot;FF5904&quot;, &quot;thickness&quot; : &quot;2&quot; }</pre>
+       <p>Next we have the <span class="codeInline">trendLines</span> object. 
+        Using this function of the chart, you could draw custom lines on the chart 
+        to represent a trend. For example, in our above XML, we have defined a 
+        line at 22000 to represent the average sales for the period. There would be an Array with name  <span class="codeInline">line</span>  that contains all trend line definition objects.</p>
+       <p>Finally, you've <span class="codeInline">styles</span> Object. It helps you apply font, effects and 
+        animations to various objects of the chart. <span class="codeInline">Styles</span> 
+        lends a simple mechanism using which you can easily control the visual 
+        layout of charts. In FusionCharts JSON format, Styles Object contains two Arrays - <span class="codeInline">definition</span> and <span class="codeInline">application</span>. <span class="codeInline">definition</span> Array contains a list of <span class="codeInline">style</span> Objects. Each <span class="codeInline">style </span>Objects contains various style definition attributes.&nbsp;<span class="codeInline">application</span> Array contains a list of <span class="codeInline">apply</span> Objects. Each <span class="codeInline">apply</span> Object contains attributes to apply styles, defined in <span class="codeInline">definition </span>Array,
+        to various chart objects.</p>
+       <p>To read more on <span class="codeInline">Styles</span>, 
+          please see <a href="../../Styles/Styles.html"><span class="codeInline">FusionCharts v3 Styles</span></a> 
+          section.</p>    
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("JSON Overview|Overview.html","Multi Series chart JSON|MultiSeries.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

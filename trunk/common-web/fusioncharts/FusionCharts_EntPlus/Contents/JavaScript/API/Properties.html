@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts JavaScript API - Properties </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../JS_Overview.html", "API Reference|Overview.html", "Properties" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts JavaScript API - Properties </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class API provides a number of properties. The list below shows details on each property : </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+				
+				<table cellspacing="0" cellpadding="0" class="table" width="98%">
+        
+        <tr class="trLightBlueBg">
+          <td class="header" valign="top" width="20%">API Properties</td>
+          <td class="header" valign="top" width="40%">Description</td>
+          <td class="header" valign="top" width="40%">Example</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="text"><a name="static" id="static"></a><strong>FusionCharts class - static properties</strong> </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="version" id="version"></a><a href="#versiondetails">version</a></td>
+          <td class="text" valign="top">This returns the version of FusionCharts JavaScript class </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.version</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="items" id="items"></a><a href="#itemsdetails">items</a></td>
+          <td class="text" valign="top">This is an Array contains references to all the chart instances in a page. Using this, you can get the reference of a chart object. A reference of a chart is necessary to perform all available  functions, use all available properties and listen to events. <br />
+              <br />
+            When a chart-id is passed, it tries to return (if available) the reference of the instance of the FusionCharts object. <br />
+            <br />
+            This is same as <span class="codeInline">FusionCharts()</span> static function which also provides the reference of the chart object. </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.items[&quot;myChartId&quot;]</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a href="Methods.html#printmanager">printManager</a></td>
+          <td class="text" valign="top">This is an Object which configures fusioncharts <a href="../JS_PrintManager.html">Print Manger</a>. Click <a href="Methods.html#printmanager">here</a> to know about the functions available in this Object. </td>
+          <td class="codeInline" valign="top">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a href="Methods.html#debugmode">debugMode</a></td>
+          <td class="text" valign="top">This is an Object which sets <a href="../../Debug/JS.html#debugmode">debugMode</a> of FusionCharts JavaScript class. Click <a href="Methods.html#debugmode">here</a> to know about the functions available in this Object. </td>
+          <td class="codeInline" valign="top">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><a name="instance" id="instance"></a>FusionCharts class - instance properties </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="id" id="id"></a><a href="#iddetails">id</a></td>
+          <td class="text" valign="top">Id of the chart. This is commonly called the DOMId of the chart. </td>
+          <td class="text" valign="top"><pre class="prettyprint">myChart.id</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="width" id="width"></a><a href="#widthdetails">width</a></td>
+          <td class="text" valign="top">Width of the chart</td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.items[&quot;myChartId&quot;].width</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="height"></a><a href="#heightdetails">height</a></td>
+          <td class="text" valign="top">Height of the chart </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.items[&quot;myChartId&quot;].height</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="src" id="src"></a><a href="#srcdetails">src</a></td>
+          <td class="text" valign="top">Path of the chart SWF file </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.items[&quot;myChartId&quot;].src</pre></td>
+        </tr>
+      </table>
+	 </td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="details" id="details"></a>Details</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>From the FusionCharts JavaScript Object you can get various information about the chart instance as well as the JavaScript class. Let's quickly go though the information: </p>
+        <p class="textBold"><a name="versiondetails" id="versiondetails"></a>FusionCharts.version </p>
+        <p>This static property of FusionCharts class returns an indexed array containing version information of FusionCharts JavaScript class. The information comes in the format - [ major, minor, revision, identifier, build ]. This is only applicable in FusionCharts JavaScript class. </p>
+        <pre class="code_container prettyprint">var FCJSMajorVersion = FusionCharts.<strong>version[0]</strong>; // returns the major version number i.e., 3 
+var FCJSbuild = FusionCharts.<strong>version[4]</strong>; // returns the build number</pre>
+        <p class="textBold"><a name="itemsdetails" id="itemsdetails"></a>FusionCharts.items[]</p>
+        <p>This static property contains an array of the references of all the charts present in a page. It is a normal JavaScript Object which can be iterated using <span class="codeInline">for(var charts in FusionCharts.items)</span>. Each object in <span class="codeInline">items</span> has a string key to identify the chart object reference it stores. The key value is same as the chart's Id or DOMid. Hence, you can access each chart object from this array using standard JavaScript access methods. e.g.</p>
+         <pre class="code_container prettyprint">var chartReference = FusionCharts.<strong>items[&quot;myChartId&quot;]</strong>;
+</pre></td>
+</tr>
+<tr>
+<td height="15"></td>
+</tr>
+<tr>
+<td class="text"><p><strong><a name="iddetails" id="iddetails"></a></strong>chartJSInstance<strong>.id</strong></p>
+        <p>This property of FusionCharts JavaScript Object returns the DOMId of the chart as String.  This is only applicable to FusionCharts JavaScript object. </p>
+        <pre class="code_container prettyprint">var chartId = myChart.<strong>id</strong>;</pre>
+        </td></tr>
+        <tr>
+<td height="10"></td>
+</tr>
+<tr>
+<td class="text">
+        <p><strong><a name="widthdetails" id="widthdetails"></a></strong>chartJSInstance<strong>.width </strong></p>
+        <p>This property of FusionCharts JavaScript Object returns the width of the chart. It returns value either in percentage or in pixels.  This is only applicable to FusionCharts JavaScript object.</p>
+        <p>You can also set value for this property. But you would need to call <span class="codeInline"><a href="Methods.html#resizeto">resizeTo</a>()</span> function  to get the change reflected on the chart. </p>
+        <pre class="code_container prettyprint">var chartWidth = FusionCharts(&quot;myChartId&quot;).<strong>width</strong>; //gets current width
+
+FusionCharts(&quot;myChartId&quot;).<strong>width</strong> = &quot;80%&quot;;
+FusionCharts(&quot;myChartId&quot;).resizeTo( , &quot;100%&quot; ); // sets chart's width to 80% and height to 100% </pre>
+</td>
+</tr>
+<tr>
+<td height="10"></td>
+</tr>
+<tr>
+<td class="text">
+        <p><strong><a name="heightdetails" id="heightdetails"></a></strong>chartJSInstance<strong>.height</strong></p>
+        <p>This property of FusionCharts JavaScript Object returns the height of the chart. It returns value either in percentage or in pixels.  This is only applicable to FusionCharts JavaScript object.</p>
+        <p>You can set also value for this property. But you would need to call <span class="codeInline"><a href="Methods.html#resizeto">resizeTo</a>()</span> function  to get the change reflected on the chart.</p>
+        <pre class="code_container prettyprint">var chartHeight = FusionCharts(&quot;myChartId&quot;).<strong>height</strong>;//gets current height 
+
+FusionCharts(&quot;myChartId&quot;).<strong>height</strong> = &quot;60%&quot;;
+FusionCharts(&quot;myChartId&quot;).resizeTo( &quot;50%&quot; ); // sets chart's height to 60% and width to 50%</pre></td>
+</tr>
+<tr>
+<td height="10"></td>
+</tr>
+
+<tr>
+<td class="text">
+        <p><a name="srcdetails" id="srcdetails"></a>chartJSInstance<strong>.src</strong></p>
+        <p>This property of FusionCharts JavaScript object returns the path/URL of the chart SWF file as String.  This is only applicable to FusionCharts JavaScript object. </p>
+        <pre class="code_container prettyprint">var chartSrc = FusionCharts(&quot;myChartId&quot;).<strong>src</strong>; </pre>
+       
+     </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("FusionCharts JavaScript API|Overview.html","Functions|Methods.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

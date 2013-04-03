@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Vertical Separator Lines </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Vertical Lines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Vertical Separator Lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>vLines are vertical (or horizontal in case of bar charts) separator lines that   help you separate blocks of data. They can be placed between any two data   points, even at irregular intervals.</p>  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/vline1.jpg" class="imageBorder"/>
+    <p>The XML/JSON for the same is:</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+  &lt;set label='Oct' value='420000' /&gt;
+  &lt;set label='Nov' value='910000' /&gt;
+  &lt;set label='Dec' value='680000' /&gt;
+<strong>  &lt;vLine/&gt;</strong>
+  &lt;set label='Jan' value='720000' /&gt;
+  &lt;set label='Feb' value='810000' /&gt;
+  &lt;set label='Mar' value='510000' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Oct",
+      "value":"420000"
+    },
+    {
+      "label":"Nov",
+      "value":"910000"
+    },
+    {
+      "label":"Dec",
+      "value":"680000"
+    },
+    {
+    <strong>  "vline":"true"</strong>
+    },
+    {
+      "label":"Jan",
+      "value":"720000"
+    },
+    {
+      "label":"Feb",
+      "value":"810000"
+    },
+    {
+      "label":"Mar",
+      "value":"510000"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see, a vertical separator line is introduced in the chart using the <span class="codeInline">&lt;vLine&gt;</span> element between those <span class="codeInline">&lt;set&gt;</span> elements, where you want it to be placed.</p>  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Configuring the position of vertical line </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>By default, when you add a vLine to the chart, it appears between the two data points visually. You can, however, place it anywhere between those two data points by setting the value of <span class="codeInline">linePosition</span> attribute between 0 and 1. 0 places the vertical line at the position of previous data and 1 at the next data. Example: </p>
+   
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+   &lt;set label='Oct' value='420000' /&gt;
+   &lt;set label='Nov' value='910000' /&gt;
+   &lt;set label='Dec' value='680000' /&gt;
+   <strong>&lt;vLine linePosition='0'/&gt;</strong>
+   &lt;set label='Jan' value='720000' /&gt;
+   &lt;set label='Feb' value='810000' /&gt;
+   &lt;set label='Mar' value='510000' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Oct",
+      "value":"420000"
+    },
+    {
+      "label":"Nov",
+      "value":"910000"
+    },
+    {
+      "label":"Dec",
+      "value":"680000"
+    },
+    {
+      <strong>"vline":"true",
+      "lineposition":"0"</strong>
+    },
+    {
+      "label":"Jan",
+      "value":"720000"
+    },
+    {
+      "label":"Feb",
+      "value":"810000"
+    },
+    {
+      "label":"Mar",
+      "value":"510000"
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	
+	
+<p>This results in:</p>
+<img src="Images/vLinePosition1.jpg" class="imageBorder"/>
+<p>Setting <span class="codeInline">linePosition</span> to 1 in the same data results in:</p>
+<img src="Images/vLinePosition2.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="header" style="padding: 3px;">Adding labels to vertical lines</p>
+    <p>You can add a label to vertical line by setting <span class="codeInline">&lt;vLine label='Your text' ...&gt;</span>.</p>
+    <p> An example is shown below: </p>
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+   &lt;set label='Oct' value='420000' /&gt;
+   &lt;set label='Nov' value='910000' /&gt;
+   &lt;set label='Dec' value='680000' /&gt;
+   <strong>&lt;vLine label='2009'/&gt;</strong>
+   &lt;set label='Jan' value='720000' /&gt;
+   &lt;set label='Feb' value='810000' /&gt;
+   &lt;set label='Mar' value='510000' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Oct",
+      "value":"420000"
+    },
+    {
+      "label":"Nov",
+      "value":"910000"
+    },
+    {
+      "label":"Dec",
+      "value":"680000"
+    },
+    {
+      <strong>"vline":"true",
+      "label":"2009"</strong>
+    },
+    {
+      "label":"Jan",
+      "value":"720000"
+    },
+    {
+      "label":"Feb",
+      "value":"810000"
+    },
+    {
+      "label":"Mar",
+      "value":"510000"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+ 
+<p>This results in:</p>
+<img src="Images/vLineLabel.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Configuring Label Position</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>The label can be configured to show either at the top of the canvas (<span class="codeInline">labelPosition='0'</span>) or at the bottom (<span class="codeInline">labelPosition='1'</span>) or anywhere in between. To show the label at bottom of canvas, we use the code below: </p>
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content">  <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+   &lt;set label='Oct' value='420000' /&gt;
+   &lt;set label='Nov' value='910000' /&gt;
+   &lt;set label='Dec' value='680000' /&gt;
+   <strong>&lt;vLine label='2009' labelPosition='1'/&gt;</strong>
+   &lt;set label='Jan' value='720000' /&gt;
+   &lt;set label='Feb' value='810000' /&gt;
+   &lt;set label='Mar' value='510000' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Oct",
+      "value":"420000"
+    },
+    {
+      "label":"Nov",
+      "value":"910000"
+    },
+    {
+      "label":"Dec",
+      "value":"680000"
+    },
+    {
+      <strong>"vline":"true",
+      "label":"2009",
+      "labelposition":"1"</strong>
+    },
+    {
+      "label":"Jan",
+      "value":"720000"
+    },
+    {
+      "label":"Feb",
+      "value":"810000"
+    },
+    {
+      "label":"Mar",
+      "value":"510000"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+
+<p>This results in:</p> 
+<p><img src="Images/vLineLabelPosition.jpg" class="imageBorder"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header" style="padding: 3px;">Turning Label borders on/off</td></td>
+    <tr><td valign="top" class="text">
+    <p>The label can be configured not to have any borders, either at chart level by setting <span class="codeInline">&lt;chart showVLineLabelBorder='0' ...&gt;</span> or at individual vLine level by setting <span class="codeInline">&lt;vLine showLabelBorder='0' ...&gt;</span>. </p>
+    <p>This results in: </p>
+    <img src="Images/vLineLabelBorder.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Label alignment configuration </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>The label can be configured to anchor at left, center (default) or right using <span class="codeInline">&lt;vLine ... labelHAlign='left'...&gt;</span>. Shown below are examples: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" border="0" cellpadding="5" cellspacing="5">
+      <tr>
+        <td><div align="center"><img src="Images/vLineHAlign1.jpg"/></div></td>
+        <td><div align="center"><img src="Images/vLineHAlign2.jpg"/></div>
+        </td>
+      </tr>
+      <tr>
+        <td><div align="center"><span class="codeInline">labelHAlign='left'</span></div></td>
+        <td><div align="center"><span class="codeInline">labelHAlign='right'</span></div></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Similarly, the vertical position can be set as top, middle (default) or bottom as value of <span class="codeInline">labelVAlign </span>attribute. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0">
+      <tr >
+        <td width="20%" class="header">Attribute Name</td>
+        <td width="20%" class="header">Range</td>
+        <td width="55%" class="header">Description</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text"> label </td>
+        <td valign="top" class="text">String</td>
+        <td valign='top' class="text"> Label of the vertical line </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="text"> showLabelBorder </td>
+        <td valign="top" class="text"> Boolean 0/1 </td>
+        <td valign='top' class="text"> Whether to show border for this vertical line label </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text">linePosition</td>
+        <td valign="top" class="text"> 0-1 </td>
+        <td valign='top' class="text"> Position of the line between the 2 data points </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text">labelPosition</td>
+        <td valign="top" class="text">0-1</td>
+        <td valign='top' class="text">Position of the label (ranging from top of canvas to bottom) </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text">labelHAlign</td>
+        <td valign="top" class="text">left, center or right </td>
+        <td valign='top' class="text">Horizontal anchor point for vLine label </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text">labelVAlign</td>
+        <td valign="top" class="text">top, middle or bottom </td>
+        <td valign='top' class="text">Vertical anchor point for vLine label </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Customizing the looks of the separator line </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>The looks of the vertical separator line can be customized using the attributes of the <span class="codeInline">&lt;vLine&gt;</span> element given below: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 <table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="20%" class="header">Attribute Name</td>
+        <td width="20%" class="header">Range</td>
+        <td width="55%" class="header">Description</td>
+      </tr>
+      <tr class="">
+        <td valign="top">color  </td>
+        <td valign="top">Hex Color  </td>
+        <td valign='top'>This attribute defines the color of vertical separator line  </td>
+      </tr>
+      <tr class=''>
+        <td valign="top">thickness  </td>
+        <td valign="top">In Pixels  </td>
+        <td valign='top'>Thickness in pixels of the vertical separator line </td>
+      </tr>
+      <tr class="">
+        <td valign="top">alpha  </td>
+        <td valign="top">0-100  </td>
+        <td valign='top'>Alpha of the vertical separator line</td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;vLine color='999999' thickness='2' alpha='60' /&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Dashed vertical separator lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The vertical separator lines can be made dashed using <span class="codeInline">dashed='1'</span> in the <span class="codeInline">&lt;vLine&gt;</span> element. </p>
+        <p>The dash properties - dash length and dash gap can be customized using the <span class="codeInline">dashLen</span> &amp; <span class="codeInline">dashGap</span> attributes respectively. </p>
+        <pre class="prettyprint code_container">&lt;vLine dashed='1' dashLen='2' dashGap='2'/&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to animate vertical separator lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Animation effects can be applied to the vertical separator lines using STYLES. The following data would animate the y-Scale of the separator lines.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+    <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+  &lt;set label='Oct' value='420000' /&gt;
+  &lt;set label='Nov' value='910000' /&gt;
+  &lt;set label='Dec' value='680000' /&gt;
+<strong>  &lt;vLine/&gt;</strong>
+  &lt;set label='Jan' value='720000' /&gt;
+  &lt;set label='Feb' value='810000' /&gt;
+  &lt;set label='Mar' value='510000' /&gt;
+  <strong>&lt;styles&gt;
+     &lt;definition&gt;
+         &lt;style name='myAnim' type='animation' param='_yScale' start</strong><strong>='0' duration='1'/&gt;</strong><strong>
+     &lt;/definition&gt;
+     &lt;application&gt;
+         &lt;apply toObject='VLINES' styles='myAnim' /&gt; </strong><strong>
+     &lt;/application&gt;
+  &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+		  <div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Oct",
+      "value":"420000"
+    },
+    {
+      "label":"Nov",
+      "value":"910000"
+    },
+    {
+      "label":"Dec",
+      "value":"680000"
+    },
+    {
+      "vline":"true"
+    },
+    {
+      "label":"Jan",
+      "value":"720000"
+    },
+    {
+      "label":"Feb",
+      "value":"810000"
+    },
+    {
+      "label":"Mar",
+      "value":"510000"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myAnim",
+        "type": "animation",
+        "param": "_yScale",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "VLINES",
+        "styles": "myAnim"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>	 
+
+</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Chart Paddings &amp; Margins|Padding.html", "Smart Labels &amp; Lines|SmartLabels.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" LANGUAGE="Javascript" SRC="../../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" LANGUAGE="Javascript" SRC="data/data.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../assets/ui/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../assets/ui/js/lib.js"></script>
+
+        <title>FusionCharts &amp; JavaScript -  Combi3D chart</title>
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script LANGUAGE="JavaScript" type="text/javascript">
+
+            //This function is executed when the chart is rendered for the first time.
+            function FC_Rendered(DOMId){
+                //show View Angles
+                getAngles(true);
+            }
+
+            function buildXML() {
+
+                //Whether to show Quantity in chart
+                var sQunatity = document.getElementById("showQuantity").checked?1:0;
+                //Whether to show Discount in chart
+                var sDiscount = document.getElementById("showDiscount").checked?1:0;
+                //Whether to show Stock in chart
+                var sStock = document.getElementById("showStock").checked?1:0;
+                //Whether to show Detailed data in chart
+                var sDetails = document.getElementById("showDetails").checked?1:0;
+                //Whether to show Manhattan view of the chart
+                var sManhattan = document.getElementById("showManhattan").checked?1:0;
+
+                //get the chart Object (this is only when the chart has been rendered once)
+
+                if ( FusionCharts("myChartId") ) {
+                    var chartElm = FusionCharts("myChartId");
+                    var viewAngles, viewAng = "";
+
+                    if(chartElm.getViewAngles) {
+                        //get the view angles of the chart
+                        viewAngles=chartElm.getViewAngles();
+                        if(viewAngles && typeof viewAngles.xAng!="undefined" && typeof viewAngles.yAng!="undefined")
+                        //build view angle query string variables
+                            viewAng = {x:viewAngles.xAng, y : viewAngles.yAng};
+                    }
+                }
+
+                var dataXML = generateChartXML(sQunatity, sDiscount, sStock, sDetails, sManhattan, viewAng);
+
+                return dataXML;
+            }
+
+            function updateChart() {
+                //DataURL for the chart
+                var dataXML = buildXML();
+
+                FusionCharts('myChartId').setXMLData(dataXML);
+            }
+
+            //Reset 3D View of the chart
+            function reset3D() {
+                var chart = FusionCharts("myChartId");
+                chart.resetView();
+                //getAngles();
+            }
+
+            //Rotate to a specific view angle
+            function rotateTo (x, y, isAnimation) {
+                x=x?x:0;
+                y=y?y:0;
+                var chart = FusionCharts("myChartId");
+                chart.rotateView(x, y, isAnimation);
+            }
+
+            //View the chart in 2D mode
+            function viewAs2D(){
+                var chart = FusionCharts("myChartId");
+                chart.view2D();
+            }
+
+            //Get the current view angles and show in text input boxes
+            function getAngles(doNotShowMessage) {
+                var vAngles = FusionCharts("myChartId").getViewAngles();
+                document.getElementById("ax").value = Math.round(vAngles.xAng);
+                document.getElementById("ay").value = Math.round(vAngles.yAng);
+				if(!doNotShowMessage) alert ("The current view angles are: x="+Math.round(vAngles.xAng)+" y="+Math.round(vAngles.yAng));
+            }
+
+            function fitToStage() {
+                FusionCharts("myChartId").fitToStage();
+            }
+			
+			
+			 function view100(){
+                var chart = FusionCharts("myChartId");
+                chart.view100percent();
+            }
+            
+        </script>
+
+        <!--[if IE 6]>
+		<script type="text/javascript" src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+                
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <div id="header">
+                  
+
+               <div class="logo"><a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank"><img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                <h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text"> FusionCharts True 3D Chart  JS API Demo</h1>
+            </div>
+
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <p class="text" align="center"> FusionCharts True 3D Chart  JS API</p>
+					<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+					<p>&nbsp;</p>
+
+                    <div class="gen-chart-render">
+
+                        <center>
+                            <div style="margin-left: 80px;" class="expandable-panel-holder">
+                                <div class="expandable-panel">
+                                    <div>
+                                        <div style="width: 620px; text-align: center; padding-left: 60px;" class="selection-panel">
+                                            <ul>
+                                                <li>
+                                                    <label>
+                                                        <input id="showQuantity" value="Quantity" checked="checked" onclick="updateChart()" type="checkbox"/>
+                                                        &nbsp;&nbsp;Sales Quantity&nbsp;&nbsp;
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" onclick="updateChart()" checked="checked" value="Discount" id="showDiscount"/>
+                                                        &nbsp;&nbsp;Discount&nbsp;&nbsp;
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label>
+                                                        <input id="showStock" value="Stock" onclick="updateChart()" type="checkbox"/>
+                                                        &nbsp;&nbsp;Stock&nbsp;&nbsp;
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label>
+                                                        <input id="showDetails" value="Details" onclick="document.getElementById('showManhattan').disabled=document.getElementById('showDetails').checked?false:true;updateChart()" type="checkbox"/>
+                                                        &nbsp;&nbsp;Show Details&nbsp;&nbsp;
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label>
+                                                        <input id="showManhattan" value="Manhattan" disabled="disabled" onclick="if(document.getElementById('showDetails').checked) updateChart();" type="checkbox"/>
+                                                        &nbsp;&nbsp;Manhattan&nbsp;&nbsp;
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <p class="text">&nbsp;</p>
+                            <div id="chartContainer"> FusionCharts </div>
+                            <script type="text/javascript"><!--
+                                var dataXML = buildXML ();
+
+                                var myChart = new FusionCharts("../../../Charts/MSCombi3D.swf", "myChartId", "650", "450", "0", "1");
+										  
+                                myChart.setXMLData( dataXML );
+                                myChart.render("chartContainer");
+
+                            // --></script>
+                            <br/>
+                            <br/>
+							
+							<a href="javascript:void(0)" style="margin-left: 175px;" onclick="fitToStage();" class="qua qua-button">
+                                <span>Fit to stage</span>
+                            </a>
+
+                            <a href="javascript:void(0)" onclick="viewAs2D();" class="qua qua-button">
+                                <span>View as 2D</span>
+                            </a>
+							<a href="javascript:void(0)" onclick="view100();" class="qua qua-button">
+                                <span>View 100%</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="reset3D()" class="qua qua-button">
+                                <span>Reset View</span>
+                            </a>
+							<div style="clear:both;"></div>
+							<div style="margin-top:20px; margin-left:150px;">
+                            <a href="javascript:void(0)" onclick="getAngles()" class="qua qua-button">
+                                <span>Get Current Angles</span>                            </a>
+                            <a href="javascript:void(0)" onclick="rotateTo(document.getElementById('ax').value, document.getElementById('ay').value)" class="qua qua-button">
+                                <span>Rotate to angle provided on left </span>                            </a>
+							<div style="float:left;">
+    	                        X <input id="ax" size="3" maxlength="4" value="20" type="text"/>
+	                            Y <input id="ay" size="3" maxlength="4" value="330" type="text"/>
+							</div>
+						  </div>
+                        </center>
+
+                    </div>
+                    <div class="clear"></div>
+                    <p>&nbsp;</p>
+                    <p class="small">    </p>
+                    <div class="underline-dull"></div>
+                </div>
+            </div>
+
+
+            <div id="footer">
+                <ul>
+                    <li><a href="../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+            </div>
+        </div>
+				 <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead", isJSRenderer(myChart) );
+			});	
+		// -->
+		</script>
+    </body>
+</html>
+

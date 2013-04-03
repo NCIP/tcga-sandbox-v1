@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Exporting Charts as PDF or Images - JavaScript API</title>
+
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+
+<style type="text/css">
+table1 caption { text-align:left; font-weight: bold; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 11px;
+	padding-bottom: 6px; }
+table tr td  {
+vertical-align:top; }
+.table td p { margin: 5px 0; }
+</style>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "JavaScript Reference", "JavaScript API" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; JavaScript API</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><p class="header">
+      object FusionChartsExportObject()</p>
+      <p><strong>Description:</strong></p>
+      <p>This object contains all the routines that are required for FusionCharts Export Component to work.</p>
+      <pre class="prettyprint code_container">infosoftglobal.FusionChartsExportObject()</pre>
+      <p><strong>Note:</strong>
+      <p>This object is dependent upon <span class="codeInline">infosoftglobal.FusionCharts</span> for a few of its internal routines. Hence, it is pertinent that <span class="codeInline">FusionCharts.js</span> be included prior to the definition of this object.</p>
+      <p class="header"><a name="constructor" id="constructor"></a>Constructor</p>
+      <pre class="prettyprint code_container">FusionChartsExportObject( string&nbsp;<strong>id</strong>, string&nbsp;<strong>swfLocation</strong>, object&nbsp;<strong>componentAttributes</strong>, object&nbsp;<strong>exportAttributes</strong>, array&nbsp;<strong>sourceCharts</strong>, boolean&nbsp;<strong>debugMode</strong><strong></strong> );</pre>
+      <p><strong>Description:</strong></p>
+      <p>This is used when we need to create a <span class="codeInline">new FusionChartsExportObject()</span></p>
+      <p><strong><a name="alternativeconstructor" id="alternativeconstructor"></a>Constructor Parameter Description:</strong></p>
+      <table width="98%" border="0" cellpadding="0" cellspacing="0" class="table">
+        <tr>
+          <td width="20%" class="header" scope="col">Parameter Name</td>
+          <td width="15%" class="header" scope="col">Type</td>
+          <td width="65%" class="header" scope="col">Description</td>
+        </tr>
+        <tr>
+          <td scope="row">id</td>
+          <td>string</td>
+          <td>This specifies the DOM ID of the SWF that will be embedded on the HTML page.<br /><br />
+          <strong>Note:</strong><br /><br />
+          This ID <strong>is compulsory and must be unique</strong> on page as other FusionCharts object will use this ID to locate and access every new <span class="codeInline">FusionChartsExportObject</span>.</td>
+        </tr>
+        <tr>
+          <td scope="row">swfLocation</td>
+          <td>string</td>
+          <td>Specify the URL (location) of the <span class="codeInline">FCExporter.swf</span> on your server.<br /><br />
+          <strong>Note:</strong><br /><br />
+          Typically, this is a <strong>compulsory attribute</strong>. However, in case you have multiple <span class="codeInline">FusionChartsExportObjects</span> on your page, you may define this value centrally at <span class="codeInline">FusionChartsExportObject.defaultParameters.swfLocation</span></p></td>
+        </tr>
+        <tr>
+          <td scope="row">componentAttributes</td>
+          <td>object</td>
+          <td>[optional] Use this to specify properties of the Export Component SWF file. These attributes are sent as flashVars to the Export Component SWF when it is embedded on the web page.<br /><br />
+           The value of this parameter needs to be entered in <strong>{key1: 'value1', key2: 'value2' ... }</strong> style. The list of valid attributes can be found in the <a href="ECReferenceComponent.html">Component Attributes</a> section.<br /><br />
+          <strong>Example:</strong><br /><br />
+          <pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', <strong>{width: '400', height: '100', borderColor: 'FF0000'}</strong> );</pre></td>
+        </tr>
+        <tr>
+          <td scope="row">exportAttributes</td>
+          <td>object</td>
+          <td>[optional] Use this to specify export attributes for the charts that are being exported. The values in this parameter will override the corresponding value specified in dataXML of the chart(s).<br /><br />
+          The value of this parameter needs to be entered in <strong>{key1: 'value1', key2: 'value2' ... }</strong> style. The list of valid attributes can be found in the <a href="../ECXML.html">XML Attributes</a> section.<br /><br />
+          <strong>Example:</strong><br /><br />
+<pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', null, <strong>{ showExportDialog: '0', exportAtClient: '1' }</strong> );</pre>          </td>
+        </tr>
+        <tr>
+          <td scope="row">sourceCharts</td>
+          <td>array</td>
+          <td>[optional] Use this to specify the charts that will be exported <strong>in the order of array definition</strong> when the <span class="codeInline">BeginExport()</span> function is called. The value of this parameter should be the DOM ID string (chart id) of each chart that you want to export.<br /><br />
+          <strong>Example:</strong><br /><br />
+<pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', null, null, <strong>['myChartId1', 'myChartId2']</strong> );</pre><br />
+          <strong>Note:</strong><br /><br />
+          Even in case you want to export a single chart, you should provide the single chart id as an array.</p></td>
+        </tr>
+        <tr>
+          <td scope="row">debugMode</td>
+          <td>boolean <br />
+          (true/false)</td>
+          <td>[optional] Set this parameter to <span class="codeInline">true</span> if you want the Export Component to halt on every error and notify of the nature of the error encountered.<br /><br />          A detailed section on how to debug your export component in case you encounter an error can be found in the <a href="../ECReferenceDebugJS.html">Debugging Export Component</a> section.</td>
+        </tr>
+      </table></td></tr>
+      <tr><td height="5"></td></tr>
+      <tr>
+      <td class="text">
+      <p class="header">Alternative Constructor</p>
+      <pre class="prettyprint code_container">FusionChartsExportObject( object <strong>arguments</strong> );</pre>
+      <p><strong>Description:</strong></p>
+      <p>The <span class="codeInline">FusionChartsExportObject</span> also accepts an object as the entire parameter for constructor. In this method, the object can be initialized as above with its properties being of the same name as those provided in the &quot;Constructor Parameter Description&quot; table above.</p>
+      <p><strong>Example:</strong> </p>
+      <pre class="prettyprint code_container">var myComponent = new FusionCharts( <strong>{<br />    id: 'myComponent',<br />    swfLocation: 'FusionCharts/FCExporter.swf',
+    exportAttributes: {
+        exportAtClient: '1',<br />        showExportDialog: '0'<br />    },
+    debugMode: true<br />}</strong> );</pre></td>
+    </tr>
+    <tr>
+    <td headers="25"></td>
+    </tr>
+    <tr>
+    <td class="text">
+      <p class="header"><a name="properties" id="properties"></a>Public Variables and Properties</p>
+      <table width="98%" cellpadding="0" cellspacing="0" border="0" class="table">
+        <tr>
+          <td width="20%" class="header" scope="col">Name</td>
+          <td width="15%" class="header" scope="col">Value Type</td>
+          <td width="45%" class="header" scope="col">Description</td>
+          <td width="20%" class="header" scope="col">Default Value</td>
+        </tr>
+        <tr>
+          <td scope="row">checkFlashVersion</td>
+          <td>boolean<br />
+            (true/false)</td>
+          <td>This variable, when set to <span class="codeInline">true</span>, checks whether the installed Flash Player in the user's browser meets the minimum requirement (version 10 or above) or not.<br /><br />
+In case the user does not have the required flash version, it shows a friendly message notifying user of the same.<br /><br />
+          <strong>Example Usage:</strong><br /><br />
+          <pre class="prettyprint">FusionChartsExportObject.checkFlashVersion = true;</pre></td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td scope="row">defaultParameters</td>
+          <td>object</td>
+          <td>All new <span class="codeInline">FusionChartsExportObject</span> will have the properties specified within this object.  <br /><br />        Effectively this allows developers to set global &quot;default&quot; values of every <span class="codeInline">FusionChartsExportObject</span> within the page scope.<br /><br />
+<strong>Example Usage:</strong><br /><br />
+          <pre class="prettyprint">FusionChartsExportObject.defaultParameters.debugMode = true;</pre><br />
+          This enables &quot;debugMode&quot; on all new <span class="codeInline">FusionChartsExportObject</span> <br /><br />         <strong>Note:</strong><br /><br />defaultParameters accepts properties as mentioned in the table &quot;Constructor Parameter Description&quot;</td>
+          <td>object</td>
+        </tr>
+      </table>
+      <p class="header"><a name="protoproperties" id="protoproperties"></a>Prototyped Variables and Properties</p>
+      <p>These variables and properties are available for every new instances of <span class="codeInline">FusionChartsExportObject</span>.</p>
+      <table width="98%" cellpadding="0" cellspacing="0" border="0" class="table">
+        <tr>
+          <td width="20%" class="header" scope="col">Name</td>
+          <td width="15%" class="header" scope="col">Value Type</td>
+          <td width="45%" class="header" scope="col">Description</td>
+          <td width="20%" class="header" scope="col">Default Value</td>
+        </tr>
+        <tr>
+          <td scope="row">id</td>
+          <td>string</td>
+          <td>This specifies the <span class="codeInline">DOMID</span> of the SWF that will be embedded on the HTML page.<br /><br />
+            <strong>Note:</strong><br /><br />
+              This ID <strong>must be unique</strong> on page as other FusionCharts object will use this ID to locate and access every new <span class="codeInline">FusionChartsExportObject</span>.</td>
+          <td><em>undefined</em></td>
+        </tr>
+        <tr>
+          <td scope="row">swfLocation</td>
+          <td>string</td>
+          <td>Specify the URL (location) of the <span class="codeInline">FCExporter.swf</span> on your server. <br /><br />
+                     <strong>Note:</strong><br /><br />
+            Typically, this is a <strong>compulsory attribute</strong>. However, in case you have multiple FusionChartsExportObjects on your page, you may define this value centrally at <span class="codeInline">FusionChartsExportObject.defaultParameters.swfLocation</span></td>
+          <td>FusionChartsExportObject.<br />
+          defaultParameters.<br />
+          swfLocation</td>
+        </tr>
+        <tr>
+          <td scope="row">componentAttributes</td>
+          <td>object</td>
+          <td>Use this to specify properties of the Export Component SWF file. These attributes are sent as flashVars to the Export Component SWF when it is embedded on the web page.<br /><br />The value of this parameter needs to be entered in <strong>{key1: 'value1', key2: 'value2' ... }</strong> style. The list of valid attributes can be found in the <a href="ECReferenceComponent.html">Component Attributes</a> section.<br /><br />
+            <strong>Example:</strong><br /><br />
+              <pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', <strong>{width: '400', height: '100', borderColor: 'FF0000'}</strong> );</pre></td>
+          <td>FusionChartsExportObject.<br />
+defaultParameters.<br />
+componentAttributes</td>
+        </tr>
+        <tr>
+          <td scope="row">exportAttributes</td>
+          <td>object</td>
+          <td>Use this to specify export attributes for the charts that are being exported. The values in this parameter will override the corresponding value specified in dataXML of the chart(s).<br /><br />
+              The value of this parameter needs to be entered in <strong>{key1: 'value1', key2: 'value2' ... }</strong> style. The list of valid attributes can be found in the <a href="../ECXML.html">XML Attributes</a> section.<br /><br />
+            <strong>Example:</strong><br /><br />
+              <pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', null, <strong>{ showExportDialog: '0', exportAtClient: '1' }</strong> );</pre></td>
+          <td>FusionChartsExportObject.<br />
+defaultParameters.<br />
+exportAttributes</td>
+        </tr>
+        <tr>
+          <td scope="row">sourceCharts</td>
+          <td>array</td>
+          <td>Use this to specify the charts that will be exported <strong>in the order of array definition</strong> when the <span class="codeInline">BeginExport()</span> function is called. The values of this parameter should be the DOM ID string (chart id) of each chart that you want to export.<br /><br />
+           <strong>Example:</strong><br /><br />
+            <pre class="prettyprint">var myComp = new FusionChartsExportObject( 'myComp', 'FusionCharts/FCExporter.swf', null, null, <strong>['myChartId1', 'myChartId2']</strong> );</pre><br />
+           <strong>Note:</strong> <br /><br />
+                      Even in case you want to export a single chart, you should provide the single chart id as an array.</td>
+          <td>FusionChartsExportObject.<br />
+defaultParameters.<br /> 
+sourceCharts</td>
+        </tr>
+        <tr>
+          <td scope="row">debugMode</td>
+          <td>boolean<br />
+            (true/false)</td>
+          <td>Set this parameter to <span class="codeInline">true</span> if you want the Export Component to halt on every error and notify of the nature of the error encountered.<br /><br />
+              A detailed section on how to debug your export component in case you encounter error, can be found in the <a href="../ECReferenceDebugJS.html">Debugging Export Component</a> section.</td>
+          <td>FusionChartsExportObject.<br />
+defaultParameters.<br />
+debugMode</td>
+        </tr>
+        <tr>
+          <td scope="row">strictTrigger</td>
+          <td>boolean<br />
+(true/false)</td>
+          <td>This property sets whether to force the &quot;triggering&quot; export component to be the final &quot;processor&quot; of the exported data.</td>
+          <td>FusionChartsExportObject.<br />
+defaultParameters.<br /> 
+strictTrigger</td>
+        </tr>
+      </table>
+      <p class="header"><a name="prototypemethods" id="prototypemethods"></a>Prototyped Methods</p>
+      <p>These methods are available to all new instances of <span class="codeInline">FusionChartsExportObject.</span></p>
+      <table width="98%" cellpadding="0" cellspacing="0" border="0" class="table">
+        <tr>
+          <td width="20%" class="header" scope="col">Method Definition</td>
+          <td width="60%" class="header" scope="col">Description and Parameters</td>
+          <td width="20%" class="header" scope="col">Returns</td>
+        </tr>
+        <tr>
+          <td scope="row">boolean Render(string containerNode)</td>
+          <td><p>This function is called to render the Exporter Component SWF on the current page.</p>
+          <p>&nbsp;</p>
+          <p><strong>Parameters:</strong></p>
+          <p><em>containerNode:</em> It is the DOM ID of the HTML element inside which the SWF EMBED HTML is to be written.</p>
+          <p>&nbsp;</p>
+          <p><strong>Note:</strong></p>
+          <p>The containerNode parameter can also be a direct reference to the HTML DOM element</p></td>
+          <td>Whether the render operation was successful or not</td>
+        </tr>
+        <tr>
+          <td scope="row">array BeginExport()</td>
+          <td>Initiates exportChart sequence on all the charts provided in the   sourceCharts array.</td>
+          <td>Array of DOM IDs of all the charts that were successfully exported</td>
+        </tr>
+        <tr>
+          <td scope="row">array BeginExportAll()</td>
+          <td>Initiates exportChart sequence on all FusionCharts within the current page.</td>
+          <td>Array of DOM IDs of all the charts that were successfully exported</td>
+        </tr>
+        <tr>
+          <td scope="row">string GetOuterHTML()</td>
+          <td><p>Returns the HTML that is to be put in your web page in order to display the Exporter Component.</p>
+          <p>&nbsp;</p>
+          <p>This can be used if you want to manually put in the HTML of the SWF component instead of using the Render() </p></td>
+          <td>HTML of the SWF Embed object</td>
+        </tr>
+      </table>
+      <p class="header">Public Events</p>
+      <p>FusionChartsExportObject raises certain events that you can use to integrate the Export Component with the rest of your website.</p>
+      <table width="98%" border="0"  class="table" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="20%" class="header" scope="col">Event Name</td>
+          <td width="60%" class="header" scope="col">Description</td>
+          <td width="20%" class="header" scope="col">Return Accepted</td>
+        </tr>
+        <tr>
+          <td scope="row">void FC_ExportReady( string DOMId)</td>
+          <td><p>This event is raised as soon as a chart has finished the capturing phase and is ready to be relayed to the exporter component, both client-side as well as server-side.</p>
+            <p>You can use this event to track the progress of your export.</p>
+            <p><em>DOMId:</em> This is the DOMId of the chart (ChartID) that has finished rendering.</p>
+          </td>
+          <td>void</td>
+        </tr>
+      </table><br />
+    </td></tr></table>
+	<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Batch exporting - Over-riding export parameters|../batch-exporting/ECBatchOverride.html","Component attributes|ECReferenceComponent.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+	</body>
+	
+
+</html>

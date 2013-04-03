@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Chart Palettes </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Chart Palettes" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Chart Palettes </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts offers 5 palettes for you to choose from. The palette theme configures colors of the following:</p>
+      <ul>
+        <li>Background and border</li>
+        <li>Canvas border and background</li>
+        <li>Fonts</li>
+        <li>Div lines</li>
+        <li>Tooltip  </li>
+        <li>Anchors</li>
+        <li>Legend</li>
+      </ul>
+    <p>The palettes are numbered 1 to 5 and can be chosen using:</p> <pre class="prettyprint code_container">&lt;chart palette='1' ...&gt; </pre>
+	<p> Palette 1 is the default chart palette used. A chart with palette set as '1' will look as under:</p>
+	<img src="Images/Palette1.jpg" width="256" height="205" />
+	
+    <p><span class="text">Shown below is the same chart with other four different palette colors applied on it. </span></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="550" border="0" cellpadding="2">
+      <tr>
+        <td width="300">
+          <div align="left"><img src="Images/Palette2.jpg" width="254" height="206" /></div></td>
+        <td width="300">
+          <div align="left"><img src="Images/Palette3.jpg" width="259" height="209" /></div></td>
+      </tr>
+      <tr>
+        <td class="text"><div align="center">Palette Set as 2 </div></td>
+        <td class="text"><div align="center">Palette Set as 3 </div></td>
+        
+      </tr>
+	  <tr>
+	  <td>&nbsp;</td></tr>
+	  <tr> 
+	  <td width="300">
+          <div align="left"><img src="Images/Palette4.jpg"  /></div></td>
+		  <td width="300">
+          <div align="left"><img src="Images/Palette5.jpg"  /></div></td>
+	  </tr>
+	  <tr>
+	  <td class="text"><div align="center">Palette Set as 4 </div></td>
+	  <td class="text"><div align="center">Palette Set as 5 </div></td>
+	  </tr>
+	  
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the images above, the various elements of chart have changed colors based on palette number. However, the data items do not change color, as internal palettes do not cover them.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Specifying Palette colors for data plot </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can however, specify your own palette for data items by providing a list of hex colors as under:</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"> <pre class="prettyprint code_container">&lt;chart yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$' <strong>paletteColors='FF5904,0372AB,FF0000'</strong>&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Alex' value='25000' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Mark' value='35000' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='David' value='42300' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "yaxisname":"Sales Figure",
+    "caption":"Top 5 Sales Person",
+    "numberprefix":"$",
+    <strong>"palettecolors":"FF5904,0372AB,FF0000"</strong>
+  },
+  "data":[{
+      "label":"Alex",
+      "value":"25000"
+    },
+    {
+      "label":"Mark",
+      "value":"35000"
+    },
+    {
+      "label":"David",
+      "value":"42300"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, 3 hex colors have been specified in <span class="codeInline">paletteColors</span> attribute. Since there are 3 columns in the chart, it results in following: </p>    
+    <img src="Images/PaletteColors.jpg" width="258" height="209" />
+    <p>Had there been more columns, the colors would have been sequentially cycled for each of those columns. You can provide any number of colors as value of this attribute.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Palette Theme Color in Zoom Line Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The Zoom Line Chart allows you to build the entire chart derived from a single color named palette theme color. The text, canvas, background, border, axis lines etc. are derived from this color. The data plots, however, still use the palette colors as described earlier. Palette theme color can be provided as under:</p>
+     <pre class="prettyprint code_container">&lt;chart paletteThemeColor='6699FF' ..&gt;  </pre>
+    <p>Here, we've provided a shade of blue, which results in the chart as under. Note how everything has been automatically been converted to a shade of above specified blue. </p>
+    <p><img src="Images/PaletteThemeColor.jpg" alt="Palette Theme Color in Zoom Line Chart" width="453" height="305" /></p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Font Properties|FontProperties.html", "Chart Limits|ChartLimits.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

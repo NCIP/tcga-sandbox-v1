@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_export_request_stream (Fusioncharts::Exporter::FcExporter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_exporter.rb, line 73</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_export_request_stream</span>
+      <span class="ruby-comment cmt">#String of compressed data</span>
+      <span class="ruby-comment cmt">#Get all export parameters</span>
+      <span class="ruby-comment cmt">#get width and height of the chart</span>
+      <span class="ruby-comment cmt">#Background color of chart</span>
+      <span class="ruby-identifier">meta_hash</span> = {<span class="ruby-value str">&quot;width&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_width</span>],
+      <span class="ruby-value str">&quot;height&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_height</span>],
+      <span class="ruby-value str">&quot;bgColor&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_bgColor</span>],
+      <span class="ruby-value str">&quot;DOMId&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_DOMId</span>]}
+      
+      <span class="ruby-identifier">export_data</span> = {<span class="ruby-value str">&quot;stream&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:stream</span>],
+      <span class="ruby-value str">&quot;parameters&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">parse_params</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:parameters</span>]),
+      <span class="ruby-value str">&quot;meta&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">meta_hash</span>}
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">export_data</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>default (Fusioncharts::DbDataUrlController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/fusioncharts/db_data_url_controller.rb, line 18</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default</span>
+    <span class="ruby-comment cmt"># Escape each parameter and its value before appending it to the URL</span>
+    <span class="ruby-comment cmt"># This is done, so that any special characters like ? etc in the parameter name or value is escaped</span>
+    <span class="ruby-comment cmt"># Here, the parameter name is &quot;animate&quot; and value is &quot;1&quot;, which do not need escaping as such.</span>
+    <span class="ruby-ivar">@str_data_url</span> = <span class="ruby-value str">&quot;/Fusioncharts/db_data_url/pie_data?&quot;</span><span class="ruby-operator">+</span><span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-value str">&quot;animate=1&quot;</span>);
+    
+    <span class="ruby-comment cmt">#The common layout for this view</span>
+    <span class="ruby-identifier">render</span>(<span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;layouts/common&quot;</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

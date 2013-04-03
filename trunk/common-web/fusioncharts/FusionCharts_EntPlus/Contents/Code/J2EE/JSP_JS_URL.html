@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combining FusionCharts, JSP &amp; JavaScript (dataUrl) method</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with J2EE|JSP_GettingStarted.html", "J2EE &amp; JavaScript (dataURL) method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Combining FusionCharts, JSP &amp; JavaScript (dataUrl) method</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts v3 offers tremendous integration capabilities with JavaScript. You can easily use FusionCharts and JavaScript to create client side dynamic charts. </p>
+      <p>Here, we'll see the JavaScript + URL method - where we ask the chart to fetch new data from server and update itself, without incurring any page refreshes. The entire application resides in a single page which makes it a seamless experience for your end viewers.</p>
+      <p><strong>Before you proceed with the contents in this page, we strictly recommend you to please go through the sections &quot;How FusionCharts works?&quot; and &quot;Basic Examples&quot;, as we'll directly use a lot of concepts defined in those sections.</strong></p>
+      <p class="highlightBlock">The code discussed in this example is present 
+        in<span class="codeInline"> Download Package &gt; Code &gt; J2EE &gt; DB_JS_dataURL 
+        </span>folder. </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Mission for this example </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let us first define what we want to achieve in this example. We'll carry on from our previous drill-down example and convert it into a single page example. In our previous example, we were showing the Production Summary of all the factories in a pie chart. When the user clicked on a pie slice, he was taken to another page, where a detailed date-wise chart was shown for the required factory. </p>
+      <p>In this example, we'll assimilate both the charts in a single page and make them interact with each other using JavaScript, thereby making the end-user experience smooth. Effectively, we will do the following:</p>
+      <ol>
+        <li>Contain both the pie chart (summary) and column chart (detailed) in 
+          one page (<span class="codeInline">Default.jsp</span>).</li>
+        <li>When the page loads, the pie chart would use <span class="codeInline">dataXML</span> 
+          method to show summary of all factories. This data will be built in the bean <span class="codeInline">FactoriesBean</span>. </li>
+        <li>The column chart would initialize with no data, as the user has not selected a factory initially. We'll customize the &quot;<span class="codeInline">No data to display</span>&quot; message of the chart to show a friendly message.</li>
+      <li>The pie chart would have JavaScript links defined for each pie slice. This JavaScript links refer to <span class="codeInline">updateChart()</span> JavaScript function present on the same page. We'll later see how to hand code this function. When a pie is clicked, the <span class="codeInline">factory ID </span>is passed to this function. </li>
+        <li>The <span class="codeInline"> updateChart()</span> function is responsible 
+          for updating the column chart. It generates a dataURL link by including 
+          the <span class="codeInline">factoryId</span> as a part of dataURL (<span class="codeInline">FactoryData.jsp</span>). 
+          <span class="codeInline">FactoryData.jsp</span> is the data provider 
+          page for the detailed column chart. Once the <span class="codeInline">dataURL</span> 
+          is built, it conveys this dataURL to the column chart.</li>
+        <li>The column chart would now accept this <span class="codeInline">dataURL</span>, 
+          send a request to <span class="codeInline">FactoryData.jsp</span> for 
+          XML data, accept it, parse it and finally render.</li>
+      </ol>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating the charts container page </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Both the charts and JavaScript functions to 
+        manipulate the charts is contained in <span class="codeInline">Default.jsp</span>. 
+        It has the following code: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;%@ taglib prefix=&quot;tags&quot; tagdir=&quot;/WEB-INF/tags&quot;%&gt;
+&lt;%@ taglib uri=&quot;http://www.fusioncharts.com/jsp/core&quot; prefix=&quot;fc&quot;%&gt;
+&lt;jsp:useBean id=&quot;factoriesBean&quot;
+class=&quot;com.fusioncharts.sampledata.FactoriesBean&quot; /&gt;
+&lt;jsp:useBean id=&quot;chart2Data&quot;
+class=&quot;com.fusioncharts.sampledata.EmptyRenderData&quot; /&gt;
+&lt;c:set var=&quot;folderPath&quot; value=&quot;../../FusionCharts/&quot; /&gt;
+&lt;c:set var=&quot;title&quot; value=&quot;FusionCharts - Database + JavaScript Example&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;header1&quot;
+value=&quot;FusionCharts Database + JavaScript (dataURL method) Example&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;header2&quot;
+value=&quot;Inter-connected charts - Click on any pie slice to see detailed
+chart below.&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;intro&quot;
+value=&quot;The charts in this page have been dynamically generated using
+data contained in a database.&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;jsPath&quot; value=&quot;../../FusionCharts/FusionCharts.js&quot;
+scope=&quot;request&quot; /&gt;  
+<span class="codeComment">&lt;!-- 
+      In this example, we show a combination of database + JavaScript (dataURL method)
+      rendering using FusionCharts.
+    
+      The entire app (page) can be summarized as under. This app shows the break-down
+      of factory wise output generated. In a pie chart, we first show the sum of quantity
+      generated by each factory. These pie slices, when clicked would show detailed date-wise
+      output of that factory. The detailed data would be dynamically pulled by the column
+      chart from another JSP page. There are no page refreshes required. Everything
+      is done on one single page.
+    
+      The XML data for the pie chart is fully created in JSP at run-time. JSP interacts
+      with the database and creates the XML for this.
+      Now, for the column chart (date-wise output report), each time we need the data
+      we dynamically submit request to the server with the appropriate factoryId. The server
+      responds with an XML document, which we accept and update chart at client side.
+    
+--&gt; </span>
+&lt;tags:template2&gt;
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+   <span class="codeComment">/** 
+    * updateChart method is invoked when the user clicks on a pie slice.
+    * In this method, we get the index of the factory after which we request for XML data
+    * for that that factory from FactoryData.asp, and finally
+    * update the Column Chart.
+    * @param factoryIndex Sequential Index of the factory.
+    */</span>
+    function updateChart(factoryIndex) {
+      <span class="codeComment">//DataURL for the chart</span>
+       var strURL = &quot;FactoryData.jsp?factoryId=&quot; + factoryIndex;
+       <span class="codeComment">//Sometimes, the above URL and XML data gets cached by the browser.</span>
+       <span class="codeComment">//If you want your charts to get new XML data on each request,
+       //you can add the following line:</span>
+       //strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+       <span class="codeComment">//getTimeForURL method is defined below and needs to be included
+       //This basically adds a ever-changing parameter which bluffs
+       //the browser and forces it to re-load the XML data every time.</span>
+     <span class="codeComment">  //Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+       var chartObj = FusionCharts('FactoryDetailed');
+       <span class="codeComment">//Send request for XML</span>
+       chartObj.setXMLUrl(strURL);
+    }
+   <span class="codeComment">/**
+    * getTimeForURL method returns the current time 
+    * in a URL friendly format, so that it can be appended to
+    * dataURL for effective non-caching.
+    */</span>
+    function getTimeForURL() {
+       var dt = new Date();
+       var strOutput = &quot;&quot;;
+       strOutput = dt.getHours() + &quot;_&quot; + dt.getMinutes() + &quot;_&quot;
+       + dt.getSeconds() + &quot;_&quot; + dt.getMilliseconds();
+       return strOutput;
+    }
+&lt;/SCRIPT&gt;
+
+<span class="codeComment">&lt;!-- Create the chart - Pie 3D Chart with data contained in bean --&gt;</span>
+   &lt;fc:render chartId=&quot;${factoriesBean.chartId}&quot;
+      swfFilename=&quot;${folderPath}${factoriesBean.filename}&quot;
+      width=&quot;${factoriesBean.width}&quot; height=&quot;${factoriesBean.height}&quot;
+      debugMode=&quot;false&quot; xmlData=&quot;${factoriesBean.xml}&quot; /&gt;
+   <span class="codeComment">&lt;!-- 
+      Column 2D Chart with changed &quot;No data to display&quot; message
+      We initialize the chart with &lt;chart&gt;&lt;/chart&gt;
+    --&gt;</span>
+   &lt;fc:render chartId=&quot;${chart2Data.chartId}&quot;
+      swfFilename=&quot;${folderPath}${chart2Data.filename}${chart2Data.noDataParameter}&quot;
+      width=&quot;${chart2Data.width}&quot; height=&quot;${chart2Data.height}&quot;
+      debugMode=&quot;false&quot; registerWithJS=&quot;true&quot; xmlData=&quot;${chart2Data.xml}&quot; /&gt;
+&lt;/tags:template2&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Dissecting the code in this page, we see that, </p>
+      <ul>
+          <li>This page uses template2 tag file and provides the path to the js file to it via the variable jsPath. </li>
+          <li>Then there are the javascript functions, which we will discuss in a while. </li>
+          <li>Finally, the two charts are rendered in the page using the <span class="codeInline">fc:render</span> tag. <br />
+              The data for the first chart is obtained from <span class="codeInline">FactoriesBean</span> and the second chart uses the <span class="codeInline">EmptyRenderData</span> bean. <br />
+              The data for the second chart will be provided dynamically on clicking on the pie slice in the first chart. </li>
+          </ul>      
+      <p class="header">First Chart </p>
+      <p>The Pie 3D chart is created using dataXML method. The Pie 3D chart has its DOM Id as <span class="codeInline">FactorySum</span> defined in the <span class="codeInline">FactoriesBean</span>:</p>
+      <pre class="code_container prettyprint">protected String chartId=&quot;FactorySum&quot;;</pre>
+      <p>Leaving aside the usual render tag, we will directly jump to the code in the bean used to construct the xml. This is similar to the one we saw in the drill-down example, only the link will be different this time.</p>      
+<pre class="code_container prettyprint">private String getFactoryXML(){
+  <span class="codeComment">//strXML will be used to store the entire XML document generated</span> 
+  String strXML=&quot;&quot;; 
+  try{ 
+      DBConnection dbConn = new DBConnection(); 
+      Connection oConn= dbConn.getConnection(); 
+    <span class="codeComment"> //Database Objects - Initialization </span>
+      Statement st1=null,st2=null; 
+      ResultSet rs1=null,rs2=null; 
+      String strQuery=&quot;&quot;; 
+      Map&lt;String,String&gt; chartAttributes=new HashMap&lt;String, String&gt;();; 
+      chartAttributes.put(&quot;caption&quot;, &quot;Factory Output report&quot;); 
+      chartAttributes.put(&quot;subCaption&quot;, &quot;By Quantity&quot;); 
+      chartAttributes.put(&quot;pieSliceDepth&quot;, &quot;30&quot;); 
+      chartAttributes.put(&quot;showBorder&quot;, &quot;1&quot;); 
+      chartAttributes.put(&quot;formatNumberScale&quot;, &quot;0&quot;); 
+      chartAttributes.put(&quot;numberSuffix&quot;, &quot; Units&quot;); 
+      DOMHelper domHelper = new DOMHelper(); 
+      Document chartDoc = domHelper.getDocument(); 
+      Element rootElement = chartDoc.createElement(&quot;chart&quot;); 
+      domHelper.addAttributesToElement(rootElement, chartAttributes); 
+     <span class="codeComment"> //Iterate through each factory </span>
+      strQuery = &quot;select * from Factory_Master&quot;; 
+      st1=oConn.createStatement(); 
+      rs1=st1.executeQuery(strQuery); 
+      String factoryId=null; 
+      String factoryName=null; 
+      String totalOutput=&quot;&quot;; 
+      while(rs1.next()) { 
+        totalOutput=&quot;&quot;; 
+        factoryId=rs1.getString(&quot;FactoryId&quot;); 
+        factoryName=rs1.getString(&quot;FactoryName&quot;); 
+        <span class="codeComment">//Now create second recordset to get details for this factory </span>
+        strQuery = &quot;select sum(Quantity) as TotOutput from Factory_Output where FactoryId=&quot; + factoryId; 
+        st2=oConn.createStatement(); 
+        rs2 = st2.executeQuery(strQuery); 
+        if(rs2.next()){ 
+          totalOutput=rs2.getString(&quot;TotOutput&quot;); 
+        } 
+<span class="codeComment">        //Generate &lt;set label='..' value='..'/&gt;  </span>
+        Element setElem = chartDoc.createElement(&quot;set&quot;); 
+        setElem.setAttribute(&quot;label&quot;, factoryName); 
+        setElem.setAttribute(&quot;value&quot;, totalOutput); 
+<strong>        setElem.setAttribute(&quot;link&quot;, &quot;javaScript:updateChart(&quot;+factoryId + &quot;)&quot;);</strong> 
+        rootElement.appendChild(setElem); 
+<span class="codeComment">        //close the resultset,statement 
+        //enclose them in try catch block 
+        //code omitted here
+</span>    } 
+<span class="codeComment">    //Finally, close &lt;chart&gt; element </span>
+    chartDoc.appendChild(rootElement); 
+    strXML=domHelper.getXMLString(chartDoc); 
+<span class="codeComment">    //close the resultset,statement,connection 
+    //enclose them in try catch block 
+    //code omitted here
+</span>  }catch(java.sql.SQLException e){ 
+    System.out.println(&quot;Could not close the statement&quot;); 
+  } 
+  return strXML; 
+}</pre>
+      <p class="text">We have provided the link to the updateChart javascript function with factoryId as the parameter. Since we are using dom to create the xml, our code for this turns out to be:      </p>
+      <pre class="code_container prettyprint"><strong>setElem.setAttribute(&quot;link&quot;, &quot;javaScript:updateChart(&quot;+factoryId + &quot;)&quot;);</strong> </pre>      
+<p class="header">Drill-down Chart </p>
+      <p class="text">The chart obtained on drilling-down is present in the same page, Default.jsp. The data to this chart is obtained from the javascript function updateChart. (which in turn contacts FactoryData.jsp for detailed data for the factory) </p>      <p>We first create the XML data document for Pie chart - summary of factory output. For each <span class="codeInline">&lt;set&gt;</span>, we provide a JavaScript link to the <span class="codeInline">updateChart()</span> function and pass the factory ID to it as shown in the line below:</p>
+      <p class="text">For the second chart, we render  an empty Column 2D chart  with <span class="codeInline">&lt;chart&gt;&lt;/chart&gt;</span> data initially. We also change the &quot;<span class="codeInline">No data to display.</span>&quot; error to a friendly and intuitive &quot;<span class="codeInline">Please select a factory from pie chart above to view detailed data.</span>&quot; This chart has its DOM Id as <span class="codeInline">FactoryDetailed</span>. (in EmptyRenderData.java) </p>
+      <pre class="code_container prettyprint">protected String chartId=&quot;FactoryDetailed&quot;;</pre>
+      <p class="text">This chart has to be registered with JavaScript since it obtains its data through javascript. This can be done by setting the <span class="codeInline">registerWithJS</span> attribute to true as shown:</p>      
+<pre class="code_container prettyprint">&lt;fc:render chartId=&quot;${chart2Data.chartId}&quot;           
+swfFilename=&quot;${folderPath}${chart2Data.filename}${chart2Data.noDataParameter}&quot;   
+width=&quot;${chart2Data.width}&quot; height=&quot;${chart2Data.height}&quot;   
+debugMode=&quot;false&quot; <strong>registerWithJS=&quot;true&quot;</strong> xmlData=&quot;${chart2Data.xml}&quot; /&gt;</pre>
+      <p>  The pie chart shows 
+        the summary data provided to it using dataXML way. The column chart shows 
+        the above &quot;friendly&quot; error message. Now, when each pie slice 
+        is clicked, the <span class="codeInline">updateChart()</span> JavaScript 
+        function is called and the <span class="codeInline">factoryID</span> of 
+        the pie is passed to it. This function is responsible for updating the 
+        column chart and contains the following code: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint"><strong>function updateChart(factoryIndex){ </strong> 
+  <span class="codeComment">//DataURL for the chart</span> 
+  var strURL = &quot;FactoryData.jsp?factoryId=&quot; 
+      + factoryIndex; 
+  <span class="codeComment">//Sometimes, the above URL and XML data gets cached by the browser.
+  //If you want your charts to get new XML data on each request,
+  //you can add the following line:
+  //strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+  //getTimeForURL method is defined below and needs to be included
+  //This basically adds a ever-changing parameter which bluffs
+  //the browser and forces it to re-load the XML data every time.</span>
+ <span class="codeComment"> //Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+  var chartObj = FusionCharts(&quot;FactoryDetailed&quot;); 
+  <span class="codeComment">//Send request for XML</span>
+  <strong>chartObj.setXMLUrl(strURL);</strong>
+}   </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, </p>
+      <ol>
+        <li>We first create a <span class="codeInline">dataURL</span> string by 
+          appending the <span class="codeInline">factoryID</span> to <span class="codeInline">FactoryData.jsp</span>.        </li>
+        <li>Finally, we convey this <span class="codeInline">dataURL</span> to 
+          the column chart. To do so, we first get a reference to the column chart 
+          using its DOM Id <span class="codeInline">FactoryDetailed</span>. We 
+          use the function defined 
+          for FusionCharts object <span class="codeInline"></span> to do so. </li>
+        <li>Once we've the reference to the chart, we simply call the <span class="codeInline">setXMLUrl</span> method of the chart and pass it the URL to request data from. </li>
+        <li>This updates the chart with new data. </li>
+      </ol>
+      <p>This completes our front-end for the chart. We now just need to build <span class="codeInline">FactoryData.jsp</span> 
+        page, which is responsible to provide detailed data to column chart. It 
+        contains the following code: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+        &lt;jsp:useBean id=&quot;detailsBean&quot;
+class=&quot;com.fusioncharts.sampledata.FactoryDetailsBean&quot; /&gt;
+<strong>&lt;c:set target=&quot;${pageContext.response}&quot; property=&quot;contentType&quot; value=&quot;text/xml&quot;/&gt;
+&lt;c:set target=&quot;${detailsBean}&quot; property=&quot;factoryId&quot; value=&quot;${param.factoryId}&quot;/&gt;
+&lt;c:out value=&quot;${detailsBean.xml}&quot; escapeXml=&quot;false&quot;/&gt;</strong></pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this page, we basically request the factory Id passed to it as querystring, set it to the bean <span class="codeInline">FactoryDetailsBean</span>, obtain the xml from the bean and finally write it to output stream. </p>
+        <p>The construction of the xml in the bean is done every time the <span class="codeInline">setFactoryId</span> method is called. The code for building the xml for the given <span class="codeInline">factoryId</span> is shown below: (<span class="codeInline">getFactoryDetailsXML(String factoryId)</span>) </p>
+        <pre class="code_container prettyprint"><span class="codeComment">//strXML will be used to store the entire XML document generated</span>
+String strXML=&quot;&quot;;
+try{
+  DBConnection dbConn = new DBConnection();
+  Connection oConn= dbConn.getConnection();
+<span class="codeComment">  //Database Objects - Initialization</span>
+  Statement st=null;
+  ResultSet rs=null;
+  java.sql.Date date=null;
+  java.util.Date uDate=null;
+  String uDateStr=&quot;&quot;;
+  String quantity=&quot;&quot;;
+  String strQuery=&quot;&quot;;
+  Map&lt;String,String&gt; chartAttributes=new HashMap&lt;String, String&gt;();
+  chartAttributes.put(&quot;caption&quot;, &quot;Factory &quot;+factoryId+&quot; Output&quot;);
+  chartAttributes.put(&quot;subCaption&quot;, &quot;(In Units)&quot;);
+  chartAttributes.put(&quot;xAxisName&quot;, &quot;Date&quot;);
+  chartAttributes.put(&quot;showValues&quot;, &quot;1&quot;);
+  chartAttributes.put(&quot;labelStep&quot;, &quot;2&quot;);
+  chartAttributes.put(&quot;palette&quot;, &quot;2&quot;);
+  DOMHelper domHelper = new DOMHelper();
+  Document chartDoc = domHelper.getDocument();
+<strong>  Element rootElement = chartDoc.createElement(&quot;chart&quot;);
+  domHelper.addAttributesToElement(rootElement, chartAttributes);</strong>
+
+  //Now, we get the data for that factory
+<strong>  strQuery = &quot;select * from Factory_Output where FactoryId=&quot; + factoryId+ &quot; order by DatePro Asc &quot;;</strong>
+
+  st=oConn.createStatement();
+  rs=st.executeQuery(strQuery);
+
+  while(rs.next()) {
+    date=rs.getDate(&quot;DatePro&quot;);
+    quantity=rs.getString(&quot;Quantity&quot;);
+    if(date!=null) {
+      uDate=new java.util.Date(date.getTime());
+      SimpleDateFormat sdf=new SimpleDateFormat(&quot;dd/MM&quot;);
+      uDateStr=sdf.format(uDate);
+    }
+  //Generate &lt;set label='..' value='..'/&gt; 
+<strong>  Element setElem = chartDoc.createElement(&quot;set&quot;);
+  setElem.setAttribute(&quot;label&quot;, uDateStr);
+  setElem.setAttribute(&quot;value&quot;, quantity);
+  rootElement.appendChild(setElem);</strong>
+  }
+  //Finally, close &lt;chart&gt; element
+  chartDoc.appendChild(rootElement);
+  strXML=domHelper.getXMLString(chartDoc);
+  //close the resultset,statement,connection
+  //enclose them in try catch block
+  // code omitted here
+  }catch(java.sql.SQLException e){
+    System.out.println(&quot;Could not close the statement&quot;);
+  }
+return strXML;
+}
+        </pre>
+        <p class="text">Notice that we have used DOM to create the xml here. </p>
+        <p class="text">We iterate through each record in the table <span class="codeInline">Factory_Output</span> for the  factory with the given <span class="codeInline">factoryId</span>. The output details are then appended to the xml. </p>        
+        <p>When you now see the application, the initial state would look as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../guide-for-web-developers/Images/Code_JS_URL_Ini.jpg" width="511" height="458" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>And when you click on a pie slice, the following would appear on the same page (without involving any browser refreshes): </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../../guide-for-web-developers/Images/Code_JS_URL_Fin.jpg"  class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">This example demonstrated a very basic sample of the integration capabilities possible with FusionCharts v3. </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Drill down charts|JSP_Drill.html","J2EE, JavaScript &amp; dataStr|JSP_JS_XML.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

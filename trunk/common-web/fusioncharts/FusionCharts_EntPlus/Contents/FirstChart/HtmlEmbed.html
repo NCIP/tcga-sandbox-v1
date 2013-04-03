@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Embedding  Charts  Using &lt;OBJECT-/&lt;EMBED- Tags</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Using HTML embedding method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Embedding  Charts  Using &lt;OBJECT&gt;/&lt;EMBED&gt; Tags</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts can also be embedded in web pages using plain HTML and without using FusionCharts JavaScript class. </p>
+       <p>For this, you need to use the <span class="codeInline">&lt;OBJECT&gt;</span>/<span class="codeInline">&lt;EMBED&gt;</span> HTML tags. This method can be implemented in applications that do not support JavaScript and in cases where you fetch the entire chart embedding code using an AJAX request (e.g., <span class="codeInline">ASP.NET UpdatePanel</span>) and the AJAX response should contain &lt;OBJECT&gt;/&lt;EMBED&gt; tags.</p>
+       <p class="highlightBlock">We always recommended that you use FusionCharts JavaScript class method for embedding the charts in  an HTML page. That is the only way to get JavaScript (HTML5) fallback for the charts. When embedding using OBJECT/EMBED method, only Flash charts will show up.  Additionally, features such as  JSON data support, managed printing in Mozilla based browsers and enhanced browser-specific error handling&nbsp;would not function as well, as they are dependent on the FusionCharts JavaScript class. </p>
+  </td>
+    </tr>
+    <tr>
+    <td class="header"><a name="dataurl" id="dataurl"></a>HTML embedding with XML data provided as URL </td>
+    </tr>
+   <tr>
+     <td class="text">
+      <p>We modify our first sample <span class="codeInline">weekly-sales.html </span>and rename it as <span class="codeInline" style="codeInline">weekly-sales-html-embed-xml-url.html</span>, and  copy the following code into it: </p>  </td>
+   </tr>
+  <tr> 
+    <td valign="top" class="text">
+	 <pre class="code_container prettyprint lang-html">&lt;html&gt;
+   &lt;head&gt;
+	&lt;title&gt;My First chart using FusionCharts - 
+          Using HTML embedding method - XML from URL&lt;/title&gt;
+	&lt;/head&gt;
+   &lt;body&gt;
+    <strong>&lt;object width=&quot;400&quot; height=&quot;300&quot; id=&quot;Column3D&quot; 
+            classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; 
+            codebase=&quot;http://fpdownload.macromedia.com
+              /pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0&quot; &gt;
+
+         &lt;param name=&quot;movie&quot; value=&quot;FusionCharts/Column3D.swf&quot; /&gt;
+
+         &lt;param name=&quot;FlashVars&quot; value=&quot;&dataURL=Data.xml
+                    &chartWidth=400&chartHeight=300
+                    &DOMId=myChartId&#x26;registerWithJS=1&debugMode=0&quot;&gt;
+
+         &lt;param name=&quot;quality&quot; value=&quot;high&quot; /&gt;
+
+         &lt;embed src=&quot;FusionCharts/Column3D.swf&quot; flashVars=&quot;&dataURL=Data.xml
+                    &chartWidth=400&chartHeight=300
+                    &DOMId=myChartId&#x26;registerWithJS=1&debugMode=0&quot; 
+            
+              width=&quot;400&quot; height=&quot;300&quot; name=&quot;Column3D&quot; 
+              quality=&quot;high&quot; 
+              type=&quot;application/x-shockwave-flash&quot; 
+              pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot; /&gt;
+
+      &lt;/object&gt;</strong>
+
+	&lt;/body&gt;
+&lt;/html&gt;</pre>
+	 <br />
+	 See it <a href="../../Code/MyFirstChart/weekly-sales-html-embed-xml-url.html" target="_blank">live</a>!    </td>
+  </tr>
+  <tr>
+    <td valign = "top" class="text"><p>The  code in bold is responsible for embedding&nbsp;FusionCharts into the HTML page.</p>
+      <p>In  the above code, we've done the following: </p>
+      <ul>
+        <li>We used  <span class="codeInline">&lt;OBJECT&gt;</span> and <span class="codeInline">&lt;EMBED&gt;</span> tags to embed the 3D Column Chart  (<span class="codeInline">Column3D.swf</span>) within the HTML page. We set the tags' ID and name, set the width (400 pixels) and height (300 pixels).</li>
+        <li>We loaded the chart SWF file using <span class="codeInline">movie</span> attribute of <span class="codeInline">&lt;OBJECT&gt;</span> tag and <span class="codeInline">src</span> attribute of <span class="codeInline">&lt;EMBED&gt;</span> tag.</li>
+        <li>We passed chart external data to <span class="codeInline">FlashVars</span> parameter/attribute using <span class="codeInline"><strong>&amp;dataUrl=Data.xml</strong></span>. Here, we indicate the path of the data source (XML file) relative to the HTML page &ndash; <span class="codeInline">Data.xml</span> in this case.</li>
+        <li>We passed chart width and chart height to chart by means of <span class="codeInline">chartWidth</span> and <span class="codeInline">chartHeight</span> variables through <span class="codeInline">FlashVars</span>.</li>
+        <li>We provided other required FlashVars like <span class="codeInline">DOMId</span> which is the DOM id of the chart and FlashVars like  <span class="codeInline">debugMode</span>, <span class="codeInline">registerWithJS</span>. </li>
+      </ul>
+      <p class="highlightBlock">To render a Flash movie in a browser, the HTML page must  contain certain tags for initiating the Flash movie. &lt;OBJECT&gt; and  &lt;EMBED&gt; tags are used for this purpose. The &lt;OBJECT&gt; tag is recognized  by Internet Explorer under Microsoft Windows and the &lt;EMBED&gt; tag is  recognized by other browsers. <br />
+        <br />
+      Even though both &lt;OBJECT&gt; and &lt;EMBED&gt; tags have  similar functionality, it is essential to use both the tags for the sake of cross  browser compatibility. For optimum compatibility, the &lt;EMBED&gt; tag must be  nested within the &lt;OBJECT&gt; tag (as shown in the code above). This way, Active X-enabled  browsers like Internet Explorer can ignore the &lt;EMBED&gt; tag (as it is inside the &lt;OBJECT&gt;  tag), and other browsers that do not recognize the &lt;OBJECT&gt; tag can carry  on with the &lt;EMBED&gt; tag. </p>
+    </td>
+  </tr>
+  <tr>
+     <td class="header"><a name="datastring" id="datastring"></a>HTML embedding using XML data embedded in HTML page </td>
+  </tr>
+  <tr>
+     <td class="text"><p>You can also embed the XML in the &lt;OBJECT&gt;/&lt;EMBED&gt; tag itself without depending on the external source.</p> </td>
+  </tr>
+  
+  <tr>
+    <td class="text">
+        We modify our first sample <span class="codeInline" style="codeInline">weekly-sales-html-embed-xml-url.html</span> and rename it as <span class="codeInline" style="codeInline">weekly-sales-html-embed-xml-embed.html</span>.<br /><br />
+ 
+	 <pre class="code_container  prettyprint lang-html">&lt;html&gt;
+   &lt;head&gt;
+	&lt;title&gt;My First chart using FusionCharts - 
+     Using HTML embedding method - XML from URL&lt;/title&gt;
+	&lt;/head&gt;
+   &lt;body&gt;
+    &lt;object width=&quot;400&quot; height=&quot;300&quot; id=&quot;Column3D&quot; 
+            classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; 
+            codebase=&quot;http://fpdownload.macromedia.com/pub/
+              shockwave/cabs/flash/swflash.cab#version=8,0,0,0&quot; &gt;
+
+         &lt;param name=&quot;movie&quot; value=&quot;FusionCharts/Column3D.swf&quot; /&gt;
+
+         &lt;param name=&quot;FlashVars&quot; value=&quot;&chartWidth=400&chartHeight=300
+                    &DOMId=myChartId&#x26;registerWithJS=1&debugMode=0
+                    <strong>&amp;dataXML=&lt;chart caption='Weekly Sales Summary' 
+                        xAxisName='Week' yAxisName='Sales' numberPrefix='$'&gt;
+                                  &lt;set label='Week 1' value='14400' /&gt;
+                                  &lt;set label='Week 2' value='19600' /&gt;
+                                  &lt;set label='Week 3' value='24000' /&gt;
+                                  &lt;set label='Week 4' value='15700' /&gt;
+                              &lt;/chart&gt;</strong>&quot;
+         
+
+         &lt;param name=&quot;quality&quot; value=&quot;high&quot; /&gt;
+
+         &lt;embed src=&quot;FusionCharts/Column3D.swf&quot;
+                flashVars=&quot;&chartWidth=400&chartHeight=300
+                    &DOMId=myChartId&#x26;registerWithJS=1&debugMode=0
+                    <strong>&amp;dataXML=&lt;chart caption='Weekly Sales Summary' 
+                        xAxisName='Week' yAxisName='Sales' numberPrefix='$'&gt;
+                                  &lt;set label='Week 1' value='14400' /&gt;
+                                  &lt;set label='Week 2' value='19600' /&gt;
+                                  &lt;set label='Week 3' value='24000' /&gt;
+                                  &lt;set label='Week 4' value='15700' /&gt;
+                              &lt;/chart&gt;</strong>&quot; 
+            
+              width=&quot;400&quot; height=&quot;300&quot; name=&quot;Column3D&quot; 
+              quality=&quot;high&quot; 
+              type=&quot;application/x-shockwave-flash&quot; 
+              pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot; /&gt;
+
+      &lt;/object&gt;
+
+	&lt;/body&gt;
+&lt;/html&gt;</pre>
+	 <br />
+	 See it <a href="../../Code/MyFirstChart/weekly-sales-html-embed-xml-embed.html" target="_blank">live</a>!</td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text"><p>As you can note from the bold text in the code above, we have only replaced <span class="codeInline">&amp;dataURL </span>FlashVars variable with <span class="codeInline">&amp;dataXML</span> and to this variable we have passed the chart XML data. The resultant chart would be the same.</p> 
+     <p class="highlightBlock">Depending on your coding practice, you&rsquo;d be enclosing the entire XML string either using single or double quotation marks (&quot;,&quot;&quot;). So, if you are enclosing the entire XML in double quotes, then the XML attributes must be encapsulated in single quotes. Using, single quotes for encapsulation of the entire XML string and also for individual attributes, will lead to a conflict. Conflict arising due to improper use of quotes does not raise an error, but shows an empty space in place of chart (or sometimes a JavaScript error).</p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="flashvars" id="flashvars"></a>FusionCharts FlashVars details </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>When using HTML embedding, all variables to the chart are passed using <span class="codeInline">FlashVars</span>. The table below lists all such variables supported: </p>
+        <table width="95%" border="0" align="left" cellpadding="00" cellspacing="0" class="table">
+      <tr>
+        <td width="19%" valign="top" class="header">Variable</td>
+        <td width="81%" valign="top" class="header">Description</td>
+      </tr>
+      
+      <tr>
+        <td valign="top" class="codeInline">dataURL</td>
+        <td valign="top" class="text">
+           <p>This variable takes the path of the XML data file/stream as value. This method is called <strong><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL method</a></strong>. It is mutually exclusive to <span class="codeInline">dataXML </span>variable.</p>
+           <p>* In case both <span class="codeInline">&amp;dataURL</span> and <span class="codeInline">&amp;dataXML </span>are set to blank or not provided, the chart will search for default <span class="codeInline">Data.xml</span> file in the same path as the HTML file.</p>
+        </td>
+      </tr>
+      <tr class="trVeryLightGrayBg">
+        <td valign="top" class="codeInline">dataXML</td>
+        <td valign="top" class="text">
+           <p>This variable passes the XML embedded in &lt;OBEJCT&gt; or &lt;EMBED&gt; tag. This method is called <strong><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a></strong>. It is mutually exclusive to <span class="codeInline">dataURL </span>variable.</p>
+           <p>* In case both <span class="codeInline">&amp;dataURL</span> and <span class="codeInline">&amp;dataXML </span>are set to blank or not provided, the chart will search for default <span class="codeInline">Data.xml</span> file in the same path as the HTML file.</p>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">DOMId</td>
+        <td valign="top" class="text"> ID for the chart using which it will be recognized in the HTML page. <strong>Each chart on the page needs to have a unique ID.</strong></td>
+      </tr>
+      <tr class="trVeryLightGrayBg">
+        <td valign="top" class="codeInline">chartWidth</td>
+        <td valign="top" class="text">Intended width for the chart (value in pixels without any px suffix or value in percent with %25 as suffix. %25 is the UrlEncoded form of % sign)</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">chartHeight</td>
+        <td valign="top" class="text">Intended height for the chart (values in pixels without any px suffix or value in percent with %25 as suffix. %25 is the UrlEncoded form of % sign)</td>
+      </tr>
+      <tr class="trVeryLightGrayBg">
+        <td valign="top" class="codeInline">debugMode</td>
+        <td valign="top" class="text">Whether to start the chart in debug mode which shows a Debug Window over the chart. Set it to 1 to show the Debug Window. Please see<a href="../Debug/Window.html"> Debugging your Charts</a> section for more details on Debug Mode. </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">registerWithJS</td>
+        <td valign="top" class="text">Whether to register the chart with JavaScript. This value should always be set to 1 to get maximum possible access to FusionCharts JavaScript API. But when using OBJECT/EMBED method, only minimal JavaScript functions are available to chart (e.g., <span class="codeInline">setDataURL</span>, <span class="codeInline">setDataXML</span>, <span class="codeInline">print</span>, <span class="codeInline">exportChart</span> etc.) </td>
+      </tr>
+      
+	  
+      
+      <tr class="trVeryLightGrayBg">
+        <td valign="top" class="codeInline">scaleMode</td>
+        <td valign="top"><span class="text">Scaling  option of the chart. It can take any value out of the four: &quot;noscale&quot;, &quot;exactfit&quot;,  &quot;noborder&quot; and &quot;showall&quot;. FusionCharts works best in &quot;noScale&quot; mode. </span></td>
+      </tr>
+      
+      <tr>
+        <td valign="top" class="codeInline">lang</td>
+        <td valign="top" class="text">(optional) Preferred language for chart messages. e.g. <strong>EN. </strong>The present supported language is EN i.e. English. Other languages can be added by adding to source code of chart and then compiling it. </td>
+      </tr>
+    </table>
+     </td>
+  </tr> 
+  <tr><td height="23"></td></tr> 
+ <tr>
+    <td valign="top" class="header"><a name="limitations" id="limitations"></a>Limitations of using HTML embed method</td>
+ </tr>
+ <tr>
+    <td valign="top" class="text">
+       <p>There are some  limitations of HTML embedding method. Let us get a comprehensive list of the limitations:</p>
+       <ul>
+          <li>It does not support JSON data format. So the only data format that you can pass to chart using this method is XML.</li>
+          <li>It is not fully compatible with FusionCharts JavaScript framework, hence, many of advanced features  (like Print Manager, <em>LinkedCharts</em>, Advanced Event management etc.) won't work.</li>
+          <li>It does not support JavaScript (HTML5) chart fallback mechanism.</li>
+      </ul>
+    </td>
+ </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating chart using data from Form|UsingDataForm.html","Using FusionCharts jQuery Plugin|UsingJQuery.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

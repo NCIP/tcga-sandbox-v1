@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Configuring LinkedCharts using FusionCharts jQuery plugin</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "Configuring <em>LinkedCharts</em>" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Configuring <em>LinkedCharts</em> using FusionCharts jQuery plugin</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts jQuery also provides option  to configure <a href="../JavaScript/JS_LinkedCharts.html"><em>LinkedCharts</em></a>. You would need to use <span class="codeInline">drillDownFusionChartsTo</span> method to achieve this. </p>
+       <div class="highlightBlock">To aid your understanding of this section, we would recommend you to go through the following sections of documentation (if you've not already read them):     
+         <ul>
+           <li>
+           <a href="../JavaScript/JS_LinkedCharts.html">FusionCharts and JavaScript &gt; Using <em>LinkedCharts</em> </a></li>
+           <li><a href="../JavaScript/JS_LinkedCharts.html#config">FusionCharts and JavaScript &gt; Using <em>LinkedCharts</em> &gt; Configure</a></li>
+	       <li><a href="../JavaScript/API/Methods.html#configurelink">FusionCharts and JavaScript &gt; API &gt; Functions &gt; ConfigureLink</a></li>
+	       <li><a href="Overview.html">FusionCharts &amp; jQuery &gt; Overview </a></li>
+         </ul>
+      </div>
+	   
+	   <p>The <span class="codeInline">drillDownFusionChartsTo</span> method is jQuery adoption of <a href="../JavaScript/API/Methods.html#configurelink">configureLink()</a> function provided by FusionCharts JavaScript class. You can use this method to configure all the child charts created using <em>LinkedCharts</em> feature. </p>
+	   <p>The code snippet below configures the first-level child charts (of all charts present in the HTML elements matching id - &quot;chartContainer&quot;) to render as Pie 3D chart and show a &quot;close&quot; button at top:</p>
+	   <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).drillDownFusionChartsTo
+    ({ swfUrl : &quot;Charts/Pie3D.swf&quot;, overlayButton: { message: 'close', bgColor:'FFEEEE' } });
+</pre>
+	   <p>See it <a href="../../Code/jquery/ConfigureLinkedCharts/drilldownFusionChartsTo.html" target="_blank">live</a>! </p>
+	   <p>The code snippet below configures the first two levels of child charts (of all charts present in the HTML elements matching id - &quot;chartContainer&quot;) to render as Pie 3D and Line charts, respectively:</p>
+	   <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;)
+    .drillDownFusionChartsTo({ swfUrl : &quot;Charts/Pie3D.swf&quot; }, {  swfUrl : &quot;Charts/Line.swf&quot; } );</pre>
+       <p>The above setting can also be passed as :</p>
+       <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;)
+    .drillDownFusionChartsTo({ swfUrl : &quot;Charts/Pie3D.swf&quot; })
+          .drillDownFusionChartsTo({  swfUrl : &quot;Charts/Line.swf&quot; });
+ </pre>
+       <p>The code below shows how settings for all levels can also be passed as an array:</p>
+       <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).drillDownFusionChartsTo
+     (
+        [
+          { overlayButton: { message: ' « Annual Sales'   } },
+          { overlayButton: { message: ' « Quarterly Sales'} },
+          {
+            swfUrl: 'Charts/Pie3D.swf',
+            width: '225', height: '200',
+            renderAt: 'weeklyChartContainer',
+            insertMode: 'append',
+            overlayButton: { message: 'Close' }
+          }
+        ]
+      );
+</pre>
+	   
+	   <p>Please note that passing of configuration objects as a single array or as a series of parameters  doesn't make a difference to the order or the level, to which they get assigned.</p>
+    </td>
+  </tr>
+    
+    
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using :FusionCharts custom jQuery selector|Selector.html","Handling events|Events.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

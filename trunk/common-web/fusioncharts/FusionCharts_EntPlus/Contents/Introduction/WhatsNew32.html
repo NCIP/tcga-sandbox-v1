@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts v3 Version History</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; 
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|Overview.html","Introduction", "What's new in XT(v3.2.2)" ] ) );
+</script><!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts v3 Version History</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts XT(v3.2.2) boasts of a plethora of enhancements which are listed below: </p>
+      </td>
+  </tr>
+   
+  <tr>
+    <td valign="top"  class="header"><a name="322" id="322"></a>What's new in XT (v3.2.2)</td>
+  </tr>
+  <tr>
+    <td valign="top"  class="text"> <p class="highlightBlock">Existing FusionCharts users can learn how to use the new features introduced in FusionCharts XT <a href="Upgrading32.html">here</a>.<br />
+    </p>
+    <ul><li>All the charts now render in pure JavaScript also. New charts in JavaScript include: 
+				<ul><li>2D Charts: MSStackedColumn2D, MSStackedColumn2DLineDY, SSGrid</li>
+				   <li>3D Charts: Column3D, MSColumn3D, MSBar3D, StackedColumn3D, StackedBar3D, StackedColumn3DLine, MSCombi3D (without True 3D feature), MSColumnLine3D, MSColumn3DLineDY, StackedColumn3DLineDY</li>
+				   <li>Scrollable charts: ScrollColumn2D, ScrollLine2D, ScollArea2D, ScrollStackedColumn2D, ScrollCombi2D, ScrollCombiDY2D</li>
+				</ul>  	
+		  </li>
+         <li> New framework for JavaScript charts that supports 3D and scroll charts,   gradients, smart labels with auto-wrapping and ellipses, interactive   legend, trend-lines and trend-zones, and axis management. Visually, the   JavaScript charts look almost similar to Flash charts of FusionCharts.</li>
+         <li>Enhanced label management in all charts to avoid overlapping of labels when there are large labels or many of them</li>
+         <li>Touch support available during rotation and slicing in pie/doughnut charts on tablets</li>
+         <li><a href="../advanced/BgSWF.html">Background image can now be used to fill the chart in different modes, and custom alignment is possible</a></li>
+         <li> Ability to center the x-axis and y-axis titles with respect to chart area</li>
+         <li><a href="../../Code/jquery/Selector/UsingFusionChartsSelector.html">Support for auto generation of x-axis in Scatter and Bubble Charts</a></li>
+         <li>Scatter and Bubble charts also support<a href="../AttDesc/BubbleScatter.html#regressionLine"> regression lines</a>, configuration   for<a href="../AttDesc/BubbleScatter.html#numberformat"> x-axis number formatting</a>, <a href="../AttDesc/BubbleScatter.html#vdivlines">vertical division lines, grids and zero   plane</a>.&nbsp;</li>
+         <li>Multi-series Combination Chart (True 3D chart) now supports customizable x-axis ticks</li>
+         <li> Enhanced JavaScript API to:
+		 <ul><li>Control <a href="../JavaScript/API/SpecialCharts/PieDoughnut_JSAPI.html">slicing movement</a> of pie and doughnut charts</li>
+		    <li>Switch to<a href="../JavaScript/API/SpecialCharts/Combi3D_JSAPI.html"> 100% view</a> in multi-series combination 3D chart</li>
+		    <li>Support <a href="../exporting-data/ExportDataJS.html">getCSVData()</a> function</li>
+		    <li>Support dynamic resizing when parent container resizes</li>
+		 </ul>  	
+		 </li>
+         <li>Code for FusionCharts and PowerCharts JavaScript version have now been separated into different files</li>
+         <li> Closed swfobject library has been removed. Now swfobject is elevated to the window scope<br />
+            <br />
+         </li>
+         </ul>
+      </td>
+  </tr>
+  <tr>
+    <td valign="top"  class="header"><a name="321" id="321"></a>What's new in v3.2.1</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p class="highlightBlock">Existing FusionCharts users can learn how to use the new features introduced in FusionCharts v3.2 <a href="Upgrading32.html">here</a>. </p>
+      <ul>
+        <li> Added <span class="codeInline">useEllipsesWhenOverflow</span> attribute to <span class="codeInline">&lt;chart&gt;</span> element that controls whether ellipses are to be used in chart labels</li>
+        <li> Marimekko chart now supports the new legend</li>
+        <li>           Bug fix in label rendering mechanism of line and area charts, where last label was getting lesser space in rotated mode</li>
+        <li> Changes in FusionCharts JavaScript class:
+          <ul><li>
+			 Improvements in JSON transcoder
+          </li>
+            <li>Support for font manipulation and STYLE manipulation when rendering JavaScript charts              </li>
+            <li>Customization of y-axis min and max values in JavaScript rendering              </li>
+            <li>Compatibility with older PowerCharts and FusionWidgets</li>
+            <li> Removal of swfUrl as compulsory construction parameter              </li>
+            <li>Additional cosmetic changes when using JavaScript rendering </li>
+          </ul>
+	    </li>
+      </ul>
+      <br />    </td>
+  </tr>
+  <tr>
+  <td valign="top"  class="header"><a name="32" id="32"></a>What's new in v3.2</td>
+  </tr>
+  <tr>
+  <td valign="top" class="text">
+    <p class="highlightBlock">Existing FusionCharts users can learn how to use the new features introduced in FusionCharts v3.2 <a href="Upgrading32.html">here</a>.      </p>
+    <ul>
+  <li>Automatic rendering of JavaScript charts on devices (like iPad and iPhone) where Flash player is not supported</li>
+  <li>6 new chart types:
+    <ul>
+      <li>2D Pareto Chart</li>
+      <li>3D Pareto Chart</li>
+      <li>Marimekko Chart</li>
+      <li>2D Stacked Column Line (Single Y axis)</li>
+      <li>3D Stacked Column Line (Single Y axis)</li>
+      <li>Zoom Line Chart (with scrolling and pinning support) </li>
+    </ul>
+  </li>
+  <li>Support for JSON data format</li>
+  <li>Support for <i>LinkedCharts</i>, where a single data source controls multiple charts</li>
+  <li>Interactive legends in charts that allow for selective showing/hiding of data series (or slicing, in case of pie charts) </li>
+  <li>Legends now support icons for each data series </li>
+  <li>Pie and Doughnut charts now support Legend</li>
+  <li>Stacked charts now support 100% stacked mode </li>
+  <li>Bubble and Scatter charts can now have visual quadrants with labels</li>
+  <li>Better management of labels on charts. Labels now have an auto rendering mode to prevent them from overlapping,  the chart selects the best display mode for labels depending on the length of the labels and the width of the chart. Long labels are   truncated, with ellipses appended to the truncated end of each label, and a tooltip bearing the completed label text is displayed when the user hovers over a truncated label.  </li>
+  <li>Support for line breaks and wrapping in all text elements including: caption, sub caption, X-axis title, Y-axis title, Labels and tooltips.</li>
+  <li>In Line charts, data values can now be positioned either above or below the dataplots. Automatic positioning of data values is also supported.</li>
+  <li>Custom alignment of caption and sub caption using STYLES</li>
+  <li>Adjustment of minimum Y-axis value in stacked charts now supported </li>
+  <li>Advanced print management using JavaScript</li>
+  <li>Additional options for efficient event handling using JavaScript</li>
+  <li>Support for dynamic update of chart properties using JavaScript</li>
+  <li>Charts now support % based sizes along with dynamic resizing </li>
+  </ul>
+  <br />  </td>
+  </tr>
+   
+   <tr>
+    <td valign="top" class="header"><a name="311" id="311"></a>What's new in v3.1: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+    <br />
+    <ul>
+      <li>Ability to export the charts as PDF and images at client-side as well as server-side</li>
+      <li>Rotated text doesn't need embedded fonts any more. Any UTF-8 character can now be rotated and used on the chart thereby making FusionCharts truly multi-lingual. </li>
+      <li>Option to specify a text value which can replace the numeric values that are displayed on chart for each data item </li>
+      <li>Ability to load custom logo on the chart at pre-defined positions and then link the same </li>
+      <li>Option to add your custom menu item to the chart's context menu and then link the same</li>
+      <li>Support for wrapping of caption, sub-caption and tooltips</li>
+      <li>Trend-lines now can have custom tool-text  </li>
+      <li>User definable color palettes for the data items </li>
+      <li>A lot more JavaScript events to help you manipulate the chart better from your JavaScript code</li>
+      <li>Ability to export data from chart as CSV using context menu or JavaScript API</li>
+      <li>Ability to get the XML for any chart using JavaScript API</li>
+      <li>Ability to get a chart attribute using JavaScript API</li>
+      <li>Charts have been recompiled at 36fps to solve the memory issues in Firefox  </li>
+    </ul>
+    <br />    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="30" id="30"></a>What's new in v3.0? </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+    <br />
+    <table width="95%" border="0" align="center" cellpadding="2" cellspacing="0">
+        <tr valign="middle" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">New Chart Types</td>
+        </tr>
+        <tr valign="middle" class="text"> 
+          <td>&nbsp;</td>
+          <td class="text">FusionCharts v3 introduces a lot of new chart types 
+              like:<br />
+            <ul>
+              <li>Scroll Charts - Column 2D, Line 2D and Area 2D, Stacked Column 2D, Combination 2D, Combination 2D (Dual Y) </li>
+              <li>Spline Charts</li>
+              <li>Spline Area Charts</li>
+              <li>Logarithmic Axis Charts</li>
+              <li>2D Multi-chart Single Y Combination Chart.</li>
+              <li>2D Multi-chart Dual Y Combination Chart. This chart be used 
+                to plot 9 types of chart:
+                <ul>
+                  <li>Column (Primary Y) + Line (Secondary Y) Combination</li>
+                  <li>Column (Primary Y) + Area (Secondary Y) Combination</li>
+                  <li>Column (Primary Y) + Column (Secondary Y) Combination</li>
+                  <li>Area (Primary Y) + Line (Secondary Y) Combination</li>
+                  <li>Area (Primary Y) + Column (Secondary Y) Combination</li>
+                  <li>Area (Primary Y) + Area (Secondary Y) Combination</li>
+                  <li>Line (Primary Y) + Line (Secondary Y) Combination</li>
+                  <li>Line (Primary Y) + Column (Secondary Y) Combination</li>
+                  <li>Line (Primary Y) + Area (Secondary Y) Combination</li>
+                </ul>
+              </li>
+              <li>3D Stacked Column Line Dual Y Combination Chart</li>
+              <li>3D Horizontal Bar </li>
+              <li>3D Stacked Bar  </li>
+              <li>Advanced Candlestick chart with support for line, bar and volume 
+                columns </li>
+              <li>Drag-able Column and Line Charts for advanced simulation scenarios </li>
+              <li>Waterfall Chart </li>
+            </ul>
+            <br />            </td>
+        </tr>
+        <tr valign="middle" class="text">
+          <td>&nbsp;</td>
+          <td class="highlightBlock">Few of the above listed charts are not 
+            in the standard FusionCharts v3 pack. e.g., Spline, Logarithmic, Waterfall &amp; Drag-able charts are part of PowerCharts pack, which can be purchased separately.</td>
+        </tr>
+       <tr><td colspan="2" height="23"></td></tr>
+        <tr valign="top" class="text">
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Ability to export charts as image </td>
+        </tr>
+        <tr valign="top" class="text">
+          <td>&nbsp;</td>
+          <td><p>Starting FusionCharts v3.0.5, you can now export your charts as images using a combination of client side and server side manipulation.</p></td>
+        </tr>
+        
+        <tr valign="top" class="text">
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Easy but advanced integration with JavaScript</td>
+        </tr>
+        <tr valign="top" class="text">
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 offers advanced options to integrate charts with your AJAX applications   or JavaScript modules. You can update charts on client side, invoke JavaScript   functions as hotspot links, or make dynamic calls for XML data without   involving any page refreshes. You can also specify a <span class="codeInline">DOMId</span> for each chart and have it register with JavaScript. The chart can then keep JavaScript functions posted around its activities.</p></td>
+        </tr>
+        
+       <tr valign="middle" class="text">
+          <td><div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">Visual XML Generator Utility </td>
+        </tr>
+        <tr valign="top" class="text">
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces a new visual XML and chart Generator utility which helps you easily build your XML data for the charts. You can manually enter data in a grid to form XML or convert your existing data from spreadsheets / CSV Files / tables into XML data. </p></td>
+        </tr>
+        
+        <tr valign="middle" class="text"> 
+          <td width="15"> <div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">STYLE Element</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces <span class="codeInline">Styles</span> 
+            to help you apply font,  effects and even animation to various objects 
+            of the chart. <span class="codeInline">Styles </span>lends a simple 
+            mechanism, using which you can easily control the visual layout of 
+            charts. </p></td>
+        </tr>
+        <tr valign="middle" class="text"> 
+          <td> <div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">Maps Supported</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td>
+            <p>FusionCharts v3 introduces maps in FusionMaps pack. FusionMaps is a collection of over 550 Flash based vector maps used to show 
+              different types of data related to geographical divisions. Suitable 
+              for use in web sites and applications, each map exposes its properties 
+              using an XML API. Setting up a map for use barely takes a few minutes 
+              and doesn't involve any modification of source code. All you need 
+              to do is feed the data in XML file and you're ready to go.</p>
+            <p class="highlightBlock">Please note that FusionMaps is an additional plug in FusionCharts 
+              v3, and not present in standard license. You need to purchase it separately.</p></td>
+        </tr>
+        <tr valign="middle" class="text"> 
+          <td width="15"> <div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">Built in Adobe Flash 8 using ActionScript 2</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 is coded in Flash 8 and ActionScript 2 to fully 
+            utilize the new and advanced features of Flash 8 like dynamic tweening, 
+            filters, better speed, advanced OOP structures etc.</p></td>
+        </tr>
+       <tr valign="top" class="text"> 
+          <td width="15" valign="middle"> <div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">New Debug Mode</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces a debug mode for each chart. The debug 
+            mode helps you to look into what's happening in the chart - behind the 
+            scenes. You can see how the chart is initializing, getting its data 
+            and interacting with JavaScript. Various errors generated are also 
+            shown in this. So, whenever you see an error on the chart now, all 
+            you need to do is switch to the debug mode to locate and fix it.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td width="15" valign="middle"> <div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">Gradient Support</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 supports gradients for most of chart objects like 
+            background, canvas, data plot etc. Many new charts support a single 
+            attribute <span class="codeInline">use3DLighting</span> to allow advanced 
+            lighting and gradient effects on the chart for better visuals.</p></td>
+        </tr>
+        <tr valign="top" class="text">
+          <td valign="middle"><div align="center"><img src="../Images/Bullet.gif" width="9" height="9" /></div></td>
+          <td class="textBold">Palette Support</td>
+        </tr>
+        <tr valign="top" class="text">
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces <span class="codeInline">Palettes</span> to help you quickly select colors themes for your chart. Starting v3, you can select one of the five pre-defined palettes to change look of your chart. You wouldn't need to specify any hex color codes when using <span class="codeInline">Palettes</span>.</p> </td>
+        </tr>
+        
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Dashed Line Support</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>Starting FusionCharts v3, you can use dashed lines to plot:</p>
+          
+            <ul>
+              <li>Data (Columns, Lines, Pies etc.)</li>
+              <li>Grid Divisional Lines</li>
+              <li>Trend Lines</li>
+              <li>Vertical separator lines</li>
+            </ul>
+            <p>You can also specify the dash properties like dash length, gap 
+              etc.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Multiple display modes for data labels</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>In FusionCharts v3, a lot of options have been introduced to allow 
+            for better x-axis label control. You can now WRAP, STAGGER or ROTATE 
+            the x-axis labels.</p> </td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Rotated value boxes &amp; dynamic placement options</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>The data value text fields can now be rotated to avoid cluttering. 
+            Also, in case of column charts, you can select whether to place the 
+            value textboxes inside the columns or outside. If there is no space, 
+            FusionCharts v3 will automatically adjust positions.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Number scale support</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces number scaling and better control 
+              over number formatting.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Automatic Divisional Line Numbering</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces automatic divisional line numbering 
+              and placement to best position them on the chart.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Better printing support</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>The context menu of the chart now includes a new item &quot;Print 
+              Chart&quot;, which offers standard cross-browser printing support.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">More control over dynamic resizing</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>v3 introduces two mode of chart resizing - <span class="codeInline">exactFit</span> 
+              and <span class="codeInline">noScale</span>. <span class="codeInline">noScale</span> 
+              uses pixel based resizing. In <span class="codeInline">exactFit</span> 
+              mode, you can resize the chart based on percentage. Also, <span class="codeInline">exactFit</span> 
+              mode allows dynamic scaling, when the container object (browser, 
+              table, DIV etc.) is resized.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Advanced Pie and Doughnut charts</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>The pie and doughnut charts of FusionCharts v3 offers advanced 
+              end-user interactivity options like dynamic slicing, rotation, links 
+              etc. Also, Smart Labels have now been introduced in Pie/Doughnut 
+              charts.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Better Legend</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>FusionCharts v3 introduces a better looking and interactive legend 
+              for the multi-series/combination charts. You can customize a lot 
+              of the properties for the Legend of each chart.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Advanced drill down features</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>The chart items can now link to new window, pop-up, frames or 
+              self window.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Vertical division lines between any two data points.</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>In charts with axis support, you can now opt for vertical division lines between 
+              any two sets of data. This particularly helps when you're plotting 
+              data for say 2 yrs and you want a visible separator between the 
+              two years' data on chart.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Entire chart as a hotspot</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>Starting v3, the entire chart can now act as a single hotspot.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Custom tool tip for each data plot item</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>You can now set your own custom tool tip text for each data plot item.</p></td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td valign="middle"><img src="../Images/Bullet.gif" width="9" height="9" /></td>
+          <td class="textBold">Multiple language support for application messages</td>
+        </tr>
+        <tr valign="top" class="text"> 
+          <td>&nbsp;</td>
+          <td><p>You can now easily customize the chart to show application messages 
+              (loading chart, loading data, rendering chart etc.) in your own 
+              language. To do so, you need to specify the messages in chart source 
+              and re-compile</p></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Download Contents|DownloadC.html","List of charts|ChartList.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

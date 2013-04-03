@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combination 3D Chart Attributes </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "3D chart attributes" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Combination 3D Chart Attributes </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The 3D Combination chart (<span class="codeInline">MSCombi3D.swf</span>) is a true 3D chart that offers features like viewing from a specific camera angle, definition of light source, use of dynamic lighting, rotation etc. In this section, we describe how to set these options using XML/JSON attributes.</p>
+    <p>The various elements of a 3D Combination chart are shown below:</p>
+    <p><img src="Images/3DChartElements.JPG" width="700" height="438" class="imageBorder" /></p>
+    <p><img src="Images/3DChartElements2.JPG" width="550" height="260" class="imageBorder" /></p>    </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">3D Animation</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>By default, the 3D chart is rendered with a default animation. If you wish not to show the initial plot animation, you can set <span class="codeInline">animate3D</span> attribute to 0.</p>
+      <p>To globally set off all animation use <span class="codeInline">animation='0'</span>. This would not only set off 3D animations, but also disable all animations applied using <span class="codeInline">&lt;styles&gt;. </span>The additional use of <span class="codeInline">animate3D</span> can override this value. Hence, a combination of&nbsp;<span class="codeInline">animation='0'</span> and <span class="codeInline">animate3D='1'</span> would disable all animations applied using <span class="codeInline">&lt;styles&gt;</span> but, enable animation of the 3D canvas. Again, <span class="codeInline">animation='1' and animate3D='0'</span> would enable all animations applied using <span class="codeInline">&lt;styles&gt;</span> but disable animation of 3D canvas. This setting would also disable chart canvas' rotation  while using JavaScript API functions like <span class="codeInline">view2D()</span>, <span class="codeInline">resetView()</span> and <span class="codeInline">rotateView()</span>. The view would be updated instantly without any rotation or animation.</p>
+<p>There is another attribute, <span class="codeInline">exeTime</span>, which influences the execution time that the chart takes to animate. It sets the time in seconds (can accept decimals) taken by the 3D elements of the chart  to animate when  the chart is rendered initially. This attribute also sets the time taken by the chart canvas  to animate when the chart is transformed to any  view (View3D, View 2D, Reset View) using context menu (right click menu). This is also applicable while using JavaScript APIs - <span class="codeInline">view2D()</span>, <span class="codeInline">view3D</span>, <span class="codeInline">resetView()</span> or <span class="codeInline">rotateView()</span>.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Specifying  camera angles</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Since this is a true 3D chart, it's rendered as a 3D model that is viewed from a specific camera angle. The camera can simply be defined as the eye of a real viewer. When you have set <span class="codeInline">animate3D</span> to 0, you can define the camera angle using two attributes - <span class="codeInline">cameraAngX</span> and <span class="codeInline">cameraAngY</span>.</p>
+      <p>When you use animation, you can also set up the starting camera view from which the camera view starts animating, and the final camera view to which the chart would finally be rotated. For this, you need to use <span class="codeInline">startAngX</span>, <span class="codeInline">startAngY,</span><span class="codeInline">endAngX</span> and <span class="codeInline">endAngY</span> attributes. </p>
+      <p>Angle values for both sets (<span class="codeInline">cameraAngY</span>,<span class="codeInline">cameraAngY</span> and <span class="codeInline">endAngX</span>,<span class="codeInline">endAngY</span>) are same.</p>
+      <p class="textBold">Camera Angle definitions: (when <span class="codeInline">animate3D='0'</span>)</p>          </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td  width="12%" valign="top" class="header">Attribute</td>
+        <td  width="15%" valign="top" class="header">Range</td>
+        <td  width="73%" valign="top" class="header">Description</td>
+        </tr>
+      <tr>
+        <td width="12%" valign="top" class="codeInline">cameraAngX</td>
+        <td width="15%" valign="top" class="text">0 to 360/0 to -360 </td>
+        <td width="73%" valign="top" class="text"><span class="codeInline">cameraAngX</span> attribute lets you specify the camera angle (for view around the chart vertically) from which the chart is viewed initially in no animation mode. If not specified, the default value is 30.</td>
+        </tr>
+      <tr>
+        <td valign="top" class="codeInline">cameraAngY</td>
+        <td valign="top" class="text">0 to 360/0 to -360 </td>
+        <td valign="top" class="text"><span class="codeInline">cameraAngY</span> attribute lets you specify the camera angle (for view around the chart horizontally) from which the chart is viewed initially in no animation mode. If not specified, the default value is -45.</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="textBold"><p>Camera angle  definitions: (when <span class="codeInline">animate3D='1'</span>)</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <table class="table" width="98%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td  width="12%" valign="top" class="header">Attribute</td>
+          <td  width="15%" valign="top" class="header">Range</td>
+          <td  width="73%" valign="top" class="header">Description</td>
+        </tr>
+        <tr>
+          <td width="12%" valign="top" class="codeInline">startAngX</td>
+          <td width="15%" valign="top" class="text">0 to 360/0 to -360 </td>
+          <td width="73%" valign="top" class="text">This attribute lets you specify the view  angle (for view around the chart vertically) at which  rotation of the chart starts (when the chart is initialized). The rotation stops at <span class="codeInline">endAngX</span>. If not specified, the default values for  both the attributes are 30.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">endAngX</td>
+          <td valign="top" class="text">0 to 360/0 to -360 </td>
+          <td valign="top" class="text">This attribute lets you specify the view  angle (for view around the chart vertically) at which rotation of the chart ends (when the chart is initialized). The rotation starts at <span class="codeInline">startAngX</span>. If not specified, the default values for  both the attributes are 30.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">startAngY<br />          </td>
+          <td valign="top" class="text">0 to 360/0 to -360 </td>
+          <td valign="top" class="text">This attribute lets you specify the view  angle (for view around the chart horizontally) from which rotation of the chart starts (when the chart is initialized). The rotation stops at <span class="codeInline">endAngY</span>. If not specified, the default values  for both the attributes are -45.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">endAngY</td>
+          <td valign="top" class="text">0 to 360/0 to -360 </td>
+          <td valign="top" class="text">This attribute lets you specify the view  angle (for view around the chart horizontally) at which rotation of the chart ends (when the chart is initialized). The rotation starts at <span class="codeInline">startAngY</span>. If not specified, the default values  for both the attributes are -45.</td>
+        </tr>
+      </table>      </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">cameraAngY, startAngY and endAngY</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The picture below shows a rotational motion (the curved arrows) <strong>horizontally</strong> around the chart. When the chart is viewed from the front,  Y angle is 0. From this position, when the camera moves towards the right face of the chart,  camera Y angle increases with positive values. When  Y angle is 90, the camera views the right face of the chart.  When Y angle is set to 180,  the camera views the back face of the chart. The camera returns to zero angle position when a complete rotation of 360 is made.</p>
+<p>From zero position again, when camera  moves towards the left face of the chart, Y angle increases with negative values. Y angle would be equal to -90 when the camera  exactly faces the left face of the chart. Similarly, Y angle would be -180 when the camera comes in front of the chart's back face, and -360 when camera returns to the zero position.</p>
+<p><img src="Images/Combi3DChartYRotation.jpg" width="582" height="389" class="imageBorder" /></p></td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">cameraAngX, startAngX and endAngX</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The picture below shows a rotational motion (the curved arrows) <strong>vertically</strong> around the chart. When the chart is viewed from the front,  X angle is 0. From this position, when the camera moves towards the right face of the chart,  camera X angle increases with positive values. When  X angle is 90, the camera views the right face of the chart.  When X angle is set to 180,  the camera views the back face of the chart. The camera returns to zero angle position when a complete rotation of 360 is made.</p>
+        <p>From zero position again, when camera  moves towards the left face of the chart, X angle increases with negative values. X angle would be equal to -90 when the camera exactly faces the left face of the chart. Similarly, X angle would be -180 when the camera comes in front of the chart's back face and -360 when camera returns to the zero position.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Combi3DChartXRotation.jpg" width="582" height="389" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Shown below are the charts with  specified custom  angles. For example, if you set <span class="codeInline">endAngX = &quot;10&quot;</span> and <span class="codeInline">endAngY=&quot;60&quot;</span>, the chart will look like the following image. Same view would be shown when <span class="codeInline">animate3D='0'</span> and <span class="codeInline">cameraAngX = &quot;10&quot;</span> &amp; <span class="codeInline">cameraAngY=&quot;60&quot;.</span></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/endAngXY1.JPG" width="356" height="313" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Likewise, if you set <span class="codeInline">endAngY=&quot;-160&quot;</span> and <span class="codeInline">endAngX=&quot;190&quot;</span>, the chart will  look like the image below. Same view would be shown when <span class="codeInline">animate3D='0'</span> and <span class="codeInline">cameraAngX = &quot;-160&quot;</span> &amp; <span class="codeInline">cameraAngY=&quot;190&quot;.</span></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/endAngXY2.JPG" width="515" height="326" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="highlightBlock textBold">Please note that the default value for <span class="codeInline">cameraAngX/startAngX/endAngX</span>  is 30 and default value for <span class="codeInline">cameraAngY/startAngY/endAngY</span> is -45.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Applying dynamic shading</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The  Combination 3D Chart has two lighting systems using which the chart elements are lighted. The light source may  be fixed  outside the chart, or you might address it as Chart World. This causes only those sides of the chart to get the light which face the light source. Thus, when the chart is manually rotated, dynamic shades are created on the chart surfaces.  This system of lighting system is called Dynamic shading.</p>
+      <p>Another type of lighting system is there where  the light source is fixed with the chart. You may call it world lighting. In this case, the light source rotates with the rotation of the chart. Hence, the surface facing the light source gets lightened  and  continues to be in the bright side despite any manual rotation of the chart being made, whereas the surface not facing the light keeps remaining in  darkness  with every chart rotation. </p>
+      <p> By default, the chart is set in  world mode. However, the <span class="codeInline">dynamicShading</span> attribute will let you decide whether to keep the chart in world mode or non-world mode. If you set <span class="codeInline">dynamicShading</span> to 1, the chart will be in dynamic shading/non-world mode. </p>
+      <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart dynamicShading=&quot;1&quot;&gt;</pre>
+    <p>Let's compare the following two charts: one with  <span class="codeInline">dynamicShading=&quot;0&quot; </span> and the other with <span class="codeInline">dynamicShading=&quot;1&quot;</span>.</p>
+    <p>Initially, there is no difference between the two charts. The charts will be rendered in the same way. Same surfaces of both the charts are facing the light source.</p>
+    <p>(From a particular point of view, the two charts are looking same after being rendered, although the left one is in world mode and the right one is in non-world. Note that the reference viewpoint will be same in all the cases discussed below. )</p>      </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="750" border="0" cellspacing="0" cellpadding="5">
+      <tr>
+        <td class="imageCaption" align="left"><span class="textBold">dynamicShading=&quot;0&quot;</span></td>
+        <td class="imageCaption" align="left"><span class="textBold">dynamicShading=&quot;1&quot;</span></td>
+      </tr>
+      <tr><td height="15" colspan="2"></td></tr>
+      <tr>
+        <td align="left"><img src="Images/DynamicShading_Off_face01.JPG" width="308" height="253" class="imageBorder" /></td>
+        <td align="left" ><img src="Images/DynamicShading_On_face01.JPG" width="309" height="259" class="imageBorder"/></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Shown below are the compared sequences of the two charts, manually rotated by similar angles.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	<table width="750" border="0" cellspacing="0" cellpadding="5">
+	  <tr>
+        <td width="32%" align="left" class="imageCaption"><span class="textBold">dynamicShading=&quot;0&quot;</span></td>
+	    <td width="68%" align="left" class="imageCaption"><span class="textBold">dynamicShading=&quot;1&quot;</span></td>
+	    </tr>
+      <tr><td height="15" colspan="2"></td></tr>
+      <tr>
+        <td align="left"><img src="Images/DynamicShading_Off_face02.JPG" width="241" height="253" class="imageBorder" /></td>
+        <td align="left"><img src="Images/DynamicShading_On_face02.JPG" width="239" height="255" class="imageBorder" /></td>
+      </tr>
+      <tr><td height="15" colspan="2"></td></tr>
+      <tr>
+        <td><img src="Images/DynamicShading_Off_face03.JPG" width="354" height="263" class="imageBorder" /></td>
+        <td><img src="Images/DynamicShading_On_face03.JPG" width="360" height="253" class="imageBorder"/></td>
+      </tr>
+      <tr><td height="15" colspan="2"></td></tr>
+      <tr>
+        <td><img src="Images/DynamicShading_Off_face04.JPG" width="351" height="262" class="imageBorder" /></td>
+        <td><img src="Images/DynamicShading_On_face04.JPG" width="351" height="260" class="imageBorder" /></td>
+      </tr>
+    </table>	
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You might notice that for both the charts, the light source is at the top right corner of the chart center. In case of the chart with <span class="codeInline">dynamicShading=&quot;1&quot; </span>(charts on the right hand side), since the light source is fixed in that place, it keeps on lighting up the chart surfaces in front of it. On the other hand,  the left chart, with <span class="codeInline">dynamicShading=&quot;0&quot;</span>,<span class="text"> keeps remaining  </span>  in darkness when any rotation occurs.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting light source angles </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the simulated 3D world of the chart, you can  specify the light source  w.r.t the chart world coordinate system. You can do this using the  following attributes.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0" >
+        <tr>
+          <td width="11%" valign="top" class="header">Attribute</td>
+          <td width="13%" valign="top" class="header">Range</td>
+          <td width="76%" valign="top" class="header">Description</td>
+        </tr>
+        <tr>
+          <td width="11%" valign="top" class="codeInline">lightAngX</td>
+          <td width="13%" valign="top" class="text">0 to 360/ 0 to -360 </td>
+          <td width="76%" valign="top" class="text">Using this, you can  specify the angular position of the light source  (for X-axis) w.r.t the chart world coordinate system.</td>
+        </tr>
+        <tr>
+          <td width="11%" valign="top" class="codeInline">lightAngY</td>
+          <td width="13%" valign="top" class="text">0 to 360/ 0 to -360 </td>
+          <td width="76%" valign="top" class="text">This attribute allows you to  specify the angular position of the light source (for Y-axis) w.r.t the chart world coordinate system.</td>
+        </tr>
+    </table></td>
+    </tr>
+  <tr>
+    <td valign="top" class="text"><p>The values of <span class="codeInline">lightAngX</span> and <span class="codeInline">lightAngY</span> are same as <span class="codeInline">cameraAngX</span>/<span class="codeInline">startAngX/endAngX</span> and <span class="codeInline">cameraAngY/startAngY/endAngY</span>, as discussed earlier in this page (in the <strong>&quot;Specifying Camera Angles&quot; </strong>section).</p>
+    <p>To get a clear picture, let us go through a visual tour and see how the  light source can be placed using X and Y angles. </p>
+    <p><img src="Images/Combi3DChartXLight.jpg" width="582" height="389" /></p>
+    <p><img src="Images/Combi3DChartYLight.jpg" width="582" height="389" /></p>    </td>
+  </tr>
+    <td valign="top" class="text">The following three images shows how a chart might look with different light angle definitions:</td>
+  </tr>
+
+  <tr>
+    <td valign="top" class="text"><p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart lightAngX=&quot;0&quot; lightAngY=&quot;-90&quot;&gt;</pre>     </td>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/SampleChartLightAng1.jpg" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Example:</p>
+    <pre class="prettyprint code_container">&lt;chart lightAngX=&quot;90&quot; lightAngY=&quot;0&quot;&gt;</pre>    </td>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/SampleChartLightAng2.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Example:</p>
+    <pre class="prettyprint code_container">
+&lt;chart lightAngX=&quot;0&quot; lightAngY=&quot;90&quot;&gt;</pre>    </td>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/SampleChartLightAng3.jpg"  class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Example:</p>
+    <pre class="prettyprint code_container">&lt;chart lightAngX=&quot;180&quot; lightAngY=&quot;0&quot;&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/SampleChartLightAng4.jpg" class="imageBorder"/></p></td>
+  </tr>
+  <tr><td height="5"></td></tr>
+   <tr>
+    <td valign="top" class="header">Using bright2D option</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><span class="codeInline">bright2D</span> attribute provides maximum brightness to the chart while rendering in 2D mode. This is applicable only when you've set <span class="codeInline">dynamicShading</span> to 1.  However, once you set this attribute to 1, it won't allow you to use <span class="codeInline">lightAngX</span>  and <span class="codeInline">lightAngY</span> attributes. Rather, it  automatically sets up the  light sources to give the brightest  view of the chart in 2D mode.</p>
+    <p>Example:</p>
+    <pre class="prettyprint code_container">&lt;chart bright2D=&quot;1&quot;&gt; </pre>    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Controlling light intensity </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can control the intensity of the light that falls on the chart elements. The <span class="codeInline">intensity</span> attribute will enable you to do so. The range of this attribute lies between 0 to 10. 10 would provide light with maximum intensity, and you will get the brightest view of the chart. If you set the value to 0, light will be provided with least intensity. However, the chart will never appear in full darkness even you set <span class="codeInline">intensity</span> to 0. A faint light is always available. By default, the value is set to 2.5.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart intensity=&quot;10&quot;&gt; </pre>
+    <p>If you set <span class="codeInline">intensity=&quot;10&quot;</span>, i.e., to the maximum , the chart will look like this:</p>    </td></tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/SampleChartIntensity.jpg" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+    <td valign="top" class="header">Setting the wall depth</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>3D chart has 3 walls namely, XY, YZ and XZ. You can set the depth of the chart walls using the following set of  attributes.</p>  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0" >
+      <tr>
+        <td  width="15%" valign="top" class="header">Attribute</td>
+        <td  width="60%" valign="top" class="header">Description</td>
+        </tr>
+      <tr>
+        <td width="15%" valign="top" class="codeInline">YZWallDepth</td>
+        <td width="60%" valign="top" class="text">It determines the depth of the YZ wall of  3D chart.</td>
+      </tr>
+      <tr>
+        <td width="15%" valign="top" class="codeInline">ZXWallDepth         </td>
+        <td width="60%" valign="top" class="text">It determines the depth of the ZX wall of 3D chart.</td>
+        </tr>
+	  <tr>
+        <td width="15%" valign="top" class="codeInline">XYWallDepth</td>
+        <td width="60%" valign="top" class="text">It determines the depth of the XY wall of  3D chart.</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart YZWallDepth=&quot;55&quot; ZXWallDepth=&quot;45&quot; XYWallDepth=&quot;35&quot;&gt;</pre>
+    <p>If you specify the values given in the above  example<span class="codeInline">, </span><span class="codeInline"></span> the chart will look like this:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/WallDepths0.JPG" width="301" height="306" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If all the attributes are set to 0, the chart will look like shown below.</p>  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/WallDepths1.JPG" width="279" height="300" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can see above that each wall is looking like a thin plane.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Maintaining a gap between two different dataplots</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In a 3D combination chart, more than one <span class="text">DATAPLOT</span> types exist due  to different datasets. Therefore, to get a distinct view of all the plotted  datasets you may want to specify a gap between them. The <span class="codeInline">zGapPlot</span> attribute  will let you do so.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart zGapPlot=&quot;100&quot;&gt;</pre>
+    <p>If you assign a  value to <span class="codeInline">zGapPlot,</span> a gap between the plotted datasets will be created. For example, if you set <span class="codeInline">zGapPlot=&quot;100&quot;</span>, the chart will look like this:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/zGapPlot0.JPG" width="252" height="199" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>On the other hand, if you assign 0 to <span class="codeInline">zGapPlot</span>, the chart will take the following shape, with no gap between the dataplots:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/zGapPlot1.JPG" width="203" height="189" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+    <td valign="top" class="header">3D thickness of the DATAPLOT objects</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set the depth (3D thickness) of each DATAPLOT  object using <span class="codeInline">zDepth</span> attribute.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart zDepth=&quot;75&quot; &gt;</pre>
+    <p>Shown below is a chart  with each dataplot's thickness value equals to 75.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/ZDepth.JPG" width="303" height="214" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+    <td valign="top" class="header">Setting the mode of the chart column </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In a Combination 3D chart, you can plot multiple number of  datasets which can be rendered as Column. These column sets can be arranged in the chart in 2 modes: clustered or manhattan.  The <span class="codeInline">clustered</span> attribute will let you choose any one of them. By default, the value of clustered is 0, i.e., the chart appears in <span class="codeInline">non-clustered</span> mode. To change the mode to clustered mode, you need to use <span class="codeInline">clustered='1'.</span><p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart clustered = &quot;1&quot;&gt; </pre>
+    <p>If <span class="codeInline">clustered</span> is set to 1, the chart columns will be in clustered mode. This image below shows a chart in clustered mode:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Clustered1.JPG" width="408" height="274" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>On the other hand, if <span class="codeInline">clustered</span> is set to 0, the chart columns will appear in manhattan mode, as shown in the example image below:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Clustered0.JPG" width="318" height="267" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying effect to divisional lines and trendlines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can apply emboss or bevel effect to both divisional lines and  trendlines. The <span class="codeInline">divLineEffect</span> attribute will let you this. You can specify one of the three values: &quot;EMBOSS&quot;, &quot;BEVEL&quot; or &quot;NONE&quot;.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart divLineEffect=&quot;none&quot;&gt; or
+&lt;chart divLineEffect=&quot;emboss&quot;&gt; or 
+&lt;chart divLineEffect=&quot;bevel&quot;&gt;</pre>     </td>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="header"><strong>Zero Plane settings</strong> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p> The following attributes will let you configure the zero plane settings.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0" >
+      <tr>
+        <td  width="18%" valign="top" class="header">Attribute</td>
+        <td  width="82%" valign="top" class="header">Description</td>
+        </tr>
+      <tr>
+        <td width="18%" valign="top" class="codeInline">zeroPlaneColor</td>
+        <td width="82%" valign="top" class="text">Color for the Zero Plane. Zero Plane is the line/plane that appears at 0 y-position on canvas, when negative data is being shown on the chart.</td>
+      </tr>
+      <tr>
+        <td width="18%" valign="top" class="codeInline">zeroPlaneAlpha          </td>
+        <td width="82%" valign="top" class="text">Alpha of zero plane. (Value Range 0-100) </td>
+        </tr>
+	  <tr>
+        <td width="18%" valign="top" class="codeInline">zeroPlaneMesh          </td>
+        <td width="82%" valign="top" class="text">Whether to draw a mesh or not. If set to 1, a mesh on the zero plane of the chart will be drawn. </td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p> By default, a  gray mesh is shown as zero plane.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/zeroPlane01.jpg" width="369" height="433" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you set <span class="codeInline">zeroPlaneMesh</span> to 0, the chart will have a non-meshed plane as shown below:</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart  zeroPlaneMesh=&quot;0&quot;&gt;</pre>     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/zeroPlane_NoMesh.jpg" width="346" height="427" class="imageBorder" /></p>
+    <p>You can set a color to zero plane using <span class="codeInline">zeroPlaneColor</span> attribute. For example, if you set <span class="codeInline">zeroPlaneColor=&quot;330099&quot;</span>, the chart will look like this:</p>
+    <p> Example:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart zeroPlaneColor=&quot;330099&quot; zeroPlaneMesh=&quot;0&quot;&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/zeroPlane_Color.jpg" width="345" height="435" class="imageBorder" /></p>
+    <p>Let's see how you can change the alpha of zero plane using <span class="codeInline">zeroPlaneAlpha</span> attribute.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart <span class="codeInline">zeroPlaneColor</span>=&quot;330099&quot; zeroPlaneAlpha=&quot;30&quot; zeroPlaneMesh=&quot;0&quot;&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/zeroPlane_Alpha.jpg" width="354" height="432" /></p></td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Border around the dataplots</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set  border around the  dataplots. This will improve the data interpretation quality of the chart a lot. The <span class="codeInline">showPlotBorder</span>  attribute will let you decide whether to draw a border or not. By default, dataplot borders are drawn.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart showPlotBorder=&quot;0&quot;&gt;</pre>
+    <p>The difference between a chart with and without dataplot border is shown below. </p>
+    <p>If <span class="codeInline">showPlotBorder</span> is set to 1, the chart will look like this:</p>
+    <p><img src="Images/dataplotborder_on.jpg" width="186" height="187" /></p>
+    <p>On the other hand, if <span class="codeInline">showPlotBorder</span> is set to 0, the chart will look like this:</p>
+    <p><img src="Images/dataplotborder_off.jpg" width="184" height="188" class="imageBorder"/></p>    </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Rendering as a 2D chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can render a combination 3D chart as a  2D chart initially. You  need to use  <span class="codeInline">is2D</span> attribute for this.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart is2D=&quot;1&quot;&gt;</pre>
+    <p>As shown below, if <span class="codeInline">is2D</span> is set to 1, a 2D chart will get rendered initially.</p>
+    <p><img src="Images/is2D.JPG" width="548" height="398" class="imageBorder" /></p>    </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Chart on top</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The chart area can overlap  the extra chart elements (caption,  sub caption and legend) at the time of scaling (zooming) or at 100% view. If you set <span class="codeInline">chartOnTop</span> attribute to 1 the chart area would be placed above these elements. On the other hand, if you set <span class="codeInline">chartOnTop</span> to 0, caption, sub caption and legend would always appear on the top of the chart.</p>
+    <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart chartOnTop=&quot;1&quot;&gt;</pre>
+    <p>As shown below, the chart area overshadows the extra chart elements when you zoom in using the mouse scroller. This is possible only if you set <span class="codeInline">chartOnTop</span> to 1.</p>
+    <p><img src="Images/chartOnTop1.JPG" width="316" height="175" class="imageBorder" /></p>
+    <p>On the other hand, if <span class="codeInline">chartOnTop</span> is set to 0,  the chart will look like this:</p>
+    <p><img src="Images/chartOnTop0.JPG" width="283" height="168" class="imageBorder" /></p>
+    <p>As shown above,  the chart area  now goes under the extra chart elements.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating label gap </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>To improve chart's visibility you may want  to create a gap (vertical space) between the X-axis and X-axis labels.  Similarly, you might need to specify gaps between Y-axis &amp; Y-axis values. The following two attributes will let you do the  same.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="98%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td  width="15%" valign="top" class="header">Attribute</td>
+        <td  width="60%" valign="top" class="header">Description</td>
+        </tr>
+      <tr>
+        <td width="15%" valign="top" class="codeInline">xLabelGap</td>
+        <td width="60%" valign="top" class="text">This attribute creates a vertical space between the X-Axis and X-Axis labels.</td>
+      </tr>
+      <tr>
+        <td width="15%" valign="top" class="codeInline">yLabelGap</td>
+        <td width="60%" valign="top" class="text">This attribute creates a horizontal space between the Y-Axis and Y-Axis values.</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart xLabelGap=&quot;50&quot; yLabelGap=&quot;50&quot;&gt;</pre>
+    <p>Now, for example, if you set <span class="codeInline">xGapLabel=&quot;50&quot;</span>, the X Axis labels would maintain a gap of 50 from the X-AXIS, as shown in the image below:</p>
+    <p><img src="Images/xlabelGap.JPG" width="443" height="107" class="imageBorder" /></p>
+    <p>Similarly, if you set<span class="codeInline"> yGapLabel=&quot;50&quot;</span>, the chart will create a gap of 50 between the Y Axis values and the Y Axis. The gap would look like the figure given below:</p>
+    <p><img src="Images/ylabelGap.JPG" width="243" height="311" class="imageBorder" /></p>    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Stacked chart|StackedChartAttributes.html", "Pareto chart|ParetoChartAttributes.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

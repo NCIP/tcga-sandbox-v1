@@ -1,0 +1,403 @@
+body, table, table tr td {
+	font-family: "Trebuchet MS",Helvetica,sans-serif;
+	line-height: 17pt;
+	font-size: 10pt;
+	margin:8px;
+	padding:0;
+	margin-top:0;
+}
+p {
+	padding: 0;
+	margin: 23px 0;
+}
+pre {
+	margin: 0;
+}
+.pageHeader {
+	COLOR: #291E40;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 12pt;
+}
+.quickLinksText {
+	COLOR: #291E40;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-SIZE: 10pt;
+	FONT-DECORATION:underline;
+}
+.tableGreyBorder {
+	/*BORDER: 1px solid #57686A;*/
+	border-collapse: collapse;
+}
+.tableGreyBorder table, .tableGreyBorder td {
+	BORDER: 1px solid #e3e2e2;
+	padding: 5px;
+}
+.tableYellowBorder {
+	/*BORDER: 1px solid #e3e2e2;*/
+	border-collapse: collapse;
+}
+.tableYellowBorder table, .tableYellowBorder td {
+	BORDER: 1px solid #e3e2e2;
+	padding: 5px;
+}
+.trAttHeader {
+	BACKGROUND: #f1f1f6;
+}
+.trGreyBg {
+	BACKGROUND: #F1F1F1;
+}
+.trLightBlueBg {
+	BACKGROUND: #f9f9fb;
+}
+.trDarkGreyBg {
+	BACKGROUND: #999999;
+}
+.trDarkYellowBg {
+	BACKGROUND: #FCCC22;
+}
+.trLightYellowBg {
+	BACKGROUND: #f1f1f6;
+}
+.trVeryLightYellowBg {
+	BACKGROUND: #f9f9fb;
+}
+.text {
+	COLOR: #333333;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	LINE-HEIGHT: 17pt;
+	FONT-SIZE: 10pt;
+	padding: 0;
+}
+.header {
+	/*COLOR: #291E40;*/
+	COLOR: #363637;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-SIZE: 13pt;
+	FONT-WEIGHT: notmal;
+	background: #F9F9FB;
+}
+.textbold {
+	COLOR: #5d5d5d;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-SIZE: 10pt;
+	FONT-WEIGHT: bold;
+	line-height: 17pt;
+}
+.textError {
+	COLOR: #FF0000;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-SIZE: 10pt;
+}
+.codeBlock {
+	BACKGROUND: #fefcfa;
+	COLOR: #291E40;
+	FONT-FAMILY: Courier New;
+	FONT-SIZE: 90%;
+	LETTER-SPACING: -0.2pt;
+	border: 1px solid #fddca3 !important;
+}
+.CodeInline, .codeInline {
+	COLOR: #6e6595 !important;
+	FONT-FAMILY: "Courier New",Geneva,Arial,Helvetica,sans-serif !important;
+	FONT-SIZE: 100% !important;
+	LETTER-SPACING: -0.2pt !important;
+}
+A:hover {
+	COLOR: #f89527;
+	text-decoration: none;
+	border-bottom: 1px dotted #f89527;
+	cursor:pointer;
+}
+A {
+	COLOR: #777b7e;
+	TEXT-DECORATION:none;
+	border-bottom: 1px dotted #777b7e;
+}
+A.imagelink {
+	border-bottom: none;
+}
+.imageBorder {
+	BORDER: 1px solid #dcdfe2;
+}
+/* added new css 03-08-2010 */
+/* collapsible panel */
+.msg_handler {
+}
+.msg_body {
+	padding: 5px;
+}
+ul {
+	/*padding: 10px 0 10px 15px;*/
+	padding: 0 0 0 15px;
+	margin: 0;
+	list-style: none;
+	list-style-type: none;
+}
+ul li {
+	padding: 0 0 0 13px;
+	margin: 0 0 3px 0;
+	list-style: none;
+	list-style-type: none;
+	list-style-position: outside;
+	background: url(../Images/list_arr.gif) no-repeat 0 6px;
+	font: normal 10pt/17pt "Trebuchet MS",Helvetica,sans-serif;
+	color: #000000;
+}
+ul li a {
+	font-weight: normal;
+	color: #777b7e;
+	text-decoration: none;
+	border-bottom: 1px dotted #777b7e;
+}
+ul li a:hover {
+	color: #f89527;
+	text-decoration: none;
+	border-bottom: 1px dotted #f89527;
+}
+ul li ul li {
+	padding: 0 0 0 14px;
+	margin: 0 0 3px 0;
+	list-style: none;
+	list-style-type: none;
+	list-style-position: outside;
+	background: url(../Images/list_dash.gif) no-repeat 0 11px;
+	font: normal 10pt/17pt "Trebuchet MS",Helvetica,sans-serif;
+	color: #000000;
+}
+.version-info {
+	text-align: right;
+	font: normal 7pt "Trebuchet MS",Helvetica,sans-serif;
+	color: #e2e2e8;
+}
+/* ol list */
+ol {
+	/*padding: 10px 0 10px 35px;
+	*padding: 10px 0 10px 35px !important;*/
+	padding: 0 0 0 35px;
+	*padding: 0 0 0 35px !important;
+	margin: 0;
+	list-style: none;
+	list-style-type: none;
+}
+ol li {
+	padding: 0;
+	margin: 0 0 3px 0;
+	list-style: decimal;
+	list-style-type: decimal;
+	list-style-position: outside;
+	background: none;
+	font: normal 10pt/17pt "Trebuchet MS",Helvetica,sans-serif;
+	color: #000000;
+	list-style-position: outside;
+}
+ol li a {
+	font-weight: normal;
+	color: #777b7e;
+	text-decoration: none;
+	border-bottom: 1px dotted #777b7e;
+}
+ol li a:hover {
+	color: #f89527;
+	text-decoration: none;
+	border-bottom: 1px dotted #f89527;
+}
+ol li ul li {
+	padding: 0 0 0 14px;
+	margin: 0 0 3px 0;
+	list-style: none;
+	list-style-type: none;
+	list-style-position: outside;
+	background: url(../Images/list_dash.gif) no-repeat 0 11px;
+	font: normal 10pt/17pt "Trebuchet MS",Helvetica,sans-serif;
+	color: #000000;
+}
+/* ol list end */
+/* jquery tabbed panel */
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 33px;
+	*height: 32px !important;
+	border-bottom: 1px solid #fddca3;
+	border-left: 1px solid #fddca3;
+	width: 100%;
+}
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #fddca3;
+	border-left: none;
+	*margin-bottom: -1px !important;
+	background: #fefcfa;
+	overflow: hidden;
+	position: relative;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #2f376f;
+	display: block;
+	font-size: 9pt;
+	padding: 0 20px;
+	outline: none;
+	border-bottom: none;
+}
+ul.tabs li a:hover {
+	background: #fefcfa;
+	color: #ff7618;
+}	
+html ul.tabs li.active, html ul.tabs li.active a, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
+	background: #fefcfa !important;
+	border-bottom: 1px solid #fefcfa; /*--Makes the active tab look like it's connected with its content--*/
+	color: #ff7618;
+}
+.tab_container {
+	border: 1px solid #fddca3;
+	border-top: none;
+	clear: both;
+	float: left; 
+	width: 100%;
+	background: #fefcfa;
+}
+.tab_content {
+	padding: 10px;
+}
+/* jquery tabbed panel end */
+.code_container {/* for styling prettyprint code section */
+	background:#FEFCFA;
+	border:1px solid #FDDCA3;
+	padding: 10px;
+}
+.text-light {
+	color: #e2e2e8 !important;
+}
+/* call to action */
+span.call_to_action {
+	background: url(Images/button-qua-right.jpg) no-repeat top right;
+	color: #777B7E !important;
+	font: normal 100% Verdana, Geneva, sans-serif;
+	height: 21px;
+	*height: 26px !important;
+	vertical-align: middle;
+	padding: 5px 13px 0 0;
+	*padding: 3px 13px 0 0 !important;
+	text-decoration: none;
+	display: inline-block;
+	*display: inline !important;
+	*zoom: 1;
+}
+span.call_to_action a {
+	color: #777B7E;
+	font: normal 100% "Trebuchet MS",Helvetica,sans-serif;
+	text-decoration: none;
+	border-bottom: none;
+}
+span.call_to_action a:hover {
+	text-decoration: none ;
+	color: #f89527;
+	border-bottom: none;
+}
+span.call_to_action img {
+	vertical-align: top;
+	margin: 1px 0 0 0;
+	*margin: 3px 0 0 0 !important;
+}
+
+	
+pre.prettyprint { 
+ font-size:100% !important ;
+	width:auto !important ;
+	white-space:pre-wrap !important;
+	
+	overflow:auto;
+}
+
+/* back to top button */
+span.back_to_top {
+	color: #777B7E !important;
+	font: normal 100% Verdana, Geneva, sans-serif;
+	height: 21px;
+	*height: 26px !important;
+	vertical-align: middle;
+	padding: 5px 13px 0 0;
+	*padding: 3px 13px 0 0 !important;
+	text-decoration: none;
+	display: inline-block;
+	*display: inline !important;
+	*zoom: 1;
+	background-image:none !important;
+}
+span.back_to_top a {
+	color: #777B7E;
+	font: normal 100% "Trebuchet MS",Helvetica,sans-serif;
+	text-decoration: none;
+	border-bottom: none;
+	
+}
+span.back_to_top a:hover {
+	text-decoration: none ;
+	color: #f89527;
+	border-bottom: none;
+}
+span.back_to_top img {
+	vertical-align: top;
+	margin: 1px 0 0 0;
+	*margin: 3px 0 0 0 !important;
+}
+
+.deprecated 
+{
+	color:#999 !important;
+}
+.strikethrough {
+text-decoration:line-through;
+}
+.highlightBlock {
+	BACKGROUND: #f7f9fb;
+	COLOR: #333333;
+	BORDER: 1px solid #eff1f3;
+	FONT-FAMILY: "Trebuchet MS",Helvetica,sans-serif;
+	FONT-SIZE: 10pt;
+	PADDING: 10px;
+}
+
+p.breadcrumb
+{
+    border-bottom: 1px dashed #ccc;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight:none;
+	line-height:17pt;
+    margin: 0;
+	margin-top: 3px;
+	margin-bottom: 15px;
+    
+}
+
+p.breadcrumb a, table.fcfooter a
+{
+	border-bottom:none;
+}
+
+
+table.fcfooter
+{
+	margin: 0;
+    padding: 0;
+	font-size: 12px;
+	line-height: 30px;
+	padding-right: 5px;
+    margin-top: 40px;
+    border-top: 1px dashed #ccc;
+    text-align:left;
+}
+table.fcfooter td 
+{
+	padding:0;
+	margin:0;
+}

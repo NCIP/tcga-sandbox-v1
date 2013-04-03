@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>FusionCharts Troubleshooting</title>
+        <link href="assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+
+        <!--[if IE 6]>
+        <script type="text/javascript" src="assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+
+
+    </head>
+
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header">
+
+                <div class="logo"><a href="http://www.fusioncharts.com"><img src="assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                <h1 class="brand-name">FusionCharts XT</h1>
+					 <h1 class="logo-text">PHP Class Examples</h1>
+</div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+
+                    <p class="style1">If you were unable to see the chart, please check for the following steps.</p>
+
+                    <p>&nbsp;</p>
+                    <p class="style3">If you only get  &quot;chart.&quot;, &quot;<strong>FusionCharts</strong>&quot; or &quot;FusionCharts <strong>will load here!</strong>&quot; or similar text shown, check the following: </p>
+                    <ul class="sec-arr-list">
+                        <li>Check if you've copied <span class="style4">FusionCharts</span> folder with all the SWF chart files and JavaScript files present in it, at the right location. </li>
+                        <li>Have you included and provided the path of <span class="style4">FusionCharts.js</span> properly in your <span class="codeInline">html file </span> page? </li>
+                        <li>Is there any JavaScript syntax or runtime errors that might have halted the execution of FusionCharts functions?</li>
+                        <li>Have you given separate names to the chart's JavaScript object and chart's ID?</li>
+                    </ul>
+
+                    <p>&nbsp;</p>
+                    <p class="style2"><strong>If you get a JavaScript error message saying &quot;'FusionCharts' is undefined&quot; or something similar (depending on browser) </strong></p>
+                    <ul class="sec-arr-list">
+                        <li>Check if you've copied <span class="style4">FusionCharts.js</span> (by default, present in <span class="style4">FusionCharts</span> folder) at the right location.</li>
+                        <li>Check if the path to this JavaScript file is properly provided in your page, under the <span class="style4">&lt;head&gt;</span> element.</li>
+                    </ul>
+
+                    <p>&nbsp;</p>
+                    <p class="style3"><strong>SWF Movie not Loading or No chart shown</strong><br />
+                        When viewing your page containing the chart, if you see an endless loading   progress bar in your browser, or<br />
+                        if the right click menu (right click at the   place where the chart is supposed to be) shows &quot;Movie not   loaded&quot;, check the following:</p>
+                    <ul class="sec-arr-list">
+                        <li>Check if you've copied <span class="style4">FusionCharts</span> folder with all the SWF chart files present in it, at the right location. </li>
+                        <li>Check if the SWF path provided in your page is correct.</li>
+                        <li>If you're working on a case-sensitive file system Operating System, check   for the case of path and SWF file. </li>
+                        <li>Check if you've Adobe Flash Player 8 (or above) installed on your machine. </li>
+                        <li>Check whether you've enabled your browser to show ActiveX controls.   Normally, all browsers are Flash-enabled. </li>
+                    </ul>
+
+                    <p>&nbsp;</p>
+                    <p class="style1"><strong>&quot;Error in Loading Data&quot; message</strong><br />
+                        If you get a &quot;Error in Loading Data&quot; message in your chart, it means that   FusionCharts could not find XML data at the specified URL. In that case, check   the following:</p>
+                    <ul class="sec-arr-list">
+                        <li>Check if you've actually provided <span class="style4">dataURL</span> or   <span class="style4">dataXML</span>. If you do not provide either,   FusionCharts looks for a default <span class="style4">Data.xml </span>file in   the same path. However, if that is also not found, it shows the &quot;Error in Loading Data&quot; error. </li>
+                        <li>If you're using dataURL method, paste this URL   in your browser to check if it's returning a valid XML. Make sure there are no   scripting or time-out errors and a valid XML is being returned. Also make sure   that the XML isn't intermingled with HTML content. The data provider page should   return clean XML only - not even HTML <span class="style4">&lt;head&gt;</span>   or <span class="style4">&lt;body&gt;</span> tags. </li>
+                        <li>If you've to pass parameters to your dataURL   data provider page from FusionCharts, make sure they're URLEncoded in the   dataURL, when providing to FusionCharts. e.g., if your <span class="style4">dataURL</span> needs to be <span class="style4">Data.php?id=43&amp;subId=454</span>, you'll need to URL Encode   it so that it becomes <span class="style4">Data%2Ephp%3Fid%3D43%26subId%3D454</span>. Only then   FusionCharts will invoke the URL with proper parameters appended to it. </li>
+                        <li>When using <span class="style4">dataURL</span> method, make sure that the   SWF File and data provider page are on the same sub-domain. Due to Flash's   sandbox security model, it cannot access data from external domains, unless   otherwise configured. </li>
+                    </ul>
+
+                    <p>&nbsp;</p>
+                    <p class="style2"><strong>&quot;Invalid XML Data&quot; message</strong><br />
+                        If you get an &quot;Invalid XML Data&quot; message, it means that the XML data document   is malformed. Check it again for common errors like:</p>
+                    <ul class="sec-arr-list">
+                        <li>Difference in case of tags. <span class="style4">&lt;chart&gt;</span>   should end with<span class="style4"> &lt;/chart&gt;</span> and <strong>not</strong> <span class="style4">&lt;/Chart&gt;</span> or <span class="style4">&lt;/CHART&gt; </span></li>
+                        <li>Missing opening/closing quotation marks for any attributes. e.g., <span class="style4">&lt;chart caption=Monthly Sales'</span> should be<span class="style4"> &lt;chart caption='Monthly Sales' </span></li>
+                        <li>Missing closing tag for any element. </li>
+                        <li>If you're using any special characters in your XML, make sure they're   properly encoded. Like, in <span class="style4">dataXML</span> method, % needs   to be encoded as %25, &amp; as %26 and so on. In dataURL method, you can provide most of the characters   directly, without the need to encode. </li>
+                        <li>In dataXML method, check for conflict of '   (XML Attribute Character) and &quot; (HTML Parameter Character). For example, if   you're using direct HTML embedding method, and   using &quot; for HTML parameters, then you need to make sure that all your XML   attributes use ' as containers. Example: <span class="style4">&lt;param   name=&quot;FlashVars&quot; value=&quot;&lt;chart showLabels='1'   showValues='1'&gt;...&lt;/chart&gt;&quot; /&gt; </span></li>
+                        <li>If you've quotes as part of your data, XML Encode them to <span class="style4">&amp;apos;</span> Example: <span class="style4">&lt;set   name='John&amp;apos;s House' /&gt; </span></li>
+                        <li>To get more information on what the error in XML is, you can either use the   Debug Window (explained next) or open the XML in your browser. </li>
+                    </ul>
+                    <p class="style2">If your error is not resolved using any of the above steps, try using the in-built debugger. To know more about debugger, please refer to FusionCharts Documentation. </p>
+                </div>
+            </div>
+            <!-- footer -->
+            <p>&nbsp;</p>
+            <div id="footer">
+                <ul>
+                    <li></li>
+
+                    <!-- <li class="pipe">|</li>
+                     <li><a href="license.html">License and Upgrade</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

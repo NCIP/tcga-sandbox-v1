@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Basic Troubleshooting</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Debugging your charts", "Basic Troubleshooting" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Basic Troubleshooting</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>When trying to make a chart using FusionCharts, 
+        if you get any errors (or if the chart doesn't render), there could be a 
+        lot of reasons behind it. Here, we'll try and cover them up. We've divided 
+        the entire debugging process into three sections:</p>
+      <ul>
+        <li>Basic Troubleshooting - Manual methods to solve such problems.</li>
+        <li>Using the Debug Mode - Using Debug Window 
+          that helps you un-earth the problems with your chart. We'll cover 
+          that in next page.</li>
+		  <li>Using the FusionCharts JavaScript class - Mechanism to debug charts using JavaScript events and error handlers.</li>
+      </ul>
+      <p>Let us cover basic trouble shooting first. While creating your chart, 
+        if for some reason you do not see your chart like it should, check for 
+        the following actions:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="nochart" id="nochart"></a>&quot;Movie not Loaded&quot; message or No chart is shown</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>When viewing your page containing the chart, 
+        if you see an endless loading progress bar in your browser, or if the 
+        right click menu (right click at the place where the chart is supposed 
+        to be) shows &quot;<span class="codeInline">Movie not loaded</span>&quot;, 
+        check the following:</p>
+      <ul>
+        <li>Check if the SWF path is properly provided in your HTML page is correct. 
+          Also, check if the SWF file actually exists there.</li>
+        <li>If you're working on an Operating System that uses case-sensitive file   names (e.g. Mac or Linux), check for the case of path and SWF file.</li>
+        <li>Check if you've Adobe Flash Player 8 (or above) installed on your 
+          machine. </li>
+        <li>Check whether you've enabled your browser to show ActiveX controls. Normally, it is enabled by default.</li>
+      </ul>
+      <br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="errorloading" id="errorloading"></a>&quot;Error in Loading Data&quot; message</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>If you get a &quot;Error in Loading Data&quot; 
+        message in your chart, it means that FusionCharts could not find XML data 
+        at the specified URL. In that case, check the following:</p>
+      <ul>
+        <li>Check if you've actually provided <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span> 
+          or <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a></span>.&nbsp; If you do not provide either, 
+          FusionCharts looks for a default <span class="codeInline">Data.xml</span> file 
+          in the same path. Now, if that is also not found, it shows the &quot;<span class="codeInline">Error 
+          in Loading Data</span>&quot; error. </li>
+        <li>If you're using <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span> method, paste 
+          this URL in your browser to check if it's returning a valid XML. Make 
+          sure, there are no scripting or time-out errors and a valid XML is being 
+          returned. Also make sure that the XML isn't intermingled with HTML content. 
+          The data provider page should return a clean XML only - not even HTML 
+          <span class="codeInline">&lt;head&gt;</span> or <span class="codeInline">&lt;body&gt;</span> 
+          tags.</li>
+        <li>Make sure you're passing relative URLs for <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span>, and not absolute URLs. To restrict cross site security attacks, FusionCharts doesn't allow colons in dataURL (starting v3.0.5). So you cannot specify dataURL as <span class="codeInline">http://.../path/file.ext</span> any more. </li>
+        <li>When using <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span> method, make sure 
+          that the SWF File and data provider page are on the same sub-domain. 
+          Due to Flash's sandbox security model, it cannot access data from external 
+          domains, unless otherwise configured. </li>
+      </ul>
+      <br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="invalidxml" id="invalidxml"></a>&quot;Invalid XML Data&quot; message</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>If you get an &quot;Invalid XML Data&quot; 
+        message, it means that the XML data document is malformed. Check it  
+        for common errors like:</p>
+      <ul>
+        <li>Differences in case of tags. e.g., <span class="codeInline">&lt;chart&gt;</span> 
+          should end with <span class="codeInline">&lt;/chart&gt;</span> and <strong>not</strong> 
+          <span class="codeInline">&lt;/Chart&gt;</span> or<span class="codeInline"> 
+          &lt;/CHART&gt;</span></li>
+        <li>Missing opening/closing quotation marks for any attributes. e.g., 
+          <span class="codeInline">&lt;chart caption=Monthly Sales' ..&gt; </span>should 
+          be <span class="codeInline">&lt;chart caption='Monthly Sales' ..></span></li>
+        <li>Missing closing tag for any element. e.g.,<span class="codeInline"> &lt;set label='Services' value='26' &gt;</span> should be <span class="codeInline">&lt;set label='Services' value='26' /&gt;</span></li>
+        <li>In <span class="codeInline">Data String </span> method, check for conflict 
+          of <strong>'</strong> (XML Attribute Character) and <strong>&quot;</strong> (HTML Parameter Character). 
+          e.g., if you're using <span class="codeInline">direct HTML embedding</span> 
+          method, and using <strong>&quot;</strong> for HTML parameters, then you need to make 
+          sure that all your XML attributes use <strong>'</strong> as containers.
+          <p>Example:</p> 
+        <pre class="prettyprint code_container">&lt;param name=&quot;FlashVars&quot; value=&quot;&lt;chart showLabels='1' showValues='1'&gt;...&lt;/chart&gt;&quot; /&gt;</pre><br /></li>
+        <li>If you've quotes as part of your data, XML Encode them to<span class="codeInline"> 
+          &amp;apos;</span> e.g., <span class="codeInline">&lt;set label='John&amp;apos;s 
+          House' /&gt;</span></li>
+        <li>To get more information on what the error in XML is, you can either 
+          use the Debug Window (explained in next section) or open the XML in your browser.        </li>
+      </ul>
+      <br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="nodata" id="nodata"></a>&quot;No data to display&quot; message</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>If your chart shows a &quot;No data to display&quot; 
+        message, it could be the following scenarios:</p>
+      <ul>
+        <li>Your XML data doesn't contain any data that could be plotted by FusionCharts. 
+          In this case, your XML just contains the <span class="codeInline">&lt;chart&gt;</span> 
+          or <span class="codeInline">&lt;dataset&gt;</span> tags without any 
+          data between them.</li>
+        <li>You might be using a single-series chart SWF and providing data in 
+          multi-series format or vice-versa. In this case too, you'll get a &quot;No 
+          data to display&quot; message.</li>
+        <li>In some Dual Y Combination charts, you need to provide at least one 
+          dataset for both the axis. Otherwise, you'll get a &quot;No data to 
+          display&quot; message.</li>
+      </ul><br />
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="squeezed" id="squeezed"></a>The chart appears but is squeezed up at top-left corner with everything illegible </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Please make sure that:</p>
+      <ul>
+        <li>You've specified the width and height of chart in pixel values and without any string after it. e.g., specify 200 instead of 200px. </li>
+        <li>If using direct HTML OBJECT/EMBED code to embed the charts, please provide the following additional parameters to FlashVars:<br /><br />
+ <pre class="prettyprint code_container">
+&lt;object ... &gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param name=&quot;FlashVars&quot; value=&quot;&amp;dataURL=Data.xml<strong>&amp;chartWidth=300&amp;chartHeight=250</strong>&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;embed src=&quot;../FusionCharts/Column3D.swf&quot; flashVars=&quot;&amp;dataURL=Data.xml<strong>&amp;chartWidth=300&amp;chartHeight=250</strong>&quot;.../&gt;
+&lt;/object&gt;</pre>
+        </li>
+      </ul>      
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Advanced charting - Changing chart messages|../advanced/ChartMessages.html", "Advanced Troubleshooting|Advanced.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

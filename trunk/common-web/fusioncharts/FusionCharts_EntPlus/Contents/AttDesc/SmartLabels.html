@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Smart Labels &amp; Lines </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Smart labels &amp; Lines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Smart Labels &amp; Lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Smart labels are the labels for the pie/doughnut chart. The smart labels manage overlapping of   labels even when a large number of labels are placed in close vicinity.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/pie_labels1.jpg" width="482" height="202" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can disable the smart labels (if required to save chart space or when there are few pie segments) using <span class="codeInline">enableSmartLabels='0'</span>. When the smart labels are switched off, the pie labels would be displayed without the smart label lines. But if the number of labels increases and smart labels are not being used, then the labels might overlap.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart enableSmartLabels='0'...&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Customizing the smart labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The smart labels can be customized using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" class="header">Attribute Name</td>
+        <td width="10%" class="header">Range</td>
+        <td width='60%' class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> smartLineColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> Color of smart label connector lines </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> smartLineThickness </span> </td>
+        <td valign="top"><span class="text"> In Pixels </span> </td>
+        <td valign='top'><span class="text"> Thickness of smart label connector lines </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> smartLineAlpha </span> </td>
+        <td valign="top"><span class="text"> 0-100 </span> </td>
+        <td valign='top'><span class="text"> Alpha of smart label connector lines </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> isSmartLineSlanted </span> </td>
+        <td valign="top"><span class="text"> 0/1 </span> </td>
+        <td valign='top'><span class="text"> The smart lines (smart label connector lines) can appear in two ways: Slanted or Straight. This attribute lets you choose between them. </span> </td>
+      </tr>
+      
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart smartLineThickness='2' smartLineColor='333333' isSmartLineSlanted='0'...&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Label Clearance </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set the label distance and clearance using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" cellpadding="0" cellspacing="0" class="table">
+      <tr>
+        <td width="15%" class="header">Attribute Name</td>
+        <td width="10%" class="header">Range</td>
+        <td width='60%' class="header">Description</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> labelDistance </span> </td>
+        <td valign="top"> In Pixels </td>
+        <td valign='top'> This attribute helps you set the distance of the label/value text boxes from the pie/doughnut edge. This attribute is applicable only when smart labeling is disabled. </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> smartLabelClearance </span> </td>
+        <td valign="top">In Pixels </td>
+        <td valign='top'> Clearance distance of a label (for sliced-in pies) from adjacent sliced out pies.</td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Skipping Overlap labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When you have too many labels in your pie chart (which is difficult to adjust even using smart labels), the labels might overlap. In that case, you have the option to skip the overlapping labels using <span class="codeInline">skipOverlapLabels='1'</span>. The labels of the least significant pies would be removed.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Displaying values </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set whether you want the actual value of the pie segment to be displayed in the label or the percentage value. By default, the actual values are displayed ($550K, $720K in the chart shown above). When you want to display their percentages, use <span class="codeInline">showPercentValues='1'</span>.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart showPercentValues='1'...&gt;</pre></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Vertical Lines|VLines.html", "Legend|Legend.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

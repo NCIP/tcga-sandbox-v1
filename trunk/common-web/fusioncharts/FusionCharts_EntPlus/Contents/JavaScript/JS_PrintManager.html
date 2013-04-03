@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Managed Printing in Mozilla browsers </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Managed print for Mozilla" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Managed Printing in Mozilla browsers </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts provides advanced print management using JavaScript for Mozilla/WebKit/Gecko based browsers like Firefox, Safari etc.&nbsp;Even though displayed properly on screen, printed output had been not proper in these browsers. So long! FusionCharts JavaScript class offers a separate Print Manger class to take care of this. The implementation of Print Manager is fairly simple. You would just need to add a single line of code in JavaScript which enables Print Manager for all charts present in a web page. Once enabled, all the charts present in a page are prepared to print correctly. Once the charts are ready, which can be tracked by listening to an event raised by the Print Manager, you can use browser's File &rarr; Print menu, JavaScript's native <span class="codeInline">window.print() </span>function or Print Manager's advanced function - <span class="codeInline">managedPrint()</span>. In any of these actions, the charts would come-up properly in the print media. </p>
+      <p>The Print Manager internally does the following to achieve this: </p>
+      <ul>
+        <li>Once a chart is rendered it silently gathers all the image data of the present state of the chart </li>
+        <li>It converts the image data into image using canvas HTML object</li>
+        <li>It hides the canvas image below the chart</li>
+        <li>When print is invoked, a parallel <span class="msg_handler"><a>CSS based print media layout</a> &raquo; </span><span class="msg_body veryLightYellowBg">using @media print</span> is created </li>
+        <li>In this print media layout the Flash chart is hidden and the canvas image is displayed</li>
+        <li>This layout with the canvas image is sent to the printer for print</li>
+      </ul>
+      <p>Let's now go through a sample code which will provide you first-hand experience of what has been said above. </p>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; JavaScript  &gt; Basics</span> folder.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+								<pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;FusionCharts Print Manager&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+      <strong>FusionCharts.printManager.enabled(true);</strong>
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+					
+      FusionCharts.addEventListener ( 
+<strong>          FusionChartsEvents.PrintReadyStateChange , 
+</strong>          function (identifier, parameter) {
+            if(parameter.ready){ 
+               alert(&quot;Chart is now ready for printing.&quot;);
+               document.getElementById('printButton').disabled = false;
+            }
+        });
+    // --&gt;&lt;/script&gt; 	   
+    &lt;input type=&quot;button&quot; onclick=&quot;<strong>FusionCharts.printManager.managedPrint()</strong>&quot;
+        value=&quot;Managed Print&quot; disabled=&quot;disabled&quot; id=&quot;printButton&quot; &gt;
+  &lt;/body&gt; 
+&lt;/html&gt;</pre><br />See it <a href="../../Code/JavaScript/Basics/ManagedPrintForMozilla/ManagedPrintingInMozillaBrowsers.html" target="_blank">live</a>!				</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>
+        
+      In the above code:</p>
+      <ul>
+        <li>We first enable FusionCharts Print Manager using <span class="codeInline">FusionCharts.printManager.enabled(true)</span></li>
+        <li>Next, we create a Column 3D chart. We add a button which on click will call <span class="codeInline">managedPrint()</span> function of <span class="codeInline">FusionCharts.printManager</span> class</li>
+        <li>Thereafter, We add a listener for the global event <span class="codeInline">PrintReadyStateChange </span>to the global object <span class="codeInline">FusionCharts</span></li>
+      </ul>
+      <p class="highlightBlock">Note that <span class="codeInline">PrintReadyStateChange</span> event is a global event. Thus, this event cannot be listened from individual chart instance. Hence, only <span class="codeInline">FusionCharts </span>static class can listen to this event.</p>
+      <ul>
+        <li>The <span class="codeInline">parameters</span> event argument contains a property <span class="codeInline">ready</span>. This returns <span class="codeInline">true </span>when the Print Manager is ready to print all charts in a page</li>
+        <li>Hence, in this event we show an information alert and also enable the button, which was disabled prior to this. </li>
+      </ul>
+      <p>Now, if you try printing from File &rarr; Print menu or using a button or function that call <span class="codeInline">window.print()</span> function. You can also click &quot;Managed Print&quot; button to print the chart. </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name="advanced" id="advanced"></a>Advanced Functions </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Print Manger class provides two more functions that helps in advanced configurations. The functions are described below:</p>
+      <ol>
+        <li><span class="codeInline">isReady()</span> : This function returns <span class="codeInline">true</span> or <span class="codeInline">false </span>based on the status of Print Manger. When the print manager is fully ready with all the equivalent canvas images of all the charts present in a page, it returns <span class="codeInline">true</span>. </li>
+        <li><span class="codeInline">configure()</span> : This function helps in configuring the Print Manager. It takes an Object as parameter. The object can have the following properties:
+<ul>
+     <li><span class="codeInline">enabled</span> : This is a boolean property where you can explicitly define here whether to enable managed printing feature or not</li>
+     <li><span class="codeInline">invokeCSS</span> : This is a boolean property which sets whether CSS based print media layout should be created for managed print or not.</li>
+     <li><span class="codeInline">message</span> : This property takes a string as message. While the print manager is still not ready with the converted images of the charts, this text message is placed instead of the chart images. The default value is &quot;Chart is being prepared for print.&quot;. </li>
+</ul>
+<p>Note that this function should be called before calling <span class="codeInline">FusionCharts.printManager.enabled( true );</span></p></li>
+      </ol>
+      <p class="highlightBlock">To see implementation code snippets using these advanced functions go through<strong> API Reference </strong>&gt; <a href="API/Methods.html#printmanager">Functions</a> page.</p>
+      <p class="highlightBlock">Please note that Print Manager takes a bit of time to prepare all the charts ready for printing. It depends on the size of the chart as well as the processing power of the client side computer. If print action is invoked while the Print Manager is not yet ready with the image, the chart does not show up in the print media. However, if the function <span class="codeInline">managedPrint()</span> is called, it automatically waits for the all the chart to get ready before it proceeds to call the <span class="codeInline">window.print()</span> function. <br />
+      Hence, it is recommended to call <span class="codeInline">managedPrint()</span> function instead of the other 
+    actions.</p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using <i>LinkedCharts</i>|JS_LinkedCharts.html","Handling Errors|JS_Errors.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

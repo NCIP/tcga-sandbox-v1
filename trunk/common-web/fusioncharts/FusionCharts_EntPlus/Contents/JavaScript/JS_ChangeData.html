@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Providing and updating chart data</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Providing &amp; updating data" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Providing and updating chart data</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript classes offer a number of functions for <a href="#provide">providing data to chart </a> and <a href="#update">updating </a> chart data. FusionCharts JavaScript class supports data in XML or JSON format. The data can be assigned as URL or as String. In this page we will discuss  how to provide data to a chart at the time of rendering  or updating.</p>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="provide" id="provide"></a>Providing data to chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can provide data to the chart using various methods as shown below : </p>
+      <p><strong><a name="setdataurl" id="setdataurl"></a>Using XML file as the chart's data source</strong></p>
+      <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+      &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );<strong>
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+     </strong> myChart.render(&quot;chartContainer&quot;);<strong>
+</strong>      
+    // --&gt;     
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;
+
+<img src="../FirstChart/Images/FirstChart.jpg"  class="imageBorder"/></pre>
+					 <p>In the above code, chart data is provided through an external XML file whose URL is provided using <span class="codeInline">setXMLUrl()</span> function. </p>
+			       <p class="msg_handler"><a>Click here to see implementation of other functions that do the same &raquo;</a> </p>
+					<pre class="code_container prettyprint msg_body">
+myChart.<strong>setChartData</strong>(&quot;Data.xml&quot; , &quot;xmlurl&quot;);
+...
+myChart.<strong>setChartDataUrl</strong>(&quot;Data.xml&quot; , &quot;xml&quot;);
+<p class="highlightBlock">FusionCharts can also use <span class="codeInline">setDataUrl()</span>to provide chart data. This function has been deprecated.</p></pre>
+<p class="text"><strong><a name="setxmldata" id="setxmldata"></a>Using XML String as the chart data source</strong></p>
+					 <p>In case you have XML data as String in JavaScript, you can use <span class="codeInline">setXMLData()</span> function to provide this XML String as shown in the code below: </p>
+					
+						<pre class="code_container prettyprint">// String containing chart XML
+var strXML = &quot;&quot;&lt;chart&gt;&lt;set value='100' label='Week 1'/&gt;...&lt;/chart&gt;&quot;&quot;; 
+
+myChart.<strong>setXMLData</strong>(strXML);</pre>
+			   <p class="msg_handler"><a>Click here to see implementation of other functions that do the same &raquo;</a></p>
+					<pre class="code_container prettyprint  msg_body">
+myChart.<strong>setChartData</strong>(strXML , &quot;xml&quot;);
+<p class="highlightBlock">FusionCharts can also use <span class="codeInline">setDataXML()</span>to provide chart data. This function has been deprecated.</p></pre>
+								
+						<p><strong><a name="setjsonurl" id="setjsonurl"></a>Using JSON URL as the chart data source</strong></p>
+						<p>In case you are feeding  JSON data to the chart from a Url, you can use <span class="codeInline">setJSONUrl()</span> function. See code below: </p>
+						<pre class="code_container prettyprint">myChart.<strong>setJSONUrl</strong>(&quot;Data.json&quot;);</pre>
+						 		   <p class="msg_handler"><a>Click here to see implementation of other functions that do the same &raquo;</a> </p>
+					<pre class="code_container prettyprint  msg_body">myChart.<strong>setChartData</strong>(&quot;Data.json&quot; , &quot;jsonurl&quot;);
+...
+myChart.<strong>setChartDataUrl</strong>(&quot;Data.json&quot; , &quot;json&quot;);</pre>
+
+						
+<p><strong><a name="setjsondata" id="setjsondata"></a>Using  JSON Object or JSON stored as String in JavaScript </strong></p>
+<p>In case you are using JSON Object or JSON as String to be fed to chart, you can use <span class="codeInline">setJSONData()</span> function. See code below: </p>
+<pre class="code_container prettyprint lang-js">var objJSON = { chart : { ... } , data : { ... } ... } ; // Chart JSON data
+myChart.<strong>setJSONData</strong>( objJSON ); </pre>
+								<br />
+
+<pre class="code_container prettyprint lang-js">var strJSON = &quot;{ chart : { ... } , data : { ... } ... }&quot; ; // chart data as JSON String
+myChart.<strong>setJSONData</strong>( strJSON ); 
+</pre>
+													<p class="msg_handler"><a>Click here to see implementation of other functions that do the same &raquo;</a></p>
+					<pre class="code_container prettyprint  msg_body">myChart.<strong>setChartData</strong>(objJSON , &quot;json&quot;);
+...
+myChart.<strong>setChartData</strong>(strJSON , &quot;json&quot;);
+</pre>
+<p class="highlightBlock"> The code samples here use URL of static XML/JSON files. Ideally, you will be using server side scripts to  dynamically generate  XML or JSON data, rather than build JSON or XML files. So, you can provide the URL of the script, which   relays  dynamically generated data to the chart. </p>
+<p><strong><a name="related" id="related"></a>List of functions that help in providing data to chart </strong></p>
+								<p>Here is the list of FusionCharts JavaScript functions which can be used for providing data to the chart in XML or JSON format:</p>
+								<ul>
+								  <li><span class="codeInline">setXMLUrl(url) - </span>This function specifies the URL of the XML data source. The XML is relayed to the chart through the provided Url</li>
+								  <li><span class="codeInline">setXMLData(data) - </span>This function provides data to the chart in form of  XML string. The XML String is passed as <span class="codeInline">data </span>parameter</li>
+								  <li><span class="codeInline">setJSONUrl(url) - </span>This function specifies the URL of the JSON data source. The JSON is relayed to the chart through this URL  </li>
+								  <li><span class="codeInline">setJSONData(data) - </span>This function provides data to the chart in form of  JSON String. The JSON String is passed as <span class="codeInline">data </span>parameter</li>
+								  <li><span class="codeInline">setChartDataUrl(url, format) - </span>This function  takes URL of the data source. It takes two parameters URL and <span class="codeInline">format</span>. The <span class="codeInline">format </span>parameter accepts either <span class="codeInline">xml </span>or <span class="codeInline">json</span>. As per the value of the <span class="codeInline">format </span>parameter the function accepts data in the following manner:
+                                    <ul>
+              <li>When the format is <span class="codeInline">xml</span>, the function will look for the URL of  xml data from URL <span class="codeInline"></span>parameter</li>
+              <li>When the format is <span class="codeInline">json</span>, the function will look for the URL of JSON data from URL <span class="codeInline"></span>parameter</li>
+            </ul>
+								  </li>
+								  <li><span class="codeInline">setChartData(data, format) </span>- This function sets chart data. It takes two parameters. The first is the data string itself. The second parameter, <span class="codeInline">format</span>, takes one of the four values - <span class="codeInline">xml</span>,<span class="codeInline"> xmlurl</span>, <span class="codeInline">json, jsonurl</span>. As per the value of <span class="codeInline">format</span> parameter the function accepts data in the following manner:
+												<ul>
+														<li>When the <span class="codeInline">format</span> is <span class="codeInline">xml</span>, the function will look for XML string in <span class="codeInline">data</span> parameter</li>
+														<li>When the <span class="codeInline">format</span> is <span class="codeInline">json</span>, the function will look for JSON object or JSON string in <span class="codeInline">data</span> parameter</li>
+														<li>When the <span class="codeInline">format</span> is <span class="codeInline">xmlurl</span>, the function will look for  URL of the XML data in <span class="codeInline">data</span> parameter</li>
+														<li>When the <span class="codeInline">format</span> is <span class="codeInline">jsonurl</span>, the function will look for the URL of JSON data in <span class="codeInline">data</span> parameter</li>
+						                  </ul>
+								  </li>
+						          <li>The deprecated functions are given below. While these are backward compatible and still work, going forward, we do not recommend using these.
+						            <ul>
+						              <li><span class="codeInline">setDataURL(url) - </span>This function specifies the URL of the XML data source. The URL is relayed to the chart through the provided  Url. </li>
+					                  <li><span class="codeInline">setDataXML(data) - </span>This function provides data to the chart in form of XML string. The XML String is passed as <span class="codeInline">data </span>parameter.</li>
+						            </ul>
+						          </li>
+    </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">While using HTTPS/SSL protocols it is not recommended to use <span class="codeInline">setDataURL()</span> function. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p class="header"><a name="compact" id="compact"></a>Providing chart data using compact rendering method</p>
+      <p>Apart from the above mentioned functions, data can be provided to the chart using  <a href="JS_CreateChart.html#compact">compact rendering method</a>. Using this method you can pass your data as XML/JSON URL or String. All you need to do is  provide the settings correctly. The code snippets below shows how to use the compact rendering mode: </p>
+      <p><strong><a name="compact_xmlurl" id="compact_xmlurl"></a>Using XML file as the chart data source</strong></p>
+      <pre class="code_container prettyprint">var myChart = FusionCharts.render( "FusionCharts/Column3D.swf", "myChartId",
+  "400", "300", "ChartContainer", <strong>"Data.xml" , "xmlurl"</strong> );</pre>
+      <p><strong><a name="compact_jsonurl" id="compact_jsonurl"></a>Using JSON file file as the chart data source</strong></p>
+						<pre class="code_container prettyprint">var myChart = FusionCharts.render( "FusionCharts/Column3D.swf", "myChartId",
+  "400", "300", "ChartContainer", <strong>"Data.json" , "jsonurl"</strong> );</pre>
+      <p><strong><a name="compact_xml" id="compact_xml"></a>Using XML String as the chart data source</strong></p>
+						<pre class="code_container prettyprint">var myChart = FusionCharts.render( "FusionCharts/Column3D.swf", "myChartId",
+  "400", "300", "ChartContainer",<strong> strXML , "xml"</strong> );</pre>
+      <p><strong><a name="compact_json" id="compact_json"></a>Using JSON Object as the chart data source</strong> </p>
+						<pre class="code_container prettyprint">var objJSON = { chart : { ... } , data : { ... } ... } ; // chart data as JSON object
+var myChart = FusionCharts.render( "FusionCharts/Column3D.swf", "myChartId",
+  "400", "300", "ChartContainer", <strong>objJSON , "json" </strong>);</pre>
+      <p><strong><a name="compact_json_string" id="compact_json_string"></a>Using JSON String as the chart data source</strong> </p>
+						<pre class="code_container prettyprint">var strJSON = &quot;{ chart : { ... } , data : { ... } ... }&quot; ; // chart data as JSON String
+var myChart = FusionCharts.render( "FusionCharts/Column3D.swf", "myChartId",
+  "400", "300", "ChartContainer", <strong>strJSON , "json"</strong> );</pre>
+      <p>For more information on compact rendering mode read <a href="JS_CreateChart.html#compact">Constructor methods</a>. </p>
+    </td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="update" id="update"></a>Updating an existing chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Let's render a sample chart and then change its data (see code below). The chart which renders initially shows  sales data for the Month of August. However, its data is changed to show sales for the month of September when a button is clicked.  We have separate XML files for each month, the code is as follows:
+      <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Update Chart data&lt;/title&gt;
+    &lt;script type="text/javascript" src=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var myChart = new FusionCharts( &quot;../../FusionCharts/Column3D.swf&quot;, 
+        &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;AugustData.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+		function <strong>changeMonth</strong>()
+		{
+			var chartReference = FusionCharts(&quot;myChartId&quot;);
+			chartReference.<strong>setXMLUrl</strong>(&quot;SeptemberData.xml&quot;);
+		}
+    // --&gt;
+    &lt;/script&gt;
+
+    &lt;input type=&quot;button&quot; onClick=&quot;<strong>changeMonth</strong>();&quot; value=&quot;Change Month&quot;&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>In the above code we have created a chart using data for the month of August, the data for which is in <span class="codeInline">AugustData.xml</span>. We have created an HTML button which calls a JavaScript function <span class="codeInline">changeMonth()</span>. In this function we have :</p>
+      <ul>
+         <li>Tracked the reference of the chart using <span class="codeInline">FusionCharts(&quot;myChartId&quot;)</span></li>
+         <li>Updated the chart using <span class="codeInline">setXMLData()</span>&nbsp; function</li>
+         <li>Passed <span class="codeInline">&quot;SeptemberData.xml&quot;</span>, which contains data for September, to <span class="codeInline">setXMLData()</span></li>
+      </ul>
+      <p>The charts would look as follows:</p>
+      <table width="680" border="0" cellspacing="0" cellpadding="0">
+         <tr>
+            <td><img src="Images/updatedata.jpg" width="300" height="280" class="imageBorder"/></td>
+            <td><img src="Images/updateddata.jpg" width="300" height="280" class="imageBorder"/></td>
+         </tr>
+         <tr>
+            <td align="center" class="imageCaption">Chart with August data.<br /> Click 'Change Month' button </td>
+            <td align="center" class="imageCaption">Chart now gets updated with September data </td>
+         </tr>
+      </table>
+      <p>See it <a href="../../Code/JavaScript/Basics/UpdateChartData.html" target="_top">live</a>! </p>
+    </td>
+  </tr>
+      <tr>
+      <td class="text">
+      <p><strong>Other Methods of updating chart data </strong></p>
+      <p>To update an existing chart with data, all you need to do is get the <a href="JS_ChartInstance.html">chart reference</a> and a  function from the list provided above. All of the functions listed <a href="#related" title="List of functions that help in providing data to chart">above</a> can then be used for updating the data of an existing chart. Following code  snippets  illustrate the process:
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;);
+chartReference.setXMLUrl(&quot;newData.xml&quot;);</pre> 
+      <br/>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;);
+chartReference.setJSONUrl(&quot;updatedJSON.json&quot;);</pre>
+      <br/>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts.items[&quot;myChartId&quot;];
+chartReference.setXMLData(newXMLString);
+<span class="codeComment">//newXMLString is a JavaScript String variable containing the chart XML</span></pre>
+      <br/>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts.items[&quot;myChartId&quot;];
+chartReference.setJSONData(objJSON);
+<span class="codeComment">//objJSON is an Object containing chart JSON</span></pre>
+      <br/>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts.items[&quot;myChartId&quot;];
+chartReference.setJSONData(strJSON);
+<span class="codeComment">//strJSON is a String which contains chart JSON</span></pre>
+      <span class="msg_handler"><p><a>Click here to see implementation of other similar functions &raquo;</a></p></span>
+    
+      <pre class="msg_body code_container prettyprint lang-js" >var chartReference = FusionCharts.items[&quot;myChartId&quot;];
+...
+chartReference.setChartDataUrl(&quot;updatedXML.xml&quot;, &quot;xml&quot;);
+...
+chartReference.setChartDataUrl(&quot;updatedJSON.json&quot;, &quot;json&quot;);
+...
+chartReference.setChartData(&quot;updatedXML.xml&quot;, &quot;xmlurl&quot;);
+...
+chartReference.setChartData(&quot;updatedJSON.json&quot;, &quot;jsonurl&quot;);
+...
+chartReference.setChartData(strXML, &quot;xml&quot;);
+...
+chartReference.setChartData(objJSON, &quot;json&quot;);
+...
+chartReference.setChartData(strJSON, &quot;json&quot;);</pre>
+      <p><strong>Deprecated Functions</strong></p>
+      <pre class="code_container prettyprint lang-js">myChart.setDataURL(&quot;newData.xml&quot;);</pre> 
+				  <br/> 
+					 <pre class="code_container prettyprint lang-js">var chartReference = getChartFromId(&quot;myChartId&quot;);
+chartReference.setDataXML(newXMLString); 
+//newXMLString is a JavaScript String variable containing the chart XML</pre> 
+					 <br/> 
+					 <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts.getObjectReference(&quot;myChartId&quot;);
+chartReference.setDataURL(&quot;newData.xml&quot;);</pre> 
+					 <br/> 
+						<pre class="code_container prettyprint lang-js">myChart.setDataXML(newXMLString); 
+//new XMLString is a string containing chart XML</pre>
+						<br/> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please note that only <span class="codeInline">setDataXML() </span>and <span class="codeInline">setDataURL()</span> functions  will work if you get reference to chart's <a href="JS_ChartInstance.html#html">HTML Object reference</a> instead of its <a href="JS_ChartInstance.html#js">JavaScript object reference</a>. If you get the chart's JavaScript Object reference, you can use all the functions listed above. </td>
+  </tr>
+  <tr>
+     <td height="30"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="legacy" id="legacy"></a>Notes on Backward compatibility </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Your existing code (i.e. pre V3.2 code) will continue to work as before.</p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Getting chart reference|JS_ChartInstance.html","Changing chart properties|JS_ChangeChartProperties.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

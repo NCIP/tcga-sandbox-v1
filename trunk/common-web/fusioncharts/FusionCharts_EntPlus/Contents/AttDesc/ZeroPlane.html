@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Zero Plane </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Zero Plane" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Zero Plane </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Zero plane is a plane which separates the positive and negative numbers on a chart having both of them.</p> 
+    <img src="Images/zerop2.jpg" width="400" height="200" class="imageBorder" />
+    <p><img src="Images/zerop1.jpg" width="400" height="200" /></p>
+    <p>The zero plane appears in the column, line, scatter, bubble and the area charts. Additionally, scatter chart and bubble chart also supports <a href="#verticalzeroplane">vertical zero plane</a> on X Axis. Zero plane can be removed in the line, scatter and bubble charts but not in the column or the area chart because they use this as their base to draw. Horizontal zero plane can be removed in the line, scatter and bubble charts by setting <span class="codeInline">showZeroPlane='0'. </span>Vertical zero plane in the scatter and bubble charts can be removed by setting <span class="codeInline">showVZeroPlane='0'</span>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name='customize' id='customize'></a>Customizing the zero plane </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The customizable attributes for the zero plane in a 2D chart are:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="20%" class="header">Attribute Name</td>
+        <td width="15%" class="header">Range</td>
+        <td width="60%" class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> zeroPlaneColor </span> </td>
+        <td valign="top">Hex color code without #  </td>
+        <td valign='top'> Color for the Zero Plane  </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> zeroPlaneThickness </span> </td>
+        <td valign="top"> In Pixels </td>
+        <td valign='top'> Thickness of zero plane</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> zeroPlaneAlpha </span> </td>
+        <td valign="top"> 0-100 </td>
+        <td valign='top'> Alpha of zero plane</td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart zeroPlaneColor='000000' zeroPlaneThickness='1' zeroPlaneAlpha='80'....&gt;</pre>
+    <p>The attributes for the zero plane of a 3D chart are:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr class="trAttHeader">
+        <td width="20%" class="header">Attribute Name</td>
+        <td width="15%" class="header">Range</td>
+        <td width='60%' class="header">Description</td>
+      </tr>
+
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> zeroPlaneColor </span> </td>
+        <td valign="top">Hex color code without #</td>
+        <td valign='top'> Color for the Zero Plane </td>
+      </tr>
+      
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> zeroPlaneAlpha </span> </td>
+        <td valign="top"> 0-100 </td>
+        <td valign='top'> Alpha of zero plane</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> zeroPlaneShowBorder </span> </td>
+        <td valign="top"> Boolean </td>
+        <td valign='top'> Whether to show border of zero plane</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> zeroPlaneBorderColor </span> </td>
+        <td valign="top"> Color  </td>
+        <td valign='top'> Sets the border color of zero plane</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart zeroPlaneColor='FFFFFF' zeroPlaneAlpha='80' zeroPlaneBorderColor='999999'....&gt;</pre></td>
+  </tr>
+  <tr>
+  <td>&nbsp;</td></tr>
+  <tr>
+  <td class="header"><a name='verticalzeroplane' id='verticalzeroplane'></a>Vertical zero plane in scatter and bubble charts</td>
+  </tr>
+  <tr>
+  <td class="text"><p> In scatter and bubble charts, you can configure vertical zero planes. The attributes used to configure the vertical zero plane are as follows:</p></td></tr>
+<tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr class="trAttHeader">
+        <td width="20%" class="header">Attribute Name</td>
+        <td width='15%' class="header">Range</td>
+		<td width="60%" class="header">Description</td>
+      </tr>
+
+      <tr>		
+			<td width="25%" valign="top">
+				<span class="codeInline">
+				showVZeroPlane				</span>
+		  <div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0/1				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Whether to show vertical zero plane.				</span>
+			    <span class="text">Zero Plane is the line/plane that appears at 0 x-position on canvas, when negative data is being shown on the chart. </span></td>	
+		</tr>	
+				<tr class='trLightBlueBg'>		
+			<td width="25%" valign="top">
+				<span class="codeInline">
+				vZeroPlaneColor				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				Hex Code				</span>			without #</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Color of the vertical zero plane				</span>			</td>	
+		</tr>
+						<tr>		
+			<td width="25%" valign="top">
+				<span class="codeInline">
+				vZeroPlaneThickness				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				In Pixels				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Thickness of the vertical zero plane				</span>			</td>	
+		</tr>
+						<tr class='trLightBlueBg'>		
+			<td width="25%" valign="top">
+				<span class="codeInline">
+				vZeroPlaneAlpha				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0-100				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Transparency of the vertical zero plane				</span>			</td>	
+		</tr>
+		
+	
+			
+	</table></td>
+  </tr>
+  
+<tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header"><a name='styles' id='styles'></a>Applying effects to the zero plane </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We can apply effects (shadow, glow, blur, bevel) to the div lines and zero plane using STYLES. To apply any style to the zero plane, we have to apply the style to the divisional lines. Here, we will see a chart having shadow for the div lines.</p> 
+    <img src="Images/zerop3.jpg" width="400" height="200" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart showValues='0' &gt;
+   &lt;set label='Set 1' value='100' /&gt;
+   &lt;set label='Set 2' value='-40' /&gt;
+   &lt;set label='Set 3' value='-70' /&gt;
+   &lt;set label='Set 4' value='40' /&gt;<strong>
+   &lt;styles&gt;
+      &lt;definition&gt;</strong>
+          <strong>&lt;style name='myShadow' type='shadow' angle='45' distance='3' color='000000'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+          &lt;apply toObject='DIVLINES' styles='myShadow' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0"
+  },
+  "data":[{
+      "name":"Set 1",
+      "value":"100"
+    },
+    {
+      "name":"Set 2",
+      "value":"-40"
+    },
+    {
+      "name":"Set 3",
+      "value":"-70"
+    },
+    {
+      "name":"Set 4",
+      "value":"40"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myShadow",
+        "type": "shadow",
+        "angle": "45",
+        "distance": "3",
+        "color": "000000"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DIVLINES",
+        "styles": "myShadow"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  
+	  	 
+ 
+<p>Similarly, the other effects can be applied to the div lines &amp; zero plane.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Animating div lines &amp; zero plane </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply animation effects to the div lines &amp; zero plane. In the data given below, the x-Scale of the div lines &amp; zero plane will be animated. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart showValues='0' &gt;
+   &lt;set label='Set 1' value='100' /&gt;
+   &lt;set label='Set 2' value='-40' /&gt;
+   &lt;set label='Set 3' value='-70' /&gt;
+   &lt;set label='Set 4' value='40' /&gt; 
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+         &lt;style name='myAnim1' type='animation' param='_xScale' start</strong><strong>='0' duration='1'/&gt;
+      </strong><strong>&lt;/definition&gt;
+      &lt;application&gt;
+         &lt;apply toObject='DIVLINES' styles='myAnim1' /&gt;
+      </strong><strong>&lt;/application&gt;
+   &lt;/styles&gt;</strong>    
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0"
+  },
+  "data":[{
+      "name":"Set 1",
+      "value":"100"
+    },
+    {
+      "name":"Set 2",
+      "value":"-40"
+    },
+    {
+      "name":"Set 3",
+      "value":"-70"
+    },
+    {
+      "name":"Set 4",
+      "value":"40"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myAnim1",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DIVLINES",
+        "styles": "myAnim1"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+ </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Vertical Div Lines|VDivLines.html", "Trend Lines &amp; Zones|Trend.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

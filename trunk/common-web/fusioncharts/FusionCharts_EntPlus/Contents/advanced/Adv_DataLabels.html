@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Showing long data Labels </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Showing long data labels" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Showing long data Labels </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Often, in your chart data, you might have long data labels (category names).   Fitting them on a small chart space often becomes cumbersome, as they make   the chart look cluttered. FusionCharts offers a myriad of options to help you gain control over long/too many x-axis/data labels. Here, we've explained a few such methods including:</p>
+      <ul>
+        <li><a href="#auto">Auto mode</a> (Default mode) - chart automatically selects the best mode of display (between rotate and wrap) </li>
+        <li>Using <a href="#wrap">wrap mode</a></li>
+        <li>Using <a href="#rotate">rotated</a> and <a href="#slant">slanted</a> mode</li>
+        <li>Using <a href="#stagger">staggered</a> mode and setting staggered lines</li>
+        <li><a href="#nth">Showing every n-th label</a> </li>
+        <li><a href="#shortlabel"> Displaying short label on axis and showing full name as tool tip</a></li>
+        <li><a href="#advancedLabel">Additional label management method applied to all line and area charts </a></li>
+      </ul>
+	  <br/><br/>
+	  	  <div class="highlightBlock">Starting FusionCharts XT, advanced X axis label management has been implemented to achieve the following:<br/>
+	      <br/>
+	  <ul>
+	  <li>All the X axis labels should get centrally aligned to the respective data-plots (columns, points on line charts etc.) </li>
+	  <li>X axis labels should not overlap each other</li>
+	  <li>X axis labels should not overlap with other chart objects such as legends or X axis name</li>
+	  <li>Long labels should not go outside the chart </li>
+	  <li>Optimized truncation of  longer labels and putting ellipses at the end </li>
+	  </ul>
+	  <p><strong>Note</strong>: Bar, Pie, Doughnut, Marimekko, Zoom Line and Multi-series Combination 3D charts do not apply the advanced label management rules mentioned above. Also, you can opt not to apply  the advanced label management to the X axis labels. For this, you need to set the attribute <span class="codeInline">labelDisplay='none</span>' in <span class="codeInline">&lt;chart&gt;</span> element. </p>
+	  </div>
+    <p>Now, let's us take a detailed look at each of them.</p>
+	
+	</td>
+  </tr>
+  <tr>
+  <td valign="top" class="header"><a name="auto" id="auto"></a>Auto Mode</td>
+  </tr>
+  <tr>
+  <td valign="top" class="text"><p>In auto mode  the chart automatically chooses the most appropriate layout for data labels -  depending on the availability of space. So, if the number of data labels is greater  than what can be accommodated in the available space, then the data labels are  either truncated (with ellipses to indicate truncation), wrapped or rotated. Tooltips showing full data label appears when the user hovers over a  truncated data label, as shown under. The auto mode is active by default, and can&nbsp;be disabled by switching to an alternative label display mode.</p>
+    <table width="620">
+  <tr>
+  <td><img src="../AttDesc/Images/AutoLabel1.jpg" width="300" height="200" alt="Auto Labels wrappped" /></td>
+  <td><img src="../AttDesc/Images/AutoLabel2.jpg" width="300" height="200" alt="Auto label truncated" /></td>
+  </tr>
+  </table>
+  <br/>
+  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="wrap" id="wrap"></a>Wrap Mode </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The wrap mode enables you to wrap the long x-axis/data labels of your chart in multiple lines, as shown below. To enable wrap mode, all you need to do is set :</p>
+      <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart labelDisplay='WRAP'&gt;</pre>
+</div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container"> &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;labeldisplay&quot;:&quot;WRAP&quot;<br />&nbsp; }</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/xAxis_Wrap.jpg" width="309" height="206" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="rotate" id="rotate"></a><a name="slant" id="slant"></a>Rotating and Slanting Labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can opt to rotate the x-axis/data labels by using <span class="codeInline">&lt;chart labelDisplay='Rotate' ...&gt;</span>. </p>
+      <p>Consider the XML below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart numberPrefix='$' <strong>labelDisplay='ROTATE'</strong>&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan 2006' value='434' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb 2006' value='376' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar 2006' value='343' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr 2006' value='234' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May 2006' value='356' /&gt;
+&lt;/chart&gt;</pre>
+</div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;,<br />&nbsp; &nbsp; <strong>&quot;labeldisplay&quot;:&quot;ROTATE&quot;</strong><br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;434&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;376&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;343&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;234&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;May 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;356&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>It gives us the following chart: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_Rotate.jpg" width="306" height="208" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also slant the labels at 45 degrees by using <span class="codeInline">&lt;chart labelDisplay='Rotate' slantLabels='1' ...&gt;</span> which gives the following visual output: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_Slant.jpg" width="306" height="210" /><p class="highlightBlock"> <strong>Note</strong>: In case of Scatter and Bubble charts, when the attribute <span class="codeInline">xAxisLabelMode</span> is set to <a href="BubbleScatter.html#xaxislables">auto </a>slanting of the X axis labels is not applicable.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="stagger" id="stagger"></a>Staggering Labels on multiple lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 introduces the stagger mode for labels. Staggering basically distributes labels into multiple lines (by default 2). To enable stagger mode, just set <span class="codeInline">&lt;chart labelDisplay='Stagger' ...&gt;</span>. It will yield the following: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_Stagger.jpg" width="308" height="207" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also choose how many lines to stagger the labels to by setting the number in <span class="codeInline">&lt;chart labelDisplay='Stagger' staggerLines='n' ...&gt;</span> where n is the number of lines. Shown below is an example with <span class="codeInline">staggerLines</span> set to 3.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_StaggerLines.jpg" width="306" height="208" /><br /><br /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="nth" id="nth"></a>Showing every n-th label </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If your x-axis/data labels represent a continuous quantity like time, date etc. which are incremental in nature, you can opt to show every n-th label instead of all the labels. This enhances the visual clarity of the chart. Consider the XML below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%; height:382px; overflow:auto;">
+       <div id="tab5" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart numberPrefix='$' <strong>labelStep='4' </strong>showValues='0'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan 2006' value='434' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb 2006' value='376' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar 2006' value='343' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr 2006' value='234' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May 2006' value='356' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun 2006' value='183' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jul 2006' value='365' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Aug 2006' value='357' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Sep 2006' value='375' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Oct 2006' value='345' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Nov 2006' value='655' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Dec 2006' value='435' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan 2007' value='586' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;,<br />&nbsp; &nbsp; <strong>&quot;labelstep&quot;:&quot;4&quot;</strong>,<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;434&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;376&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;343&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;234&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;May 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;356&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jun 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;183&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jul 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;365&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Aug 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;357&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Sep 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;375&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Oct 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;345&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Nov 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;655&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Dec 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;435&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan 2007&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;586&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above chart, we're plotting consecutive months on the chart. So, if we show all the months, the x-axis/data labels of the chart could get cluttered. To avoid this, we've set <span class="codeInline">labelStep</span> as 4, so that every 4th x-axis label is only shown. </p>
+      <p>When you view the chart, you'll get following output: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_Step.jpg" width="384" height="210" /><br /><br /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"> <a name="shortlabel" id="shortlabel"></a>Displaying short labels on axis and showing full name as tool tip</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you're working on a small chart size, you can also opt to show abbreviated names on x-axis, but show full names as tool tip. Consider the XML below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container"  style="width:100%; height:360px; overflow:auto;">
+       <div id="tab7" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart numberPrefix='$' rotateValues='1'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='J' toolText='January' value='434' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='F' toolText='February' value='376' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='M' toolText='March' value='343' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='A' toolText='April' value='234' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='M' toolText='May' value='356' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='J' toolText='June' value='183' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='J' toolText='July' value='365' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='A' toolText='August' value='357' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='S' toolText='September' value='375' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='O' toolText='October' value='345' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='N' toolText='November' value='655' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='D' toolText='December' value='435' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;,<br />&nbsp; &nbsp; &quot;rotatevalues&quot;:&quot;1&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;J&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;January&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;434&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;F&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;February&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;376&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;M&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;March&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;343&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;A&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;April&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;234&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;M&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;May&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;356&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;J&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;June&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;183&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;J&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;July&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;365&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;A&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;August&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;357&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;S&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;September&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;375&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;O&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;October&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;345&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;N&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;November&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;655&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;D&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;December&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;435&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div>
+</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above XML, we're showing only the first character of each month name on x-axis. The rest of information is shown as tool tip as below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/xAxis_ToolTip.jpg" width="384" height="206" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this section, we've just given you a brief idea of your control over the x-axis/data labels. You may mix and match these ideas to effectively get  much better control over the x-axis/data labels. </p></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+ <td class="header"><a name="advancedLabel"></a>Long label management in Line and Area charts</td>
+  </tr>
+  <tr>
+  <td class="text">
+     <p> Starting FusionCharts XT, all line and area charts apply an additional label management method to render X axis labels. </p>
+     <p>All the line and area charts automatically adjust the canvas padding (the space between the canvas border and the position where the line/area chart begins and ends)  to accommodate long labels. This ensures that the first and last X axis labels are not rendered outside the canvas border and the labels never overlap each other. A line and an area chart where the canvas padding gets automatically calculated and applied due to long labels look as under:</p>
+  </td></tr>
+	
+	
+	<tr>
+    <td valign="top">
+    <table class="table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/autoCanvasPaddingLine.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/autoCanvasPaddingArea.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" class="imageCaption" align="center">Line chart with automated canvas padding</td>
+    <td valign="top" class="imageCaption" align="center">Area chart with automated canvas padding</td>
+  </tr>
+    </table>
+  </tr>
+ <tr><td height="25"></td></tr>
+  <tr>
+  <td class="text">You might  want the chart not to adjust the canvas padding automatically . For this, you need to explicitly set a value to the <span class="codeInline">canvasPadding</span> attribute. This will ensure that the canvas padding is not  adjusted automatically by the chart. However, to accommodate long labels, the chart automatically adjusts the right and left canvas margins (space between the canvas borders and the chart borders). The images below show the above charts with <span class="codeInline">canvasPadding</span> attribute is set with a value (here, <span class="codeInline">canvasPadding='0'</span>). Note how the chart left and right margins get automatically adjusted to accommodate the long labels. <br/>
+      <br/></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <table class="table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/forceCanvasPaddingLine.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/forceCanvasPaddingArea.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" class="imageCaption" align="center">Line chart with <span class="codeInline">canvasPadding='0'</span></td>
+    <td valign="top" class="imageCaption" align="center">Area chart with <span class="codeInline">canvasPadding='0'</span></td>
+  </tr>
+    </table>
+  </tr>
+ 
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Highlighting selective data|Highlight.html", "Using Gradients|Gradients.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

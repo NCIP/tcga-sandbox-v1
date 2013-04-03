@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Adding your own &quot;About ...&quot; Context Menu </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Custom About Menu Item" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Adding your own &quot;About ...&quot; Context Menu </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can change the default &quot;About FusionCharts&quot; context menu item to show your label and link it to your own URL using:</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$' useRoundEdges='1' <strong>showAboutMenuItem='1' aboutMenuItemLabel='About My Company' aboutMenuItemLink='n-http://www.mycompany.com'</strong>&gt; 
+   &nbsp;&nbsp;&lt;set label='Alex' value='25000'  /&gt; 
+  &nbsp;&nbsp;&nbsp;&lt;set label='Mark' value='35000' /&gt; 
+  &nbsp;&nbsp;&nbsp;&lt;set label='David' value='42300' /&gt; 
+  &nbsp;&nbsp;&nbsp;&lt;set label='Graham' value='35300' /&gt; 
+  &nbsp;&nbsp;&nbsp;&lt;set label='John' value='31300' /&gt;
+  &lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "yaxisname":"Sales Figure",
+    "caption":"Top 5 Sales Person",
+    "numberprefix":"$",
+    "useroundedges":"1",
+    <strong>"showaboutmenuitem":"1",
+    "aboutmenuitemlabel":"About My Company",
+    "aboutmenuitemlink":"n-http://www.mycompany.com"</strong>
+  },
+  "data":[{
+      "label":"Alex",
+      "value":"25000"
+    },
+    {
+      "label":"Mark",
+      "value":"35000"
+    },
+    {
+      "label":"David",
+      "value":"42300"
+    },
+    {
+      "label":"Graham",
+      "value":"35300"
+    },
+    {
+      "label":"John",
+      "value":"31300"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This results in a menu item as shown below. The link has been specified in <a href="../DrillDown/LinkFormat.html">FusionCharts Link format</a>, and <span class="codeInline">n-</span> prefix opens the link in a new window. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/AboutMenu.jpg" width="518" height="304"/></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Number Scaling|Number_Scaling.html", "Pie &amp; Doughnut chart|Pie_DoughnutChartAtrributes.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>How FusionCharts works? </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for Web Developers", "How FusionCharts works?", "Overview"  ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">How FusionCharts works? </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>As you must already be aware by now, FusionCharts accepts only XML or JSON data to plot the charts. You can either provide physical XML or JSON data files or dynamically relay the data using server-side scripts to FusionCharts. Here, we explore the various methods using which you can provide data to FusionCharts.</p>
+      <p class="highlightBlock">Please note that you do NOT ever need to save physical XML or JSON files on your server. When generating dynamic charts from your database, the XML or JSON files are built in memory (variables) using string concatenation or our API methods, and then dynamically relayed (written to output stream, like other HTML content). </p>
+      <p>There are 2 ways using which you can provide data to FusionCharts:</p>
+    <ol><a name="dataurlmethod"></a>
+      <li><span class="text"><strong>Data URL method </strong></span> - In this method, a URL is provided to the chart as data-source. The chart, when it loads or updates, invokes this URL and reads the XML or JSON data written by that Url. The URL can be a physical file containing the XML or JSON or a script file dynamically generating  XML or JSON from dynamic data sources like database, feeds etc. <br />
+        <br />
+      The following illustration will guide you through the steps involved in a Data URL method:</li>
+      <P><img src="../../FirstChart/Images/dataURLMethod.jpg" /></P>
+      <p>&nbsp;</p>
+      <p>For detailed information on Data URL method read <a href="DataURL.html">Data URL method</a> page. </p>
+      <a name="datastringmethod"></a>
+      <li><strong class="text">Data String method </strong>- In this method, the entire chart data (XML or JSON) is provided as a string and embedded into the same page as the chart. When the chart loads or updates, it just reads the Data String and renders.  Here the XML or JSON data is directly embedded into the HTML page thereby skipping the need for external data file altogether.<br />
+        <br />
+      The following illustration will guide you through the steps involved in a Data String method:</li>
+      <p><img src="../../FirstChart/Images/dataEmbedMethod.jpg" /></p>
+      <p>For more information read <a href="DataXMLExp.html">Data String method</a> page. </p>
+      </ol>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Guide for general users - Using delimiter separated data|../../guide-for-general-users/external-data-sources/GUI_CSV.html","DataURL method|DataURL.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

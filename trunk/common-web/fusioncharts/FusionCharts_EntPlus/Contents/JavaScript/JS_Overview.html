@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and JavaScript Overview </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript", "Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and JavaScript Overview </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts v3.2 offers highly enhanced JavaScript classes  for better  integration and control. It seamlessly binds with JavaScript/AJAX  to let you do the following:</p>
+       <ol>
+        <li>Your existing Flash chart implementations <a href="../FirstChart/UsingPureJS.html">automatically get rendered as pure JavaScript charts in iPhone/iPad or related devices</a></li>
+        <li>You can create pure <a href="../FirstChart/UsingPureJS.html#force">JavaScript  charts</a> (not Flash)</li>
+        <li>You can use the object oriented JavaScript implementation methods and make use of new <a href="../JavaScript/API/Overview.html#quickref">objects, static methods, properties, constants </a>related to FusionCharts</li>
+        <li>You can  use  the static function <span class="codeInline"><a href="../JavaScript/API/Methods.html#staticfusioncharts">FusionCharts</a></span> to access all chart instances present in a page</li>
+        <li>You can make use of better and advanced JavaScript <a href="../JavaScript/JS_EventOverview.html#advanced">event model</a> (using <span class="codeInline">addEventListener</span> function) to listen to all events.  FusionCharts v3.2 comes with a host of <a href="API/Events.html">events</a> which you can use </li>
+        <li>You can configure and create <a href="../JavaScript/JS_LinkedCharts.html">'<i>LinkedCharts</i>'</a>, a smart drill-down feature introduced in v3.2</li>
+        <li>It also introduces better printing support for all Mozilla based browsers using the <a href="../JavaScript/JS_PrintManager.html">PrintManager</a> class</li>
+        <li>Now you  can easily handle loading of data via HTTPS or secure protocol using Internet Explorer</li>
+        <li>You can handle  UTF-8 based multi-lingual text more optimally</li>
+        <li>It offers better support for better <a href="../JavaScript/JS_Errors.html">error management</a> and <a href="../Debug/JS.html">debugging</a></li>
+        <li>You can <a href="../JavaScript/JS_ChangeChartProperties.html">change properties</a> of an existing chart</li>
+        <li>You can provide chart data in <a href="../FirstChart/JSONData.html">JSON</a> format</li>
+        <li>You can <a href="../JavaScript/JS_ChangeData.html#update">update an existing chart's data </a>using chart's native AJAX capabilities or browser's AJAX support</li>
+        <li>It provides API to get data back from chart in <a href="../JavaScript/API/Methods.html#getxmldata">XML</a>/<a href="../JavaScript/API/Methods.html#getjsondata">JSON</a>/<a href="../JavaScript/API/Methods.html#getdataascsv">CSV</a> format</li>
+        <li>It provides API function like <span class="codeInline"><a href="../JavaScript/API/Methods.html#isactivemore">isActive</a>()</span> to check the rendering state of a chart</li>
+        <li>You can <a href="../JavaScript/API/Methods.html#clonemore">clone</a> an existing chart's configurations</li>
+        <li>You can <a href="../JavaScript/API/Methods.html#disposemore">dispose</a> and clean a chart object and free as much memory as possible</li>
+      </ol>
+<br />
+						<div class="highlightBlock">
+       Note that all JavaScript integration methods implemented prior to FusionCharts v3.2 will continue to function without any problem.
+			 				<span class="msg_handler_slider"><a>Know more on the JavaScript integration introduced prior to FusionCharts v3.2</a> &raquo;</span>
+                            <div class="code_container msg_body" style="overflow:auto;margin-left:10px;">
+			 <ol style="margin-left:-10px;">
+          <li>Register chart with JavaScript and then listen to various <a href="JS_EventOverview.html">events</a> like - chart loaded, data loaded, chart rendered, error in chart etc.</li>
+          <li>Get the chart instance using <span class="codeInline">getChartFromId() </span>function to perform all pre-v3.2 functions listed in points below <span class="codeInline"></span></li>
+          <li>Update the chart at client-side, without incurring any page refreshes, by providing  XML data from functions viz - <span class="codeInline">setDataXML</span>,<span class="codeInline"> setDataURL</span></li>
+          <li>Get the chart's XML data using <span class="codeInline">getXML()</span></li>
+          <li>Get any attribute from chart XML using <span class="codeInline">getChartAttribute</span><span class="codeInline">()</span></li>
+          <li>Get the chart's data as CSV using <span class="codeInline">getDataAsCSV</span><span class="codeInline">()</span></li>
+          <li>Print chart using <span class="codeInline">print</span><span class="codeInline">()</span></li>
+          <li>Invoke the exporting routine for chart (as image/PDF) using <span class="codeInline">exportChart</span><span class="codeInline">()</span></li>
+          <li>Invoke JavaScript methods like <span class="codeInline">signature()</span> and <span class="codeInline">hasRendered()</span> to get information about the chart</li>
+       </ol>
+        </div>
+      </div>
+      <br />
+    </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header"><a name="fcjs" id="fcjs"></a>FusionCharts and JavaScript integration</td>
+  </tr>
+  <tr>
+    <td valign="top">FusionCharts is no more Flash! It's Flash + JavaScript. JavaScript, on one hand, acts as a helper class to the Flash charts and adds more functionality to these charts. On the other hand, JavaScript acts as a renderer of pure JavaScript charts. 
+       <p>Using the combination of FusionCharts and JavaScript, you can offer a seamless experience to your end users. Here, we'll discuss how the integration of both these technologies yields the best results.</p>
+       <p class="highlightBlock">Before we move to the examples, please make sure that you have setup <a href="../../Tools/FlashPlayerSecuritySetup/HowToSetup.html" target="_blank">Flash Player Global Security settings</a> so that you don't encounter any problems when locally implementing FusionCharts using JavaScript.</p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">The First Step </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Before we start with any of our examples, you  need to ensure that you've the following things ready for use:</p>
+      <ol>
+        <li><strong>Chart SWF Files </strong>- Present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Charts</span> folder</li>
+        <li><strong>FusionCharts JavaScript Class Files (<span class="codeInline">FusionCharts.js</span>,<span class="codeInline"> </span><span class="codeInline">FusionCharts.HC.js, FusionCharts.HC.Charts.js</span> and <span class="codeInline">jquery.min.js</span>)</strong> -  present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Charts</span> folder</li>
+      </ol>
+      <br />
+    </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="header">Implementation</td>
+  </tr>
+  <tr>
+     <td valign="top">
+        <p>In the following pages we will learn how FusionCharts JavaScript classes integrate with FusionCharts. We will learn how to:</p>
+        <ul>
+           <li><a href="JS_CreateChart.html">Create charts </a>using various methods</li>
+           <li>Update <a href="JS_ChangeData.html">data of existing charts</a> and <a href="JS_ChangeChartProperties.html">properties</a></li>
+           <li><a href="JS_DataBackFromChart.html">Get data    and properties</a> from charts</li>
+           <li>Listen to various chart <a href="JS_EventOverview.html">events</a></li>
+           <li>Create <a href="JS_LinkedCharts.html"><i>LinkedCharts</i></a> that allow for unlimited drill-downs without a line of code </li>
+           <li>Use <a href="JS_PrintManager.html">PrintManager</a> for better printing on Mozilla based browsers </li>
+           <li><a href="../exporting-image/ECOverview.html">Export</a> charts as image/pdf</li>
+         </ul>
+        <p>We will also go through all <a href="API/Overview.html">API Reference</a> of FusionCharts JavaScript classes. </p>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder.</p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("FusionCharts Link Format|../DrillDown/LinkFormat.html","Constructor methods|JS_CreateChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

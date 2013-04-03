@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT- Client-side Export-Multiple Charts using single export handler</title>
+        
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" LANGUAGE="Javascript" SRC="../../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" language="JavaScript" src="../../../Charts/FusionChartsExportComponent.js"></script>
+		<script type="text/javascript" LANGUAGE="Javascript" SRC="../../assets/ui/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" LANGUAGE="Javascript" SRC="../../assets/ui/js/lib.js"></script>
+        <!--[if IE 6]>
+        <script src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+
+        <script type="text/javascript">
+            //This event is raised when the chart has finished capture phase and passed the data to
+            //Export Component for further processing
+            function FC_ExportReady(DOMId){
+                alert("The chart with DOM ID as " + DOMId + " has finished capture mode. It's now ready to be downloaded");
+            }
+
+            //This event is raised when the chart has been successfully saved on user's disk (post click of button)
+            function myFN(objRtn){
+                if (objRtn.statusCode=="1"){
+                    alert("The chart was successfully saved. Its DOM Id is " + objRtn.DOMId);
+                } else{
+                    alert("There was an error saving the chart. Error message: " + objRtn.statusMessage + ". Its DOM Id is " + objRtn.DOMId);
+                }
+            }
+
+        </script>
+
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo">
+                    <a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank">
+                        <img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" />
+                    </a>
+                </div>
+				<h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Client-side Export-Multiple Charts using single export handler</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <p class="text" align="center" >This example shows how to do a Client-side Export-Multiple Charts using single export handler.<br/>Click on &quot;Begin batch export" to start exporting. </p>
+					<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+					<p>&nbsp;</p>
+
+
+                    <div class="clear"></div>
+                    <div class="gen-chart-render">
+
+
+
+                        <table align='center'>
+                            <tr>
+                                <td>
+                                    <div id="chartdiv" align="center">The chart will appear within this DIV. This text will be replaced by the chart.</div>
+                                    <script type="text/javascript">
+										var SimpleExample ='<chart yAxisName="Sales Figure" caption="Top 5 Sales Person" numberPrefix="$" useRoundEdges="1" bgColor="FFFFFF,FFFFFF" showBorder="0" exportEnabled="1" exportAtClient="1" exportHandler="fcExporter1">\n\
+											<set label="Alex" value="25000"  /> \n\
+											<set label="Mark" value="35000" /> \n\
+											<set label="David" value="42300" /> \n\
+											<set label="Graham" value="35300" /> \n\
+											<set label="John" value="31300" /> \n\
+										</chart>';
+									
+									
+                                        var myChart = new FusionCharts("../../../Charts/Column2D.swf", "myChartId", "400", "300", "0", "1");
+                                        myChart.setXMLData(SimpleExample);
+                                        myChart.render("chartdiv");
+                                    </script>
+                                </td>
+                                <td>
+                                    <div id="chartdiv2" align="center">The chart will appear within this DIV. This text will be replaced by the chart.</div>
+                                    <script type="text/javascript">
+                                        var myChart2 = new FusionCharts("../../../Charts/Column3D.swf", "myChartId2", "400", "300", "0", "1");
+                                        myChart2.setXMLData(SimpleExample);
+                                        myChart2.render("chartdiv2");
+                                    </script>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="chartdiv3" align="center">The chart will appear within this DIV. This text will be replaced by the chart.</div>
+                                    <script type="text/javascript">
+                                        var myChart3 = new FusionCharts("../../../Charts/Pie3D.swf", "myChartId3", "400", "300", "0", "1");
+                                        myChart3.setXMLData(SimpleExample);
+                                        myChart3.render("chartdiv3");
+                                    </script>
+                                </td>
+                                <td>
+                                    <div id="fcexpDiv" align="center">FusionCharts Export Handler Component</div>
+                                    <script type="text/javascript">
+                                        var myExportComponent = new FusionChartsExportObject("fcExporter1", "../../../Charts/FCExporter.swf");
+                                        //Set configuration
+                                        //Full Mode
+                                        myExportComponent.componentAttributes.fullMode = '1';
+                                        //Set saving type to individual
+                                        myExportComponent.componentAttributes.saveMode = 'individual';
+                                        //Show allowed export format drop-down
+                                        myExportComponent.componentAttributes.showAllowedTypes = '1';
+                                        //Width and height
+                                        myExportComponent.componentAttributes.width = '350';
+                                        myExportComponent.componentAttributes.height = '120';
+                                        //Message - caption of export component
+                                        myExportComponent.componentAttributes.showMessage = '1';
+                                        myExportComponent.componentAttributes.message = 'Export any chart from context menu and then use this to save';
+                                        //Set it to show allowed format types as well
+                                        myExportComponent.Render("fcexpDiv");
+                                    </script>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <p>&nbsp;</p>
+                    <p class="small">&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>    </div>
+
+                
+            </div>
+
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li><a href="../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+            </div>
+        </div>
+		<script type="text/javascript"><!--//
+			$(document).ready ( function() {
+				
+				if(isJSRenderer(myChart))
+				{
+					$("#initExportBtn").hide();
+					$("#fcexpDiv").hide();
+
+					
+					
+				}
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript charts are rendered instead.<br/><br/><strong>Note :</strong><br />JavaScript charts do not support client-side export or client-side batch export. However, you can click the export button at the top-right corner of the JavaScript chart to perform a server side export and get the downloadable exported file.", isJSRenderer(myChart) );
+			});	
+		// -->
+		</script>
+    </body>
+    
+</html>

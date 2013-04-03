@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and Flash - Using Flex</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for Flash Developers", "Using Flex" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and Flash &gt; Using Flex</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts can be very easily implemented in your Adobe Flex Applications using our specialized product <a href="http://www.fusioncharts.com/flex" target="_blank">FusionCharts for Flex</a>. FusionCharts for Flex contains a separate set of chart SWF files that allow you to load the charts in Flex. These are custom built SWFs for loading in Adobe Flex, Flash CS3, CS4 and CS5. When using Flex IDE (Eclipse), the charts can be visually dragged and dropped from the components and configured.  It also provides a rich API to help the developers connect to various Flex data sources. FusionCharts for Flex currently supports Flex SDK 2, 3 and 4.</p>
+       <p>Let's see how to create a chart in Adobe Flex using FusionCharts for Flex. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting up </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>To create a chart in Flex, first of all you need to <a href="http://www.fusioncharts.com/flex/download" target="_blank">download the FusionCharts for Flex pack</a>, get the chart SWF files and <span class="codeInline">FusionCharts.swc</span> file from the <span class="codeInline">Charts</span> folder of the Flex Download&nbsp;Pack. Once done, please go through the installation processes for Flex Builder from the links given below:</p>
+       <ul>
+          <li><a href="http://www.fusioncharts.com/flex/docs/charts/Contents/installation_types.html" target="_blank">Install in Flex Builder 4</a></li>
+          <li><a href="http://www.fusioncharts.com/flex/docs/charts/Contents/installation_types_flexBuilder3.html" target="_blank">Install in Flex Builder 3</a></li>
+          <li><a href="http://www.fusioncharts.com/flex/docs/charts/Contents/installation_types_flexBuilder2.html" target="_blank">Install in Flex Builder 2</a></li>
+      </ul>
+       <p>Once done, let's move on to the Flex Builder :</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Source View </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>In the code view , you can add a chart adding the following bold lines :</p>
+       <pre class="prettyprint code_container">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;mx:Application xmlns:mx=&quot;http://www.adobe.com/2006/mxml&quot; layout=&quot;absolute&quot; <strong>xmlns:ns1=&quot;com.fusioncharts.components.*&quot;</strong>&gt;
+  &lt;<strong>ns1:FusionCharts x=&quot;10&quot; y=&quot;10&quot; FCDataURL=&quot;Data.xml&quot; FCChartType=&quot;Column3D&quot;</strong>/&gt;
+&lt;/mx:Application&gt; </pre>
+       <p>The above code will render a Column3D chart with data from <span class="codeInline">Data.xml</span> file. Instead of XML URL, you can also provide XML as string here using <span class="codeInline">FCDataXML</span> property. </p>
+       <p>The <span class="codeInline">Data.xml</span> file contains the data for  chart which looks like the code shown below:</p>
+       <pre class="code_container prettyprint">&lt;chart caption='Half Yearly Sales Summary' subcaption='For the year 2008 - First Half' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt;
+  &lt;set label='Jan' value='17400' /&gt;
+  &lt;set label='Feb' value='19800' /&gt;
+  &lt;set label='Mar' value='21800' /&gt;
+  &lt;set label='Apr' value='23000' /&gt;
+  &lt;set label='May' value='29000' /&gt;
+  &lt;set label='June' value='27600' /&gt;
+&lt;/chart&gt; </pre>
+		<p>This will generate a chart like the image shown below:</p>
+		<p><img src="Images/Flex.jpg" width="415" height="315" /></p>
+		<p class="highlightBlock">Code for the above example is present in <span class="codeInline">Download Pack &gt; Code &gt; Flash Examples &gt; Flex</span> folder. </p>
+    </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="header"><a name="script" id="script"></a>Using Script</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+       <p>Apart from the MXML code shown above you can also write Script to generate a chart. </p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+<pre class="code_container prettyprint lang-js">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;mx:Application xmlns:mx=&quot;http://www.adobe.com/2006/mxml&quot; initialize=&quot;showChart()&quot; layout=&quot;absolute&quot; &gt;
+  &lt;mx:Script&gt;
+    &lt;![CDATA[
+      <span class="codeComment">//Import FusionCharts for Flex class </span>
+      import com.fusioncharts.components.FusionCharts;
+      <span class="codeComment">//Execute the function when the application initializes </span>
+      private function showChart():void
+      {
+        <span class="codeComment">//Instantiate a FusionCharts for Flex object </span>
+        var FC:FusionCharts=new FusionCharts();
+        <span class="codeComment">//Set chart type </span>
+        FC.FCChartType=&quot;Column3D&quot;;
+        <span class="codeComment">//Set chart data source URL </span>
+        FC.FCDataURL=&quot;Data.xml&quot;;        
+        <span class="codeComment">//Configure x, y position on stage </span>
+        FC.x=10;
+        FC.y=10;
+        <span class="codeComment">//Add to display list</span>
+        addChild(FC);
+      }
+    ]]&gt;
+  &lt;/mx:Script&gt; 
+&lt;/mx:Application&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">FusionCharts for Flex offers a wide range of features that includes event handling, exporting, supporting Flex native data formats like ArrayCollection , Model, XMLList etc. You may read more on it at <a href="http://www.fusioncharts.com/flex/docs" target="_blank">www.fusioncharts.com/flex/docs </a></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>
+  <tr>
+    <td valign="top" class="header"><a name="api" id="api"></a>FusionCharts for Flex Control (FusionCharts.ocx) </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>FusionCharts for Flex control provides the following properties, methods, events and the chart types:</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><strong><a name="properties" id="properties"></a>Properties</strong></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table border="0" cellpadding="0" cellspacing="0" class="table">
+        <tr>
+          <td width="20%" class="header">Property Name </td>
+          <td width="80%" class="header">Description</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCChartType</td>
+          <td class="text">This property  lets you set the type of the chart.  The list of all available chart types is given in '<a href="#chartlist">List of Charts</a>'&nbsp; table below.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCChartWidth</td>
+          <td class="text">This property  lets you set the width of the chart. You need to specify the chart width as a number in pixels (without px).</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCChartHeight</td>
+          <td class="text">This property  lets you set the height of the chart. You need to specify the chart height as a number in pixels (without px).</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCDataURL</td>
+          <td class="text">This property helps you to provide  the path of your external XML file needed to build the chart. </td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCDataXML</td>
+          <td class="text">It enables you to pass the entire chart XML  as  string.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCDebugMode</td>
+          <td class="text">This attribute  lets you open a debug window on top of chart. It takes either of the two value, <span class="codeInline">true</span> or <span class="codeInline">false</span>. If it is set to <span class="codeInline">true</span>, the debug window will open up. The default value is <span class="codeInline">false</span>. </td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCFolder</td>
+          <td class="text">This attribute sets the folder where the chart SWF files are kept. By default, FusionCharts component assumes that the charts are present in &quot;fusioncharts&quot; folder where Flash application files are present. But, the developer can always decide to keep the chart SWF files in some other folder. The value of this attribute would be a path relative to the application file's folder.<br/>
+            Example: &quot;.&quot; - when the chart SWF files resides in the same folder as the Flash application file.<br/>
+            &quot;myCharts&quot; - charts are in a folder named &quot;myCharts&quot; inside the Flash application file's folder.<br/>
+          &quot;resources\charts&quot; - charts are in &quot;charts&quot; folder inside &quot;resources&quot; folder. The &quot;resources&quot; folder is placed in folder where Flash application file is present.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><strong><a name="methods" id="methods"></a>Methods</strong></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table border="0" cellpadding="0" cellspacing="0" class="table">
+        <tr>
+          <td width="27%" class="header">Method  Name </td>
+          <td width="27%" class="header">Parameters</td>
+          <td width="46%" class="header">Description</td>
+        </tr>
+        
+        <tr class="">
+          <td valign="top" class="codeInline">FCSetDataURL<br />
+            (dataURL:String):void</td>
+          <td valign="top" class="text"><span class="codeInline">dataURL:String</span></td>
+          <td valign="top" class="text">This function updates chart XML from a file  and renders the chart. The URL of the file is passed as String parameter - <span class="codeInline">dataURL</span>. </td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCSetDataXML<br />
+            (strXML:Sting):void</td>
+          <td valign="top" class="text"><span class="codeInline">strXML:String</span></td>
+          <td valign="top" class="text">This function updates chart XML from a string  and renders the chart. The XML is passed as String as the parameter <span class="codeInline">strXML</span>. </td>
+        </tr>
+        <tr >
+          <td valign="top" class="codeInline">FCRender():void</td>
+          <td valign="top" class="text">&nbsp;</td>
+          <td valign="top" class="text">This function renders a chart. It can also update a chart after new chart data is set using <span class="codeInline">FCData(), FCSetDataXML(), FCSetDataURL()</span> methods or using<span class="codeInline"> FCDataURL, FCDataXML</span> properties. </td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCPrintChart():void</td>
+          <td valign="top" class="text">&nbsp;</td>
+          <td valign="top" class="text">It prints the chart.</td>
+        </tr>
+        <tr >
+          <td valign="top" class="codeInline">FCGetAttribute<br />
+            (attributeName:String):String</td>
+          <td valign="top" class="text"><span class="codeInline">attributeName:String</span></td>
+          <td valign="top" class="text">Returns the value of an attribute specified by the parameter.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCGetCSVData():String</td>
+          <td valign="top" class="text">&nbsp;</td>
+          <td valign="top" class="text">Returns the chart  data as a CSV string.</td>
+        </tr>
+        <tr >
+          <td valign="top" class="codeInline">FCGetSignature():String</td>
+          <td valign="top" class="text">&nbsp;</td>
+          <td valign="top" class="text">Returns the version of the chart being used.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">FCGetXMLData():String</td>
+          <td valign="top" class="text">&nbsp;</td>
+          <td valign="top" class="text">Returns the XML data of the chart as a string.</td>
+        </tr>
+        <tr >
+          <td valign="top" class="codeInline">FCExportChart(type:String, fileName:String):void</td>
+          <td valign="top" class="codeInline">type: String<br />
+            fileName: String</td>
+          <td valign="top" class="text">Calls the export chart routine to save the chart as PDF/image.  Parameters may be passed to override  the export parameters initially specified by the XML. This function fires <span class="codeInline"><a href="#events">FCExported</a> </span>event.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong><a name="events" id="events"></a>Events</strong></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table">
+        <tr>
+          <td width="19%" class="header">Event Name </td>
+          <td width="81%" class="header"><span class="text">Description</span> </td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCClickEvent</td>
+          <td class="text">Whenever a user clicks on a dataplot, which has link attribute that starts with 'S-', this event is triggered.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCRenderEvent</td>
+          <td class="text">When the chart finishes rendering, this event is triggered. </td>
+        </tr>
+        <tr>
+          <td class="codeInline" >FCLoadEvent</td>
+          <td class="text">This event is triggered after the chart data gets loaded completely before rendering starts. </td>
+        </tr>
+        
+        <tr>
+          <td class="codeInline">FCExported</td>
+          <td class="text">This event is generated after the completion of the image export process.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCDataLoadedEvent</td>
+          <td class="text">The event is dispatched after the chart data is loaded. The event is independent of the data source viz. FCData, FCDataXML, FCDataURL.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCDataLoadErrorEvent</td>
+          <td class="text">This event is dispatched if the chart fails to load data. Generally caused due to invalid or empty data sources.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCDataXMLInvalidEvent</td>
+          <td class="text">This event is generated if the data source does not conform to FusionCharts XML.</td>
+        </tr>
+        <tr>
+          <td class="codeInline">FCNoDataToDisplayEvent</td>
+          <td class="text">Whenever the dataset consists of just the root element without any additional data, this event is generated.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+  <td>&nbsp;</td></tr>
+   <tr>
+    <td valign="top"><a name="chartlist" id="chartlist"></a><strong>List of charts</strong></td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Use the following  available types of charts  as <span class="codeInline">FCChart</span> property:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table">
+        <tr >
+          <td width="34%" valign="top" class="header" style="padding: 5px 10px;" >Chart  Name </td>
+          <td width="33%" valign="top" class="header" style="padding: 5px 10px;">Chart Type (value for <span class="codeInline">FCChartType</span> property) </td>
+          <td width="33%" valign="top" class="header tableheadBorder" style="padding: 5px 10px;">Chart File Name (SWF) </td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" class="text"><strong>Single Series Charts </strong></td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Column 2D</td>
+          <td  style="text-indent:20px;">Column2D</td>
+          <td width="33%" valign="top" class="codeInline"> &nbsp;Column2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Column 3D </td>
+          <td  style="text-indent:20px;">Column3D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Column3D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Pie 3D</span></td>
+          <td  style="text-indent:20px;">Pie3D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Pie3D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Pie 2D</span></td>
+          <td  style="text-indent:20px;">Pie2D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Pie2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Line 2D </td>
+          <td  style="text-indent:20px;">Line</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Line.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Area 2D </td>
+          <td  style="text-indent:20px;">Area2D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Area2D.swf </td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Bar 2D </td>
+          <td  style="text-indent:20px;">Bar2D</td>
+          <td valign="top" class="codeInline">&nbsp;Bar2D.swf </td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Doughnut 2D</span></td>
+          <td  style="text-indent:20px;">Doughnut2D</td>
+          <td valign="top" class="codeInline">&nbsp;Doughnut2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Doughnut 3D </td>
+          <td  style="text-indent:20px;">Doughnut3D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;Doughnut3D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" class="text" ><strong>Multi-series Charts </strong></td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Multi-series Column 2D </td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;">MSColumn2D</td>
+          <td width="33%" valign="top" class="codeInline" >&nbsp;MSColumn2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Multi-series Column 3D</td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;">MSColumn3D</td>
+          <td width="33%" valign="top" class="codeInline" >&nbsp;MSColumn3D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Multi-series Line 2D</td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> MSLine</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;MSLine.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Multi-series Area 2D</span></td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> MSArea</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;MSArea.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Multi-series</span> Bar 2D</span></td>
+          <td valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">MSBar2D</span></td>
+          <td valign="top" class="codeInline">&nbsp;MSBar2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;"><span class="text" style=" text-indent:20px;">Multi-series</span> Bar 3D</span></td>
+          <td valign="top" class="text" style=" text-indent:20px;"> MSBar3D</td>
+          <td valign="top" class="codeInline"> &nbsp;MSBar3D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" class="text"><strong>Stacked Charts </strong></td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Stacked Column 2D </td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> StackedColumn2D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;StackedColumn2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Stacked Column 3D</td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> StackedColumn3D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;StackedColumn3D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Stacked Area 2D </td>
+          <td valign="top" class="text" style=" text-indent:20px;"> StackedArea2D</td>
+          <td valign="top" class="codeInline"> &nbsp;StackedArea2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Stacked Bar 2D</td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> StackedBar2D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;StackedBar2D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">Stacked Bar 3D </td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> StackedBar3D</td>
+          <td width="33%" valign="top" class="codeInline">&nbsp;StackedBar3D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" class="text"><strong>Combination Charts</strong></td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">3D Single Y Combination</td>
+          <td valign="top" class="text" style=" text-indent:20px;">MSCombi3D</td>
+          <td valign="top" class="codeInline"> &nbsp;MSCombi3D.swf</td>
+        </tr>
+        <tr>
+          <td width="34%" valign="top" class="text" style=" text-indent:20px;">2D Single Y Combination</td>
+          <td width="33%" valign="top" class="text" style=" text-indent:20px;"> MSCombi2D</td>
+          <td width="33%" valign="top" class="codeInline"> &nbsp;MSCombi2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">2D Dual Y Combination</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> MSCombiDY2D</td>
+          <td valign="top" class="codeInline"> &nbsp;MSCombiDY2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Column 3D Line (Single Y)
+            Combination</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> MSColumn<span class="text" style=" text-indent:20px;">Line3D</span></td>
+          <td valign="top" class="codeInline"> &nbsp;MSColumnLine3D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Multi-series Column 3D Line Dual Y Combination</td>
+          <td valign="top" class="text" style=" text-indent:20px;">MSColumn3DLineDY</td>
+          <td valign="top" class="codeInline"> &nbsp;MSColumn3DLineDY.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Stacked Column 3D Line Dual Y Combination</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> StackedColumn3DLineDY</td>
+          <td valign="top" class="codeInline"> &nbsp;StackedColumn3DLineDY.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">&nbsp;</td>
+          <td valign="top" class="text" style=" text-indent:20px;">&nbsp;</td>
+          <td valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4" valign="top" class="text"><strong>Scroll Charts</strong></td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Column 2D</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollColumn2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollColumn2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Line 2D</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollLine2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollLine2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Area 2D</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollArea2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollArea2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Stacked Column 2D</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollStackedColumn2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollStackedColumn2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Combination 2D</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollCombi2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollCombi2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scroll Combination 2D Dual Y</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> ScrollCombiDY2D</td>
+          <td valign="top" class="codeInline"> &nbsp;ScrollCombiDY2D.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">&nbsp;</td>
+          <td valign="top" class="text" style=" text-indent:20px;">&nbsp;</td>
+          <td valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+
+        <tr>
+          <td colspan="4" valign="top" class="text"><strong>XY Plot Charts </strong></td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Scatter</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> Scatter </td>
+          <td valign="top" class="codeInline"> &nbsp;Scatter.swf</td>
+        </tr>
+        <tr>
+          <td valign="top" class="text" style=" text-indent:20px;">Bubble</td>
+          <td valign="top" class="text" style=" text-indent:20px;"> Bubble </td>
+          <td valign="top" class="codeInline"> &nbsp;Bubble.swf</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  
+  </td></tr>
+  
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Flash CS3/CS4|Flash_CS3CS4.html","Drill down - Simple Example|../DrillDown/Simple.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

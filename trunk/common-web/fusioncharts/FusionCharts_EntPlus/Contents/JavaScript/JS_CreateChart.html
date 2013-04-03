@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creating charts using various methods </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Constructor methods" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Creating charts using various methods </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>FusionCharts JavaScript classes now provide various methods of rendering  charts. You render  charts using either of the following methods:</p>
+       <ol>
+          <li><strong>Normal rendering method</strong> : using three or more lines of code with a highly polymorphic constructor</li>
+          <li><strong>Compact rendering method</strong> : using one-liner highly polymorphic static function</li>
+         </ol>
+       <p>Let's discuss how each of the methods works. </p>
+       <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder. 
+      </p>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="normal" id="normal"></a>Using normal rendering method </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+        <p>In normal rendering method, you need to perform at least 3 steps to render a chart :</p>
+        <ul>
+           <li>Instantiate a FusionCharts JavaScript object using the <span class="msg_handler"><a>constructor</a> &raquo; </span><span class="veryLightYellowBg msg_body"> <span class="codeInline">var myChartJSObj = new FusionCharts( chartSWF, chartDOMId, width, height, ...);</span>&nbsp;</span> of FusionCharts class.</li>
+           <li>Provide chart data <span class="msg_handler"><a>(XML or JSON as string or URL)</a> &raquo; </span> <span class="veryLightYellowBg msg_body"> <span class="codeInline">myChartJSObj.setXMLUrl( 'myxml.aspx' );</span> You can use one from the 8 data providing functions viz. <span class="codeInline">setChartData, setChartDataUrl, setXMLData, setXMLUrl, setJSONData, setJSONUrl, setDataXML or setDataURL</span></span></li>
+           <li>Render the chart in  an HTML <span class="msg_handler"><a>container</a> &raquo; </span><span class="veryLightYellowBg codeInline msg_body">myChartJSObj.render(&quot;myDivId&quot;); </span></li>
+           <li>Additionally you can set more optional settings like set renderer type, set a chart <span class="msg_handler"><a>transparent</a> &raquo; </span><span class="codeInline msg_body veryLightYellowBg">myChartJSObj.setTransparent(true);</span>etc.</li>
+        </ul>
+        <p>Following sample code illustrates the implementation of this  method: <span class="msg_handler"><a>Note</a> &raquo; </span><span class="veryLightYellowBg msg_body">We have already learnt this method in the weekly sales sample in <a href="../FirstChart/FirstChart.html">Creating your first chart</a> page. This method is fully backward compatible.</span></p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">     <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+<strong>      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+      &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+</strong>
+    // --&gt;
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+     </td>
+  </tr>
+ <tr>
+     <td valign="top" class="text">
+       <p>In the above code we have:</p>
+       <ul>
+         <li>Included <span class="codeInline">FusionCharts.js</span> class file. This file will automatically load the other class files (<span class="codeInline">FusionCharts.HC.js, FusionCharts.HC.Charts.js</span> and <span class="codeInline">jquery.min.js</span> ) if the charts are to be rendered as JavaScript on devices like iPad/iPod. </li>
+         <li>Instantiated a JavaScript object from FusionCharts class passing required <span class="msg_handler"><a>parameters</a> &raquo; </span><span class="msg_body veryLightYellowBg">(chartSWF, DOMId, width, height, debugMode, registerWithJS )</span>. Details on all required parameters is provided in <a href="API/Methods.html#constructor">API &gt;&gt; Methods</a> page</li>
+         <li>Provided chart data using <span class="codeInline">setXMLUrl()</span> function through a URL</li>
+         <li>Rendered the chart in <span class="codeInline">chartContainer</span> DIV element</li>
+       </ul>
+       <p>The code will render a chart like the one shown below:</p>
+       <p><img src="../FirstChart/Images/FirstChart.jpg" class="imageBorder" /> <br />
+         <br />
+       See it <a href="../../Code/JavaScript/Basics/ConstructorMethods/NormalRenderingMethod.html" target="_blank">live</a>! </p>
+	    <p class="highlightBlock"><strong>What happens if Flash player is not available?</strong><br />
+        <br/>
+        In case Flash Player is not available on certain devices (like iPad/iPhone), FusionCharts JavaScript library automatically renders the same chart using JavaScript. If you are running the sample from local file system, please note that you would need to provide the data using <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>, i.e., passing the data (XML/JSON) to the chart as String or JSON Object. Many browsers restrict JavaScript from accessing local file system owing   to security reasons. In the above example, since you had provided data   as a URL, the JavaScript charts would not be able to access the same,   when running locally. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine. </p>
+     </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text"></td>
+  </tr>
+  
+  <tr>
+<td valign="top" class="text" align="left" style="padding:0 5px;margin:0 5px;">
+<table width="95%" border="0" cellspacing="0" cellpadding="0" class="table">
+<tr>
+<td valign="top" class="header">Advanced usages</td>
+</tr>
+<tr>
+<td class="text">
+<p><strong><a name="normal_objparam" id="normal_objparam"></a>Object as Constructor parameter</strong></p>
+<p>You can pass all the parameters as a single JavaScript Object to the constructor. The Object will have all the parameters needed to be passed to the constructor as its properties (key-value pairs). An example would illustrate this:</p>
+<pre class="code_container prettyprint">var myChart = new FusionCharts( { 
+  swfUrl: 'FusionCharts/Column3D.swf',
+  width: '400', 
+  height: '300',
+  debugMode : false
+});</pre>
+              <p>In the above snippet, all the parameters of the FusionCharts constructor have been passed as properties of an Object. Please note that these property names are case-sensitive. To know about all the parameters that you can pass as property using this Object please click <a href="API/Methods.html#chartparams">here</a>.</p>
+<p><strong><a name="normal_mixedparams" id="normal_mixedparams"></a>Mixed parameters</strong></p>
+<p>You can also use a mix of standard parameters and Object based parameters. You can pass first few parameters in order and then provide the rest of the parameters as Object. Some examples are as follows: </p>
+          
+              <pre class="code_container prettyprint">var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot; , &quot;myChartId&quot; ,
+  { 
+    registerWithJS : true,
+    width: '400', 
+    debugMode : false,
+    height: '300'
+  }
+);</pre>
+         <p>In the above samples the first two parameters are passed individually in proper order. An object containing other parameters as key-value pairs is passed at the end. The two sets of parameters combine to yield the same result. You can pass any number of ordered parameters first and then provide the rest of the parameters as object. </p>
+         <p>Another example can be: </p>
+         <pre class="code_container prettyprint">var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+  &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, {debugMode : false , registerWithJS : true }
+);</pre>
+         <p>In the above samples the first four parameters are passed individually in proper order. An object containing the rest of the parameters is passed at the end. </p>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="compact" id="compact"></a>Using compact rendering method</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>Since v3.2 FusionCharts can be rendered using a compact one line  code.This reduces two lines of code for each chart and makes the implementation easy and seamless. This is achieved using the static <span class="codeInline">render </span>function of <span class="codeInline">FusionCharts </span>class. A typical example is as follows:      </p>
+       <pre class="code_container prettyprint">var myChart = FusionCharts.render( "FusionCharts/Column2D.swf", "myChartId",
+  "400", "300", "chartContainer", "Data.xml" , "xmlurl" );</pre>
+       
+				  <p>In this mode you need to make sure that you have:</p>
+					  <ol>
+					    <li>Provided the HTMLContainer ( here, <span class="codeInline">chartContainer</span> ) where the chart would be rendered.</li>
+		       <li>Provided the SWF and chart data.</li>
+	     </ol>
+       <p>The last parameter which declares the type of the data (<span class="codeInline">xmlurl</span>) is optional. If skipped, the function will take <span class="codeInline">xmlurl</span> as the default data format. </p>
+    </td>
+  </tr>
+					<tr><td>		  
+						<table width="95%" border="0" cellspacing="0" cellpadding="0" class="table" style="padding:0 5px;margin:0 5px;">
+          <tr>
+    								<td valign="top" class="header">Advanced usages</td>
+					  			</tr>
+										
+										<tr>
+            <td class="text">
+              <p><strong><a name="compact_objparam" id="compact_objparam"></a>Object as Constructor parameter</strong></p>
+              <p>You can pass all the parameters as a single JavaScript Object to the function. The Object will have all the parameters needed to be passed to the function as its properties (key-value pairs). An example would illustrate this:</p>
+               <pre class="code_container prettyprint">var myChart = FusionCharts.render( { 
+    swfUrl : &quot;FusionCharts/Column3D.swf&quot;,  
+    id : &quot;myChartId&quot;,
+    width : &quot;400&quot;,
+    height : &quot;300&quot;,
+    renderAt : &quot;chartContainer&quot;, 
+    dataSource : &quot;Data.xml&quot; 
+  }
+);</pre>
+               <p><strong><a name="compact_mixedparams" id="compact_mixedparams"></a>Mixed parameters</strong></p>
+              <p>Like FusionCharts constructor, you can mix the type of parameters in this function too. You can opt to pass first few parameters and then pass the rest of the parameters as an object to the last parameter of the function. The object will contain the rest of the parameters as key-value pairs. For example: </p>
+              <pre class="code_container prettyprint">var myChart = FusionCharts.render( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;,
+  &quot;400&quot;, &quot;300&quot;, &quot;chartContainer&quot;, {dataFormat : &quot;xmlurl&quot;, dataSource : &quot;Data.xml&quot; });</pre>
+        </td>
+    </tr>
+</table>
+	</td>
+	</tr>
+     <tr>
+       <td height="25"></td>
+     </tr>
+     <tr>
+       <td valign="top" class="text">For details on <span class="codeInline">FusionCharts </span>constructor, <span class="codeInline">render() </span>function and the property-names for the object-based parameter, please read <a href="API/Methods.html">API &gt; Methods</a>.
+         <p class="highlightBlock">Complete  Reference to all the  properties, functions and events of FusionCharts classes is provided in <a href="API/Overview.html">API Reference </a> section.</p>
+       </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("FusionCharts &amp; JavaScript|JS_Overview.html","Getting chart reference|JS_ChartInstance.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

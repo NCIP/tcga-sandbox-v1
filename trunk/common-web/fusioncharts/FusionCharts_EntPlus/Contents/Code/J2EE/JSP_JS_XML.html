@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combining FusionCharts, JSP &amp; JavaScript (dataXML) method</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with J2EE|JSP_GettingStarted.html", "J2EE &amp; JavaScript data(XML) method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Combining FusionCharts, JSP &amp; JavaScript (dataXML) method</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In our previous example, we had combined FusionCharts, JSP and JavaScript to create client side dynamic charts. We were updating the chart by asking it to fetch new data from server and update itself, without incurring any page refreshes. </p>
+      <p>In this example, <strong>instead of asking the chart to get XML data </strong>from server, <strong>we'll provide updated XML data to chart using JavaScript </strong>functions. The chart will simply accept that XML data and render. </p>
+      <p class="highlightBlock">This method can effectively be used in your AJAX applications, where your JavaScript code gets the updated XML from server and then provides it to charts locally. You can process the data received from AJAX Calls, build XML from it and finally provide it to the chart. </p>
+      <p><strong>Before you proceed with the contents in this page, we strictly recommend you to please go through the sections &quot;How FusionCharts works?&quot; and &quot;Basic Examples&quot;, as we'll directly use a lot of concepts defined in those sections.</strong></p>
+      <p class="highlightBlock">The code discussed in this example is present in<span class="codeInline"> Download Package &gt; Code &gt; J2EE &gt; DB_JS </span>folder. </p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Defining the application </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>We'll carry on from our previous <span class="codeInline">&quot;JSP, 
+        JavaScript and dataURL</span>&quot; example and convert it to use JavaScript 
+        + XML, so that the new XML is provided to the chart using JavaScript functions 
+        - the charts NO longer directly request data from server. To attain this, 
+        we send all the pertinent data from our server to the end viewer as JavaScript 
+        arrays in the same page. The JavaScript arrays are dynamically generated 
+        by bean and used by JSP pages at run-time and filled with data. </p>
+      <p>Effectively, we will do the following:</p>
+      <ol>
+        <li>Contain both the pie chart (summary) and column chart (detailed) in 
+          one page (<span class="codeInline">Default.jsp</span>).</li>
+        <li>When the page loads, the pie chart would use <span class="codeInline">dataStr</span> 
+          method to show summary of all factories. This data will be built in 
+          <span class="codeInline">FactoriesWithJSLinkBean</span>. </li>
+        <li>There will be a JavaScript array named as <span class="codeInline">data</span> 
+          in this page. This array will contain detailed data for the factories. 
+          The array will be dynamically built by the bean and then outputted as 
+          JavaScript code. </li>
+        <li>Apart from the data in JavaScript, we'll also have a local JavaScript function <span class="codeInline">updateChart()</span>, which would process the data in this array and convert it to XML data document, for direct usage by the column chart. </li>
+      <li>The column chart would initialize with no data, as the user has not selected a factory initially. We'll customize the &quot;<span class="codeInline">No data to display</span>&quot; message of the chart to show a friendly message.</li>
+      <li>The pie chart would have JavaScript links defined for each pie slice. This JavaScript links refer to <span class="codeInline">updateChart()</span> JavaScript function present on the same page. We'll later see how to hand code this function. When a pie is clicked, the <span class="codeInline">index of this factory in the javascript array </span>is passed to this function. </li>
+        <li>The <span class="codeInline"> updateChart()</span> function is responsible 
+          for updating the column chart. It generates the XML data from data stored 
+          in JavaScript <span class="codeInline">data</span> array and conveys 
+          it to the column chart.</li>
+      <li>The column chart would now accept this XML data,  parse it and finally render.</li>
+      </ol>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating the page - Default.jsp </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Both the charts and JavaScript functions to 
+        manipulate the charts is contained in <span class="codeInline">Default.jsp</span>. 
+        It has the following code: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;%@ taglib prefix=&quot;tags&quot; tagdir=&quot;/WEB-INF/tags&quot;%&gt;
+&lt;%@ taglib uri=&quot;http://www.fusioncharts.com/jsp/core&quot; prefix=&quot;fc&quot;%&gt;
+&lt;jsp:useBean id=&quot;factoriesBean&quot;
+class=&quot;com.fusioncharts.sampledata.FactoriesWithJSLinkBean&quot; /&gt;
+&lt;jsp:useBean id=&quot;chart2Data&quot;
+class=&quot;com.fusioncharts.sampledata.EmptyRenderData&quot; /&gt;
+&lt;c:set var=&quot;folderPath&quot; value=&quot;../../FusionCharts/&quot; /&gt;
+&lt;c:set var=&quot;title&quot; value=&quot;FusionCharts - Database + JavaScript Example&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;header1&quot;
+value=&quot;FusionCharts Database + JavaScript Example&quot;
+scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;jsPath&quot; value=&quot;${folderPath}&quot; scope=&quot;request&quot;/&gt;
+&lt;tags:template2&gt;
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+<span class="codeComment">//Here, we use a mix of server side code (jsp) and JavaScript to
+//render our data for factory chart in JavaScript variables. We'll later
+//utilize this data to dynamically plot charts.
+//All our data is stored in the data array. From jsp, we iterate through
+//each resultset of data and then store it as nested arrays in this data array.</span>
+var data = new Array();
+<span class="codeComment">/*
+Write the data as JavaScript variables here
+The data is now present as arrays in JavaScript. Local JavaScript functions
+can access it and make use of it. We'll see how to make use of it.
+*/</span>
+&lt;c:out value=&quot;${factoriesBean.factoryDetailsJsArrAsStr}&quot; escapeXml=&quot;false&quot;/&gt;
+
+<span class="codeComment">/** 
+* updateChart method is invoked when the user clicks on a pie slice.
+* In this method, we get the index of the factory, build the XML data
+* for that that factory, using data stored in data array, and finally
+* update the Column Chart.
+* @param factoryIndex Sequential Index of the factory.
+* @param factoryName For display purpose
+*/</span>
+function updateChart(factoryIndex,factoryName){
+<span class="codeComment">  //Storage for XML data document</span>
+<span class="codeComment">  </span>var strXML = &quot;&lt;chart palette='2' caption='Factory: &quot; + factoryName + &quot; Output ' 
+<span class="codeComment">  </span>subcaption='(In Units)' xAxisName='Date' showValues='1' labelStep='2' &gt;&quot;;
+<span class="codeComment">  //Add &lt;set&gt; elements</span>
+<span class="codeComment">  </span>var i=0;
+<span class="codeComment">  </span>for (i=0; i&lt;data[factoryIndex].length; i++){
+<span class="codeComment">    </span>strXML +=&quot;&lt;set label='&quot; + data[factoryIndex][i][0] + &quot;' value='&quot; + data[factoryIndex][i][1] + &quot;' /&gt;&quot;;
+<span class="codeComment">  </span>}
+<span class="codeComment">  //Closing Chart Element</span>
+<span class="codeComment">  </span>strXML = strXML + &quot;&lt;/chart&gt;&quot;;
+<span class="codeComment">  //Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+<span class="codeComment">  </span>var chartObj = FusionCharts('FactoryDetailed');
+<span class="codeComment">  //Update its XML</span>
+<span class="codeComment">  </span>chartObj.setXMLData(strXML);
+}
+&lt;/SCRIPT&gt;
+  <span class="codeComment">&lt;!-- Create the chart - Pie 3D Chart with data contained in bean --&gt;</span>
+  &lt;fc:render chartId=&quot;${factoriesBean.chartId}&quot;
+    swfFilename=&quot;${folderPath}${factoriesBean.filename}&quot;
+    width=&quot;${factoriesBean.width}&quot; height=&quot;${factoriesBean.height}&quot;
+    debugMode=&quot;false&quot; registerWithJS=&quot;true&quot; xmlData=&quot;${factoriesBean.xml}&quot; /&gt;
+  <span class="codeComment">&lt;!-- 
+    Column 2D Chart with changed &quot;No data to display&quot; message
+    We initialize the chart with &lt;chart&gt;&lt;/chart&gt;
+  --&gt;</span>
+  &lt;fc:render chartId=&quot;${chart2Data.chartId}&quot;
+    swfFilename=&quot;${folderPath}${chart2Data.filename}${chart2Data.noDataParameter}&quot;
+    width=&quot;${chart2Data.width}&quot; height=&quot;${chart2Data.height}&quot;
+    debugMode=&quot;false&quot; registerWithJS=&quot;true&quot; xmlData=&quot;${chart2Data.xml}&quot; /&gt;
+&lt;/tags:template2&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Now, before we get to the JavaScript functions, let's first see what we're doing in our JSP Code. </p>
+      <ol>
+          <li>Output the javascript array obtained from the bean.</li>
+          <li>Write the javascript code for updating the chart.</li>
+          <li>Render two charts - first pie chart with factories' summary and another Column chart for selected factory details. </li>
+      </ol>
+      <p>In this page, before rendering any HTML code, we first generate all the 
+                data in database as JavaScript array. To do so, we use string concatenation 
+                in bean to store all data as JavaScript array code. This is present in the <span class="codeInline">factoriesBean.factoryDetailsJsArrAsStr variable</span>. Once the 
+                JavaScript code is built in our JSP variable, we write it out in the <span class="codeInline">&lt;SCRIPT&gt;</span> 
+                section of HTML <span class="codeInline">&lt;HEAD&gt;</span>. </p>      
+<pre class="code_container prettyprint"><span class="codeComment">/*Write the data as JavaScript variables here
+The data is now present as arrays in JavaScript. Local JavaScript functions
+can access it and make use of it. We'll see how to make use of it.
+*/</span>
+&lt;c:out value=&quot;${factoriesBean.factoryDetailsJsArrAsStr}&quot; escapeXml=&quot;false&quot;/&gt;</pre>
+    <p>If you run this page and view the source JavaScript code, you'll see the following: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">var data = new Array();
+      
+data[1] = new Array();
+data[1].push(new Array('1/1',21));
+data[1].push(new Array('2/1',23));
+data[1].push(new Array('3/1',22));
+data[1].push(new Array('4/1',24));
+data[1].push(new Array('5/1',32));
+data[1].push(new Array('6/1',21));
+data[1].push(new Array('7/1',34));
+data[1].push(new Array('8/1',32));
+data[1].push(new Array('9/1',32));
+data[1].push(new Array('10/1',23));
+data[1].push(new Array('11/1',23));
+data[1].push(new Array('12/1',32));
+data[1].push(new Array('13/1',53));
+data[1].push(new Array('14/1',23));
+data[1].push(new Array('15/1',26));
+data[1].push(new Array('16/1',43));
+data[1].push(new Array('17/1',16));
+data[1].push(new Array('18/1',45));
+data[1].push(new Array('19/1',65));
+data[1].push(new Array('20/1',54));
+data[2] = new Array();
+data[2].push(new Array('1/1',121));
+data[2].push(new Array('2/1',123));
+data[2].push(new Array('3/1',122));
+data[2].push(new Array('4/1',124));
+data[2].push(new Array('5/1',132));
+data[2].push(new Array('6/1',121));
+data[2].push(new Array('7/1',134));
+data[2].push(new Array('8/1',132));
+data[2].push(new Array('9/1',132));
+data[2].push(new Array('10/1',123));
+data[2].push(new Array('11/1',123));
+data[2].push(new Array('12/1',132));
+data[2].push(new Array('13/1',153));
+data[2].push(new Array('14/1',123));
+data[2].push(new Array('15/1',126));
+data[2].push(new Array('16/1',143));
+data[2].push(new Array('17/1',116));
+data[2].push(new Array('18/1',145));
+data[2].push(new Array('19/1',165));
+data[2].push(new Array('20/1',154));
+data[3] = new Array();
+data[3].push(new Array('1/1',54));
+data[3].push(new Array('2/1',56));
+data[3].push(new Array('3/1',89));
+data[3].push(new Array('4/1',56));
+data[3].push(new Array('5/1',98));
+data[3].push(new Array('6/1',76));
+data[3].push(new Array('7/1',65));
+data[3].push(new Array('8/1',45));
+data[3].push(new Array('9/1',75));
+data[3].push(new Array('10/1',54));
+data[3].push(new Array('11/1',75));
+data[3].push(new Array('12/1',76));
+data[3].push(new Array('13/1',34));
+data[3].push(new Array('14/1',97));
+data[3].push(new Array('15/1',55));
+data[3].push(new Array('16/1',43));
+data[3].push(new Array('17/1',16));
+data[3].push(new Array('18/1',35));
+data[3].push(new Array('19/1',78));
+data[3].push(new Array('20/1',75));</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can clearly see that our JSP code has outputted JavaScript code that 
+        can now locally create an array and feed it with requisite data. </p>
+      <p>Before we look into the javascript functions, let us quickly glance at the bean which creates the javascript array as a string and the xml string for the first chart.</p>
+      <pre class="code_container prettyprint">public String getFactoryDetailsJsArrAsStr(){
+  String jsVarString=&quot;&quot;;
+  try{
+    DBConnection dbConn = new DBConnection();
+    Connection oConn= dbConn.getConnection();
+    <span class="codeComment">//Database Objects - Initialization</span>
+    Statement st1=null,st2=null;
+    ResultSet rs1=null,rs2=null;
+    String strQuery=&quot;&quot;;
+    <span class="codeComment">//Iterate through each factory</span>
+    strQuery = &quot;select * from Factory_Master&quot;;
+    st1=oConn.createStatement();
+    rs1=st1.executeQuery(strQuery);   
+    String factoryId=null;
+    String quantity=&quot;&quot;;
+    java.sql.Date date=null;
+    java.util.Date uDate=null;
+    String uDateStr=&quot;&quot;;
+    int indexCount=0;
+    <strong>while(rs1.next()) {</strong>
+      indexCount+= 1;
+     <strong> factoryId=rs1.getString(&quot;FactoryId&quot;);</strong>
+    
+<span class="codeComment">     //Create JavaScript code to add sub-array to data array
+     //data is an array defined in JavaScript (see below)
+     //We've added \t &amp; \n to data so that if you View Source of the
+     //output HTML, it will appear properly. It helps during debugging</span>
+    <strong> jsVarString += &quot;\t\t&quot;+ &quot;data[&quot; + indexCount + &quot;] = new Array();\n&quot; ; </strong>
+    
+    <span class="codeComment"> //Now create second recordset to get details for this factory</span>
+    <strong> strQuery = &quot;select * from Factory_Output where FactoryId=&quot; +factoryId+ &quot; order by DatePro Asc &quot;;</strong>
+     st2=oConn.createStatement();
+     rs2 = st2.executeQuery(strQuery);
+     while(rs2.next()){
+       date=rs2.getDate(&quot;DatePro&quot;);
+       quantity=rs2.getString(&quot;Quantity&quot;);
+       if(date!=null) {
+         uDate=new java.util.Date(date.getTime());
+         SimpleDateFormat sdf=new SimpleDateFormat(&quot;dd/MM&quot;);
+         uDateStr=sdf.format(uDate);
+       }
+      <span class="codeComment">//Put this data into JavaScript as another nested array.
+      //Finally the array would look like data[factoryIndex][i][dataLabel,dataValue]</span>
+      <strong> jsVarString +=&quot;\t\t&quot;+&quot;data[&quot; + indexCount + &quot;].push(new Array('&quot; + uDateStr + &quot;',&quot; +quantity+&quot;));&quot; +&quot;\n\r&quot;;</strong>
+      }
+    }
+   <span class="codeComment"> //close the resultset,statement,connection
+    //enclose them in try catch block    
+    // code omitted here
+</span>
+    }catch(java.sql.SQLException e){
+      System.out.println(&quot;Could not close the statement&quot;);
+    }
+    return jsVarString;
+  }</pre>      <p>In the above code, we iterate through all the factories present in <span class="codeInline">Factory_Master</span> table and for each of these factories, we get the output data from <span class="codeInline">Factory_Output</span> table and store the date and the quantity output as an element in a 2-dimensional array. The index of the array is used to identify the factory.</p>
+      <p>The xml for the first Pie chart is also created in the same bean. This method is shown below:</p>
+      <pre class="code_container prettyprint">private String getFactoryXML(){
+<span class="codeComment">  //strXML will be used to store the entire XML document generated</span>
+<span class="codeComment">  </span>String strXML=&quot;&quot;;
+<span class="codeComment">  </span>try{
+    DBConnection dbConn = new DBConnection();
+    Connection oConn= dbConn.getConnection();
+<span class="codeComment">    //Database Objects - Initialization</span>
+    Statement st1=null,st2=null;
+    ResultSet rs1=null,rs2=null;
+    String strQuery=&quot;&quot;;
+    Map&lt;String,String&gt; chartAttributes=new HashMap&lt;String, String&gt;();;
+    chartAttributes.put(&quot;caption&quot;, &quot;Factory Output report&quot;);
+    chartAttributes.put(&quot;subCaption&quot;, &quot;By Quantity&quot;);
+    chartAttributes.put(&quot;pieSliceDepth&quot;, &quot;30&quot;);
+    chartAttributes.put(&quot;showBorder&quot;, &quot;1&quot;);
+    chartAttributes.put(&quot;formatNumberScale&quot;, &quot;0&quot;);
+    chartAttributes.put(&quot;numberSuffix&quot;, &quot; Units&quot;);
+    DOMHelper domHelper = new DOMHelper();
+    Document chartDoc = domHelper.getDocument();
+    Element rootElement = chartDoc.createElement(&quot;chart&quot;);
+    domHelper.addAttributesToElement(rootElement, chartAttributes);
+<span class="codeComment">    //Iterate through each factory</span>
+    strQuery = &quot;select * from Factory_Master&quot;;
+    st1=oConn.createStatement();
+    rs1=st1.executeQuery(strQuery);
+    String factoryId=null;
+    String factoryName=null;
+    String totalOutput=&quot;&quot;;
+    int indexCount=0;
+    while(rs1.next()) {
+      indexCount+= 1;
+      totalOutput=&quot;&quot;;
+      factoryId=rs1.getString(&quot;FactoryId&quot;);
+      factoryName=rs1.getString(&quot;FactoryName&quot;);
+<span class="codeComment">      //Now create second recordset to get details for this factory</span>
+      strQuery = &quot;select sum(Quantity) as TotOutput from Factory_Output 
+      where FactoryId=&quot; + factoryId;
+      st2=oConn.createStatement();
+      rs2 = st2.executeQuery(strQuery);
+      if(rs2.next()){
+        totalOutput=rs2.getString(&quot;TotOutput&quot;);
+      }
+<span class="codeComment">      //Generate &lt;set label='..' value='..' link='...'/&gt; </span>
+      Element setElem = chartDoc.createElement(&quot;set&quot;);
+      setElem.setAttribute(&quot;label&quot;, factoryName);
+      setElem.setAttribute(&quot;value&quot;, totalOutput);
+<strong>      setElem.setAttribute(&quot;link&quot;, &quot;javaScript:updateChart(&quot;+ indexCount + &quot;,\&quot;&quot;+factoryName+&quot;\&quot;)&quot;);</strong>
+      rootElement.appendChild(setElem);
+<span class="codeComment">      //close the resultset,statement
+      //enclose them in try catch block
+      // code omitted here </span>
+    }
+<span class="codeComment">    //Finally, close &lt;chart&gt; element</span>
+<span class="codeComment">    </span>chartDoc.appendChild(rootElement);
+<span class="codeComment">    </span>strXML=domHelper.getXMLString(chartDoc);
+<span class="codeComment">    //close the resultset,statement,connection
+    //enclose them in try catch block 
+    //code omitted here 
+</span><span class="codeComment">  </span>}catch(java.sql.SQLException e){
+<span class="codeComment">    </span>System.out.println(&quot;Could not close the statement&quot;);
+  }
+  return strXML;
+}</pre>
+      <p class="text">The code shown above is the same that we have seen before, the only difference being, the link attribute value, as highlighted. Here, we are providing the link to the javascript function <span class="codeInline">updateChart</span> with parameters as the index of the factory in the array and the name of the factory. The index of the factory in the array will be used to identify the factory in the array. The name of the factory is used for displaying on the chart. </p>
+      <p>We first create the XML data document for Pie chart - summary of factory output. For each <span class="codeInline">&lt;set&gt;</span>, we provide a JavaScript link to the <span class="codeInline">updateChart()</span> function and pass the factory ID to it as shown in the line below:</p>
+      <pre class="code_container prettyprint"><b>strXML+="&lt;setlabel='"+factoryName+"'value='"+totalOutput+"'
+      link='javaScript:updateChart("+indexCount+",&quot;"+factoryName+"&quot;)'/&gt;";</b></pre>
+    <p class="text">      The Pie 3D chart is rendered using dataXML method. The Pie 3D chart has its DOM Id as <span class="codeInline">FactorySum</span>:</p>
+    <pre class="code_container prettyprint"> &lt;fc:render<strong> chartId=&quot;${factoriesBean.chartId}</strong>&quot;
+swfFilename=&quot;${folderPath}${factoriesBean.filename}&quot;
+width=&quot;${factoriesBean.width}&quot; height=&quot;${factoriesBean.height}&quot;
+debugMode=&quot;false&quot; xmlData=&quot;${factoriesBean.xml}&quot; /&gt;
+protected String chartId=&quot;<strong>FactorySum</strong>&quot;;</pre>
+      <p>Now, we render an empty Column 2D chart  with <span class="codeInline">&lt;chart&gt;&lt;/chart&gt;</span> data initially. We also change the &quot;<span class="codeInline">No data to display.</span>&quot; error to a friendly and intuitive &quot;<span class="codeInline">Please select a factory from pie chart above to view detailed data.</span>&quot; This chart has its DOM Id as <span class="codeInline">FactoryDetailed</span>. Note that the <span class="codeInline">registerWithJS</span> parameter for this chart should be set to true.</p>
+      <pre class="code_container prettyprint">&lt;fc:render chartId=&quot;${chart2Data.chartId}&quot;
+swfFilename=&quot;${folderPath}${chart2Data.filename}<strong>${chart2Data.noDataParameter}</strong>&quot;
+width=&quot;${chart2Data.width}&quot; height=&quot;${chart2Data.height}&quot;
+debugMode=&quot;false&quot; <strong>registerWithJS=&quot;true&quot;</strong> xmlData=&quot;${chart2Data.xml}&quot; /&gt;</pre>
+
+		<p>The <span class="codeInline">EmptyRenderData.java</span> file would contain the following code: </p>
+        <pre class="code_container prettyprint">protected String noDataParameter=&quot;?ChartNoDataText=Please select a 
+    factory from pie chart above to view detailed data.&quot;;      </pre>
+      <p>Effectively, our page is now  set to show two charts. The pie chart shows the summary data provided to it using dataXML method. The column chart shows the above &quot;friendly&quot; error message. Now, when each pie slice is clicked, the <span class="codeInline">updateChart()</span> JavaScript function is called and the array index of the factory and the factory name  of the clicked slice is passed to it. This function is responsible for updating the column chart and contains the following code: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">function updateChart(factoryIndex,factoryName){
+<span class="codeComment">  //Storage for XML data document</span>
+<span class="codeComment">  </span>var strXML = &quot;&lt;chart palette='2' caption='Factory: &quot; + factoryName + &quot; Output ' 
+<span class="codeComment">  </span>subcaption='(In Units)' xAxisName='Date' showValues='1' labelStep='2' &gt;&quot;;
+<span class="codeComment">  //Add &lt;set&gt; elements</span>
+<span class="codeComment">  </span>var i=0;
+<span class="codeComment">  </span>for (i=0; i&lt;data[factoryIndex].length; i++){
+<span class="codeComment">  </span><span class="codeComment">  </span>strXML += &quot;&lt;set label='&quot; + data[factoryIndex][i][0] + &quot;' value='&quot; + data[factoryIndex][i][1] + &quot;' /&gt;&quot;;
+<span class="codeComment">  </span>}
+<span class="codeComment">  //Closing Chart Element</span>
+<span class="codeComment">  </span>strXML = strXML + &quot;&lt;/chart&gt;&quot;;
+
+<span class="codeComment">  //Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+<span class="codeComment">  </span>var chartObj = FusionCharts('FactoryDetailed');
+<span class="codeComment">  //Update its XML</span>
+<span class="codeComment">  </span>chartObj.setXMLData(strXML);
+}</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, </p>
+      <ol>
+        <li>We first create the XML data document for the column chart by iterating through data contained in our JavaScript <span class="codeInline">data</span> array. </li>
+        <li>Thereafter, we convey this XML data to the column chart. To do so, 
+          we first get a reference to the column chart using its DOM Id <span class="codeInline">FactoryDetailed</span>. 
+          We use the <span class="codeInline">FusionCharts</span> function 
+          defined in <span class="codeInline">FusionCharts.js</span> to do so.        </li>
+        <li>Once we've the reference to the chart, we simply call the <span class="codeInline">setXMLData</span> method of the chart and pass it the XML data document. </li>
+        <li>This updates the chart with new data. </li>
+      </ol>    
+    <p>When you now see the application, the initial state would look as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../guide-for-web-developers/Images/Code_JS_URL_Ini.jpg" width="511" height="458" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>And when you click on a pie slice, the following would appear on the same page (without involving any browser refreshes): </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../../guide-for-web-developers/Images/Code_JS_URL_Fin.jpg" width="610" height="526" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>This example demonstrated a very basic sample of the integration capabilities possible with FusionCharts v3. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("J2EE, JavaScript &amp; dataURL|JSP_JS_URL.html","UTF8 Examples|JSP_UTF8Example.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

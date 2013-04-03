@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--FusionCharts Data Format Conversion Tool XT v3.2.2 ( 6 September 2011 ) -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts Data Format Conversion Tool</title>
+        
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+        <script type="text/javascript" src="js/FusionCharts.js"></script>
+        <script type="text/javascript" src="js/json2.js"></script>
+        <script type="text/javascript" src="js/prettify.js"></script>
+
+        <!--[if IE 6]>
+        <script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+
+        <script type="text/javascript">
+            $(document).ready ( function () {
+                $("#pre-dataxml").click ( function () {
+                    $(this).hide();
+                    $(this).parent('.show-code-block').css('overflow', 'hidden');
+                    $("#dataxml").show()
+                    .focus()
+                    /*.keyup( function (e) {
+                        if(e.keyCode == 27) {
+                            $(this).hide();
+                            $("#pre-dataxml").show();
+                            return false;
+                        }
+                        updatexml(true)
+                    }) */
+                    .blur(function () {
+                        $(this).hide();
+                        $("#pre-dataxml").show();
+                        $(this).parent('.show-code-block').css('overflow', 'auto');
+
+                    })
+                });
+
+                $("#pre-datajson").click ( function () {
+                    $(this).hide();
+                    $(this).parent('.show-code-block').css('overflow', 'hidden');
+                    $("#datajson")
+                    .show()
+                    .focus()
+                    /* .keyup(function (e) {
+                        if(e.keyCode == 27) {
+                            $(this).hide();
+                            $("#pre-datajson").show();
+                            return false;
+                        }
+                        updatejson(true)
+                    }) */
+                    .blur(function () {
+                        $(this).hide();
+                        $("#pre-datajson").show();
+                        $(this).parent('.show-code-block').css('overflow', 'auto');
+                    })
+                });
+
+                $('#convert-json').click( function () { updatexml(true) });
+                $('#convert-xml').click( function () { updatejson(true) } );
+
+                prettyPrint();
+            })
+        </script>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo"><a href="http://www.fusioncharts.com/?BS=OfflineDocsLogo"><img src="images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                <h1 class="logo-text-home">FusionCharts Data Format Conversion Tool</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <h2 class="headline">FusionCharts Data Conversion tool helps you convert between XML and JSON formats of the chart. Using this tool you can convert from XML to JSON, or vice-versa. Click on the relevant text area (XML or JSON) below, enter/paste you data and click on "Convert" button below to convert the data.</h2>
+
+                    <table border="0" width="900">
+                        <tr>
+                            <td width="400">FusionCharts XML Data:</td>
+                            <td width="400">
+                                FusionCharts JSON Data:
+                            </td>
+                        </tr>
+                        <tr style="height: 470px">
+                            <td id="xml">
+                                <div class="show-code-block">
+                                    <textarea id="dataxml" cols="54" rows="25" style="border:none" ><chart caption="My Chart Caption"  /></textarea>
+                                    <pre id="pre-dataxml" class="prettyprint">&lt;chart caption="My Chart Caption"  /&gt;</pre>
+                                </div>
+                                <div class="error">
+                                    <img src="images/error.jpg" alt="error" width="45" height="45"/>
+                                </div>
+                                <div class="no-error">
+                                    <img src="images/tick.jpg" alt="correct" width="45" height="45"/>
+                                </div>
+                            </td>
+                            <td id="json">
+                                <div class="show-code-block">
+                                    <textarea id="datajson" cols="54" rows="25" style="border:none">{
+  "chart":{
+    "caption":"My Chart Caption"
+  }
+}</textarea>
+                                    <pre id="pre-datajson" class="prettyprint">{
+  "chart":{
+    "caption":"My Chart Caption"
+  }
+}</pre>
+                                </div>
+                                <div class="error">
+                                    <img src="images/error.jpg" alt="error" width="45" height="45"/>
+                                </div>
+                                <div class="no-error">
+                                    <img src="images/tick.jpg" alt="correct" width="45" height="45"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="qua-button-holder">
+                                    <a href="javascript:void(0)" class="qua qua-button"  id="convert-json"><span> Convert to JSON --> </span></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="qua-button-holder">
+                                    <a href="javascript:void(0)" class="qua qua-button"  id="convert-xml"><span> <-- Convert to XML </span></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>
+                </div>
+                </div>
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li>
+                        &copy; All Rights Reserved. FusionCharts Technologies LLP.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    </html>

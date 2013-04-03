@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Anchors  </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Anchors &amp; Lines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Anchors  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Each data point in a line/spline/area chart is represented by an anchor. The anchors help to identify the data point better in the chart. They also show a tool tip showing the data point details when the mouse is hovered over them, and can be linked to other pages as well. </p></td>
+  </tr>
+  <tr>
+		<td valign="top" class="text"><img src="Images/anchors1.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>The data for the above is:</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='420000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='910000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='800000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='550000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='810000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='510000' /&gt;
+&lt;/chart&gt; </pre></div>
+<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ]
+}</pre></div>
+</div></div><div style="clear:both"></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The anchors are displayed by default. To hide them, use the <span class="codeInline">drawAnchors='0'</span> attribute.</p> 
+    <pre class="prettyprint code_container">&lt;chart <strong>drawAnchors='0'</strong> ...&gt; </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Once the anchors are hidden, the tool tips for the data points would not be displayed and the links would not work either. </p>
+    <p>If you need to hide the anchors but still have tool tip and link, use:</p>
+    <pre class="prettyprint code_container">&lt;chart anchorAlpha='0' ... &gt; </pre><br />
+</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing the anchor properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The anchor looks can be customized using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" valign="top" class="header">Attribute Name</td>
+        <td width="15%" valign="top" class="header">Range</td>
+        <td width='75%' valign='top' class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorSides </span> </td>
+        <td width="10%" valign="top"><span class="text"> 3-20 </span> </td>
+        <td width='75%' valign='top'><span class="text"> This attribute sets the number of sides the anchor will have. For example, an anchor with 3 sides would represent a triangle, with 4 it would be a square and so on. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorRadius </span> </td>
+        <td width="10%" valign="top"><span class="text"> In Pixels </span> </td>
+        <td width='75%' valign='top'><span class="text"> This attribute sets the radius (in pixels) of the anchor. Greater the radius, bigger would be the anchor size. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorBorderColor </span> </td>
+        <td width="10%" valign="top"><span class="text"> Hex Code</span></td>
+        <td width='75%' valign='top'><span class="text"> Lets you set the border color of anchors. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorBorderThickness </span> </td>
+        <td width="10%" valign="top"><span class="text"> In Pixels </span> </td>
+        <td width='75%' valign='top'><span class="text"> Helps you set border thickness of anchors. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorBgColor </span> </td>
+        <td width="10%" valign="top"><span class="text"> Hex Code </span> </td>
+        <td width='75%' valign='top'><span class="text"> Helps you set the background color of anchors. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorAlpha </span> </td>
+        <td width="10%" valign="top"><span class="text"> 0-100 </span> </td>
+        <td width='75%' valign='top'><span class="text"> Helps you set the alpha of entire anchors. If you need to hide the anchors on chart but still enable tool tips, set this as 0. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td width="15%" valign="top" class="codeInline"><span class="codeInline"> anchorBgAlpha </span> </td>
+        <td width="10%" valign="top"><span class="text"> 0-100 </span> </td>
+        <td width='75%' valign='top'><span class="text"> Helps you set the alpha of anchor background. </span> </td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Data Highlighting </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In order to highlight a particular data point, you can define its anchor properties explicitly.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	     <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+	 <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='420000' /&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='910000' <strong>anchorSides='4' anchorRadius='6' anchorBgColor='666666' anchorBorderColor='CCCCCC' anchorBorderThickness='2'</strong>/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='800000' /&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='550000' /&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='810000' /&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='510000' /&gt;
+&lt;/chart&gt; </pre></div><div id="tab4" class="tab_content">
+	 <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000",
+      <strong>"anchorsides":"4",
+      "anchorradius":"6",
+      "anchorbgcolor":"666666",
+      "anchorbordercolor":"CCCCCC",
+      "anchorborderthickness":"2"</strong>
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ]
+}</pre>
+</div></div></div><div style="clear:both"></div>
+<p><img src="Images/anchors2.jpg" class="imageBorder"/></p>
+<p>Note that the anchor for Feb has different properties than the other anchors.</p> </td>
+  </tr>
+
+  <tr>
+    <td valign="top" class="header">Using Styles to apply glow effect to the anchors</td>
+  </tr>
+  <tr>
+  	<td valign="top" class="text"><p>Using STYLES, you can apply effects (shadow, glow, bevel, blur) to the anchors. Let us see how to provide a glow effect to the anchors.</p></td>
+  </tr>  
+  <tr>
+    <td valign="top" class="text">
+	     <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+	 <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='420000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='910000'<strong> </strong>/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='800000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='550000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='810000' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='510000' /&gt;
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;&lt;styles&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;definition&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myGlow' type='glow' color='999999' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/definition&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='ANCHORS' styles='myGlow' /&gt; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/styles&gt;
+</strong>&lt;/chart&gt;</pre></div><div id="tab6" class="tab_content">
+	 <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ],
+<strong>&quot;styles&quot;: {<br />    &quot;definition&quot;: [<br />      {<br />        &quot;name&quot;: &quot;myGlow&quot;,<br />        &quot;type&quot;: &quot;glow&quot;,<br />        &quot;color&quot;: &quot;999999&quot;<br />      }<br />    ],<br />    &quot;application&quot;: [<br />      {<br />        &quot;toobject&quot;: &quot;ANCHORS&quot;,<br />        &quot;styles&quot;: &quot;myGlow&quot;<br />      }<br />    ]<br />  }
+</strong>}</pre>
+</div>
+    </div></div><div style="clear:both"></div>
+<p><img src="Images/anchors3.jpg" class="imageBorder"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to apply bevel effect to the anchors </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>To provide a bevel effect to the anchors, we have the following data:</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	     <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab7" class="tab_content">
+	 <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' anchorradius='4' &gt;
+     &lt;set label='Jan' value='420000' /&gt;
+     &lt;set label='Feb' value='910000'<strong> </strong>/&gt;
+     &lt;set label='Mar' value='800000' /&gt;
+     &lt;set label='Apr' value='550000' /&gt;
+     &lt;set label='May' value='810000' /&gt;
+     &lt;set label='Jun' value='510000' /&gt;
+     <strong>&lt;styles&gt;
+        &lt;definition&gt;
+        &nbsp;&nbsp;&nbsp;&lt;style name='myBevel' type='bevel' distance='2' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/definition&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='ANCHORS' styles='myBevel' /&gt; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/styles&gt;
+</strong>&lt;/chart&gt;</pre></div><div id="tab8" class="tab_content">
+	 <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0",
+    "anchorradius":"4"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ],
+<strong>&quot;styles&quot;: {<br />    &quot;definition&quot;: [<br />      {<br />        &quot;name&quot;: &quot;myBevel&quot;,<br />        &quot;type&quot;: &quot;bevel&quot;,<br />        &quot;distance&quot;: &quot;2&quot;<br />      }<br />    ],<br />    &quot;application&quot;: [<br />      {<br />        &quot;toobject&quot;: &quot;ANCHORS&quot;,<br />        &quot;styles&quot;: &quot;myBevel&quot;<br />      }<br />    ]<br />  }<strong>
+</strong></strong>}</pre>
+</div>
+    </div></div><div style="clear:both"></div>
+      <p><img src="Images/anchors4.jpg" class="imageBorder"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Animating anchors using STYLES </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The anchors can be animated using STYLES. In the example below, we provide a bouncing effect to the anchors.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab9">XML</a></li>
+       <li><a href="#tab10">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab9" class="tab_content">
+	 <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' anchorradius='4' &gt;
+    &lt;set label='Jan' value='420000' /&gt;
+    &lt;set label='Feb' value='910000'<strong> </strong>/&gt;
+    &lt;set label='Mar' value='800000' /&gt;
+    &lt;set label='Apr' value='550000' /&gt;
+    &lt;set label='May' value='810000' /&gt;
+    &lt;set label='Jun' value='510000' /&gt;
+    <strong>&lt;styles&gt;
+        &lt;definition&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myAnim' type='animation' param='_y' start='0' easing='Bounce' duration='1'/&gt;
+        &lt;/definition&gt;
+        &lt;application&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='ANCHORS' styles='myAnim' /&gt; 
+        &lt;/application&gt;
+    &lt;/styles&gt;
+</strong>&lt;/chart&gt;</pre></div><div id="tab10" class="tab_content">
+	 <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0",
+    "anchorradius":"4"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myAnim",
+        "type": "animation",
+        "param": "_y",
+        "start": "0",
+        "easing": "Bounce",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "ANCHORS",
+        "styles": "myAnim"
+      }
+    ]
+  }
+</strong>}</pre>
+</div></div></div><div style="clear:both"></div></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Trend Lines &amp; Zones|Trend.html", "Tool tip|ToolTip.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

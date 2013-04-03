@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using JSON as data source </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Using JSON as data source" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using JSON as data source </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>Apart from XML, FusionCharts can also accept JSON data format. It can use a JSON URL/feed, a JSON Object (in JavaScript) or JSON String. This functionality is provided by <span class="codeInline">FusionCharts.js</span> JavaScript class. </p>
+       <p>In this page we'll see how to pass JSON data to chart in various forms. We will again convert our first sample <span class="codeInline">weekly-sales.html</span> to implement this.</p>
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; MyFirstChart</span> folder.</p>
+    </td>
+    </tr>
+    
+    <tr>
+    <td class="header"><a name="url" id="url"></a>Providing JSON data using URL method</td>
+    </tr>
+    <tr>
+       <td class="text"><p>Create a copy of <span class="codeInline">weekly-sales.html</span> and rename it to <span class="codeInline">weekly-sales-json-url.html</span>. Then punch in the following code:</p> </td>
+    </tr>
+    
+  <tr> 
+    <td valign="top" class="text">
+       <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - JSON data URL&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		   &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      <strong>myChart.setJSONUrl(&quot;Data.json&quot;);</strong>
+      myChart.render(&quot;chartContainer&quot;);
+      
+    // --&gt;     
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+       <p>See it <a href="../../Code/MyFirstChart/weekly-sales-json-url.html" target="_blank">live</a>!</p>
+       <div class="highlightBlock">Many web servers like IIS6, does not serve .json (no wildcard MIME type) files by default. You would need to setup your web server to server json files. In IIS6 you can do this using these steps:
+         <ul>
+           <li>Open the properties for the server in IIS Manager and click MIME Types</li>
+           <li>Click &quot;New&quot;. Enter &quot;JSON&quot; for the extension and &quot;application/json&quot; for the MIME type</li>
+         </ul></div>
+			
+		 <div class="highlightBlock" style="margin-top:20px;">
+          Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine. <br />
+      <span class="msg_handler_slider"><a href="#">Click here to see the code using the Data String method</a> &raquo; </span>
+	  <div class="msg_body">
+	  <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - Using JavaScript&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      <strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		    &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+
+      myChart.<strong>setXMLData(&quot;&lt;chart caption='Weekly Sales Summary' xAxisName='Week' &quot; +
+        &quot;yAxisName='Sales' numberPrefix='$'&gt;&quot; +
+          &quot;&lt;set label='Week 1' value='14400' /&gt;&quot; +
+          &quot;&lt;set label='Week 2' value='19600' /&gt;&quot; +
+          &quot;&lt;set label='Week 3' value='24000' /&gt;&quot; +
+          &quot;&lt;set label='Week 4' value='15700' /&gt;&quot; +
+        &quot;&lt;/chart&gt;&quot;);</strong>
+
+      myChart.render(&quot;chartContainer&quot;);</strong>      
+    // --&gt;  
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+<p>See it <a href="../../Code/MyFirstChart/weekly-sales-xml-embed.html" target="_blank">live</a> in your iPad or iPhone or any browser where Flash Player is not supported. </p>
+</div>
+</div>
+    </td>
+  </tr>
+  
+  <tr>
+     <td  class="text"><p>In the above code, we've provided a JSON data (compatible with FusionCharts) to the chart using <span class="codeInline">setJSONUrl()</span> function. The data stored in the JSON file is as follows:</p> </td>
+  </tr>
+  
+  <tr>
+     <td  class="text">
+        <pre class="code_container prettyprint lang-js">
+{ 
+    "chart": { 
+          "caption" : "Weekly Sales Summary" ,
+          "xAxisName" : "Week",
+          "yAxisName" : "Sales",
+          "numberPrefix" : "$"
+    },
+	
+    "data" : 
+     [
+          { "label" : "Week 1", "value" : "14400" },
+          { "label" : "Week 2", "value" : "19600" },
+          { "label" : "Week 3", "value" : "24000" },
+          { "label" : "Week 4", "value" : "15700" }
+     ]
+}</pre>
+     </td>
+  </tr>
+  <tr>
+     <td><p  class="highlightBlock">To know more on FusionCharts JSON data format, please go through <strong>FusionCharts data formats </strong>&gt; <strong><a href="../DataFormats/JSON/Overview.html">JSON</a></strong> section. Like the Visual XML Generator, you can take help of <a href="../../Tools/FCDataConverter/index.html" target="_blank">FusionCharts Data Converter</a> tool to convert chart XML to JSON or vice-versa and use it.</p> 
+     </td>
+  </tr>
+  <tr>
+     <td class="header"><a name="object" id="object"></a>Providing JSON Object embedded in HTML</td>
+  </tr>
+  <tr>
+     <td class="text"><p>You can also provide JSON embedded in the HTML itself. Since JSON format is derived from JavaScript, you can also pass a JavaScript Object as data for the chart. This is possible using <span class="codeInline">setJSONData()</span> function as shown below: </p></td>
+  </tr>  
+  <tr>
+     <td valign="top" class="text">
+        <pre class="code_container prettyprint lang-js"><span class="nocode">...</span><strong>   
+myChart.setJSONData( { 
+	&quot;chart&quot;: 
+	{ 
+		&quot;caption&quot; : &quot;Weekly Sales Summary&quot; ,	
+		&quot;xAxisName&quot; : &quot;Week&quot;, 
+		&quot;yAxisName&quot; : &quot;Sales&quot;,	
+		&quot;numberPrefix&quot; : &quot;$&quot; 
+	},
+
+	&quot;data&quot; : 
+	[ 
+		{ &quot;label&quot; : &quot;Week 1&quot;, &quot;value&quot; : &quot;14400&quot; },
+		{ &quot;label&quot; : &quot;Week 2&quot;, &quot;value&quot; : &quot;19600&quot; }, 
+		{ &quot;label&quot; : &quot;Week 3&quot;, &quot;value&quot; : &quot;24000&quot; }, 
+		{ &quot;label&quot; : &quot;Week 4&quot;, &quot;value&quot; : &quot;15700&quot; } 
+	]
+} );</strong>
+<span class="nocode">...</span></pre>
+       <br />
+    See it <a href="../../Code/MyFirstChart/weekly-sales-json-embed.html" target="_blank">live</a>!<br />
+    <br /></td>
+  </tr>
+  <tr>
+     <td  class="header"><a name="string" id="string"></a>Providing JSON String embedded in HTML</td>
+  </tr>
+  <tr>
+     <td  class="text"><p>Additionally, you can also pass a JSON, stored as a String. In many cases, AJAX feed comes as JSON String, so you do not have to convert the string to JSON. FusionCharts  takes care of that as shown below:</p> </td>
+  </tr>
+  
+  
+  <tr>
+    <td  class="text">
+       <pre class="code_container prettyprint lang-js"><span class="nocode">...</span>
+   
+myChart.setJSONData ( 
+	'{ &quot;chart&quot;: { &quot;caption&quot; : &quot;Weekly Sales Summary&quot; , ' +
+	'&quot;xAxisName&quot; : &quot;Week&quot;, &quot;yAxisName&quot; : &quot;Sales&quot;, &quot;numberPrefix&quot; : &quot;$&quot; }, ' +
+	'&quot;data&quot; : [ { &quot;label&quot; : &quot;Week 1&quot;, &quot;value&quot; : &quot;14400&quot; },  ' +
+	'{ &quot;label&quot; : &quot;Week 2&quot;, &quot;value&quot; : &quot;19600&quot; }, ' +
+	'{ &quot;label&quot; : &quot;Week 3&quot;, &quot;value&quot; : &quot;24000&quot; }, ' +
+	'{ &quot;label&quot; : &quot;Week 4&quot;, &quot;value&quot; : &quot;15700&quot; } ]	} '
+);
+<span class="nocode">...</span></pre>
+       <br />
+    See it <a href="../../Code/MyFirstChart/weekly-sales-json-embed-string.html" target="_blank">live</a>!</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating charts in JavaScript|UsingPureJS.html","Using XML embedded in the page|DataXML.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

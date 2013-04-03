@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts  ASP Class - Charting Data from Forms </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with ASP Class|ASPClass_BasicExamples.html", "Using with data in Forms" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts  ASP Class &gt; Charting Data from Forms </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In this section, we'll show you how to use FusionCharts  ASP class functions to plot data collected in forms. </p>
+      <p>We'll build a simple restaurant sales example, where the user will enter the items sold by a restaurant in a given week. This data will be submitted in a form to the server. We'll acquire this data and plot it on a chart. For the sake of simplicity, we wouldn't do any processing on this data. However, your real life applications might require data validation or processing before presenting it on the chart. </p>
+      <p><strong>Before you go further with this page, we recommend you to please see the previous section &quot;Basic Examples&quot; as we start off from concepts explained in that page. </strong></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">The code examples contained in this page are present in<span class="codeInline"> Download Package &gt; Code &gt; ASPClass</span> &gt; <span class="codeInline">FormBased</span> folder. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Building the Form </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The form is contained in <span class="codeInline">Default.asp</span> and looks as under:</p> 
+    <img src="../Images/Code_Form.gif" width="445" height="387"  class="imageBorder" />
+   <p> It's a very simple form which submits to <span class="codeInline">Chart.asp</span>. As such, we wouldn't go into the code of this form. You can directly open the source from download and see it.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Requesting the data and Creating the Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The work of requesting the data from submitted form and creating the chart is done in <span class="codeInline">Chart.asp</span>, present in the same folder. It contains the following code:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+  &lt;% option explicit %&gt;
+  &lt;%
+   <span class="codeComment"> 'We've included ../Includes/FusionCharts_Gen.asp, which contains FusionCharts ASP Class
+    'to help us easily embed the charts.</span>
+  %&gt;
+  &lt;!--#include file=&quot;../Includes/FusionCharts_Gen.asp&quot;--&gt;
+  &lt;HTML&gt;
+     &lt;HEAD&gt;
+         &lt;TITLE&gt;FusionCharts V3 - Form Based Data Charting Example&lt;/TITLE&gt;
+ &lt;%
+<span class="codeComment">  'You need to include the following JS file, if you intend to embed the chart using JavaScript.
+  'Embedding using JavaScripts avoids the &quot;Click to Activate...&quot; issue in Internet Explorer
+  'When you make your own charts, make sure that the path to this JS file is correct. Else, you would get JavaScript errors.</span>
+%&gt; 
+ &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+ &lt;/HEAD&gt;
+ &lt;BODY&gt;
+ &lt;h4&gt;Restaurant Sales Chart below&lt;/h4&gt;
+ &lt;%
+  <span class="codeComment">'We first request the data from the form (Default.asp)</span>
+  dim intSoups, intSalads, intSandwiches,	intBeverages, intDesserts
+  intSoups = Request(&quot;Soups&quot;)
+  intSalads = Request(&quot;Salads&quot;)
+  intSandwiches = Request(&quot;Sandwiches&quot;)
+  intBeverages = Request(&quot;Beverages&quot;)
+  intDesserts = Request(&quot;Desserts&quot;)
+  <span class="codeComment">'In this example, we're directly showing this data back on chart.
+  'In your apps, you can do the required processing and then show the 
+  'relevant data only.</span>
+  <span class="codeComment">'Now that we've the data in variables, we need to convert this into chart data using
+  'FusionCharts ASP Class</span>
+  dim FC 
+   <span class="codeComment"> ' Create FusionCharts ASP class object</span>
+  set FC = new FusionCharts   
+  <span class="codeComment">  ' Set chart type to pie 3D</span>
+  Call FC.setChartType(&quot;Pie3D&quot;)    
+    <span class="codeComment">' Set chart size </span>
+  Call FC.setSize(&quot;600&quot;,&quot;300&quot;)
+    <span class="codeComment">' Set Relative Path of SWF file. </span>
+  Call FC.setSWFPath(&quot;../../FusionCharts/&quot;)
+  dim strParam
+   <span class="codeComment"> ' Define chart attributes</span>
+  strParam=&quot;caption=Sales by Product Category;subCaption=For this week;showPercentValues=1;
+  showPercentageInLabel=1;pieSliceDepth=25;showBorder=1;showLabels=1&quot;
+ <span class="codeComment">  ' Set chart attributes</span>
+          Call FC.setChartParams(strParam)
+         <span class="codeComment">  ' Add chart data from form Field</span>
+          Call FC.addChartData(intSoups,&quot;Label=Soups&quot;,&quot;&quot;)
+          Call FC.addChartData(intSalads,&quot;Label=Salads&quot;,&quot;&quot;)
+          Call FC.addChartData(intSandwiches,&quot;Label=Sandwiches&quot;,&quot;&quot;)
+          Call FC.addChartData(intBeverages,&quot;Label=Beverages&quot;,&quot;&quot;)
+          Call FC.addChartData(intDesserts,&quot;Label=Desserts&quot;,&quot;&quot;)
+         <span class="codeComment">  'Create the chart </span>
+          Call FC.renderChart(false)
+         %&gt;
+       &lt;/BODY&gt;
+  &lt;/HTML&gt;</pre></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the above code, we're doing the following:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text" style="line-height:20px;">
+      <ul>
+        <li>Including <span class="codeInline">FusionCharts_Gen.asp</span> and<span class="codeInline"> FusionCharts.js</span> in this page.   </li>
+        <li>Requesting data from the form in <span class="codeInline">Default.asp</span> and storing the values in local variables.</li>
+        <li>Creating an instance of FusionCharts ASP class for a Pie 3D chart with 600 pixels width, 300 pixels height.</li>
+        <li>Setting relative path of chart SWF file using <span class="codeInline">setSWFPath()</span> function.</li>
+        <li>Storing chart attributes in <span class="codeInline">strParam</span> variable.</li>
+        <li>Setting chart attributes using <span class="codeInline">setChartParams()</span> function.</li>
+        <li>Adding chart data with <span class="codeInline">addChartData()</span> function.</li>
+        <li>Finally, rendering the chart using <span class="codeInline">renderChart()</span> function.  </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="highlightBlock">Please go through <a href="../fusioncharts-asp-class/Functions.html">FusionCharts ASP Class API Reference</a> section to know more about the functions used in the above code.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When you finally run the code, you'll see a chart as under: </p>
+    <img src="../Images/Code_FormChart.jpg" width="468" height="268"  class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Charting data from Array|ASPCLass_Array.html","Charting data from database|ASPCLass_DB.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

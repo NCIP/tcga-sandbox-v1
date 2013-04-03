@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>export_processor (Fusioncharts::FcExporterImgController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/fusioncharts/fc_exporter_img_controller.rb, line 16</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export_processor</span>
+    <span class="ruby-identifier">export_data</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:export_data</span>]
+    <span class="ruby-identifier">stream</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;stream&quot;</span>]
+    <span class="ruby-identifier">meta</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;meta&quot;</span>]
+    <span class="ruby-identifier">format</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;parameters&quot;</span>][<span class="ruby-value str">&quot;exportformat&quot;</span>]
+    <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;parameters&quot;</span>][<span class="ruby-value str">&quot;exportfilename&quot;</span>]
+    <span class="ruby-identifier">action</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;parameters&quot;</span>][<span class="ruby-value str">&quot;exportaction&quot;</span>]
+    <span class="ruby-identifier">target</span> = <span class="ruby-identifier">export_data</span>[<span class="ruby-value str">&quot;parameters&quot;</span>][<span class="ruby-value str">&quot;exporttargetwindow&quot;</span>]
+    <span class="ruby-identifier">ext</span> = <span class="ruby-identifier">format</span>.<span class="ruby-identifier">downcase</span>
+    
+    <span class="ruby-identifier">fc_exporter</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">ImageGenerator</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">stream</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;width&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;height&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;bgColor&quot;</span>],<span class="ruby-identifier">format</span>
+    <span class="ruby-identifier">image</span>=<span class="ruby-identifier">fc_exporter</span>.<span class="ruby-identifier">get_image</span>
+  
+    
+    <span class="ruby-identifier">mime_list</span> = {<span class="ruby-value str">&quot;jpg&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;image/jpeg&quot;</span>, <span class="ruby-value str">&quot;jpeg&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;image/jpeg&quot;</span>, <span class="ruby-value str">&quot;png&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;image/png&quot;</span>}
+    <span class="ruby-identifier">ext_list</span> = {<span class="ruby-value str">&quot;jpg&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;jpg&quot;</span>, <span class="ruby-value str">&quot;jpeg&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;jpg&quot;</span>, <span class="ruby-value str">&quot;png&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;png&quot;</span>}
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">ext_list</span>[<span class="ruby-identifier">ext</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">nil</span>)
+          <span class="ruby-identifier">ext</span> = <span class="ruby-identifier">ext_list</span>[<span class="ruby-identifier">ext</span>]
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">action</span><span class="ruby-operator">==</span><span class="ruby-value str">&quot;download&quot;</span>)
+        <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;content-type&quot;</span>]=<span class="ruby-identifier">mime_list</span>[<span class="ruby-identifier">ext</span>]
+        <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">target</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;_self&quot;</span>) 
+          <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-Disposition&quot;</span>]=<span class="ruby-value str">'attachment'</span>
+         <span class="ruby-keyword kw">else</span> 
+           <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-Disposition&quot;</span>]=<span class="ruby-value str">'inline'</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;filename&quot;</span>]=<span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>
+        <span class="ruby-identifier">image_blob</span>=<span class="ruby-identifier">image</span>.<span class="ruby-identifier">to_blob</span>
+        <span class="ruby-identifier">send_data</span>(<span class="ruby-identifier">image_blob</span>, {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">mime_list</span>[<span class="ruby-identifier">ext</span>], <span class="ruby-identifier">:stream</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:filename</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>})
+    <span class="ruby-keyword kw">else</span> 
+      <span class="ruby-identifier">notice</span> =<span class="ruby-value str">&quot;&amp;notice=&quot;</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Saving to file on server&quot;</span>
+      <span class="ruby-comment cmt"># Save File on server</span>
+      <span class="ruby-identifier">folder_to_save</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">SAVEPATH</span>)
+      <span class="ruby-comment cmt">#build filepath</span>
+      <span class="ruby-identifier">complete_file_path</span> = <span class="ruby-identifier">folder_to_save</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>
+      <span class="ruby-identifier">displayFileName</span> = <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>
+      <span class="ruby-comment cmt">#Check if file exists and create new filename</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-constant">FileTest</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">complete_file_path</span>))
+          <span class="ruby-identifier">notice</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; File already exists.&quot;</span>
+          <span class="ruby-keyword kw">if</span>( <span class="ruby-operator">!</span><span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">OVERWRITEFILE</span>)
+            <span class="ruby-identifier">notice</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; Using intelligent naming of file by adding an unique suffix to the exising name.&quot;</span>
+            <span class="ruby-comment cmt"># create new filename</span>
+            <span class="ruby-identifier">complete_file_path</span>= <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">SaveHelper</span>.<span class="ruby-identifier">generate_unique_filename</span>(<span class="ruby-identifier">folder_to_save</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> ,<span class="ruby-identifier">ext</span>)
+            <span class="ruby-identifier">displayFileName</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">complete_file_path</span>)
+            <span class="ruby-identifier">notice</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;The filename has changed to &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">displayFileName</span>
+          <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Saving to location &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">complete_file_path</span>
+       
+      <span class="ruby-identifier">image</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">complete_file_path</span>)
+      <span class="ruby-identifier">image</span>=<span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">displayPath</span>=  <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HTTP_URI</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\/$/</span>, <span class="ruby-value str">''</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-operator">+</span><span class="ruby-identifier">displayFileName</span>
+       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Saved to location on server: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">displayPath</span>
+      <span class="ruby-identifier">meta_values</span>=<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">SaveHelper</span>.<span class="ruby-identifier">build_meta_query_string</span>(<span class="ruby-identifier">meta</span>,<span class="ruby-identifier">displayPath</span>)
+      <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;statusCode=1&amp;statusMessage=successful&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">notice</span><span class="ruby-operator">+</span><span class="ruby-identifier">meta_values</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<% @page_title="FusionCharts - Configured Column 3D Chart" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Basic Configured chart example using dataStr method and chart options from yml file" %>
+<%@intro="The chart options for this chart have been taken from chart_options.yml file"%>
+<%
+      # The xml is obtained as a string from builder template. This xml will also contain the chart configuration attributes loaded from yml
+	str_xml = render :file=>"fusioncharts/basic_example/sampledatawithchartoptions", :locals=>{:chart_options=>@chart_options,:option=>"col3d"}
+
+	#Create the chart - Column 3D Chart with data from str_xml variable using dataStr method
+	render_chart '/FusionCharts/Column3D.swf', '', str_xml, 'configuredChart', 600, 300, false, false do-%>
+<% end -%>

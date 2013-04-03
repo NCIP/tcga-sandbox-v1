@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ASP.NET (C#) - Basic Examples </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using FusionCharts with ASP.NET(C#)", "Basic Examples" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with ASP.NET (C#) &gt; Basic Examples </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts can effectively be used with ASP.NET(C#) to plot dynamic data-driven charts. </p>
+      <p>Even when used with ASP.NET C#, FusionCharts internally uses JavaScript and XML/JSON to render the charts. The ASP.NET C# code actually helps you output this JavaScript and XML/JSON. To aid your understanding of this section, we would recommend you to go through the following sections of documentation (if you've not already read them): </p>
+      <ul>
+        <li> <a href="../../FirstChart/FirstChart.html">Creating your first chart</a></li>
+        <li>changing chart <a href="../../FirstChart/ChangeChart.html">type</a> and <a href="../../FirstChart/ChangeSize.html">size</a></li>
+        <li>Configuring chart <a href="../../AttDesc/Background.html">background</a>, <a href="../../AttDesc/Canvas.html">canvas</a>, <a href="../../AttDesc/FontProperties.html">fonts</a>, <a href="../../AttDesc/Titles.html">captions</a>, <a href="../../AttDesc/DataPlot.html">data plot</a>, <a href="../../AttDesc/DataLabels.html">labels</a>, <a href="../../AttDesc/DataValues.html">values</a>, <a href="../../AttDesc/DivLines.html">axis</a>, <a href="../../AttDesc/Legend.html">legend</a>, <a href="../../AttDesc/Padding.html">padding &amp; margins</a> and <a href="../../advanced/number-format/Number_Basics.html">number formatting</a></li>
+        <li>Using <a href="../../DataFormats/XML/Overview.html">XML</a> or <a href="../../DataFormats/JSON/Overview.html">JSON</a> as data source</li>
+        <li>Using <a href="../../JavaScript/JS_Overview.html">JavaScript API</a> of FusionCharts</li>
+        <li>Creating <a href="../../FirstChart/Drilldown.html">drill-down charts</a> and <a href="../../FirstChart/LinkedCharts.html">LinkedCharts</a></li>
+        <li>Exporting charts as <a href="../../exporting-image/ECOverview.html">images</a> or <a href="../../exporting-data/ExportDataSetup.html">CSV</a></li>
+        <li><a href="../how-fusioncharts-works/HowFCWorks.html">How FusionCharts work?</a> </li>
+      </ul>
+      <p>In this section, we'll show a few basic examples to help you get started.</p>
+      <p>We'll cover the following examples here:</p>
+    <ol>
+      <li><a href="#jsxmlurl">Use FusionCharts in ASP.NET(C#) with a pre-built Data.xml (which contains data to plot)</a></li>
+      <li><a href="#jsxml">Change the above chart into a single-page-chart using Data String method</a></li>
+      <li><a href="#htmlxmlurl">Use HTML Embedding method to render the chart</a></li>
+      <li><a href="#js">Create pure JavaScript charts</a></li>
+      <li><a href="#json">Use JSON data  to create chart</a></li>
+      <li><a href="#multiple">Create multiple charts in a single page</a></li>
+      <li><a href="#transparent">Create transparent chart</a></li>
+      <li><a href="#managedprint">Set managed printing for Mozilla browsers</a></li>
+	   <li><a href="#multiseries">Creating chart with multiple sets of data</a></li>
+      <li><a href="#stacked">Creating a stacked chart</a></li>
+      <li><a href="#combi">Creating a combination chart</a></li>
+      <li><a href="#combidy">Creating a combination chart with multiple units</a>  </li>
+    </ol>
+    <br />
+    Let's quickly see each of them.    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><p class="highlightBlock"><strong>Before you go further with this page, we strictly recommend you to please go through the  <a href="../how-fusioncharts-works/HowFCWorks.html">How FusionCharts works?</a> and <a href="../../FirstChart/FirstChart.html">Creating Your First Chart</a> sections,  as we would discuss concepts explained in these sections. </strong></p><p class="highlightBlock">All code discussed here is present in <span class="codeInline">Download Package &gt; Code &gt; CS</span> &gt; <span class="codeInline">BasicExample</span> folder.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting up the charts for use </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In our code, we've used the charts and JavaScript class files contained in <span class="codeInline">Download Package &gt; Code &gt; CS &gt; FusionCharts</span> folder. When you run your samples, you need to make sure that the SWF files are in proper location.</p>
+      <p> Moreover, for ASP.NET you can use the ASP.NET Wrapper class, <span class="codeInline">FusionCharts.dll</span> (contained in <span class="codeInline">Download Package &gt; Code &gt; CS &gt; Bin</span> folder). Copy the file into the <span class="codeInline">Bin </span>folder of your Project. In case you are facing any issue with the DLL due to security issues in your server, you can choose to use <span class="codeInline">FusionCharts.cs</span> file from <span class="codeInline">Download</span> <span class="codeInline">Package &gt; Code &gt; CS &gt; src</span> folder and keep it in <span class="codeInline">App_Code</span> folder. </p>
+      <div class="highlightBlock">
+        <span class="msg_handler"><strong><a>Advanced Note - Using strongly named assembly :</a></strong> &raquo;</span>
+        <div class="msg_body">
+          <p>We are now providing strongly named assembly (<span class="codeInline">FusionCharts</span>) that you can put it into your GAC (Global Assembly Cache).
+          Once you have added <span class="codeInline">FusionCharts</span> in GAC, you can directly refer to the assembly in your project without including it in the <span class="codeInline">Bin </span>folder of the project. This steps below describe how to add <span class="codeInline">FusionCharts.dll</span> in GAC and use it in your project: </p>
+          <ul>
+            <li>              Go to <span class="codeInline">C:\Windows\Assembly</span> folder and drag and drop <span class="codeInline">FusionCharts.dll</span> into this folder.<br />
+              <br />
+            <img src="../Images/code/aspnet/GAC.jpg" width="591" height="225" />          <br />
+            <br />
+            </li>
+            <li>              Open your Project and type the following code under <span class="codeInline">&lt;compilation&gt;</span> section of <span class="codeInline">web.config</span>:<br />
+              <br />
+              <pre class="code_container prettyprint">&lt;assemblies&gt;
+  &lt;add assembly=&quot;FusionCharts, Version=3.2.2.1, Culture=neutral, PublicKeyToken=58bb3098fe7f0ede&quot;/&gt;
+&lt;/assemblies&gt;</pre> 
+              <br /><img src="../Images/code/aspnet/WebConfig.jpg" width="657" height="386" />            </li>
+          </ul>
+          <p>Once done, you do not need to add a reference to <span class="codeInline">FusionCharts.dll</span> into your project. All you need to do is to use <span class="codeInline">InfoSoftGlobal</span>  namespace (<span class="codeInline">using InfosoftGlobal</span>;). </p>
+          <p><strong>NOTE:</strong> If you have multiple versions of <span class="codeInline">FusionCharts.dll</span> in the GAC, make sure to re-reference to the 3.2.2.1 version of <span class="codeInline">FusionCharts.dll</span> through your project properties or <span class="codeInline">web.config</span>. </p>
+        </div>
+		</div><br />    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="jsxmlurl" id="jsxmlurl"></a>Plotting a chart from data contained in <span class="codeInline"><strong>Data.xml</strong></span></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>Let's now build our first example. In this example, we'll create a &quot;Monthly Unit Sales&quot; chart using <span class="codeInline">dataUrl</span> method. For a start, we'll hard code our XML data in a physical XML document <span class="codeInline">Data.xml </span>and then use it in our chart contained in an aspx page (<span class="codeInline">SimpleChart.aspx</span>). The chart would look like the image shown below: </p>
+       <p><img src="../Images/Code_BasicChart.jpg" width="591" height="292" /></p>
+       <p>Let's first have a look at the XML Data document:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint" >&lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' showValues='0' formatNumberScale='0' showBorder='1'&gt;
+  &lt;set label='Jan' value='462' /&gt;
+  &lt;set label='Feb' value='857' /&gt;
+  &lt;set label='Mar' value='671' /&gt;
+  &lt;set label='Apr' value='494' /&gt;
+  &lt;set label='May' value='761' /&gt;
+  &lt;set label='Jun' value='960' /&gt;
+  &lt;set label='Jul' value='629' /&gt;
+  &lt;set label='Aug' value='622' /&gt;
+  &lt;set label='Sep' value='376' /&gt;
+  &lt;set label='Oct' value='494' /&gt;
+  &lt;set label='Nov' value='761' /&gt;
+  &lt;set label='Dec' value='960' /&gt;
+&lt;/chart&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This XML is stored as <span class="codeInline">Data.xml</span> in <span class="codeInline">Data </span>Folder under <span class="codeInline">BasicExample</span> folder. It basically contains the data to create a single series chart to show &quot;Monthly Unit Sales&quot;. We'll plot this on a Column 3D Chart. Let's see how to do that. </p>
+      <p>To plot a Chart that consumes this data, you need to include the HTML+JavaScript code to embed a chart object and then provide the requisite parameters. To make things simpler for you, we've put all this methodology in an C# method named as <span class="codeInline">RenderChart()</span>. This method is contained in <span class="codeInline"> FusionCharts.dll</span>. So, whenever you need to work with FusionCharts in C#, just include this file in <span class="codeInline">Bin </span>folder of your project and then you can work with FusionCharts very easily. </p>
+      <p>Let's see it in example. <span class="codeInline">SimpleChart.aspx</span> contains the following code to render the chart:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+<pre class="code_container prettyprint">&lt;%@ Page Language=&quot;C#&quot; AutoEventWireup=&quot;false&quot; CodeFile=&quot;SimpleChart.aspx.cs&quot; Inherits=&quot;SimpleChart&quot; %&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;
+    <strong>&lt;SCRIPT type=&quot;text/javascript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;</strong>
+    &lt;TITLE&gt;FusionCharts - Simple Column 3D Chart &lt;/TITLE&gt;
+  &lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;form id=&quot;Form1&quot; method=&quot;post&quot; runat=&quot;server&quot;&gt;
+      <strong>&lt;asp:Literal ID=&quot;Literal1&quot; runat=&quot;server&quot;&gt;&lt;/asp:Literal&gt;</strong>
+    &lt;/form&gt;
+  &lt;/BODY&gt;
+ &lt;/HTML&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In the above code we are doing the following:</p>
+      <ol>
+        <li> We include <span class="codeInline">FusionCharts.js</span> which will help us in creating a chart</li>
+        <li>We place a Literal control with id <span class="codeInline">Literal1</span> in the Web Form</li>
+      </ol>
+      <p>In the code-behind we do the following: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" >
+      <pre class="code_container prettyprint">using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+<strong>using InfoSoftGlobal;</strong>
+
+public partial class SimpleChart : System.Web.UI.Page
+{
+  protected void Page_Load(object sender, EventArgs e)
+  {          
+    //This page demonstrates the ease of generating charts using FusionCharts.
+    //For this chart, we've used a pre-defined Data.xml (contained in /Data/ folder)
+    //Ideally, you would NOT use a physical data file. Instead you'll have 
+    //your own ASP.NET scripts virtually relay the XML data document. Such examples are also present.
+    //For a head-start, we've kept this example very simple.          
+    //Create the chart - Column 3D Chart with data from Data/Data.xml
+    <strong>Literal.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, true); </strong>
+  }
+}</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>As you can see above, we've :</p>
+       <ol>
+          <li>Included <span class="codeInline">InfoSoftGlobal </span>namespace provided in <span class="codeInline">FusionCharts.dll</span> which provides <span class="codeInline">FusionCharts</span> class (<span class="codeInline">FusionCharts </span>class provides static methods to create charts) </li>
+          <li>Listened to Page Load event using <span class="codeInline">Page_Load()</span>method </li>
+          <li>Invoked the <span class="codeInline">RenderChart</span> method which generates the chart HTML+JavaScript code as string</li>
+          <li>Assigned the chart code as the content of the Literal control - <span class="codeInline">Literal1</span> in the Web Form </li>
+       </ol>
+       <p> To <span class="codeInline">RenderChart</span> method, you can pass the following <a name="renderchartparams" id="renderchartparams"></a>parameters (in same order):</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table class="table" width="95%" border="0" align="center" cellpadding="2" cellspacing="0" >
+      <tr>
+        <td width="19%" valign="top" class="header">Parameter</td>
+        <td width="81%" valign="top" class="header">Description</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">chartSWF</td>
+        <td valign="top" class="text">SWF File Name (and Path) of the chart which you intend to plot. Here, we are plotting a Column 3D chart. So, we've specified it as <span class="codeInline">../FusionCharts/Column3D.swf</span></td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">dataUrl</td>
+        <td valign="top" class="text">If you intend to use <span class="codeInline"><a href="../how-fusioncharts-works/DataURL.html">Data URL </a></span>method for the chart, pass the URL as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">Data String</span> method). In this case, we're using <span class="codeInline">Data.xml</span> file, so we specify <span class="codeInline">Data/Data.xml</span></td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">dataStr</td>
+        <td valign="top" class="text">If you intend to use <span class="codeInline"><a href="../how-fusioncharts-works/DataXMLExp.html">Data String</a></span> method for this chart, pass the XML/JSON data string as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">Data URL </span>method). Since, in this above case, we're using <span class="codeInline">dataURL</span> method, we specify this parameter as &quot;&quot;.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">chartId</td>
+        <td valign="top" class="text"> Id for the chart, using which it will be recognized in the HTML page. <strong>Each chart on the page needs to have a unique Id.</strong></td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">chartWidth</td>
+        <td valign="top" class="text">Intended width for the chart (in pixels or in percent) e.g., &quot;400&quot;  or &quot;100%&quot;.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">chartHeight</td>
+        <td valign="top" class="text">Intended height for the chart (in pixels or in percent) e.g., &quot;400&quot;  or &quot;100%&quot;.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">debugMode</td>
+        <td valign="top" class="text">Whether to start the chart in debug mode. Please see <span class="codeInline"><a href="../../Debug/Window.html">Debugging your Charts</a></span> section for more details on Debug Mode. </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">registerWithJS</td>
+        <td valign="top" class="text">Whether to register the chart with JavaScript. This option is deprecated and kept for backward compatibility reasons. The value set is always true. </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">allowTransparent</td>
+        <td valign="top" class="text">(optional) Whether the chart can be set to have a transparent background. This work together with <span class="codeInline">bgAlpha</span> attribute of chart which needs to be set to a value lower than 100.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">scaleMode</td>
+        <td valign="top" class="text">(optional) Scaling  option of the chart. It can take any value out of the four: <span class="codeInline">&quot;noScale&quot;</span>, <span class="codeInline">&quot;exactFit&quot;</span>,  <span class="codeInline">&quot;noBorder&quot;</span> and <span class="codeInline">&quot;showAll&quot;</span>.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">bgColor</td>
+        <td valign="top" class="text">(optional) Background color of the chart container. If  background alpha of  the chart is set to lower than 100 in chart data, this color will be visible and blend with the chart's background color. This color is fully visible when the<a href="../../advanced/ChartMessages.html#setbg"> chart messages</a> are shown. E.g. <strong>#ff0000</strong></td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">language</td>
+        <td valign="top" class="text">(optional) Preferred language. e.g. <strong>EN</strong></td>
+      </tr>
+      
+      
+    </table>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>When you now run this page, you'll see a chart like the one below drawn inside the Literal placed in the Web Form: </p>
+      <p class="highlightBlock">If you do not see a chart like the one below, please follow the steps listed in <span class="codeInline">Debugging your Charts &gt; <a href="../../Debug/Basic.html">Basic Troubleshooting</a></span> section of this documentation. </p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><img src="../Images/Code_BasicChart.jpg" width="591" height="292" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       
+       <div class="highlightBlock">
+		 <span><strong><a name="methods" id="methods"></a>Advanced note :</strong> <span class="codeInline">FusionCharts.dll</span> provides a namespace called <span class="codeInline">InfoSoftGlobal</span>. This namespace provides a class <span class="codeInline">FusionCharts</span> with a number of static methods. One of the static methods is <span class="codeInline">RenderChart</span> which we have used in the code above. Apart from <span class="codeInline">RenderChart()</span>method, <span class="codeInline">FusionCharts.dll</span> provides a number of other static public methods (listed below) to ease your implementation.</span> <span class="msg_handler_open_slider"><a>Click here to collapse and expand</a>  &laquo; <br/><br/> </span>
+		  <div class="msg_body_open" style="overflow:auto;margin-left:10px;">
+		     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" bgcolor="#fdfdfd">
+              <tr>
+                 <td width="200" class="header">method</td>
+                 <td width="200" class="header">Parameter</td>
+                 <td  class="header">What it does? </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">RenderChart()</td>
+                 <td><a href="#renderchartparams">see above</a>  </td>
+                 <td>Returns a string containing HTML+JavaScript that renders a chart.</td>
+              </tr>
+              <tr>
+                 <td class="codeInline">RenderChartHTML()</td>
+                 <td><a href="#renderchartparams">see above</a></td>
+                 <td>Returns a string containing HTML that renders a chart. This method is deprecated. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">SetDataFormat()</td>
+                 <td>&quot;xml&quot; or &quot;json&quot; </td>
+                 <td>Sets the data format for the data-source of the chart. The data-source is set through <span class="codeInline">dataStr</span> or <span class="codeInline">dataUrl </span>parameter of <span class="codeInline">RenderChart</span> or <span class="codeInline">RenderChartHTML</span>. <br />
+                   <br />
+                   Default value is <span class="codeInline">xml</span>. When you set the value to <span class="codeInline">json</span> you need to pass JSON URL or JSON String through <span class="codeInline">dataUrl </span>or <span class="codeInline">dataStr </span>parameter. <br />
+                   <br />
+                 You need to call this method each time before you call <span class="codeInline">RenderChart </span>or <span class="codeInline">RenderChartHTML</span> method. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">SetRenderer()</td>
+                 <td>&quot;flash&quot; or &quot;javascript&quot; </td>
+                <td>Sets the renderer-engine of FusionCharts. It can be <span class="codeInline">flash</span> (default value). When you set the value to <span class="codeInline">javascript</span>, you can force-set  javascript renderer.<br />
+                   <br />
+                 You need to call this method each time before you call <span class="codeInline">RenderChart </span>method. <br />
+                 <br />
+                 This setting is not applicable while using <span class="codeInline">RenderChartHTML</span> method. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">EnablePrintManager()</td>
+                 <td> </td>
+                 <td>This method helps you enable <a href="../../JavaScript/JS_PrintManager.html">managed print</a> feature of FusionCharts for Mozilla- browsers. It returns a <span class="codeInline">&lt;script&gt; </span>tag . You need to write the string in your page.You need to call this only once in a page. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">SetWindowMode()</td>
+                 <td>&quot;window&quot; or &quot;transparent&quot; or &quot;opaque&quot; </td>
+                 <td>Sets window mode of a chart. By default, chart renders in &quot;opaque&quot; mode. You can set to it &quot;window&quot; if you required. <br />
+                   <br />
+                 You need to call this method each time before you call <span class="codeInline">RenderChart </span>or <span class="codeInline">RenderChartHTML</span> method. </td>
+              </tr>
+           </table>
+		  </div>
+	   </div>
+       <p>So, you just saw how simple it is to create a chart using C# and FusionCharts. Let's now convert the above chart to use <span class="codeInline">Data String</span> method. </p>    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name="jsxml" id="jsxml"></a>Changing the above chart into a single page chart using Data String method</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>To convert this chart to use <a href="../how-fusioncharts-works/DataXMLExp.html">Data String</a> method, we create another page <span class="codeInline">dataXML.aspx</span> in the same folder with following code: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" >
+      <pre class="code_container prettyprint">&lt;%@ Page Language=&quot;C#&quot; AutoEventWireup=&quot;false&quot; CodeFile=&quot;dataXML.aspx.cs&quot; Inherits=&quot;dataXML&quot; %&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;
+    &lt;SCRIPT type=&quot;text/javascript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;form id='form1' name='form1' method='post' runat=&quot;server&quot;&gt; 
+      &lt;asp:Literal ID=&quot;Literal1&quot; runat=&quot;server&quot;&gt;&lt;/asp:Literal&gt;
+    &lt;/form&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In the above code like the previous example include <span class="codeInline">FusionCharts.js</span> and add a Literal control. The code behind is as follows: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" >
+       <pre class="code_container prettyprint">using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;<strong>
+using System.Text;
+using InfoSoftGlobal;</strong>
+
+public partial class dataXML : System.Web.UI.Page
+{
+
+  protected void Page_Load(object sender, EventArgs e)
+  {         
+    //Create an XML data document in a string variable 
+    StringBuilder xmlData = new StringBuilder();
+    xmlData.Append (&quot;&lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' showValues='0' formatNumberScale='0' showBorder='1'&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Jan' value='462' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Feb' value='857' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Mar' value='671' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Apr' value='494' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='May' value='761' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Jun' value='960' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Jul' value='629' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Aug' value='622' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Sep' value='376' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Oct' value='494' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Nov' value='761' /&gt;&quot;);
+    xmlData.Append (&quot;&lt;set label='Dec' value='960' /&gt;&quot;);
+    xmlData.Append= &quot;&lt;/chart&gt;&quot;;          
+    
+    //Create the chart - Column 3D Chart with data from strXML variable using dataStr method
+<strong>     Literal1.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;&quot;, strXML.ToSrting(), &quot;myNext&quot;, &quot;600&quot;, &quot;300&quot;, false, true);</strong>
+  }
+}</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In the code above, we:</p>
+      <ol>
+        <li>Create the XML data document in a StringBuilder object <span class="codeInline">xmlData</span><span class="text">. Here, we're hard-coding the data. In your applications, you can build this data dynamically after interacting with databases or external sources of data</span>.</li>
+        <li>Finally, create the chart using <span class="codeInline">RenderChart</span> method and set the <span class="codeInline">dataStr</span> parameter as <span class="codeInline">xmlData</span>. We leave <span class="codeInline">dataUrl</span> parameter blank.</li>
+      </ol>
+    <p>When you see this chart, you'll get the same results as before. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="htmlxmlurl" id="htmlxmlurl"></a>Using FusionCharts HTML embedding method to render chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>You can also create charts using HTML embedding method. It creates HTML <span class="codeInline">&lt;object&gt;/&lt;embed&gt; </span>tags to render chart. It does not require<span class="codeInline"> FusionCharts.js</span> to be included in the page. </p>
+       <p class="highlightBlock">HTML embedding method is <strong>deprecated</strong>. Many of the features of FusionCharts that works in collaboration with JavaScript, like providing JSON data, advanced event-handing, setting chart attribute etc., won't work using this method. </p>
+ 
+       <p>Again, to make things simpler for you, we've provided an C# method called <span class="codeInline">renderChartHTML()</span> which helps you render chart using <span class="codeInline">&lt;object&gt;/&lt;embed&gt;</span> tag and you don't have to get your hands dirty with HTML tags.</p>
+       <p>Let's now quickly put up a sample to show the use of this method. We make a copy of our  <span class="codeInline">SimpleChart.aspx</span> ( which rendered chart using <span class="codeInline">dataUrl</span> method from <span class="codeInline">Data.xml</span> file ) file and rename it to <span class="codeInline">BasicChart.aspx</span>. We load the data from our previously created<span class="codeInline"> Data.xml</span> file. The modification involves a single line change from the previous file. The modification is required only in the code behind and the modified code (modification in <strong>bold</strong>) would look like the following : </p>    </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" >
+	  <pre class="code_container prettyprint">using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+<strong>using InfoSoftGlobal;</strong>
+
+public partial class SimpleChart : System.Web.UI.Page
+{
+  protected void Page_Load(object sender, EventArgs e)
+  {          
+       Literal.Text = FusionCharts.<strong>RenderChartHTML</strong>(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, true); 
+  }
+}</pre>     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>As you can see above, we've created the chart using <span class="codeInline">renderChartHTML()</span> method.   </p>
+      <p>The<span class="codeInline"> renderChartHTML()</span> method takes in the same<a href="#renderchartparams"> parameters as <span class="codeInline">renderChart()</span></a>method. </p>
+    <p class="highlightBlock">The above example shows how you can load data using <span class="codeInline">dataUrl</span> method. You can always use <span class="codeInline">dataStr </span>method to pass XML as string using <span class="codeInline">renderChartHTML()</span> method.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+  <tr>
+     <td valign="top" class="text"> </td>
+  </tr>
+  
+  <tr>
+       <td valign="top" class="header"><a name="js" id="js"></a>Create pure JavaScript charts</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>FusionCharts allows you to create pure JavaScript-only charts that does not require Flash, hence enabling your chart in browsers where Flash is not supported like that of iPhone/iPad etc. This is achieve by calling <span class="codeInline">SetRenderer</span> method in Asp.Net(C#) before you render your chart. Using this method you need to set the current chart renderer to <span class="codeInline">javascript</span>.</p>
+        <p>The code snippet below shows how you can achieve this:</p>
+        <pre class="code_container prettyprint" ><strong>FusionCharts.SetRenderer("javascript");</strong>
+...
+Literal1.Text = FusionCharts.RenderChart("../FusionCharts/Column2D.swf", "Data/Data.xml", "", "chart1", "600", "300", false, true); 
+</pre>
+     <p>The above code will create pure-JavaScript FusionCharts as shown in the image below:</p>
+     <p><img src="../Images/code/php/basic_purejs.jpg" alt="FusionCharts pure JavaScript chart" width="587" height="271" class="imageBorder" /></p>     </td>
+  </tr>
+  
+  <tr>
+       <td valign="top" class="header"><a name="json" id="json"></a>Use JSON data to create chart</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>You can provide chart data in JSON format. You need to call <span class="codeInline">SetDataFormat</span> method and set the data format to <span class="codeInline">json</span> through it. Once done, you can pass the JSON data through <span class="codeInline">RenderChart</span> method. If you need to pass JSON data contained in a Url, use <span class="codeInline">dataUrl</span> parameter. If you have JSON as string use <span class="codeInline">dataStr</span> parameter. The code snippets below illustrates how you can do these: </p>
+        <pre class="code_container prettyprint">// set chart data format to json 	
+<strong>FusionCharts.SetDataFormat(&quot;json&quot;); 	</strong>
+//Create the chart - Column 3D Chart with data from Data/Data.json 	
+Literal1.Text = FusionCharts.RenderChart("../FusionCharts/Column3D.swf", <strong>&quot;Data/Data.json</strong>&quot;, &quot;&quot;, &quot;chart1&quot;, &quot;600&quot;, &quot;300&quot;, false, true);
+
+<nocode>or</nocode>
+
+// set chart data format to json 	
+<strong>FusionCharts.SetDataFormat(&quot;json&quot;);</strong> 	
+//Create the chart - Column 3D Chart with data from strJSON variable using dataStr method 	
+Literal2.Text = FusionCharts.RenderChart("../FusionCharts/Column3D.swf", &quot;&quot;, <strong>strJSON.ToString()</strong>, &quot;chart1&quot;, &quot;600&quot;, &quot;300&quot;, false, true);</pre>
+
+        <p>FusionCharts needs JSON to be passed in a specific format. Please read FusionCharts Data Formats &gt; <a href="../../DataFormats/JSON/Overview.html">JSON</a> section for more on this. </p>
+        <p class="highlightBlock">Please note that JSON data format is not supported in <span class="codeInline">RenderChartHTML</span> method. </p>     </td>
+  </tr>
+  
+  
+  <tr>
+     <td valign="top" class="header"><a name="multiple" id="multiple"></a>Create multiple charts in a single page</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>Creating multiple charts in a page is as easy as creating a single chart. The code below shows how you can call <span class="codeInline">RenderChart </span>method and create as many charts as you wish. All you need to take care is that you should render each chart in a separate Literal. Each chart should also have unique Id. Consider the code shown below: </p>
+      
+        <pre class="code_container prettyprint">//Create the chart - Column 3D Chart with data from Data/Data.xml 	
+Literal1.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;<strong>chart1</strong>&quot;, &quot;600&quot;, &quot;300&quot;, false, true); 
+//Now, create a Column 2D Chart 	
+Literal2.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Column2D.swf&quot;, &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;<strong>chart2</strong>&quot;, &quot;600&quot;, &quot;300&quot;, false, true); 
+//Now, create a Line 2D Chart  
+Literal3.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Line.swf&quot;,     &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;<strong>chart3</strong>&quot;, &quot;600&quot;, &quot;300&quot;, false, true);</pre><br />    </td>
+  </tr><tr>
+     <td valign="top" class="header"><a name="transparent" id="transparent"></a>Create transparent chart</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>You can create charts with transparent backgrounds. This makes the chart show to what lies below it in HTML. To do this you need to  follow these steps:</p>
+        <ol>
+           <li>In the chart's XML data, set <span class="codeInline">&lt;chart ... bgAlpha='0,0' ..&gt;</span> or in&nbsp; chart JSON data-set <span class="codeInline">bgAlpha : &quot;0,0&quot; </span></li>
+           <li>In the <span class="codeInline">RenderChart</span>/<span class="codeInline">RenderChartHTML </span>method set <span class="codeInline">allowTransparent </span>parameter to <span class="codeInline">true</span>. </li>
+       </ol>
+        <p>Below is a  sample code with a chart having transparent background (<span class="codeInline">TransparentChart.aspx</span>)  :</p>
+        <pre class="code_container prettyprint">&lt;%@ Page Language=&quot;C#&quot; AutoEventWireup=&quot;false&quot; CodeFile=&quot;TransparentChart.aspx.cs&quot; Inherits=&quot;TransparentChart&quot; %&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;
+<strong>    &lt;script type=&quot;text/javascript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;</strong>
+  &lt;/HEAD&gt;
+  &lt;body&gt;
+    &lt;form id='form1' name='form1' method='post' runat=&quot;server&quot;&gt;
+      <strong> </strong> &lt;div style=&quot;padding:40px;<strong> <strong>background-color:#9d7fbd</strong>; </strong>border:1px solid #745C92; width: 600px;&quot;&gt;<strong>
+          &lt;asp:Literal ID="Literal1" runat="server"&gt;&lt;/asp:Literal&gt;</strong>
+        &lt;/div&gt;
+     &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/HTML&gt;</pre>
+
+        <p>In the above code we have create a purple DIV (<span class="codeInline"> background-color:#9d7fbd </span>) inside which we will create the transparent chart. The code-behind, which renders the chart, contains the following code: </p>
+   
+<pre class="code_container prettyprint">using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Text;
+<strong>using InfoSoftGlobal;</strong>
+      
+  public partial class TransparentChart : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+          {
+            //Create an XML data document in a string variable
+            StringBuilder xmlData = new StringBuilder();
+            xmlData.Append ("&lt;chart <strong>bgAlpha='0,0' canvasBgAlpha='0'</strong> caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units'&gt;");
+            xmlData.Append ("&lt;set label='Jan' value='462' /&gt;");
+            xmlData.Append ("&lt;set label='Feb' value='857' /&gt;");
+            xmlData.Append ("&lt;set label='Mar' value='671' /&gt;");
+            xmlData.Append ("&lt;set label='Apr' value='494' /&gt;");
+            xmlData.Append ("&lt;set label='May' value='761' /&gt;");
+            xmlData.Append ("&lt;set label='Jun' value='960' /&gt;");
+            xmlData.Append ("&lt;set label='Jul' value='629' /&gt;");
+            xmlData.Append ("&lt;set label='Aug' value='622' /&gt;");
+            xmlData.Append ("&lt;set label='Sep' value='376' /&gt;");
+            xmlData.Append ("&lt;set label='Oct' value='494' /&gt;");
+            xmlData.Append ("&lt;set label='Nov' value='761' /&gt;");
+            xmlData.Append ("&lt;set label='Dec' value='960' /&gt;");
+            xmlData.Append ("&lt;/chart&gt;");
+
+            //Create the chart - Column 3D Chart with data from strXML variable using dataStr method
+            Literal1.Text = FusionCharts.RenderChart("../FusionCharts/Column3D.swf", "", xmlData.ToSrting(), "myNext", "600", "300", false, true, <strong>true</strong>);
+        }
+
+}</pre>
+        <p>In the code above we have :</p>
+        <ul>
+           <li>We build a string XML&nbsp; (<span class="codeInline">xmlData</span>) for chart setting attributes <span class="codeInline">bgAlpha='0,0'</span> and <span class="codeInline">canvasBgAlpha='0'</span></li>
+           <li>We render the chart with <span class="codeInline">allowTransparent </span>parameter set to <span class="codeInline">true </span>and used the XML data created </li>
+           <li>We rendered the chart in the Literal which is placed inside the purple DIV</li>
+       </ul>
+        <p>The chart would look as shown below. The purple color of the DIV below the chart is visible through the body of the transparent chart.</p>
+        <p><img src="../Images/code/php/transparentchart.jpg" alt="FusionCharts pure JavaScript chart" width="657" height="357" /> </p>     </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="header"><a name="managedprint" id="managedprint"></a>Set managed printing for Mozilla browsers</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>Since v3.2, FusionCharts provides  better-print feature for all Mozilla/WebKit/Gecko based browsers like Firefox, Safari etc. To enable this feature in C# all you need to do is call <span class="codeInline">EnablePrintManager()</span> method once in your page(preferably at the beginning or end). This will enable the print manager process print data from all the charts in a page and prepare the charts for better-quality printing. To read more on how print manager works please go through <a href="../../JavaScript/JS_PrintManager.html">this</a>. </p>
+        <p>The code below shows how you need to enable print manager through C#:</p>
+        <pre class="code_container prettyprint"><strong>Literal1.Text = FusionCharts.EnablePrintManager();</strong>
+...
+// render chart
+Literal4.Text = FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.xml&quot;, &quot;&quot;, &quot;<strong>chart1</strong>&quot;, &quot;600&quot;, &quot;300&quot;, false, true);
+</pre>     </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <p><strong>Listening to Print Manager status using JavaScript  </strong></p>
+      <p>Print Manager takes a bit of time to prepare all charts present in a page for print. You can listen to Print Manager's Ready State event using FusionCharts JavaScript class. Once the charts are ready, which can be tracked by listening to an event raised by the Print Manager, you can use browser's File &rarr; Print menu, JavaScript's native <span class="codeInline">window.print() </span>function or Print Manager's advanced function - <span class="codeInline"><a href="../../JavaScript/API/Methods.html#managedprint">managedPrint()</a></span>. The JavaScript code below shows how you can listen to the event and prepare for print:</p>
+      <pre class="code_container prettyprint">&lt;html&gt;
+...
+  &lt;body&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+<strong>    </strong>
+					
+      FusionCharts.addEventListener ( 
+<strong>          FusionChartsEvents.PrintReadyStateChange , 
+</strong>          function (identifier, parameter) {
+            if(parameter.ready){ 
+               alert(&quot;Chart is now ready for printing.&quot;);
+               document.getElementById('printButton').disabled = false;
+            }
+        });
+    // --&gt;&lt;/script&gt; 	   
+    &lt;input type=&quot;button&quot; onclick=&quot;<strong>FusionCharts.printManager.managedPrint()</strong>&quot;
+        value=&quot;Managed Print&quot; disabled=&quot;disabled&quot; id=&quot;printButton&quot; &gt;
+...
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+      <p>In the above code we have:</p>
+      <ul>
+        <li>Added a JavaScript event-listener for the global event <span class="codeInline"><a href="../../JavaScript/API/Events.html#printreadystatechange">PrintReadyStateChange</a> </span>to the global JavaScript object <span class="codeInline">- <a href="../../JavaScript/API/Methods.html#staticfusioncharts">FusionCharts</a></span></li>
+        <li>Added a &quot;Managed Print&quot; button which will call <span class="codeInline">FusionCharts.printManager.managedPrint()</span>. The button is disabled when loaded. </li>
+        <li>When the event is fired, it provides the listener with event arguments. The <span class="codeInline">parameters</span> event argument contains a property <span class="codeInline">ready</span>. This returns <span class="codeInline">true </span>when the Print Manager is ready to print all charts in a page</li>
+        <li>Hence, in this event we can show an information alert and also enable the button, which was disabled prior to this. </li>
+      </ul>
+      <p>Now, if you try printing from File &rarr; Print menu or using a button or function that call <span class="codeInline">window.print()</span> function. You can also click &quot;Managed Print&quot; button to print the chart. </p>
+      <div class="highlightBlock">
+        <strong>How Print Manager Works:  </strong>
+        <ul>
+          <li>Once a chart is rendered it silently gathers all the image data of the present state of the chart  </li>
+          <li>It converts the image data into image using canvas HTML object </li>
+          <li>It hides the canvas image below the chart </li>
+          <li>When print is invoked, a parallel CSS based print media layout (using @media print ) is created  </li>
+          <li>In this print media layout the Flash chart is hidden and the canvas image is displayed </li>
+          <li>This layout with the canvas image is sent to the printer for print</li>
+        </ul>
+      </div>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="multiseries" id="multiseries"></a>Creating multi-series chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Unlike the single set of data which we have plotted in the above charts, you might want to compare data of multiple months. In that case, you would need to create Multi-series charts. In the sample below we would learn how to create a Multi-series chart having data for two years. The chart would look like the image shown below: </p>
+        <p><img src="../Images/MultiSeriesASP.jpg" class="imageBorder"/></p>
+      <p>To create a multi-series chart, all you need to do are:</p>
+      <ul>
+          <li>Use a <a href="../../Introduction/ChartList.html#ms">Multi-series chart SWF </a>file and</li>
+        <li>provide data (XML/JSON) in proper <a href="../../DataFormats/XML/MultiSeries.html">FusionCharts Multi-series data format</a> </li>
+      </ul>
+      <p>Let's take a sample Multi-series data with monthly sales figures of two years as shown below (saved as <span class="codeInline">MSData.xml</span>):</p></td>
+  </tr>
+  <tr>
+    <td align="left" class="text"><div class="container">
+        <ul class="tabs">
+          <li><a href="#tab1">XML</a></li>
+          <li><a href="#tab2">JSON</a></li>
+        </ul>
+      <div class="tab_container">
+          <div id="tab1" class="tab_content">
+            <pre class="prettyprint code_container">
+&lt;chart caption='Business Results 2005 v 2006' xAxisName='Month' yAxisName='Revenue' showValues= '0'numberPrefix='$'&gt;<br />
+   &lt;categories&gt;
+      &lt;category label='Jan' /&gt;
+      &lt;category label='Feb' /&gt;
+      &lt;category label='Mar' /&gt;
+      &lt;category label='Apr' /&gt;
+      &lt;category label='May' /&gt;
+      &lt;category label='Jun' /&gt;
+      &lt;category label='Jul' /&gt;
+      &lt;category label='Aug' /&gt;
+      &lt;category label='Sep' /&gt;
+      &lt;category label='Oct' /&gt;
+      &lt;category label='Nov' /&gt;
+      &lt;category label='Dec' /&gt;
+   &lt;/categories&gt;<br />
+   &lt;dataset seriesName='2006'&gt;
+      &lt;set value='27400' /&gt;
+      &lt;set value='29800'/&gt;
+      &lt;set value='25800' /&gt;
+      &lt;set value='26800' /&gt;
+      &lt;set value='29600' /&gt;
+      &lt;set value='32600' /&gt;
+      &lt;set value='31800' /&gt;
+      &lt;set value='36700' /&gt;
+      &lt;set value='29700' /&gt;
+      &lt;set value='31900' /&gt;
+      &lt;set value='34800' /&gt;
+      &lt;set value='24800' /&gt;
+   &lt;/dataset&gt;<br />
+   &lt;dataset seriesName='2005'&gt;
+      &lt;set value='10000'/&gt;
+      &lt;set value='11500'/&gt;
+      &lt;set value='12500'/&gt;
+      &lt;set value='15000'/&gt;
+      &lt;set value='11000' /&gt;
+      &lt;set value='9800' /&gt;
+      &lt;set value='11800' /&gt;
+      &lt;set value='19700' /&gt;
+      &lt;set value='21700' /&gt;
+      &lt;set value='21900' /&gt;
+      &lt;set value='22900' /&gt;
+      &lt;set value='20800' /&gt;
+   &lt;/dataset&gt;<br />&lt;/chart&gt;</pre>
+          </div>
+        <div id="tab2" class="tab_content">
+            <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Business Results 2005 v 2006&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Month&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;,<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;<br />&nbsp; },<br />&nbsp; &quot;categories&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;category&quot;:[
+        {&nbsp; &quot;label&quot;:&quot;Jan&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Feb&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Mar&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Apr&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;May&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Jun&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Jul&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Aug&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Sep&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Oct&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {  &quot;label&quot;:&quot;Nov&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Dec&quot; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ],<br />&nbsp; &quot;dataset&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[
+        { &quot;value&quot;:&quot;27400&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;25800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;26800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29600&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;32600&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;31800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;36700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;31900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;34800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;24800&quot;  }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2005&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[
+        { &quot;value&quot;:&quot;10000&quot;  },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11500&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;12500&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;15000&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11000&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;9800&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;19700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;21700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;21900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;22900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;20800&quot;&nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+          </div>
+      </div>
+    </div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's now render the chart with this above data. </p>
+        <pre class="code_container prettyprint" > Literal1.Text = FusionCharts.RenderChart(&quot;../FusionCharts/<strong>MSColumn3D.swf</strong>&quot;, &quot;Data/<strong>MSData.xml</strong>&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, true);</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code we have done the following:</p>
+        <ul>
+          <li>Changed the chart SWF to <span class="codeInline">MSColumn3D.swf</span></li>
+          <li>Changed the data as <span class="codeInline">MSData.xml</span></li>
+        </ul>
+      <p>The generated chart would look like the following screen-shot:</p>
+      <p><img src="../Images/MultiSeriesASP.jpg" class="imageBorder"/></p>
+      <p class="highlightBlock">Please note that you can also use JSON data instead of XML. To achieve this, you would just need to declare <span class="codeInline">FusionCharts.SetDataFormat(&quot;json&quot;)</span> and pass your data as JSON instead of XML as shown in <a href="#json">Use JSON data to create chart</a> section above. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="stacked" id="stacked"></a>Creating stacked chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also show the cumulative sales figures of each month in grouped column&nbsp;in stacked charts. It is very easy to create a Stacked chart once you are ready with a Multi-series data as shown in the previous example. The stacked chart would render similar to the image shown below:</p>
+        <p><img src="../Images/MultiSeriesStacked.jpg" class="imageBorder" /></p>
+      <p>To render the above chart,&nbsp;you would only need to provide the same multi-series data as shown in the previous example and  use a <a href="../../Introduction/ChartList.html#st">Stacked chart SWF </a>file&nbsp;as shown in the code section below:</p>
+      <pre class="code_container prettyprint">Literal1.Text = FusionCharts.RenderChart(&quot;../../FusionCharts/StackedColumn3D.swf&quot;, &quot;Data/MSData.xml&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, true);</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name='combi' id='combi'></a>Creating a combination chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can wish to combine various chart types and display in a single canvas. You can achieve this using a<a href="../../Introduction/ChartList.html#combi"> Combination chart</a>. </p>
+        <p>To keep it simple, let's re-use the Multi-series data we used in&nbsp;the previous example. We will render the data for 2006 as a Column chart and data for 2005 as Area chart. The desired chart would be similar to the image shown below:</p>
+      <p><img src="../Images/MultiSeriesCombiSingleY.jpg" class="imageBorder" /></p>
+      <p>To achieve this, we have done the following modifications:</p>
+      <ul>
+          <li>changed chart SWF file to <span class="codeInline">MSCombi2D.swf</span><br />
+              <br />
+              <span class="code_container prettyprint"> Literal1.Text = FusionCharts.RenderChart( &quot;../../FusionCharts/MSCombi2D.swf&quot;, &quot;Data/CSYData.xml&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, true );</span><br />
+              <br />
+          </li>
+        <li>added &nbsp;<span class="codeInline">renderAs='Area' </span>in dataset for 2005&nbsp;<br />
+              <br />
+              <span class="code_container prettyprint">&lt;dataset seriesName='2005' <strong>renderAs='Area'</strong> &gt; </span><br />
+              <br />
+          </li>
+      </ul></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name='combidy' id='combidy'></a>Creating a combination chart showing multiple units using Dual Y&nbsp;Axis chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>So far, we have been working with data having a single unit - revenue. However, it is also possible to combine a chart of another unit like Quantity using a Dual Y Axis chart.</p>
+        <p>Let's create a chart which shows total quantity sales in two years along with revenue of two years. The chart will look as follows:</p>
+      <p><img src="../Images/MultiSeriesCombiDualY.jpg" class="imageBorder" /></p>
+      <p>To achieve this, we would need to use a <a href="../../Introduction/ChartList.html#combi">Dual Y Axis chart SWF </a>file. Additionally, we would also add another set of data containing the total quantity in XML or JSON. The data with revenue and total quantity data is as follows:</p></td>
+  </tr>
+  <tr>
+    <td align="left" class="text"><div class="container">
+        <ul class="tabs">
+          <li><a href="#tab3">XML</a></li>
+          <li><a href="#tab4">JSON</a></li>
+        </ul>
+      <div class="tab_container">
+          <div id="tab3" class="tab_content">
+            <pre class="prettyprint code_container">
+&lt;chart caption='Business Results 2005 v 2006' xAxisName='Month' yAxisName='Revenue' showValues= '0'numberPrefix='$'&gt;<br />
+   &lt;categories&gt;
+      &lt;category label='Jan' /&gt;
+      &lt;category label='Feb' /&gt;
+      &lt;category label='Mar' /&gt;
+      &lt;category label='Apr' /&gt;
+      &lt;category label='May' /&gt;
+      &lt;category label='Jun' /&gt;
+      &lt;category label='Jul' /&gt;
+      &lt;category label='Aug' /&gt;
+      &lt;category label='Sep' /&gt;
+      &lt;category label='Oct' /&gt;
+      &lt;category label='Nov' /&gt;
+      &lt;category label='Dec' /&gt;
+   &lt;/categories&gt;<br />
+   &lt;dataset seriesName='2006'&gt;
+      &lt;set value='27400' /&gt;
+      &lt;set value='29800'/&gt;
+      &lt;set value='25800' /&gt;
+      &lt;set value='26800' /&gt;
+      &lt;set value='29600' /&gt;
+      &lt;set value='32600' /&gt;
+      &lt;set value='31800' /&gt;
+      &lt;set value='36700' /&gt;
+      &lt;set value='29700' /&gt;
+      &lt;set value='31900' /&gt;
+      &lt;set value='34800' /&gt;
+      &lt;set value='24800' /&gt;
+   &lt;/dataset&gt;<br />
+   &lt;dataset seriesName='2005'&gt;
+      &lt;set value='10000'/&gt;
+      &lt;set value='11500'/&gt;
+      &lt;set value='12500'/&gt;
+      &lt;set value='15000'/&gt;
+      &lt;set value='11000' /&gt;
+      &lt;set value='9800' /&gt;
+      &lt;set value='11800' /&gt;
+      &lt;set value='19700' /&gt;
+      &lt;set value='21700' /&gt;
+      &lt;set value='21900' /&gt;
+      &lt;set value='22900' /&gt;
+      &lt;set value='20800' /&gt;
+   &lt;/dataset&gt;
+      &lt;dataset<strong> seriesName='Quantity' parentYAxis='S'</strong>&gt;
+      &lt;set value='340' /&gt;
+      &lt;set value='120' /&gt;
+      &lt;set value='280' /&gt;
+      &lt;set value='270' /&gt;
+      &lt;set value='430' /&gt;
+      &lt;set value='240' /&gt;
+      &lt;set value='230' /&gt;
+      &lt;set value='310' /&gt;
+      &lt;set value='430' /&gt;
+      &lt;set value='180' /&gt;
+      &lt;set value='260' /&gt;
+      &lt;set value='200' /&gt;
+   &lt;/dataset&gt;
+&lt;/chart&gt;</pre>
+          </div>
+        <div id="tab4" class="tab_content">
+            <pre class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Business Results 2005 v 2006&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Month&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;,<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;<br />&nbsp; },<br />&nbsp; &quot;categories&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;category&quot;:[
+        {&nbsp; &quot;label&quot;:&quot;Jan&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Feb&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Mar&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Apr&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;May&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Jun&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Jul&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Aug&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Sep&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Oct&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {  &quot;label&quot;:&quot;Nov&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp; &quot;label&quot;:&quot;Dec&quot; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ],<br />&nbsp; &quot;dataset&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[
+        { &quot;value&quot;:&quot;27400&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;25800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;26800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29600&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;32600&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;31800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;36700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;29700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;31900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;34800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;24800&quot;  }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2005&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[
+        { &quot;value&quot;:&quot;10000&quot;  },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11500&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;12500&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;15000&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11000&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;9800&quot; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;11800&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;19700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;21700&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;21900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;22900&quot;&nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;20800&quot;&nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; <strong>&quot;seriesname&quot;:&quot;Quantity&quot;,&quot;parentyaxis&quot;:&quot;S&quot;,</strong><br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[
+        { &quot;value&quot;:&quot;340&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;120&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;280&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;270&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;430&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;240&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;230&quot;  &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;310&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;430&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;180&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;260&quot;&nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; { &quot;value&quot;:&quot;200&quot;  &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+          </div>
+      </div>
+    </div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The above data is derived from the Multi-series example. We have done the following changes in this data (saved as <span class="com">CDYData.xml</span>) :</p>
+        <ul>
+          <li>We added a <span class="codeInline">dataset</span> with &quot;Quantity&quot; as <span class="codeInline">seriesName</span> </li>
+          <li>We set this dataset to render on the Secondary Y Axis using <span class="codeInline">parentYAxis</span> attribute</li>
+        </ul>
+      <p class="highlightBlock">The <span class="codeInline">parentYAxis</span> attribute allows you to set the parent axis of the dataset.  The required value can be either <span class="codeInline">P</span> (primary axis) or <span class="codeInline">S</span> (secondary axis). Primary data-sets are drawn against the left y-axis and the secondary against the right-axis. For more details please go through FusionCharts Data Format &gt; XML &gt; <a href="../../DataFormats/XML/Combination.html#dual">Combination Chart</a> page. </p></td>
+  </tr>
+  <tr>
+    <td class="text"><p>The SWF file used to render this chart is <span class="codeInline">MSCombiDY2D.swf</span> and the HTML code used is as follows:</p></td>
+  </tr>
+  <tr>
+    <td><pre class="code_container prettyprint">Literal1.Text = FusionCharts.RenderChart( &quot;../../FusionCharts/<strong>MSCombiDY2D.swf</strong>&quot;, &quot;Data/<strong>CDYData.xml</strong>&quot;, &quot;&quot;, &quot;myFirst&quot;, 600, 300, false, true );</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name='others' id='others'></a>Creating other advanced charts</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts pack offers advanced chart types like Scatter, Bubble, Multi-series Stacked, Pareto, Marimekko etc. which can be also created using the same method described above. All you would need to do is to follow the XML format of the required chart type and use the proper SWF name of that chart type while rendering the chart. The following list provides links to the XML API pages of all the advanced chart types:</p>
+        <ul>
+          <li><a href="../../ChartSS/Scatter.html">Scatter chart</a></li>
+          <li><a href="../../ChartSS/Bubble.html">Bubble chart </a></li>
+          <li><a href="../../ChartSS/Pareto2D.html">Pareto 2D chart </a></li>
+          <li><a href="../../ChartSS/Pareto3D.html">Pareto 3D chart</a></li>
+          <li><a href="../../ChartSS/Marimekko.html">Marimekko chart</a></li>
+          <li><a href="../../ChartSS/MSStCol.html">Multi-series Stacked Column 2D chart</a></li>
+          <li><a href="../../ChartSS/MSStColLineDY.html">Multi-series Stacked Column 2D - Line Dual Y Axis chart</a></li>
+        </ul></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+   
+   
+  
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("VB (ASP.NET) - Using Multilingual text|../vbnet/VBNET_UTF8Example.html","Charting data from Array|CS_Array.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

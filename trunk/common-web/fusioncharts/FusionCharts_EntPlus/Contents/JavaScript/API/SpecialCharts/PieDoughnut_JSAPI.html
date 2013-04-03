@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Pie/Doughnut Chart - JavaScript API </title>
+<link rel="stylesheet" href="../../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../../JS_Overview.html", "API Reference|../Overview.html", "Chart Specific API", "Pie/Doughnut chart JavaScript API" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Pie/Doughnut Chart - JavaScript API </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text"><p>Pie 3D, Pie 2D, Doughnut 3D and Doughnut 2D charts expose a special function for better interactivity. Shown below is a table which contains detailed description of the functions:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="table">
+      <tr>
+        <td width="20%" class="header">Function Name</td>
+        <td width="15%" class="header">Parameter </td>
+        <td width="65%" class="header">Description</td>
+      </tr>
+      <tr>
+        <td width="20%" valign="top" class="codeInline"><a name="togglepieslice" id="togglepieslice"></a>togglePieSlice()</td>
+        <td width="15%" valign="top" class="text">id : Number </td>
+        <td width="65%" class="text">
+          Toggles the slicing state of a pie/doughnut segment. The function takes an id as integer (taking base as 0 i.e., the first segment's index is 0). As per the id provided to the function, the pie segment status is checked. If the segment is already sliced-out it moves inside. If the pie segment is not yet sliced, it slices out. Hence, this is what is called toggling of pie segment's slice mode.          </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><a name="enableslicingmovement" id="enableslicingmovement"></a>enableSlicingMovement()
+            <div class="version-info">Since v 3.2.2</div></td>
+        <td valign="top" class="text">None</td>
+        <td class="text">Makes the slicing interactivity accessible to the user. This also disable link activities of the slices of the chart. The effect is same as clicking &quot;Enable Slicing Movements&quot; option from the chart's context menu. </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><a name="enablelink" id="enablelink"></a>enableLink()<div class="version-info">Since v 3.2.2</div></td>
+        <td valign="top" class="text">None</td>
+        <td class="text">Makes links attached to the chart slices accessible to the user. This will disable the slicing or rotation interactivity of the chart. The effect is same as that of clicking &quot;Enable Links&quot; option from the chart's context menu. Please note that if the chart does not contain any link, this function will not produce the desired effect. </td>
+      </tr>
+      
+      
+    </table>    </td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">
+      Usage Example:</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Given below are examples of how to use the function using JavaScript.</p>
+   <p class="header" style="padding:3px;">togglePieSlice()</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+       <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Pie/Doughnut slicing API&lt;/title&gt; 
+    &lt;script type=&quot;text/javascript&quot; SRC=&quot;../../../Charts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      function slicePie()
+      {
+        // get the index of the slice to toggle
+        slice = document.getElementById('index').value ;
+        // toggle the slice
+        FusionCharts(&quot;myChartId&quot;).togglePieSlice(slice);
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts&lt;/div&gt;
+    &lt;script language=&quot;JavaScript&quot;&gt;
+
+      var myChart = new FusionCharts(&quot;../../../Charts/Pie3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+    &lt;/script&gt;
+
+    &lt;input type=&quot;text&quot; id=&quot;index&quot; size=&quot;5&quot; value=&quot;0&quot;/&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Toggle&quot; onClick=&quot;<strong>slicePie</strong>()&quot;/&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+       <p>In the above code, we have created a Pie 3D chart with four slices. We have created a text input button to take pie slice index value as input. When a number is provided in the input box and Toggle button is clicked, <span class="codeInline">togglePieSlice</span> function is called. The slice id is passed to the function. In effect, the desired slice slices-out or slices-in. </p>
+       <p>See it <a href="../../../../Code/JavaScript/PieDoughnut/togglePieSlice.html" target="_blank">live</a>!</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="header" style="padding:3px;">enableSlicingMovement()</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Pie/Doughnut Enable Slicing Interactivity - API&lt;/title&gt; 
+    &lt;script type=&quot;text/javascript&quot; SRC=&quot;../../../Charts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      function enableSlicing()
+      {
+        // Enable the slicing interactivity of the chart 
+        FusionCharts(&quot;myChartId&quot;).enableSlicingMovement();
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts&lt;/div&gt;
+    &lt;script language=&quot;JavaScript&quot;&gt;
+
+      var myChart = new FusionCharts(&quot;../../../Charts/Pie3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+      myChart.setXMLData(&quot;&lt;chart&gt;&lt;set value='25' label='Minor' link='j-sliceClicked-25,Minor' /&gt;&lt;set value='50' label='Major' link='j-sliceClicked-50,Major' /&gt;&lt;/chart&gt;&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+    &lt;/script&gt;<br />
+    &lt;input type=&quot;button&quot; value=&quot;Enable Slicing interactivity&quot; onclick=&quot;enableSlicing()&quot; /&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+        <p>In the above code, we have created a Pie 3D chart with slices having links. When the chart is rendered, it enables links of the slices and disables the slicing interactivity. We have created a button which when clicked, will call <span class="codeInline">enableSlicing</span> function. The function, in turn, will call the <span class="codeInline">enableSlicingMovement</span> API function of the chart. The links of the slices will get disabled and a user can click on a slice to achieve desired slicing movements. </p>
+        <p>See it <a href="../../../../Code/JavaScript/PieDoughnut/enableSlicingMovementAndLink.html" target="_blank">live</a>!</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+        <p class="header" style="padding:3px;">enableLink()</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Pie/Doughnut slicing API&lt;/title&gt; 
+    &lt;script type=&quot;text/javascript&quot; SRC=&quot;../../../Charts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      function enableChartLinks()
+      {
+        // enable links of the charts
+        FusionCharts(&quot;myChartId&quot;).enableLink();
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts&lt;/div&gt;
+    &lt;script language=&quot;JavaScript&quot;&gt;
+
+      var myChart = new FusionCharts(&quot;../../../Charts/Pie3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+      myChart.setXMLData(&quot;&lt;chart&gt;&lt;set value='25' label='Minor' link='j-sliceClicked-25,Minor' /&gt;&lt;set value='50' label='Major' link='j-sliceClicked-50,Major' /&gt;&lt;/chart&gt;&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+    &lt;/script&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Enable Slicing interactivity&quot; onclick=&quot;FusionCharts('myChartId').enableSlicingMovement();&quot; /&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Enable Link interactivity&quot; onclick=&quot;<strong>enableChartLinks</strong>()&quot;/&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><br />
+        In the above code, we have created a Pie 3D chart with slices having links. When the chart is rendered, it enables links of the slices and disables the slicing interactivity. We have created two button. The first button, when clicked will enable slicing interactivity of the chart and subsequently disable link interactivity of the slices. The other button will call <span class="codeInline">enableChartLinks </span>function. This function calls the <span class="codeInline">enableLink</span> API function of the chart. The links of the slices will get enabled and user can now click on the slices to invoke links.</p>
+        <p>See it <a href="../../../../Code/JavaScript/PieDoughnut/enableSlicingMovementAndLink.html" target="_blank">live</a>!</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Zoom chart JavaScript API|ZoomLine_JSAPI.html","Example application|../../JS_Example.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

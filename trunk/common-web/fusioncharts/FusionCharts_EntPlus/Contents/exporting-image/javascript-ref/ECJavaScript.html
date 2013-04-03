@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Exporting Charts as PDF or Images - JavaScript Reference - Initiating from JavaScript </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+
+<style type="text/css">
+table2 caption { text-align:left; font-weight: bold; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 11px;
+	padding-bottom: 6px; }
+table2 td { padding-bottom: 10px;}
+table2 td p { margin: 0; }
+</style>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "JavaScript Reference|ECReferenceJS.html", "Initiating from JavaScript" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; JavaScript Reference &gt; Initiating from JavaScript </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In this section, we will discuss how we can export charts using JavaScript. First we will start with the simplest of examples and then move on to the harder ones.</p>
+      <p class="highlightBlock"><strong>Important:</strong><br />
+        The JavaScript method will only work when the chart has been fully rendered in the client browser. You can use the FC_Rendered method to track the same.<br /><br />
+      Due to Adobe Flash Player's default security system, the JavaScript method does not work from local file system. It only works when hosted on a server (localhost or remote) unless configured otherwise.</p>
+      <P class="header">Simple JavaScript-Triggered Export</h3>
+      <p>In this example, we would first require you to create a chart on your page. Then use  an HTML button to initiate the export process on that chart.</p>
+      <p>To achieve this, we will have to do the following:</p>
+      <ol>
+        <li>Create  an HTML page with a chart in it.</li>
+        <li>Setup the XML of the chart to enable exporting.</li>
+        <li>Create a JavaScript function to initiate exporting of the chart.</li>
+        <li>Insert  an HTML button to call the above JavaScript.</li>
+      </ol>
+      <p class="textBold">Create your page with a chart in it:</p>
+      <p>The process involves including the <span class="code-inline">FusionCharts.js</span> file within the <span class="code-inline">&lt;head&gt;</span> section of your newly created HTML page. Then follow the standard process to load a chart using the <span class="code-inline">FusionCharts</span> JavaScript object. (You may refer to <a href="../../FirstChart/FirstChart.html">Creating your first chart</a> article under &quot;Creating your First Chart&quot; section.)</p>
+      <p>The JavaScript code to create a chart will appear like below:</p>
+     
+      <pre class="prettyprint code_container">var myChart = new FusionCharts('FusionCharts/Column3D.swf', 'myChart', '900', '300', '0', '1');
+myChart.setXMLUrl('Data.xml');
+myChart.render('chartContainerDiv');</pre>
+      <p>
+      Note that the <span class="codeInline">RegisterWithJS</span> parameter while initializing your chart must be set to '1' for the charts to respond to your JavaScripts.</p>
+      <p class="textBold">Adjust your Data XML to enable exporting:</p>
+      <p>For this example, we will be export at a PHP server, with a default action of &quot;Download&quot;. For more information on server-side exporting, refer to our <a href="../server-side/ECServerOverview.html">Server-side exporting</a> section. The XML to do so will be like below (the attributes pertinent to exporting is marked in bold) and the file will be saved as &quot;Data.xml&quot; beside your HTML file:</p>
+      <pre class="prettyprint code_container">&lt;chart yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$' useRoundEdges='1' bgColor='FFFFFF,FFFFFF' showBorder='0'<strong>&nbsp;exportEnabled='1' exportHandler='http://www.domain.com/FusionCharts/ExportHandlers/PHP/FCExporter.php' exportAtClient='0' exportAction='download' </strong>&gt;
+    &lt;set label='Alex' value='25000' /&gt;
+    &lt;set label='Mark' value='35000' /&gt;
+    &lt;set label='David' value='42300' /&gt;
+    &lt;set label='Graham' value='35300' /&gt; 
+    &lt;set label='John' value='31300' /&gt;
+&lt;/chart&gt;</pre>
+     <p class="highlightBlock"> The exporting procedure to export at client-side is almost similar, except that additional steps are required to setup the client-side Export Component. For more information, refer to the <strong>Client-side exporting</strong> section.</p>
+      <p class="textBold">Now, we write our JavaScript function to initiate exporting on that chart:</p>
+      <p>The JavaScript function uses the simple unction provided within <span class="codeInline">FusionCharts.js</span> to locate the chart SWF from its id. Then it calls the new &quot;<span class="codeInline">exportChart()</span>&quot; function on the chart. Note that we have first verified whether the chart has fully rendered by calling the new <span class="codeInline">hasRendered()</span> function of the chart.</p>
+      <pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;
+    function ExportMyChart() {
+         var chartObject = getChartFromId('myChart');
+         if( chartObject.hasRendered() ) chartObject.exportChart(); 
+   }
+&lt;/script&gt;      </pre>
+      <p>Now that we have all our codes ready, we assemble them within one HTML file and see the results.</p>
+      <p>The Final code will look like this:</p>
+      <pre class="prettyprint code_container">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Chart&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function ExportMyChart() {
+            var chartObject = getChartFromId('myChart');
+            if( chartObject.hasRendered() ) chartObject.exportChart();
+&nbsp;    }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;chartContainerDiv&quot;&gt;FusionCharts loaded here...&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var myChart = new FusionCharts('FusionCharts/Column3D.swf', 'myChart', '900', '300', '0', '1');
+        myChart.setXMLUrl('Data.xml');
+        myChart.render('chartContainerDiv');
+    &lt;/script&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Export My Chart&quot; onclick=&quot;ExportMyChart()&quot; /&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>After this, we open this file in a browser and click on the &quot;Export My Chart&quot; button and the chart will start exporting all by itself! In case you face any error, refer to &quot;<a href="../ECReferenceDebugJS.html">Debug Mode</a>&quot; section under &quot;<strong>JavaScript Reference</strong>&quot;</p>
+      <p class="header">Providing Export Parameters (Overriding XML Export Attributes) using JavaScript:</p>
+      <p>The new FusionCharts (v3.1 and above) allows you to provide values for XML attributes via JavaScript as well. The <span class="codeInline">exportChart()</span> function also takes in a parameter that accepts these XML attributes in a JSON object notation.</p>
+      <p>Not all XML attributes are overridable. The list of export-related XML attributes that can be overridden, can be found under the <a href="ECReferenceExport.html">Export Attributes</a> section under <strong>JavaScript Reference</strong>. You can provide export attributes in {key1: 'value1', key2: 'value2', ...} format as shown below:</p>
+      <pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;
+  function ExportMyChart() {         
+    var chartObject = getChartFromId('myChart');         
+    chartObject.exportChart( <strong>{ exportAtClient: '1',  exportFormat: 'PDF' }</strong> );    
+  } 
+&lt;/script&gt;</pre> <br /> 
+    </td></tr></table>
+	<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Export attributes|ECReferenceExport.html","Exporting pure JavaScript charts|../ECPureJS.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+
+</html>

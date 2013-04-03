@@ -1,0 +1,189 @@
+ <?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Stacked Charts </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Stacked chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Stacked Charts </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Stacked charts help in displaying the cumulative magnitude of two or more data series. They help in representing a data value as a sum of two or more values. Each data series can be distinguished by the color of its section in the stack.</p>
+      <p>The following example shows the total quarterly cost as sum of fixed cost and variable cost:</p>    
+      <img src="Images/StackedChart.jpg" width="354" height="273"/>
+      <p>XML/JSON for the above chart is shown below:</p>
+
+<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">
+&lt;chart showvalues=&quot;0&quot; caption=&quot;Quarterly Cost - 2009&quot; numberprefix=&quot;$&quot; xaxisname=&quot;Total Cost&quot; yaxisname=&quot;Quarter&quot; plotgradientcolor=&quot;&quot; &gt; 
+
+  &lt;categories&gt;
+    &lt;category label=&quot;Q1&quot;/&gt;
+    &lt;category label=&quot;Q2&quot;/&gt;
+    &lt;category label=&quot;Q3&quot;/&gt;
+    &lt;category label=&quot;Q4&quot;/&gt;
+  &lt;/categories&gt;
+
+  &lt;dataset seriesName=&quot;Fixed Cost&quot;&gt;
+    &lt;set value=&quot;215000&quot;/&gt;
+    &lt;set value=&quot;214100&quot;/&gt;
+    &lt;set value=&quot;234200&quot;/&gt;
+    &lt;set value=&quot;274500&quot;/&gt;
+  &lt;/dataset&gt;
+
+  &lt;dataset seriesName=&quot;Variable Cost&quot;&gt;
+    &lt;set value=&quot;198000&quot;/&gt;
+    &lt;set value=&quot;109300&quot;/&gt;
+    &lt;set value=&quot;233600&quot;/&gt;
+    &lt;set value=&quot;265100&quot;/&gt;
+ &lt;/dataset&gt;
+
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Quarterly Cost - 2009",
+    "numberprefix":"$",
+    "xaxisname":"Total Cost",
+    "yaxisname":"Quarter",
+    "plotgradientcolor":""
+  },
+  "categories":[{
+      "category":[{
+          "label":"Q1"
+        },
+        {
+          "label":"Q2"
+        },
+        {
+          "label":"Q3"
+        },
+        {
+          "label":"Q4"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"Fixed Cost",
+      "data":[{
+          "value":"215000"
+        },
+        {
+          "value":"214100"
+        },
+        {
+          "value":"234200"
+        },
+        {
+          "value":"274500"
+        }
+      ]
+    },
+    {
+      "seriesname":"Variable Cost",
+      "data":[{
+          "value":"198000"
+        },
+        {
+          "value":"109300"
+        },
+        {
+          "value":"233600"
+        },
+        {
+          "value":"265100"
+        }
+      ]
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+
+   </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p class="header" style="padding: 3px;">Displaying the cumulative sum of stacked data</p>
+    <p>In order to display the cumulative sum of each stacked dataplot in your chart, you  must  declare the  <span class="codeInline">showSum</span> attribute of the <span class="codeInline">&lt;chart&gt;</span> element.</p>
+    <pre class="prettyprint code_container">&lt;chart showSum= '1' ...&gt;</pre>
+    <p>This will yield the following output:</p>
+    <p><img src="Images/StackedChart1.jpg"/></p>
+        </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr> 
+    <td valign="top" class="header">Showing percentage distribution in stacked charts </td></tr>
+    <tr> 
+    <td valign="top" class="text"><p> Percentage distribution can be shown instead of actual values in a stacked chart. The chart can automatically calculate the relative percentage of a value with respect to the cumulative sum of all values belonging to the corresponding category. This feature can be enabled by declaring the <span class="codeInline">stack100Percent</span> attribute of the chart element.</p>
+    <pre class="prettyprint code_container">&lt;chart stack100Percent = '1' &gt;</pre>
+    <p>The following image shows the proportional contribution of fixed and variable cost to the quarterly costs for the year 2009.</p>
+    <p><img src="Images/StackedChart2.jpg"/></p>
+    <p>If the chart is set to plot percentage distribution, then data values will also be displayed as percentage.</p>
+    <p class="highlightBlock">Data values are shown only when <span class="codeInline">showValues</span> attribute has been declared <span class="codeInline">&lt;chart showValues='1' ...&gt;</span></p>
+    <p><img src="Images/StackedChart3.jpg" /></p>
+    <p>It is however possible to display absolute values even if the chart is configured to plot percentage distribution. This is done by declaring the <span class="codeInline">showPercentValues</span> attribute in the following way.</p>
+    <pre class="prettyprint code_container">&lt;chart showValues =&quot;1&quot; stack100Percent = &quot;1&quot; showPercentValues = &quot;0&quot; &gt;</pre>
+    <p><img src="Images/StackedChart5.jpg"/></p>
+    <p>Absolute data values are displayed in the tooltip at all times even when the chart is configured to show percentage distribution.</p>
+    <img src="Images/StackedChart6.jpg" />
+    <p>To show percentage values in tooltips declare  <span class="codeInline">showPercentInToolTip</span> attribute in the following way.</p>
+    <pre class="prettyprint code_container">&lt;chart stack100Percent = &quot;1&quot; showPercentInToolTip = &quot;1&quot; &gt;</pre>
+    <p><img src="Images/StackedChart4.jpg" /></p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Bubble &amp; Scatter chart|BubbleScatter.html", "3D chart attributes|3D_Attributes.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>
+

@@ -1,0 +1,280 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Glow Style Type</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts Styles|Styles.html", "Glow Style type" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Glow Style Type</td>
+  </tr>
+  <tr> 
+    <td class="text"><p>The <span class="codeInline">Glow Style Type </span>lets 
+        you apply a glowing outline around any chart object. </p>
+        <img src="Images/Styles/style_20.jpg"/>
+		<p class="highlightBlock">Note: In JavaScript charts, customized <span class="codeInline">glow</span> style type is not available.  </p>
+        <p>It has the following 
+        configurable properties:</p></td>
+  </tr>
+  <tr> 
+    <td><table class="table" border="0" cellpadding="3" cellspacing="0" width="85%" >
+        <tr> 
+          <td width="15%" valign="top" class="header">Properties</td>
+          <td width="70%" valign="top" class="header">Description</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">color</td>
+          <td valign="top" class="text">The 
+              color of the glow in hex code (without #). The default value is 
+              <span class="codeInline">FF0000</span>.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">alpha</td>
+          <td valign="top" class="text">The 
+              alpha transparency value for the shadow color. Valid values are 
+              0 to 100. For example, 25 sets a transparency value of 25%.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurX</td>
+          <td valign="top" class="text">The 
+              amount of horizontal blur. Valid values are 0 to 255. The default 
+              value is 8. Values that are a power of 2 (such as 2, 4, 8, 16 and 
+              32) are optimized to render more quickly than other values.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurY</td>
+          <td valign="top" class="text">The 
+              amount of vertical blur. Valid values are 0 to 255. The default 
+              value is 8. Values that are a power of 2 (such as 2, 4, 8, 16 and 
+              32) are optimized to render more quickly than other values.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">strength</td>
+          <td valign="top" class="text">The 
+              strength of the imprint or spread. The higher the value, the more 
+              color is imprinted and the stronger the contrast between the glow 
+              and the background. Valid values are 0 to 255. The default is 2.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">quality</td>
+          <td valign="top" class="text">The 
+              number of times to apply the effect. Valid values are 0 to 15. The 
+              default value is 1, which is equivalent to low quality. A value 
+              of 2 is medium quality, and a value of 3 is high quality. Glows 
+              with lower values are rendered quicker.</td>
+        </tr>
+      </table><br></td>
+  </tr>
+  <tr> 
+    <td class="header"><a name="color"></a><a name="alpha"></a>Setting glow color and alpha</td>
+  </tr>
+  <tr> 
+    <td class="text"><p>To define a glow's color and alpha, you use the following code:</p>
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+     <pre class="prettyprint code_container">&lt;style name='MyFirstGlow' type='Glow' <strong>color='FF5904' alpha='55'</strong>/&gt;</pre></div>
+     <div id="tab2" class="tab_content">
+       <pre id="pre-datajson" class="prettyprint code_container">"definition":[{"name":"MyFirstGlow", "type":"Glow",<strong> "color":"FF5904"</strong>,<strong> "alpha":"55"</strong> }]</pre>
+     </div></div></div></td>
+  </tr>
+<tr><td height="25"></td></tr>
+  <tr> 
+    <td><table border="0" cellpadding="3" cellspacing="0" class="table" width="65%">
+        <tr> 
+          <td width="15%" valign="top" class="header">Property</td>
+          <td width="35%" valign="top" class="header">Format</td>
+          <td width="15%" valign="top" class="header">Example</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">color            </td>
+          <td valign="top" class="codeInline">color=<span class="codeInline">'Hex 
+              Value (without #)' </span></td>
+          <td valign="top" class="codeInline">color=<span class="codeInline">'FF5904' 
+              </span></td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">alpha</td>
+          <td valign="top" class="codeInline">alpha=<span class="codeInline">'value 
+              (between 0 to 100)'</span></td>
+          <td valign="top" class="codeInline">alpha=<span class="codeInline">'55'</span></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td class="text"><p>It gives the following result:</p></td>
+  </tr>
+  
+  <tr> 
+    <td><img src="Images/Styles/style_8.jpg" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td class="header"><a name="blur"></a>Configuring glow blur</td>
+  </tr>
+  <tr> 
+    <td class="text"><p>You can configure the blur amount of glow as under:</p>
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+      <pre class="prettyprint code_container">&lt;style name='MyFirstGlow' type='Glow' color='FF5904' alpha='55' <strong>blurX='13' blurY='13'</strong>/&gt;</pre></div>
+      <div id="tab4" class="tab_content">
+        <pre id="pre-datajson2" class="prettyprint code_container">"definition":[{ "name":"MyFirstGlow", "type":"Glow", "color":"FF5904", "alpha":"55", <strong>"blurx":"13"</strong>, <strong>"blury":"13" </strong>}]</pre>
+      </div></div></div></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td><table border="0" cellpadding="3" cellspacing="0" class="table" width="65%">
+        <tr> 
+          <td width="15%" valign="top" class="header">Property</td>
+          <td width="35%" valign="top" class="header">Format</td>
+          <td width="15%" valign="top" class="header">Example</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurX </td>
+          <td valign="top" class="codeInline">blurX=<span class="codeInline">'value' 
+              </span></td>
+          <td valign="top" class="codeInline">blurX=<span class="codeInline">'13' 
+              </span></td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurY</td>
+          <td valign="top" class="codeInline">blurY=<span class="codeInline">'value'</span></td>
+          <td valign="top" class="codeInline">blurY=<span class="codeInline">'13'</span></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td><table width="55%" border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td><div align="center"><img src="Images/Styles/style_8.jpg" /></div></td>
+          <td><div align="center"><img src="Images/Styles/style_9.jpg" /></div></td>
+        </tr>
+        <tr> 
+          <td><div align="center"><span class="imageCaption">Original chart with 
+              default blur&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;</div></td>
+          <td><div align="center"><span class="imageCaption">With blurX and blurY 
+              set to 13</span></div></td>
+        </tr>
+      </table><br></td>
+  </tr>
+  <tr> 
+    <td class="header"><a name="strength"></a><a name="quality"></a>Controlling glow strength and quality</td>
+  </tr>
+  <tr> 
+    <td><p class="text">You can also control the glow strength and quality to 
+        get better results.</p>      <p class="text">Following example shows a glow with higher strength:</p></td>
+  </tr>
+  
+  <tr> 
+    <td>
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+         <pre class="prettyprint code_container">&lt;style name='MyFirstGlow' type='Glow' color='FF5904' alpha='55' <strong>strength='3'</strong>/&gt;
+&lt;style name='MyFirstGlow' type='Glow' color='FF5904' alpha='55' <strong>quality='10'</strong>/&gt;</pre></div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container"> "definition":[{ "name":"MyFirstGlow", "type":"Glow", "color":"FF5904", "alpha":"55", <strong>"strength":"3"</strong> },<br>&nbsp; &nbsp;            { "name":"MyFirstGlow", "type":"Glow", "color":"FF5904", "alpha":"55", <strong>"quality":"10" </strong>}] </pre>
+</div></div></div></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td><table border="0" cellpadding="3" cellspacing="0" class="table" width="65%">
+        <tr> 
+          <td width="15%" valign="top" class="header">Property</td>
+          <td width="35%" valign="top" class="header">Format</td>
+          <td width="15%" valign="top" class="header">Example</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">quality            </td>
+          <td valign="top" class="codeInline">quality='value'            </td>
+          <td valign="top" class="codeInline">quality='10'            </td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">strength</td>
+          <td valign="top" class="codeInline">strength='value'</td>
+          <td valign="top" class="codeInline">strength='3'</td>
+        </tr>
+      </table><br></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td><table width="55%" border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td><div align="center"><img src="Images/Styles/style_8.jpg" /></div></td>
+          <td><div align="center"><img src="Images/Styles/style_10.jpg" /></div></td>
+        </tr>
+        <tr> 
+          <td><div align="center"><span class="imageCaption">Original chart with 
+          default </span><span class="imageCaption">strength</span> &amp; quality</div></td>
+          <td><div align="center"><span class="imageCaption">With enhanced strength</span> &amp; quality</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td class="text"><p>You can apply glow to any object of the chart. It's not 
+        just restricted to data plot. However, too much application might result 
+        in slower rendering of the chart. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Shadow Style type|Shadow.html","Bevel Style type|Bevel.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

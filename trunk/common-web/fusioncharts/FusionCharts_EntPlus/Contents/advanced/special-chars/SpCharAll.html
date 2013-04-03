@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using Currency Symbols on Chart</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Advanced charting", "Using Special characters", "Using currency symbols" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+<td balign="top" class="pageHeader">Using Currency Symbols on Chart</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p> Currency symbols, e.g., &pound;(Pound), &euro;(Euro), &yen;(Yen) etc., may also be a part of the data which is displayed on charts. This section guides you on how to include the most used currency symbols as a part of your charts.</p>
+</td>
+</tr>
+<tr>
+<td class="header"><a name="pound" id="pound"></a>Using Pound(<strong>&pound;</strong>) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display Pound character on a chart, you can simply include it in the XML/JSON data source of the chart. This is applicable in both Data URL and Data String methods. </p>
+  <p> Following data includes the &pound;  character:</p> </td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberPrefix=&quot;&pound;&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numberprefix&quot;:&quot;&pound;&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with the &pound; symbol prefixed to all numeric values:</p>
+<p><img src="Images/SpCharAll.jpg" alt="Using pound character in chart" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string, it is essential to encode pound character as <span class="codeInline">%A3</span>. </strong></p></td>
+</tr>
+<tr>
+<td class="header"><a name="yen" id="yen"></a>Using Yen(&yen;) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display Yen character on a chart, you can simply include it in the XML/JSON data source of the chart. This is applicable in both Data URL and Data String methods.</p>
+  <p> Following data includes &yen; character:</p> </td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberPrefix=&quot;&yen;&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numberprefix&quot;:&quot;&yen;&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with &yen; prefixed to all numeric values:</p>
+<p><img src="Images/SpCharAllyen.jpg" alt="Using yen character in chart" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string,  it is essential to encode yen character as <span class="codeInline">%A5</span>. </strong></p></td>
+</tr>
+<tr>
+<td class="header"><a name="cent" id="cent"></a>Using Cent(&cent;) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display Cent character on a chart, you can simply include it in the XML/JSON data source of the chart. This is applicable in both Data URL and Data String methods.</p>
+  <p> Following data includes &cent; character:</p> </td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberPrefix=&quot;&cent;&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numberprefix&quot;:&quot;&cent;&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with &cent; prefixed to all numeric values:</p>
+<p><img src="Images/SpCharAllcent.jpg" alt="Using cent character in chart" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string,  it is essential to encode cent character as <span class="codeInline">%A2</span>. </strong></p></td>
+</tr>
+<tr>
+<td class="header"><a name="euro" id="euro"></a>Using Euro(&euro;) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display Euro character on a chart, you can simply include it in the XML/JSON data source of the chart. This is applicable in both Data URL and Data String methods.</p>
+  <p> Following data includes &euro; character:</p> </td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab7" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberPrefix=&quot;&euro;&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numberprefix&quot;:&quot;&euro;&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with the &euro; symbol prefixed to all numeric values:</p>
+<p><img src="Images/SpCharAlleuro.jpg" alt="Using euro character in chart" /></p>
+<p class="highlightBlock"> Euro character falls into the category of extended unicode character-set. To display a euro character in your chart, the XML file should be encoded with UTF-8  BOM signature, otherwise the character will not be displayed properly. To know more about BOM and how to add it in your XML, please read <a href="SpChar.html#bomdetail">What is BOM</a>.<br />
+  <br />
+<strong>When using the HTML embedding method with data provided as embedded string, you need to use %E2%82%AC (the encoded form) instead of &euro; character. </strong></p>
+</td>
+</tr>
+<tr>
+<td class="header"><a name="franc" id="franc"></a>Using Franc(&#8355;) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display Franc character on a chart, you can simply include it in the XML/JSON data source of the chart. This is applicable in both Data URL and Data String methods.</p>
+  <p> Following data includes &#8355; character:</p> </td>
+</tr>
+ <tr>
+ <td class="text"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab9">XML</a></li>
+       <li><a href="#tab10">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab9" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberPrefix=&quot;&#8355;&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+       <div id="tab10" class="tab_content">
+  <pre id="pre-datajson5" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numberprefix&quot;:&quot;&#8355;&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div>
+ </td></tr>      
+<tr>
+<td class="text">
+<p>The above data produces a chart with &#8355; prefixed to all numeric values:</p>
+<p><img src="Images/SpCharAllfranc.jpg" alt="Using franc character in chart" /></p>
+<p class="highlightBlock"> Franc character falls into the category of extended unicode character-set. To display a franc character in your chart, the XML file should be encoded with UTF-8  BOM signature, otherwise the character will not be displayed properly. To know more about BOM and how to add it in your XML, please refer to <a href="SpChar.html#bomdetail">What is BOM</a>. <br />
+  <br />
+  <strong>When using the HTML embedding method with data provided as embedded string,  you need to use %E2%82%A3 (the encoded form) instead of &#8355; character. </strong></p>
+</td>
+</tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Multi-lingual text|SpChar.html","Using Special punctuations|SpPunctuation.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

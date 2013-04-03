@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>process_export (Fusioncharts::Exporter::FcExporterImg)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_exporter_img.rb, line 14</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_export</span>(<span class="ruby-identifier">stream</span>,<span class="ruby-identifier">meta</span>,<span class="ruby-identifier">format</span>)
+    <span class="ruby-identifier">fc_error</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-ivar">@image</span>=<span class="ruby-keyword kw">nil</span>
+    <span class="ruby-comment cmt">#ext = format.downcase</span>
+   <span class="ruby-ivar">@image</span>=<span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">image_generator</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Generator</span><span class="ruby-operator">::</span><span class="ruby-constant">ImageGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;width&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;height&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">meta</span>[<span class="ruby-value str">&quot;bgColor&quot;</span>],<span class="ruby-identifier">format</span>)
+      <span class="ruby-ivar">@image</span>=<span class="ruby-identifier">image_generator</span>.<span class="ruby-identifier">get_image</span>
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;Exception occurred=&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">fc_error</span>= <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;515&quot;</span>)
+    <span class="ruby-keyword kw">end</span>
+   <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@image!</span>=<span class="ruby-keyword kw">nil</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@image</span>.<span class="ruby-identifier">to_blob</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@image</span>,<span class="ruby-identifier">fc_error!</span>=<span class="ruby-keyword kw">nil</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">fc_error</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">true</span>
+      
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

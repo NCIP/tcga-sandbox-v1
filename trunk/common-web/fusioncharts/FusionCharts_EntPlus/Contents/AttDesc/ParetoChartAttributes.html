@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Pareto Chart </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Pareto chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Pareto Chart </td>
+  </tr>
+  <tr>
+    <td class="text"><p>A Pareto chart, named after Vilfredo Pareto, is a type of chart which contains both bars and a line. The values are represented by columns, which are arranged in descending order of magnitude, and the cumulative total of these values is shown by an upward curving line. Ideally, Pareto charts are used for isolating the key causes of a problem. However, they can also be used for determining the key factors of success.</p>
+    <p>The left vertical axis (primary axis) shows  frequency of occurrence, but it can alternatively represent cost or another important unit of measure. The right vertical axis (secondary axis) shows the cumulative percentage of the total number of occurrences, total cost, or total of the particular unit of measure.</p>
+    <p>Show below is a simple Pareto 2D Chart:</p>
+    <img src="Images/Paretochart1.jpg" alt="Pareto Chart Example" width="405" height="305" />
+    <p>FusionCharts also has Pareto 3D charts.</p>
+    <img src="Images/Paretochart3D.jpg" alt="Pareto Chart Example" width="405" height="305" class="imageBorder" />
+    <p>The data for the above chart is shown below: </p></td>
+  </tr>
+  <tr>
+    <td class="text">
+	 
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;0&quot; caption=&quot;Software Testing Report&quot; numberprefix=&quot;$&quot; xaxisname=&quot;Type of Bugs&quot; pyaxisname=&quot;No of Bugs&quot;&gt;
+  &lt;set value=&quot;235000&quot; label=&quot;Cross Platform&quot;/&gt;
+  &lt;set value=&quot;125100&quot; label=&quot;Runtime&quot;/&gt;
+  &lt;set value=&quot;464200&quot; label=&quot;GUI&quot;/&gt;
+  &lt;set value=&quot;434500&quot; label=&quot;Functional&quot;/&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Software Testing Report",
+    "numberprefix":"$",
+    "xaxisname":"Type of Bugs",
+    "pyaxisname":"No of Bugs"
+  },
+  "data":[{
+      "value":"235000",
+      "label":"Cross Platform"
+    },
+    {
+      "value":"125100",
+      "label":"Runtime"
+    },
+    {
+      "value":"464200",
+      "label":"GUI"
+    },
+    {
+      "value":"434500",
+      "label":"Functional"
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>	 
+	 
+
+</td>
+  </tr>
+  <tr>
+    <td class="text"><p>Note that the data for this chart is single series. You only have to provide values for the column. The percent values for line is automatically calculated and added to the chart. If for some reason, you do not wish to add the line dataset, you can set:</p>
+    <pre class="prettyprint code_container">&lt;chart ... showCumulativeLine='0' ..&gt; </pre></td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Displaying values for the line series</td>
+  </tr>
+  <tr>
+    <td class="text"><p>You can opt to show data values of the auto generated line series by using <span class="codeInline">showLineValues</span> attribute. Setting this attribute to 1 helps in displaying the line dataset values in your chart. Shown below is an example:</p> </td>
+  </tr>
+<tr>
+<td valign="top" class="text">
+
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;0&quot; caption=&quot;Software Testing Report&quot; numberprefix=&quot;$&quot; xaxisname=&quot;Type of Bugs&quot; pyaxisname=&quot;No of Bugs&quot; <strong>showLineValues=&quot;1&quot;</strong> &gt;
+  &lt;set value=&quot;235000&quot; label=&quot;Cross Platform&quot;/&gt;
+  &lt;set value=&quot;125100&quot; label=&quot;Runtime&quot;/&gt;
+  &lt;set value=&quot;464200&quot; label=&quot;GUI&quot;/&gt;
+  &lt;set value=&quot;434500&quot; label=&quot;Functional&quot;/&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Software Testing Report",
+    "numberprefix":"$",
+    "xaxisname":"Type of Bugs",
+    "pyaxisname":"No of Bugs",
+    <strong>"showlinevalues":"1"</strong>
+  },
+  "data":[{
+      "value":"235000",
+      "label":"Cross Platform"
+    },
+    {
+      "value":"125100",
+      "label":"Runtime"
+    },
+    {
+      "value":"464200",
+      "label":"GUI"
+    },
+    {
+      "value":"434500",
+      "label":"Functional"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  
+	  
+ </td>
+</tr>
+<tr>
+    <td class="text"><p>The above XML/JSON  yields the following result:</p>
+    <img src="Images/Paretochart.jpg" alt="Pareto chart with line values on" width="405" height="304" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td class="header">Customizing the line dataset </td>
+  </tr>
+  <tr>
+    <td class="text"><p>You can customize the properties of line series using the following <span class="codeInline">&lt;chart&gt;</span> attributes:</p>    </td>
+  </tr>
+  <tr>
+    <td class="text">
+   
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;0&quot; caption=&quot;Software Testing Report&quot; numberprefix=&quot;$&quot; xaxisname=&quot;Type of Bugs&quot; pyaxisname=&quot;No of Bugs&quot; <strong>lineThickness=&quot;3&quot; lineColor=&quot;FF0000&quot; lineAlpha=&quot;80&quot; lineDashed=&quot;1&quot; lineDashLen=&quot;5&quot; lineDashGap=&quot;5&quot;</strong>&gt;
+    &lt;set value=&quot;235000&quot; label=&quot;Cross Platform&quot;/&gt;
+    &lt;set value=&quot;125100&quot; label=&quot;Runtime&quot;/&gt;
+    &lt;set value=&quot;464200&quot; label=&quot;GUI&quot;/&gt;
+    &lt;set value=&quot;434500&quot; label=&quot;Functional&quot;/&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Software Testing Report",
+    "numberprefix":"$",
+    "xaxisname":"Type of Bugs",
+    "pyaxisname":"No of Bugs",
+    <strong>"linethickness":"3",
+    "linecolor":"FF0000",
+    "linealpha":"80",
+    "linedashed":"1",
+    "linedashlen":"5",
+    "linedashgap":"5"</strong>
+  },
+  "data":[{
+      "value":"235000",
+      "label":"Cross Platform"
+    },
+    {
+      "value":"125100",
+      "label":"Runtime"
+    },
+    {
+      "value":"464200",
+      "label":"GUI"
+    },
+    {
+      "value":"434500",
+      "label":"Functional"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>	 
+
+</td>
+  </tr>
+  <tr>
+    <td class="text"><p>This results in:</p> 
+    <img src="Images/ParetoChartLineCustom.jpg" alt="Custom properties for line series" width="404" height="305" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td class="header">Hiding secondary axis values </td>
+  </tr>
+  <tr>
+    <td class="text"><p>If you wish to hide the y-axis values of secondary axis, you can set: </p>
+    <pre class="prettyprint code_container">&lt;chart ... showSecondaryLimits='0' showDivLineSecondaryValue=&quot;0&quot; ...&gt; </pre>
+    <p>This results in: </p>
+    <img src="Images/ParetoSYValuesHide.jpg" alt="Pareto Chart - Secondary y-axis values hidden" width="405" height="304" /></td>
+  </tr>
+  </table>
+  <!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("3D chart attributes|3D_Attributes.html", "Marimekko chart|MarimekkoChartAttributes.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

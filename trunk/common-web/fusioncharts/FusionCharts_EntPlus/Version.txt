@@ -1,0 +1,100 @@
+FusionCharts v3 - http://www.fusioncharts.com/ - Version History
+=========================================================================
+Current Version:FusionCharts XT (v3.2.2) Service Release 1 (Released on 25th November, 2011)
+=========================================================================
+
+Version history
+
+FusionCharts XT(v3.2.2) SR1 (25th November, 2011):
+---------------------------
+* Improved: Text wrapping for labels in JavaScript charts
+* Improved: JavaScript Zoom Line chart
+* Improved: Font style can be applied the sum values in JavaScript stacked charts
+* Fix: Data loading and rendering issues specific to Internet Explorer 6/7/8
+* Fix: iOS gradient issue
+* Fix: Disappearing 'close' button in LinkedCharts (JavaScript chart)
+* Fix: Minor fix related to displaying sum in JavaScript scroll stacked charts
+* Fix: Minor fix related to tool-tip when dataplot alpha is set to 0 in all line and area charts 
+* Fix: Minor fix in Zoom Line chart's dynamic resizing module
+* Fix: Minor fix for yAxisNameWidth, pYAxisNameWidth and sYAxisNameWidth 
+* Fix: Minor fix in .NET wrapper (FusionCharts.dll)
+
+
+FusionCharts XT(v3.2.2) (20th September, 2011):
+---------------------------
+* All the charts now render in pure JavaScript also. New charts in JavaScript include:
+* 2D Charts: MSStackedColumn2D, MSStackedColumn2DLineDY, SSGrid
+* 3D Charts: Column3D, MSColumn3D, MSBar3D, StackedColumn3D, StackedBar3D, StackedColumn3DLine, MSCombi3D (without True 3D feature), MSColumnLine3D, MSColumn3DLineDY, StackedColumn3DLineDY
+* Scrollable charts: ScrollColumn2D, ScrollLine2D, ScollArea2D, ScrollStackedColumn2D, ScrollCombi2D, ScrollCombiDY2D
+* New framework for JavaScript charts that supports 3D and scroll charts, gradients, smart labels with auto-wrapping and ellipses, interactive legend, trend-lines and trend-zones, and axis management. Visually, the JavaScript charts look almost similar to Flash charts of FusionCharts.
+* Enhanced label management in all charts to avoid overlapping of labels when there are large labels or many of them. 
+* Touch support available during rotation and slicing in pie/doughnut charts on tablets
+* Background image can now be used to fill the chart in different modes, and custom alignment is possible. 
+* Ability to center the x-axis and y-axis titles with respect to chart area.
+* Support for auto generation of x-axis in Scatter and Bubble Charts. 
+* Scatter and Bubble charts also support regression lines, configuration for x-axis number formatting, vertical division lines, grids and zero plane. 
+* Multi-series Combination Chart (True 3D chart) now supports customizable x-axis ticks
+* Enhanced JavaScript API to:
+* Control slicing movement of pie and doughnut charts
+* Switch to 100% view in multi-series combination 3D chart
+* Support getCSVData() function
+* Support dynamic resizing when parent container resizes
+* Code for FusionCharts and PowerCharts JavaScript version have now been separated into different files.
+* Closed swfobject library has been removed. Now swfobject is elevated to the window scope. 
+
+
+
+v3.2.1 (6th October, 2010):
+---------------------------
+* Added useEllipsesWhenOverflow attribute to <chart> element that controls whether ellipses are to be used in chart labels
+* Marimekko chart now supports the new legend
+* Bug fix in label rendering mechanism of line and area charts, where last label was getting lesser space in rotated mode
+* Changes in FusionCharts JavaScript class:
+     - Improvements in JSON transcoder
+     - Support for font manipulation and STYLE manipulation when rendering JavaScript charts
+     - Customization of y-axis min and max values in JavaScript rendering 
+     - Compatibility with older PowerCharts and FusionWidgets
+     - Removal of swfUrl as compulsory construction parameter
+     - Additional cosmetic changes when using JavaScript rendering
+
+
+v3.2 (15th September, 2010):
+---------------------------
+* Automatic rendering of JavaScript charts on devices (like iPad and 
+  iPhone) where Flash player is not supported
+* 6 new chart types:
+    - 2D Pareto Chart
+    - 3D Pareto Chart
+    - Marimekko Chart
+    - 2D Stacked Column Line (Single Y axis)
+    - 3D Stacked Column Line (Single Y axis)
+    - Zoom Line Chart (with scrolling and pinning support)
+* Support for JSON data format
+* Support for LinkedCharts, where a single data source controls multiple charts
+* Interactive legends in charts that allow for selective 
+  showing/hiding of data series (or slicing, in case of pie charts)
+* Legends now support icons for each data series
+* Pie and Doughnut charts now support Legend
+* Stacked charts now support 100% stacked mode
+* Bubble and Scatter charts can now have visual quadrants with labels
+* Better management of labels on charts. Labels now have an auto rendering 
+  mode to prevent them from overlapping, the chart selects the best display mode 
+  for labels depending on the length of the labels and the width of the chart. 
+  Long labels are truncated, with ellipses appended to the truncated end of each
+  label, and a tooltip bearing the completed label text is displayed when 
+  the user hovers over a truncated label.
+* Support for line breaks and wrapping in all text elements including: caption, 
+  sub caption, X-axis title, Y-axis title, Labels and tooltips.
+* In Line charts, data values can now be positioned either above or below the 
+  dataplots. Automatic positioning of data values is also supported.
+  
+* Custom alignment of caption and sub caption using STYLES
+* Adjustment of minimum Y-axis value in stacked charts now supported
+* Advanced print management using JavaScript
+* Additional options for efficient event handling using JavaScript
+* Support for dynamic update of chart properties using JavaScript
+* Charts now support % based sizes along with dynamic resizing
+
+=========================================================================
+
+For information on previous versions, please visit http://www.fusioncharts.com/VersionHistory.asp

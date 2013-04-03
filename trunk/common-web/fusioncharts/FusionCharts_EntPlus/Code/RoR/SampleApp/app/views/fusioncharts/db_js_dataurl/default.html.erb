@@ -1,0 +1,64 @@
+<% @page_title="FusionCharts - Database + JavaScript (dataURL method) Example" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Inter-connected charts - Click on any pie slice to see detailed
+chart below." %>
+<% @intro="The charts in this page have been dynamically generated using
+data contained in a database." %>
+<SCRIPT LANGUAGE="JavaScript">
+	
+	/** 
+	 * updateChart method is invoked when the user clicks on a pie slice.
+	 * In this method, we get the index of the factory after which we request for XML data
+	 * for that that factory from factory_details, and finally
+	 * update the Column Chart.
+	 *	@param	factoryIndex id of the factory.
+	*/		
+	function updateChart(factoryIndex){		
+		//DataURL for the chart
+		var strURL = "/Fusioncharts/db_js_dataurl/" + "factory_details/" + factoryIndex ;
+		
+		//Sometimes, the above URL and XML data gets cached by the browser.
+		//If you want your charts to get new XML data on each request,
+		//you can add the following line:
+		//strURL = strURL + "&currTime=" + getTimeForURL();
+		//getTimeForURL method is defined below and needs to be included
+		//This basically adds a ever-changing parameter which bluffs
+		//the browser and forces it to re-load the XML data every time.
+					
+		
+		//Get reference to chart object using Dom ID "FactoryDetailed"
+		var chartObj = FusionCharts("FactoryDetailed");			
+		//Send request for XML
+		chartObj.setXMLUrl(strURL);
+	}
+	/**
+	 * getTimeForURL method returns the current time 
+	 * in a URL friendly format, so that it can be appended to
+	 * dataURL for effective non-caching.
+	*/
+	function getTimeForURL(){
+		var dt = new Date();
+		var strOutput = "";
+		strOutput = dt.getHours() + "_" + dt.getMinutes() + "_" + dt.getSeconds() + "_" + dt.getMilliseconds();
+		return strOutput;
+	}
+</SCRIPT>
+
+<%
+			
+	# The xml is obtained as a string from builder template.
+	str_xml = render :file=>"fusioncharts/db_js_dataurl/factories_quantity", :locals=>{:factories=>@factories}
+
+	#Create the chart - Pie 3D Chart with data from str_xml
+	render_chart('/FusionCharts/Pie3D.swf','',str_xml,'FactorySum', 500, 250, false, false)  do-%>
+<% end -%>
+
+
+<BR>
+<%
+
+	#Column 2D Chart with changed "No data to display" message
+	#We initialize the chart with <chart></chart>
+    #The last parameter to render_chart (registerWithJS) is set to true
+	render_chart('/FusionCharts/Column2D.swf?ChartNoDataText=Please select a factory from pie chart above to view detailed data.','','<chart></chart>','FactoryDetailed',600, 250, false, true)  do-%>
+<% end -%>

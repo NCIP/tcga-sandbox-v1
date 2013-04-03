@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Highlighting Selective Data </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Highlighting selective data" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Highlighting Selective Data </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts v3 provides various options when trying to highlight selective data. Here, we'll be discussing some of them, including:</p>
+      <ul>
+        <li>Highlighting a data-set by changing its alpha</li>
+        <li>Using dashed border to highlight data </li>
+        <li>Using individual anchor properties on a line/area chart to highlight a data</li>
+        <li>Using individual color properties on a multi-series chart to highlight a single data</li>
+      </ul>
+    <p>Let's see all of the above one by one. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="alpha" id="alpha"></a>Highlighting a data-set by changing its alpha</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Highlighting data by altering its alpha is one of the simplest methods. Consider the XML below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='John' value='420' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Mary' value='295' <strong>alpha='50'</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Tom' value='523' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{},<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;alpha&quot;:&quot;50&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, we've set the <span class="codeInline">alpha</span> of second column to 50 (on a scale of 0-100). Now, when you  see this chart, you'll see that the middle column is semi-transparent making it the visual focus point.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Hl_Alpha.jpg" width="358" height="213" /><br /><br /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="dashed" id="dashed"></a>Using dashed border to highlight data </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also highlight a data by setting it as dashed. Consider the XML below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+    <pre class="prettyprint code_container">&lt;chart&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='John' value='420' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Mary' value='295' <strong>dashed='1'</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Tom' value='523' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{},<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;dashed&quot;:&quot;1&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><table width="600" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="50%" valign="top"><div align="center"><img src="Images/Hlt_Dashed1.jpg" width="285" height="186" class="imageBorder" /></div></td>
+        <td valign="top"><div align="center"><img src="Images/Hlt_Dashed2.jpg" class="imageBorder" /></div></td>
+      </tr>
+      <tr>
+        <td width="50%" valign="top"><div align="center" class="imageCaption">When applied on a column chart </div></td>
+        <td valign="top"><div align="center"><span class="imageCaption">When applied on a line chart </span></div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="anchor" id="anchor"></a>Using individual anchor properties on a line/area chart to highlight a data </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 allows you to set individual <span class="codeInline">&lt;set&gt;</span> level anchor properties too. Consider the following XML: </p></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+    <pre class="prettyprint code_container">&lt;chart showValues='0'&gt;
+  &nbsp;&lt;set label='John' value='420' /&gt;
+ &nbsp;&nbsp;&lt;set label='Mary' value='295' /&gt;
+ &nbsp;&nbsp;&lt;set label='Tom' value='523' <strong>anchorRadius='6' anchorSides='4' anchorBorderColor='0372AB' anchorBgColor='E1f5ff'</strong>/&gt; 
+  &nbsp;&lt;set label='Hary' value='323' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;anchorradius&quot;:&quot;6&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;anchorsides&quot;:&quot;4&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;anchorbordercolor&quot;:&quot;0372AB&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;anchorbgcolor&quot;:&quot;E1f5ff&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Hary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;323&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The above XML gives the following output on a line chart:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Hlt_Anchor.jpg" alt="" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can clearly see the highlighted anchor on the chart.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="color" id="color"></a>Using individual color properties on a multi-series chart to highlight a single data</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 also allows you to specify<span class="codeInline"> &lt;set&gt;</span> level color in a multi-series chart. Consider the XML below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%;height:450px; overflow:auto;">
+       <div id="tab7" class="tab_content">
+    <pre class="prettyprint code_container">&lt;chart&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;categories&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Product A&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Product B&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/categories&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;dataset SeriesName=&quot;2005&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;324&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;457&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/dataset&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;dataset SeriesName=&quot;2006&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;456&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;787&quot; <strong>color='FF5904'</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/dataset&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;dataset SeriesName=&quot;2007&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;557&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value=&quot;767&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/dataset&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{},<br />&nbsp; &quot;categories&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;category&quot;:[{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Product A&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Product B&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ],<br />&nbsp; &quot;dataset&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2005&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;324&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;457&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2006&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;456&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;787&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>&quot;color&quot;:&quot;FF5904&quot;</strong><br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;seriesname&quot;:&quot;2007&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;557&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;767&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; ]<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we've a multi-series XML. We're highlighting a single <span class="codeInline">&lt;set&gt;</span> by setting its color explicitly. When you now see this chart, you'll get the following output: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Hlt_Color.jpg" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Plotting discontinuos data|DiscData.html","Showing long data labels|Adv_DataLabels.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

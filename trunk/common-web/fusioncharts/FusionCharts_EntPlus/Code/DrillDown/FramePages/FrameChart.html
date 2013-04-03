@@ -1,0 +1,62 @@
+<html>
+<head>
+	<title>FusionCharts XT - DrillDown - Using Frames</title>
+	<script  type="text/javascript" language="JavaScript" src="../../../Charts/FusionCharts.js"></script>
+	<script  type="text/javascript" language="JavaScript" src="../../assets/ui/js/jquery-1.4.2.min.js"></script>
+	<script  type="text/javascript" language="JavaScript" src="../../assets/ui/js/lib.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../assets/ui/css/style.css">
+	<!--[if IE 6]>
+	<script type="text/javascript" src="../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+
+	<script>
+	  /* select the element name, css selector, background etc */
+	  DD_belatedPNG.fix('img');
+
+	  /* string argument can be any CSS selector */
+	</script>
+	<![endif]-->
+
+	<style type="text/css">
+		h2.headline {
+			font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+			padding: 0;
+			margin: 25px 0 25px 0;
+			color: #7d7c8b;
+			text-align: center;
+		}
+		p.small {
+			font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+			color: #919191;
+			padding: 0;
+			margin: 0 auto;
+			width: 664px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body bgcolor="#ffffff">
+<center><div id="messageBox" style="margin-left:100px; margin-right:100px; width:850px;"><div id="content">This exmaple is using two frames. The top frame loads a chart. Click on the any of the columns in the chart shown below. When clicked, the bottom frame will load a page related to the column clicked. </div></div></center>
+
+<div id="chartdiv" align="center">The chart will appear within this DIV. This text will be replaced by the chart.</div>
+   <script type="text/javascript">
+	   var frameData = '<chart caption="Monthly Sales Summary" subcaption="For the year 2006" xAxisName="Month" yAxisName="Sales" numberPrefix="$">\n\
+			<set label="Jan" value="17400" link="F-detailsFrame-../DemoLinkPages/DemoLink1.html"/>\n\
+			<set label="Feb" value="19800" link="F-detailsFrame-../DemoLinkPages/DemoLink2.html"/>\n\
+			<set label="Mar" value="21800" link="F-detailsFrame-../DemoLinkPages/DemoLink3.html"/>\n\
+			<set label="Apr" value="23800" link="F-detailsFrame-../DemoLinkPages/DemoLink4.html"/>\n\
+			<set label="May" value="29600" link="F-detailsFrame-../DemoLinkPages/DemoLink5.html"/>\n\
+			<set label="Jun" value="27600" link="F-detailsFrame-../DemoLinkPages/DemoLink6.html"/>\n\
+		</chart>';
+		var myChart = new FusionCharts("../../../Charts/Column2D.swf", "myChartId", "500", "300", "0", "0");
+		myChart.setXMLData( frameData );
+		myChart.render("chartdiv");
+   </script>
+	<script type="text/javascript"><!--//
+		$(document).ready ( function() {
+			   addConditionalMessage( "Your browser does not seem to have Flash Player support. A JavaScript chart is rendered instead.<br><br>", isJSRenderer(myChart), true );
+		});	
+		// -->
+	</script>
+</body>
+</html>

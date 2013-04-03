@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Font Properties </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Font properties" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Font Properties </td>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="header">Base Font group </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can specify generic font properties for all the text on the chart using the attributes given below.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="12%" class="header">Attribute Name</td>
+        <td width="10%" class="header">Range</td>
+        <td width="78%" class="header">Description</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> baseFont </span> </td>
+        <td valign="top"><span class="text"> Font Name </span> </td>
+        <td valign='top'><span class="text"> This attribute lets you set the font face (family) of all the text (data labels, values etc.) on chart. If you specify </span><span class="codeInline">outCnvBaseFont</span><span class="text"> attribute also, then this attribute controls only the font face of text within the chart canvas bounds. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> baseFontSize </span> </td>
+        <td valign="top"><span class="text"> 0-72 </span> </td>
+        <td valign='top'><span class="text"> This attribute sets the base font size of the chart i.e., all the values and the names in the chart which lie on the canvas will be displayed using the font size provided here. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> baseFontColor </span> </td>
+        <td valign="top"><span class="text"> </span>Hex color code without #  </td>
+        <td valign='top'><span class="text"> This attribute sets the base font color of the chart i.e., all the values and the names in the chart which lie on the canvas will be displayed using the font color provided here. </span> </td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' <strong>
+ baseFont='Arial'</strong> <strong>baseFontSize ='12' baseFontColor ='000000'</strong>&gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt;
+   &lt;set label='Qtr 4' value='465400' /&gt; 
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+<strong>    "basefont":"Arial",
+    "basefontsize":"12",
+    "basefontcolor":"000000"</strong>
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>	 
+ 
+ 
+    <p>The above would give an output as under:</p> 
+    <img src="Images/font_prop1.jpg" width="400" height="200" />
+    <p>Notice that all the text on the chart has the properties as mentioned using the <span class="codeInline">baseFont</span> group attributes.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Outside Canvas Base Font Group </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>All the text in the chart can be classified into 2: the text inside the canvas which consists of only the tool tip and the data values and all the text outside the canvas. You can define a base font group for all the text outside the canvas as well.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" class="header">Attribute Name</td>
+        <td width="10%" class="header">Range</td>
+        <td width="75%" class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> outCnvBaseFont </span> </td>
+        <td width="10%" valign="top"><span class="text"> Font Name </span> </td>
+        <td width='75%' valign='top'><span class="text"> This attribute sets the base font family of the chart font which lies outside the canvas i.e., all the values and the names in the chart which lie outside the canvas will be displayed using the font name provided here. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="codeInline"> outCnvBaseFontSize </span> </td>
+        <td width="10%" valign="top"><span class="text"> 0-72 </span> </td>
+        <td width='75%' valign='top'><span class="text"> This attribute sets the base font size of the chart i.e., all the values and the names in the chart which lie outside the canvas will be displayed using the font size provided here. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="codeInline"> outCnvBaseFontColor </span> </td>
+        <td width="10%" valign="top"><span class="text"> </span> Hex color code without #  </td>
+        <td width='75%' valign='top'><span class="text"> This attribute sets the base font color of the chart i.e., all the values and the names in the chart which lie outside the canvas will be displayed using the font color provided here. </span> </td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart outCnvBaseFont='Arial' outCnvBaseFontSize ='12'  outCnvBaseFontColor ='000000' ... &gt;</pre>
+    <p>A chart having outside canvas base font group defined looks as under:</p> 
+    <img src="Images/Title_5.jpg" width="406" height="208" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to define font properties</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using Styles, you can assign various properties to fonts - face, size, color, bold, italics, underline, background &amp; border color and whether the text is HTML etc. With Styles, you have the option of applying the font properties to whichever text element you want rather than all the text elements.</p>
+    <p>We will see an example wherein the font properties of the data values have been changed using Styles. </p>
+    <img src="Images/data_values8.jpg" width="400" height="200" />
+    <p>The data for this chart is as under. To read more on STYLES, please refer to  <a href="../Styles/Styles.html">FusionCharts and Styles</a>.</p> 
+  
+  	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt; 
+   &lt;set label='Qtr 4' value='465400' /&gt;
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+         &lt;style name='myValuesFont' type='font' size='12' color='FFFFFF' bold='1' bgColor='666666' borderColor='666666'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+         &lt;apply toObject='DataValues' styles='myValuesFont' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myValuesFont",
+        "type": "font",
+        "size": "12",
+        "color": "FFFFFF",
+        "bold": "1",
+        "bgcolor": "666666",
+        "bordercolor": "666666"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataValues",
+        "styles": "myValuesFont"
+      }
+    ]
+  }</strong>
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  
+      <p>The font properties that we can control using Styles are:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" cellpadding="0" cellspacing="0" class="table">
+      <tr>
+        <td width="15%" valign="top" class="header">Attribute</td>
+        <td width="50%" valign="top" class="header">Brief Description</td>
+        <td width="25%" valign="top" class="header">Sample or Valid values</td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">font</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Sets 
+          the font family for the text</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Verdana, 
+          Arial .. </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">size</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Specifies 
+          the font size</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">10, 
+          12 .. </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">color</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Sets 
+          the font color, should be hex color code without #</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Hex color without #</td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">bold</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Flag 
+          indicating whether font should be bold or not</td>
+        <td valign="top" bordercolor="f1f1f1" class="text"><strong>1</strong> for Yes, <strong>0</strong> for No</td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">italic</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Flag 
+          indicating whether font should be italics or not</td>
+        <td valign="top" bordercolor="f1f1f1" class="text"><strong>1</strong> for Yes, <strong>0</strong> for No</td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">underline</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Flag 
+          indicating whether font should be underlined or not</td>
+        <td valign="top" bordercolor="f1f1f1" class="text"><strong>1</strong> for Yes, <strong>0</strong> for No</td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">bgColor</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Sets 
+          the background color for a text box, should be hex color code without 
+          #</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">FF0000, 
+          FFFFDD </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">borderColor</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">If 
+          you need a border around your text, you can use this parameter</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Hex color without # </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">isHTML</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Helps 
+          you set whether the text should be rendered as HTML or plain text</td>
+        <td valign="top" bordercolor="f1f1f1" class="text"><strong>1</strong> for Yes, <strong>0</strong> for No </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">leftMargin</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">The 
+          left margin of the text, in points</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Pixel value (numeric) </td>
+      </tr>
+      <tr>
+        <td valign="top" bordercolor="f1f1f1" class="codeInline">letterSpacing</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">The 
+          amount of space that is uniformly distributed between characters 
+          of the text</td>
+        <td valign="top" bordercolor="f1f1f1" class="text">Pixel value (numeric)</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying effects to text </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using Styles, we can apply various effects (shadow, glow, bevel, blur) to the text elements. Here, we see a basic example where the data values have been given a glow effect.</p> 
+    <img src="Images/data_values10.jpg" width="400" height="200" />
+    <p>The data going into the above is:</p> 
+ 
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+  &lt;set label='Quarter 1' value='420500' /&gt;
+  &lt;set label='Quarter 2' value='295400' /&gt;
+  &lt;set label='Quarter 3' value='523400' /&gt;
+  &lt;set label='Quarter 4' value='465400' /&gt;
+  <strong>&lt;styles&gt;
+     &lt;definition&gt; 
+         &lt;style name='myGlow' type='Glow' color='9999999'/&gt;
+     &lt;/definition&gt;
+     &lt;application&gt;
+         &lt;apply toObject='DataLabels' styles='myGlow' /&gt;
+     &lt;/application&gt;
+  &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myGlow",
+        "type": "Glow",
+        "color": "9999999"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myGlow"
+      }
+    ]
+  }</strong>
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+ 
+ </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Data Values|DataValues.html", "Chart Palettes|ChartPalettes.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

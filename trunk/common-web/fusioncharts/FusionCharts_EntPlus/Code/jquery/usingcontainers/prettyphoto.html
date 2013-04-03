@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT - Creating chart with jQuery</title>
+        
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+		 <link href="../../assets/jquery.ui/jquery-ui.css" rel="stylesheet" type="text/css" />
+		 <script src="../../assets/jquery.ui/jquery.min.js" type="text/javascript"></script>
+		 <script src="../../assets/jquery.ui/jquery-ui.min.js" type="text/javascript"></script>
+		 <link rel="stylesheet" href="../../assets/prettyPhoto/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+        <script src="../../assets/prettyPhoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+		 <script src="../../assets/ui/js/lib.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../../../Charts/FusionCharts.jqueryplugin.js"></script>
+
+        <!--[if IE 6]>
+        <script src="../../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+				
+            }
+			 #prettyphoto-container {
+                display: none;
+                height: 320px;
+                width: 400px;
+				text-align:center;
+            }
+			
+			#chartContainer {
+				width : 400px;
+				height: 320px;
+			}
+        </style>
+		
+		 <script type="text/javascript">
+									
+            $(document).ready(function() {
+
+                $('#chartContainer').prettyPhoto({opacity: 0.35, showTitle: true, allowresize: false });
+		
+            });
+				
+            function showPrettyPhoto()
+			{
+
+                $.prettyPhoto.open("#prettyphoto-container",'Chart in PrettyPhoto','FusionCharts XT');
+		
+            }
+			
+            </script>
+        
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo">
+                    <a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank">
+                        <img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" />
+                    </a>
+                </div><h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Using Dynamic Re-sizing</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <p class="text" align="center">Open the chart in pretty photo using jQuery</p>
+					<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+					<p>&nbsp;</p>
+					
+                    <div class="clear"></div>
+                    <div class="gen-chart-render">
+
+						 <div id="prettyphoto-container">
+                        <div id="chartContainer">FusionCharts will load here!</div>
+						</div>
+						
+						
+
+                        <script type="text/javascript">
+						
+							var dataString ='<chart caption="Weekly Sales Summary" showValues="0" xAxisName="Week" yAxisName="Sales" numberPrefix="$" useRoundEdges="1">\n\
+								<set label="Week 1" value="14400" />\n\
+								<set label="Week 2" value="19600" />\n\
+								<set label="Week 3" value="24000" />\n\
+								<set label="Week 4" value="15700" />\n\
+							</chart>';						
+						  
+							$("#chartContainer").insertFusionCharts({swfUrl: "../../../Charts/Column3D.swf", dataSource: dataString, dataFormat: "xml", width: "100%", height: "100%", id: "myChartID"});
+						
+						
+
+                            
+                        </script>
+						<input type="button" onclick="showPrettyPhoto();" value="open chart in pretty photo" />
+
+                    </div>
+             
+                    <div class="underline-dull"></div>    </div>
+
+                
+            </div>
+ 				
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li><a href="../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+
+            </div>
+        </div>
+        <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead", isJSRenderer(FusionCharts("myChartID")) );
+			});	
+		// -->
+		</script>  
+    </body>
+    
+</html>

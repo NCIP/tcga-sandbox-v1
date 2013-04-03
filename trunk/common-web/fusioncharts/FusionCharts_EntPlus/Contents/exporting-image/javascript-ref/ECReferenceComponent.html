@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Exporting Charts as PDF or Images - JavaScript Reference - Component Attributes </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+<style type="text/css">
+table1 caption { text-align:left; font-weight: bold; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 11px;
+	padding-bottom: 6px; }
+table tr td  {
+vertical-align:top; }
+.table td p { margin: 5px 0; }
+</style>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "JavaScript Reference|ECReferenceJS.html", "Component attributes" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; JavaScript Reference &gt; Component Attributes </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+        <p>The Component Attributes are those values that are passed on to <span class="codeInline">FCExporter.swf</span> as flashVars. The values of this section determine various behavior of the Exporter Component, like its user interface, saving mode, etc.</p>
+        <p>Typical usage of these attributes is in <span class="codeInline">componentAttributes</span> of every new <span class="codeInline">FusionChartsExportObject</span>.</p>
+        <p><strong>Example:</strong></p>
+        <pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;
+    var myExporter = new FusionChartsExportObject('myExporter', 'FusionCharts/FCExporter.swf');<br />    // customize the exporter by modifying the componentAttributes<br />    <strong>myExporter.componentAttributes.imageBaseColor = '334455';<br />    myExporter.componentAttributes.defaultExportFileName = 'My Charts';</strong><br />    // render the UI<br />    myExporter.Render('ExporterContainerID');<br />&lt;/script&gt;</pre>
+        <p>In the <span class="codeInline">FusionChartsExportObject</span> constructor, you can provide component Attributes in {key1: 'value1', key2: 'value2', ... } format.</p>
+        <p><strong>Example:</strong></p>
+        <span class="codeInline"><pre class="prettyprint code_container">var myComponent = new FusionChartsExportObject('myComponent', 'FusionCharts/FCexporter.swf',<br />    <strong>{ defaultExportFormat: 'PDF', defaultExportFilename: 'My Charts' }</strong> );</pre>
+        </span></p><br />
+
+      <table width="98%" cellspacing="0" cellpadding="0" border="0" class="table">
+          <tr>
+            <td width="14%" class="header" scope="col">Attribute Name</td>
+            <td width="17%" class="header" scope="col">Value Type</td>
+            <td width="50%" class="header" scope="col">Description</td>
+            <td width="19%" class="header" scope="col">Default Value</td>
+          </tr>
+          <tr class="trVeryLightGrayBg">
+            <td colspan="4" scope="row">
+              <p class="header">Export Settings</p>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">imageBaseColor</td>
+            <td>string (hexcode)</td>
+            <td>The base background color of the exported image. </td>
+            <td>FFFFFF</td>
+          </tr>
+          <tr>
+            <td scope="row">defaultExportFileName</td>
+            <td>string</td>
+            <td>This is name of the file that will be exported in case of batch export. For individual export, it acts as a prefix for the file names.<br />
+            <p><strong>Note:</strong> You do not need to specify the extension for the file.<br />
+            This is available for &quot;both&quot; and &quot;batch&quot; mode only.</p>
+            </td>
+            <td>FusionCharts</td>
+          </tr>
+          <tr>
+            <td>defaultExportFormat</td>
+            <td>string</td>
+            <td><p>The default format, in which to export the file.</p>
+            <p><strong>Note:</strong> This is available for &quot;both&quot; and &quot;batch&quot; mode only.</p></td>
+            <td><p>png</p></td>
+          </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header" >General UI Settings </p>
+            </td>
+          </tr>
+          <tr>
+            <td>width</td>
+            <td>number</td>
+            <td><p>The width of the exporter UI.</p></td>
+            <td>400</td>
+          </tr>
+          <tr>
+            <td>height</td>
+            <td>number</td>
+            <td><p>The height of the exporter UI. </p></td>
+            <td>300</td>
+          </tr>
+          <tr>
+            <td>saveMode</td>
+            <td>string ('self', 'batch', 'both', 'individual') </td>
+            <td><p>The value 'Self' is used when you have one component per chart</p>
+                <p>The value 'Batch' shows a single list item with a button to export all of the charts.</p>
+              <p>The value 'Individual' shows a series of list items pertaining to the individual export properties of different charts. </p>
+              <p>The value 'Both' integrates the options 'Individual' and 'Batch' into one list. </p></td>
+            <td><p>'batch' <em>when full mode </em></p>
+                <p>'self' <em>when compact mode </em></p></td>
+          </tr>
+          <tr>
+            <td>fullMode</td>
+            <td>boolean (0/1) </td>
+            <td><p>Shows the list of charts which have the option to be exported. </p>
+                <p>If value is set to 0 (default), the list is displayed as a drop down list. </p>
+              <p>If value is set to 1, the list is displayed as an expanded list of item panels. </p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>showAllowedTypes</td>
+            <td>boolean (0/1)</td>
+            <td><p>Gives  the option of selecting an export format. The options are shown in a drop down list.</p>
+                <p>In case of full mode, the options appear at every list item panel, and can be applied to individual charts. </p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td scope="row">message</td>
+            <td>string</td>
+            <td>The caption of the exporter UI.</td>
+            <td>FusionCharts  Image Saver</td>
+          </tr>
+          <tr>
+            <td scope="row">showMessage</td>
+            <td>boolean (0/1)</td>
+            <td>A flag to determine whether the caption should be shown. </td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>bgColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The background color of the exporter UI and the export item menu list </p></td>
+            <td>FFFFFF</td>
+          </tr>
+          <tr>
+            <td>borderColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The border color of the exporter UI and the export item menu list. </p></td>
+            <td>BBBBBB</td>
+          </tr>
+          <tr>
+            <td>borderThickness</td>
+            <td>number</td>
+            <td><p>The border thickness of the exporter UI. </p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>vMargin</td>
+            <td>number</td>
+            <td><p>The border thickness of the exporter UI. </p></td>
+            <td>12</td>
+          </tr>
+		  <tr>
+            <td>btnDisabledTitle</td>
+            <td>string</td>
+            <td><p>The status message to show until the chart has been exported.</p>
+              <p><strong>Note:</strong> Not available when fullMode is set to '1' </p></td>
+            <td><p>Waiting<em></em></p>                </td>
+        </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header">Chart List Attributes </p>
+            </td>
+          </tr>
+          <tr>
+            <td>saveAllTitle</td>
+            <td>string</td>
+            <td><p>The caption for the chart item list.</p>
+            <p><strong>Note:</strong> Available when fullMode is set to '1'</p></td>
+            <td>Save as single file </td>
+          </tr>
+          <tr>
+            <td>showAlternateColorBands</td>
+            <td>boolean (0/1) </td>
+            <td><p>Determines whether alternate color bands are to be shown for the chart list panels. </p>
+              <p><strong>Note:</strong> Available when fullMode is set to '1'</p></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>alternateBandColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The background color of the alternate chart list panels. </p>
+              <p><strong>Note:</strong> Applicable when showAlternateBandColors is set to '1'</p></td>
+            <td>EFEFEF</td>
+          </tr>
+          <tr>
+            <td>itemPanelHeight</td>
+            <td>number</td>
+            <td><p>The height of the individual panel items within the list.</p>
+              <p><strong>Note:</strong> Available when fullMode is set to '1'</p></td>
+            <td>45</td>
+          </tr>
+		  <tr>
+            <td>saveAllPanelBgColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The background color of the save all panel.</p>
+              <p><strong>Note:</strong> Available when fullMode is set to '1'</p></td>
+            <td>E9E9E9</td>
+        </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header">Font Configuration </p>
+            </td>
+          </tr>
+          <tr>
+            <td>fontFace</td>
+            <td>string</td>
+            <td><p>The font face of all text </p></td>
+            <td>Verdana</td>
+          </tr>
+          <tr>
+            <td>fontColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The color of the text. </p></td>
+            <td>000000</td>
+          </tr>
+          <tr>
+            <td>fontSize</td>
+            <td>number</td>
+            <td><p>The size of all text </p></td>
+            <td>11</td>
+          </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header">Button Configuration </p>
+            </td>
+          </tr>
+          <tr>
+            <td>btnFontFace</td>
+            <td>string</td>
+            <td><p>The font face of the button text </p></td>
+            <td>Verdana</td>
+          </tr>
+          <tr>
+            <td>btnFontColor</td>
+            <td>string (hex color code)</td>
+            <td><p>The color of the button text. </p></td>
+            <td>000000</td>
+          </tr>
+          <tr>
+            <td>btnFontSize</td>
+            <td>number</td>
+            <td><p>The size of the button text. </p></td>
+            <td>11</td>
+          </tr>
+          <tr>
+            <td>btnWidth</td>
+            <td>number</td>
+            <td><p>The width of the button. </p></td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>btnHeight </td>
+            <td>number</td>
+            <td><p>The height of the button. </p></td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <td>btnColor</td>
+            <td>string (hex color code) </td>
+            <td><p>The base color of the button. </p></td>
+            <td>F8F8F8</td>
+          </tr>
+          <tr>
+            <td>btnBorderColor</td>
+            <td>string (hex color code) </td>
+            <td><p>The border color of the button. </p></td>
+            <td>DDDDDD</td>
+          </tr>
+          <tr>
+            <td>btnSaveTitle</td>
+            <td>string</td>
+            <td><p>The title of the 'Save' button. </p></td>
+            <td>Save</td>
+          </tr>
+          <tr>
+            <td>btnSaveAllTitle</td>
+            <td>string</td>
+            <td>The title of the 'Save All' button. </td>
+            <td>Save All</td>
+          </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header">Drop-Down Combo Configuration </p>
+            </td>
+          </tr>
+          <tr>
+            <td>comboBgColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the background color of the combo button. </p></td>
+            <td>FFFFFF</td>
+          </tr>
+          <tr>
+            <td>comboBorderColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the border color of the combo button. </p></td>
+            <td><em>Same as btnBorderColor </em></td>
+          </tr>
+          <tr>
+            <td>comboSelectedItemColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the color of the selected item in the combo drop-down.</p></td>
+            <td><em>Same as btnColor </em></td>
+          </tr>
+          <tr>
+            <td>comboBtnBgColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the background color of the combo drop-down button.</p></td>
+            <td><em>Same as btnColor</em></td>
+          </tr>
+          <tr>
+            <td>comboBtnBorderColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the color of the combo drop-down button.</p></td>
+            <td><em>Same as btnBorderColor </em></td>
+          </tr>
+          <tr>
+            <td>comboBtnArrowColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the color of the arrow of the combo drop-down button.</p></td>
+            <td>AAAAAA</td>
+          </tr>
+          <tr>
+            <td>comboHeight</td>
+            <td>number</td>
+            <td><p>Specifies the height of the combo button. </p></td>
+            <td><em>Same as btnHeight</em></td>
+          </tr>
+          <tr>
+            <td colspan="4" scope="row"><p>&nbsp;</p>
+            <p class="header">Scroll-Bar Configuration </p>
+            </td>
+          </tr>
+          <tr>
+            <td>scrollWidth</td>
+            <td>number</td>
+            <td><p>Specifies the width of the scroll-bar. </p></td>
+            <td>17</td>
+          </tr>
+          <tr>
+            <td>scrollChannelColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the color of the scroll-bar channel. </p></td>
+            <td>EEEEEE</td>
+          </tr>
+          <tr>
+            <td>scrollChannelBorderThickness</td>
+            <td>number</td>
+            <td><p>Specifies the border thickness of the scroll-bar channel. </p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>scrollChannelBorderColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the border color of the scroll-bar channel. </p></td>
+            <td>CCCCCC</td>
+          </tr>
+          <tr>
+            <td>scrollBarColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the color thickness of the scroll-bar. </p></td>
+            <td><em>Same as btnColor </em></td>
+          </tr>
+          <tr>
+            <td>scrollBarBorderColor</td>
+            <td>string (hex color code) </td>
+            <td><p>Specifies the border color of the scroll-bar. </p></td>
+            <td><em>Same as btnBorderColor </em></td>
+          </tr>
+          <tr>
+            <td>scrollBarBorderThickness</td>
+            <td>number</td>
+            <td><p>Specifies the border thickness of the scroll-bar. </p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>scrollBtnColor</td>
+            <td>string (hex color code)</td>
+            <td><p>Specifies the color of the scroll-bar directional button.</p></td>
+            <td><em>Same as btnColor</em></td>
+          </tr>
+          <tr>
+            <td>scrollBtnBorderColor</td>
+            <td>string (hex color code)</td>
+            <td><p>Specifies the border thickness of the scroll-bar directional button.</p></td>
+            <td><em>Same as btnBorderColor</em></td>
+          </tr>
+          <tr>
+            <td>scrollBtnBorderThickness</td>
+            <td>number</td>
+            <td><p>Specifies the border thickness of the scroll-bar directional button.</p></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>scrollBtnArrowColor</td>
+            <td>string (hex color code)</td>
+            <td><p>Specifies the color of the arrow of the scroll-bar directional button.</p></td>
+            <td><em>Same as comboBtnArrowColor</em></td>
+          </tr>
+      </table>
+      </td>
+  </tr>
+	  </table>
+	  <!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("JavaScript API|ECReferenceJS.html","Export attributes|ECReferenceExport.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+	  
+</body>
+
+</html>

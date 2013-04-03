@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts PHP Class API - Creating Multi-series Chart </title>
+<link rel="stylesheet" type="text/css" href="../../css/Style.css"/>
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "FusionCharts PHP Class|Overview.html", "Creating Multi-Series chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts PHP Class API &gt; Creating Multi-series Chart </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <p>To plot multiple datasets we use Multiseries charts.  Consider the Weekly Sales chart for two consecutive months. Here, for each week, we have two sets of data coming from current month and previous month. </p>
+    
+    <p>Let's examine the following data for a multi-series chart.</p></td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+	  	<table width="300px" cellspacing="0" cellpadding="5" class="table">
+        <tr >
+           <td width="25%" height="24" class="header">Week</td>
+          <td width="35%"  class="header"><div align="right">Current Month </div></td>
+          <td width="40%" class="header"><div align="right">Previous Month </div></td>
+        </tr>
+        <tr>
+           <td height="22" class="borderBottom">&nbsp;</td>
+           <td class="borderBottom"><div align="right">Sales </div></td>
+           <td class="borderBottom"><div align="right">Sales </div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 1 </td>
+           <td class="borderBottom"><div align="right">$40800</div></td>
+           <td class="borderBottom"><div align="right">$38300</div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 2 </td>
+           <td class="borderBottom"><div align="right">$31400</div></td>
+           <td class="borderBottom"><div align="right">$28400</div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 3 </td>
+           <td class="borderBottom"><div align="right">$26700</div></td>
+           <td class="borderBottom"><div align="right">$15700</div></td>
+        </tr>
+        <tr>
+           <td height="25">Week 4 </td>
+           <td><div align="right">$54400</div></td>
+           <td><div align="right">$48100</div></td>
+        </tr>
+     </table>     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ClassImages/ClassMultiSeries.jpg"  class="imageBorder" /></td>
+  </tr>
+  <tr>
+     <td valign="top"><p class="highlightBlock" ><strong>Before you go further with this page, we recommend you to please see   the previous page <a href="FirstChart.html">Creating First Chart</a> as we start off from concepts explained in   that page. </strong></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">Let's go through the code that builds this chart: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;?php
+       <span class="codeComment">&nbsp; # Include FusionCharts PHP Class</span>
+         <span class="codeComment">&nbsp; </span>include('../Class/FusionCharts_Gen.php');
+       <span class="codeComment">&nbsp; # Create Multiseries Column3D chart object using FusionCharts PHP Class </span>
+         <span class="codeComment">&nbsp; </span>$FC = new FusionCharts(&quot;MSColumn3D&quot;,&quot;350&quot;,&quot;300&quot;); 
+        <span class="codeComment"> # Set the relative path of the SWF file</span>
+        <span class="codeComment">&nbsp;  </span>$FC-&gt;setSWFPath(&quot;../FusionCharts/&quot;);
+        <span class="codeComment"> #  Store chart attributes in a variable </span>
+        <span class="codeComment">&nbsp;  </span>$strParam=&quot;caption=Weekly Sales;subcaption=Comparison;xAxisName=Week;yAxisName=Revenue;numberPrefix=$;decimalPrecision=0&quot;;
+       <span class="codeComment">&nbsp; # Set chart attributes</span> 
+         <span class="codeComment">  </span>$FC-&gt;setChartParams($strParam);
+       <span class="codeComment">&nbsp; # Add category names</span>
+          <span class="codeComment"> </span>$FC-&gt;addCategory(&quot;Week 1&quot;);
+          <span class="codeComment"> </span>$FC-&gt;addCategory(&quot;Week 2&quot;);
+          <span class="codeComment"> </span>$FC-&gt;addCategory(&quot;Week 3&quot;);
+          <span class="codeComment"> </span>$FC-&gt;addCategory(&quot;Week 4&quot;);
+       <span class="codeComment">  # Create a new dataset </span>
+         <span class="codeComment">&nbsp; </span>$FC-&gt;addDataset(&quot;This Month&quot;); 
+       <span class="codeComment">&nbsp; # Add chart values for the above dataset</span>
+        <span class="codeComment"> &nbsp; </span>$FC-&gt;addChartData(&quot;40800&quot;);
+         <span class="codeComment">&nbsp; </span>$FC-&gt;addChartData(&quot;31400&quot;);
+         <span class="codeComment">&nbsp; </span>$FC-&gt;addChartData(&quot;26700&quot;);
+         <span class="codeComment">&nbsp; </span>$FC-&gt;addChartData(&quot;54400&quot;);
+       <span class="codeComment">&nbsp; # Create second dataset </span>
+         <span class="codeComment">&nbsp; </span>$FC-&gt;addDataset(&quot;Previous Month&quot;); 
+        <span class="codeComment"> # Add chart values for the second dataset</span>
+        <span class="codeComment">&nbsp;  </span>$FC-&gt;addChartData(&quot;38300&quot;);
+        <span class="codeComment">&nbsp;  </span>$FC-&gt;addChartData(&quot;28400&quot;);
+        <span class="codeComment">&nbsp;  </span>$FC-&gt;addChartData(&quot;15700&quot;);
+        <span class="codeComment">&nbsp;  </span>$FC-&gt;addChartData(&quot;48100&quot;);
+      ?&gt;
+       &lt;html&gt;
+         <span class="codeComment">&nbsp; </span>&lt;head&gt;
+         <span class="codeComment">&nbsp; </span><span class="codeComment">&nbsp; </span>&lt;title&gt;First Chart Using FusionCharts PHP Class&lt;/title&gt;
+         <span class="codeComment">&nbsp; </span><span class="codeComment">&nbsp; </span>&lt;script language='javascript' src='../FusionCharts/FusionCharts.js'&gt;&lt;/script&gt;
+         <span class="codeComment">&nbsp; </span>&lt;/head&gt;
+         <span class="codeComment">&nbsp; </span>&lt;body&gt;
+      <span class="codeComment">&nbsp; </span><span class="codeComment">&nbsp; </span>&lt;?php
+        <span class="codeComment">&nbsp; &nbsp; &nbsp; # Render Chart </span>
+        <span class="codeComment">&nbsp; </span><span class="codeComment">&nbsp; &nbsp; </span>$FC-&gt;renderChart();
+        <span class="codeComment">&nbsp; </span><span class="codeComment">&nbsp; </span>?&gt;
+          &lt;/body&gt;
+      &lt;/html&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the above code, we're doing the following:</p>
+      <ul type="disc">
+        <li>We include <span class="codeInline">FusionCharts_Gen.php</span>.<br />
+           <br />
+        </li>
+        <li>We create       an object for Multi-series Column3D chart and set relative file path to the SWF file.<br />
+               <br />
+          <pre class="prettyprint code_container">$FC = new FusionCharts(&quot;<strong>MSColumn3D</strong>&quot;,&quot;350&quot;,&quot;300&quot;);<br />$FC-&gt;setSWFPath(&quot;../FusionCharts/&quot;);</pre>
+                  <br />
+        </li>
+        <li>We store       chart attributes in <span class="codeInline">$strParam</span> variable and pass it to <span class="codeInline"> setChartParams()</span> function. It       sets chart attributes.<br />
+           <br />
+</li>
+        <li>For multi-series charts, we need to add the category names separately using <span class="codeInline">addCategory()</span> function. <br />
+           <br />
+          <pre class="prettyprint code_container">$FC-&gt;addCategory(&quot;Week 1&quot;);<br />$FC-&gt;addCategory(&quot;Week 2&quot;);<br />$FC-&gt;addCategory(&quot;Week 3&quot;);<br />$FC-&gt;addCategory(&quot;Week 4&quot;);</pre>
+        <br />
+        </li>
+        <li>Now, we need to define a dataset first. Hence we call <span class="codeInline">addDataset() </span>function. We set the dataset's name as 'This Month'.<br />
+           <br />
+         <pre class="prettyprint code_container">$FC-&gt;addDataset(&quot;This Month&quot;); 
+</pre><br /></li>
+			 <li>We provide chart data specific to the above dataset. Remember to provide chart data just after the dataset is defined. Unlike single series charts (as we saw in the First Chart example), we need not specify other chart parameters here. <br /> 
+			    <br />
+       <pre class="prettyprint code_container">
+$FC-&gt;addChartData(&quot;40800&quot;);<br />$FC-&gt;addChartData(&quot;31400&quot;);<br />$FC-&gt;addChartData(&quot;26700&quot;);<br />$FC-&gt;addChartData(&quot;54400&quot;);</pre>
+          <br />
+        Please note that as we have 4  categories, we have entered 4 values for the dataset 'This Month'.<br />
+        <br />
+			 </li>
+        <li>Next, we create the second dataset for 'Previous Month' and provide its data values. <br />
+           <br />
+         <pre class="prettyprint code_container">$FC-&gt;addDataset(&quot;Previous Month&quot;); <br />$FC-&gt;addChartData(&quot;38300&quot;);<br />$FC-&gt;addChartData(&quot;28400&quot;);<br />$FC-&gt;addChartData(&quot;15700&quot;);<br />$FC-&gt;addChartData(&quot;48100&quot;);</pre>
+  <br />
+        </li>
+        <li>We add       <span class="codeInline">FusionCharts.js</span>.<br />
+           <br />
+        </li>
+        <li> Finally, we render the chart.<br />
+           <br />
+         <pre class="prettyprint code_container">$FC-&gt;renderChart();</pre></li>
+      </ul>    </td>
+  </tr>
+  <tr>
+     <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please go through <a href="Functions.html">FusionCharts PHP Class API Reference</a> section to know more about the functions used in the above code. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>And the Multi-series chart is ready! </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ClassImages/ClassMultiSeries.jpg" class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Multiple charts|MultipleCharts.html","Creating Stacked chart|StackedChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

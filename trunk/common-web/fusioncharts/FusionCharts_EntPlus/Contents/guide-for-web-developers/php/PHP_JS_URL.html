@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combining FusionCharts, PHP &amp; JavaScript (dataURL) method </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with PHP|PHP_BasicExample.html", "PHP, JavaScript &amp; dataURL" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Combining FusionCharts, PHP &amp; JavaScript (dataURL) method </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts v3 offers tremendous integration capabilities with JavaScript. You can easily use FusionCharts and JavaScript to create client side dynamic charts. </p>
+      <p>Here, we'll see the JavaScript + URL method - where we ask the chart to fetch new data from server and update itself, without incurring any page refreshes. The entire application resides in a single page which makes it a seamless experience for your end viewers.</p>
+      <p><strong>Before you proceed with the contents in this page, we strictly recommend you to please go through the sections &quot;How FusionCharts works?&quot; and &quot;Basic Examples&quot;, as we'll directly use a lot of concepts defined in those sections.</strong></p>
+      <p class="highlightBlock">The code discussed in this example is present in<span class="codeInline"> Download Package &gt; Code &gt; PHP &gt; DB_JS_dataURL </span>folder. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Mission for this example </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let us first define what we want to achieve in this example. We'll carry on from our previous drill-down example and convert it into a single page example. In our previous example, we were showing the Production Summary of all the factories in a pie chart. When the user clicked on a pie slice, he was taken to another page, where a detailed date-wise chart was shown for the required factory. </p>
+      <p>In this example, we'll assimilate both the charts in a single page and make them interact with each other using JavaScript, thereby making the end-user experience smooth. Effectively, we will do the following:</p>
+      <ol>
+      <li>Contain both the pie chart (summary) and column chart (detailed) in one page (<span class="codeInline">Default.php</span>).</li>
+      <li>When the page loads, the pie chart would use <span class="codeInline">dataStr</span> method to show summary  of all factories. This data will be built in <span class="codeInline">Default.php</span> itself. </li>
+      <li>The column chart would initialize with no data, as the user has not selected a factory initially. We'll customize the &quot;<span class="codeInline">No data to display</span>&quot; message of the chart to show a friendly message.</li>
+      <li>The pie chart would have JavaScript links defined for each pie slice. This JavaScript links refer to <span class="codeInline">updateChart()</span> JavaScript function present on the same page. We'll later see how to hand code this function. When a pie is clicked, the <span class="codeInline">factory ID </span>is passed to this function. </li>
+      <li>The <span class="codeInline">  updateChart()</span> function is responsible for updating the column chart. It generates a dataURL link by including the <span class="codeInline">factoryId</span> as a part of dataURL (<span class="codeInline">FactoryData.php</span>). <span class="codeInline">FactoryData.php</span> is the data provider page for the detailed column chart. Once the <span class="codeInline">dataURL</span> is built, it conveys this dataURL to the column chart.</li>
+      <li>The column chart would now accept this <span class="codeInline">dataURL</span>, send a request to <span class="codeInline">FactoryData.php</span> for XML data, accept it, parse it and finally render.</li>
+      </ol>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating the charts container page </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Both the charts and JavaScript functions to manipulate the charts is contained in <span class="codeInline">Default.php</span>. It has the following code:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;?php      <span class="codeComment">
+  //We've included ../Includes/FusionCharts.php and ../Includes/DBConn.php, which contains
+  //functions to help us easily embed the charts and connect to a database.</span>
+   include(&quot;../Includes/FusionCharts.php&quot;);
+   include(&quot;../Includes/DBConn.php&quot;);
+  ?&gt;
+   &lt;HTML&gt;
+    &lt;HEAD&gt; 
+      &lt;TITLE&gt;FusionCharts - Database + JavaScript Example&lt;/TITLE&gt; 
+       &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+       &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+      <span class="codeComment">/** 
+* updateChart method is invoked when the user clicks on a pie slice.
+* In this method, we get the index of the factory after which we request for XML data
+* for that that factory from FactoryData.php, and finally
+* update the Column Chart.
+*	@param	factoryIndex	Sequential Index of the factory.
+*/ </span>
+      <strong>function updateChart(factoryIndex){ </strong>
+      <span class="codeComment">//DataURL for the chart</span>
+      var strURL = &quot;FactoryData.php?factoryId=&quot; + factoryIndex;
+      <span class="codeComment">//Sometimes, the above URL and XML data gets cached by the browser.
+      //If you want your charts to get new XML data on each request,
+      //you can add the following line:
+      //strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+      //getTimeForURL method is defined below and needs to be included
+      //This basically adds a ever-changing parameter which bluffs
+      //the browser and forces it to re-load the XML data every time.</span>
+      <span class="codeComment">//Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+      <span class="codeComment">//Send request for XML
+      </span><strong> FusionCharts(&quot;FactoryDetailed&quot;).setXMLUrl(strURL);</strong>
+      }
+<span class="codeComment">/**
+* getTimeForURL method returns the current time 
+* in a URL friendly format, so that it can be appended to
+* dataURL for effective non-caching.
+*/</span>
+     function getTimeForURL(){
+       var dt = new Date();
+       var strOutput = &quot;&quot;;
+     strOutput = dt.getHours() + &quot;_&quot; + dt.getMinutes() + &quot;_&quot; + dt.getSeconds() + &quot;_&quot; + dt.getMilliseconds();
+     return strOutput;
+   }
+   &lt;/SCRIPT&gt;
+  &lt;/HEAD&gt;         
+  &lt;BODY&gt;
+  &lt;?php 
+         <span class="codeComment">//$strXML will be used to store the entire XML document generated</span>
+         <span class="codeComment">//Generate the chart element</span>
+         $strXML = &quot;&lt;chart caption='Factory Output report' subCaption='By Quantity' pieSliceDepth='30' showBorder='1' formatNumberScale='0' numberSuffix=' Units' &gt;&quot;;
+         <span class="codeComment">//Connect to the DB</span>
+         $link = connectToDB();
+         <span class="codeComment">//Fetch all factory records</span>
+        $strQuery = &quot;select * from Factory_Master&quot;;
+        $result = mysql_query($strQuery) or die(mysql_error());
+         <span class="codeComment">//Iterate through each factory</span>
+        if ($result) {
+        while($ors = mysql_fetch_array($result)) {
+        <span class="codeComment">//Now create a second query to get details for this factory</span>
+        $strQuery = &quot;select FactoryId, sum(Quantity) as TotOutput from Factory_Output where FactoryId=&quot; . $ors['FactoryId'] . &quot; Group By FactoryId&quot;;
+        $result2 = mysql_query($strQuery) or die(mysql_error());
+        $ors2 = mysql_fetch_array($result2);
+        <span class="codeComment">//Generate &lt;set label='..' value='..' link='..' /&gt;
+        <strong>//Note that we're setting link as updateChart(factoryIndex) - JS Function</strong></span>
+        <strong>$strXML .= &quot;&lt;set label='&quot; . $ors['FactoryName'] . &quot;' value='&quot; . $ors2['TotOutput'] . &quot;' link='javaScript:updateChart(&quot; . $ors['FactoryId'] . &quot;)'/&gt;&quot;;</strong>
+        <span class="codeComment">//Free the resultset</span>
+        mysql_free_result($result2);
+        }
+        }
+        mysql_close($link);
+        <span class="codeComment">//Finally, close &lt;chart&gt; element</span>
+        $strXML .= &quot;&lt;/chart&gt;&quot;;
+        <span class="codeComment">//Create the chart - Pie 3D Chart with data from $strXML</span>
+        echo renderChart(&quot;../../FusionCharts/Pie3D.swf&quot;, &quot;&quot;, $strXML, &quot;FactorySum&quot;, 500, 250, false, true);
+     <span class="codeComment">'Column 2D Chart with changed &quot;No data to display&quot; message
+     //We initialize the chart with &lt;chart&gt;&lt;/chart&gt;</span>
+        echo renderChart(&quot;../../FusionCharts/Column2D.swf?ChartNoDataText=Please select a factory from pie chart above to view detailed data.&quot;, &quot;&quot;, &quot;&lt;chart&gt;&lt;/chart&gt;&quot;, &quot;FactoryDetailed&quot;, 600, 250, false, true);
+        ?&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Before we get to the JavaScript functions, let's first see what we're doing in our PHP Code. </p>
+    <p>We first create the XML data document for Pie chart - summary of factory output. For each <span class="codeInline">&lt;set&gt;</span>, we provide a JavaScript link to the <span class="codeInline">updateChart()</span> function and pass the factory ID to it as shown in the line below:</p>
+    <pre class="prettyprint code_container">$strXML = &quot;&lt;set label='&quot; . $ors['FactoryName'] . &quot;' value='&quot; &amp; $ors2['TotOutput'] . &quot;' <strong>link='javaScript:updateChart(&quot; . $ors['FactoryId'] . &quot;)'</strong>/&gt;&quot;;</pre>
+    <p>We now render the Pie 3D chart using dataStr method. The Pie 3D chart has its DOM Id as <span class="codeInline">FactorySum</span>:</p>
+    <pre class="prettyprint code_container">echo renderChart(&quot;../../FusionCharts/Pie3D.swf&quot;, &quot;&quot;, <strong>$strXML</strong>, &quot;<strong>FactorySum</strong>&quot;, 500, 250, false, true);</pre>
+    <p>Now, we render an empty Column 2D chart  with <span class="codeInline">&lt;chart&gt;&lt;/chart&gt;</span> data initially. We also change the &quot;<span class="codeInline">No data to display.</span>&quot; error to a friendly and intuitive &quot;<span class="codeInline">Please select a factory from pie chart above to view detailed data.</span>&quot; This chart has its DOM Id as <span class="codeInline">FactoryDetailed</span>.</p>
+    <pre class="prettyprint code_container">echo renderChart(&quot;../../FusionCharts/Column2D.swf?<strong>ChartNoDataText=Please select a factory from pie chart above to view detailed data.</strong>&quot;, &quot;&quot;, &quot;<strong>&lt;chart&gt;&lt;/chart&gt;</strong>&quot;, &quot;<strong>FactoryDetailed</strong>&quot;, 600, 250, false, true);</span></pre>
+    <p>Effectively, our page is now  set to show two charts. The pie chart shows the summary data provided to it using dataStr method. The column chart shows the above &quot;friendly&quot; error message. Now, when each pie slice is clicked, the <span class="codeInline">updateChart()</span> JavaScript function is called and the <span class="codeInline">factoryID</span> of the pie is passed to it. This function is responsible for updating the column chart and contains the following code: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><strong>function updateChart(factoryIndex){ </strong>
+<span class="codeComment">//DataURL for the chart</span>
+var strURL = &quot;FactoryData.php?factoryId=&quot; + factoryIndex;
+
+<span class="codeComment">//Sometimes, the above URL and XML data gets cached by the browser.
+//If you want your charts to get new XML data on each request,
+//you can add the following line:
+//strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+//getTimeForURL method is defined below and needs to be included
+//This basically adds a ever-changing parameter which bluffs
+//the browser and forces it to re-load the XML data every time.</span>
+
+<span class="codeComment">//Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+<span class="codeComment">//Send request for XML</span>
+<strong> FusionCharts(&quot;FactoryDetailed&quot;).setXMLUrl(strURL);</strong>
+}</pre>
+</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, </p>
+      <ol>
+        <li>We first create a <span class="codeInline">dataURL</span> string by appending the <span class="codeInline">factoryID</span> to <span class="codeInline">FactoryData.php</span>. </li>
+        <li>Finally, we convey this <span class="codeInline">dataURL</span> to the column chart. To do so, we first get a reference to the column chart using its DOM Id <span class="codeInline">FactoryDetailed</span>. We use <span class="codeInline">FusionCharts</span>(&quot;<span class="codeInline">FactoryDetailed</span>&quot;) to do so. </li>
+        <li>Once we've the reference to the chart, we simply call the <span class="codeInline">setXMLUrl</span> method and pass the URL to request data from. </li>
+        <li>This updates the chart with new data.</li>
+      </ol>
+	  <p>This completes our  front-end for the app. We now just need to build <span class="codeInline">FactoryData.php</span> page, which is responsible to provide detailed data to column chart. It contains the following code: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;?php
+include(&quot;../Includes/DBConn.php&quot;);
+<span class="codeComment">//This page is invoked from Default.php. When the user clicks on a pie
+//slice in Default.php, the factory Id is passed to this page. We need
+//to get that factory id, get information from database and then write XML.
+//Request the factory Id from Querystring</span>
+$FactoryId = $_GET['factoryId'];
+<span class="codeComment">//$strXML will be used to store the entire XML document generated</span>
+<span class="codeComment">//Generate the chart element string</span>
+$strXML = &quot;&lt;chart palette='2' caption='Factory &quot; . $FactoryId . &quot; Output ' subcaption='(In Units)' xAxisName='Date' showValues='1' labelStep='2' &gt;&quot;
+<span class="codeComment">//Connect to the DB</span>
+$link = connectToDB();
+<span class="codeComment">//Now, we get the data for that factory</span>
+$strQuery = &quot;select * from Factory_Output where FactoryId=&quot; . $FactoryId;
+$result = mysql_query($strQuery) or die(mysql_error());
+<span class="codeComment">//Iterate through each factory</span>
+if ($result) {
+while($ors = mysql_fetch_array($result)) {
+<span class="codeComment">//Here, we convert date into a more readable form for set label.</span>
+$strXML .= &quot;&lt;set label='&quot; . datePart(&quot;d&quot;,$ors['DatePro']) . &quot;/&quot; . datePart(&quot;m&quot;,$ors['DatePro']) . &quot;' value='&quot; . $ors['Quantity'] . &quot;'/&gt;&quot;; 
+}
+}
+mysql_close($link);
+<span class="codeComment">//Close &lt;chart&gt; element</span>
+$strXML .= &quot;&lt;/chart&gt;&quot;;
+<span class="codeComment">//Just write out the XML data
+//NOTE THAT THIS PAGE DOESN'T CONTAIN ANY HTML TAG, WHATSOEVER</span>
+echo $strXML; 
+?&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this page, we basically request the factory Id passed to it as querystring, query the database for required data, build XML document out of it and finally write it to output stream. </p>
+    <p>When you now see the application, the initial state would look as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/Code_JS_URL_Ini.jpg" width="511" height="458" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>And when you click on a pie slice, the following would appear on the same page (without involving any browser refreshes):</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/Code_JS_URL_Fin.jpg" width="610" height="526" class="imageBorder" />
+    <p>This example demonstrated a very basic sample of the integration capabilities possible with FusionCharts v3. For advanced demos, you can see and download our FusionCharts Blueprint/Demo Applications.</p> </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Drill down charts|PHP_Drill.html","PHP, JavaScript &amp; dataStr|PHP_JS_XML.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,3826 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creating LinkedCharts
+              </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Drill-down charts|Simple.html", "<i>LinkedCharts</i>" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Creating <i>LinkedCharts</i></td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p><i>LinkedCharts</i> is a new and smart drill-down feature introduced in FusionCharts v3.2 that allows you to create unlimited level of drill-down charts using a single data source. All the links originate from a parent chart and its data, which comprehensively contains data or data URL for all descendant (child, grand-child) charts. Upon clicking the data plot items (columns, pie etc.) of the parent chart, users can drill-down into descendant charts. The descendant charts (or children charts) can either replace the parent chart with an option to drill-up, or can be opened in new dialogs or frames. </p>
+        <p>Let's consider a simple scenario with a single level of drill-down. We will build a parent chart that shows yearly sales, which when clicked would show quarterly sales for that year. Let's build the parent chart as a Column 2D chart with four columns (representing four years). <em>LinkedCharts</em> allows you to build these kind of scenarios (and much more complex) without having to write any additional line of code.</p>
+        <p>To use <i>LinkedCharts, </i>you need to follow these steps:</p>
+        <ul>
+           <li>First,  create the XML/JSON data for <strong>parent  chart</strong>. This is called the <strong>parent data source</strong> and comprehensively contains Data String or data URL for all descendant charts. </li>
+           <li>Next, append the <strong>data string </strong>or <strong>data URL </strong>for all the <strong>descendant charts </strong>(also called child chart) within the parent data source. If <strong>data string</strong> method is used, data for each descendant chart is embedded within the <strong>parent data source</strong> and linked using <strong>unique data identifiers</strong>.</li>
+           <li>You're done. Yes, no additional code is required! </li>
+        </ul>
+        <p>The <i>LinkedChart</i> feature of FusionCharts JavaScript class will take care of the rest. It does the following: </p>
+        <ul>
+           <li> It automatically creates and shows a detailed child chart when a data plot item <span class="msg_handler"><a>link</a> &raquo; </span><span class="veryLightYellowBg msg_body"> (specially defined links using <span class="codeInline">newchart</span> prefix) </span> in the parent chart is clicked </li>
+           <li>It clones all chart configuration settings from the parent chart to create the child chart or the <i>LinkedChart</i> </li>
+           <li><span class="msg_handler">It also allows you to configure specific properties for the descendant <a>charts</a> &raquo; </span><span class="veryLightYellowBg msg_body"> e.g., type of chart, width, height, where the charts will be shown etc. </span>using <a href="../JavaScript/API/Methods.html#configurelink"><span class="codeInline">configureLink()</span></a> function </li>
+           <li>It notifies your code by way of <a href="../JavaScript/API/Events.html#linkedcharts">events</a> whenever a link is invoked,  link item is opened and link item is closed</li>
+           <li>It allows you to drill-down to unlimited numbers of levels </li>
+        </ul>
+        <p>The images below shows how a simple <i>LinkedCharts</i> implementation works (here, we've shown only 1 level of drill-down): </p>
+        <table class="table" cellpadding="0" cellspacing="0">
+           <tr>
+              <td> <img src="../FirstChart/Images/linked-charts.jpg" /></td>
+              <td  align="center"><img src="../FirstChart/Images/linked-charts-after-click.jpg" /></td>
+           </tr>
+           <tr>
+              <td>Main chart with yearly sales data. <br />
+                 Column of year 2005 is being clicked.<br />
+              </td>
+             <td><i>LinkedChart</i> with data of 2005 replaces the main chart. <br />
+                Click on <span class="codeInline">Back</span> overlay button to return to the main chart. </td>
+           </tr>
+        </table>
+        <p>See it <a href="../../Code/JavaScript/Basics/UsingLinkedCharts/linked-charts-xml.html" target="_blank">live</a>! </p>
+        <p class="highlightBlock">While it was possible to create this using FusionCharts v3.1 (or previous versions) as well, you had to write additional code and handlers to make this possible. <em>LinkedCharts</em> helps you attain the same without an additional line of code. </p>
+        <p>In this page, we will learn  <i>LinkedCharts</i> by doing the following: </p>
+        <ul>
+           <li><a href="#basic">Create a basic <i>LinkedChart</i></a> which loads descendant (child) charts replacing the parent chart. The data of the child charts will be specified as data URL</li>
+           <li><a href="#embedded">Create <i>LinkedCharts</i> with data for all child charts specified as data string </a>(embedded inside the parent chart data source)</li>
+           <li><a href="#config">Change configuration</a> of descendent charts at different levels of drill-down ( here, we would change the chart type of the descendant charts)</li>
+           <li><a href="#othercontainer">Open <i>LinkedCharts</i> in a separate HTML container</a></li>
+           <li><a href="#multilevel">Create <em>LinkedCharts</em> showing multiple levels of drill-down</a> </li>
+       </ul>
+       
+        <p>Let's straight jump into code and see how <em>LinkedCharts</em> work. </p>
+     </td>
+  </tr>
+  <tr class="">
+     <td valign="top" class="header"><a name="basic" id="basic"></a>A very basic <i>LinkedChart</i> sample</td>
+  </tr>
+  <tr class="">
+     <td valign="top" class="text">
+        <p><strong> HTML </strong></p>
+        <p>For a very basic implementation, the HTML is exactly same as our first chart, weekly-sales which we created in <a href="../FirstChart/FirstChart.html#understanding_html">Creating your first chart</a> section. The HTML is as follows:</p>
+        <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;  
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt;  
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--  
+
+<strong>      var myChart = new FusionCharts( &quot;FusionCharts/Column2D.swf&quot;, 
+        &quot;myChartId&quot;, &quot;320&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;summary-data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+</strong>      
+    // --&gt;     
+    &lt;/script&gt;     
+  &lt;/body&gt; 
+&lt;/html&gt; </pre>
+        <p>In the above HTML we have created only the parent chart. The chart takes data from an xml file, <span class="codeInline">summary-data.xml</span>. This chart, in junction with <em>LinkedCharts</em> functionality defined in FusionCharts.js, will drive drill-down charts; without you having to write any additional line of code. </p>
+        <p><strong>XML Data </strong></p>
+        <p>The XML data is what drives the entire <em>LinkedCharts</em> drill-down functionality. In this example, we will use <em>data URL method</em> to specify URL of descendant charts. In context of XML data, it is called <em>XML URL method</em>. Given below is the XML data specifying <em>LinkedChart</em> for each column.</p>
+       
+
+        <div class="container">
+           <ul class="tabs">
+              <li><a href="#mainxml">XML</a></li>
+              <li><a href="#mainjson">JSON</a></li>
+           </ul>
+           <div class="tab_container">
+              <div id="mainxml" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption=&quot;Yearly Sales&quot; xAxisName=&quot;Year&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;2004&quot; value=&quot;37800&quot; <strong>link=&quot;newchart-xmlurl-Data2004.xml&quot;</strong> /&gt;
+  &lt;set label=&quot;2005&quot; value=&quot;21900&quot; link=&quot;newchart-xmlurl-Data2005.xml&quot; /&gt;
+  &lt;set label=&quot;2006&quot; value=&quot;32900&quot; link=&quot;newchart-xmlurl-Data2006.xml&quot; /&gt;
+  &lt;set label=&quot;2007&quot; value=&quot;39800&quot; link=&quot;newchart-xmlurl-Data2007.xml&quot; /&gt;
+&lt;/chart&gt;</pre>
+      </div>
+              <div id="mainjson" class="tab_content"> <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Yearly Sales", "xaxisname":"Year", "yaxisname":"Sales" },
+  "data":[
+    { "label":"2004", "value":"37800", "link":"newchart-jsonurl-Data2004.json"  },
+    { "label":"2005", "value":"21900", "link":"newchart-jsonurl-Data2005.json"  },
+    { "label":"2006", "value":"32900", "link":"newchart-jsonurl-Data2006.json"  },
+    { "label":"2007", "value":"39800", "link":"newchart-jsonurl-Data2007.json"  }
+  ]
+}</pre>
+      </div>
+      </div>
+   </div>
+  	<div style="clear:both; height:10px;"></div>
+        <p>In the above XML we define link attribute for each <span class="codeInline">&lt;set&gt;</span> element. Note how link for each column is defined as <span class="codeInline">newchart-xmlurl-DataURL</span>. <span class="codeInline">newChart</span> prefix is used to indicate that it must invoke <em>LinkedChart</em>. <span class="codeInline">xmlURL</span> indicates that <em>XML URL </em>method is used to specify data for linked chart; in case of JSON data, <span class="codeInline">jsonurl</span> is used. URL specifies the data path for the linked chart that opens when this column is clicked. </p>
+        <p>As per the above XML, the data for the child chart which loads when first column is clicked, is <span class="codeInline">Data2004.xml</span>; <span class="codeInline"> Data2005.xml</span> when the second column is clicked etc. Hence, for 4 columns in this sample there are 4 separate XML files from which the data for the detailed charts would be used. The four XML (and JSON) files are as follows:</p>
+        <div class="container"><ul class="tabs"><li><a href="#tab2004">Data2004.xml</a></li>
+              <li><a href="#tab2005">Data2005.xml</a></li>
+              <li><a href="#tab2006">Data2006.xml</a></li>
+              <li><a href="#tab2007">Data2007.xml</a></li>
+           </ul>
+           <div class="tab_container">
+              <div id="tab2004" class="tab_content">
+                 <pre class="code_container prettyprint" >&lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2004&quot;<br />xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot; &gt;
+   &lt;set label=&quot;Q1&quot; value=&quot;11700&quot; /&gt;<br />   &lt;set label=&quot;Q2&quot; value=&quot;8600&quot; /&gt;<br />   &lt;set label=&quot;Q3&quot; value=&quot;6900&quot; /&gt;<br />   &lt;set label=&quot;Q4&quot; value=&quot;10600&quot; /&gt;
+&lt;/chart&gt;</pre>
+             </div>
+              <div id="tab2005" class="tab_content">
+                 <pre class="prettyprint code_container" >&lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2005&quot;
+xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;Q1&quot; value=&quot;5500&quot; /&gt;<br />  &lt;set label=&quot;Q2&quot; value=&quot;7100&quot; /&gt;<br />  &lt;set label=&quot;Q3&quot; value=&quot;3900&quot; /&gt;<br />  &lt;set label=&quot;Q4&quot; value=&quot;5400&quot; /&gt;
+&lt;/chart&gt;</pre>
+             </div>
+              <div id="tab2006" class="tab_content">
+                 <pre class="prettyprint code_container" >&lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2006&quot;
+xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;Q1&quot; value=&quot;6700&quot; /&gt;<br />  &lt;set label=&quot;Q2&quot; value=&quot;9200&quot; /&gt;<br />  &lt;set label=&quot;Q3&quot; value=&quot;10800&quot; /&gt;<br />  &lt;set label=&quot;Q4&quot; value=&quot;6200&quot; /&gt;
+&lt;/chart&gt;</pre>
+             </div>
+              <div id="tab2007" class="tab_content">
+                 <pre class="prettyprint code_container" >&lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2007&quot;
+xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;Q1&quot; value=&quot;8900&quot; /&gt;<br />  &lt;set label=&quot;Q2&quot; value=&quot;6600&quot; /&gt;<br />  &lt;set label=&quot;Q3&quot; value=&quot;11200&quot; /&gt;<br />  &lt;set label=&quot;Q4&quot; value=&quot;13100&quot; /&gt;
+&lt;/chart&gt;</pre>
+              </div>
+           </div>
+        </div>
+		  
+  			<div style="clear:both; height:10px;"></div>
+
+
+           <div class="container">
+           <ul class="tabs">
+              <li><a href="#tab2004json">Data2004.json</a></li>
+              <li><a href="#tab2005json">Data2005.json</a></li>
+              <li><a href="#tab2006json">Data2006.json</a></li>
+              <li><a href="#tab2007json">Data2007.json</a></li>
+           </ul>
+           <div class="tab_container">
+              <div id="tab2004json" class="tab_content">
+                 <pre class="code_container prettyprint" >{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"For the year 2004",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showBorder" : "1"
+  },
+  "data":[
+    { "label":"Q1", &quot;value&quot;:&quot;11700&quot; },
+    { "label":"Q2", "value":"8600" },
+    { "label":"Q3", "value":"6900" },
+    { "label":"Q4", "value":"10600" }
+  ]
+}</pre>
+           </div>
+              <div id="tab2005json" class="tab_content">
+                 <pre class="prettyprint code_container" >{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"For the year 2005",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showBorder" : "1"
+  },
+  "data":[
+    { "label":"Q1", "value":"5500" },
+    { "label":"Q2", "value":"7100" },
+    { "label":"Q3", "value":"3900" },
+    { "label":"Q4", "value":"5400" }
+  ]
+}</pre>
+              </div>
+              <div id="tab2006json" class="tab_content">
+                 <pre class="prettyprint code_container" >{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"For the year 2006",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showBorder" : "1"
+  },
+  "data":[
+    { "label":"Q1", "value":"6700" },
+    { "label":"Q2", "value":"9200" },
+    { "label":"Q3", "value":"10800" },
+    { "label":"Q4", "value":"6200" }
+  ]
+}
+</pre>
+              </div>
+              <div id="tab2007json" class="tab_content">
+                 <pre class="prettyprint code_container" >{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"For the year 2007",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showBorder" : "1"
+  },
+  "data":[
+    { "label":"Q1", "value":"8900" },
+    { "label":"Q2", "value":"6600" },
+    { "label":"Q3", "value":"11200" },
+    { "label":"Q4", "value":"13100" }
+  ]
+}
+</pre>
+              </div>
+           </div>
+        </div> <div style="clear:both;"></div>
+        <p>
+           The page first loads the parent chart, a column chart with 4 years data. When a column (year) is clicked the parent chart is replaced by a detailed child chart showing quarterly data for that particular year. There is a Back overlay button at the top right corner of the chart. This button when clicked leads us back to the main chart. </p>
+        <p>This is a very basic sample in which the parent chart is replaced by the child chart. However, there are a lot of things that you can configure, like the links from JavaScript (using <span class="codeInline">configureLink</span> function) such that the descendant charts get appended to the parent chart's container. You can also make the descendant charts open in a separate container. Using event listeners you can even extend the functionality to open the descendant charts in jQuery dialogs, light-boxes etc. You can also modify various aspects (like size, attribute etc.) of the parent chart as well as the opening descendant chart. Possibilities are endless. We explore some of the possibilities in the coming sections of this page. </p>
+        <div class="highlightBlock"> <strong><a name="link" id="link"></a>Pointers on the XML's link attribute to implement <i>LinkedCharts</i> </strong>:
+           <p>The format of the <span class="codeInline">link </span>attribute's value is : &quot;<span class="codeInline">newchart-dataformat-datasource</span>&quot;. Here, <span class="codeInline">newchart-</span> is a constant. The values for <span class="codeInline">dataformat</span> and <span class="codeInline">datasource</span> are as follows: </p>
+           <ul>
+                 <li><span class="msg_handler"><a>dataformat</a> &raquo; </span><span class="msg_body veryLightYellowBg"> ( i.e., value after <span class="codeInline">newchart</span> prefix and a hyphen (-) ) </span> is the format in which data for the linked chart is provided. Data format can be of 4 types:
+                    <ol>
+                          <li><span class="codeInline">xmlurl</span> - This defines that the data for the new chart will come from an XML Url. This is automatically loaded by the linked chart. </li>
+                          <li><span class="codeInline">jsonurl</span> - This defines that the data for the new chart will come from a JSON Url. This is automatically loaded by the linked chart</li>
+                          <li><span class="codeInline">xml</span> - This defines that the data for the new chart will come from XML embedded inside the XML for the parent chart (parent data source) </li>
+                       <li><span class="codeInline">json</span> - This defines that the data for the new chart will come from JSON embedded inside the JSON for the parent chart (parent data source)</li>
+                    </ol>
+             </li>
+              <li><span class="msg_handler"><a>datasource</a> &raquo; </span><span class="msg_body veryLightYellowBg"> (the rest of the value, after a hyphen (-) again) </span>defines the value for data source (either URL or data string itself) for the descendant chart as per the <span class="codeInline">dataformat</span> set:
+                 <ol>
+                          <li>When <span class="codeInline">xmlurl</span> is set as the <span class="codeInline">dataformat</span>, the <span class="codeInline">datasource</span> value would be a URL of the XML file </li>
+                          <li>When <span class="codeInline">jsonurl</span> is set as the <span class="codeInline">dataformat</span>, the <span class="codeInline">datasource</span> value would be a URL of the JSON file </li>
+                          <li>When <span class="codeInline">xml</span> is set as the <span class="codeInline">dataformat</span>, the <span class="codeInline">datasource</span> assumes value of the unique data identifier which refers to data embedded inside  <span class="codeInline">&lt;linkeddata&gt;</span> node (that contains data for all descendant charts) in the parent data source for the descendant chart </li>
+                    <li>When <span class="codeInline">json</span> is set as the <span class="codeInline">dataformat</span>, the <span class="codeInline">datasource</span> assumes value of the unique data identifier which refers to data embedded inside the Array <span class="codeInline">linkeddata</span> (that contains data for all descendant charts) in the parent data source for the descendant chart </li>
+                 </ol>
+              </li>
+           </ul>
+       </div>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="embedded" id="embedded"></a><i>LinkedChart</i> sample with descendant data embedded in parent data (data string method) </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>You can embed the descendant data string in the parent data source. This is called <em>data string method</em> in context of <em>LinkedCharts</em>. Each data plot item in parent chart is then linked to a descendant chart data (embedded in parent data source) by means of a unique data identifier. A sample XML and equivalent JSON is given below: </p>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <div class="container">
+           <ul class="tabs">
+              <li><a href="#tabXML_LC1">XML</a></li>
+              <li><a href="#tabJSON_LC1">JSON</a></li>
+           </ul>
+           <div class="tab_container">
+              <div id="tabXML_LC1" class="tab_content">
+                <pre class="code_container prettyprint lang-xml" style="height:300px;">&lt;chart caption=&quot;Yearly sales&quot; xAxisName=&quot;Year&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;2004&quot; value=&quot;37800&quot; link=&quot;newchart-xml-<strong>2004</strong>-<strong>quarterly</strong>&quot; /&gt;
+  &lt;set label=&quot;2005&quot; value=&quot;21900&quot; link=&quot;newchart-xml-2005-quarterly&quot; /&gt;
+  &lt;set label=&quot;2006&quot; value=&quot;32900&quot; link=&quot;newchart-xml-2006-quarterly&quot; /&gt;
+  &lt;set label=&quot;2007&quot; value=&quot;39800&quot; link=&quot;newchart-xml-2007-quarterly&quot; /&gt;
+  
+  &lt;<strong>linkeddata</strong> id=&quot;<strong>2004-quarterly</strong>&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2004&quot;
+    xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot; &gt;
+       &lt;set label=&quot;Q1&quot; value=&quot;11700&quot; /&gt;
+       &lt;set label=&quot;Q2&quot; value=&quot;8600&quot; /&gt;
+       &lt;set label=&quot;Q3&quot; value=&quot;6900&quot; /&gt;
+       &lt;set label=&quot;Q4&quot; value=&quot;10600&quot; /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+  
+  &lt;<strong>linkeddata</strong> id=&quot;2005-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2005&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+       &lt;set label=&quot;Q1&quot; value=&quot;5500&quot; /&gt;
+       &lt;set label=&quot;Q2&quot; value=&quot;7100&quot; /&gt;
+       &lt;set label=&quot;Q3&quot; value=&quot;3900&quot; /&gt;
+       &lt;set label=&quot;Q4&quot; value=&quot;5400&quot; /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;<strong>linkeddata</strong> id=&quot;2006-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2006&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+       &lt;set label=&quot;Q1&quot; value=&quot;6700&quot; /&gt;
+       &lt;set label=&quot;Q2&quot; value=&quot;9200&quot; /&gt;
+       &lt;set label=&quot;Q3&quot; value=&quot;10800&quot; /&gt;
+       &lt;set label=&quot;Q4&quot; value=&quot;6200&quot; /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;<strong>linkeddata</strong> id=&quot;2007-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2007&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+      &lt;set label=&quot;Q1&quot; value=&quot;8900&quot; /&gt;
+      &lt;set label=&quot;Q2&quot; value=&quot;6600&quot; /&gt;
+      &lt;set label=&quot;Q3&quot; value=&quot;11200&quot; /&gt;
+      &lt;set label=&quot;Q4&quot; value=&quot;13100&quot; /&gt;
+     &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+&lt;/chart&gt;</pre>
+             </div>
+              <div id="tabJSON_LC1" class="tab_content"  >
+                 <pre id="pre-datajson" class="prettyprint lang-js code_container" style="height:300px; ">{
+  &quot;chart&quot;:{
+    &quot;caption&quot;:&quot;Yearly Sales&quot;, &quot;xaxisname&quot;:&quot;Year&quot;, &quot;yaxisname&quot;:&quot;Sales&quot; },
+  &quot;data&quot;:[{ 
+      &quot;label&quot;:&quot;2004&quot;, &quot;value&quot;:&quot;37800&quot;, <strong>&quot;link&quot;:&quot;newchart-json-2004-quarterly&quot;</strong>
+    },
+    {
+      &quot;label&quot;:&quot;2005&quot;,&quot;value&quot;:&quot;21900&quot;, &quot;link&quot;:&quot;newchart-json-2005-quarterly&quot;
+    },
+    {
+      &quot;label&quot;:&quot;2006&quot;, &quot;value&quot;:&quot;32900&quot;, &quot;link&quot;:&quot;newchart-json-2006-quarterly&quot;
+    },
+    {
+      &quot;label&quot;:&quot;2007&quot;, &quot;value&quot;:&quot;39800&quot;, &quot;link&quot;:&quot;newchart-json-2007-quarterly&quot;
+    }
+  ],
+  &quot;linkeddata&quot;:[{
+      <strong>&quot;id&quot;:&quot;2004-quarterly&quot;,</strong>
+     <strong> &quot;linkedcharts&quot;:</strong>{
+        &quot;chart&quot;:{
+          &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,
+          &quot;subcaption&quot;:&quot;For the year 2004&quot;,
+          &quot;xaxisname&quot;:&quot;Quarter&quot;,
+          &quot;yaxisname&quot;:&quot;Sales&quot;
+        },
+        &quot;data&quot;:[
+          { "label":"Q1", &quot;value&quot;:&quot;11700&quot; },
+          { &quot;label":"Q2", &quot;value":"8600" },
+          { "label":"Q3", "value":"6900" },
+          { "label":"Q4", "value":"10600" }
+        ]
+      }
+    },
+    {
+      &quot;id&quot;:&quot;2005-quarterly&quot;,
+      &quot;linkedcharts&quot;:{
+        &quot;chart&quot;:{
+          &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,
+          &quot;subcaption&quot;:&quot;For the year 2005&quot;,
+          &quot;xaxisname&quot;:&quot;Quarter&quot;,
+          &quot;yaxisname&quot;:&quot;Sales&quot;
+        },
+        &quot;data&quot;:[
+           { "label":"Q1", "value":"5500" },
+           { "label":"Q2", "value":"7100" },
+           { "label":"Q3", "value":"3900" },
+           { "label":"Q4", "value":"5400" }
+        ]
+      }
+    },
+    {
+      &quot;id&quot;:&quot;2006-quarterly&quot;,
+      &quot;linkedcharts&quot;:{
+        &quot;chart&quot;:{
+          &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,
+          &quot;subcaption&quot;:&quot;For the year 2006&quot;,
+          &quot;xaxisname&quot;:&quot;Quarter&quot;,
+          &quot;yaxisname&quot;:&quot;Sales&quot;
+        },
+        &quot;data&quot;:[
+           { "label":"Q1", "value":"6700" },
+           { "label":"Q2", "value":"9200" },
+           { "label":"Q3", "value":"10800" },
+           { "label":"Q4", "value":"6200" }
+        ]
+      }
+    },
+    {
+      &quot;id&quot;:&quot;2007-quarterly&quot;,
+      &quot;linkedcharts&quot;:{
+        &quot;chart&quot;:{
+          &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,
+          &quot;subcaption&quot;:&quot;For the year 2007&quot;,
+          &quot;xaxisname&quot;:&quot;Quarter&quot;,
+          &quot;yaxisname&quot;:&quot;Sales&quot;
+        },
+        &quot;data&quot;:[
+          { "label":"Q1", "value":"8900" },
+          { "label":"Q2", "value":"6600" },
+          { "label":"Q3", "value":"11200" },
+          { "label":"Q4", "value":"13100" }
+        ]
+      }
+    }
+  ]
+}</pre>
+              </div>
+           </div>
+        </div> <div style="clear:both;"></div>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p class="highlightBlock">For detailed information of the XML/JSON structure of  the <i>LinkedCharts</i>' data read FusionCharts data formats &gt; <a href="../DataFormats/JSON/LinkedCharts.html">XML</a> and <a href="../DataFormats/XML/LinkedCharts.html">JSON</a> pages. </p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="config" id="config"></a>Configuring <i>LinkedCharts</i></td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>Till now, we've seen how to use the standard <em>LinkedCharts</em> feature provided by FusionCharts. Here, the descendant charts used the same configuration and chart type as parent chart. However, FusionCharts JavaScript class allows you to configure each aspect of the descendant charts <i>LinkedCharts</i> using the function <span class="codeInline"><a href="../JavaScript/API/Methods.html#configurelink">configureLink() </a></span>for each chart instance. Using this function, you can pass all your desired configurations for the descendant charts.</p>
+        <p> You can pass all the properties that a <a href="../JavaScript/API/Methods.html#chartparams">FusionCharts constructor</a> accepts. Additionally, you can also configure the overlay button using <span class="codeInline"><a href="../JavaScript/API/Methods.html#overlaybutton">overlayButton</a></span> property. In the sample JavaScript code given below we will change the chart type of the child charts to Pie3D and set custom colors for overlay-buttons. Note that for this example we will use the same data files that we have used in our basic <em>LinkedChart</em> sample above.The images below shows how it  works:</p>
+        <table width="700" cellpadding="0" cellspacing="0">
+           <tr>
+              <td> <img src="../FirstChart/Images/linked-charts.jpg" width="322" height="252"/></td>
+              <td  align="center"><img src="Images/linkedchartsconfig1.jpg" width="323" height="253"/></td>
+           </tr>
+           <tr>
+              <td align="center" class="imageCaption">Main chart with four year's sales data<br />
+              <br />
+              </td>
+              <td align="center" class="imageCaption"><i>LinkedChart</i>  as Pie3D and with customized overlay button</td>
+           </tr>
+        </table>
+        <p>See it <a href="../../Code/JavaScript/Basics/UsingLinkedCharts/linked-charts-config-basic-xml.html" target="_blank">live</a>! </p>
+        <pre class="prettyprint code_container">var myChart = new FusionCharts( "FusionCharts/Column2D.swf",
+    "myChartId", "320", "250", "0", "1" );
+  myChart.setXMLUrl("summary-data.xml");
+  myChart.render("chartContainer");
+  
+  <strong>FusionCharts("myChartId").configureLink</strong> (
+  {
+    <strong>swfUrl</strong> : "../../../../Charts/Pie3D.swf",
+    <strong>overlayButton</strong>:
+    {    
+      message: 'close',
+      fontColor : '880000',
+      bgColor:'FFEEEE',
+      borderColor: '660000'
+    }
+  }, 0);</pre>
+        <p>In the above code :</p>
+        <ul>
+           <li>We have created a parent chart with ID <span class="codeInline">myChartId</span>. We've provided it the XML data that we had built earlier. </li>
+           <li>Thereafter, to configure the descendant charts, we call <span class="codeInline">configureLink</span> function on the chart instance and to this function, we pass an Object as parameter.</li>
+           <li>The object contains the property <span class="codeInline">swfUrl</span> with its value as the path to <span class="codeInline">Pie3D.swf</span>. This helps in configuring the descendant charts to show up as Pie Charts. </li>
+           <li>We also setup the overlay button using <span class="codeInline">overlayButton</span> property. The settings are passed as an Object with possible properties as <span class="codeInline">message</span>, <span class="codeInline">font, fontColor</span>, <span class="codeInline">fontSize</span>, <span class="codeInline">bold</span>, <span class="codeInline">padding</span>, <span class="codeInline">bgColor</span> and <span class="codeInline">borderColor</span>.
+				Here we:
+              <ul>
+					<li>We set a new <span class="codeInline">message</span> &quot;close&quot; which replaces the default &quot;Back&quot; text of the button</li>
+	           <li>We set red <span class="codeInline">fontColor</span>, and a similar <span class="codeInline">borderColor</span> and <span class="codeInline">bgColor </span>(background color) </li>
+		       </ul>			  
+		  </li>
+           <li>We also pass the drill-down level to configure as the second parameter of the function (zero here). Zero denotes the  first level of drill-down. The level value keeps increasing by one for subsequent levels of drill-down </li>
+        </ul>
+        <p class="highlightBlock">Note that you can pass all the properties that a <a href="../JavaScript/API/Methods.html#chartparams">FusionCharts constructor</a> accepts as the property of the parameter of <span class="codeInline">configureLink</span> function. To know the properties for <span class="codeInline">overlayButton</span> read <a href="../JavaScript/API/Methods.html#overlaybutton">overlayButton</a> property list.</p>
+     </td>
+  </tr>
+  
+  
+  <tr>
+     <td valign="top" class="header"><a name="othercontainer" id="othercontainer"></a>Opening the <i>LinkedCharts</i> in a separate HTML container</td>
+  </tr>
+  <tr>
+    <td valign="top">
+        <p>Now let's modify the above code and the HTML a bit so that we can render the descendant charts in a separate HTML container. This will help us retain the parent chart as well as show the child charts separately. The changes are as follows:</p>
+        <p>In the HTML we added a new DIV with <span class="codeInline">&quot;linkedchart-container&quot;</span> as id just below the existing chart container DIV. This new DIV will be  the container for the descendant charts<em>. </em></p>
+        <pre class="code_container prettyprint">&lt;div id=&quot;chartContainer&quot;&gt;Parent chart will load here&lt;/div&gt;
+
+<strong>&lt;div id=&quot;linkedchart-container&quot; &gt;Descendant charts will load here&lt;/div&gt;</strong></pre>
+        <p>&nbsp;</p>
+                <pre class="prettyprint code_container"><strong>FusionCharts("myChartId").configureLink</strong> (
+  {
+    swfUrl : "../../../../Charts/Pie3D.swf",
+    <strong>&quot;renderAt&quot; : &quot;linkedchart-container&quot;,</strong>
+    overlayButton: { show : false }
+  }, 0 );</pre>
+		          <p>In JavaScript's <span class="codeInline">configureLink</span> function we do a bit of modifications as described below:</p>
+		          <ul>
+		             <li>We add <span class="codeInline">renderAt</span> property and set the value to &quot;<span class="codeInline">linkedchart-container</span>&quot; where the <em>LinkedCharts </em>would be generated</li>
+                   <li>We set the overlay button off by setting the <span class="codeInline">show</span> property to <span class="codeInline">false</span></li>
+         </ul>
+                <p>Once run, the functionality would work somehow like the image shown below: </p>
+                <p><img src="Images/linkedcharts_renderat.jpg" class="imageBorder"/></p>See it <a href="../../Code/JavaScript/Basics/UsingLinkedCharts/linked-charts-config-renderat-xml.html" target="_blank">live</a>!     </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="multilevel" id="multilevel"></a>Creating <em>LinkedCharts </em>with multiple levels of drill-down </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>Now let's create a sample where we would drill-down from an yearly data to weekly data in 3 drill-down steps. Hence, the first drill-down level will show quarterly data for a particular year. The next level will show monthly data for a selected quarter. Finally, the last drill-down level will show weekly data for the selected month. </p>
+      <p>For this we will use only a single data source which contains data for all the descent charts for all drill-down levels. </p>
+      <p>We will also learn how to configure each level of descend chart using <span class="codeInline">configureLink()</span> function.</p>
+      <p>The HTML would be again fairly simple as shown below: </p>
+      <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;  
+    &lt;title&gt;Multi-level LinkedCharts&lt;/title&gt;  
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;parentChartContainer&quot; &gt;Loading FusionCharts!&lt;/div&gt;
+    &lt;div id=&quot;weeklyChartContainer&quot; &gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; &gt;&lt;!--  
+
+      var rootChart = new FusionCharts( "../../../../Charts/Column2D.swf", "myChartId", "680", "250", "0", "1" );
+      rootChart.setXMLUrl( "MuliLevelLinkedData.xml" );
+      rootChart.render( "parentChartContainer" );
+
+      rootChart.<strong>configureLink</strong>
+     (
+        <strong>[</strong>
+          { overlayButton: { message: ' « Annual Sales'   } },
+          { overlayButton: { message: ' « Quarterly Sales'} },
+          {
+            swfUrl: '../../../../Charts/Pie3D.swf',
+            width: '225', height: '200',
+            renderAt: 'weeklyChartContainer',
+            insertMode: 'append',
+            overlayButton: { message: 'Close' }
+          }
+        <strong>]</strong>
+      );
+      
+    // --&gt;     
+    &lt;/script&gt;     
+  &lt;/body&gt; 
+&lt;/html&gt; </pre>
+      <p>In the above code we have done the following:</p>
+      <ul>
+        <li>Created a Column2D  chart (which will act as the parent chart) </li>
+        <li>Configure each <em>LinkedChart'</em>s drill-down  level calling <span class="codeInline">configureLink</span> function. In this function instead of an Object we have passed an Array. Each array element is an Object containing descendent chart configuration for each level. Each level is denoted by the index value of the Array. Hence, zero denotes the first level of drill-down, one being the second level and so on. The configuration that we did for each level is as follows:</li>
+      </ul>
+      <ol>
+        <li>For first level we set the overlay button's message to &quot; &laquo; Annual Sales&quot;, Since, the first level would be a drilled-down chart from the Annual Sales chart this message hints at going back to the Annual Sales chart</li>
+        <li>For second level we set the overlay button's message to &quot; &laquo; Quarterly Sales&quot;, Since, the second level would be a drilled-down chart from the Quarterly Sales chart this message hints at going back to the Quarterly Sales chart </li>
+        <li>For the final level we configure a lot more. We change the chart SWF and set  <span class="codeInline">swfUrl</span> to <span class="codeInline">Pie3D.swf</span>. We change the width and height of the chat. We set a different div where the chart of this level would be rendered. Moreover, we set that the chart would not replace the existing content of the container element. Rather the chart would be appended (<span class="codeInline">insertMode: 'append'</span>) into the existing content. This would make the container filled up with charts, unless charts of this level are not closed. </li>
+      </ol>
+      
+      <p>With these configurations set, lets see how we define the data for each level in a single data source. The XML data source as well as the equivalent JSON data source are shown below: </p>
+      
+		<div class="container">
+           <ul class="tabs">
+              <li><a href="#tabXML_ml">XML</a></li>
+              <li><a href="#tabJSON_ml">JSON</a></li>
+           </ul>
+           <div class="tab_container">
+             <div id="tabXML_ml" class="tab_content">
+               <pre class="code_container prettyprint lang-xml" style="height:1500px;">&lt;chart caption="Annual Sales Summary" subcaption="For the period of 2004 to 2007"
+    xAxisName="Year" yAxisName="Sales" numberPrefix="$" useRoundEdges="1"&gt;
+    &lt;set label="2004" value="11610" link="newchart-xml-2004Quarters" tooltext="2004, $11.61K{br}click to see details" /&gt;
+    &lt;set label="2005" value="10430" link="newchart-xml-2005Quarters" tooltext="2005, $10.43K{br}click to see details" /&gt;
+    &lt;set label="2006" value="10170" link="newchart-xml-2006Quarters" tooltext="2006, $10.17K{br}click to see details" /&gt;
+    &lt;set label="2007" value="11560" link="newchart-xml-2007Quarters" tooltext="2007, $11.56K{br}click to see details" /&gt;
+
+    &lt;linkeddata id="2004Quarters"&gt;
+        &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2004" 
+            xAxisName="Quarter" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+            &lt;set label="Q1" value="2740" link="newchart-xml-2004Q1"/&gt;
+            &lt;set label="Q2" value="2700" link="newchart-xml-2004Q2"/&gt;
+            &lt;set label="Q3" value="3180" link="newchart-xml-2004Q3"/&gt;
+            &lt;set label="Q4" value="2990" link="newchart-xml-2004Q4"/&gt;
+       
+	
+            &lt;linkeddata id="2004Q1"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the first quarter of year 2004"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" 	&gt;
+                    &lt;set label="January" value="1100" link="newchart-xml-2004Jan" /&gt;
+                    &lt;set label="February" value="760" link="newchart-xml-2004Feb" /&gt;
+                    &lt;set label="March" value="880" link="newchart-xml-2004Mar" /&gt;
+
+                    &lt;linkeddata id="2004Jan"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For January 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="170" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Feb"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For February 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="370" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Mar"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For March 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="270" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2004Q2"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the second quarter of year 2004"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="April" value="1160" link="newchart-xml-2004Apr" /&gt;
+                    &lt;set label="May" value="920" link="newchart-xml-2004May" /&gt;
+                    &lt;set label="June" value="620" link="newchart-xml-2004Jun" /&gt;
+
+                    &lt;linkeddata id="2004Apr"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For April 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="350" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004May"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For May 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="80" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="400" /&gt;
+                            &lt;set label="Week 4" value="150" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Jun"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For June 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="210" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="120" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2004Q3"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the third quarter of year 2004"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="July" value="1140" link="newchart-xml-2004Jul" /&gt;
+                    &lt;set label="August" value="860" link="newchart-xml-2004Aug" /&gt;
+                    &lt;set label="September" value="1180" link="newchart-xml-2004Sep" /&gt;
+
+                    &lt;linkeddata id="2004Jul"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For July 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="150" /&gt;
+                            &lt;set label="Week 4" value="300" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Aug"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For August 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="310" /&gt;
+                            &lt;set label="Week 2" value="250" /&gt;
+                            &lt;set label="Week 3" value="100" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Sep"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For September 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2" 
+						numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2004Q4"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the fourth quarter of year 2004"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="October" value="920" link="newchart-xml-2004Oct" /&gt;
+                    &lt;set label="November" value="1020" link="newchart-xml-2004Nov" /&gt;
+                    &lt;set label="December" value="1050" link="newchart-xml-2004Dec" /&gt;
+
+                    &lt;linkeddata id="2004Oct"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For October 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="250" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="70" /&gt;
+                            &lt;set label="Week 4" value="400" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Nov"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For November 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                           numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="100" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2004Dec"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For December 2004" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="150" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+			 
+			 &lt;/chart&gt;
+    &lt;/linkeddata&gt;
+
+    &lt;linkeddata id="2005Quarters"&gt;
+        &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2005"
+            xAxisName="Quarter" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+            &lt;set label="Q1" value="3060" link="newchart-xml-2005Q1"/&gt;
+            &lt;set label="Q2" value="2030" link="newchart-xml-2005Q2"/&gt;
+            &lt;set label="Q3" value="2700" link="newchart-xml-2005Q3"/&gt;
+            &lt;set label="Q4" value="2640" link="newchart-xml-2005Q4"/&gt;
+        
+	
+            &lt;linkeddata id="2005Q1"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the first quarter of year 2005"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="January" value="3700" link="newchart-xml-2004Jan" /&gt;
+                    &lt;set label="February" value="2900" link="newchart-xml-2004Feb" /&gt;
+                    &lt;set label="March" value="3200" link="newchart-xml-2004Mar" /&gt;
+
+                    &lt;linkeddata id="2005Jan"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For January 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="450" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="380" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Feb"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For February 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="100" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Mar"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For March 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="120" /&gt;
+                            &lt;set label="Week 2" value="280" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2005Q2"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the second quarter of year 2005"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="April" value="3700" link="newchart-xml-2005Apr" /&gt;
+                    &lt;set label="May" value="2900" link="newchart-xml-2005May" /&gt;
+                    &lt;set label="June" value="3200" link="newchart-xml-2005Jun" /&gt;
+
+                    &lt;linkeddata id="2005Apr"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For April 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="170" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="80" /&gt;
+                            &lt;set label="Week 4" value="300" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005May"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For May 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="80" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Jun"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For June 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="150" /&gt;
+                            &lt;set label="Week 2" value="50" /&gt;
+                            &lt;set label="Week 3" value="100" /&gt;
+                            &lt;set label="Week 4" value="300" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2005Q3"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the third quarter of year 2005"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="July" value="3700" link="newchart-xml-2005Jul" /&gt;
+                    &lt;set label="August" value="2900" link="newchart-xml-2005Aug" /&gt;
+                    &lt;set label="September" value="3200" link="newchart-xml-2005Sep" /&gt;
+
+                    &lt;linkeddata id="2005Jul"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For July 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="230" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="120" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Aug"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For August 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="300" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="220" /&gt;
+                            &lt;set label="Week 4" value="100" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Sep"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For September 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2" 
+							numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="300" /&gt;
+                            &lt;set label="Week 2" value="190" /&gt;
+                            &lt;set label="Week 3" value="350" /&gt;
+                            &lt;set label="Week 4" value="400" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2005Q4"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the fourth quarter of year 2005"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="October" value="3700" link="newchart-xml-2005Oct" /&gt;
+                    &lt;set label="November" value="2900" link="newchart-xml-2005Nov" /&gt;
+                    &lt;set label="December" value="3200" link="newchart-xml-2005Dec" /&gt;
+
+                    &lt;linkeddata id="2005Oct"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For October 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="110" /&gt;
+                            &lt;set label="Week 2" value="190" /&gt;
+                            &lt;set label="Week 3" value="400" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Nov"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For November 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="200" /&gt;
+                            &lt;set label="Week 2" value="260" /&gt;
+                            &lt;set label="Week 3" value="120" /&gt;
+                            &lt;set label="Week 4" value="250" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2005Dec"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For December 2005" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="300" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="120" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+			
+			&lt;/chart&gt;
+    &lt;/linkeddata&gt;
+
+    &lt;linkeddata id="2006Quarters"&gt;
+        &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2006"
+            xAxisName="Quarter" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+            &lt;set label="Q1" value="2410" link="newchart-xml-2006Q1"/&gt;
+            &lt;set label="Q2" value="2800" link="newchart-xml-2006Q2"/&gt;
+            &lt;set label="Q3" value="2550" link="newchart-xml-2006Q3"/&gt;
+            &lt;set label="Q4" value="2410" link="newchart-xml-2006Q4"/&gt;
+       
+	
+            &lt;linkeddata id="2006Q1"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the first quarter of year 2006"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="January" value="870" link="newchart-xml-2006Jan" /&gt;
+                    &lt;set label="February" value="890" link="newchart-xml-2006Feb" /&gt;
+                    &lt;set label="March" value="650" link="newchart-xml-2006Mar" /&gt;
+
+                    &lt;linkeddata id="2006Jan"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For January 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                             numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="100" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Feb"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For February 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="390" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Mar"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For March 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="80" /&gt;
+                            &lt;set label="Week 2" value="250" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="120" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2006Q2"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the second quarter of year 2006"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="April" value="1300" link="newchart-xml-2006Apr" /&gt;
+                    &lt;set label="May" value="440" link="newchart-xml-2006May" /&gt;
+                    &lt;set label="June" value="1060" link="newchart-xml-2006Jun" /&gt;
+
+                    &lt;linkeddata id="2006Apr"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For April 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006May"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For May 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                           numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="90" /&gt;
+                            &lt;set label="Week 2" value="100" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="50" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Jun"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For June 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="100" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2006Q3"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the third quarter of year 2006"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="July" value="850" link="newchart-xml-2006Jul" /&gt;
+                    &lt;set label="August" value="1030" link="newchart-xml-2006Aug" /&gt;
+                    &lt;set label="September" value="670" link="newchart-xml-2006Sep" /&gt;
+
+                    &lt;linkeddata id="2006Jul"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For July 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="200" /&gt;
+                            &lt;set label="Week 2" value="100" /&gt;
+                            &lt;set label="Week 3" value="250" /&gt;
+                            &lt;set label="Week 4" value="300" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Aug"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For August 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="400" /&gt;
+                            &lt;set label="Week 4" value="170" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Sep"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For September 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2" 
+						numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="80" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2006Q4"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the fourth quarter of year 2006"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="October" value="590" link="newchart-xml-2006Oct" /&gt;
+                    &lt;set label="November" value="690" link="newchart-xml-2006Nov" /&gt;
+                    &lt;set label="December" value="1130" link="newchart-xml-2006Dec" /&gt;
+
+                    &lt;linkeddata id="2006Oct"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For October 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                           numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="120" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="70" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Nov"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For November 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="200" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="100" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2006Dec"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For December 2006" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="320" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+			
+			 &lt;/chart&gt;
+    &lt;/linkeddata&gt;
+
+    &lt;linkeddata id="2007Quarters"&gt;
+        &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2007" 
+            xAxisName="Quarter" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+            &lt;set label="Q1" value="2690" link="newchart-xml-2007Q1"/&gt;
+            &lt;set label="Q2" value="2700" link="newchart-xml-2007Q2"/&gt;
+            &lt;set label="Q3" value="3180" link="newchart-xml-2007Q3"/&gt;
+            &lt;set label="Q4" value="2990" link="newchart-xml-2007Q4"/&gt;
+       
+	
+            &lt;linkeddata id="2007Q1"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the first quarter of year 2007"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="January" value="1050" link="newchart-xml-2007Jan" /&gt;
+                    &lt;set label="February" value="760" link="newchart-xml-2007Feb" /&gt;
+                    &lt;set label="March" value="880" link="newchart-xml-2007Mar" /&gt;
+
+                    &lt;linkeddata id="2007Jan"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For January 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                           numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="120" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Feb"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For February 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="100" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="370" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Mar"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For March 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="270" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2007Q2"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the second quarter of year 2007"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="April" value="1160" link="newchart-xml-2007Apr" /&gt;
+                    &lt;set label="May" value="920" link="newchart-xml-2007May" /&gt;
+                    &lt;set label="June" value="620" link="newchart-xml-2007Jun" /&gt;
+
+                    &lt;linkeddata id="2007Apr"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For April 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="350" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="320" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007May"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For May 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="80" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="400" /&gt;
+                            &lt;set label="Week 4" value="150" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Jun"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For June 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="210" /&gt;
+                            &lt;set label="Week 2" value="90" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="120" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2007Q3"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the third quarter of year 2007"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="July" value="1140" link="newchart-xml-2007Jul" /&gt;
+                    &lt;set label="August" value="860" link="newchart-xml-2007Aug" /&gt;
+                    &lt;set label="September" value="1180" link="newchart-xml-2007Sep" /&gt;
+
+                    &lt;linkeddata id="2007Jul"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For July 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="150" /&gt;
+                            &lt;set label="Week 4" value="300" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Aug"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For August 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="310" /&gt;
+                            &lt;set label="Week 2" value="250" /&gt;
+                            &lt;set label="Week 3" value="100" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Sep"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For September 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2" 
+							numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="370" /&gt;
+                            &lt;set label="Week 2" value="290" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+
+            &lt;linkeddata id="2007Q4"&gt;
+                &lt;chart caption="Monthly Sales Summary" subcaption="For the fourth quarter of year 2007"
+                    xAxisName="Month" yAxisName="Sales" numberPrefix="$" useRoundEdges="1" &gt;
+                    &lt;set label="October" value="920" link="newchart-xml-2007Oct" /&gt;
+                    &lt;set label="November" value="1020" link="newchart-xml-2007Nov" /&gt;
+                    &lt;set label="December" value="1050" link="newchart-xml-2007Dec" /&gt;
+
+                    &lt;linkeddata id="2007Oct"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For October 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="250" /&gt;
+                            &lt;set label="Week 2" value="200" /&gt;
+                            &lt;set label="Week 3" value="70" /&gt;
+                            &lt;set label="Week 4" value="400" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Nov"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For November 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+                            numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="100" /&gt;
+                            &lt;set label="Week 3" value="200" /&gt;
+                            &lt;set label="Week 4" value="320" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+
+                    &lt;linkeddata id="2007Dec"&gt;
+                        &lt;chart caption="Weekly Sales Summary" subcaption="For December 2007" showLabels="0" showLegend="1" pieSliceDepth="10" enableSmartLabels="0" labelDistance="2"
+							numberPrefix="$" bgColor="CBCBCB,E9E9E9" bgAlpha="50,50" bgRatio="0,100" bgAngle="270" showBorder="1" borderColor="767575" borderAlpha="50"&gt;
+                            &lt;set label="Week 1" value="400" /&gt;
+                            &lt;set label="Week 2" value="150" /&gt;
+                            &lt;set label="Week 3" value="300" /&gt;
+                            &lt;set label="Week 4" value="200" /&gt;
+                        &lt;/chart&gt;
+                    &lt;/linkeddata&gt;
+                    
+                &lt;/chart&gt;
+            &lt;/linkeddata&gt;
+			 
+			 &lt;/chart&gt;
+    &lt;/linkeddata&gt;
+
+&lt;/chart&gt;</pre>
+             </div>
+              <div id="tabJSON_ml" class="tab_content"  >
+                 <pre id="pre-datajson" class="prettyprint lang-js code_container" style="height:1500px; ">{
+  "chart":{
+    "caption":"Annual Sales Summary", "subcaption":"For the period of 2004 to 2007", "xaxisname":"Year", "yaxisname":"Sales", "numberprefix":"$",  "useroundedges":"1"
+  },
+  "data":[
+    { "label":"2004", "value":"11610", "link":"newchart-json-2004Quarters", "tooltext":"2004, $11.61K{br}click to see details"   },
+    { "label":"2005", "value":"10430", "link":"newchart-json-2005Quarters",  "tooltext":"2005, $10.43K{br}click to see details"  },
+    { "label":"2006", "value":"10170", "link":"newchart-json-2006Quarters",  "tooltext":"2006, $10.17K{br}click to see details"  },
+    { "label":"2007", "value":"11560", "link":"newchart-json-2007Quarters",  "tooltext":"2007, $11.56K{br}click to see details"  }
+  ],
+  "linkeddata":[
+    {
+      "id":"2004Quarters", 
+      "linkedchart":{
+        "chart":{
+          "caption":"Quarterly Sales Summary", "subcaption":"For the year 2004", "xaxisname":"Quarter", "yaxisname":"Sales", "numberprefix":"$", "useroundedges":"1"
+        },
+        "data":[
+		    { "label":"Q1", "value":"2740", "link":"newchart-json-2004Q1" },
+          { "label":"Q2", "value":"2700", "link":"newchart-json-2004Q2" },
+          { "label":"Q3", "value":"3180", "link":"newchart-json-2004Q3" },
+          { "label":"Q4", "value":"2990", "link":"newchart-json-2004Q4" }
+        ],
+        "linkeddata":[
+          { 
+			   "id":"2004Q1", 
+			   "linkedchart":{   
+			     "chart":{    
+			       "caption":"Monthly Sales Summary", "subcaption":"For the first quarter of year 2004", "xaxisname":"Month", "yaxisname":"Sales", "numberprefix":"$", "useroundedges":"1"  },   
+			       "data":[
+			         { "label":"January", "value":"1100", "link":"newchart-json-2004Jan" },     
+			         {  "label":"February", "value":"760", "link":"newchart-json-2004Feb" }, 
+			         { "label":"March", "value":"880", "link":"newchart-json-2004Mar" }   
+			       ],
+					 "linkeddata":[{
+			         "id":"2004Jan",
+			         "linkedchart":{
+			           "chart":{
+			             "caption":"Weekly Sales Summary", "subcaption":"For January 2004", "showlabels":"0", "showlegend":"1",
+                      "pieslicedepth":"10", "enablesmartlabels":"0", "labeldistance":"2", "numberprefix":"$", "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50", "bgratio":"0,100", "bgangle":"270", "showborder":"1", "bordercolor":"767575", "borderalpha":"50"
+                    },
+                    "data":[
+			              { "label":"Week 1", "value":"170" },
+			              { "label":"Week 2", "value":"290" },
+			              { "label":"Week 3", "value":"320" },
+			              { "label":"Week 4", "value":"320" }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Feb",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary","subcaption":"For February 2004", "showlabels":"0", "showlegend":"1",
+                      "pieslicedepth":"10", "enablesmartlabels":"0", "labeldistance":"2", "numberprefix":"$", "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50", "bgratio":"0,100", "bgangle":"270", "showborder":"1", "bordercolor":"767575", "borderalpha":"50"
+                    },
+                    "data":[
+			              { "label":"Week 1", "value":"100" },
+			              { "label":"Week 2", "value":"90"  },
+			              { "label":"Week 3", "value":"370" },
+			              { "label":"Week 4", "value":"200" }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Mar",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For March 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"270"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2004Q2",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the second quarter of year 2004",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"April",
+                  "value":"1160",
+                  "link":"newchart-json-2004Apr"
+                },
+                {
+                  "label":"May",
+                  "value":"920",
+                  "link":"newchart-json-2004May"
+                },
+                {
+                  "label":"June",
+                  "value":"620",
+                  "link":"newchart-json-2004Jun"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2004Apr",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For April 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"350"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004May",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For May 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"80"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"150"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Jun",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For June 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"210"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"120"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2004Q3",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the third quarter of year 2004",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"July",
+                  "value":"1140",
+                  "link":"newchart-json-2004Jul"
+                },
+                {
+                  "label":"August",
+                  "value":"860",
+                  "link":"newchart-json-2004Aug"
+                },
+                {
+                  "label":"September",
+                  "value":"1180",
+                  "link":"newchart-json-2004Sep"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2004Jul",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For July 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"150"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"300"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Aug",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For August 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"310"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Sep",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For September 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2004Q4",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the fourth quarter of year 2004",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"October",
+                  "value":"920",
+                  "link":"newchart-json-2004Oct"
+                },
+                {
+                  "label":"November",
+                  "value":"1020",
+                  "link":"newchart-json-2004Nov"
+                },
+                {
+                  "label":"December",
+                  "value":"1050",
+                  "link":"newchart-json-2004Dec"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2004Oct",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For October 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"70"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"400"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Nov",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For November 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2004Dec",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For December 2004",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"150"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id":"2005Quarters",
+      "linkedchart":{
+        "chart":{
+          "caption":"Quarterly Sales Summary",
+          "subcaption":"For the year 2005",
+          "xaxisname":"Quarter",
+          "yaxisname":"Sales",
+          "numberprefix":"$",
+          "useroundedges":"1"
+        },
+        "data":[{
+            "label":"Q1",
+            "value":"3060",
+            "link":"newchart-json-2005Q1"
+          },
+          {
+            "label":"Q2",
+            "value":"2030",
+            "link":"newchart-json-2005Q2"
+          },
+          {
+            "label":"Q3",
+            "value":"2700",
+            "link":"newchart-json-2005Q3"
+          },
+          {
+            "label":"Q4",
+            "value":"2640",
+            "link":"newchart-json-2005Q4"
+          }
+        ],
+        "linkeddata":[{
+            "id":"2005Q1",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the first quarter of year 2005",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"January",
+                  "value":"3700",
+                  "link":"newchart-json-2004Jan"
+                },
+                {
+                  "label":"February",
+                  "value":"2900",
+                  "link":"newchart-json-2004Feb"
+                },
+                {
+                  "label":"March",
+                  "value":"3200",
+                  "link":"newchart-json-2004Mar"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2005Jan",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For January 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"450"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"380"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Feb",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For February 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Mar",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For March 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"120"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"280"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2005Q2",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the second quarter of year 2005",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"April",
+                  "value":"3700",
+                  "link":"newchart-json-2005Apr"
+                },
+                {
+                  "label":"May",
+                  "value":"2900",
+                  "link":"newchart-json-2005May"
+                },
+                {
+                  "label":"June",
+                  "value":"3200",
+                  "link":"newchart-json-2005Jun"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2005Apr",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For April 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"170"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"80"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"300"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005May",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For May 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"80"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Jun",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For June 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"150"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"50"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"300"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2005Q3",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the third quarter of year 2005",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"July",
+                  "value":"3700",
+                  "link":"newchart-json-2005Jul"
+                },
+                {
+                  "label":"August",
+                  "value":"2900",
+                  "link":"newchart-json-2005Aug"
+                },
+                {
+                  "label":"September",
+                  "value":"3200",
+                  "link":"newchart-json-2005Sep"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2005Jul",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For July 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"230"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"120"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Aug",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For August 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"220"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"100"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Sep",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For September 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"190"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"350"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"400"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2005Q4",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the fourth quarter of year 2005",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"October",
+                  "value":"3700",
+                  "link":"newchart-json-2005Oct"
+                },
+                {
+                  "label":"November",
+                  "value":"2900",
+                  "link":"newchart-json-2005Nov"
+                },
+                {
+                  "label":"December",
+                  "value":"3200",
+                  "link":"newchart-json-2005Dec"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2005Oct",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For October 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"110"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"190"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Nov",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For November 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"260"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"120"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"250"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2005Dec",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For December 2005",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"120"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id":"2006Quarters",
+      "linkedchart":{
+        "chart":{
+          "caption":"Quarterly Sales Summary",
+          "subcaption":"For the year 2006",
+          "xaxisname":"Quarter",
+          "yaxisname":"Sales",
+          "numberprefix":"$",
+          "useroundedges":"1"
+        },
+        "data":[{
+            "label":"Q1",
+            "value":"2410",
+            "link":"newchart-json-2006Q1"
+          },
+          {
+            "label":"Q2",
+            "value":"2800",
+            "link":"newchart-json-2006Q2"
+          },
+          {
+            "label":"Q3",
+            "value":"2550",
+            "link":"newchart-json-2006Q3"
+          },
+          {
+            "label":"Q4",
+            "value":"2410",
+            "link":"newchart-json-2006Q4"
+          }
+        ],
+        "linkeddata":[{
+            "id":"2006Q1",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the first quarter of year 2006",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"January",
+                  "value":"870",
+                  "link":"newchart-json-2006Jan"
+                },
+                {
+                  "label":"February",
+                  "value":"890",
+                  "link":"newchart-json-2006Feb"
+                },
+                {
+                  "label":"March",
+                  "value":"650",
+                  "link":"newchart-json-2006Mar"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2006Jan",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For January 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Feb",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For February 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"390"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Mar",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For March 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"80"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"120"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2006Q2",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the second quarter of year 2006",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"April",
+                  "value":"1300",
+                  "link":"newchart-json-2006Apr"
+                },
+                {
+                  "label":"May",
+                  "value":"440",
+                  "link":"newchart-json-2006May"
+                },
+                {
+                  "label":"June",
+                  "value":"1060",
+                  "link":"newchart-json-2006Jun"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2006Apr",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For April 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006May",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For May 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"50"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Jun",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For June 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"100"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2006Q3",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the third quarter of year 2006",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"July",
+                  "value":"850",
+                  "link":"newchart-json-2006Jul"
+                },
+                {
+                  "label":"August",
+                  "value":"1030",
+                  "link":"newchart-json-2006Aug"
+                },
+                {
+                  "label":"September",
+                  "value":"670",
+                  "link":"newchart-json-2006Sep"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2006Jul",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For July 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"300"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Aug",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For August 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"170"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Sep",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For September 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"80"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2006Q4",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the fourth quarter of year 2006",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"October",
+                  "value":"590",
+                  "link":"newchart-json-2006Oct"
+                },
+                {
+                  "label":"November",
+                  "value":"690",
+                  "link":"newchart-json-2006Nov"
+                },
+                {
+                  "label":"December",
+                  "value":"1130",
+                  "link":"newchart-json-2006Dec"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2006Oct",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For October 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"120"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"70"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Nov",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For November 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"100"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2006Dec",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For December 2006",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id":"2007Quarters",
+      "linkedchart":{
+        "chart":{
+          "caption":"Quarterly Sales Summary",
+          "subcaption":"For the year 2007",
+          "xaxisname":"Quarter",
+          "yaxisname":"Sales",
+          "numberprefix":"$",
+          "useroundedges":"1"
+        },
+        "data":[{
+            "label":"Q1",
+            "value":"2690",
+            "link":"newchart-json-2007Q1"
+          },
+          {
+            "label":"Q2",
+            "value":"2700",
+            "link":"newchart-json-2007Q2"
+          },
+          {
+            "label":"Q3",
+            "value":"3180",
+            "link":"newchart-json-2007Q3"
+          },
+          {
+            "label":"Q4",
+            "value":"2990",
+            "link":"newchart-json-2007Q4"
+          }
+        ],
+        "linkeddata":[{
+            "id":"2007Q1",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the first quarter of year 2007",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"January",
+                  "value":"1050",
+                  "link":"newchart-json-2007Jan"
+                },
+                {
+                  "label":"February",
+                  "value":"760",
+                  "link":"newchart-json-2007Feb"
+                },
+                {
+                  "label":"March",
+                  "value":"880",
+                  "link":"newchart-json-2007Mar"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2007Jan",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For January 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"120"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Feb",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For February 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Mar",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For March 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"270"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2007Q2",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the second quarter of year 2007",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"April",
+                  "value":"1160",
+                  "link":"newchart-json-2007Apr"
+                },
+                {
+                  "label":"May",
+                  "value":"920",
+                  "link":"newchart-json-2007May"
+                },
+                {
+                  "label":"June",
+                  "value":"620",
+                  "link":"newchart-json-2007Jun"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2007Apr",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For April 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"350"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"320"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007May",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For May 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"80"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"150"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Jun",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For June 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"210"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"90"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"120"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2007Q3",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the third quarter of year 2007",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"July",
+                  "value":"1140",
+                  "link":"newchart-json-2007Jul"
+                },
+                {
+                  "label":"August",
+                  "value":"860",
+                  "link":"newchart-json-2007Aug"
+                },
+                {
+                  "label":"September",
+                  "value":"1180",
+                  "link":"newchart-json-2007Sep"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2007Jul",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For July 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"150"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"300"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Aug",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For August 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"310"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Sep",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For September 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"370"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"290"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id":"2007Q4",
+            "linkedchart":{
+              "chart":{
+                "caption":"Monthly Sales Summary",
+                "subcaption":"For the fourth quarter of year 2007",
+                "xaxisname":"Month",
+                "yaxisname":"Sales",
+                "numberprefix":"$",
+                "useroundedges":"1"
+              },
+              "data":[{
+                  "label":"October",
+                  "value":"920",
+                  "link":"newchart-json-2007Oct"
+                },
+                {
+                  "label":"November",
+                  "value":"1020",
+                  "link":"newchart-json-2007Nov"
+                },
+                {
+                  "label":"December",
+                  "value":"1050",
+                  "link":"newchart-json-2007Dec"
+                }
+              ],
+              "linkeddata":[{
+                  "id":"2007Oct",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For October 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"250"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"70"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"400"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Nov",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For November 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"100"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"200"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"320"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id":"2007Dec",
+                  "linkedchart":{
+                    "chart":{
+                      "caption":"Weekly Sales Summary",
+                      "subcaption":"For December 2007",
+                      "showlabels":"0",
+                      "showlegend":"1",
+                      "pieslicedepth":"10",
+                      "enablesmartlabels":"0",
+                      "labeldistance":"2",
+                      "numberprefix":"$",
+                      "bgcolor":"CBCBCB,E9E9E9",
+                      "bgalpha":"50,50",
+                      "bgratio":"0,100",
+                      "bgangle":"270",
+                      "showborder":"1",
+                      "bordercolor":"767575",
+                      "borderalpha":"50"
+                    },
+                    "data":[{
+                        "label":"Week 1",
+                        "value":"400"
+                      },
+                      {
+                        "label":"Week 2",
+                        "value":"150"
+                      },
+                      {
+                        "label":"Week 3",
+                        "value":"300"
+                      },
+                      {
+                        "label":"Week 4",
+                        "value":"200"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}</pre>
+              </div>
+           </div>
+      </div><div style="clear:both;"></div>
+      
+      <p><strong>Brief explanation of the data format shown above:</strong></p>
+
+       <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tabxmlmlexpl">XML</a></li>
+      	 <li><a href="#tabjsonmlexpl">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tabxmlmlexpl" class="tab_content">
+    		  <p>The data for the  multi-level <em>LinkedCharts</em> are defined in nested tree structure. The above XML defines data for each level of <em>LinkedCharts</em> in the following way:</p>
+    		  <ul>
+    		    <li>The data for the parent chart is defined at the top with 4 <span class="codeInline">&lt;set&gt;</span> elements showing sales data for 4 years</li>
+  		       <li>Each <span class="codeInline">&lt;set&gt;</span> element for parent chart has a link defined to open a <em>LinkedChart</em> by setting an ID (e.g., 2004Quarters) of a <span class="codeInline">&lt;linkeddata&gt;</span> node. Each child chart would show Quarterly Sales data for a particular year </li>
+    		    <li>The data source for this first-level child chart (Quarterly Sales chart) is defined in the <span class="codeInline">&lt;linkeddata&gt;</span> nodes defined at the top-level of the XML</li>
+    		    <li>Each   <span class="codeInline">&lt;set&gt; </span>element of the Quarterly Sales chart has a link defined to open a second-level <em>LinkedChart</em>, Monthly Sales chart for a particular quarter, e.g. monthly data for Quarter 1 of 2004 </li>
+    		    <li>The data source for this second-level child chart is defined in the <span class="codeInline">&lt;linkeddata&gt;</span> nodes nested inside the <span class="codeInline">&lt;linkeddata&gt;</span> node or data source of that quarter</li>
+    		    <li>Each <span class="codeInline">&lt;set&gt; </span>element of the Monthly Sales chart has a link defined to open a third-level <em>LinkedChart</em>, Weekly Sales chart for a particular month, e.g. weekly data for January for Quarter 1 of 2004 </li>
+    		    <li>The data source for this third-level child chart is defined in the <span class="codeInline">&lt;linkeddata&gt;</span> nodes nested inside the <span class="codeInline">&lt;linkeddata&gt;</span> node or data source of that month</li>
+	         </ul>
+    		  <p>Thus described above, the data can go into an endless tree structure to form unlimited drill-down levels. </p>
+    		</div>
+			<div id="tabjsonmlexpl" class="tab_content">
+			  <p>The data for the multi-level <em>LinkedCharts</em> are defined in nested tree structure. The above JSON defines data for each level of <em>LinkedCharts</em> in the following way:</p>
+			  <ul>
+             <li>The data for the parent chart is defined at the top level &quot;data&quot; property containing sales data for 4 years</li>
+			    <li>Each <span class="codeInline">data</span> element for parent chart has a link defined to open a <em>LinkedChart</em> by setting an ID (e.g., 2004Quarters) of a <span class="codeInline">linkeddata</span> object. Each child chart would show Quarterly Sales data for a particular year </li>
+			    <li>The data source for this first-level child chart (Quarterly Sales chart) is defined in the <span class="codeInline">linkeddata</span> element of the top level <span class="codeInline">linkeddata</span> Array</li>
+			    <li>Each <span class="codeInline">linkeddata</span> Object contains chart data for the respective chart, say Quarterly Sales data for a particular year. </li>
+			    <li>Each <span class="codeInline">data </span>element of the Quarterly Sales chart has a link defined to open a second-level <em>LinkedChart</em>, Monthly Sales chart for a particular quarter, e.g. monthly data for Quarter 1 of 2004 </li>
+			    <li>The data source for this second-level child chart is defined in the <span class="codeInline">linkeddata</span> Array nested inside the <span class="codeInline">linkeddata</span> element or data source of that quarter</li>
+			    <li>Each <span class="codeInline">data </span>element of the Monthly Sales chart has a link defined to open a third-level <em>LinkedChart</em>, Weekly Sales chart for a particular month, e.g. weekly data for January for Quarter 1 of 2004 </li>
+			    <li>The data source for this third-level child chart is defined in the <span class="codeInline">linkeddata</span> Array nested inside the <span class="codeInline">linkeddata </span>element or data source of that month</li>
+		      </ul>
+			  <p>Thus described above, the data can go into an endless tree structure to form unlimited drill-down levels. </p>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+		<p> The sample would work in different drill-down levels as shown in the images below: </p>
+      <table width="680" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="Images/MLParentChart.jpg" width="667" height="246" class="imageBorder"/></td>
+        </tr>
+        <tr>
+          <td>The parent chart showing Annual Sales data. We click on 2004 to drill-down.</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><img src="Images/MLL0Chart.jpg" width="668" height="248" class="imageBorder"/></td>
+        </tr>
+        <tr>
+          <td>The first level <em>LinkedChart</em> showing Quarterly Sales data for 2004 replaces the Annual chart. <br />
+          The overlay button at the top right corner shows option to go back to Annual Sales chart (message as per set through <span class="codeInline">configureLink</span> function ).<br />
+          We click on Q1 to drill-down to Monthly Sales chart. </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><img src="Images/MLL1Chart.jpg" width="667" height="245" class="imageBorder"/></td>
+        </tr>
+        <tr>
+          <td>The second level <em>LinkedChart</em> showing Monthly Sales data for Q1 of 2004 replaces the Quarterly chart. <br />
+The overlay button at the top right corner shows option (message as per set through <span class="codeInline">configureLink</span> function ) to go back to the Quarterly Sales chart.<br />
+We click on January to drill-down again to Weekly Sales chart.</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><img src="Images/MLL2Chart.jpg" width="676" height="479"/></td>
+        </tr>
+        <tr>
+          <td>The third level <em>LinkedChart</em> showing Weekly Sales data for January - Q1 of 2004 is created.<br />
+            As per set through <span class="codeInline">configureLink</span> function the third level chat is changed to Pie3D chart , rendered with smaller width and height and rendered at a different lo action. The insert mode is also set to 'append' which keeps on adding a new chart whoever ever a month is clicked. The close button will remove the chart. </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      See it <a href="../../Code/JavaScript/Basics/UsingLinkedCharts/MultiLevelLinkedCharts.html" target="_blank">live</a>! </td>
+  </tr>
+  
+  <tr>
+     <td valign="top"> <p class="highlightBlock">In FusionCharts and JavaScript section's <a href="../JavaScript/JS_LinkedCharts.html">Using <em>LinkedCharts</em></a><em> </em>page, we will learn more on listening <em>LinkedCharts </em>events and  opening <i>LinkedCharts</i> in jQuery dialog, in a light-box, in  extJS window etc. </p>
+     </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("JavaScript functions as links|JavaScript.html","FusionCharts Link format|LinkFormat.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

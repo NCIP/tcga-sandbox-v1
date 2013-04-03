@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts ASP Class API - Creating Multi-series Chart </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "FusionCharts ASP Class|Overview.html", "Creating Multi-Series chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts ASP Class API &gt; Creating Multi-series Chart </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <p>To plot multiple datasets we use Multiseries charts.  Consider the Weekly Sales chart for two consecutive months. Here, for each week, we have two sets of data coming from current month and previous month. </p>
+    </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">Let's examine the following data for a multi-series chart.</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+	  	<table width="300px" cellspacing="0" cellpadding="5" class="table" >
+        <tr class="header" >
+           <td width="25%" height="24" class="header">Week</td>
+          <td width="35%"  class="header"><div align="right">Current Month </div></td>
+          <td width="40%" class="header"><div align="right">Previous Month </div></td>
+        </tr>
+        <tr>
+           <td height="22" class="borderBottom">&nbsp;</td>
+           <td class="headerwhite"><div align="right">Sales </div></td>
+           <td class="headerwhite"><div align="right">Sales </div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 1 </td>
+           <td class="borderBottom"><div align="right">$40800</div></td>
+           <td class="borderBottom"><div align="right">$38300</div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 2 </td>
+           <td class="borderBottom"><div align="right">$31400</div></td>
+           <td class="borderBottom"><div align="right">$28400</div></td>
+        </tr>
+        <tr>
+           <td height="25" class="borderBottom">Week 3 </td>
+           <td class="borderBottom"><div align="right">$26700</div></td>
+           <td class="borderBottom"><div align="right">$15700</div></td>
+        </tr>
+        <tr>
+           <td height="25">Week 4 </td>
+           <td><div align="right">$54400</div></td>
+           <td><div align="right">$48100</div></td>
+        </tr>
+     </table>     </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><p><img src="../Images/ClassImages/ClassMultiSeries.jpg" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+     <td valign="top" class="highlightBlock" >Before you go further with this page, we recommend you to please see   the previous page <a href="FirstChart.html">Creating First Chart</a> as we start off from concepts explained in   that page.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's go through the following code that builds the multi-series chart shown above:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" ><pre class="prettyprint code_container">&lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+ &lt;%
+   <span class="codeComment"> ' Include FusionCharts ASP Class</span>
+ %&gt; 
+&lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;
+&lt;%&nbsp;
+dim FC
+<span class="codeComment">&nbsp;  ' Create FusionCharts ASP class object</span>&nbsp;&nbsp;
+set FC = new FusionCharts
+<span class="codeComment">&nbsp;&nbsp; ' Set chart type to Multiseries Column3D chart</span>&nbsp;&nbsp;&nbsp;
+Call FC.setChartType(&quot;MSColumn3D&quot;)
+<span class="codeComment">&nbsp;&nbsp; ' Set chart size</span>&nbsp;&nbsp;
+Call FC.setSize(&quot;450&quot;,&quot;350&quot;)
+<span class="codeComment">&nbsp;&nbsp; ' Set the relative path of the SWF file</span>&nbsp;&nbsp;&nbsp;
+call FC.setSWFPath(&quot;../FusionCharts/&quot;)
+    &nbsp; dim strParam        
+        <span class="codeComment">&nbsp;&nbsp; ' Define chart attributes</span>
+       &nbsp;&nbsp;&nbsp; strParam=&quot;caption=Weekly Sales;subcaption=Comparison;xAxisName=Week;yAxisName=Revenue;numberPrefix=$&quot;
+        <span class="codeComment">&nbsp;&nbsp; ' Set chart attributes </span>
+     &nbsp;&nbsp;&nbsp;   call FC.setChartParams(strParam)
+      <span class="codeComment">&nbsp;&nbsp; &nbsp; ' Add category names</span>
+       &nbsp;&nbsp;&nbsp; call FC.addCategory(&quot;Week 1&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addCategory(&quot;Week 2&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addCategory(&quot;Week 3&quot;, &quot;&quot;, &quot;&quot;)
+     &nbsp;&nbsp;&nbsp;   call FC.addCategory(&quot;Week 4&quot;, &quot;&quot;, &quot;&quot;)
+      <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Create a new dataset </span>
+       &nbsp;&nbsp;&nbsp; call FC.addDataset(&quot;This Month&quot;, &quot;&quot;)       
+        <span class="codeComment">&nbsp; ' Add chart values for the above dataset</span>
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;40800&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;31400&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;26700&quot;, &quot;&quot;, &quot;&quot;)
+     &nbsp;&nbsp;&nbsp;   call FC.addChartData(&quot;54400&quot;, &quot;&quot;, &quot;&quot;)
+      <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Create second dataset </span>
+       &nbsp;&nbsp;&nbsp; call FC.addDataset(&quot;Previous Month&quot;, &quot;&quot;)       
+        <span class="codeComment">&nbsp; ' Add chart values for the second dataset</span>
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;38300&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;28400&quot;, &quot;&quot;, &quot;&quot;)
+       &nbsp;&nbsp;&nbsp; call FC.addChartData(&quot;15700&quot;, &quot;&quot;, &quot;&quot;)
+     &nbsp;&nbsp;&nbsp;   call FC.addChartData(&quot;48100&quot;, &quot;&quot;, &quot;&quot;)
+ %&gt;
+     &lt;html&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;head&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Multi-series Chart : Using FusionCharts ASP Class&lt;/title&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script language='javascript' src='../FusionCharts/FusionCharts.js'&gt;&lt;/script&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;/head&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;body&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;%
+        <span class="codeComment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Render Chart with JS embedding Method</span>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; call FC.renderChart(false)
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %&gt;
+     &nbsp;&nbsp;&lt;/body&gt;
+     &lt;/html&gt;      </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the above code, we're doing the following:</p>
+      <ul type="disc">
+        <li>We include <span class="codeInline">FusionCharts_Gen.asp</span>.
+           
+        </li>
+        <li>We create an object for Multi-series Column3D chart and set relative file path to the SWF file.<br /><br />
+               
+                  <pre class="prettyprint code_container"> set FC = new FusionCharts
+ Call FC.setChartType(&quot;MSColumn3D&quot;)<br/> Call FC.setChartSize(&quot;450&quot;,&quot;350&quot;)<br/> Call FC.setSWFPath(&quot;../FusionCharts/&quot;)</pre><br />
+        </li>
+        <li>We store       chart attributes in <span class="codeInline">strParam</span> variable and pass it to <span class="codeInline"> setChartParams()</span> function. It       sets chart attributes.
+           
+</li>
+        <li>For multi-series charts, we need to add the category names separately using <span class="codeInline">addCategory()</span> function. 
+          <br /><br /> 
+        <pre class="prettyprint code_container">Call FC.addCategory(&quot;Week 1&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;Week 2&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;Week 3&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;Week 4&quot;,&quot;&quot;,&quot;&quot;)</pre><br />
+        
+        </li>
+        <li>Now, we need to define the first dataset. Hence, we call <span class="codeInline">addDataset() </span>function. We set the dataset's name as 'This Month'.
+           <br /><br />
+         <pre class="prettyprint code_container">Call FC.addDataset(&quot;This Month&quot;) </pre><br /></li>
+			 <li>We provide chart data specific to the above dataset. Remember to provide chart data just after the dataset is defined. Unlike single series charts (as we saw in the First Chart example), we need not specify other chart parameters here.  
+	<br /><br />  
+       <pre class="prettyprint code_container">
+Call FC.addChartData(&quot;40800&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;31400&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;26700&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;54400&quot;,&quot;&quot;,&quot;&quot;)</pre>
+       <br />
+
+          
+        Please note that as we have 4  categories, we have entered 4 values for the dataset 'This Month'.
+        
+			 </li>
+        <li>Next, we create the second dataset for 'Previous Month' and provide its data values. 
+           <br /><br />
+         <pre class="prettyprint code_container">Call FC.addDataset(&quot;Previous Month&quot;) 
+Call FC.addChartData(&quot;38300&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;28400&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;15700&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;48100&quot;,&quot;&quot;,&quot;&quot;)</pre>
+<br />
+  
+        </li>
+        <li>We add  <span class="codeInline">FusionCharts.js</span>.
+           
+        </li>
+        <li> Finally, we render the chart.
+           <br /><br />
+          <pre class="prettyprint code_container">Call FC.renderChart(false)</pre><br /></li>
+      </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please go through <a href="Functions.html">FusionCharts ASP Class API Reference</a> section to know more about the functions used in the above code. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>And the Multi-series chart is ready!</p>
+    <img src="../Images/ClassImages/ClassMultiSeries.jpg" class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Multiple charts|MultipleCharts.html","Creating Stacked chart|StackedChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

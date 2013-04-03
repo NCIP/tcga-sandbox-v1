@@ -1,0 +1,36 @@
+<%
+#This page demonstrates the simple download of the chart in the specified export format.
+#When the user clicks on the "Export to ..." button, 
+#the exportChart function is called and FusionCharts("myFirstExport").exportChart will be invoked.
+#After capturing the data and processing it, a download dialog is shown to the user.
+%>
+<% @page_title="FusionCharts - Export chart and download the exported file" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Export example - Export chart and download the exported file" %>
+<p>Right click on the chart to access various export options or click any of the buttons below</p>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+
+<script type="text/javascript">
+	
+	// this function exports chart from JavaScript
+	function exportChart(exportFormat)
+	{
+			// checks if exportChart function is present and call exportChart function
+			if ( FusionCharts("myFirstExport").exportChart )				
+				FusionCharts("myFirstExport").exportChart( { "exportFormat" : exportFormat } );
+			else
+				alert ( "Please wait till the chart completes rendering..." );
+			
+	}
+	
+	
+</script>
+
+<%
+	#Create the chart - Column 3D Chart with data from /Data/DownloadData.xml
+	render_chart "/FusionCharts/Column3D.swf", "/Data/DownloadData.xml", "", "myFirstExport", 600, 300, false, true do-%> 
+<% end -%>
+
+<input value="Export to JPG" type="button" onClick="JavaScript:exportChart('JPG')" />
+<input value="Export to PNG" type="button" onClick="JavaScript:exportChart('PNG')" />
+<input value="Export to PDF" type="button" onClick="JavaScript:exportChart('PDF')" />

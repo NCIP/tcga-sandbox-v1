@@ -1,0 +1,243 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ROR- Charting Data from Forms </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with Ruby on Rails|Ruby_basicexample.html", "Using with data in Forms" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Using FusionCharts with ROR- Charting Data from Forms </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this section, we'll show you how to use FusionCharts with Ruby to plot data collected from form. </p>
+        <p>We'll build a simple restaurant sales example, where the user will enter the items sold by a restaurant in a given week. This data will be submitted in a form to the server. We'll acquire this data and plot it on a chart. For the sake of simplicity, we wouldn't do any processing on this data. However, your real life applications might process data before presenting it on the chart. </p>
+        <p><strong>Before you go further with this page, we recommend you to please see the previous section &quot;Basic Examples&quot; as we start off from concepts explained in that page. </strong></p>
+      <p class="highlightBlock">
+  All code discussed here is present in <br/>
+        <span class="codeInline">Controller : Download Package > Code > RoR > SampleApp &gt; app > controllers &gt; fusioncharts > form_based_controller.rb</span>. <br/>
+        <span class="codeInline">Rhtml : Download Package > Code > RoR > SampleApp &gt; app > views &gt; fusioncharts > form_based</span> folder. 
+      </p>      
+      <p class="header">Building the Form</p>      <p class="text">The form is contained in default.html.erb and looks as under: </p>      <p class="text"><img src="../../guide-for-web-developers/Images/Code_Form.gif" width="445" height="387" class="imageBorder" /></p>      
+      <p class="text">To display this form, we have defined an action default in the controller <span class="codeInline">form_based_controller.rb. </span>There is no code in this action. It just renders the view. (the form) </p>      <p class="text">Let us see the view.</p>      
+      <pre class="code_container prettyprint">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;title&gt;FusionCharts - Form Based Data Charting Example&lt;/title&gt;
+        &lt;%= stylesheet_link_tag &quot;style&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;jquery-1.4.2.min&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;lib&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;DD_belatedPNG_0.0.8a-min&quot; %&gt;
+        &lt;!--[if IE 6]&gt;
+        &lt;script&gt;
+            /* select the element name, css selector, background etc */
+            DD_belatedPNG.fix('img');      
+            /* string argument can be any CSS selector */
+        &lt;/script&gt;
+        &lt;![endif]--&gt;
+      &lt;style type=&quot;text/css&quot;&gt;
+         h2.headline {
+           font: normal 110%/137.5% &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+           padding: 0;
+           margin: 25px 0 25px 0;
+           color: #7d7c8b;
+           text-align: center;
+           }
+         p.small {
+           font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+           color: #919191;
+           padding: 0;
+           margin: 0 auto;
+           width: 664px;
+           text-align: center;
+         }
+      &lt;/style&gt;
+      &lt;%
+          #You need to include the following JS files, 
+          #if you intend to embed the chart using JavaScript.
+          #When you make your own charts, make sure that the path 
+          #to this JS file is correct. Else, you would get JavaScript errors.
+      %&gt;
+      &lt;%= javascript_include_tag &quot;FusionCharts&quot; %&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;wrapper&quot;&gt;
+        &lt;div id=&quot;header&quot;&gt;
+          &lt;div class=&quot;back-to-home&quot;&gt;&lt;%= link_to 'Back to home', :controller=&gt;'fusioncharts/index'%&gt;&lt;/div&gt;
+           &lt;div class=&quot;logo&quot;&gt;
+             &lt;a href=&quot;http://www.fusioncharts.com&quot;&gt;&lt;%= image_tag &quot;fusionchartsv3.2-logo.png&quot;, 
+             :width=&gt;&quot;131&quot;, :height=&gt;&quot;75&quot;, :alt=&gt;&quot;FusionCharts v3.2 logo&quot; %&gt;&lt;/a&gt;
+           &lt;/div&gt;
+          &lt;h1 class=&quot;brand-name&quot;&gt;FusionCharts&lt;/h1&gt;
+          &lt;h1 class=&quot;logo-text&quot;&gt;FusionCharts RoR Samples&lt;/h1&gt;
+          &lt;/div&gt;
+         &lt;div class=&quot;content-area&quot;&gt;
+           &lt;div id=&quot;content-area-inner-main&quot;&gt;
+           &lt;h2 class=&quot;headline&quot;&gt;FusionCharts Form-Based Data Example&lt;/h2&gt;
+           &lt;div class=&quot;gen-chart-render&quot;&gt;
+             &lt;p class='text'&gt;Please enter how many items of each category you
+               sold within this week. We'll plot this data on a Pie chart.&lt;/p&gt;
+             &lt;p class='text'&gt;To keep things simple, we're not validating for
+               non-numeric data here. So, please enter valid numeric values only. In
+               your real-world applications, you can put your own validators.&lt;/p&gt;   
+             &lt;% form_tag(:action=&gt;'chart') do -%&gt;
+             &lt;table width='50%' align='center' cellpadding='2' cellspacing='1'
+                border='0' class='text'&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&lt;B&gt;Soups:&lt;/B&gt; &amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='text' size='5' name='Soups'
+                   value='108'&gt; bowls&lt;/td&gt;
+               &lt;/tr&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&lt;B&gt;Salads:&lt;/B&gt; &amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='text' size='5' name='Salads'
+                   value='162'&gt; plates&lt;/td&gt;
+               &lt;/tr&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&lt;B&gt;Sandwiches:&lt;/B&gt; &amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='text' size='5' name='Sandwiches'
+                   value='360'&gt; pieces&lt;/td&gt;
+               &lt;/tr&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&lt;B&gt;Beverages:&lt;/B&gt; &amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='text' size='5' name='Beverages'
+                   value='171'&gt; cans&lt;/td&gt;
+               &lt;/tr&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&lt;B&gt;Desserts:&lt;/B&gt; &amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='text' size='5' name='Desserts'
+                   value='99'&gt; plates&lt;/td&gt;
+               &lt;/tr&gt;
+               &lt;tr&gt;
+                 &lt;td width='50%' align='right'&gt;&amp;nbsp;&lt;/td&gt;
+                 &lt;td width='50%'&gt;&lt;input type='submit' value='Chart it!'&gt;&lt;/td&gt;
+               &lt;/tr&gt;
+             &lt;table&gt;
+           &lt;% end -%&gt; 
+         &lt;/div&gt;
+         &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+         &lt;p&gt;&amp;nbsp;&lt;/p&gt;
+         &lt;p class=&quot;small&quot;&gt;
+         &lt;p&gt;&amp;nbsp;&lt;/p&gt;--&gt;
+         &lt;/p&gt;
+         &lt;div class=&quot;underline-dull&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;footer&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;%= link_to '&amp;laquo; Back to list of examples', :controller=&gt;'fusioncharts/index'%&gt;&lt;/li&gt;
+          &lt;li class=&quot;pipe&quot;&gt;|&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/NoChart.html&quot;&gt;&lt;span&gt;Unable to see the chart above?&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+    
+      <p class="text">Here, we have used <span class="codeInline">form_tag</span> ruby <span class="codeInline">form-helper</span> function to create the form and we have assigned the action <span class="codeInline">&quot;chart&quot;</span> to it. In this example, we have the form text fields hard-coded. In real-world, you would create the form based on some Model and use ruby form-helpers to create the form, the textfields etc. What happens when you click on <span class="codeInline">Chart It</span> button? </p>      
+<p class="header">Requesting the data and Creating the Chart </p>      
+<p class="text">The work of requesting the data from submitted form and creating the chart containing the following code: </p>      
+      <pre class="code_container prettyprint"><b>Controller: Fusioncharts::FormBasedController
+Action: chart
+  </b><span class="codeComment">#Data is obtained from the submitted form (present in the request)
+  #In this example, we're directly showing this data back on chart.
+  #In your apps, you can do the required processing and then show the 
+  #relevant data only.
+  #The view for this action uses the &quot;common&quot; layout.</span>
+  def chart
+    response.content_type = Mime::HTML
+  <span class="codeComment">  # Get the values from the request using params[]</span>
+  <span class="codeComment">  </span>@str_soups = params[:Soups]
+  <span class="codeComment">  </span>@str_salads = params[:Salads]
+  <span class="codeComment">  </span>@str_sandwiches = params[:Sandwiches]
+  <span class="codeComment">  </span>@str_beverages = params[:Beverages]
+  <span class="codeComment">  </span>@str_desserts = params[:Desserts]
+  <span class="codeComment">  #The common layout is used only by this function in controller.</span>
+  <span class="codeComment">  </span>render (:layout =&gt; &quot;layouts/common&quot;)
+  end 
+<b>View:</b>
+  <span class="codeComment">  </span>&lt;% @page_title=&quot; FusionCharts - Form Based Data Charting Example &quot; %&gt;
+  <span class="codeComment">  </span>&lt;% @page_heading=&quot;FusionCharts Form-Based Data Example&quot; %&gt;
+  <span class="codeComment">  </span>&lt;% @page_subheading=&quot;Restaurant Sales Chart below&quot; %&gt;
+  <span class="codeComment">  </span>&lt;p class='text'&gt;Click on any pie slice to see slicing effect. Or,
+  <span class="codeComment">  </span>  right click on chart and choose &quot;Enable Rotation&quot;, and then drag and
+  <span class="codeComment">  </span>  rotate the chart.&lt;/p&gt;
+  <span class="codeComment">  </span>&lt;%
+  <span class="codeComment">    # The xml is obtained as a string from builder template.</span>
+    <span class="codeComment">  </span>str_xml =render :file=&gt;&quot;fusioncharts/form_based/form_based_data&quot;,
+      :locals=&gt;{:str_soups =&gt; @str_soups,
+      :str_salads =&gt; @str_salads,:str_sandwiches =&gt; @str_sandwiches,
+      :str_beverages =&gt; @str_beverages,:str_desserts =&gt; @str_desserts}
+    <span class="codeComment">  #Create the chart - Pie 3D Chart with data from str_xml</span>
+      render_chart '/FusionCharts/Pie3D.swf','',str_xml,'Sales', 500, 300, false, false do-%&gt;
+  <span class="codeComment">  </span>&lt;% end -%&gt;
+  <span class="codeComment">  </span>&lt;a href='javascript:history.go(-1);'&gt;Enter data again&lt;/a&gt; </pre> </td></tr>
+  <tr>
+  <td class="text">     
+        <p>The controller action does the following:</p>
+              <ol>
+    <li> Gets the data submitted by the form from the request using params[...]</li>
+    <li>Stores them in global variables accessible to the view </li>
+          </ol>      
+<p class="text" >The view calls render function and gets the xml from the builder template <span class="codeInline">form_based_data</span> by passing the form data as parameters to it. Then it calls the render_chart function to create a Pie chart, by passing the xml as parameter. </p>      
+          <p class="text" >What does the builder do? Let's see.</p>      
+<pre class="code_container prettyprint" ><span class="codeComment">    # Builds xml for sales of various product categories 
+    # of a Restaurant to be shown in form of a pie-chart.
+    # The values required here are got as parameters
+    # Expected parameters: str_soups,str_salads,str_sandwiches,str_beverages,str_desserts</span>
+    xml = Builder::XmlMarkup.new
+  <span class="codeComment">  </span>  xml.chart(:caption=&gt;'Sales by Product Category', :subCaption=&gt;'For this week', 
+      :showPercentValues=&gt;'1', :pieSliceDepth=&gt;'30', :showBorder=&gt;'1') do
+  <span class="codeComment">  </span>    xml.set(:label=&gt;'Soups',:value=&gt;str_soups) 
+  <span class="codeComment">  </span>    xml.set(:label=&gt;'Salads',:value=&gt;str_salads) 
+  <span class="codeComment">  </span>    xml.set(:label=&gt;'Sandwiches',:value=&gt;str_sandwiches)
+  <span class="codeComment">  </span>    xml.set(:label=&gt;'Beverages',:value=&gt;str_beverages)
+  <span class="codeComment">  </span>    xml.set(:label=&gt;'Desserts',:value=&gt;str_desserts)
+      end</pre>      
+          <p class="text" >The builder builds the xml with outermost tag as &lt;chart&gt; element. Inside this, it puts the &lt;set&gt; element. The attributes of the set tag are label and value. The  values are picked from the parameters received from the view. That's it. Now, when you click on &quot;Chart it&quot; button, this is what you will see:</p>      <p class="text" ><img src="../../guide-for-web-developers/Images/Code_FormChart.jpg" width="468" height="268" class="imageBorder" /></p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Charting data from Array|Ruby_array.html","Plotting from database|Ruby_db.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

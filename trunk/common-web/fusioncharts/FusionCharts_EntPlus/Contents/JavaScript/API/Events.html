@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts JavaScript API - Events </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../JS_Overview.html", "API Reference|Overview.html", "Events" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td height="30" class="pageHeader">FusionCharts JavaScript API - Events </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class API provides a number of events. Events are categorized into two broad groups - Simple Events and Advanced events. Each event provides arguments to the event-listeners. In simple event, most of events (except for <span class="codeInline">FC_Exported</span> and <span class="codeInline">FC_Resized</span> events) provides <span class="codeInline">DOMId</span> of the source chart that raised the event.&nbsp; In advanced model, two event parameters are passed to the event listener function. The first parameter, <span class="codeInline">eventObject</span>, is structurally common for all events. The second parameter, <span class="codeInline">argumentsObject </span>contains event specific properties. Details of <span class="codeInline">eventObject</span> are given as follows: </p>
+      <div class=""><a name="eventparams" id="eventparams"></a>
+				   <strong>Event parameters in advanced model </strong>
+				   <p>Each event sends  parameters to event listener functions. In advanced event model, two event argument Objects are sent to event listener. The properties contained by the arguments are as follows:</p>
+				   <ul>
+				      <li>The first argument is <span class="codeInline">eventObject </span>which provides details of the event. It is an object which  provides three properties : 
+				         <ul>
+				            <li>			            <span class="codeInline">eventId</span> : An unique id given to the event </li>
+				            <li><span class="codeInline">eventType </span>: A string containing the name or the event type e.g. &quot;rendered&quot; etc. </li>
+				            <li><span class="codeInline">sender</span> : A FusionCharts JavaScript Object reference to the chart which has raised that event</li>
+				         </ul>
+				      </li>
+		            <li>The second argument  <span class="codeInline">argumentsObject</span> is an object which contains details of the particular event fired. As per the type of the event the properties of <span class="codeInline">parameter </span>objects varies.		            </li>
+	         </ul>
+		         
+      </div>
+	</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>The list shown below contains names of events of both Simple and Advanced events. Moreover, details of <span class="codeInline">argumentsObject </span>for each event is listed down. </p>
+      </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <table cellspacing="0" cellpadding="0" class="table" width="100%">
+        
+        <tr>
+          <td class="header" valign="top" width="11%">Name (Advanced model) </td>
+          <td class="header" valign="top" width="11%">Name ( Simple  model)  </td>
+          <td class="header" valign="top" width="38%">What is it and when is it raised?</td>
+          <td class="header" valign="top" width="40%">Event parameters</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="4" valign="top" class="codeInline"><strong>Events raised by FusionCharts.printManager </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="printmanager" id="printmanager"></a><a name="managedprint" id="managedprint"></a><a name="printreadystatechange" id="printreadystatechange"></a>PrintReadyStateChange</td>
+          <td class="text-light" valign="top">not available </td>
+          <td class="text" valign="top">This event is raised to notify the status of Print Manager.<br />
+             <br />
+             It is raised twice. First, when Print Manager starts processing all charts. It is raised again when all the charts are ready for managed print.</td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+             <br />
+             <ul>
+                <li><span class="codeInline">ready </span>: (boolean) Whether the Print Manager has made the all the charts present in a page ready for managed print</li>
+             </ul>
+             <ul>
+               <li><span class="codeInline">bypass</span> :(boolean) 
+               Whether printManager has been bypassed due to error, incompatibility, etc</li>
+             </ul>
+          </td>
+        </tr>
+        
+
+        <tr class="trLightBlueBg">
+          <td colspan="4" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="4" valign="top" class="codeInline"><strong>Events raised by FusionCharts JavaScript instance</strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+           <td class="codeInline" valign="top"><a name="initialize" id="initialize"></a>Initialize</td>
+           <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+           <td class="text" valign="top">This event is raised when an instance of FusionCharts JavaScript class is initialized. This happens prior to data loading and chart creation events. </td>
+           <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This is passed as a blank object.<br />
+              <br />
+</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloadrequested" id="dataloadrequested"></a>DataLoadRequested</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised when chart data is requested from a url. This is fired only when data source is a Url. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+              <br />
+              <ul>
+                <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+                <li><span class="codeInline">source</span> : Nature of data load request. Presently its value is &quot;XmlHttpRequest&quot;</li>
+              </ul>
+            <ul>
+              <li><span class="codeInline">url</span> : URL of the data source </li>
+              <li><span class="codeInline">cancelDataloadRequest()</span>: function which can be called to cancel a data load (if required) </li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloadrequestcancelled" id="dataloadrequestcancelled"></a>DataLoadRequestCancelled</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">
+            
+              This event is raised when data load process is cancelled by calling <span class="codeInline">cancelDataloadRequest() </span>function in <span class="codeInline">DataLoadRequested </span>event-listener.
+            
+              <br />
+              <br />
+          In cases where data source is a local path, this event is automatically raised. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+            <br />
+            <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+            <br />
+            <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+            <br />
+            <ul>
+              <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+              <li><span class="codeInline">source</span> : Nature of data load request. Presently its value is &quot;XmlHttprequest&quot;</li>
+            </ul>
+            <ul>
+              <li><span class="codeInline">url</span> : URL of the data source </li>
+              <li><span class="codeInline">xmlHttpRequestObject</span> : The object which has fetched data </li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloadrequestcompleted" id="dataloadrequestcompleted"></a>DataLoadRequestCompleted</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised before chart data is loaded. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+              <br />
+              <ul>
+                <li><span class="codeInline">data</span> : Chart data as XML or JSON string </li>
+                <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+                <li><span class="codeInline">source</span> : Nature of data load request. Presently its value is &quot;XmlHttprequest&quot;</li>
+              </ul>
+              <ul>
+                <li><span class="codeInline">url</span> : URL of the data source </li>
+                <li><span class="codeInline">xmlHttpRequestObject</span> : The object which has fetched data </li>
+                <li><span class="codeInline">cancelDataLoad()</span>: function which can be called to cancel a data load (if required)</li>
+              </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloadcancelled" id="dataloadcancelled"></a>DataLoadCancelled</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised when chart data loading is cancelled. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+            <ul>
+                <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+                <li><span class="codeInline">source</span> : Nature of data load request. Presently its value is &quot;XmlHttprequest&quot;</li>
+            </ul>
+            <ul>
+              <li><span class="codeInline">url</span> : URL of the data source </li>
+              <li><span class="codeInline">xmlHttpRequestObject</span> : The object which has fetched data</li>
+            </ul>
+          </td>
+        </tr>
+
+       <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="beforedataupdate" id="beforedataupdate"></a>BeforeDataUpdate</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised before data is loaded into FusionCharts JavaScript class and is ready to be passed to the chart. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+            <br />
+            <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+            <br />
+            <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+            <ul>
+              <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+              <li><span class="codeInline">dataSource</span> : URL of the data source </li>
+			     <li><span class="codeInline">chartData </span>: The original data sent by user </li>
+			     <li><span class="codeInline">dataError</span> : Error object if any error occurred </li>			  
+              <li><span class="codeInline">cancelDataUpdate()</span> : function which can be called to cancel a data update (if required)</li>
+            </ul>
+          </td>
+        </tr>
+ 
+
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataupdated" id="dataupdated"></a>DataUpdated</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised when data is loaded into FusionCharts JavaScript class and is ready to be passed to the chart. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+            <br />
+            <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+            <br />
+            <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+            <ul>
+              <li><span class="codeInline">dataFormat</span>: Type of Data format. It can be either <span class="codeInline">xml </span>or <span class="codeInline">json</span></li>
+              <li><span class="codeInline">dataSource</span> : URL of the data source </li>
+			     <li><span class="codeInline">underlyingDataSource</span> : The original data sent by user </li>			  
+            </ul>
+          </td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="loaded" id="loaded"></a>Loaded</td>
+          <td class="codeInline" valign="top">FC_Loaded</td>
+          <td class="text" valign="top"> This event is raised when the chart  has finished downloading itself in the user's browser. You can use this to hide any loader components that you might have on your page. </td>
+          <td class="text" valign="top">The event argument provided by  <span class="codeInline">FC_Loaded</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :</strong><br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloaded" id="dataloaded"></a>DataLoaded</td>
+          <td class="codeInline" valign="top">FC_DataLoaded</td>
+          <td class="text" valign="top">This event is raised when the chart has finished loading data. It can be used to further process data in any other components in your page. </td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_DataLoaded</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :<br />
+            </strong><br />
+<span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+<br />
+<span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="rendered" id="rendered"></a>Rendered</td>
+          <td class="codeInline" valign="top">FC_Rendered</td>
+          <td class="text" valign="top">This event is raised when the chart has finished rendering. This call is made only once per loaded chart SWF (even if new data is supplied to it).&nbsp; It can be used to invoke any further JavaScript methods on chart, or to change the data of chart. </td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_Rendered</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :</strong><br />
+<br />
+<span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+<br />
+<span class="codeInline">argumentsObject</span> :This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="drawcomplete" id="drawcomplete"></a>DrawComplete</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised every time FusionCharts completes drawing a chart. This is also raised on each resize or chart reload. Even when you interact with the chart, say you slice a Pie, this event will be fired.</td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+             <ul>
+                <li><span class="codeInline">drawCount</span> : Number specifying the number of times the chart is redrawn </li>
+             </ul>
+             <ul>
+               <li><span class="codeInline">height</span> : Current height of the chart </li>
+                <li><span class="codeInline">width</span> : Current width of the chart</li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="resized" id="resized"></a>Resized</td>
+          <td class="codeInline" valign="top">FC_Resized</td>
+          <td class="text" valign="top">This event is raised when chart resizes. </td>
+          <td class="text" valign="top">The event arguments provided by <span class="codeInline">FC_Resized</span> function (simple event model) are as follows: <br />
+             <br />
+             <ul>
+             <li><span class="codeInline">DOMId</span> : Id of the chart raising this event</li>
+                   <li><span class="codeInline">width</span> : Width of the chart after resize</li>
+                   <li><span class="codeInline">height</span> : Height of the chart after resize</li>
+                   <li><span class="codeInline">prevWidth</span> : Original width of the chart before resize </li>
+                   <li><span class="codeInline">prevHeight</span> : Original height of the chart before resize </li>
+            </ul>
+                <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :</strong><br />
+   <br />
+   <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+   <br />
+   <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+   <br />
+   <ul>
+      <li><span class="codeInline">width</span> : Width of the chart after resize</li>
+      <li><span class="codeInline">height</span> : Height of the chart after resize</li>
+      <li><span class="codeInline">prevWidth</span> : Original width of the chart before resize </li>
+      <li><span class="codeInline">prevHeight</span> : Original height of the chart before resize </li>
+      </ul>
+          </td></tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="exported" id="exported"></a>Exported</td>
+          <td class="codeInline" valign="top">FC_Exported</td>
+          <td class="text" valign="top">This event is raised when the chart has finished export as server side save or client side download. This is used to know whether the export is successful. It also provides the path (web path for server side save and local path for client side download) where the exported file has been saved. 
+            <p class="highlightBlock">
+             This event is not raised when Download action is performed. </p>
+          </td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_Exported </span>function (simple event model) is <span class="codeInline">an Object containing</span> the following properties: <br />
+             <br />
+             <ul>
+             <li><span class="codeInline">DOMId</span> : Id of the chart that has been exported</li>
+                   <li><span class="codeInline">statusCode</span> : Indicated the success status of the export process. In case of failure the value is passed as 0. On success, 1 is provided</li>
+                   <li> <span class="codeInline">statusMessage</span> : Success or failure message</li>
+                   <li><span class="codeInline">fileName</span> : The name and path of the file where the exported file has been saved </li>
+                   <li> <span class="codeInline">width</span> : The width of the chart</li>
+                   <li> <span class="codeInline">height</span> : The height of the chart </li>
+                   <li><span class="codeInline">notice</span> : A consolidated string which contains export related notices and warnings. This is applicable only for server side export<br />
+               </li>
+            </ul>
+                <p><strong>The event arguments provided in the advanced model are :</strong><br />
+                   <br />
+                   <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                   <br />
+                   <span class="codeInline">argumentsObject</span> : This object contains properties listed below: </p>
+                <ul>
+                   <li><span class="codeInline">DOMId</span> : Id of the chart that has been exported</li>
+                </ul>
+                <ul><li><span class="codeInline">statusCode</span> : Indicated the success status of the export process. In case of failure the value is passed as 0. On success, 1 is provided</li>
+      <li> <span class="codeInline">statusMessage</span> : Success or failure message</li>
+      <li><span class="codeInline">fileName</span> : The name and path of the file where the exported file has been saved </li>
+      <li> <span class="codeInline">width</span> : The width of the chart</li>
+      <li> <span class="codeInline">height</span> : The height of the chart </li>
+      <li><span class="codeInline">notice</span> : A consolidated string which contains export related notices and warnings. This is applicable only for server side export</li>
+      </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="batchexported" id="batchexported"></a>BatchExported</td>
+          <td class="codeInline" valign="top">FC_BatchExported</td>
+          <td class="text" valign="top">This event is raised after <a href="../../exporting-image/batch-exporting/ECBatchOverview.html">Batch Export is performed using Client Side Export handler</a>. </td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_Exported </span>function (simple event model) is <span class="codeInline">an Object contain</span>ing the following properties: <br />
+            <br />
+            <ul>
+              <li><span class="codeInline">DOMId</span> : Id of the chart that has been exported</li>
+              <li><span class="codeInline">statusCode</span> : Indicated the success status of the export process. In case of failure the value is passed as 0. On success, 1 is provided</li>
+              <li> <span class="codeInline">statusMessage</span> : Success or failure message</li>
+              <li><span class="codeInline">fileName</span> : The name and path of the file where the exported file has been saved </li>
+              <li> <span class="codeInline">width</span> : The width of the chart</li>
+              <li> <span class="codeInline">height</span> : The height of the chart<br />
+              </li>
+            </ul>
+            <p><strong>The event arguments provided in the advanced model are :</strong><br />
+                <br />
+                <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                <br />
+                <span class="codeInline">argumentsObject</span> : This object contains properties listed below: </p>
+            <ul>
+              <li><span class="codeInline">DOMId</span> : Id of the chart that has been exported</li>
+            </ul>
+            <ul>
+              <li><span class="codeInline">statusCode</span> : Indicated the success status of the export process. In case of failure the value is passed as 0. On success, 1 is provided</li>
+              <li> <span class="codeInline">statusMessage</span> : Success or failure message</li>
+              <li><span class="codeInline">fileName</span> : The name and path of the file where the exported file has been saved </li>
+              <li> <span class="codeInline">width</span> : The width of the chart</li>
+              <li> <span class="codeInline">height</span> : The height of the chart </li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="beforedispose" id="beforedispose"></a>BeforeDispose</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised before a chart is going to be removed and cleaned from memory. Technically, It is raised just   before a chart is to be disposed/deleted using <span class="codeInline"><a href="Methods.html#dispose">dispose</a>()</span> by user or by JavaScript internally. This event is, in most cases, followed by a <span class="codeInline">Disposed</span> event.<br />
+            <br />
+          </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="disposed" id="disposed"></a>Disposed</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised after a chart is removed and cleaned from memory. Technically, It is raised just   after a chart is disposed/deleted using <span class="codeInline"><a href="Methods.html#dispose">dispose</a>()</span> by user or by JavaScript internally.</td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="beforelinkeditemopen" id="beforelinkeditemopen"></a><a name="linkedcharts" id="linkedcharts"></a>BeforeLinkedItemOpen</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised before a <em>LinkedChart</em> is opened. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+             <br />
+             <ul>
+                <li><span class="codeInline">level</span> : Level (as number) of the <em>LinkedChart</em></li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="linkeditemopened" id="linkeditemopened"></a>LinkedItemOpened</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised after a <em>LinkedChart</em> is opened. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+             <br />
+             <br />
+             <ul>
+                <li><span class="codeInline">level</span> : Level (as number) of the <em>LinkedChart</em></li>
+                <li><span class="codeInline">item</span> : The JavaScript object instance of the LinkedChart that is opened </li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="beforelinkeditemclose" id="beforelinkeditemclose"></a>BeforeLinkedItemClose</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised before a <em>LinkedChart</em> is closed. </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+             <br />
+             <ul>
+                <li><span class="codeInline">level</span> : Level (as number) of the <em>LinkedChart</em></li>
+             </ul>
+             <ul><li><span class="codeInline">item</span> : The JavaScript object instance of the LinkedChart that is opened</li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="linkeditemclosed" id="linkeditemclosed"></a>LinkedItemClosed</td>
+          <td class="codeInline" valign="top"><span class="text-light">not available </span></td>
+          <td class="text" valign="top">This event is raised after a <em>LinkedChart</em> is closed.  </td>
+          <td class="text" valign="top">The event arguments provided in the advanced model are :<br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+            <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+             <br />
+             <ul>
+               <li><span class="codeInline">level</span> : Level (as number) of the <em>LinkedChart</em></li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataloaderror" id="dataloaderror"></a>DataLoadError</td>
+          <td class="codeInline" valign="top">FC_DataLoadError</td>
+          <td class="text" valign="top">This event is raised when there was an error in loading data from the specified Url. It can be used to show an error message to user, or to take a corrective measure.</td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_DataLoadError</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :</strong><br />
+<br />
+<span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+<br />
+<span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+<br />
+<br />
+<ul>
+   <li><span class="codeInline">error</span> : 
+     JavaScript error object which describes the underlying error which has raised this event</li>
+</ul>
+<ul>
+  <li><span class="codeInline">httpStatus</span> : A number which 
+    Denotes the HTTP status number when the error was raised.For example, the status will be 404 for URL not found.&quot;</li>
+  <li><span class="codeInline">source</span> : Denotes who raised the error. It is generally undefined when SWF raises this event, but is otherwise equal to &quot;XmlHttpRequest&quot; in case the error was raised due to AJAX request</li>
+  <li><span class="codeInline">xmlHttprequestObject</span> : The httpRequest object associated with this data transaction</li>
+  </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="nodatatodisplay" id="nodatatodisplay"></a>NoDataToDisplay</td>
+          <td class="codeInline" valign="top">FC_NoDataToDisplay</td>
+          <td class="text" valign="top">This event is raised when the XML data loaded by chart didn't contain any data to display. It can be used to show an error message to user, or to take a corrective measure. </td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_NoDataToDisplay</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+              <br />
+              <strong>The event arguments provided in the advanced model are :</strong><br />
+              <br />
+              <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+              <br />
+              <span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dataxmlinvalid" id="dataxmlinvalid"></a>DataXMLInvalid</td>
+          <td class="codeInline" valign="top">FC_DataXMLInvalid</td>
+          <td class="text" valign="top">This event is raised when the XML data loaded by chart is invalid. It can be used to show an error message to user, or to take a corrective measure.</td>
+          <td class="text" valign="top">The event argument provided by <span class="codeInline">FC_DataXMLInvalid</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+             <br />
+             <strong>The event arguments provided in the advanced model are :</strong><br />
+<br />
+<span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+<br />
+<span class="codeInline">argumentsObject</span> : This is passed as a blank object.</td>
+        </tr>
+        <tr class="trLightBlueBg">
+           <td class="codeInline" valign="top"><a name="error" id="error"></a>Error</td>
+           <td class="codeInline" valign="top">FC_Error</td>
+           <td class="text" valign="top">This event is raised when error occurs in JavaScript implementation.</td>
+           <td class="text" valign="top">The event arguments provided by <span class="codeInline">FC_Error</span> function (simple event model) is <span class="codeInline">same </span>event arguments passed to event listener in advanced model as described below: <br />
+              <br />
+              <strong>The event arguments provided in the advanced model are :</strong><br />
+<br />
+<span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+<br />
+<span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+<span class="codeInline"><br />
+</span>
+<ul>
+   <li><span class="codeInline">id</span> :&nbsp; Unique id of the error </li>
+</ul>
+<ul>
+  <li><span class="codeInline">nature</span> : Nature of the error. The value can be one of these - 'TypeException', 'ValueRangeException', 'NotImplementedException', 'ParameterException', 'RuntimeException', DesignTimeError'</li>
+   <li><span class="codeInline">source</span> :&nbsp; This gives a hint at the  function, object etc. where the error is raised </li>
+   <li><span class="codeInline">message</span> : Error message </li>
+</ul>
+           </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="warning" id="warning"></a>Warning</td>
+          <td class="codeInline" valign="top">FC_Warning</td>
+          <td class="text" valign="top">This event is raised when there are minor errors or warnings while implementing the chart. </td>
+          <td class="text" valign="top">The event arguments provided by <span class="codeInline">FC_Error</span> function (simple event model) is <span class="codeInline">same </span>event arguments passed to event listener in advanced model as described below: <br />
+            <br />
+            <strong>The event arguments provided in the advanced model are :</strong><br />
+             <br />
+             <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+             <br />
+             <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+             <br />
+             <ul>
+                <li><span class="codeInline">id</span> :&nbsp; Unique id of the error </li>
+             </ul>
+             <ul>
+               <li><span class="codeInline">nature</span> : Nature of the error. The value can be one of these - 'TypeException', 'ValueRangeException', 'NotImplementedException', 'ParameterException', 'RuntimeException', DesignTimeError'</li>
+               <li><span class="codeInline">source</span> :&nbsp; This gives a hint at the  function, object etc. where the error is raised </li>
+               <li><span class="codeInline">message</span> : Error message</li>
+             </ul>
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="4" valign="top" class="text">Zoom line chart provides some more events which you can locate in <a href="SpecialCharts/ZoomLine_JSAPI.html">Zoom Line Chart API</a> page. </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+  <td height="25">
+  </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Functions|Methods.html","3D chart JavaScript API|SPecialCharts/Combi3D_JSAPI.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

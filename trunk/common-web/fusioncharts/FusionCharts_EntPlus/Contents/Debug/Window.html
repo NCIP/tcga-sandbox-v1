@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Debug Mode (Window)</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Debugging your charts|Basic.html", "The new Debug window" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Debug Mode (Window)</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The debug mode is a new concept introduced 
+        in FusionCharts v3. It helps you look into what is happening behind the 
+        chart scenes. It also lists out any errors, if present. You can use the 
+        debug window to trouble shoot all your charts. The debug window lists 
+        errors like:</p>
+      <ul>
+        <li>Error in loading data - reasons.</li>
+        <li>No data to display - possible reasons.</li>
+        <li>Invalid XML data - 10 possible reasons.</li>
+        <li>If invalid style names are specified for Chart OBJECTS.</li>
+        <li>If invalid macros are used for animations using STYLE.</li>
+        <li>and a few more...</li>
+      </ul>
+      <p>In each FusionCharts v3 chart, you can activate the debug mode by just 
+        enabling the debug flag. A typical debug window for a chart that rendered 
+      successfully using <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span> method looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="Images/DebugWindow.jpg" width="499" height="300" class="imageBorder" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Here, you can see a Column 2D Chart with its 
+      Debug Window. The Debug Window contains a lot of information about the chart. 
+      The contents of the above debug window can be listed as under:</p></td>
+  </tr>
+  <tr> 
+    <td class="code_container">
+Info: Chart loaded and initialized.
+   <br />
+   Initial Width: 500
+   <br />
+   Initial Height: 300
+   <br />
+   Scale Mode: noScale
+   <br />
+   Debug Mode: Yes
+   <br />
+   Application Message Language: EN
+   <br />
+   Version: 3.2.0
+   <br />
+   Chart Type: Single Series 2D Column Chart
+      <p>Chart Objects:</p>
+      <ul>
+        <li>BACKGROUND</li>
+        <li> CANVAS</li>
+        <li> CAPTION</li>
+        <li> SUBCAPTION</li>
+        <li> YAXISNAME</li>
+        <li> XAXISNAME</li>
+        <li> DIVLINES</li>
+        <li> YAXISVALUES</li>
+        <li> HGRID</li>
+        <li> DATALABELS</li>
+        <li> DATAVALUES</li>
+        <li> TRENDLINES</li>
+        <li> TRENDVALUES</li>
+        <li> DATAPLOT</li>
+        <li> TOOLTIP</li>
+        <li> VLINES</li>
+        <li>VLINELABELS </li>
+      </ul>
+      <p>INFO: XML Data provided using dataURL method.<br />
+        dataURL provided: Data.xml<br />
+        dataURL invoked: Data.xml?FCTime=139<br />
+        XML Data:
+      <pre class="prettyprint code_container">&lt;chart caption=&quot;Monthly Sales Summary&quot; subcaption=&quot;For the year 2006&quot; xAxisName=&quot;Month&quot; yAxisName=&quot;Sales&quot; numberPrefix=&quot;$&quot;&gt;
+  &lt;set label=&quot;Jan&quot; value=&quot;17400&quot; /&gt;
+  &lt;set label=&quot;Feb&quot; value=&quot;19800&quot; /&gt;
+  &lt;set label=&quot;Mar&quot; value=&quot;21800&quot; /&gt;
+  &lt;set label=&quot;Apr&quot; value=&quot;23800&quot; /&gt;
+  &lt;set label=&quot;May&quot; value=&quot;29600&quot; /&gt;
+  &lt;set label=&quot;Jun&quot; value=&quot;27600&quot; /&gt;
+  &lt;set label=&quot;Jul&quot; value=&quot;31800&quot; /&gt;
+  &lt;set label=&quot;Aug&quot; value=&quot;39700&quot; /&gt;
+  &lt;set label=&quot;Sep&quot; value=&quot;37800&quot; /&gt;
+  &lt;set label=&quot;Oct&quot; value=&quot;21900&quot; /&gt;
+  &lt;set label=&quot;Nov&quot; value=&quot;32900&quot; /&gt;
+  &lt;set label=&quot;Dec&quot; value=&quot;39800&quot; /&gt;
+&lt;/chart&gt;</pre>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>From the above Debug Window, you can get 
+        the following information:</p>
+      <ul>
+        <li>A message when chart is loaded and initialized properly. </li>
+        <li>Specified width and height.</li>
+        <li>Scale Mode, Debug Mode, Application Message Language. </li>
+        <li><strong>Chart Version</strong> - The version of  chart you're using.</li>
+        <li><strong>Chart Type </strong> - The name of the chart you're using (Single Series 2D Column 
+          Chart in this example). </li>
+        <li><strong>Objects supported by  chart</strong> - This is to help 
+          you quickly refer to a chart object without going through individual 
+          Chart XML Sheets.</li>
+        <li><strong>Method using which XML data has been provided</strong> - Can 
+          be <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a></span> or <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a></span>.        </li>
+        <li>If <span class="codeInline">Data URL</span> method, then link to original <span class="codeInline">Data URL</span> provided and the 
+          invoked one. There could be a difference between the two, if your <span class="codeInline">Data URL</span> 
+          is URL-Encoded. In that case, FusionCharts converts it into normal form 
+          before invoking it. If you get an error in loading data, you can see 
+          here if FusionCharts is invoking the right Url. You can also click on 
+          the URL to open the page in browser to see any errors thrown by your 
+          server side scripting language.</li>
+        <li>Finally the <strong>XML data retrieved</strong> is shown for your 
+          reference.</li>
+      </ul>
+      <p>While in Debug Mode, in order to <strong>hide the debug window</strong> and see the chart below, you can <strong>click inside the respective chart</strong> 
+        and then <strong>press Shift + D</strong>. To toggle back to the Debug Mode, you would have to  
+        <strong>press Shift + D</strong> again.</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="enabledm" id="enabledm"></a>Enabling the debug Mode</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>To enable the debug mode for any of your charts, 
+      you just need to set the <span class="codeInline">debugMode</span> flag 
+      to 1. If you're using FusionCharts JavaScript 
+      class, you can set the <span class="codeInline">debugMode</span> flag to 1 as under:</p> 
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">
+	 
+	        <pre class="prettyprint code_container">&lt;div id=&quot;chartdiv&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+    var myChart = new FusionCharts(&quot;../FusionCharts/Column2D.swf&quot;, &quot;myChartId&quot;, &quot;600&quot;, &quot;300&quot;, <strong>&quot;1&quot;</strong>, &quot;1&quot;); 
+    myChart.setXMLUrl(&quot;Data.xml&quot;); 
+    myChart.render(&quot;chartdiv&quot;); 
+// --&gt;
+  &lt;/script&gt;</pre>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>Or, if you're using direct HTML embedding mode, you can provide it as 
+      under: </p>
+		       <pre class="prettyprint code_container">&lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; codebase=&quot;http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0&quot; 
+  width=&quot;500&quot; height=&quot;300&quot; id=&quot;Column2D&quot; &gt;
+  &lt;param name=&quot;movie&quot; value=&quot;../FusionCharts/Column2D.swf&quot;/&gt;
+  &lt;param name=&quot;FlashVars&quot; value=&quot;&amp;dataURL=Data.xml<strong>&amp;debugMode=1</strong>&quot;&gt;
+  &lt;param name=&quot;quality&quot; value=&quot;high&quot;/&gt;
+  &lt;embed src=&quot;../FusionCharts/Column2D.swf&quot; flashVars=&quot;&amp;dataURL=Data.xml<strong>&amp;debugMode=1</strong>&quot; 
+    quality=&quot;high&quot; width=&quot;500&quot; height=&quot;300&quot; name=&quot;Column2D&quot; 
+    type=&quot;application/x-shockwave-flash&quot; pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot; /&gt;
+&lt;/object&gt;</pre>
+
+		</td>
+  </tr>
+  <tr> 
+    <td valign="top">
+
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The parameter after chart width and height 
+        is the <span class="codeInline">debugMode</span> flag. Set it to 1, and 
+        run the chart. You'll now see it with Debug Window, positioned over the chart.</p>
+      <p>It is recommended to use the debug window when building the chart for the first time. Once the chart runs fine, 
+        set the flag back to 0, so that your end users just see the chart and 
+        not the debug window.</p>
+      <p class="highlightBlock">Note: Debug Mode error won't help you solve problems 
+        relating to path of SWF file, as the debug mode is a module inside the 
+        chart SWF file. So, unless the SWF file path is correct, you cannot switch 
+        debug mode on.</p>
+      <p>Shown below are a few example errors show in debug mode:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="missingdata" id="missingdata"></a>dataURL and dataXML missing</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><br /><img src="Images/NoData.jpg" width="550" height="450" class="imageBorder" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In this chart, we've:</p>
+      <ul>
+        <li>NOT specified either <a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html"><span class="codeInline">Data URL</span></a> or <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a></span>. 
+          So you can see the Warning above. </li>
+        <li>NOT placed a default <span class="codeInline">Data.xml</span> file 
+          in the folder. So, FusionCharts tries to look for a <span class="codeInline">Data.xml</span> 
+          file, but it cannot find it. Thereby, you get an &quot;Error in Loading Data&quot; 
+          message, and the debug window lists the possible reasons for the error.</li>
+      </ul><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="invalidxml" id="invalidxml"></a>Invalid XML Provided</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In this example, we provide invalid XML to the 
+      chart. We've intentionally not closed one of our <span class="codeInline">&lt;set&gt;</span> 
+      elements. The entire XML is listed below:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+       <pre class="prettyprint code_container">&lt;chart caption='Monthly Sales Summary' subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt;
+  &lt;set label='Jan' value='17400' /&gt;
+  &lt;set label='Feb' value='19800' /&gt;
+  &lt;set label='Mar' value='21800' /&gt;
+<strong>  &lt;set label='Apr' value='23800' &gt;</strong>
+  &lt;set label='May' value='29600' /&gt;
+  &lt;set label='Jun' value='27600' /&gt;
+  &lt;set label='Jul' value='31800' /&gt;
+  &lt;set label='Aug' value='39700' /&gt;
+  &lt;set label='Sep' value='37800' /&gt;
+  &lt;set label='Oct' value='21900' /&gt;
+  &lt;set label='Nov' value='32900' /&gt;
+  &lt;set label='Dec' value='39800' /&gt;
+&lt;/chart&gt;</pre>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>When you run your chart against this XML, you'll 
+      get an &quot;Invalid XML Data&quot; message on the chart and the debug window 
+      would look as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="Images/ErrorXML.jpg" width="550" height="450" class="imageBorder" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>You can see the reason for Invalid XML data 
+        above. FusionCharts detects it for you and then shows the appropriate 
+        message. </p>
+      <p>To get more information on error, you can click the <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a>        Invoked</span> link and open the XML file in browser.</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="invalidstyles" id="invalidstyles"></a>Invalid STYLE definition Errors</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts Debug Window can also capture 
+        the following errors in your STYLE definitions:</p>
+      <ul>
+        <li>Invalid STYLE types.</li>
+        <li>Invalid Macro Names in animation parameter.</li>
+        <li>Invalid Chart Object Names.</li>
+        <li>Usage of undefined Style Objects by Chart objects.</li>
+      </ul>
+      <p>Let's consider the XML example below. Errors in style XML are represented 
+        in bold:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+       <pre class="prettyprint code_container">&lt;chart caption='Monthly Sales Summary' subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt;
+  &lt;set label='Jan' value='17400' /&gt;
+  &lt;set label='Feb' value='19800' /&gt;
+  &lt;set label='Mar' value='21800' /&gt;
+  &lt;set label='Apr' value='23800' /&gt;
+  &lt;set label='May' value='29600' /&gt; 
+  &lt;set label='Jun' value='27600' /&gt;
+  &lt;set label='Jul' value='31800' /&gt;
+  &lt;set label='Aug' value='39700' /&gt;
+  &lt;set label='Sep' value='37800' /&gt; 
+  &lt;set label='Oct' value='21900' /&gt; 
+  &lt;set label='Nov' value='32900' /&gt;
+  &lt;set label='Dec' value='39800' /&gt;
+
+  &lt;styles&gt;
+    &lt;definition&gt;
+      &lt;style name='CaptionFont' type='Font' font='Verdana' size='13' /&gt;
+      &lt;style <strong>name='WrongAnimation' </strong>type='Animation' param='_x' <strong>start='$canvasWrongX'</strong> duration='1'/&gt;
+      &lt;style <strong>name='MyWrongType' type='MyOwnType'</strong> color='FF5904'/&gt;
+    &lt;/definition&gt;
+    &lt;application&gt;
+      &lt;apply toObject='CAPTION' styles='CaptionFont' /&gt;
+      &lt;apply <strong>toObject='MYSUBCAPTION'</strong> styles='CaptionFont' /&gt;
+      &lt;apply toObject='CANVAS' styles='WrongAnimation' /&gt;
+      &lt;apply toObject='DATALABELS' styles='MyWrongType' /&gt;
+    &lt;/application&gt;
+  &lt;/styles&gt;
+&lt;/chart&gt;</pre>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Here, we've the following errors in style 
+        XML:</p>
+      <ul>
+        <li><span class="codeInline">$canvasWrongX</span> is not a valid macro 
+          name.</li>
+        <li>Style type <span class="codeInline">MyOwnType</span> is an invalid 
+          type for Style.</li>
+        <li><span class="codeInline">MySubCaption</span> is an invalid chart object.</li>
+      </ul>
+      <p>When you run a chart against this XML, you'll see the following errors 
+        raised in debug mode:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="Images/StyleError.jpg" width="550" height="450" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see, all our errors got caught 
+        in the Debug Window and now you can use this effectively to correct your 
+        style XML.</p>
+      <p>There are more errors and messages that debug window can trap, which 
+        we've not shown here.</p>   
+	  <p class="highlightBlock">Example: When you update your chart's data at client 
+        using AJAX, all transfer messages are logged so that you easily debug 
+      into the application process.</p> 
+      <p>The Debug Window is aimed at making your lives simpler as developers.</p>
+      <p>Next, we'll see how to use the JavaScript class to troubleshoot.</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Advanced Troubleshooting|Advanced.html", "Using JavaScript|JS.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

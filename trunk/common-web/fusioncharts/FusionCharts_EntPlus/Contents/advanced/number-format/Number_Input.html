@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using formatted input numbers </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Advanced charting", "Number formatting|Number_Basics.html", "Input number formatting" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using formatted input numbers </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In some countries, commas are used as decimal separators and   dots as thousand separators. But, if you directly specify such numbers in FusionCharts XML/JSON, it will give an   error while converting to number. FusionCharts v3 introduces a smart way to let you specify numbers in your own format in XML/JSON. </p>
+      <p>Consider the data below: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart <strong>inThousandSeparator='.' inDecimalSeparator=','</strong> formatNumberScale='0'&gt;
+   &lt;set label='John' <strong>value='420.315,43'</strong> /&gt;
+   &lt;set label='Mary' <strong>value='295.345,98'</strong> /&gt;
+   &lt;set label='Tom' <strong>value='523.323,76'</strong> /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp;<strong> &quot;inthousandseparator&quot;:&quot;.&quot;,<br />&nbsp; &nbsp; &quot;indecimalseparator&quot;:&quot;,&quot;</strong>,<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;0&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;value&quot;:&quot;420.315,43&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;value&quot;:&quot;295.345,98&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;value&quot;:&quot;523.323,76&quot;</strong><br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this data, we're providing the numbers in the non-standard convention - i.e., we've used dot as the thousand separator and comma as the decimal separator (as followed in some European countries). Now, to make sure that FusionCharts reads these numbers in the right way, we convey our input decimal and thousand separator characters as under:</p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart ... inThousandSeparator='.' inDecimalSeparator=',' ...&gt; </pre></div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container"> &quot;chart&quot;:{
+      ...<br />&nbsp; &nbsp; &quot;inthousandseparator&quot;:&quot;.&quot;,<br />&nbsp; &nbsp; &quot;indecimalseparator&quot;:&quot;,&quot;
+      ...<br />&nbsp; }</pre>
+</div></div></div></td>
+</tr>
+<tr>
+<td class="text">
+    <p>This tells FusionCharts that it should treat dot in the input numbers as thousands (instead of normal decimals) and comma as decimals. </p>
+    <p class="highlightBlock">Note that this feature does NOT work in Zoom Line chart to optimize it for high data-set volume. In that chart, you'll have to specify numbers in standard format (using . as decimal separator and no commas in number). However, output number formatting (i.e., the way numbers are shown on chart) can be configured fully. </p>
+    <p>When you now view this chart, you'll get the following output: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Number_Input1.jpg" width="307" height="210" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can see that FusionCharts has interpreted the numbers properly and automatically converted the numbers into the standard format. If you want to output the number again in the non-conventional format, you can use the following XML/JSON: </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart inThousandSeparator='.' inDecimalSeparator=',' <strong>thousandSeparator='.' decimalSeparator=','</strong>  formatNumberScale='0'&gt;
+   &lt;set label='John' value='420.315,43' /&gt;
+   &lt;set label='Mary' value='295.345,98' /&gt;
+   &lt;set label='Tom' value='523.323,76' /&gt; 
+&lt;/chart&gt;</pre> </div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;inthousandseparator&quot;:&quot;.&quot;,<br />&nbsp; &nbsp; &quot;indecimalseparator&quot;:&quot;,&quot;,<br />&nbsp; &nbsp; <strong>&quot;thousandseparator&quot;:&quot;.&quot;,<br />&nbsp; &nbsp; &quot;decimalseparator&quot;:&quot;,&quot;</strong>,<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;0&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420.315,43&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295.345,98&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523.323,76&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div>   </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above data we're specifying custom characters for both input and output formats. When you now see the chart, you'll get something as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Number_Input2.jpg" width="307" height="210" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Number Scaling|Number_Scaling.html","Using special characters - Using Multi-lingual text|../special-chars/SPChar.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

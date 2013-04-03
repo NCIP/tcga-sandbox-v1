@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Getting chart reference</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Getting chart reference" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Getting chart reference</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>Once a chart is rendered, you might want to do a lot of things  with it. You might wish to update the data, get data from it, print it, export it to image/pdf, add event listener to it, change its setting or resize it. You may even want to  clone it, remove it  or obtain information like - chart type, id, width, height, version signature etc. You might be interested to know whether the chart has rendered or not, whether the chart is visible or see if it is active. To achieve all these, first, you must get the reference to the chart object i.e., handler of the chart. Next, you do the desired operation on it. </p>
+       <p>Here, in this page, we will learn how to get the reference to a chart object.</p>
+       <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder.      </p>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="chartreference" id="chartreference"></a>Get reference to the chart object </td>
+  </tr>
+  
+  <tr>
+     
+       <td valign="top" class="text">
+         <p>There are numerous ways of getting the reference to a chart object. On a broader level, you can get two types of references:</p>
+          <ol>
+            <li>the reference to the JavaScript Object that acts as a wrapper of the chart (i.e., JavaScript variable), and </li>
+            <li>the reference to chart HTML Object which is embedded in the web page (i.e., chart SWF Object) </li>
+          </ol>
+          <p><strong><a name="js" id="js"></a>Get JavaScript Object reference </strong></p>
+          <p>To get the reference to the JavaScript object you can do one of the following:</p>
+         <div style="padding:20px"><strong> 1. Using JavaScript global variable name </strong>
+           <p>If you have declared the JavaScript object in global-scope when instantiating the chart, you can use the JavaScript object's name as the reference. </p>
+           <span class="msg_handler_slider"><a>Click here to see full code and view it live</a> &raquo; </span>
+          <div class="msg_body" style="width:620px; overflow:auto;margin:0;padding:0;">
+            <pre class="code_container prettyprint" style="margin:0; padding:10;">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Get chart reference from variable in JS Global Scope&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var <strong>myChart</strong> = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+      &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+    // --&gt;
+    &lt;/script&gt;
+    &lt;input type=&quot;button&quot; onclick=&quot;<strong>myChart.print();&quot; </strong>value=&quot;Print&quot;&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+            <p class="highlightBlock" style="margin-top:0;">See it <a href="../../Code/JavaScript/Basics/GetChartInstance-direct.html" target="_blank">live</a>!</p></div>
+          <p>
+          <strong>2. Using FusionCharts.items[] static Array </strong>	</p>				   
+          
+          <p><span class="codeInline"><strong>FusionCharts.items[]</strong></span> is an associative array that stores all the charts rendered in a page. The DOMId is represented by the key and the JavaScript chart object is the respective value. If you pass the DOMId of the chart to this array, you will get the reference to the JavaScript Object of the related chart.</p>
+          <pre class="code_container prettyprint">var chart = FusionCharts.<a href="API/Properties.html#items">items</a>[&quot;myChartId&quot;]; </pre>
+          <br />
+          <p><strong>3. Using FusionCharts() function </strong></p>
+          <p>You can also pass the chart's DOMId to <span class="codeInline"><strong>FusionCharts()</strong></span>. Like <span class="codeInline">FusionCharts.items[], FusionCharts()</span> also  returns the JavaScript Object of the chart.</p>
+          <pre class="code_container prettyprint">var chart = <a href="API/Methods.html#staticfusioncharts">FusionCharts</a>(&quot;myChartId&quot;);</pre>
+          <p class="highlightBlock">It is recommended to use one of the above mentioned methods to get JavaScript Object reference of the charts. <br />
+            <br />
+           The other methods, as explained below, of getting the reference of the chart HTML Object are not recommended as HTML Object  provides <a href="../FirstChart/HtmlEmbed.html#limitations">limited interactive features</a>.</p>
+          <p><br />
+          <strong>4. <a name="legacy" id="legacy"></a>Using legacy function</strong>: <strong>getChartFromId</strong>(<strong>DOMId</strong>) </p>
+          <p>The legacy function <span class="codeInline">getChartFromId()</span> still works. It is a global function (i.e. it can be accessed from global/window scope) that returns the chart's Object (reference to chart SWF object). </p>
+          <pre class="code_container prettyprint">var chart = getChartFromId( DOMId );</pre>
+          <p class="highlightBlock"><span class="codeInline">getChartFromId()</span> has been deprecated</p>
+         </div><strong><a name="html" id="html"></a>Get HTML Object reference</strong>
+<p>To get the reference to the chart HTML object you can use the following function:</p>
+			 <div style="padding:20px"><strong>1. FusionCharts.getObjectReference(DOMId)</strong>
+										  <p><span class="codeInline">getObjectReference()</span> is static function of <span class="codeInline">FusionCharts </span>class. Like <span class="codeInline">getChartFromId()</span> it also returns the chart's HTML Object when chart's <span class="codeInline">DOMId</span> is passed to it as parameter. </p>
+<pre class="code_container prettyprint">var chart = FusionCharts.<strong>getObjectReference</strong>( DOMId );</pre>
+</div>
+       </td>
+  </tr>
+   <tr>
+     <td valign="top" class="highlightBlock">Complete  Reference to all the  properties, functions and events of <span class="codeInline">FusionCharts</span> classes is provided in <a href="API/Overview.html">API Reference</a> section.</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Constructor methods|JS_CreateChart.html","Providing &amp; updating data|JS_ChangeData.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

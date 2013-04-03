@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Number Scaling </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Number Scaling" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Number Scaling </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 introduces the concept of number scaling. Number scaling lets you shorten the numbers on charts using commonly used scales (like K,M etc.). You can define your own scales for numbers and then apply it to all numbers on the chart. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Basic Example </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's start with the most basic example which is already defined in FusionCharts - thousands (K) and millions (M) scale. </p>
+      <p>By default, if your numbers on the chart are greater than 1000, FusionCharts scales them to K (Thousands) or M (Millions). For example, if you plot a chart with data as 12500, 13400 and 13300, you'll see the following chart: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Number_5.jpg" width="307" height="208" /> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see above, FusionCharts has scaled the numbers down to K. By default, FusionCharts has the K,M (1000,1000) scaling defined for each chart. If you do not want this scaling to be applied by default, you can set:</p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart formatNumberScale='0' ...&gt;  </pre></div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;0&quot;
+      ...<br />&nbsp; }</pre>
+</div></div></div></td>
+</tr>
+<tr>
+<td class="text"><p>You can, however, change it to anything you wish. Let's see it in the next example. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Adding billions to default scaling </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts, by default, has 1000,1000 (K,M) scaling defined for all charts. It doesn't have the scaling for billions defined. Let's modify the number scaling to add billion so that the final scale looks like 1000,1000,1000 (K,M,B).  </p>
+      <p>This scale, in human terms, would look something as under:</p>
+      <p>1000 = 1 K<br />
+      1000 K = 1 M<br />
+      1000 M = 1 B</p>
+    <p>Now, to convert this scale into FusionCharts XML/JSON format,   you'll have to do the following: </p>
+    <ol>
+      <li>Define your own scale for the chart as under:<br /><br />
+<div class="container" style="overflow:hidden;">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart numberScaleValue='1000,1000,1000' numberScaleUnit='K,M,B' &gt;</pre></div>
+       <div id="tab4" class="tab_content">
+         <pre id="pre-datajson2" class="prettyprint code_container"> &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;1000,1000,1000&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;K,M,B&quot;<br />&nbsp; }</pre>
+       </div></div></div>
+       <p>If you carefully see this and   match it with previous table, you'll find that whatever numeric figure was present on the left hand   side of the table is put in <span class="codeInline">numberScaleValue</span> and   whatever unit was present on the right side of the scale table has been put under   <span class="codeInline">numberScaleUnit</span> - all separated by commas.</p> </li>
+      <li>Set the chart formatting flags to on as under:<br /><br />
+<div class="container" style="overflow:hidden;">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart formatNumber='1' formatNumberScale='1' ...&gt;</pre></div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container"> &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;formatnumber&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;1&quot;
+      ...<br />&nbsp; }</pre>
+</div></div></div></li>
+      </ol>    
+    <p>When you now view a chart containing data in billions, you'll see as under. Note that the chart now contains figure both in millions and billions. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Scale_1.jpg" width="256" height="208" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The XML/JSON for this chart can be listed as under:</p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab7" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart numberScaleValue='1000,1000,1000' numberScaleUnit='K,M,B' numberPrefix='$'&gt;
+  &lt;set label='John' value='986000000' /&gt;
+ &nbsp;&lt;set label='Mary' value='3134000000' /&gt;
+  &lt;set label='Andy' value='3245000000' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;1000,1000,1000&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;K,M,B&quot;,<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;986000000&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;3134000000&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Andy&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;3245000000&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In case of <strong>dual y-axis charts</strong>, to apply this scaling to the secondary axis, you would write the following XML/JSON (note the <span class="codeInline">s</span> prefix before each attribute indicating secondary axis).</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab9">XML</a></li>
+       <li><a href="#tab10">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart sFormatNumberScale='1' sNumberScaleValue='1000,1000,1000' sNumberScaleUnit='K,M,B' sNumberPrefix='$'&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='John' value='986000000' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Mary' value='3134000000' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Andy' value='3245000000' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab10" class="tab_content">
+  <pre id="pre-datajson5" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;sformatnumberscale&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;snumberscalevalue&quot;:&quot;1000,1000,1000&quot;,<br />&nbsp; &nbsp; &quot;snumberscaleunit&quot;:&quot;K,M,B&quot;,<br />&nbsp; &nbsp; &quot;snumberprefix&quot;:&quot;$&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;986000000&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;3134000000&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Andy&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;3245000000&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Another Example - Putting time in scale </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's consider another example where we intend to plot time related figures on the chart. Say we're plotting a chart which indicates the time taken by a list of   automated processes. Each process in the list can take time ranging from a few   seconds to few days. And we've the data for each process in seconds itself.   Now, if we were to show all the data on the chart in seconds only, it won't   appear too legible. What we can do is build a scale indicating time and then specify   it to the chart. This scale, in human terms, would look something as under:</p>
+      <p>60 seconds = 1 minute<br />
+        60 minute = 1 hr<br />
+        24 hrs = 1 day<br />
+        7 days = 1   week</p>
+    <p>Now, to convert this scale into FusionCharts  XML/JSON format,   you'll have to do it as under:</p>
+    <ol>
+      <li>First you would need to define the unit of the data which you're providing.   Like, in this example, you're providing all data in seconds. So, default number   scale would be represented in seconds. We can represent it as under:<br /><br />
+<div class="container" style="overflow:hidden;">
+    <ul class="tabs">
+       <li><a href="#tab11">XML</a></li>
+       <li><a href="#tab12">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab11" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart defaultNumberScale='s' ...&gt; </pre></div>
+<div id="tab12" class="tab_content">
+  <pre id="pre-datajson6" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;defaultnumberscale&quot;:&quot;s&quot;
+      ...<br />&nbsp; }</pre>
+</div></div></div><br /></li>
+      <li>Next, we define our own scale for the chart as under:<br /><br />
+<div class="container" style="overflow:hidden;" >
+    <ul class="tabs">
+       <li><a href="#tab13">XML</a></li>
+       <li><a href="#tab14">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab13" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart numberScaleValue='60,60,24,7' numberScaleUnit='min,hr,day,wk' &gt;</pre></div>
+<div id="tab14" class="tab_content">
+  <pre id="pre-datajson7" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;60,60,24,7&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;min,hr,day,wk&quot;<br />&nbsp; }</pre>
+</div></div></div>
+       <p> Again, if you carefully see this and   match it with our range, you'll find that whatever numeric figures are present on the left hand   side of the range is put in <span class="codeInline">numberScaleValue</span> and  whatever units are present on the right side of the scale has been put under   <span class="codeInline">numberScaleUnit</span> - all separated by commas.</p> </li>
+      <li>Set the chart formatting flags to on as under:<br /><br />
+<div class="container" style="overflow:hidden;">
+    <ul class="tabs">
+       <li><a href="#tab15">XML</a></li>
+       <li><a href="#tab16">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab15" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart formatNumber='1' formatNumberScale='1' ...&gt;</pre></div>
+<div id="tab16" class="tab_content">
+  <pre id="pre-datajson8" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;formatnumber&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;1&quot;
+      ...<br />&nbsp; }</pre>
+</div></div></div> </li>
+      </ol>
+    <p>The entire data looks as under: </p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab17">XML</a></li>
+       <li><a href="#tab18">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab17" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart defaultNumberScale='s' numberScaleValue='60,60,24,7' numberScaleUnit='min,hr,day,wk'&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='A' value='38' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='B' value='150' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='C' value='11050' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='D' value='334345' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='E' value='1334345' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab18" class="tab_content">
+  <pre id="pre-datajson9" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;defaultnumberscale&quot;:&quot;s&quot;,<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;60,60,24,7&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;min,hr,day,wk&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;A&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;38&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;B&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;150&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;C&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;11050&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;D&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334345&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;E&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;1334345&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text"><p>When you now view the chart, you'll see that all the data has been   automatically scaled to the best value. Like:</p>
+    <p>38 was converted to 38s<br />
+      150 was converted to 2.50min<br />
+      11050 was   converted to 3.07hr<br />
+      334345 was converted to 3.87 day<br />
+      1334345 was converted   to 2.21wk
+    </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/Scale_2.jpg" width="355" height="208" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In case of <strong>dual y-axis charts</strong>, to apply this scaling to the secondary axis, you would write the following XML/JSON (note the <span class="codeInline">s</span> prefix before each attribute indicating secondary axis). </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab19">XML</a></li>
+       <li><a href="#tab20">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab19" class="tab_content"><pre class="prettyprint code_container">&lt;chart sFormatNumberScale='1' sDefaultNumberScale='s' sNumberScaleValue='60,60,24,7' sNumberScaleUnit='min,hr,day,wk'&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='A' value='38' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='B' value='150' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='C' value='11050' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='D' value='334345' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='E' value='1334345' /&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab20" class="tab_content">
+  <pre id="pre-datajson10" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;sformatnumberscale&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;sdefaultnumberscale&quot;:&quot;s&quot;,<br />&nbsp; &nbsp; &quot;snumberscalevalue&quot;:&quot;60,60,24,7&quot;,<br />&nbsp; &nbsp; &quot;snumberscaleunit&quot;:&quot;min,hr,day,wk&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;A&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;38&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;B&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;150&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;C&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;11050&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;D&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334345&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;E&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;1334345&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+    <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Storage Size Example </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Take another example, where you're plotting a chart indicating   memory usage of a network server. The usage can be from few bits to a few   gigabytes. Again, you've all your data in bits - so we can render the range as   under:</p>
+      <p>8 bits = 1 Byte<br />
+        1024 bytes = 1 KB<br />
+        1024 KB = 1 MB<br />
+        1024 MB   = 1 GB<br />
+        1024 GB = 1 TB</p>
+    <p>And the XML/JSON can be written as under:</p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab21">XML</a></li>
+       <li><a href="#tab22">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab21" class="tab_content">
+<pre class="prettyprint code_container"> &lt;chart defaultNumberScale='bits' numberScaleValue='8,1024,1024,1024,1024' numberScaleUnit='bytes,KB,MB,GB,TB' &gt;</pre></div>
+<div id="tab22" class="tab_content">
+  <pre id="pre-datajson11" class="prettyprint code_container"> &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;defaultnumberscale&quot;:&quot;bits&quot;,<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;8,1024,1024,1024,1024&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;bytes,KB,MB,GB,TB&quot;<br />&nbsp; }</pre>
+</div></div></div></td>
+</tr>
+<tr>
+<td class="text"><p>Similarly, for dual y-axis chart, it would be: </p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab23">XML</a></li>
+       <li><a href="#tab24">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab23" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart sFormatNumberScale='1' sDefaultNumberScale='bits' sNumberScaleValue='8,1024,1024,1024,1024' sNumberScaleUnit='bytes,KB,MB,GB,TB'&gt;</pre></div>
+<div id="tab24" class="tab_content">
+  <pre id="pre-datajson12" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;sformatnumberscale&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;sdefaultnumberscale&quot;:&quot;bits&quot;,<br />&nbsp; &nbsp; &quot;snumberscalevalue&quot;:&quot;8,1024,1024,1024,1024&quot;,<br />&nbsp; &nbsp; &quot;snumberscaleunit&quot;:&quot;bytes,KB,MB,GB,TB&quot;<br />&nbsp; }</pre>
+</div></div></div></td>
+  </tr>
+      <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Length/Distance Example </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's consider another length/distance example. The standard length/distance   range can be rendered as under (with <span class="codeInline">inches</span> being the default unit):</p>
+      <p>12 inches = 1 feet<br />
+        3 feet = 1 yard<br />
+        1760 yards = 1 mile</p>
+      <p>So, we can write the XML/JSON as under:</p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab25">XML</a></li>
+       <li><a href="#tab26">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab25" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart defaultNumberScale='inches' numberScaleValue='12,3,1760' numberScaleUnit='feet,yards,miles' &gt;</pre></div>
+<div id="tab26" class="tab_content">
+  <pre id="pre-datajson13" class="prettyprint code_container"> &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;defaultnumberscale&quot;:&quot;inches&quot;,<br />&nbsp; &nbsp; &quot;numberscalevalue&quot;:&quot;12,3,1760&quot;,<br />&nbsp; &nbsp; &quot;numberscaleunit&quot;:&quot;feet,yards,miles&quot;<br />&nbsp; }</pre>
+</div></div></div></td>
+</tr>
+<tr>
+<td class="text"><p>Similarly, for dual y-axis chart, it would be: </p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab27">XML</a></li>
+       <li><a href="#tab28">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab27" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart sFormatNumberScale='1' sDefaultNumberScale='inches' sNumberScaleValue='12,3,1760' sNumberScaleUnit='feet,yards,miles' &gt;</pre></div>
+<div id="tab28" class="tab_content">
+  <pre id="pre-datajson14" class="prettyprint code_container">&quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;sformatnumberscale&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;sdefaultnumberscale&quot;:&quot;inches&quot;,<br />&nbsp; &nbsp; &quot;snumberscalevalue&quot;:&quot;12,3,1760&quot;,<br />&nbsp; &nbsp; &quot;snumberscaleunit&quot;:&quot;feet,yards,miles&quot;<br />&nbsp; }</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+  <td height="25"></td></tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Number Formatting basics|Number_Basics.html", "Custom About Menu Item|CustomAboutMenu.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

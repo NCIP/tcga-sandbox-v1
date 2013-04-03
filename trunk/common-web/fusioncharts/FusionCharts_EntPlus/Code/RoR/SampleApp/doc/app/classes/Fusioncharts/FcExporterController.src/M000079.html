@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>index (Fusioncharts::FcExporterController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/fusioncharts/fc_exporter_controller.rb, line 50</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+      
+      <span class="ruby-ivar">@fc_exporter</span>= <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcExporter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
+
+      <span class="ruby-identifier">target</span>=<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">exporttargetwindow</span>
+      <span class="ruby-identifier">filename</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">exportfilename</span>
+      <span class="ruby-identifier">exportaction</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">exportaction</span>
+      <span class="ruby-identifier">is_html</span> = <span class="ruby-identifier">exportaction</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;download&quot;</span>)
+      
+      <span class="ruby-identifier">validation_result</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">validate</span> <span class="ruby-comment cmt"># Should return true if validated,  or fc_error</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">validation_result</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>) )
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Warnings&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">validation_result</span>.<span class="ruby-identifier">warnings</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-value str">&quot;Errors=&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">validation_result</span>.<span class="ruby-identifier">code2message</span>
+        <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">ErrorHandler</span>.<span class="ruby-identifier">set_flash_err</span>(<span class="ruby-identifier">validation_result</span>,<span class="ruby-identifier">flash</span>,<span class="ruby-identifier">is_html</span>,<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">meta</span>)
+        <span class="ruby-comment cmt"># Error has occurred, quit further processing</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'error'</span>,<span class="ruby-identifier">:target=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">target</span>
+        <span class="ruby-keyword kw">return</span>
+     <span class="ruby-keyword kw">end</span>
+
+
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Export Action=&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">exportaction</span>
+      
+    <span class="ruby-identifier">format</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">exportformat</span>    
+    <span class="ruby-identifier">handler</span> =<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">format_handler</span>(<span class="ruby-identifier">format</span>.<span class="ruby-identifier">upcase</span>)
+    
+     <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">handler</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>))
+           <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">ErrorHandler</span>.<span class="ruby-identifier">set_flash_err</span>(<span class="ruby-identifier">handler</span>,<span class="ruby-identifier">flash</span>,<span class="ruby-identifier">is_html</span>,<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">meta</span>)
+          <span class="ruby-comment cmt"># Error has occurred, quit further processing</span>
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'error'</span>,<span class="ruby-identifier">:target=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">target</span>
+         <span class="ruby-keyword kw">return</span>
+       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">export_object</span>,<span class="ruby-identifier">fc_error</span>=<span class="ruby-identifier">handler</span>.<span class="ruby-identifier">process_export</span>(<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">stream</span>,<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">meta</span>,<span class="ruby-identifier">format</span>)
+    
+     <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>))
+        <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">ErrorHandler</span>.<span class="ruby-identifier">set_flash_err</span>(<span class="ruby-identifier">fc_error</span>,<span class="ruby-identifier">flash</span>,<span class="ruby-identifier">is_html</span>,<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">meta</span>)
+        <span class="ruby-comment cmt"># Error has occurred, quit further processing</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'error'</span>,<span class="ruby-identifier">:target=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">target</span>
+        <span class="ruby-keyword kw">return</span>
+     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-value str">&quot;Processed using the Format Handler. Proceeding to download/save...&quot;</span>)
+    
+    <span class="ruby-identifier">ext</span> =<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">extension</span>(<span class="ruby-identifier">format</span>)
+
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">exportaction</span><span class="ruby-operator">==</span><span class="ruby-value str">&quot;download&quot;</span>)
+      <span class="ruby-identifier">mime_type</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">mime_type</span>(<span class="ruby-identifier">ext</span>)
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-value str">&quot;Setting mime type as &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">mime_type</span>)
+        <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;content-type&quot;</span>]=<span class="ruby-identifier">mime_type</span>
+        <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">target</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;_self&quot;</span>) 
+          <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-Disposition&quot;</span>]=<span class="ruby-value str">'attachment'</span>
+         <span class="ruby-keyword kw">else</span> 
+           <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-Disposition&quot;</span>]=<span class="ruby-value str">'inline'</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;filename&quot;</span>]=<span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>
+      
+        <span class="ruby-identifier">send_data</span>(<span class="ruby-identifier">export_object</span>, {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">:stream</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:filename</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>})
+       <span class="ruby-comment cmt">#render :content_type =&gt; 'application/octet-stream', :text =&gt; Proc.new {    |response, output|    </span>
+       <span class="ruby-comment cmt"># do something that reads data and writes it to output</span>
+       <span class="ruby-comment cmt">#export_object</span>
+       <span class="ruby-comment cmt">#}</span>
+          <span class="ruby-comment cmt">#~ #Testing </span>
+        <span class="ruby-comment cmt">#~ f = File.open(&quot;C:/&quot;+filename+&quot;.&quot;+ext, 'wb');</span>
+        <span class="ruby-comment cmt">#~ f.write export_object</span>
+        <span class="ruby-comment cmt">#~ f.close</span>
+    <span class="ruby-keyword kw">else</span> 
+      <span class="ruby-comment cmt"># Save on server</span>
+       <span class="ruby-identifier">complete_file_path</span>,<span class="ruby-identifier">displayPath</span>, <span class="ruby-identifier">notice</span> = <span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">determine_path_to_save</span>
+       <span class="ruby-identifier">handler</span>.<span class="ruby-identifier">write_to_file</span>(<span class="ruby-identifier">complete_file_path</span>)
+       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Saved to location on server: &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">displayPath</span>
+       <span class="ruby-identifier">meta_values</span>=<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">ErrorHandler</span>.<span class="ruby-identifier">meta2qs</span>(<span class="ruby-ivar">@fc_exporter</span>.<span class="ruby-identifier">meta</span>,<span class="ruby-identifier">displayPath</span>)
+       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;statusCode=1&amp;statusMessage=successful&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">notice</span><span class="ruby-operator">+</span><span class="ruby-identifier">meta_values</span>
+      <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

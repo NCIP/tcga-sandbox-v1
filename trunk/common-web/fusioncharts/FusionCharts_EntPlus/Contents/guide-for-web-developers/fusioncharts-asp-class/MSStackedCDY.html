@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts ASP Class API - Creating Multi-series Stacked 2D Line Dual Y Chart </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "FusionCharts ASP Class|Overview.html", "Creating MS Stacked Combination Dual Y Axis chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts ASP Class API &gt; Creating Multi-series Stacked 2D Line Dual Y Chart </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+      <p>In this section we will show you how to  create a complex chart - Multi-series Stacked 2D Line Dual Y Chart.  Here we calculate the cost as Percentage of Revenue for three products A, B and C. </p>    
+     <p> Let's examine the following data for a multi-series Stacked 2D Line Dual Y chart.</p>
+      </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text"><table width="53%" border="0" cellpadding="5" cellspacing="0" class="table">
+       <tr >
+         <td width="17%" class="header">Year</td>
+         <td width="18%" class="header">
+          <div align="center">Product A(1) </div>         </td>
+         <td width="18%" class="header">
+          <div align="center">Product A(2)  </div>         </td>
+         <td width="20%" class="header">
+          <div align="center">Product B </div>         </td>
+         <td width="200" class="header"><div align="center">Cost as % of Revenue</div></td>
+       </tr>
+       <tr>
+         <td  class="borderBottom">2001</td>
+         <td align="center" class="borderBottom">30</td>
+         <td align="center" class="borderBottom">30</td>
+         <td align="center" class="borderBottom">30</td>
+         <td align="center" class="borderBottom">57</td>
+       </tr>
+       <tr>
+         <td  class="borderBottom">2002</td>
+         <td align="center" class="borderBottom">26 </td>
+         <td align="center" class="borderBottom">26 </td>
+         <td align="center" class="borderBottom">26</td>
+         <td align="center" class="borderBottom">68</td>
+       </tr>
+       <tr>
+         <td  class="borderBottom">2003</td>
+         <td align="center" class="borderBottom"> 29 </td>
+         <td align="center" class="borderBottom"> 29</td>
+         <td align="center" class="borderBottom">29</td>
+         <td align="center" class="borderBottom">79</td>
+       </tr>
+       <tr>
+         <td  class="borderBottom">2004</td>
+         <td align="center" class="borderBottom"> 31 </td>
+         <td align="center" class="borderBottom"> 31</td>
+         <td align="center" class="borderBottom">31</td>
+         <td align="center" class="borderBottom">73</td>
+       </tr>
+       <tr>
+         <td  class="borderBottom">2005</td>
+         <td align="center" class="borderBottom"> 34 </td>
+         <td align="center" class="borderBottom"> 34 </td>
+         <td align="center" class="borderBottom">34</td>
+         <td align="center" class="borderBottom">80</td>
+       </tr>
+     </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The chart that would be created using this data would look like the image shown below:</p>
+    <img src="../Images/ClassImages/ClassMultiSeriesStCol2dLDY.jpg"  /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Here we need to create:</p>
+      <ul>
+        <li>One primary dataset to stack up Revenue values for Product A(1) and Product A(2). The values would be scaled to the Primary Y Axis on the left. </li>
+        <li>Another primary dataset to show Revenue values for Product B. The values would be scaled to the Primary Y Axis on the left.</li>
+        <li>A lineset  which would be automatically mapped to  Secondary  Y Axis. </li>
+      </ul>    </td>
+  </tr>
+  <tr>
+     <td valign="top"><p class="highlightBlock" >Before you go further with this page, we recommend you to please see   the previous page <a href="FirstChart.html">Creating First Chart</a> as we start off from concepts explained in   that page.</p>
+     <p class="text">Let's go through the code that builds this chart:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+  &lt;%
+     <span class="codeComment">' Include FusionCharts ASP Class</span><br />  %&gt; 
+&lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;
+  &lt;%&nbsp;&nbsp;&nbsp;
+dim FC
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Create FusionCharts ASP class object</span>
+set FC = new FusionCharts
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart type to Multiseries Stacked Column2D Line DY</span>&nbsp;&nbsp;
+Call FC.setChartType(&quot;MSStackedColumn2DLineDY&quot;)
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart size</span>&nbsp;&nbsp;&nbsp;
+Call FC.setSize(&quot;450&quot;,&quot;350&quot;)
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set the relative path of the SWF file</span>&nbsp;&nbsp;&nbsp;
+Call FC.setSWFPath(&quot;../FusionCharts/&quot;)
+ &nbsp;&nbsp;&nbsp; dim strParam        
+        <span class="codeComment"> ' Define chart attributes</span>
+       &nbsp;&nbsp;&nbsp; strParam=&quot;caption=Annual Revenue;rotateValues =1;xAxisName=Year;PYAxisName=Revenue;
+           SYAXisName=Cost as %25 of Revenue;numberPrefix=$;numberSuffix=M;sNumberSuffix=%25;
+           SYAxisMinValue=0;SYAxisMaxValue=100;showValues=0;useRoundEdges=1;showSum=1&quot;
+    <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart attributes </span> 
+      &nbsp;&nbsp;&nbsp; Call FC.setChartParams(strParam)
+     <span class="codeComment">&nbsp;&nbsp; ' Add category names</span>
+       &nbsp;&nbsp; Call FC.addCategory(&quot;2001&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addCategory(&quot;2002&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addCategory(&quot;2003&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addCategory(&quot;2004&quot;,&quot;&quot;,&quot;&quot;)
+     &nbsp;&nbsp;&nbsp;  Call FC.addCategory(&quot;2005&quot;,&quot;&quot;,&quot;&quot;)
+     <span class="codeComment">&nbsp;&nbsp; ' Add Multi-series Dataset</span>
+        <strong>&nbsp; Call FC.createMSStDataset()</strong>
+       <span class="codeComment"> ' Add Multi-series dataset with in dataset</span>
+        <strong>  Call FC.addMSStSubDataset(&quot;Product A&quot;, &quot;&quot;)</strong>
+        <span class="codeComment">' Add set data for plotting the chart</span>
+       &nbsp;&nbsp; Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)
+      <span class="codeComment">&nbsp; ' Add Next Multi-series dataset with in dataset</span>
+        <strong>&nbsp; Call FC.addMSStSubDataset(&quot;Product B&quot;, &quot;&quot;)</strong>
+    <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Add set data for plotting the chart</span>
+       &nbsp;&nbsp; Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)
+    <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Add Multi-series  Dataset</span>
+       &nbsp;&nbsp; <strong>Call FC.createMSStDataset()</strong>
+       <span class="codeComment"> ' Add Multi-series dataset with in dataset</span>
+        <strong>  Call FC.addMSStSubDataset(&quot;Product C&quot;, &quot;&quot;)</strong>
+     <span class="codeComment">&nbsp;&nbsp; ' Add set data for plotting the chart</span>
+       &nbsp;&nbsp; Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+       &nbsp;&nbsp; Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)
+       <span class="codeComment"> ' Add Multi-series lineset for showing lines</span>
+       &nbsp;&nbsp;<strong> Call FC.addMSLineset(&quot;Cost as %25 of Revenue&quot;,&quot;lineThickness=4&quot;)</strong>
+      <span class="codeComment">&nbsp; ' Add set data with in lineset</span>
+        <strong>  Call FC.addMSLinesetData(&quot;57&quot;,&quot;&quot;,&quot;&quot;)
+&nbsp;&nbsp;      &nbsp; Call FC.addMSLinesetData(&quot;68&quot;,&quot;&quot;,&quot;&quot;)
+&nbsp;&nbsp;&nbsp;       Call FC.addMSLinesetData(&quot;79&quot;,&quot;&quot;,&quot;&quot;)
+&nbsp;&nbsp;&nbsp;       Call FC.addMSLinesetData(&quot;73&quot;,&quot;&quot;,&quot;&quot;)
+&nbsp;&nbsp;&nbsp;       Call FC.addMSLinesetData(&quot;80&quot;,&quot;&quot;,&quot;&quot;)</strong></p>
+     %&gt;
+      &lt;html&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;head&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Multiseries Stacked Column2D Line DY Chart Using FusionCharts ASP Class&lt;/title&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script language='javascript' src='../FusionCharts/FusionCharts.js'&gt;&lt;/script&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;/head&gt;
+  &nbsp;&nbsp;&nbsp;  &lt;body&gt;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;%
+        <span class="codeComment">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; ' Render Chart with JS embedding Method</span>
+       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Call FC.renderChart(false)
+       &nbsp;&nbsp;&nbsp;&nbsp; %&gt;
+       &lt;/body&gt;
+      &lt;/html&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the above code, we're doing the following:</p>
+      <ul type="disc">
+        <li>We include <span class="codeInline">FusionCharts_Gen.asp</span>.<br />
+           <br />
+        </li>
+        <li>We create       an object for Multiseries Stacked Column2D Line DY chart and set relative file path to the SWF file.<br />
+               <br />
+                 <pre class="prettyprint code_container">set FC = new FusionCharts
+Call FC.setChartType(<strong>&quot;</strong>MSStackedColumn2DLineDY&quot;)
+Call FC.setSize(&quot;450&quot;,&quot;350&quot;)
+Call FC.setSWFPath(&quot;../FusionCharts/&quot;)</pre><br />
+        </li>
+        <li>We store       chart attributes in <span class="codeInline">strParam</span> variable and pass it to <span class="codeInline"> setChartParams()</span> function. It       sets the chart attributes.<br />
+           <br />
+</li>
+        <li>Next, we add the category names separately using <span class="codeInline">addCategory()</span> function. <br />
+           <br />
+           <pre class="prettyprint code_container">Call FC.addCategory(&quot;2001&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;2002&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;2003&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;2004&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addCategory(&quot;2005&quot;,&quot;&quot;,&quot;&quot;)</pre>
+<br />
+        </li>
+        <li>Let us now create the primary dataset and sub-datasets for Primary Y Axis.<br /> 
+          <br />
+          For this, we first  create a multi-series primary dataset using <span class="codeInline">createMSStDataset()</span>for multi-series stacked column 2D line DY chart. Please note that all multi-series primary datasets would be mapped to Primary Y Axis on the left. <br />
+          <br />
+         <pre class="prettyprint code_container"> <strong>Call FC.createMSStDataset()</strong></pre><br />
+        </li>
+			 <li>We add Multi-series sub-dataset within the primary dataset declared above. We use </span><span class="codeInline"><strong>addMSStSubDataset()</strong></span><span class="text"> to</span> do <span class="text">the task</span><span class="codeInline">. </span><span class="text">It takes two parameters. First parameter takes the series name. The</span> <span class="text">second parameter can take delimiter dataset attributes which we have kept blank in this example. <br />
+			   <br />
+			 <pre class="prettyprint code_container">
+<strong>Call FC.addMSStSubDataset(&quot;Product A&quot;, &quot;&quot;)</strong></pre><br />
+        </li>
+			 <li>We provide chart data specific to the above dataset. Remember to provide chart data just after the dataset is defined. <br /> 
+			    <br />
+		       <pre class="prettyprint code_container">Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)</pre>
+<br />
+        Please note that as we have 5  categories, we have entered 5 values for the dataset 'Product A'.<br />
+        <br />
+	    </li>
+        <li>Likewise, we  create another sub-dataset  for product B  and provide the data values. <br />
+           <br />
+          <pre class="prettyprint code_container"><strong>Call FC.addMSStSubDataset(&quot;Product B&quot;, &quot;&quot;)</strong>
+Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)</pre>
+          <br />
+        </li>
+        <li>We again create another primary dataset and add a sub-dataset for Product C and add respective data values.<br />
+            <br />
+        <pre class="prettyprint code_container"><strong>Call FC.createMSStDataset()</strong>          
+<strong>Call FC.addMSStSubDataset(&quot;Product C&quot;, &quot;&quot;)</strong>              
+Call FC.addChartData(&quot;30&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;26&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;29&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;31&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;34&quot;,&quot;&quot;,&quot;&quot;)           </pre>
+          <br />
+        </li>
+        <li><span class="text">Now, we create a lineset. All linesets would be automatically mapped to  Secondary Y Axis. You can create any number of linesets using this process</span>.<br />
+          <br />
+          <pre class="prettyprint code_container"><strong>Call FC.addMSLineset(&quot;Cost as % of Revenue&quot;,&quot;lineThickness=4&quot;)</strong></pre>
+            <br />
+        </li>
+        <li>Next, we add data to the lineset  using <span class="codeInline">addMSLinesetData().</span><br />
+<br />
+<pre class="prettyprint code_container"><strong>Call FC.addMSLinesetData(&quot;57&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addMSLinesetData(&quot;68&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addMSLinesetData(&quot;79&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addMSLinesetData(&quot;73&quot;,&quot;&quot;,&quot;&quot;)
+Call FC.addMSLinesetData(&quot;80&quot;,&quot;&quot;,&quot;&quot;) </strong></pre><br />
+        </li>
+        <li>We add       <span class="codeInline">FusionCharts.js</span>.<br />
+           <br />
+        </li>
+        <li> Finally, we render the chart.<br />
+           <br />
+          <pre class="prettyprint code_container">Call FC.renderChart(false)</pre><br /></li>
+      </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please go through <a href="Functions.html">FusionCharts ASP Class API Reference</a> section to know more about the functions used in the above code. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>And the Multi-series Stacked 2D Line Dual Y chart is ready!</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ClassImages/ClassMultiSeriesStCol2dLDY.jpg" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Scatter-Bubble chart|ScatterBubble.html","Creating a grid|SSGrid.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

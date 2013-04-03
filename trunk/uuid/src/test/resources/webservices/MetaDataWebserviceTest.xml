@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="MetaDataWebserviceTest" resourceRoot="" soapui-version="4.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="MetaDataWebserviceTest" type="rest" basePath="/uuid/uuidws/metadata/xml/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>https://tcga-data-dev.nci.nih.gov</con:endpoint></con:endpoints><con:resource name="aliquot" path="uuid/79d16fc8-7830-4d76-8794-e2078c3b8b5b"><con:settings/><con:parameters/><con:method name="GetAliquotMetaData" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/xml</con:mediaType><con:status>200</con:status><con:params/><con:element>metadata</con:element></con:representation><con:request name="Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://tcga-data-dev.nci.nih.gov</con:endpoint><con:request/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:testSuite name="MetaDataTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetAliquotMetaDataTestCase" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="GetAliquotMetaData - Request 1"><con:settings/><con:config service="MetaDataWebserviceTest" resourcePath="/uuid/uuidws/metadata/xml/uuid/79d16fc8-7830-4d76-8794-e2078c3b8b5b" methodName="GetAliquotMetaData" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="GetAliquotMetaData - Request 1" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>https://tcga-data-dev.nci.nih.gov</con:endpoint><con:request/><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.sql.Sql
+
+// connect to database
+def dbURL = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "dbURL" )
+def dbUsername = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "dbUsername" )
+def dbPassword = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "dbPassword" )
+
+sql = Sql.newInstance( dbURL, dbUsername, dbPassword, 'oracle.jdbc.driver.OracleDriver' )
+// get data from the database
+def result = sql.firstRow("select uh.uuid,d.disease_abbreviation,d.disease_name,uh.parent_uuid,uh.item_type_id,uit.item_type,uh.tss_code,tss.tss_definition,uh.center_id_bcr,c.display_name,c.domain_name,c.short_name,uh.batch_number,uh.barcode,uh.participant_number,uh.sample_type_code,uh.sample_sequence,uh.portion_sequence,uh.portion_analyte_code,uh.plate_id,uh.receiving_center_id,uh.slide,uh.slide_layer,TO_CHAR(uh.create_date, 'MM/DD/YYYY') as create_date,TO_CHAR(uh.update_date, 'MM/DD/YYYY') as update_date,uh.platforms,(case when (uh.is_redacted = 0) then 'false' else 'true'  end) as is_redacted,uh.center_code,(case when (uh.is_shipped = 0) then 'false' else 'true'  end) as is_shipped,TO_CHAR(uh.shipped_date, 'MM/DD/YYYY') as shipped_date from uuid_hierarchy uh,disease d ,tissue_source_site tss,center c,uuid_item_type uit where uuid = '79d16fc8-7830-4d76-8794-e2078c3b8b5b' and uh.disease_abbreviation = d.disease_abbreviation and uh.tss_code = tss.tss_code and uh.center_id_bcr = c.center_id and uh.item_type_id = uit.item_type_id")
+
+// read xml response object
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def responseHolder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+
+// validate meta-data node
+def actualValue = responseHolder.getDomNodes("//metadata");
+assert actualValue.length == 1: "Expected one 'metadata' element but found "+actualValue.length+" elements"
+
+// validate tcgaElement node
+actualValue = responseHolder.getDomNodes("//tcgaElement");
+assert actualValue.length == 1: "Expected one 'tcgaElement' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getDomNodes("//uuid");
+assert actualValue.length == 1: "Expected one 'uuid' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//uuid");
+assert actualValue.equals("79d16fc8-7830-4d76-8794-e2078c3b8b5b"):"Expected uuid '79d16fc8-7830-4d76-8794-e2078c3b8b5b' but found '"+actualValue+"'"
+
+//validate barcodes
+actualValue = responseHolder.getDomNodes("//barcodes");
+assert actualValue.length == 1:"Expected one 'barcodes' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//barcodes/@createdOn");
+assert actualValue.equals(result.create_date):"Expected created date: '"+result.create_date+"' but found '"+actualValue+"'"
+
+//validate barcode
+actualValue = responseHolder.getDomNodes("//barcode");
+assert actualValue.length == 1:"Expected one 'barcode' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//barcode");
+assert actualValue.equals(result.barcode):"Expected barcode: '"+result.barcode+"' but found '"+actualValue+"'";
+
+// validate element type
+actualValue = responseHolder.getDomNodes("//elementType");
+assert actualValue.length == 1:"Expected one 'elementType' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//elementType");
+assert actualValue.equals(result.item_type):"Expected element type: '"+result.item_type+"' but found '"+actualValue+"'";
+
+//validate redacted
+actualValue = responseHolder.getDomNodes("//redacted");
+assert actualValue.length == 1:"Expected one 'redacted' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//redacted");
+assert actualValue.equals(result.is_redacted):"Expected redacted status: '"+result.is_redacted+"' but found '"+actualValue+"'";
+
+//validate last update
+actualValue = responseHolder.getDomNodes("//lastUpdate");
+assert actualValue.length == 1:"Expected one 'lastUpdate' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//lastUpdate");
+assert actualValue.equals(result.update_date):"Expected update date: '"+result.update_date+"' but found '"+actualValue+"'";
+
+//validate disease
+actualValue = responseHolder.getDomNodes("//disease/abbreviation");
+assert actualValue.length == 1:"Expected one 'disease/abbreviation' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//disease/abbreviation");
+assert actualValue.equals(result.disease_abbreviation):"Expected disease abbreviation: '"+result.disease_abbreviation+"' but found '"+actualValue+"'";
+
+actualValue = responseHolder.getDomNodes("//disease/description");
+assert actualValue.length == 1:"Expected one 'disease/description' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//disease/description");
+assert actualValue.equals(result.disease_name):"Expected disease description: '"+result.disease_name+"' but found '"+actualValue+"'";
+
+//validate batch
+actualValue = responseHolder.getDomNodes("//batch");
+assert actualValue.length == 1:"Expected one 'batch' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//batch");
+assert actualValue.equals(String.valueOf(result.batch_number)): "Expected batch no:"+result.batch_number+", Actual batch no:"+ actualValue
+
+//validate TSS
+actualValue = responseHolder.getDomNodes("//tss/id");
+assert actualValue.length == 1:"Expected one 'tss/id' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//tss/id");
+assert actualValue.equals(result.tss_code):"Expected tissue code: '"+result.tss_code+"' but found '"+actualValue+"'";
+
+actualValue = responseHolder.getDomNodes("//tss/name");
+assert actualValue.length == 1:"Expected one 'tss/name' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//tss/name");
+assert actualValue.equals(result.tss_definition):"Expected tissue name: '"+result.tss_definition+"' but found '"+actualValue+"'";
+
+// validate BCR
+actualValue = responseHolder.getDomNodes("//bcr/abbreviation");
+assert actualValue.length == 1:"Expected one '//bcr/abbreviation' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//bcr/abbreviation");
+assert actualValue.equals(result.short_name):"Expected bcr short name: '"+result.short_name+"' but found '"+actualValue+"'";
+
+actualValue = responseHolder.getDomNodes("//bcr/domain");
+assert actualValue.length == 1:"Expected one '//bcr/domain' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//bcr/domain");
+assert actualValue.equals(result.domain_name):"Expected bcr domain name: '"+result.domain_name+"' but found '"+actualValue+"'";
+
+actualValue = responseHolder.getDomNodes("//bcr/name");
+assert actualValue.length == 1:"Expected one '//bcr/name' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//bcr/name");
+assert actualValue.equals(result.display_name):"Expected bcr name: '"+result.display_name+"' but found '"+actualValue+"'";
+
+// validate aliquot
+actualValue = responseHolder.getDomNodes("//aliquot");
+assert actualValue.length == 1:"Expected one '//aliquot' element but found "+actualValue.length+" elements"
+
+//validate plate id
+actualValue = responseHolder.getDomNodes("//aliquot/plateID");
+assert actualValue.length == 1:"Expected one '//aliquot/plateID' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//aliquot/plateID");
+assert actualValue.equals(result.plate_id):"Expected plate id: '"+result.plate_id+"' but found '"+actualValue+"'";
+
+//validate shipped flag
+actualValue = responseHolder.getDomNodes("//aliquot/shipped");
+assert actualValue.length == 1:"Expected one '//aliquot/shipped' element but found "+actualValue.length+" elements"
+
+actualValue = responseHolder.getNodeValue("//aliquot/shipped");
+assert actualValue.equals(result.is_shipped):"Expected shipped flag: '"+result.is_shipped+"' but found '"+actualValue+"'";
+
+// validate shipped date
+actualValue = responseHolder.getDomNodes("//aliquot/shippedDate");
+assert actualValue.length == 1:"Expected one '//aliquot/shippedDate' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//aliquot/shippedDate");
+assert actualValue.equals(result.shipped_date):"Expected shipped date: '"+result.shipped_date+"' but found '"+actualValue+"'";
+
+def parentUUID  = result.parent_uuid
+def receivingCenterId = result.receiving_center_id
+def platformIds = result.platforms
+def center_code = result.center_code
+
+// validate analyte,portion,sample,participant
+def parents = ["analyte","portion","sample","participant"]
+for(i=0; i &lt; parents.size(); i++){
+	validateParentURL(parents[i],parentUUID,responseHolder)
+	result = sql.firstRow("select uh.parent_uuid from uuid_hierarchy uh where uuid = '"+parentUUID+"' ")
+	parentUUID = result.parent_uuid
+
+}
+//validate receiving center
+result = sql.firstRow("select domain_name,center_type_code,short_name,display_name from center where center_id = '"+receivingCenterId+"'")
+actualValue = responseHolder.getDomNodes("//aliquot/receivingCenter");
+assert actualValue.length == 1:"Expected one '//aliquot/receivingCenter' element but found "+actualValue.length+" elements"
+actualValue = responseHolder.getNodeValue("//aliquot/receivingCenter/abbreviation");
+assert actualValue.equals(result.short_name):"Expected receiving center short name: '"+result.short_name+"' but found '"+actualValue+"'";
+actualValue = responseHolder.getNodeValue("//aliquot/receivingCenter/domain");
+assert actualValue.equals(result.domain_name):"Expected receiving center domain name: '"+result.domain_name+"' but found '"+actualValue+"'";
+actualValue = responseHolder.getNodeValue("//aliquot/receivingCenter/name");
+assert actualValue.equals(result.display_name):"Expected receiving center name: '"+result.display_name+"' but found '"+actualValue+"'";
+actualValue = responseHolder.getNodeValue("//aliquot/receivingCenter/type");
+assert actualValue.equals(result.center_type_code):"Expected receiving center type code: '"+result.center_type_code+"' but found '"+actualValue+"'";
+actualValue = responseHolder.getNodeValue("//aliquot/receivingCenter/code");
+assert actualValue.equals(center_code):"Expected receiving center code: '"+result.center_code+"' but found '"+actualValue+"'";
+
+// validate platforms
+result = sql.rows("select platform_name from platform where platform_id in("+platformIds+")")
+actualValue = Arrays.asList(responseHolder.getNodeValues("//aliquot/platform"));
+assert result.size() == actualValue.size()
+ArrayList&lt;String> platforms = new ArrayList&lt;String>();
+for(i=0; i &lt; result.size(); i++){
+	platforms.add(result.get(i).getAt(0))
+}
+assert platforms.containsAll(actualValue)
+
+def validateParentURL(parent,uuid,responseHolder){
+	def actualValue = responseHolder.getDomNodes("//"+parent);
+	assert actualValue.length == 1:"Expected one '//"+parent+"' element but found "+actualValue.length+" elements"
+	def expectedValue = "https://tcga-data-dev.nci.nih.gov/uuid/uuidws/metadata/xml/uuid/"+uuid
+	assert expectedValue.equals(responseHolder.getNodeValue("//"+parent+"/@href")):"Expected url: '"+expectedValue+"' but found '"+responseHolder.getNodeValue("//"+parent+"/@href")+"'";
+}
+
+
+</scriptText></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>

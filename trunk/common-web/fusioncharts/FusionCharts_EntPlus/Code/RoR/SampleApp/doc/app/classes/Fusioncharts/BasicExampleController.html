@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Fusioncharts::BasicExampleController</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Fusioncharts::BasicExampleController</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/app/controllers/fusioncharts/basic_example_controller_rb.html">
+                app/controllers/fusioncharts/basic_example_controller.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="../ApplicationController.html">
+                ApplicationController
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Contains functions to generate chart by
+</p>
+<ul>
+<li>adopting the dataURL method of FusionCharts and using render_chart function
+from the helper class.
+
+</li>
+<li>adopting the dataXML method of FusionCharts and using render_chart function
+from the helper class.
+
+</li>
+<li>adopting the dataURL method of FusionCharts and using render_chart_html
+function from the helper class.
+
+</li>
+<li>adopting the dataXML method of FusionCharts and using render_chart_html
+function from the helper class.
+
+</li>
+</ul>
+<p>
+Demonstrates the ease of generating charts using FusionCharts. All the
+views related to this controller will use the &quot;common&quot; layout. As
+per Ruby On Rails conventions, we have the corresponding views with the
+same name as the function name in the controller.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000068">basic_chart</a>&nbsp;&nbsp;
+      <a href="#M000069">basic_data_xml</a>&nbsp;&nbsp;
+      <a href="#M000074">configured_chart</a>&nbsp;&nbsp;
+      <a href="#M000072">data_xml</a>&nbsp;&nbsp;
+      <a href="#M000073">multi_chart</a>&nbsp;&nbsp;
+      <a href="#M000070">simple_chart</a>&nbsp;&nbsp;
+      <a href="#M000071">simple_chart_transparent</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000068.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000068.html');return false;">
+          <span class="method-name">basic_chart</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+In this action, a pre-defined Data.xml (contained in /Data/ folder) is used
+to provide the xml in the dataURL method. render_chart_html function from
+the helper is invoked to render the chart. The function itself has no code,
+all the work is done in the builder and the view.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000069.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000069.html');return false;">
+          <span class="method-name">basic_data_xml</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This action demonstrates the ease of generating charts using FusionCharts.
+Here, we&#8216;ve used a Builder Template to build the XML data. Ideally,
+you would generate XML data documents at run-time, after interfacing with
+forms or databases etc. Such examples are also present. Here, we&#8216;ve
+kept this example very simple. render_chart_html function from the helper
+is invoked to render the chart. The function itself has no code, all the
+work is done in the builder and the view.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000074.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000074.html');return false;">
+          <span class="method-name">configured_chart</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This action loads the yml configuration file, these values are used in the
+builder.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000072.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000072.html');return false;">
+          <span class="method-name">data_xml</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A Builder Template is used to build the XML data which is hard-coded.
+Ideally, you would generate XML data documents in the builder at run-time,
+after interfacing with forms or databases etc. Such examples are also
+present. We set the content-type header to text/html. render_chart function
+from the helper is invoked to render the chart. The function itself has no
+code, all the work is done in the builder and the view.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000073.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000073.html');return false;">
+          <span class="method-name">multi_chart</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A Builder Template is used to build the XML data which is hard-coded.
+Ideally, you would generate XML data documents in the builder at run-time,
+after interfacing with forms or databases etc. Such examples are also
+present. We set the content-type header to text/html. render_chart function
+from the helper is invoked to render the chart. The action itself has no
+code, all the work is done in the builder and the view.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000070.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000070.html');return false;">
+          <span class="method-name">simple_chart</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Here, we&#8216;ve used a pre-defined Data.xml (contained in /Data/ folder)
+Ideally, you would NOT use a physical data file. Instead you&#8216;ll have
+your own code virtually relay the XML data document. Such examples are also
+present. For a head-start, we&#8216;ve kept this example very simple. This
+function uses the dataURL method of FusionCharts. A view with the same name
+simple_chart.html.erb is present and it is this view, which gets shown
+along with the layout &quot;common&quot;. render_chart function from the
+helper is invoked to render the chart. The action itself has no code, all
+the work is done in the builder and the view.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="BasicExampleController.src/M000071.html" target="Code" class="method-signature"
+            onclick="popupCode('BasicExampleController.src/M000071.html');return false;">
+          <span class="method-name">simple_chart_transparent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+In this action, a chart with transparent background is rendered.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

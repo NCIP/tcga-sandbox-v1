@@ -1,0 +1,158 @@
+<html xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>renderHTML
+          (Tag Library Documentation Generator - Generated Documentation)
+        </title>
+<meta name="keywords" content="$title">
+<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
+</head>
+<script>
+            function asd()
+            {
+            parent.document.title="renderHTML (Tag Library Documentation Generator - Generated Documentation)";
+            }
+          </script>
+<body bgcolor="white" onLoad="asd();">
+<a name="navbar_top"></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td COLSPAN="3" BGCOLOR="#EEEEFF" CLASS="NavBarCell1"><a NAME="navbar_top_firstrow"></a>
+<table BORDER="0" CELLPADDING="0" CELLSPACING="3">
+<tr ALIGN="center" VALIGN="top">
+<td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a href="../overview-summary.html"><font CLASS="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td><td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a href="tld-summary.html"><font CLASS="NavBarFont1"><b>Library</b></font></a>&nbsp;</td><td BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<font CLASS="NavBarFont1Rev">&nbsp;Tag&nbsp;</font>&nbsp;</td><td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a HREF="../help-doc.html"><font CLASS="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+</tr>
+</table>
+</td><td ALIGN="right" VALIGN="top" ROWSPAN="3"><em></em></td>
+</tr>
+<tr>
+<td BGCOLOR="white" CLASS="NavBarCell2"><font SIZE="-2"></font></td><td BGCOLOR="white" CLASS="NavBarCell2"><font SIZE="-2">
+                &nbsp;<a HREF="../index.html" TARGET="_top"><b>FRAMES</b></a>&nbsp;
+                &nbsp;<a href="renderHTML.html" target="_top"><b>NO FRAMES</b></a>&nbsp;
+                <script></script>
+<noscript>
+<a HREF="../alltags-noframe.html" TARGET=""><b>All Tags</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<hr>
+<h2>
+<font size="-1">fc</font>
+<br>
+            Tag renderHTML</h2>
+<hr>Renders the chart using HTML embedding.<br>
+<p></p>
+<hr>
+<table border="1" cellpadding="3" cellspacing="0" width="100%">
+<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+<td colspan="2"><font size="+2"><b>Tag Information</b></font></td>
+</tr>
+<tr>
+<td>Tag Class</td><td>com.fusioncharts.jsp.taglib.ChartHTMLTag</td>
+</tr>
+<tr>
+<td>TagExtraInfo Class</td><td><i>None</i></td>
+</tr>
+<tr>
+<td>Body Content</td><td>tagdependent</td>
+</tr>
+<tr>
+<td>Display Name</td><td><i>None</i></td>
+</tr>
+</table>
+<br>
+<p></p>
+<table border="1" cellpadding="3" cellspacing="0" width="100%">
+<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+<td colspan="5"><font size="+2"><b>Attributes</b></font></td>
+</tr>
+<tr>
+<td><b>Name</b></td><td><b>Required</b></td><td><b>Request-time</b></td><td><b>Type</b></td><td><b>Description</b></td>
+</tr>
+<tr valign="top">
+<td>swfFilename</td><td>true</td><td>true</td><td><code>java.lang.String</code></td><td>SWF File Name (and Path) of the chart which you intend to plot.Here, we are plotting a Column 3D chart. <br/> So, we've specified it as ../../FusionCharts/Column3D.swf</td>
+</tr>
+<tr valign="top">
+<td>xmlUrl</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>If you intend to provide the url to the xml to the chart, pass the url value in this attribute.</td>
+</tr>
+<tr valign="top">
+<td>xmlData</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>If you intend to provide the xml data to the chart directly, pass the data in this attribute.</td>
+</tr>
+<tr valign="top">
+<td>chartId</td><td>true</td><td>true</td><td><code>java.lang.String</code></td><td>Id for the chart, using which it will be recognized in the HTML page.<br/> Each chart on the page needs to have a unique Id.</td>
+</tr>
+<tr valign="top">
+<td>width</td><td>true</td><td>true</td><td><code>java.lang.String</code></td><td>Intended width for the chart (in pixels)</td>
+</tr>
+<tr valign="top">
+<td>height</td><td>true</td><td>true</td><td><code>java.lang.String</code></td><td>Intended height for the chart (in pixels)</td>
+</tr>
+<tr valign="top">
+<td>debugMode</td><td>false</td><td>true</td><td><code>java.lang.Boolean</code></td><td>Whether to start the chart in debug mode.</td>
+</tr>
+<tr valign="top">
+<td>registerWithJS</td><td>false</td><td>true</td><td><code>java.lang.Boolean</code></td><td>Whether to register the chart with JavaScript.</td>
+</tr>
+<tr valign="top">
+<td>windowMode</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>"window" (default) - here the chart /Flash Player acts as a separate always window lying above the HTML elements. <br/>So the HTML elements like HTML menu always below the charts ; <br/>"opaque" - mode where chart unlike "window" mode stay integrated with HTML elements - here DHTML elements can come over the chart ; <br/>"transparent" - almost like OPAQUE mode - but with more feature that can turn a chart background transparent/translucent <br/>
+(if bgAlpha is set accordingly) so that the color/HTML elements below the chart (which are part of HTML and not chart) become visible.</td>
+</tr>
+<tr valign="top">
+<td>bgColor</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>Background color of the Flash movie (here chart) which comes below the chart and is visible if chart's background color is set to transparent or translucent using bgAlpha, it also comes as background color of the preloader state like when messages like "Loading chart", "retrieving data" "No data to display" etc. are shown - format - Hexcoded #RRGGBB color e.g. "#ff0000"</td>
+</tr>
+<tr valign="top">
+<td>scaleMode</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>"noScale" - recommended/default, <br/>"exactFit" - scales the chart to fit the container exactly with width and height (causes distortion in some cases), <br/>"noBorder" - constrained scale. (not recommended at all), <br/>"showAll" - (not recommended)</td>
+</tr>
+<tr valign="top">
+<td>lang</td><td>false</td><td>true</td><td><code>java.lang.String</code></td><td>Language, currently it takes the only value, "EN" for English</td>
+</tr>
+<tr valign="top">
+<td>useSingleQuotes</td><td>false</td><td>true</td><td><code>java.lang.Boolean</code></td><td>Whether the tag has to use single quotes. Set this value to true if the xml itself uses doubles quotes to wrap the xml attribute values.</td>
+</tr>
+</table>
+<br>
+<p></p>
+<table border="1" cellpadding="3" cellspacing="0" width="100%">
+<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+<td colspan="5"><font size="+2"><b>Variables</b></font></td>
+</tr>
+<td colspan="2"><i>No Variables Defined.</i></td>
+</table>
+<br>
+<p></p>
+<a name="navbar_bottom"></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td COLSPAN="3" BGCOLOR="#EEEEFF" CLASS="NavBarCell1"><a NAME="navbar_bottom_firstrow"></a>
+<table BORDER="0" CELLPADDING="0" CELLSPACING="3">
+<tr ALIGN="center" VALIGN="top">
+<td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a href="../overview-summary.html"><font CLASS="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td><td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a href="tld-summary.html"><font CLASS="NavBarFont1"><b>Library</b></font></a>&nbsp;</td><td BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<font CLASS="NavBarFont1Rev">&nbsp;Tag&nbsp;</font>&nbsp;</td><td BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    &nbsp;<a HREF="../help-doc.html"><font CLASS="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+</tr>
+</table>
+</td><td ALIGN="right" VALIGN="top" ROWSPAN="3"><em></em></td>
+</tr>
+<tr>
+<td BGCOLOR="white" CLASS="NavBarCell2"><font SIZE="-2"></font></td><td BGCOLOR="white" CLASS="NavBarCell2"><font SIZE="-2">
+                &nbsp;<a HREF="../index.html" TARGET="_top"><b>FRAMES</b></a>&nbsp;
+                &nbsp;<a href="renderHTML.html" target="_top"><b>NO FRAMES</b></a>&nbsp;
+                <script></script>
+<noscript>
+<a HREF="../alltags-noframe.html" TARGET=""><b>All Tags</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<hr>
+<small><i>
+            Output Generated by 
+            <a href="http://taglibrarydoc.dev.java.net/" target="_blank">Tag Library Documentation Generator</a>.
+            Java, JSP, and JavaServer Pages are trademarks or 
+            registered trademarks of Sun Microsystems, Inc. in the US and other
+            countries.  Copyright 2002-4 Sun Microsystems, Inc.
+            4150 Network Circle
+            Santa Clara, CA 95054, U.S.A.
+            All Rights Reserved. 
+            </i></small>
+</body>
+</html>

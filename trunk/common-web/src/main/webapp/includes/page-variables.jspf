@@ -1,0 +1,112 @@
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
+<%
+    String bodyOnLoadjs ="";
+    String bodyClass = "";
+    String bodyDesign = "";
+    String layout = "";
+    String secureHost = "";
+    String host = "";
+    String dbHost = "";
+    String pageTitle = "Data Portal";
+    String sectionTitle = "";
+    String serverName = request.getServerName();
+    String servletPath = request.getServletPath().substring(request.getServletPath().lastIndexOf('/'));
+    String adminServletPath = "/tcgaAdmin.jsp";
+    String requestURI = request.getRequestURI();
+    String rootDir = "";
+    String h1String = "";
+    String appendTitleString = h1String;
+    String metaKeywords = "";
+    String metaDescription = "";
+    String bodyContent = "";
+    String contentdb ="${contentdb}";
+    String contentdbusr ="${contentdbusr}";
+    String contentdbpwd ="${contentdbpwd}";
+    String timestamp = "${timestamp}";
+    String dbContent = "";
+
+    String pageCategory = "";
+    //the following are the categories available for the nav
+    //pageCategory = "home";           //nav0
+    //pageCategory = "query_data";     //nav1
+    //pageCategory = "download_data";  //nav2
+    //pageCategory = "tools";          //nav3
+    //pageCategory = "about_data";     //nav4 
+
+    Map<String, String> adminURITitleMap = new HashMap<String, String>();
+    adminURITitleMap.put("/tcga/admin/data-access-matrix.htm", "Data Access Matrix");
+    adminURITitleMap.put("/tcga/admin/data-reports.htm", "Data Reports");
+    adminURITitleMap.put("/tcga/admin/data-browser.htm", "Data Browser");
+    adminURITitleMap.put("/tcga/admin/annotations.htm", "Annotations");
+    adminURITitleMap.put("/tcga/admin/metadata-browser.htm", "Metadata Browser");
+    adminURITitleMap.put("/tcga/admin/qclive.htm", "QClive");
+    adminURITitleMap.put("/tcga/admin/other.htm", "Other");
+    
+    if(serverName.indexOf("tcga") < 0){
+        secureHost = "https://" + serverName + ":8443";
+        host = "http://" + serverName + ":8080";
+        dbHost = "http://" + serverName + ":8080";
+    } else {
+        secureHost = "https://" + serverName.replace("portal", "data");
+        host = "http://" + serverName.replace("portal", "data");
+        dbHost = "http://" + serverName.replace("data", "portal");
+    }
+    if (config.getInitParameter("dbContent") != null) {
+    	dbContent = config.getInitParameter("dbContent");
+    }
+    if (config.getInitParameter("currentPage") != null) {
+    	layout = config.getInitParameter("currentPage");
+    }else if(adminServletPath.equals(servletPath)){
+        layout = (String)config.getServletContext().getAttribute("currentPage");
+    }
+    if (config.getInitParameter("h1String") != null) {
+    	h1String = config.getInitParameter("h1String");
+    }else if(adminServletPath.equals(servletPath)){
+        h1String = adminURITitleMap.get((String)config.getServletContext().getAttribute("currentAdminUrl"));
+    }	
+    if (config.getInitParameter("metaKeywords") != null) {
+    	metaKeywords = config.getInitParameter("metaKeywords");
+    }	
+    if (config.getInitParameter("metaDescription") != null) {
+    	metaDescription = config.getInitParameter("metaDescription");
+    }	
+    if (config.getInitParameter("bodyClass") != null) {
+    	bodyClass = config.getInitParameter("bodyClass");
+    }else if(adminServletPath.equals(servletPath)){
+        bodyClass = "platform-design";
+    }
+    if (config.getInitParameter("pageCategory") != null) {
+    	pageCategory = config.getInitParameter("pageCategory");
+    }
+
+	if ( !dbContent.equals("") ) {
+%>
+	<%@ page language="java" import="org.springframework.jdbc.datasource.DriverManagerDataSource" %>
+	<%@ page language="java" import="org.springframework.jdbc.core.JdbcTemplate" %>
+	<%@ page language="java" import="org.springframework.jdbc.support.rowset.SqlRowSet" %>
+	<%@ page language="java" import="javax.sql.rowset.serial.SerialClob" %>
+	<%@ page language="java" import="java.sql.*" %>
+<%
+	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	    dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+	    dataSource.setUrl(contentdb);
+	    dataSource.setUsername(contentdbusr);
+	    dataSource.setPassword(contentdbpwd);
+	 
+	    JdbcTemplate  jdbcTemplate = new JdbcTemplate(dataSource);
+	 
+	    SqlRowSet contentRow = jdbcTemplate.queryForRowSet("select * from content_post where post_url = '" + dbContent + "'");
+	    contentRow.first();
+	
+	    appendTitleString = contentRow.getString("TITLE");
+	    h1String = contentRow.getString("TITLE_H1");
+	    metaKeywords = contentRow.getString("KEYWORDS");
+	    metaDescription = contentRow.getString("DESCRIPTION");
+	    
+	    Clob cv = (SerialClob)contentRow.getObject("BODY");
+	    bodyContent = cv.getSubString(1L, (int)cv.length());
+	    pageCategory = contentRow.getString("CATEGORY");
+    
+	}
+%>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+	 <SCRIPT LANGUAGE="JavaScript">
+		/** 
+		 * updateChart method is invoked when the user clicks on a pie slice.
+		 * In this method, we get the index of the factory after which we request for XML data
+		 * for that that factory from factory_chart action via ajax, and finally
+		 * update the Column Chart. 
+		 *
+		 *	@param	factoryIndex	Sequential Index of the factory.
+		*/		
+		function updateChart(factoryIndex){		
+
+			var strURL = "factory_chart?factory_id=" + factoryIndex;
+
+			$.ajax({
+			  type: "GET",
+			  url: strURL,
+			  success: function(msg){
+					 $("#detailedChart").show().html(msg);
+			  }
+			});
+
+			
+		}
+		</SCRIPT>
+<% @page_title="FusionCharts Ajax Example" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Inter-connected charts - Click on any pie slice to see detailed chart below." %>
+<% @intro="The charts in this page have been dynamically generated using data contained in a database.<br/>The detailed charts along with the dynamic data are received using AJAX." %>
+<%= render :partial=>"factory_sum_chart", :locals=>{:factories=> @factories} %>
+<br/>
+<div id="detailedChart" style="width:600px;height:300px;">
+</div>	

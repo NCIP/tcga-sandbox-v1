@@ -1,0 +1,275 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combining FusionCharts, ROR and JavaScript (dataURL) method </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with Ruby on Rails|Ruby_basicexample.html", "ROR &amp; JavaScript (dataURL) method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Combining FusionCharts, ROR and JavaScript (dataURL) method </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 offers tremendous integration capabilities with JavaScript. You can easily use FusionCharts and JavaScript to create client side dynamic charts. </p>
+        <p>Here, we'll see the JavaScript + URL method - where we ask the chart to fetch new data from server and update itself, without incurring any page refreshes. The entire application resides in a single page which makes it a seamless experience for your end viewers.</p>
+      <p><strong>Before you proceed with the contents in this page, we strictly recommend you to please go through the sections &quot;How FusionCharts works?&quot; and &quot;Basic Examples&quot;, as we'll directly use a lot of concepts defined in those sections.</strong></p>
+ <p class="highlightBlock">All code discussed here is present in <br/>
+        <span class="codeInline">Controller : Download Package > Code > RoR > SampleApp &gt;  app > controllers > fusioncharts &gt; db_js_data_url_controller.rb</span>.  <br/>
+        <span class="codeInline">Rhtml : Download Package > Code > RoR > SampleApp &gt; app > views > fusioncharts &gt; db_js_dataurl</span> folder. 
+</p>
+<p class="header">Mission for this example </p>
+<p>Let us first define what we want to achieve in this example. We'll carry on from our previous drill-down example and convert it into a single page example. In our previous example, we were showing the Production Summary of all the factories in a pie chart. When the user clicked on a pie slice, he was taken to another page, where a detailed date-wise chart was shown for the required factory. </p>
+<p>In this example, we'll assimilate both the charts in a single page and make them interact with each other using JavaScript, thereby making the end-user experience smooth. Effectively, we will do the following:</p>
+<ol>
+  <li>Contain both the pie chart (summary) and column chart (detailed) in one page (<span class="codeInline">default.html.erb</span>).</li>
+  <li>When the page loads, the pie chart would use <span class="codeInline">dataStr</span> method to show summary of all factories. 
+        <li>The column chart would initialize with no data, as the user has not selected a factory initially. We'll customize the &quot;<span class="codeInline">No data to display</span>&quot; message of the chart to show a friendly message.</li>
+          <li>The pie chart would have JavaScript links defined for each pie slice. This JavaScript links refer to <span class="codeInline">updateChart()</span> JavaScript function present on the same page. We'll later see how to hand code this function. When a pie is clicked, the <span class="codeInline">factory ID </span>is passed to this function. </li>
+          <li>The <span class="codeInline"> updateChart()</span> function is responsible for updating the column chart. It generates a dataURL link by including the <span class="codeInline">factoryId</span> as a part of <span class="codeInline">dataURL</span>. Once the <span class="codeInline">dataURL</span> is built, it conveys this dataURL to the column chart<span class="codeInline">.</span></li>
+          <li class="text"><span class="codeInline">The </span>column chart would now accept this <span class="codeInline">dataURL, </span>the associated action<span class="codeInline"> factory_details </span>is invoked to create XML data and finally render.</li>
+</ol>
+<p class="header">Creating the Controller For The First Chart 
+</p>We have two actions in our <span class="codeInline">Fusioncharts::DbJsDataurlController </span>controller<span class="codeInline"> - default and detailed </span>just like in our previous example. Then what is the difference? Let's take a look:</p>
+<pre class="code_container prettyprint"><b>Controller: <span class="codeInline">Fusioncharts::DbJsDataurlController</span>
+Action: default</b>
+  class Fusioncharts::DbJsDataurlController &lt; ApplicationController
+    <span class="codeComment">#Default action. Used to show the pie chart
+    #Finds the factories</span>
+    def default
+      response.content_type = Mime::HTML
+<span class="codeComment">      # Expects a parameter called animate</span>
+      @animate_chart = params[:animate]
+      if @animate_chart.nil? or @animate_chart.empty?
+<span class="codeComment">      # Assigns default values as '1'</span>
+      @animate_chart = '1'
+    end
+    @factories = Fusioncharts::FactoryMaster.find(:all) 
+    . . .
+  end</pre>
+  <p>We will see the view in a minute. Let us first assimilate what the controller is doing. </p>
+  <ol>
+    <li>Gets the request parameter animate and assigns it to the variable<span class="codeInline"> @animate_chart</span></li>
+    <li>Performs a find on the Model <span class="codeInline">FactoryMaster</span>, selecting all the columns and stores it in <span class="codeInline">@factories</span> variable.</li>
+    </ol>
+  <p>So, where is the link to the detailed chart created? Let's analyze the view.</p>
+  <p class="header">Creating the View containing both the charts</p>  
+  <pre class="code_container prettyprint"><strong>View: (default.html.erb) </strong>
+&lt;HTML&gt;
+  &lt;HEAD&gt;
+    &lt;TITLE&gt;FusionCharts - Database + JavaScript Example&lt;/TITLE&gt;
+    &lt;%= javascript_include_tag &quot;FusionCharts&quot; %&gt;
+    <span class="codeComment">&lt;%   #You need to include the above JS file, if you intend to embed the chart using JavaScript.
+    #When you make your own charts, make sure that the path to this 
+    #JS file is correct. Else, you would get JavaScript errors.</span>
+    %&gt;
+    &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+    <span class="codeComment">/** 
+    * updateChart method is invoked when the user clicks on a pie slice.
+    * In this method, we get the index of the factory after which we request for XML data
+    * for that that factory from FactoryData.asp, and finally
+    * update the Column Chart.
+    * @param factoryIndex id of the factory.
+    */ </span>
+  function updateChart(factoryIndex){ 
+    <span class="codeComment">//DataURL for the chart</span>
+    var strURL = &quot;/Fusioncharts/db_js_dataurl/&quot; + &quot;factory_details/&quot; + factoryIndex ;
+  <span class="codeComment">  //Sometimes, the above URL and XML data gets cached by the browser.
+    //If you want your charts to get new XML data on each request,
+    //you can add the following line:
+    //strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+    //getTimeForURL method is defined below and needs to be included
+    //This basically adds a ever-changing parameter which bluffs
+    //the browser and forces it to re-load the XML data every time.
+  </span> 	
+   <span class="codeComment">//Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+	 var chartObj = FusionCharts(&quot;FactoryDetailed&quot;);			
+		<span class="codeComment">//Send request for XML</span>
+		chartObj.setXMLUrl(strURL);
+  }
+<span class="codeComment">    </span><span class="codeComment">/**
+    * getTimeForURL method returns the current time 
+    * in a URL friendly format, so that it can be appended to
+    * dataURL for effective non-caching.
+    */</span>
+  function getTimeForURL(){
+    var dt = new Date();
+    var strOutput = &quot;&quot;;
+    strOutput = dt.getHours() + &quot;_&quot; + dt.getMinutes() + 
+    &quot;_&quot; + dt.getSeconds() + &quot;_&quot; + dt.getMilliseconds();
+    return strOutput;
+  }
+  &lt;/SCRIPT&gt;
+  &lt;style type=&quot;text/css&quot;&gt;
+  &lt;!--
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+  .text{
+    font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+    }
+    --&gt;
+  &lt;/style&gt;
+  &lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;CENTER&gt;
+      &lt;h2&gt;FusionCharts Database + JavaScript (dataURL method) Example&lt;/h2&gt;
+      &lt;h4&gt;Inter-connected charts - Click on any pie slice to see detailed
+      chart below.&lt;/h4&gt;
+      &lt;p&gt;The charts in this page have been dynamically generated using
+      data contained in a database.&lt;/p&gt;
+      &lt;%
+  <span class="codeComment">      # The xml is obtained as a string from builder template.</span>
+        str_xml = render :file=&gt;&quot;fusioncharts/db_js_dataurl/factories_quantity&quot;,
+        :locals=&gt;{:factories=&gt;@factories}
+        <span class="codeComment">#Create the chart - Pie 3D Chart with data from str_xml</span>
+        render_chart '/FusionCharts/Pie3D.swf','',str_xml,'FactorySum', 
+        500, 250, false, false do-%&gt;
+      &lt;% end -%&gt;
+      &lt;BR&gt;
+      &lt;%
+       <span class="codeComment">#Column 2D Chart with changed &quot;No data to display&quot; message
+       #We initialize the chart with &lt;chart&gt;&lt;/chart&gt;</span>
+       <span class="codeComment">#The last parameter to render_chart (registerWithJS) is set to true</span>
+        render_chart '/FusionCharts/Column2D.swf?ChartNoDataText=
+        Please select a factory from pie chart above to view detailed 
+        data.','','&lt;chart&gt;&lt;/chart&gt;','FactoryDetailed',600, 250, false, true do-%&gt;
+      &lt;% end -%&gt;
+      &lt;BR&gt;&lt;BR&gt;
+      &lt;a href='/NoChart.html' target=&quot;_blank&quot;&gt;Unable to see the charts above?&lt;/a&gt;
+    &lt;/CENTER&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;</pre> 
+  <p>Note that this view does not use the "common" layout, as this view is quite different and has lot of javascript code too.
+    Before we get to the JavaScript functions, let's first see what we're doing in our ruby code.    This is the piece of code:</p>
+  <pre class="code_container prettyprint">&lt;% 
+<span class="codeComment"># The xml is obtained as a string from builder template.</span>
+str_xml = render :file=&gt;&quot;fusioncharts/db_js_dataurl/factories_quantity&quot;,
+:locals=&gt;{:factories=&gt;@factories}
+<span class="codeComment">#Create the chart - Pie 3D Chart with data from str_xml</span>
+render_chart '/FusionCharts/Pie3D.swf','',str_xml,'FactorySum', 500, 250, false, false do-%&gt;
+&lt;% end -%&gt;
+&lt;BR&gt;
+&lt;%
+<span class="codeComment">#Column 2D Chart with &quot;No data to display&quot; message
+#We initialize the chart with &lt;chart&gt;&lt;/chart&gt;</span>
+render_chart '/FusionCharts/Column2D.swf?ChartNoDataText=
+Please select a factory from pie chart above to view detailed data.','',
+'&lt;chart&gt;&lt;/chart&gt;','FactoryDetailed',600, 250, false, true do-%&gt;
+&lt;% end -%&gt;  </pre>
+  <p>Here as you can see, we have rendered two charts. For the first chart, we use the builder <span class="codeInline">factories_quantity.builder </span>to obtain the xml. Then call<span class="codeInline"> render_chart </span>function to show a<span class="codeInline"> Pie3D </span>chart with this xml as data. 
+  For the second chart, we chart Column2D chart with parameter <span class="codeInline">ChartNoDataText </span>and the initial xml <span class="codeInline">&lt;chart&gt;&lt;/chart&gt;. </span>This will initialize the chart to display the message on the screen just below the first chart.</p>
+<p>The builder does the actual work of creating the link to the second chart. Like this:</p>
+<pre class="code_container prettyprint"><span class="codeComment">    #Builds xml with values for factory output along with their names. It also creates
+    #a link to javascript function updateChart which will be called when the pie slice is clicked.
+    #The values required for building the xml is obtained from the factory data
+    #passed as local parameter (factories).</span>
+    xml = Builder::XmlMarkup.new
+    xml.chart(:caption=&gt;'Factory Output report', :subCaption=&gt;'By Quantity', 
+    :pieSliceDepth=&gt;'30', :showBorder=&gt;'1', :formatNumberScale=&gt;'0', 
+    :numberSuffix=&gt;' Units', :animation=&gt;@animate_chart) do
+      factories.each do|factory|
+        xml.set(:label=&gt;factory.name,:value=&gt;factory.total_quantity,
+<strong>        :link=&gt;'javaScript:updateChart('+factory.id.to_s + ')'</strong>)
+      end
+    end</pre>
+<p>Effectively, our page is now set to show two charts. The pie chart shows the summary data provided to it using dataStr method. The column chart shows the above &quot;friendly&quot; error message. Now, when each pie slice is clicked, the <span class="codeInline">updateChart()</span> JavaScript function is called and the <span class="codeInline">factoryID</span> of the pie is passed to it. This function is responsible for updating the column chart and contains the following code: </p>
+<pre class="code_container prettyprint">function updateChart(factoryIndex){ 
+    <span class="codeComment">    //DataURL for the chart</span>
+        var strURL = &quot;/Fusioncharts/db_js_dataurl/&quot; + &quot;factory_details/&quot; + factoryIndex ;
+  <span class="codeComment">      //Sometimes, the above URL and XML data gets cached by the browser.
+        //If you want your charts to get new XML data on each request,
+        //you can add the following line:
+        //strURL = strURL + &quot;&amp;currTime=&quot; + getTimeForURL();
+        //getTimeForURL method is defined below and needs to be included
+        //This basically adds a ever-changing parameter which bluffs
+        //the browser and forces it to re-load the XML data every time.
+   </span>	<span class="codeComment">//Get reference to chart object using Dom ID &quot;FactoryDetailed&quot;</span>
+		var chartObj = FusionCharts(&quot;FactoryDetailed&quot;);			
+		<span class="codeComment">//Send request for XML</span>
+		chartObj.setXMLUrl(strURL);
+  }</pre>
+<p>Here, </p>
+<ol>
+  <li>We first create a <span class="codeInline">dataURL</span> string by appending the <span class="codeInline">factoryID</span> to the path to the detailed action factory_details.</li>
+  <li>Finally, we convert this <span class="codeInline">dataURL</span> to the column chart. To do so, we first get a reference to the column chart using its DOM Id <span class="codeInline">FactoryDetailed</span>. We use the <span class="codeInline">FusionCharts</span>(DOMId) function defined in <span class="codeInline"> the JS API </span> to do so. </li>
+  <li>Once we've the reference to the chart, we simply call the <span class="codeInline">setXMLUrl</span> method of the chart and pass it the URL to request data from </li>
+  <li>This updates the chart with new data. </li>
+</ol>
+<p>This completes our front-end for the app. We now just need to build factory_details action and builder, responsible to provide detailed data to column chart. It contains the following code: </p>
+<pre class="code_container prettyprint"><b>Controller: <span class="codeInline">Fusioncharts::DbJsDataurlController</span>
+Action: factory_details </b>
+<span class="codeComment">#This action will generate a chart to show the detailed information of the selected factory.
+#Expects id as parameter in the request 
+</span>def factory_details
+  response.content_type = Mime::XML
+<span class="codeComment">  # Get the factoryId from request using params[]</span>
+<span class="codeComment"></span>  @factory_id = params[:id]
+<span class="codeComment"></span>  factory = Fusioncharts::FactoryMaster. find(@factory_id)
+<span class="codeComment"></span>  @factory_output_quantities = factory.factory_output_quantities
+end</pre>
+<p>This action is same as the detailed action seen in the drill-down example. We basically request the factory Id passed to it as request parameter, query the database for required data. Note that the content-type of this action is &quot;text/xml&quot;. <span class="codeInline">response.content_type = Mime::XML. </span>This data is used by the builder as shown: </p>
+<pre class="code_container prettyprint"><span class="codeComment">    #Creates xml with values for date of production and quantity for a particular factory
+    #It uses the @factory_output_quantities and @factory_id from the corresponding controller.
+    #This data is used for building xml for chart with date of production and output quantity</span>
+    xml = Builder::XmlMarkup.new
+    xml.chart(:palette=&gt;'2', :caption=&gt;'Factory' + @factory_id.to_s + ' Output ', 
+    :subcaption=&gt;'(In Units)', :xAxisName=&gt;'Date', :showValues=&gt;'1', :labelStep=&gt;'2') do
+      @factory_output_quantities.each do |output|
+        xml.set(:label=&gt;output.formatted_date,:value=&gt;output.quantity)
+      end
+    end</pre>
+<p>This is a simple xml with <span class="codeInline">&lt;set&gt;</span> tags within <span class="codeInline">&lt;chart&gt; </span>element. Each <span class="codeInline">&lt;set&gt;</span> element has attributes<span class="codeInline"> label </span>and <span class="codeInline">value</span>. <span class="codeInline">&quot;label&quot; </span>attribute takes value of date of production and the attribute &quot;<span class="codeInline">value</span>&quot; has value as quantity. The values for the attributes are obtained from the hash present in the @factory_output_quantities variable of the controller. <span class="codeInline">formatted_date</span><span class="text"> method is present in the</span> FactoryOutputQuantity model <span class="text"> and it is used to format the date_pro field. </span></p>
+<p>When you now see the application, the initial state would look as under: </p>
+<p><img src="../../guide-for-web-developers/Images/Code_JS_URL_Ini.jpg" width="511" height="458" class="imageBorder" /> </p>
+<p>And when you click on a pie slice, the following would appear on the same page (without involving any browser refreshes): </p>
+<p><img src="../../guide-for-web-developers/Images/Code_JS_URL_Fin.jpg" width="610" height="526" class="imageBorder" /> </p>
+<p>This example demonstrated a very basic sample of the integration capabilities possible with FusionCharts v3. For advanced demos, you can see and download our FusionCharts Blueprint/Demo Applications. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Drill down charts|Ruby_drill.html","ROR, JavaScript &amp; dataStr|Ruby_JS_xml.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

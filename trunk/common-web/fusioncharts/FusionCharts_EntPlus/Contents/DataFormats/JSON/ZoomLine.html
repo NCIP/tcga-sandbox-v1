@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Zoom Line  Chart JSON </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "JSON|Overview.html", "Zoom Line chart JSON" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Zoom Line  Chart JSON </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>The Zoom Line chart is essentially a multi-series line chart with intuitive zooming, scrolling and pinning capabilities. It can handle large datasets (of tens of thousands of points) easily. </p>
+     <p>Shown below is a sample  Zoom Line chart:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/MSZoomLine1.jpg" width="650" height="400" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>Zoom Line Chart can accept JSON data in two formats:</p>
+       <ul>
+         <li><a name="standard" id="standard"></a><a href="MultiSeries.html"><strong>Standard Multi-series JSON Data</strong></a>: The advantage of this format is that you do not need to change your existing code. Additionally, you can specify <span class="codeInline">displayValue </span>and <span class="codeInline">toolText </span>for each point. However, for large datasets using this format, the JSON gets big in size and takes a lot of time to parse. Use this format when you've less than 1,000 data points to show on the chart. </li>
+         <li><strong><a name="compact" id="compact"></a>Compact JSON data</strong>: This is a new data format specifically introduced for zoom chart. Using this format, you can provide tens of thousands of data points. This format reduces the JSON size and parsing time. Use this format when you've more than 1,000 data points to show on the chart.</li>
+       </ul>
+    <p>Let's  have a look at the  JSON data  for a Zoom Line chart:</p></td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text">
+       <p>Since the standard <a href="MultiSeries.html">Multi-series JSON format</a> has already been discussed, we will skip this and proceed with compact JSON data format:</p> 
+    </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text">
+      <pre class="code_container prettyprint lang-js">{
+  "chart":{
+    "caption":"Web visits",
+    "compactdatamode":"1",
+    "dataseparator":"|"
+  },
+  "categories":[{
+      "category":[ "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec" ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"2006",
+      "data":[ "27400|29800|25800|26800|29600|32600|31800|36700|29700|31900|34800|24800" ]
+    },
+    {
+      "seriesname":"2005",
+      "data":[ "10000|11500|12500|15000|11000|9800|11800|19700|21700|21900|22900|20800" ]
+    }
+  ],
+&quot;trendlines&quot;: {
+    &quot;line&quot;: [
+      {
+        &quot;startvalue&quot;: &quot;15000&quot;,
+        &quot;displayvalue&quot;: &quot;Trend Line 1&quot;
+      },
+      {
+        &quot;startvalue&quot;: &quot;33000&quot;,
+        &quot;endvalue&quot;: &quot;35000&quot;,
+        &quot;istrendzone&quot;: &quot;1&quot;,
+        &quot;displayvalue&quot;: &quot;Trend Zone 1&quot;,
+        &quot;showontop&quot;: &quot;1&quot;,
+      }
+    ]
+  },
+  &quot;vtrendlines&quot;: {
+    &quot;line&quot;: [ 
+      { &quot;startindex&quot;: &quot;5&quot;, &quot;displayalways&quot;: &quot;1&quot;, &quot;displayvalue&quot;: &quot;Split&quot;, &quot;valueontop&quot;: &quot;1&quot; },
+      {
+        &quot;index&quot;: &quot;30&quot;,
+        &quot;displayalways&quot;: &quot;0&quot;,
+        &quot;displaywhencount&quot;: &quot;20&quot;,
+        &quot;displayvalue&quot;: &quot;Dividend&quot;,
+        &quot;dashed&quot;: &quot;1&quot;,
+        &quot;showontop&quot;: &quot;1&quot;,
+        &quot;color&quot;: &quot;FF5904&quot;,
+        &quot;thickness&quot;:&quot;2&quot;,
+        &quot;dashlen&quot;: &quot;3&quot;,
+        &quot;dashgap&quot;: &quot;3&quot;
+      }
+    ]
+  }
+}</pre>    
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When specifying data in compact mode, you'll necessarily need to specify two attributes in the chart object:</p>
+        <ul>
+          <li><span class="codeInline">&quot;compactDataMode&quot;:&quot;1&quot;</span> : This tells the chart that data has been specified in compact mode. </li>
+          <li><span class="codeInline">&quot;dataSeparator&quot;=&quot;|&quot; </span>: This specifies the separator character that will be used to separate labels and data. In the example above, we've used the | (pipe) character. You can use comma, semi-colon or any other character. Just make sure that the character is not a part of any label text.</li>
+        </ul>
+      <p>The Zoom Line chart supports horizontal trend lines (<span class="codeInline">trendlines</span> and <span class="codeInline">zones</span>) like a standard multi-series chart. However, it supports index based vertical trend lines (<span class="codeInline">vtrendlines</span>) that can be displayed conditionally based on what level of zoom the user has applied on the chart. Following is the JSON code for a vertical trendline:</p>
+      <pre class="code_container prettyprint">{
+  &quot;startindex&quot;: &quot;5&quot;,
+  &quot;displayalways&quot;: &quot;1&quot;,
+  &quot;displayvalue&quot;: &quot;Split&quot;,
+  &quot;valueontop&quot;: &quot;1&quot;
+}</pre>
+      <p>The above vertical trendline has an attribute <span class="codeInline">displayAlways='1'</span> which instructs the chart to show the trendlines at all times, irrespective of level of zoom the chart is being viewed at. Also, the position of trend line is specified in indexes (<span class="codeInline">startIndex</span> and <span class="codeInline">endIndex</span>). Index is based on the number of data items plotted on x-axis (<span class="codeInline">category</span>). The first x-axis label has an index of 1. </p>
+      <p>Following is the JSON code for a conditional vertical trendline:</p>
+      <pre class="code_container prettyprint">{
+  &quot;index&quot;: &quot;30&quot;,
+  &quot;displayalways&quot;: &quot;0&quot;,
+  &quot;displaywhencount&quot;: &quot;20&quot;,
+  &quot;displayvalue&quot;: &quot;Dividend&quot;,
+  &quot;dashed&quot;: &quot;1&quot;,
+  &quot;showontop&quot;: &quot;1&quot;,
+  &quot;color&quot;: &quot;FF5904&quot;,
+  &quot;thickness&quot;: &quot;2&quot;,
+  &quot;dashlen&quot;: &quot;3&quot;,
+  &quot;dashgap&quot;: &quot;3&quot;
+}</pre>
+      <p>This line has an additional attribute <span class="codeInline">&quot;displayWhenCount&quot;:&quot;20&quot;</span> that instructs the chart to show the trendline only when the user has zoomed into the chart -such that  only 20 or lesser number of data points are visible in single screen. </p></td>
+  </tr>
+ 
+  <tr>
+    <td valign="top" class="header"><a name="featurenotsupported" id="featurenotsupported"></a>Features from standard FusionCharts not present in Zoom Line Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The zoom line chart does not support certain features/attributes which are standard in FusionCharts. This is has been done to facilitate plotting of large datasets. They are: </p>
+        <ul>
+          <li>Compact data format does NOT support <span class="codeInline">displayValue</span> and <span class="codeInline">toolText </span>for each data item. However, standard data format does accept it</li>
+          <li>Input number formatting is not present in this chart (i.e., where numbers could be provided in European format and the chart converted them to standard numeric format)</li>
+          <li>Linking of individual data points is not supported in this chart, as click action is causes zooming</li>
+          <li>vLines are not supported in this chart, you can use  <span class="codeInline">vTrendLines</span> instead</li>
+          <li>Tooltips are not supported on trend lines</li>
+          <li>Animation is not supported in this chart </li>
+          <li>Individual <span class="codeInline">&lt;set&gt;</span> anchors cannot be customized. The customization can only be done at <span class="codeInline">&lt;dataset&gt;</span> level </li>
+        </ul></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Multi Series Stacked chart JSON|MSStacked.html","JSON for <i>LinkedCharts</i>|LinkedCharts.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

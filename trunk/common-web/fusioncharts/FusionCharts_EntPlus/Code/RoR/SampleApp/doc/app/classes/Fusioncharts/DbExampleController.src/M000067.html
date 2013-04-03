@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>multiseries (Fusioncharts::DbExampleController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/fusioncharts/db_example_controller.rb, line 48</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">multiseries</span>
+      <span class="ruby-identifier">response</span>.<span class="ruby-identifier">content_type</span> = <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>
+      <span class="ruby-ivar">@chart_attributes</span>={<span class="ruby-identifier">:caption=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'Factory Output report'</span>, <span class="ruby-identifier">:subCaption=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'By Quantity'</span>, <span class="ruby-identifier">:xAxisName=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'Factory'</span>,<span class="ruby-identifier">:yAxisName=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'Units'</span>, <span class="ruby-identifier">:rotateValues=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'1'</span>, <span class="ruby-identifier">:formatNumberScale=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'0'</span>,  <span class="ruby-identifier">:animation=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'1'</span> }
+      <span class="ruby-comment cmt">#Get data from factory masters table</span>
+      <span class="ruby-ivar">@factories</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">FactoryMaster</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>,<span class="ruby-identifier">:include=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;factory_output_quantities&quot;</span>)
+      <span class="ruby-comment cmt">#select distinct DATE_FORMAT(factory_output.DatePro,'%c-%d-%Y') as DatePro from factory_output order by DatePro</span>
+      <span class="ruby-ivar">@factory_dates_of_production</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">FactoryOutputQuantity</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>,<span class="ruby-identifier">:select=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;DISTINCT date_pro&quot;</span>,<span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;date_pro asc&quot;</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

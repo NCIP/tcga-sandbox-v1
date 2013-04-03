@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML Attributes for Zoom Line Chart</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Zoom Line chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center" >
+<tr>
+<td class="pageHeader">XML Attributes for Zoom Line Chart</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>The FusionCharts  Zoom Line chart is a special type of multi-series line chart that allows  analysis of data at both macroscopic and microscopic level. It is meant for  plotting large quantities of data, which if plotted on an ordinary line chart  would produce indecipherable results. The zoom line chart can easily plot tens of thousands of data points.</p>
+<img src="Images/ZoomLineEx.jpg" />
+<p>At the time  of rendering, the zoom line chart displays a macroscopic view of the data. The  data is neatly compressed, so that all of it fits into the width of the chart. When the user selects a segment of the line plot  by dragging the mouse cursor across the canvas, the selected portion  expands  to occupy the entire width of the chart. At this point, the scrollbar becomes functional, allowing the user to view  the data that precedes or follows the selected section of data. To analyze the  data in greater detail, the user can repeat the select and zoom process several  times over (until further zooming is not possible). The chart can  be restored to its original macroscopic display mode by clicking the 'Reset Chart' button on the toolbar or by selecting 'Reset Chart' from the context menu.</p>
+  <p>Following  are the main features of the FusionCharts zoom line chart:</p>
+  <ul>
+    <li>It provides an excellent  macroscopic view of data by neatly compressing it, so that all of the data fits  into the width of the chart canvas.</li>
+    <li>When the user selects a  section of data by dragging the mouse cursor across the canvas, the selected  data expands to fill the entire width of the canvas.</li>
+    <li>The  chart can be switched to pin mode, in pin mode  - a ghost of  the selected line segment gets imprinted on the canvas, thus enabling the user  to compare the pinned segment with the rest of the chart simply by scrolling through. The pinned segment can be dragged to any part of the canvas.</li>
+    <li>The zoom line chart supports smart vertical trend lines, which can be made visible either in macroscopic view or at a particular level of microscopic view.</li>
+  </ul><br />
+  </td>
+</tr>
+<tr>
+<td valign="top" class="header">Using compact XML/JSON</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>The zoom line chart is a multi-series chart and works with conventional multi-series XML/JSON. However, it also supports an alternative compact XML/JSON format. The compact XML/JSON format is intended to simplify XMLization/JSONization of large quantities of data. In compact XML/JSON format categories and datasets are defined in the following manner:</p></td>
+</tr>
+<tr>
+<td >
+   <pre class="prettyprint code_container ">&lt;categories&gt;Label  1|Label 2|Label 3|Label 4|Label 5| ... &lt;/categories&gt;
+&lt;dataset seriesName='Series 1' color='AFD8F8'&gt;182|236|17|406|676|...  &lt;/dataset&gt;
+&lt;dataset seriesName='Series 2' color='F6BD0F'&gt;294|170|450|120|844|...  &lt;/dataset&gt;</pre>
+</td>
+</tr>
+<tr>
+<td class="text"><p>In order to use this  format you need to declare the following attributes in the <span class="codeInline">&lt;chart&gt;</span> element:</p></td>
+</tr>
+<tr>
+<td class="text">
+   <pre class="prettyprint code_container">&lt;chart  compactDataMode='1' dataSeparator='|' . . . &gt;</pre>
+</td>
+</tr>
+<tr>
+<td class="text">
+<p>In the above data, the | character has been used as a separator for categories and datasets, but you can use any character of your choice by specifying it as the value for the <span class="codeInline">dataSeparator</span> attribute.</p> </td>
+</tr>
+<tr>
+<td valign="top" class="header">Customizing the basic properties of  zoom line chart</td>
+</tr>
+<tr>
+<td valign="top" class="textBold"><br />Limiting the maximum number of  visible data labels</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>By default the chart displays as many data  labels as can be accommodated without causing clutter. However, it is also  possible to preset the maximum number of data labels that are visible at any given  time. The attribute for setting the maximum number of visible data labels is <span class="codeInline">numVisibleLabels</span> and it is declared in the <span class="codeInline">&lt;chart&gt;</span> element.</p>
+<pre class="prettyprint code_container">&lt;chart numVisibleLabels='6' . . . &gt;</pre>
+<p><img src="Images/SetVisibleLabels.jpg" width="500" height="300" alt="Setting the number of visible data labels" /></p>
+<p class="highlightBlock"><span class="codeInline">numVisibleLabels</span> attribute only limits the number of visible data labels, it has no effect on the number of visible data points.</p>
+</td></tr>
+<tr>
+<td valign="top" class="textBold">Showing Vertical Divisional Lines</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>Vertical divisional lines can be displayed on  the chart canvas, above each data label.This feature can be enabled by  declaring the <span class="codeInline">showVDivLines</span> attribute of the <span class="codeInline">&lt;chart&gt;</span> element.</p>
+<pre class="prettyprint code_container">&lt;chart showVDivLines='1' . . . &gt;</pre>
+<p><img src="Images/VerticalDivLines.jpg" alt="Vertical divisional lines shown on the chart" width="500" height="300" /></p>
+</td>
+</tr>
+<tr>
+<td class="textBold">Setting the distance between consecutive dataplots</td>
+</tr>
+<tr>
+<td class="text"><p>FusionCharts  zoom line chart allows configuration of the distance between consecutive dataplots. In the following chart the distance between consecutive dataplots is 5 pixels: </p>
+  <img src="Images/PixelsPerPoint1.jpg" width="500" height="300" alt="Setting the distance between data plots in a zoom line chart" />
+  <p>The image shown below - is a variation of the above chart, the distance between consecutive dataplots is set to  25 pixels:</p>
+ <img src="Images/PixelsPerPoint2.jpg" width="500" height="300" alt="Distance between consecutive data points set to 25 pixels" />
+  <p class="highlightBlock">If the chart is in macroscopic view, many data points are skipped in  order to accommodate the entire series of data.</p>
+  <p>To set the distance between consecutive dataplots, you need to declare the <span class="codeInline">pixelsPerPoint</span> attribute in the following way:
+  <pre class="prettyprint code_container">&lt;chart pixelsPerPoint='25' . . . &gt;</pre><br />
+  </td>
+</tr>
+<tr>
+<td valign="top" class="textBold">Setting the criteria for anchor display</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>In order to reduce clutter, you can make anchors visible only when the distance between consecutive data points reaches a certain minimum value. For instance, you can instruct the chart to show anchors only when consecutive data points are 25 pixels apart.  If the chart contains plenty of data, then anchors will not be visible in macroscopic view, as the distance between consecutive data points is less than 25 pixels. The anchors become visible only when the chart is zoomed and the distance between consecutive data points increases to 25 pixels or above.</p>
+  <p><span class="codeInline">anchorMinRenderDistance</span> attribute is used for specifying the minimum distance (between dataplots) for the anchors to become visible. The attribute is declared in following manner:</p>
+  <pre class="prettyprint code_container">&lt;chart anchorMinRenderDistance='15' . . . &gt;</pre></td></tr>
+  <tr>
+  <td height="25"></td></tr>
+  <tr><td valign="top">
+  <table class="table">
+  <tr>
+  <td><img src="Images/AnchorDistance.jpg" width="500" height="300" alt="Anchor display distance" /></td>
+  </tr>
+  <tr>
+  <td align="center">Anchors get displayed when the distance between dataplots increases to 25 pixels</td>
+  </tr>
+  </table><br /></td></tr>
+  <tr>
+  <td valin="top" class="textBold">Removing toolbar buttons</td>
+  </tr>
+  <tr>
+  <td  valign="top" class="text">
+  <p>By default, toolbar buttons  appear above the chart canvas. These can  be removed by disabling the <span class="codeInline">drawToolbarButtons</span> attribute.</p>
+</td>
+</tr>
+<tr>
+<td balign="top" class="text">
+<pre class="prettyprint code_container">&lt;chart drawToolbarButtons='0' . . . &gt;</pre>
+<p><img src="Images/ZoomLineNoToolbarBtn.jpg" alt="Zoom line chart without toolbar buttons" width="500" height="300" />
+</p>
+</td>
+</tr>
+<tr>
+<td class="header">Customizing the chart scale</td>
+</tr>
+  <tr>
+  <td va;ogm="top" class="textBold"><br />Setting the divisional line interval</td>
+  </tr>
+  <tr>
+  <td>
+  <p> In case of a zoom line chart, you can suggest a list of values to be used as divisional line interval. This is done in following way:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='10,20,50,100' . . .&gt;</pre>
+    <p>The above code instructs the chart to display divisional lines in multiples of either 10, 20, 50 or 100. The chart automatically selects the most appropriate value after verifying whether - the value is lower than the chart's upper limit, it is divisible and there is enough vertical space to render divisional lines using the value as an interval. If all the hints turn out to be invalid, then the chart automatically calculates the divisional line interval.</p>
+    <p>So, if you've a chart with axis limits 0-100 and you wish to plot divisional lines at 0,50 and 100, you must specify:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='50' . . .&gt;</pre>
+    <p>However, if you want to plot intervals at 0,200,400,600,1K, you can set:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='200' . . .&gt;</pre>
+    <p><img src="Images/DivInterval.jpg" width="500" height="300" alt="Div interval set to 200" /></p>
+    </td>
+  </tr>
+  <tr>
+  <td valign="top" class="textBold">Enable dynamic  adjustment of the scale upon zooming</td>
+  </tr>
+  <tr>
+  <td calign="top" class="text">
+  <p>The  chart scale can be made to adapt to the data upon zooming.</p>
+  </td>
+</tr>
+<tr>
+  <td class="text">
+<table class="table" width="40%" border="0" cellpadding="0">
+  <tr>
+    <td valign="top"><img src="Images/DynamicAxis1.jpg" alt="dynamic axis enabled unzoomed view" /></td>
+    <td valign="top"><img src="Images/DynamicAxis2.jpg" alt="Dynamic axis in zoom view" /></td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    <tr>
+    <td valign="top" class="text">
+    <p>This feature can be activated by enabling the <span class="codeInline">dynamicAxis</span> attribute:</p></td>
+    </tr>
+    <tr>
+
+       <td class="text"><pre class="code_container prettyprint lang-xml">&lt;chart dynamicAxis='1' . . . &gt;</pre>
+    </td>
+    </tr>
+    <tr><td height="25"></td></tr>
+    <tr>
+    <td valign="top" class="textBold">Converting the scale into a logarithmic scale</td>
+</tr>
+<tr>
+<td class="text">
+  <p>Logarithmic scale can be used in place of linear scale for plotting data which has an extremely high range (i.e. enormous difference between maximum and minimum values). To replace the default linear scale with a logarithmic scale set <span class="codeInline">axis='log'</span>:</p>
+</td>
+</tr>
+<tr>
+<tr>
+<td class="text">
+   <pre class="prettyprint code_container">&lt;chart axis='log' . . .&gt;</pre>
+</td>
+
+<tr>
+<td class="text"><p>The default base of the logarithmic scale is 10. The base can be set to any positive number greater than 1 by specifying the <span class="codeInline">logBase</span> attribute.</p>
+<pre class="code_container prettyprint lang-xml">&lt;chart axis=&quot;log&quot; logBase='5' . . . &gt;</pre>
+<p><br />
+  <img src="Images/log5.jpg" alt="dynamic axis enabled unzoomed view" width="500" height="300" /></p>
+<p>Minor logarithmic divisional lines are displayed between consecutive divisional  lines. The minimum number of minor logarithmic divisional lines can be set  using <span class="codeInline">numMinorLogDivLines</span> attribute.</p></td>
+</tr>
+<tr>
+<td class="text"><pre class="code_container prettyprint lang-xml">&lt;chart axis='log' logBase='5' numMinorLogDivLines='2' . . . &gt;</pre>
+<p>&nbsp;</p>
+<p class="highlightBlock">Dynamic axis and divisional line interval hints are not applicable  in case of logarithmic scale.</p>
+</td>
+</tr>
+
+<tr>
+<td class="header">Preselecting  the number of visible dataplots</td>
+</tr>
+<tr>
+<td class="text"><p>By default the zoom line chart displays all the dataplots in a single screen. However, it is possible to pre select the exact range of dataplots that'll be visible on a single screen at the time of rendering.</p>
+<img src="Images/PreselectDataRange.jpg" alt="Displaying a preselected range of dataplots at the time of rendering" width="500" height="300" />
+  <p><span class="codeInline">displayStartIndex</span> and <span class="codeInline">displayEndIndex</span> attributes are used for preselecting the exact range of dataplots, which are to  be made visible when the chart renders. So, for displaying the first 15  dataplots, the attributes are declared in the following manner:</p>
+</td>
+</tr>
+<tr>
+       <td class="text"><pre class="prettyprint code_container">&lt;chart displayStartIndex='1'  displayEndIndex='15' . . . &gt;</pre>
+       <p>Similarly, the code for displaying 16th - 25th dataplots is:</p>
+       <pre class="prettyprint code_container">&lt;chart displayStartIndex='16'  displayEndIndex='25' . . . &gt;</pre>
+  </td>
+</tr>
+<tr><td height="25"></td></tr>
+<tr>
+<td valign="top" class="header">Plotting conditional vertical trendlines</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>You can add vertical trendlines and zones to a zoom line chart, and also make the visibility of vertical trendlines/zones conditional. By default, all vertical trendlines and zones are visible in both macroscopic and microscopic view. Given below is the code for a default vertical trendline:</p>
+<pre class="prettyprint code_container">&lt;vTrendlines&gt;<br />   &lt;line startIndex='5' endIndex='10'  displayValue='Trend 1'/&gt;
+&lt;/vTrendlines&gt;</pre>
+  <p><img src="Images/ZoomDefaultVT.jpg" alt="Zoom line chart with default trendline" width="500" height="300" /></p>
+  <p>As shown in the above chart, the default vertical trendline is visible in macroscopic view. By declaring additional attributes, the same vertical trendline can be made visible only when the chart is zoomed to a certain level of microscopic view.</p>
+  
+<pre class="prettyprint code_container">&lt;vTrendlines&gt;
+   &lt;line startIndex='5' displayValue='Trend 1' <strong>displayAlways='0'</strong> <strong>displayWhenCount='10'</strong> /&gt;
+&lt;/vTrendlines&gt;</pre>
+
+<p><img src="Images/ZoomVTMacro.jpg" alt="Zoom line v trendline in macroscopic view'" width="500" height="300" /></p>
+<p>The vertical trendlines is now invisible in macroscopic view, since <span class="codeInline">displayAlways</span> attribute is set to '0'. It becomes visible only when the chart is zoomed to a point, where only 10 (or lesser) dataplots can fit into a single screen:</p>
+<img src="Images/ZioomVTCount.jpg" alt="vertical trendline shown when count is 10" width="500" height="300" />
+<p>The <span class="codeInline">displayWhenCount</span> attribute sets the condition for visibility of the vertical trendline. In case of above example, the value of this attribute was set to <span class="codeInline">10</span>, hence the vertical trendline is visible only if 10, or less than 10 dataplots are displayed on a single screen. The value of the <span class="codeInline">displayWhenCount</span> can be any number, which is greater than 1 and less than the total number of dataplots that are plotted on the chart.</p>
+</td>
+</tr>
+<tr>
+<td valign="top" class="header">Customizing the appearance of a zoom line chart</td>
+</tr>
+<tr>
+<td valign="top" class="text"><p>Numerous options  are available for customizing the appearance of a zoom line chart. Appearance  of chart objects such as scrollbar, toolbar and context menu can be configured  with great deal of intricacy. Following table lists some of the cosmetic  customization attributes that are exclusive to the zoom line chart:</p></td>
+</tr>
+<tr>
+<td class="text" valign="top">
+<table class="table" width="98%" border="0" align="center" cellpadding="0" cellspacing="0" >
+<tr>
+<td width="20%" class="header">Attribute Name</td>
+			<td width="10%" class="header">Type</td>				
+			<td width="23%" class="header">Range</td>
+			<td width='45%' class="header">Description</td>									
+		</tr>		
+<tr>
+<td valign="top" class="codeInline">palette</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Specifies a color theme that will be applied throughout the chart.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolbar</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the toolbar buttons.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolbarButtonFontColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the toolbar font.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">zoomPaneBorderColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the zoom pane border.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">zoomPaneBgColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the background color of the zoom pane.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">zoomPaneBgAlpha</td>
+		  <td valign="top">Number</td>
+		  <td valign="top"> 0-100</td>
+		  <td valign='top'>Sets the alpha of the zoom pane.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">pinLineThicknessDelta</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">Any number</td>
+		  <td valign='top'>Sets the thickness of the pinned line when the chart is put to pin line mode.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">pinPaneBorderColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the pin pane border.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">pinPaneBgColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the background color of the pin pane.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">pinPaneBgAlpha</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">0-100</td>
+		  <td valign='top'>Sets the alpha of the pin pane.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolTipBarColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the tooltip bar, which is displayed alongside the tooltips.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">mouseCursorColor</td>
+		  <td valign="top">Color code</td>
+		  <td valign="top">Any (color code without the # prefix)</td>
+		  <td valign='top'>Sets the color of the mouse cursor.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnResetChartTitle</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the title of the 'Reset Chart' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnZoomOutTitle</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the title of the 'Zoom Out' button with the provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnSwitchtoZoomModeTitle</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the title of the 'Switch to Zoom Mode' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnSwitchToPinModeTitle</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the title of the &quot;Switch to Pin Mode' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">showToolBarButtonTooltext</td>
+		  <td valign="top">Boolean</td>
+		  <td valign="top">0/1</td>
+		  <td valign='top'>Enables/disables display of tooltips for toolbar buttons.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnResetChartTooltext</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the default tooltext of the 'Reset Chart' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnZoomOutTooltext</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the default tooltext of the 'Zoom Out' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnSwitchToZoomModeTooltext</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string.</td>
+		  <td valign='top'>Replaces the default tooltext of 'Switch to Zoom Mode' with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">btnSwitchToPinModeTooltext</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string.</td>
+		  <td valign='top'>Replaces the default tooltext of 'Switch to Pin Mode' button with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">zoomOutMenuItemLabel</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string except 'Zoom Out'</td>
+		  <td valign='top'>Replaces the 'Zoom Out Chart' menu label with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">resetChartMenuItemLabel</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the 'Reset Chart' menu item with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">zoomModeMenuItemLabel</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the 'Zoom Mode' menu item with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">pinModeMenuItemLabel</td>
+		  <td valign="top">String</td>
+		  <td valign="top">Any string</td>
+		  <td valign='top'>Replaces the 'Pin Mode' menu item with provided string.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolBarBtnTextVMargin</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">in pixels</td>
+		  <td valign='top'>Sets the Vertical margin of toolbar buttons (i.e., padding between text and button border).</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolBarBtnTextHMargin</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">in pixels</td>
+		  <td valign='top'>Sets the Horizontal margin of toolbar buttons (i.e., padding between text and button border).</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolBarBtnHPadding</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">in pixels</td>
+		  <td valign='top'>Sets  horizontal spacing between  toolbar buttons.</td>
+		  </tr>
+		<tr>
+		  <td valign="top" class="codeInline">toolBarBtnVPadding</td>
+		  <td valign="top">Number</td>
+		  <td valign="top">in pixels</td>
+		  <td valign='top'>Sets the vertical spacing between toolbar buttons.</td>
+		  </tr>
+</table>
+</td>
+</tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Marimekko Chart|MarimekkoChartAttributes.html", "Chart XML APIs - Column 2D chart|../ChartSS/Column2d.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

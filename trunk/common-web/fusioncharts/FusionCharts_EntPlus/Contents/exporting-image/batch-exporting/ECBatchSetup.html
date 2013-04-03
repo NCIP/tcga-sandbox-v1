@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Exporting Charts as PDF or Images - Batch export - Setting it up </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "Batch exporting|ECBatchOverview.html", "Setting it up" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; Batch export &gt; Setting it up </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, we'll cover examples for setting up batch exporting of charts. We'll first start with the simplest example and then move ahead by configuring various parameters.</p>
+      <p>Before you start, you'll need to follow these steps:</p>
+      <ol>
+        <li>Copy <span class="codeInline">FusionChartsExportComponent.js</span> from <span class="codeInline">Download Package &gt; Charts</span> folder  to your server. A good location is where you've placed <span class="codeInline">FusionCharts.js</span></li>
+        <li>Copy <span class="codeInline">FCExporter.swf</span> from <span class="codeInline">Download Package &gt; Charts</span> to your server. A good location is where you've placed the other chart SWF files.</li>
+      </ol>
+    <p>With that done, our next few steps are:</p>
+    <ol>
+      <li>Configure the charts  in your page to allow export of charts at client-side </li>
+      <li>Include an instance of Exporter Component in your web page</li>
+      <li>Invoke the BeginExport method of Exporter Component to start batch export </li>
+      </ol>
+    <p>Let's see how to implement each of them in details. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Configuring XML for client-side export </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the XML of each chart that you need to export, you need to do three things:</p>
+        <ul>
+          <li>Enable your chart for export (using <span class="codeInline">exportEnabled</span> attribute) </li>
+          <li>Set it to use client-side export (using <span class="codeInline">exportAtClient</span> attribute) </li>
+          <li>Give reference (DOM Id) of the export component that we'll next create in the HTML page (using <span class="codeInline">exportHandler</span> attribute) </li>
+        </ul>
+      <p>The following XML snippet shows how to attain these: </p></td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$' useRoundEdges='1' bgColor='FFFFFF,FFFFFF' showBorder='0' <strong>exportEnabled='1' exportAtClient='1' exportHandler='fcBatchExporter'</strong>&gt;
+      &lt;set label='Alex' value='25000'  /&gt; 
+      &lt;set label='Mark' value='35000' /&gt; 
+      &lt;set label='David' value='42300' /&gt; 
+      &lt;set label='Graham' value='35300' /&gt; 
+      &lt;set label='John' value='31300' /&gt;
+      &lt;/chart&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We now create 3 charts in our page - Column2D, Column3D and Pie3D. All these charts, for the sake of example, use the same XML.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;div id=&quot;chart1div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+         var myChart1 = new FusionCharts(&quot;../../FusionCharts/Column2D.swf&quot;, &quot;myChartId1&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+         myChart1.setXMLUrl(&quot;SimpleExample.xml&quot;);
+         myChart1.render(&quot;chart1div&quot;);
+  &lt;/script&gt;
+      &lt;div id=&quot;chart2div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;  
+           var myChart2 = new FusionCharts(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;myChartId2&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+           myChart2.setXMLUrl(&quot;SimpleExample.xml&quot;);
+           myChart2.render(&quot;chart2div&quot;);
+  &lt;/script&gt;
+       &lt;div id=&quot;chart3div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;  
+           var myChart3 = new FusionCharts(&quot;../../FusionCharts/Pie3D.swf&quot;, &quot;myChartId3&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+           myChart3.setXMLUrl(&quot;SimpleExample.xml&quot;);
+           myChart3.render(&quot;chart3div&quot;);
+  &lt;/script&gt;      </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Note that all the charts have <span class="codeInline">registerWithJS</span> set to 1 and their DOM IDs are <span class="codeInline">myChartId1</span>, <span class="codeInline">myChartId2</span> and <span class="codeInline">myChartId3</span> respectively. The next step is to add the exporter component to the page.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating instance of Export Component in your web page </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The instance of the export component can be created in your web page easily using our <span class="codeInline">FusionChartsExportComponent</span> JavaScript class.</p>
+    <p> So, you first need to include the JavaScript class in your page as under. Make sure to include this page after <span class="codeInline">FusionCharts.js</span>, as this class references some of the objects defined in <span class="codeInline">FusionCharts.js</span>. This order of inclusion is important.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;head&gt;
+   &lt;script language=&quot;JavaScript&quot; src=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+   &lt;script language=&quot;JavaScript&quot; src=&quot;../../FusionCharts/FusionChartsExportComponent.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Now, using this class, you need to create an instance of this component in your page. For that, you first define an empty DIV and name it, as shown under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> <pre class="prettyprint code_container"><span class="codeComment">&lt;!-- We also create a DIV to contain the FusionCharts client-side exporter component --&gt;</span>
+&lt;div id=&quot;fcexpDiv&quot; align=&quot;center&quot;&gt;FusionCharts Export Handler Component&lt;/div&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see above, the DIV has been named as <span class="codeInline">fcexpDiv</span>. </p>
+      <p class="highlightBlock">Note that you can place this DIV anywhere in your page - it's not necessary to place it beside the chart. However, since the UI of this export component shows a button for initiating export, it's better to place it somewhere near the chart so that your users can recognize it. </p>
+    <p>Next, you create an instance of the export component in your page using the following JavaScript code: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;
+ <span class="codeComment">//Note: fcExporter1 is the DOM ID of the DIV and should be specified as value of exportHandler
+ //attribute of chart XML.</span>
+   var myExportComponent = new FusionChartsExportObject(&quot;fcExporter1&quot;, &quot;../../FusionCharts/FCExporter.swf&quot;);</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, we first create an instance of <span class="codeInline">FusionChartsExportObject</span>, which is the JavaScript class representation of FusionCharts Export Component. To this, we specify the DOM-Id of this export component instance - <span class="codeInline">fcExporter1</span> in this case. We also specify the location of the component SWF file as second parameter. </p>
+    <p>Next, we need to convey the list of charts that we intend to add to the batch. This is done by specifying all such DOM Ids of the charts in an array. This allows you to selectively configure the charts you want to add to your queue. Or, if you need to instantiate multiple batch exports, each with a different combination of charts, you can do so. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">//Add the charts to queue. The charts are referred to by their DOM Id.</span>
+myExportComponent.sourceCharts = ['myChartId1','myChartId2','myChartId3'];</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>After this, we configure the export component UI to show in full mode, allow saving of output as individual or single file and to allow user to select the saving format. This is done using the following code:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">//Set the mode as full mode</span>
+myExportComponent.componentAttributes.fullMode='1';
+<span class="codeComment">//Set saving mode as both. This allows users to download individual charts/ as well as download all charts as a single file.</span>
+myExportComponent.componentAttributes.saveMode='both';
+<span class="codeComment">//Show allowed export format drop-down</span>
+myExportComponent.componentAttributes.showAllowedTypes = '1';</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We also set the cosmetic attributes of UI.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">//Width and height</span>
+myExportComponent.componentAttributes.width = '350';
+myExportComponent.componentAttributes.height = '140';
+<span class="codeComment">//Message - caption of export component</span>
+myExportComponent.componentAttributes.showMessage = '1';
+myExportComponent.componentAttributes.message = 'Click on button above to begin export of charts. Then save from here.';</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Finally, we call the <span class="codeInline">Render</span> method of the class with our <span class="codeInline">DIV id</span> as parameter. This generates an instance of the exporter component in the specified <span class="codeInline">DIV</span> at run-time.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">//Render the exporter SWF in our DIV fcexpDiv</span>
+myExportComponent.Render(&quot;fcexpDiv&quot;);</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Now, all we need to do is invoke the BeginExport() API of batch method. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Invoking BeginExport method </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We place a button in our page, which when clicked invokes this. The code is shown under:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">//Define a function, which will be invoked when user clicks the batch-export-initiate button</span>
+      function initiateExport(){
+         myExportComponent.BeginExport();
+    }
+    ...
+ &lt;input type='button' onClick=&quot;javascript:initiateExport();&quot; value=&quot;Begin batch export&quot; /&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The final code of the page looks as under: </p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;html&gt;
+      &lt;head&gt;
+        &lt;script language=&quot;JavaScript&quot; src=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+        &lt;script language=&quot;JavaScript&quot; src=&quot;../../FusionCharts/FusionChartsExportComponent.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt; 
+      <span class="codeComment">    //Define a function, which will be invoked when user clicks the batch-export-initiate button</span>
+    function initiateExport(){
+      myExportComponent.BeginExport();
+    }
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body bgcolor=&quot;#ffffff&quot;&gt;
+  &lt;div id=&quot;chart1div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    var myChart1 = new FusionCharts(&quot;../../FusionCharts/Column2D.swf&quot;, &quot;myChartId1&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      myChart1.setXMLUrl(&quot;SimpleExample.xml&quot;);
+      myChart1.render(&quot;chart1div&quot;);
+    &lt;/script&gt;
+        &lt;div id=&quot;chart2div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+            var myChart2 = new FusionCharts(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;myChartId2&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+            myChart2.setXMLUrl(&quot;SimpleExample.xml&quot;);
+            myChart2.render(&quot;chart2div&quot;);
+    &lt;/script&gt;
+         &lt;div id=&quot;chart3div&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. This text will be replaced by the chart.&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+            var myChart3 = new FusionCharts(&quot;../../FusionCharts/Pie3D.swf&quot;, &quot;myChartId3&quot;, &quot;350&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+            myChart3.setXMLUrl(&quot;SimpleExample.xml&quot;);
+            myChart3.render(&quot;chart3div&quot;);
+    &lt;/script&gt;
+   
+        &lt;input type='button' onClick=&quot;javascript:initiateExport();&quot; value=&quot;Begin batch export&quot; /&gt;
+        &lt;div id=&quot;fcexpDiv&quot; align=&quot;center&quot;&gt;FusionCharts Export Handler Component&lt;/div&gt;&lt;/td&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        <span class="codeComment">    //Initialize Batch Exporter with DOM Id as fcBatchExporter</span>
+            var myExportComponent = new FusionChartsExportObject(&quot;fcBatchExporter&quot;, &quot;../../FusionCharts/FCExporter.swf&quot;);
+        <span class="codeComment">    //Add the charts to queue. The charts are referred to by their DOM Id.</span>
+            myExportComponent.sourceCharts = ['myChartId1','myChartId2','myChartId3'];
+         <span class="codeComment">   //------ Export Component Attributes ------//
+    //Set the mode as full mode
+ </span>   myExportComponent.componentAttributes.fullMode='1';
+         <span class="codeComment">   //Set saving mode as both. This allows users to download individual charts/ as well as download all charts as a single file.</span>
+            myExportComponent.componentAttributes.saveMode='both';
+        <span class="codeComment">    //Show allowed export format drop-down</span>
+            myExportComponent.componentAttributes.showAllowedTypes = '1';
+        <span class="codeComment">    //Cosmetics 
+    //Width and height
+        </span>    myExportComponent.componentAttributes.width = '350';
+            myExportComponent.componentAttributes.height = '140';
+        <span class="codeComment">    //Message - caption of export component</span>
+            myExportComponent.componentAttributes.showMessage = '1';
+            myExportComponent.componentAttributes.message = 'Click on button above to begin export of charts. Then save from here.';
+        <span class="codeComment">    //Render the exporter SWF in our DIV fcexpDiv</span>
+            myExportComponent.Render(&quot;fcexpDiv&quot;);        <span class="codeComment">   </span>
+    &lt;/script&gt;
+  &lt;/tr&gt;
+  &lt;/body&gt;
+&lt;/html&gt;  </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When you now fire up your HTML page, you'll see a screen as under. As you can see, the batch export component is present along with the charts, waiting for the user to initiate batch process.</p>
+      <p><img src="../Images/ECBatchSetup1.jpg" width="703" height="557" class="imageBorder" /></p>
+      <p>See it <a href="../../../Code/ExportChartSamples/BatchExport/BatchModeOnly.html" target="_blank">live</a>! </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Once the button is clicked, all charts enter capture phase as shown below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECBatchSetup2.jpg" width="716" height="596" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Finally, when the charts have been exported to Export Component, it gets populated, as under. The charts exported can either be individually saved from this, or all charts can be saved as a single file (by clicking on <span class="codeInline">Save All</span>) button.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECBatchSetup3.jpg" width="357" height="198" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you do not wish to allow export of all the charts as a single file, you can just set:</p>
+    <pre class="prettyprint code_container"> myExportComponent.componentAttributes.saveMode='individual'; </pre>
+    <p>This will result in the image below. Note that the &quot;Save-All&quot; panel at the bottom of export component is missing now. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECBatchSetup4.jpg" width="357" height="198" border="1" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Or, if you do not want the user to be able to save individual files, you can set this to:</p>
+    <pre class="prettyprint code_container">myExportComponent.componentAttributes.saveMode='batch';</pre>
+    <p>This will result as under. Note that you can no longer save individual charts. All the chart export output get compiled in a single file, for which you can choose a saving format. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECBatchSetup5.jpg" width="352" height="131" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In batch mode, the output file name is named as <span class="codeInline">FusionCharts</span> by default (extension depending on what format the user selected).  To specify your own file name, you can set the following in JavaScript. </p>
+      <pre class="prettyprint code_container">myExportComponent.componentAttributes.defaultExportFileName = 'MyCharts';</pre>
+    <p>The <span class="codeInline">exportFileName</span> attribute would NOT work in batch export, as that file name is chart specific. The above line collectively specifies a name for all the charts in the batch - when exported as a single file in batch mode. </p>
+    <p>Similarly, if you want to specify a default export format (JPG, PNG or PDF), and hide the combo box (to select formats), you can set:</p>
+   <pre class="prettyprint code_container">myExportComponent.componentAttributes.defaultExportFormat='PDF';
+myExportComponent.componentAttributes.showAllowedTypes='0';
+This results in a single button being shown, which when clicked downloads a single PDF file containing all the charts in batch. </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="../Images/ECBatchSetup6.gif" width="180" height="109" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing the Export Component UI </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The export component offers extensive UI customization options. Here, we'll see some of the basic configuration options. The entire list can be found in the section <span class="codeInline">Component UI Customization</span>. Consider the code below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"><span class="codeComment">&lt;!-- We also create a DIV to contain the FusionCharts client-side exporter component --&gt;</span>
+  &lt;div id=&quot;fcexpDiv&quot; align=&quot;center&quot;&gt;FusionCharts Export Handler Component&lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+  <span class="codeComment">    //Render the export component in this
+     //Note: fcExporter1 is the DOM ID of the DIV and should be specified as value of exportHandler
+     //attribute of chart XML.
+  </span><span class="codeComment">   </span>var myExportComponent = new FusionChartsExportObject(&quot;fcExporter1&quot;, &quot;../../FusionCharts/FCExporter.swf&quot;);
+      <span class="codeComment">   </span><span class="codeComment">//Add the charts to queue. The charts are referred to by their DOM Id.</span>
+      myExportComponent.sourceCharts = ['myChartId1','myChartId2','myChartId3'];
+   <span class="codeComment">   //------ Export Component Attributes ------//
+      //Set the mode as full mode
+     </span> myExportComponent.componentAttributes.fullMode='1';
+   <span class="codeComment">   //Set saving mode as both. This allows users to download individual charts/ as well as download all charts as a single file.</span>
+      myExportComponent.componentAttributes.saveMode='both';
+        <span class="codeComment">    //Show allowed export format drop-down</span>
+      myExportComponent.componentAttributes.showAllowedTypes = '1';
+        <span class="codeComment">   //Customize the component properties 
+           //Width and height
+        </span><span class="codeComment">   </span>myExportComponent.componentAttributes.width = '400';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.height = '120';
+        <span class="codeComment">   //Background color</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.bgColor = 'ffffdd';
+        <span class="codeComment">   //Border properties</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.borderThickness = '2';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.borderColor = '0372AB';
+        <span class="codeComment">   //Font properties</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.fontFace = 'Arial';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.fontColor = '0372AB';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.fontSize = '12';
+        <span class="codeComment">   //Message - caption of export component</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.showMessage = '1';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.message = 'Export the chart first, and then click on this button to save';
+        <span class="codeComment">   //Button visual configuration</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnWidth = '200';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnHeight= '25';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnColor = 'E1f5ff';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnBorderColor = '0372AB';
+        <span class="codeComment">   //Button font properties</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnFontFace = 'Verdana';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnFontColor = '0372AB';
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnFontSize = '15';
+        <span class="codeComment">   //Title of button</span>
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnSaveTitle = 'Save this chart'
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnSaveAllTitle = 'Save all charts together'
+        <span class="codeComment">   </span>myExportComponent.componentAttributes.btnDisabledTitle = 'Waiting for export'; 
+        <span class="codeComment">   //Render the exporter SWF in our DIV fcexpDiv</span>
+        <span class="codeComment">   </span>myExportComponent.Render(&quot;fcexpDiv&quot;);
+  &lt;/script&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this example, we've customized font properties, color properties and titles. You can also customize scroll bar properties, combo-box properties, padding and margins. Refer to the section <span class="codeInline">Client-side Exporting &gt; Component UI Customization</span> to get an idea of the same.</p> </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Batch exporting|ECBatchOverview.html","Setting JavaScript callback|ECBatchCallback.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

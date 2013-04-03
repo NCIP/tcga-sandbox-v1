@@ -1,0 +1,121 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2010 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!--
+Note: Each time this file is modified, the 'security.xml' file under /test/slow/security/ should be modified
+accordingly to make sure the tests reflect the latest security setup
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- =========== AUTHORIZATION WITH SPRING-ACL =========== -->
+
+    <!-- a UserDetail service for the authorities populator -->
+    <bean id="jdbcUserService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl"
+          p:dataSource-ref="uuidDataSource"
+          p:enableAuthorities="true"
+          p:enableGroups="true"
+          p:rolePrefix=""/>
+
+    <bean id="populator" class="org.springframework.security.ldap.populator.UserDetailsServiceLdapAuthoritiesPopulator">
+        <constructor-arg>
+            <ref local="jdbcUserService"/>
+        </constructor-arg>
+    </bean>
+
+    <!--
+        Decision manager that uses:
+            - a role-based voter
+     -->
+    <util:list id="decisionVoters">
+        <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter"/>
+    </util:list>
+
+    <bean id="businessAccessDecisionManager" class="org.springframework.security.vote.UnanimousBased"
+          p:allowIfAllAbstainDecisions="true"
+          p:decisionVoters-ref="decisionVoters">
+    </bean>
+
+    <!-- Security configuration that will enable the use of secured annotations to protect methods -->
+    <security:global-method-security
+            secured-annotations="enabled"
+            jsr250-annotations="enabled"
+            access-decision-manager-ref="businessAccessDecisionManager"/>
+
+    <!-- Activate annotation-driven transactions -->
+    <tx:annotation-driven/>
+
+    <!-- Application specific Security Util -->
+    <bean id="securityUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityUtilImpl"/>
+
+    <!-- =========== AUTHENTICATION WITH SPRING-LDAP =========== -->
+
+    <!-- LDAP settings -->
+    <bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        <constructor-arg value="${ldap_authentication_server_url}"/>
+    </bean>
+
+    <!-- LDAP user search settings -->
+    <bean id="userSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+        <constructor-arg index="0" value="${ldap_user_search_base}"/>
+        <constructor-arg index="1" value="${ldap_user_search_filter}"/>
+        <constructor-arg index="2" ref="contextSource"/>
+    </bean>
+
+    <bean id="authenticator" class="org.springframework.security.providers.ldap.authenticator.BindAuthenticator"
+          p:userSearch-ref="userSearch">
+        <constructor-arg ref="contextSource"/>
+    </bean>
+
+    <bean id="ldapAuthProvider" class="org.springframework.security.providers.ldap.LdapAuthenticationProvider">
+        <constructor-arg ref="authenticator"/>
+        <constructor-arg ref="populator"/><!-- For ACL -->
+        <security:custom-authentication-provider/>
+    </bean>
+
+    <!-- =========== GENERAL CONFIGURATION FOR AUTHENTICATION ENTRY POINT =========== -->
+
+    <security:http
+            auto-config="false"
+            entry-point-ref="authenticationProcessingFilterEntryPoint">
+        <security:http-basic />
+        <security:logout/><!-- Authentication exit point that defaults to /j_spring_security_logout -->
+        <!-- Requiring HTTPS on all urls for now. In the future only login should be made over HTTPS -->
+        <security:intercept-url pattern="/**" requires-channel="https"/>
+        <security:intercept-url pattern="/**" />
+    </security:http>
+
+    <bean id="authenticationProcessingFilterEntryPoint"
+          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint"
+          p:loginFormUrl="/webservice_login"
+          p:forceHttps="false">
+    </bean>
+
+    <security:authentication-manager alias="authenticationManager"/>
+
+    <bean id="authenticationProcessingFilter"
+          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter"
+          p:defaultTargetUrl="/"
+          p:authenticationManager-ref="authenticationManager"
+          p:authenticationFailureUrl="/webservice_authentication_failure">
+        <security:custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+    </bean>
+
+    
+
+</beans>

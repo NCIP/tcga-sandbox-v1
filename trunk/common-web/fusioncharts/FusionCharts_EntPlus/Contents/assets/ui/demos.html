@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>FusionCharts XT Live Demos</title>
+<script type="text/javascript">
+	window.__orphanarticle = false;
+	window.__doNotPutInCookie = true;
+	
+</script>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="../../../Charts/FusionCharts.js"></script>
+<script type="text/javascript" src="js/lib.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+<script>
+  /* select the element name, css selector, background etc */
+  DD_belatedPNG.fix('img');
+  
+  /* string argument can be any CSS selector */
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setBgImages("download-pack-demos dt", 31);
+		setBgImages("online-demos dt", 31);
+		changeStructure ("download-pack-demos");
+		changeStructure ("online-demos");
+	
+		var dummyChart = new FusionCharts("../../../Charts/MSCombi2D.swf", "dummyChartId", 25,18,0,1);
+		dummyChart.setXMLUrl("Data.xml");
+		dummyChart.render("miniChart");
+		
+		
+		showConditionalMessage( "Your borwser does not seem to have Flash Player support. All Flash samples will automatically render JavaScript charts instead.", isJSRenderer(dummyChart) );
+		showConditionalMessage( "Some of the demos here use JavaScript to interact with FusionCharts. Since you are running FusionCharts from your local machine, you will need to allow this interaction to happen, as <a href='../../../Tools/FlashPlayerSecuritySetup/HowToSetup.html' target='_blank'>explained here</a>. However, if you view the examples from a server (even localhost), this is not required.", isLocal() && !isJSRenderer(dummyChart) );
+
+
+		dummyChart.addEventListener( "nodatatodisplay", function() { 
+
+			addConditionalMessage( "<br /><br /><strong>Note:</strong><br />You seem to be running the page from local file system. Your browser restricts JavaScript from accessing local file system owing to security reasons. Some demos which use use data provided to charts as URL, will not work. These samples will run absolutely fine if run form a server, though. When running locally, however, all samples with data provided as XML/JSON string or JSON Object will work fine.", isLocal() && isJSRenderer(dummyChart) );
+		
+			
+			dummyChart.dispose();
+			
+			dummyChart = new FusionCharts("../../../Charts/MSCombi2D.swf", "dummyChartId", 25,18,0,1);
+			dummyChart.setXMLData("<chart showValues='0' showYaxisValue='0' canvasBorderAlpha='0' chartLeftMargin='1' plotBorderAlpha='0' plotGradientColor='' showLegend='0' bgAlpha='0,0' canvasBgAlpha='0' chartRightMargin='5' chartTopMargin='0' chartBottomMargin='0' showAlternateHGridColor='0'  divLineAlpha='0' drawAnchors='0' lineThickness='1' borderAlpha='0' showShadow='0' showTooltip='0'><categories><category/> <category/><category/></categories><dataset><set value='8' color='4078E0'/><set value='15' color='F0C010'/>  <set value='12' color='D04010'/></dataset></chart>");
+			dummyChart.render("miniChart");
+			
+		});
+
+		
+		
+	
+	})
+
+	 var setBgImages = function (id, hight) {
+		$("#"+id).each(function(i){
+			$(this).css({
+				"background-position": '0 -' + (i * hight).toString() + 'px'
+			});
+		});
+	 }
+
+	 var changeStructure = function (id) {
+		 var dtCont = [], ddCont = [], dtContTemp = [], ddContTemp = [];
+		 $("#" + id).children().each ( function () {
+			 if ($(this).is("dt")) {
+				 dtCont.push($(this));
+			 }
+			 if ($(this).is("dd")) {
+				 ddCont.push( $(this) );
+			 }
+		 })
+
+		 for (var j in dtCont) {
+			 dtContTemp.push(dtCont[j]);
+			 ddContTemp.push(ddCont[j]);
+			 if ((j+1) % 3 == 0) {
+				 for (i in dtContTemp) {
+					 $("#" + id).append( dtContTemp[i] );
+				 }
+				 for (i in ddContTemp) {
+					 $("#" + id).append( ddContTemp[i] );
+				 }
+				 dtContTemp = [];
+				 ddContTemp = [];
+			 }
+		 }
+	 }
+</script>
+
+</head>
+<body>
+<!-- wrapper -->
+<div id="wrapper">
+  <!-- header -->
+  <div id="header">
+    <div class="back-to-home"><a href="../../../index.html">Back to home</a></div>
+    
+    <div class="logo"><a class="imagelink"  href="http://www.fusioncharts.com/?BS=OfflineDocsLogo"><img src="Images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div><h1 class="brand-name">FusionCharts XT</h1>
+    <h1 class="logo-text">Live Demos</h1>
+     </div>
+  <!-- content area -->
+  <div class="content-area">
+    <div id="content-area-inner-main">
+      <h2 class="headline">FusionCharts is used in a wide variety of applications like dashboards, reports, polls and analytics. Check out the demos below to get inspired! Or, learn from code of these demos to make the most out of your charting. Additionally, use the code samples &amp; blueprint applications to speed up your development.</h2>
+      <!--  demo in download pack block -->
+	  <div id="messageBox" style="margin-left:10px; margin-right:10px; display:none;"></div>
+      <h3 class="headline"><span id="miniChart"></span>Demos available offline</h3>
+      <div class="inner-middle-link-container">
+        <div id="visible-block">
+          <dl class="demo-inner-m-cl" id="download-pack-demos">
+            
+            <dt class="demo-inner-m-cl-1">Demos</dt>
+            <dd class="demo-inner-m-cl-1">
+              <ul class="l-d-list">
+                <li><a href="../../../Code/JavaScript/ExampleApplication/index.html" target="_blank">Product selector demo</a></li>
+                <li><a href="../../../Code/JavaScript/Basics/Tabs/tab.html" target="_blank">FusionCharts in Tabs</a> </li>
+                <li><a href="../../../Code/JavaScript/Combi3D_JSAPI/index.html"  target="_blank">True 3D Combination chart demo</a></li>
+                <li><a href="../../../Code/JavaScript/ZoomLine/Index.html"  target="_blank">Zoom line demo</a></li>
+                <li><a href="../../../Code/JavaScript/Basics/UsingLinkedCharts/MultiLevelLinkedCharts.html"  target="_blank">Multi-level <em>LinkedCharts</em></a></li>
+                <li><a href="../../../Code/JavaScript/Basics/UsingLinkedCharts/jqdialog.html"  target="_blank"><em>LinkedCharts</em> in jQuery Dialog </a></li>
+                <li><a href="../../../Code/JavaScript/Basics/UsingLinkedCharts/jqprettyphoto.html"  target="_blank"><em>LinkedCharts</em> in PrettyPhoto light-box</a></li>
+                <li><a href="../../../Code/JavaScript/Basics/UsingLinkedCharts/highslide.html"  target="_blank"><em>LinkedCharts</em> in Highslide light-box </a></li>
+                <li><a href="../../../Code/JavaScript/Basics/UsingLinkedCharts/ExtJs.html"  target="_blank"><em>LinkedCharts</em> in ExtJS Window</a></li>
+              </ul>
+            </dd>
+
+				
+	          <dt class="demo-inner-m-cl-2">JavaScript and jQuery demos </dt>
+   	      <dd class="demo-inner-m-cl-2">
+	            <ul class="l-d-list">
+	            	<li><a href="../../../Code/MyFirstChart/site-visitor-resize-dynamic.html" target="_blank" >Chart with dynamic re-sizing</a></li>
+   	      	   <li><a href="../../../Code/MyFirstChart/weekly-sales-force-js.html" target="_blank">Pure JavaScript chart</a></li>
+      	   	   <li><a href="../../../Code/MyFirstChart/weekly-sales-multiple-charts.html" target="_blank">Multiple charts in a page</a></li>
+   	         	<li><a href="../../../Code/MyFirstChart/weekly-sales-multiple-charts-print-manager.html" target="_blank">Using managed print in Mozilla </a></li>
+	               <li><a href="../../../Code/MyFirstChart/FormBased.html"  target="_blank">Create chart from HTML Forms</a></li>
+	               <li><a href="../../../Code/jquery/BasicExample/FirstChart.html" target="_blank">Basic chart using jQuery plugin</a></li>
+	               <li><a href="../../../Code/jquery/creatingcharts/multiplecharts/multiple.html" target="_blank">Multiple charts using jQuery plugin</a></li>
+                  <li><a href="../../../Code/jquery/BasicExample/ChangeData.html" target="_blank">Update chart data  using jQuery plugin</a></li>
+                  <li><a href="../../../Code/jquery/BasicExample/attrFusionCharts.html" target="_blank">Update settings  using jQuery plugin</a></li>
+               </ul>
+            </dd>
+
+ 
+           <dt class="demo-inner-m-cl-2">Grid and Styles</dt>
+            <dd class="demo-inner-m-cl-2">
+        	    <ul class="l-d-list">
+						<li><a href="../../../Code/Grid/GridWithChart.html" target="_blank">Column 2D chart and Grid Component</a></li>
+						<li><a href="../../../Code/JavaScript/bgImageTryout/index.html" target="_blank">Background image feature showcase</a> </li>
+						<li><a href="../../../Code/Styles/animation.html" target="_blank" >Enabling custom animation</a>s</li>
+						<li><a href="../../../Code/Styles/animation2.html" target="_blank">Another animation demo</a></li>
+						<li><a href="../../../Code/Styles/font.html" target="_blank">Using various font styles</a></li>
+						<li><a href="../../../Code/Styles/shadow.html"  target="_blank">Adding distanced-shadow effect </a></li>
+						<li><a href="../../../Code/Styles/glow.html" target="_blank">Making a Doughnut chart glow  </a></li>
+						<li><a href="../../../Code/Styles/bevel.html" target="_blank">Creating bevel-ed Columns </a></li>
+						<li><a href="../../../Code/Styles/blur.html" target="_blank">Applying Blur style to line </a></li>
+              </ul>
+            </dd>
+            </dl>
+        </div>
+      </div>
+      <p>&nbsp;</p>
+      <!-- online demos block -->
+      <h3 class="headline">More demos you can view online</h3>
+      <div class="inner-middle-link-container">
+        <div id="online-block">
+          <dl class="inner-m-cl" id="online-demos">
+            <dt class="inner-m-cl-1 inner-link-icon-online"><a href="http://www.fusioncharts.com/Demos/Blueprint/" target="_blank">Blueprint Application</a></dt>
+            <dd class="inner-m-cl-1"><a href="http://www.fusioncharts.com/Demos/Blueprint/" target="_blank">This application intensively uses FusionCharts to plot charts for a fictitious trading company, which imports and exports speciality foods from all around the world. We've effectively combined FusionCharts, JavaScript (AJAX) and the traders database to render a seamless browsing experience</a></dd>
+            <dt class="inner-m-cl-2 inner-link-icon-online"><a href="http://www.fusioncharts.com/dashboards/retail/" target="_blank">Retail Dashboard</a></dt>
+            <dd class="inner-m-cl-2"><a href="http://www.fusioncharts.com/dashboards/retail/" target="_blank">The dashboard makes extensive use of FusionCharts and FusionMaps to visualize a retail store which deals in a wide variety of merchandise. You can see all facets of the retail store right from the sales summary to the product planning in this dashboard</a></dd>
+            <dt class="inner-m-cl-2 inner-link-icon-online"><a href="http://www.fusioncharts.com/Demos/SalesDashboard/" target="_blank">Sales Dashboard</a></dt>
+            <dd class="inner-m-cl-2"><a href="http://www.fusioncharts.com/Demos/SalesDashboard/" target="_blank">FusionCharts can be effectively used to create highly intuitive and interactive financial dashboards. Using the wide variety of charts and maps available in FusionCharts Suite, you can give a lively face to all your boring data tables. In this example, we've used FusionCharts to create a Sales Dashboard</a></dd>
+            <dt class="inner-m-cl-1 inner-link-icon-online"><a href="http://www.fusioncharts.com/Demos/ExportChart/Contents/client_export.html" target="_blank">Exporting charts</a></dt>
+            <dd class="inner-m-cl-1"><a href="http://www.fusioncharts.com/Demos/ExportChart/Contents/client_export.html" target="_blank">All the charts in FusionCharts suite can be exported as images (JPG/PNG) or PDF files. Exporting can be done either at client-side using FusionCharts Export Component, or at server-side using Export Handlers that we provide in various programming languages. Setting up charts for export is really easy</a></dd>
+            <dt class="inner-m-cl-2 inner-link-icon-online"><a href="http://www.fusioncharts.com/Demos/JS/Index.html" target="_blank">AJAX Integration</a></dt>
+            <dd class="inner-m-cl-2"><a href="http://www.fusioncharts.com/Demos/JS/Index.html" target="_blank">FusionCharts v3 offers tremendous integration capabilities with JavaScript. It seamlessly binds with JavaScript/AJAX to let you update charts on the client side, without invoking any page refreshes. All the charts in FusionCharts v3 suite support this functionality</a></dd>
+            <dt class="inner-m-cl-2 inner-link-icon-online"><a href="http://www.fusioncharts.com/Demos/3D/Default.asp" target="_blank">3D Chart Demo</a></dt>
+            <dd class="inner-m-cl-2"><a href="http://www.fusioncharts.com/Demos/3D/Default.asp" target="_blank">FusionCharts v3 features a true 3D chart that supports dynamic rotation, scaling, camera angles, lighting angles etc. In this demo, we use the 3D chart to plot data retrieved from the trader database and allow you to play with the various interactive options that the chart offers</a></dd>
+          </dl>
+        </div>
+      </div>
+      <p>&nbsp;</p>
+      <!-- lower middle block link holder -->
+      <div class="inner-lm-list-icon-block-holder">
+      <div class="inner-lm-icon-bl-1">
+      <h3 class="headline">Code Samples</h3>
+      <ul class="inner-lm-links-left">
+      <li><a href="../../../Code/PHP/">PHP</a></li>
+      <li><a href="../../../Code/PHPClass/">PHP Class</a></li>
+      <li><a href="../../../Code/CS/">ASP.NET C#</a></li>
+      <li><a href="../../../Code/VB_NET/">ASP.NET VB</a></li>
+      <li><a href="../../../Code/ASP/">ASP</a></li>
+      <li><a href="../../../Code/ASPClass/">ASP Class</a></li>
+      <li><a href="../../../Code/J2EE/">J2EE</a></li>
+      <li><a href="../../../Code/RoR/">ROR</a></li>
+      <li><a href="../../../Code/index.html">Javascript</a></li>
+      </ul>
+      </div>
+      <div class="inner-lm-icon-bl-2">
+      <h3 class="headline">BluePrint code download </h3>
+      <ul class="inner-lm-links">
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_PHP.zip">PHP MySQL</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_PHP_Class.zip">PHP (API) MySQL</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_CS.zip">C# MSSQL/MS Access</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_VBNET.zip">VB.NET MSSQL/MS Access</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_ASP.zip">ASP MSSQL/Access</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_ASP_Class.zip">ASP (API) MSSQL/Access</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_JSP.zip">J2EE MS Access </a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_CF.zip">ColdFusion MSSQL</a></li>
+      <li><a href="http://www.fusioncharts.com/Downloads/Blueprint/FusionCharts_RoR.zip">Ruby on Rails</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="clear"></div>
+      <p>&nbsp;</p>
+      <div class="underline-dull"></div>
+    </div>
+    </div>
+  <!-- footer -->
+  <div id="footer">
+    <ul>
+      <li><a href="../../../index.html">Home</a></li>
+      <li class="pipe">|</li>
+      <li><a href="howtoinstall.html">How to Install</a></li>
+      <li class="pipe">|</li>
+      <li><a href="../../index.html">Documentation</a></li>
+      <li class="pipe">|</li>
+      <li><a href="../../../Gallery/index.html">Chart Gallery</a></li>
+      <li class="pipe">|</li>
+      <li><a href="support.html">Help &amp; Support</a></li>
+      <li class="pipe">|</li>
+      <li><a href="license.html">License &amp; Upgrade</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

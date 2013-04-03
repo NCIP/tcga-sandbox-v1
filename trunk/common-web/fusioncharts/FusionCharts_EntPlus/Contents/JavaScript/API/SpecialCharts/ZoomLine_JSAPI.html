@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Zoom Line Chart - JavaScript API </title>
+<link rel="stylesheet" href="../../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../../JS_Overview.html", "API Reference|../Overview.html", "Chart Specific API", "Zoom chart JavaScript API" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Zoom Line Chart - JavaScript API </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text"><p>Combination 3D chart exposes a number of functions for better interactivity. These functions can be called using JavaScript. Shown below is a list of these functions along with their description and parameter(s):</p> </td>
+  </tr> 
+  <tr>
+    <td valign="top" class="text">
+    <table width="100%" border="0" cellpadding="2" cellspacing="0" class="table">
+      <tr>
+         <td height="35" colspan="3" class="text"><strong><a name="functions" id="functions"></a>Functions</strong></td>
+        </tr>
+      <tr>
+        <td width="15%" class="header">Function Name</td>
+        <td width="17%" class="header">Parameter </td>
+        <td width="68%" class="header">Description</td>
+      </tr>
+      <tr>
+         <td valign="top" class="codeInline"><a name="zoomout" id="zoomout"></a>zoomOut()</td>
+         <td valign="top" class="text">none</td>
+         <td class="text">Zoom out to previous zoom level. </td>
+      </tr>
+      <tr>
+         <td valign="top" class="codeInline"><a name="resetchart" id="resetchart"></a>resetChart()</td>
+         <td valign="top" class="codeInline">none</td>
+         <td class="text">Resets to original state (zoom mode). </td>
+      </tr>
+      <tr>
+        <td width="12%" valign="top" class="codeInline"><a name="setzoommode" id="setzoommode"></a>setZoomMode()</td>
+        <td width="17%" valign="top" class="codeInline">isZoomMode:Boolean</td>
+        <td width="71%" class="text">Switches between zoom and pin mode. This function works only when <span class="codeInline">allowPinMode</span> is set to '1' in chart XML or JSON.</td>
+      </tr>
+      <tr>
+        <td width="12%" valign="top" class="codeInline"><a name="zoomto" id="zoomto"></a>zoomTo()</td>
+        <td width="17%" valign="top" class="codeInline">startIndex:Number, <br />
+           endIndex:Number</td>
+        <td width="71%" class="text">Helps users to select a subset for zooming from JavaScript.<br />
+           If the chart is in pin mode, it automatically switches to zoom mode. <br />
+           <br />
+           The subset is defined by specifying the <span class="codeInline">startIndex</span> and <span class="codeInline">endIndex</span> of the data.<br />
+           Both indexes have to be numbers, where <span class="codeInline">startIndex</span> should be a number greater than 0 or it is taken as 1. The <span class="codeInline">endIndex</span> should be less or equal to&nbsp;the total items. Otherwise, total item count is set as its value. </td>
+      </tr>
+      <tr class="">
+         <td valign="top" class="codeInline"><a name="getviewstartindex" id="getviewstartindex"></a>getViewStartIndex()</td>
+         <td valign="top" class="codeInline">none</td>
+         <td class="text">This function returns the start index (as Number) of data from subset currently in view.</td>
+      </tr>
+      <tr>
+         <td valign="top" class="codeInline"><a name="getviewendindex" id="getviewendindex"></a>getViewEndIndex()</td>
+         <td valign="top" class="codeInline">none</td>
+         <td class="text">This function returns the end index (as Number) of data from subset currently in view.</td>
+      </tr>
+    </table>    
+    </td>
+  </tr>
+  <tr>
+     <td height="30"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0" class="table">
+           <tr>
+              <td height="35" colspan="4" class="text"><strong><a name="events" id="events"></a>Events </strong>( see <a href="../Events.html">Events</a> page for details on events) </td>
+          </tr>
+           <tr>
+              <td width="16%" class="header">Name (Advanced model) </td>
+              <td width="16%" class="header">Name ( Simple  model) </td>
+              <td width="17%" class="header">When is it raised?</td>
+              <td width="51%" class="header"><a href="../Events.html#eventparams">Event parameters</a> </td>
+           </tr>
+           <tr>
+              <td valign="top" class="codeInline"><a name="zoomed" id="zoomed"></a>Zoomed</td>
+              <td valign="top" class="codeInline">FC_Zoomed</td>
+              <td valign="top" class="text">This event is raised when a chart is zoomed. </td>
+              <td class="text">The event arguments provided by <span class="codeInline">FC_Zoomed</span> function (simple event model) are:
+                 <br />
+                 <br />
+                 <ul>
+                    <li><span class="codeInline">DOMId</span> : Id of the chart raising the event </li>
+                    <li><span class="codeInline">startIndex</span> : Index of the first visible dataplot from left </li>
+                    <li><span class="codeInline">endIndex</span> : Index of the first visible dataplot from right </li>
+                    <li><span class="codeInline">startItemLabel</span> : Data label of the first visible dataplot from left </li>
+                    <li><span class="codeInline">endItemLabel</span> : Data label of the first visible dataplot from right </li>
+                 </ul>
+                 <br />
+                 <strong>The event arguments provided in the advanced model are :</strong><br />
+                 <br />
+                 <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                 <br />
+                 <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+                 <br />
+                 <br />
+                 <ul>
+                    <li><span class="codeInline">startIndex </span>: Index of the first visible dataplot from left </li>
+                 </ul>
+                 <ul>
+                    <li>                       <span class="codeInline">endIndex</span> :
+                       Index of the first visible dataplot from right </li>
+                    <li>                       <span class="codeInline">startLabel </span>:
+                       Data label of the first visible dataplot from left </li>
+                    <li> <span class="codeInline">endLabel</span> :               Data label of the first visible dataplot from right </li>
+                 </ul>
+             </td>
+           </tr>
+           <tr>
+              <td valign="top" class="codeInline"><a name="pinned" id="pinned"></a>Pinned</td>
+              <td valign="top" class="codeInline">FC_Pinned</td>
+              <td valign="top" class="text">This event is raised when points have been pinned onto the chart.</td>
+              <td class="text">The event arguments provided by <span class="codeInline">FC_Pinned</span> function (simple event model) are: <br />
+                 <br />
+                 <ul>
+                    <li><span class="codeInline">DOMId</span> : Id of the chart raising the event </li>
+                    <li><span class="codeInline">startIndex</span> : Index of the first visible dataplot from left </li>
+                    <li><span class="codeInline">endIndex</span> : Index of the first visible dataplot from right </li>
+                    <li><span class="codeInline">startItemLabel </span>: Data label of the first visible dataplot from left </li>
+                    <li><span class="codeInline">endItemLabel</span> : Data label of the first visible dataplot from right </li>
+                 </ul>
+                 <br />
+                 <strong>The event arguments provided in the advanced model are :</strong><br />
+                 <br />
+                 <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                 <br />
+                 <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+                 <br />
+                 <ul>
+                    <li><span class="codeInline">startIndex </span>: Index of the first visible dataplot from left </li>
+                 </ul>
+                 <ul>
+                    <li> <span class="codeInline">endIndex</span> :
+                       Index of the first visible dataplot from right </li>
+                    <li> <span class="codeInline">startLabel </span>:
+                       Data label of the first visible dataplot from left </li>
+                    <li> <span class="codeInline">endLabel</span> :               Data label of the first visible dataplot from right </li>
+                 </ul>
+              </td>
+           </tr>
+           
+           <tr >
+              <td valign="top" class="codeInline"><a name="zoomedout" id="zoomedout"></a>ZoomedOut</td>
+              <td valign="top" class="codeInline">FC_ZoomedOut</td>
+              <td valign="top" class="text">This event is raised   when chart is reset using button/context menu.</td>
+              <td class="text">The event argument provided by <span class="codeInline">FC_ZoomedOut</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+                 <br />
+                 <strong>The event arguments provided in the advanced model are :</strong><br />
+                 <br />
+                 <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                 <br />
+                 <span class="codeInline">argumentsObject</span> : This object contains properties listed below:
+                 <br />
+                 <br />
+                 <ul>
+                    
+                    <li><span class="codeInline">eventObject</span> : The name of the event raiser object in chart. The value can be &quot;toolbar&quot; or &quot;menu&quot;</li>
+                </ul>
+             </td>
+           </tr>
+           
+           <tr>
+              <td valign="top" class="codeInline"><a name="resetzoomchart" id="resetzoomchart"></a>ResetZoomChart</td>
+              <td valign="top" class="codeInline">FC_ResetZoomChart</td>
+              <td valign="top"> This event is raised  when chart is reset using button/context menu.</td>
+              <td class="text">The event argument provided by<span class="codeInline"> FC_ResetZoomChart</span> function (simple event model) is <span class="codeInline">DOMId</span> of the chart raising the event. <br />
+                 <br />
+                 <strong>The event arguments provided in the advanced model are :</strong><br />
+                 <br />
+                 <span class="codeInline">eventObject</span> : This object contains <span class="codeInline">eventId</span>, <span class="codeInline">eventType </span>and <span class="codeInline">sender </span>properties. <br />
+                 <br />
+                 <span class="codeInline">argumentsObject</span> : This object contains properties listed below: <br />
+                 <br />
+                 <ul>
+                    <li><span class="codeInline">eventObject</span> : The name of the event raiser object in chart. The value can be &quot;toolbar&quot; or &quot;menu&quot;<br />
+              </li>
+                 </ul>
+             </td>
+           </tr>
+        </table>
+     </td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="highlightBlock">You can also experience these API live from the consolidated example  by clicking <a href="../../../../Code/JavaScript/ZoomLine/Index.html" target="_blank">here</a>. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("3D Chart JavaScript API|Combi3D_JSAPI.html","Pie/Doughnut chart API|PieDoughnut_JSAPI.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

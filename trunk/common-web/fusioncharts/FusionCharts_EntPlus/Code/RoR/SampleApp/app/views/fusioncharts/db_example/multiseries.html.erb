@@ -1,0 +1,12 @@
+<% @page_title=" FusionCharts Multiseries chart using data from database " %>
+<% @page_heading=" FusionCharts Multiseries chart using data from database " %>
+<% @page_subheading="Output of various factories." %>
+<p class='text'>This is very simple implementation of a multi-series chart using a simple database.</p>
+<%
+	# The xml is obtained as a string from builder template.
+	str_xml = render :file=>"fusioncharts/db_example/msfactory_details",:locals=>{:factories => @factories,:factory_dates_of_production=>@factory_dates_of_production}
+
+	#Create the chart - Pie 3D Chart with data from strXML
+	render_chart '/FusionCharts/MSLine.swf','', str_xml, 'FactorySum', 700, 400, false, false  do-%>
+<% end-%> 
+

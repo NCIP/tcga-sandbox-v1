@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts JavaScript API - Functions </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../JS_Overview.html", "API Reference|Overview.html", "Functions" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts JavaScript API - Functions </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class API provides a number of functions to ease implementation. The list below shows details on each function : </p>
+      </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+       <table cellspacing="0" cellpadding="0" class="table" width="100%">
+        
+        <tr class="trLightBlueBg">
+          <td class="header" valign="top" width="25%">API Method signature </td>
+          <td class="header" valign="top" width="35%">Purpose</td>
+          <td class="header" valign="top" width="40%">Example and what it returns? </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><strong><a name="global" id="global"></a></strong>JavaScript global functions</strong></td>
+        </tr>
+        <tr>
+           <td class="codeInline" valign="top"><a name="staticfusioncharts" id="staticfusioncharts"></a>FusionCharts(chartId: string)</td>
+           <td class="text" valign="top">This function helps in accessing the  <a href="../JS_ChartInstance.html#js">JavaScript Object reference of a chart</a>.   A reference of a chart is necessary to perform all available API functions, use all available properties and listen to events. 
+<p>When a chart-id is passed, it tries to return (if available) the reference of the instance of the FusionCharts object.</p>
+<p>This is same as <span class="codeInline">FusionCharts.items[]</span> static array which also provides the reference of the chart object. </p></td>
+           <td class="text" valign="top">It returns the<a href="../JS_ChartInstance.html#js"> chart object reference </a>which you can use to call all API functions, use all API  properties and listen to API events. <br />
+              <br />
+              <pre class="prettyprint">var chartReference = FusionCharts(&quot;myChartId&quot;);</pre> 
+              <br />
+              <br />           </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getchartfromid" id="getchartfromid"></a>getChartFromId(chartId: string)</td>
+          <td class="text" valign="top">This function helps in accessing the <a href="../JS_ChartInstance.html#js">JavaScript Object reference of a chart</a>. Same as <span class="codeInline">FusionCharts()</span> static function. <br />
+
+             <p class="highlightBlock"><span class="codeInline">getChartFromId</span> is deprecated.</p>          </td>
+          <td class="text" valign="top">It returns the<a href="../JS_ChartInstance.html#js"> chart object reference </a>which you can use to call all API functions, use all API  properties and listen to API events. <br />
+            <br />
+<pre class="prettyprint">var chartReference = getChartFromId(&quot;myChartId&quot;);</pre> </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="text"><strong><a name="static" id="static"></a>FusionCharts class - static functions </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getobjectreference" id="getobjectreference"></a>getObjectReference(chartId: string) </td>
+          <td class="text" valign="top">This function helps in accessing the <a href="../JS_ChartInstance.html#html">HTML Object reference</a> of a chart. HTML Object is the actual chart object that physically gets rendered on the web page. The HTML object helps in direct communication between the chart and JavaScript.
+            <p>It is not recommended to use this function unless absolutely needed.</p> </td>
+          <td class="text" valign="top">Returns the HTML object that has been rendered. In case of Flash renderer, this will return the reference to the HTML node where the SWF is rendered.<br />
+          <br />
+             <br />
+                <pre class="prettyprint">var chartHTMLReference = FusionCharts.getObjectReference(&quot;myChartId&quot;);</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><a name="setcurrentrenderer" id="setcurrentrenderer"></a><span class="codeInline">setCurrentRenderer(renderer: string) </span></td>
+          <td class="text" valign="top">Sets the <a href="#paramrenderer">renderer</a> for all the charts. Presently you can pass either 'javascript' or 'flash' as the value of renderer parameter.
+         <p> All the charts that get rendered, after this function call, will abide by this setting.</p> </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.setCurrentRenderer('javascript'); </pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><span class="codeInline"><a name="staticrender" id="staticrender"></a>render(chartParameters: Object) <br />
+             <br />
+          </span>or<br />
+             <span class="codeInline"><br />
+render(swfUrl, chartId , width, height, renderAt, dataSource, dataFormat, otherParameters: Object) <br />   
+<br />
+             </span>or<br />   
+                     <span class="codeInline"><br />
+                     render(chartParameters: mixed) <br />
+            </span>or<br />   
+                     <span class="codeInline"><br />
+                     render(chartObject: FusionCharts) <br />
+</span></td>
+          <td class="text" valign="top">This function acts as a <a href="../JS_CreateChart.html#compact">compact constructor</a> for FusionCharts. It is a static function that helps rendering a chart using a single line of code. 
+         <p> It can take an Object as parameter containing all <a href="#chartparams">chart parameters</a>. See, first example on right.</p> 
+          <p>It can take linear string parameters (second example on right) as listed below:</p>
+           <ol>
+              <li><span class="codeInline">swfUrl </span>: Path to the chart SWF file</li>
+              <li><span class="codeInline">id</span> : DOM id to be set to the chart </li>
+              <li><span class="codeInline">width</span> : Width of the chart </li>
+              <li><span class="codeInline">height</span> : Height of the chart </li>
+              <li><span class="codeInline">renderAt</span> : Container HTML element's (normally a DIV) Id or HTMLNode object where the chart would be rendered </li>
+              <li><span class="codeInline">dataSource</span> : XML or JSON chart data. It can be a URL for XML or JSON, it can be XML or JSON in string or it can be a JSON object </li>
+              <li><span class="codeInline">dataFormat</span> : Defines the format of the dataSource.<ul>
+              <li> It is <span class="codeInline">xmlurl</span> when data source is an URL to XML data</li>
+              <li>It is <span class="codeInline">xml</span> when the data source is an XML String</li>
+              <li>It is <span class="codeInline">jsonurl</span> when data source is an URL to JSON data</li>
+              <li>It is <span class="codeInline">json </span>when the data source is a JSON String or JSON object </li>
+              </ul>
+              </li>
+              <li><span class="codeInline">otherParameters</span> : It contains other chart parameters.<a href="#chartparams"> Click here</a> to see detailed list of chart parameters </li>
+            </ol>
+			 <p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL(using <span class="codeInline">xmlurl </span>and <span class="codeInline">jsonurl</span> as <span class="codeInline">dataFormat</span>). If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   <span class="codeInline">xml</span> or <span class="codeInline">json</span>(using the <a href="../../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine.</p>
+			
+             <p>Additionally, it can take a mixture of linear parameters and an Object parameter at the end. The linear parameters should be in order. You can pass any one or more (up to no. 7 in the list above) linear parameters before you can pass the Object parameter. See the third example on right.</p>
+           <p><strong>NOTE:</strong> You must pass the values for <span class="codeInline">swfUrl</span>, <span class="codeInline">dataSource</span> and <span class="codeInline">dataFormat</span> to render a chart. The chart will fail to render if any one of these parameters are missing. </p>
+		   <p>You may also pass an instance of FusionCharts object to it in order to render each FusionCharts object.</p>
+           <p>This function fires up the chart rendering processes. Hence, a number of events are fired after this function call. The events are listed in sequence below:</p>
+           <ul>
+              <li><a href="Events.html#initialize"><span class="codeInline">Initialize</span></a></li>
+              <li><a href="Events.html#dataloadrequested"><span class="codeInline">DataLoadRequested</span></a></li>
+              <li><a href="Events.html#dataloadrequestcompleted"><span class="codeInline">DataLoadRequestCompleted</span></a></li>
+              <li><a href="Events.html#dataupdated"><span class="codeInline">DataUpdated</span></a></li>
+              <li><a href="Events.html#loaded"><span class="codeInline"> Loaded</span> ( or <span class="codeInline">FC_Loaded</span> ) </a></li>
+              <li><a href="Events.html#dataloaded"><span class="codeInline">DataLoaded</span> ( or <span class="codeInline">FC_DataLoaded</span> ) </a></li>
+              <li><a href="Events.html#rendered"><span class="codeInline">Rendered</span> ( or <span class="codeInline">FC_Rendered</span> )</a></li>
+              <li><a href="Events.html#drawcomplete"><span class="codeInline">DrawComplete</span></a><span class="codeInline"></span></li>
+           </ul>
+           <p>On various issues when chart does not get rendered these error events are fired:</p>
+           <ul>
+              <li><a href="Events.html#dataloadrequestcancelled"><span class="codeInline">DataLoadRequestCancelled</span></a></li>
+              <li><a href="Events.html#dataloadcancelled"><span class="codeInline">DataLoadCancelled</span></a></li>
+              <li><a href="Events.html#nodatatodisplay"><span class="codeInline">NoDataToDisplay</span> (<span class="codeInline">FC_NoDataToDisplay</span>) </a></li>
+              <li><a href="Events.html#dataloaderror"><span class="codeInline">DataLoadError</span> (<span class="codeInline">FC_DataLoadError</span>) </a></li>
+              <li><a href="Events.html#dataxmlinvalid"><span class="codeInline">DataXMLInvalid</span> (<span class="codeInline">FC_DataXMLInvalid</span>) </a></li>
+           </ul>          </td>
+          <td class="text" valign="top">
+             It returns a <a href="../JS_ChartInstance.html#js"> javascript chart object</a>.<br />   
+                   <br />
+                Example:<br />
+                <br />
+                <pre class="prettyprint">var myChart = FusionCharts.render({ swfUrl : &quot;FusionCharts/Column3D.swf&quot;, id : &quot;myChartId&quot;, renderAt : &quot;chartContainer&quot;, dataSource : &quot;Data.xml&quot; })</pre>
+                <p>or</p>
+                <pre class="prettyprint">var myChart = FusionCharts.render(&quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;chartContainer&quot;, &quot;Data.xml&quot;, &quot;xmlurl&quot;);</pre>
+             <p>or</p>
+          <pre class="prettyprint">var myChart = FusionCharts.render(&quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;chartContainer&quot;, {dataFormat : &quot;xmlurl&quot;, dataSource : &quot;Data.xml&quot; });</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><span class="codeInline"><a name="staticaddeventlistener" id="staticaddeventlistener"></a>addEventListener(event:string, listener: function)</span><br />
+          or<br />
+          <span class="codeInline">addEventListener(events:Array, listener: function)</span></td>
+          <td class="text" valign="top">This function acts as advanced event registration model. You give it two arguments: the <a href="Events.html">event type or name of the event</a> and  the function to be executed. 
+           <p> This function, when called as static method using <span class="codeInline">FusionCharts.addEventListener()</span>, registers the global events of all the charts present in a page.</p>
+            <p> In the listener argument you can pass a named-function or the name of a function (see example at the top on right column) which will listen to the event or you can directly define an anonymous function as the argument (see example at bottom on the right column).</p>
+			<p>You may attach a function to multiple events by passing the event names in an array.</p></td>
+          <td class="text" valign="top">It returns nothing.
+             <p>Example:</p>
+             <pre class="prettyprint">FusionCharts.addEventListener(&quot;Rendered&quot;, doSomething);</pre>
+          <p>or</p>
+          <pre class="prettyprint">FusionCharts.addEventListener(&quot;Rendered&quot;, function(e,p) { alert(e.sender.id ); });</pre>
+		            <p>or</p>
+		  <pre class="prettyprint">FusionCharts.addEventListener(['Initialized', 'Disposed'], function () {<br />&nbsp;&nbsp;&nbsp;&nbsp;// do something!<br />});</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><a name="staticremoveeventlistener" id="staticremoveeventlistener"></a><span class="codeInline">removeEventListener(event:string, listener: function)</span><br />
+            or<br />
+            <span class="codeInline">removeEventListener(events:Array, listener: function)</span></td>
+          <td class="text" valign="top">This function removes a named event-listener function for a particular event that was defined using <span class="codeInline">addEventListener</span>.   This function when called as static method using <span class="codeInline">FusionCharts.removeEventListener()</span> removes a named events-listener from all the charts on a page.
+             <p>The <a href="Events.html">name of the event type</a> is passed as the first parameter.</p>
+         <p> The second parameter is the name of the function which was added as the event listener for that event by <span class="codeInline">addEventListener</span>.</p>
+		 <p>You may also remove a function from multiple events by passing the event names in an array.</p></td>
+          <td class="text" valign="top">It returns nothing.
+<p>Example:</p>
+<pre class="prettyprint">FusionCharts.removeEventListener(&quot;Rendered&quot;, doSomething);</pre>          </td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong>FusionCharts class - constructor </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a></a><strong><a name="constructor" id="constructor"></a></strong>FusionCharts</td>
+          <td class="text" valign="top">This is the constructor method of FusionCharts JavaScript class. It allows you to create new instance of FusionCharts using legacy set of linear parameters as well as an Object parameter.
+            <p> It can take an Object as parameter containing all chart parameters. See, first example on right. </p>
+           <strong><a name="chartparams" id="chartparams"></a>Chart Parameters</strong> <br />
+           <br />
+It can take linear string parameters (second example on right) as listed below:
+<ol>
+   <li><span class="codeInline"><a name="paramswfurl" id="paramswfurl"></a>swfUrl </span>: Path to the chart SWF file</li>
+   <li><span class="codeInline"><a name="paramid" id="paramid"></a>id</span> : DOM id to be set to the chart (optional) </li>
+   <li><span class="codeInline"><a name="paramwidth" id="paramwidth"></a>width</span> : Width of the chart&nbsp; (optional - default is 400) </li>
+   <li><span class="codeInline"><a name="paramheight" id="paramheight"></a>height</span> : Height of the chart (optional - default is 300) </li>
+   <li><span class="codeInline"><a name="paramdebugmode" id="paramdebugmode"></a>debugMode</span> : Sets the chart debug window on. Can take &quot;0&quot; or &quot;1&quot;. When set to &quot;1&quot;, a chart shows  debug window over itself. (optional - default value is &quot;0&quot;) </li>
+   <li><span class="codeInline"><a name="paramregisterwithjs" id="paramregisterwithjs"></a>registerWithJS</span> : Allow chart to communicate with JavaScript. This should be set to &quot;1&quot;. This parameter is deprecated and is kept for backward compatibility issues. (optional)</li>
+   <li><span class="codeInline"><a name="parambgcolor" id="parambgcolor"></a>bgColor</span> : A String containing hex coded color value. This sets the color of the flash player's background on which a chart gets drawn. This background color is not same as the background color of a chart. This background is visible while showing chart messages or when chart's <span class="codeInline">bgAlpha</span> is set to less than 100. (optional - default value is &quot;#FFFFFF&quot; i.e., white) </li>
+   <li><span class="codeInline"><a name="paramscalemode" id="paramscalemode"></a>scaleMode</span> : Flash player's mode of scaling a chart. &quot;NoScale&quot; should be the value. There are other options like showAll, ExactFit, noBorder. But these are not supported and might result into distorted charts.<br />
+      &nbsp; (optional)</li>
+   <li><span class="codeInline"><a name="paramlang" id="paramlang"></a>lang</span> :Sets the language. It presently supports English only. The value is &quot;EN&quot;. (optional) </li>
+   <li><span class="codeInline"><a name="paramdetectflashversion" id="paramdetectflashversion"></a>detectFlashVersion</span> :Set to &quot;1&quot; to make FusionCharts Class check whether Flash Player 8 is present in the Browser. (optional - Default value is &quot;0' ) </li>
+   <li><span class="codeInline"><a name="paramautoinstallredirect" id="paramautoinstallredirect"></a>autoInstallRedirect</span> :Set to &quot;1&quot; with <span class="codeInline">detectFlashVersion</span> set to &quot;1&quot; and FusionCharts redirects to Flash Player installation page of Adobe's Web site. (optional - default is &quot;0')</li>
+   </ol>
+<p>Apart from these parameters you can add additional parameters to the object based parameter. Those additional parameters are :</p>
+<ol start="12">
+   <li><span class="codeInline"><a name="paramrenderat" id="paramrenderat"></a>renderAt</span> : Container HTML element's (normally a DIV) Id or HTMLNode object where the chart would be rendered </li>
+   <li><span class="codeInline"><a name="paramdatasource" id="paramdatasource"></a><a name="datasource" id="datasource"></a>dataSource</span> : XML or JSON chart data. It can be a URL for XML or JSON, it can be XML or JSON in string or it can be a JSON object </li>
+   <li><span class="codeInline"><a name="paramdataformat" id="paramdataformat"></a><a name="dataformat" id="dataformat"></a>dataFormat</span> : Defines the format of the dataSource.
+         <ul>
+            <li> It is <span class="codeInline">xmlurl</span> when data source is an URL to XML data</li>
+            <li>It is <span class="codeInline">xml</span> when the data source is an XML String</li>
+            <li>It is <span class="codeInline">jsonurl</span> when data source is an URL to JSON data</li>
+            <li>It is <span class="codeInline">json </span>when the data source is a JSON String or JSON object</li>
+         </ul>
+   </li>
+	<li><span class="codeInline"><a name="paramrenderer" id="paramrenderer"></a>renderer</span> : Sets the chart renderer engine. Its value can be '<span class="codeInline">flash</span>' or '<span class="codeInline">javascript</span>'. The default value is <span class="codeInline">flash </span>which generated Flash charts. When set to <span class="codeInline">javascript </span>FusionCharts JavaScript class renders pure JavaScript charts. </li>
+</ol>
+<p>Additionally, it can take a mixture of linear parameters and an Object parameter at the end. The linear parameters should be in order. You can pass any one or more (up to no. 11 in the list above) linear parameters before you can pass the Object parameter. See the third example on right.</p>
+<p>After instantiating the object, <a href="Events.html#initialize">Initialized</a> event would get fired. </p>
+<p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL(using <span class="codeInline">xmlurl </span>and <span class="codeInline">jsonurl</span> as <span class="codeInline">dataFormat</span>). If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   <span class="codeInline">xml</span> or <span class="codeInline">json</span>(using the <a href="../../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine.</p>
+</td>
+          <td class="text" valign="top">It returns a <a href="../JS_ChartInstance.html#js"> javascript chart object.</a>
+          <p>Example:</p>
+<pre class="prettyprint">var myChart = new FusionCharts({ swfUrl : &quot;FusionCharts/Column3D.swf&quot;, id : &quot;myChartId&quot;, renderAt : &quot;chartContainer&quot;, dataSource : &quot;Data.xml&quot; });</pre>
+<p><br />
+  or</p>
+<pre class="prettyprint">var myChart = new FusionCharts(&quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;);</pre>
+<p> <br />
+  or</p>
+<pre class="prettyprint">var myChart = new FusionCharts(&quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;chartContainer&quot;, {dataFormat : &quot;xmlurl&quot;, dataSource : &quot;Data.xml&quot;});</pre>          </td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><a name="instance" id="instance"></a>FusionCharts class - instance functions </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><a name="configure" id="configure"></a><span class="codeInline">configure(name:string , value:string)<br />
+                <br />
+            </span>or<span class="codeInline"><br />
+            <br />
+          configure(configurations: Object)</span></td>
+          <td class="text" valign="top">Sets a chart configuration before rendering the chart. You can mainly use this function to set <a href="../../advanced/ChartMessages.html">chart messages</a> or <a href="../../grid-component/Grid_Usage.html#gridparam">grid parameters</a> using this function. 
+           <p> The <span class="codeInline">name</span> of the configuration and the <span class="codeInline">value</span> of the configuration are passed as parameters. See first example on the right.</p>
+<p>You can also pass a collection of configurations as Object to the function. The parameter object would contain  <span class="codeInline">name</span> and <span class="codeInline">value</span> pairs of the configuration name and the corresponding values. See second example on the right.</p>          </td>
+          <td valign="top"><pre class="prettyprint">myChart.configure(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);</pre>
+          <p><br />
+            or</p>
+            <pre class="prettyprint">myChart.configure({ &quot;ChartNoDataText&quot; : &quot;Please select a record above&quot; , &quot;InvalidXMLText&quot; : &quot;Please validate data&quot; });</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><a name="addvariable" id="addvariable"></a><span class="codeInline">addVariable</span><span class="codeInline">(name:string , value:string)<br />
+          </span></td>
+          <td class="text" valign="top">Sets a chart configuration before rendering the chart. You can mainly use this function to set chart messages or grid parameters using this function. 
+              <p class="highlightBlock"><span class="codeInline">addVariable</span> is deprecated. Please use <a href="#configure"><span class="codeInline">configure()</span></a> instead. </p>          
+          </td>
+          <td class="text" valign="top"><pre class="prettyprint">myChart.addVariable(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);</pre></td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+           <td valign="top"><span class="codeInline"><a name="render" id="render"></a>render(renderAt: String) <br />
+              <br />
+              </span>or<span class="codeInline"><br />
+                 <br />
+          render(renderAt: HTMLNode)</span></td>
+           <td class="text" valign="top">This function renders a chart inside a container element reference to which has passed as a parameter of this function.
+             <p> This function is called after the chart gets instantiated as JavaScript object <span class="codeInline">new FusionCharts</span>. It takes a string containing the id of an HTML container Element like DIV or SPAN.</p> 
+         <p>  You can also pass the HTMLNode object of a container element to this function. </p>
+         <p>  This function  fires the chart rendering process. Hence, a number of events are fired after this function call. The events are listed in sequence below: </p>
+           <ul>
+              <li><a href="Events.html#initialize"><span class="codeInline">Initialize</span></a></li>
+              <li><a href="Events.html#dataloadrequested"><span class="codeInline">DataLoadRequested</span></a></li>
+              <li><a href="Events.html#dataloadrequestcompleted"><span class="codeInline">DataLoadRequestCompleted</span></a></li>
+              <li><a href="Events.html#dataupdated"><span class="codeInline">DataUpdated</span></a></li>
+              <li><a href="Events.html#loaded"><span class="codeInline"> Loaded</span> ( or <span class="codeInline">FC_Loaded</span> ) </a></li>
+              <li><a href="Events.html#dataloaded"><span class="codeInline">DataLoaded</span> ( or <span class="codeInline">FC_DataLoaded</span> ) </a></li>
+              <li><a href="Events.html#rendered"><span class="codeInline">Rendered</span> ( or <span class="codeInline">FC_Rendered</span> )</a></li>
+              <li><a href="Events.html#drawcomplete"><span class="codeInline">DrawComplete</span></a></li>
+             </ul>
+           <p>On various issues when chart does not get rendered these error events are fired:</p>
+           <ul>
+              <li><a href="Events.html#dataloadrequestcancelled"><span class="codeInline">DataLoadRequestCancelled</span></a></li>
+              <li><a href="Events.html#dataloadcancelled"><span class="codeInline">DataLoadCancelled</span></a></li>
+              <li><a href="Events.html#nodatatodisplay"><span class="codeInline">NoDataToDisplay</span> (<span class="codeInline">FC_NoDataToDisplay</span>) </a></li>
+              <li><a href="Events.html#dataloaderror"><span class="codeInline">DataLoadError</span> (<span class="codeInline">FC_DataLoadError</span>) </a></li>
+              <li><a href="Events.html#dataxmlinvalid"><span class="codeInline">DataXMLInvalid</span> (<span class="codeInline">FC_DataXMLInvalid</span>) </a></li>
+             </ul>
+           <br />           </td>
+           <td class="text" valign="top"><pre class="prettyprint">myChart.render(&quot;chartContainer&quot;);</pre>
+          <p> <br />
+            or</p>
+              <pre class="prettyprint">myChart.render(document.getElementById (&quot;chartContainer&quot;));</pre></td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setxmlurl" id="setxmlurl"></a>setXMLUrl(Url: String)</td>
+          <td class="text" valign="top"> <p>Sets or changes the XML data of the chart to a specified Url. The URL has to be relative to the web page where the chart is deployed. By default, cross-domain Url-s are not allowed. Again, absolute Url-s are not allowed. </p>
+          <p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided using <span class="codeInline">setXMLUrl </span>function. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you use <span class="codeInline">setXMLData </span>function , it works fine.</p></td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setXMLUrl(&quot;mychartdata.xml&quot;);</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setxmldata" id="setxmldata"></a>setXMLData(XML: string) </td>
+          <td class="text" valign="top"> Changes the data of the chart to the specified XML string. 
+             <p class="textBold">Note of caution:</p> <p>When specifying XML as string, please make sure that there are no conflicts in quotes between the JS function call and the quotation mark used to enclose attributes in XML string.</p> </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setXMLData(&quot;&lt;chart&gt;&lt;set value='100' /&gt;&lt;/chart&gt;&quot;);</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setjsonurl" id="setjsonurl"></a>setJSONUrl(Url: String)</td>
+          <td class="text" valign="top">Sets or changes the data of the chart to a specified Url. The URL has to be relative to the web page where the chart is deployed. By default, cross-domain Url-s are not allowed. Again, absolute Url-s are not allowed.
+		            <p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided using <span class="codeInline">setJSONUrl </span>function. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you use <span class="codeInline">setJSONData </span>function , it works fine.</p>
+		  </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setJSONUrl(&quot;myJSONStream.json&quot;);</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><span class="codeInline"> <a name="setjsondata" id="setjsondata"></a>setJSONData(JSON:Object) <br />
+             </span>or<span class="codeInline"><br />
+             setJSONData(JSON:String) </span></td>
+          <td class="text" valign="top"> Changes the data of the chart to the specified JSON string or JSON Object. 
+            <p class="textBold">Note of caution:</p> 
+            <p>When specifying JSON as string, please make sure that there are no conflicts in quotes between the JS function call and the quotation mark used to enclose JSON properties and values.</p> </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setJSONData( {
+    &quot;chart&quot;:{
+        &quot;caption&quot;:&quot;My Chart Caption&quot;   
+     },   
+     &quot;data&quot;:[
+        {  &quot;value&quot;:&quot;100&quot; },
+        {  &quot;value&quot;:&quot;200&quot; }
+       ] 
+    }
+ );
+
+
+or
+
+myChart.setJSONData('{&quot;chart&quot;:{ &quot;caption&quot;:&quot;My Chart Caption&quot; }, &quot;data&quot;:[ {&quot;value&quot;:&quot;100&quot; }, { &quot;value&quot;:&quot;200&quot; } ] });
+
+
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setchartdataurl" id="setchartdataurl"></a>setChartDataUrl(Url:String, dataFormat: string)</td>
+          <td class="text" valign="top">Sets or changes the data of the chart to a specified Url. The URL has to be relative to the web page where the chart is deployed. By default, cross-domain Url-s are not allowed. Again, absolute Url-s are not allowed.
+          <p>This function takes two parameters. The first is URL of the data. The second is the <span class="codeInline">dataFormat</span> in string, which can be &quot;<span class="codeInline">xml</span>&quot; or &quot;<span class="codeInline">json&quot;</span>.</p>
+		            <p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided using <span class="codeInline">setChartDataUrl </span>function. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you pass the data as string, it works fine.</p>
+	      </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setChartDataUrl(&quot;mydynamicdata.aspx&quot;, &quot;json&quot;);
+ 
+or 
+ 
+myChart.setChartDataUrl(&quot;mydynamicdata.aspx&quot;, &quot;xml&quot;);
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setchartdata" id="setchartdata"></a>setChartData(dataSource: string, dataFormat: string)</td>
+          <td class="text" valign="top">Sets or changes the data of the chart.
+<p>This function takes two parameters. The first is <span class="codeInline">dataSource</span> of the data. The second is the <span class="codeInline">dataFormat</span>. The data source can be a URL to XML source, URL to JSON source, XML as string, JSON as string and JSON as object. Hence, to identify the format correctly <span class="codeInline">dataFormat </span>is passed as second parameter.</p>
+<p><span class="codeInline">dataFormat</span> : Defines the format of the <span class="codeInline">dataSource</span>.</p>
+<ul>
+   <li> It is <span class="codeInline">xmlurl</span> when data source is an URL to XML data</li>
+   <li>It is <span class="codeInline">xml</span> when the data source is an XML String</li>
+   <li>It is <span class="codeInline">jsonurl</span> when data source is an URL to JSON data</li>
+   <li>It is <span class="codeInline">json </span>when the data source is a JSON String or JSON object </li>
+   </ul>         
+   <p class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL(using <span class="codeInline">xmlurl </span>and <span class="codeInline">jsonurl</span> as <span class="codeInline">dataFormat</span>). If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   <span class="codeInline">xml</span> or <span class="codeInline">json</span>(using the <a href="../../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine.</p>
+    </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setChartData( &quot;myxmldata.jsp&quot; , &quot;xmlurl&quot;);
+ 
+or
+ 
+myChart.setChartData( &quot;&lt;chart&gt;&lt;set value='2310'/&gt;&lt;/chart&gt;&quot; , &quot;xml&quot;);
+ 
+or
+ 
+myChart.setChartData( &quot;myjsondata.php&quot; , &quot;jsonurl&quot;);
+ 
+or
+ 
+myChart.setChartData( &quot;{ chart : {}, data :[{ value : 100 }] }&quot; , &quot;json&quot;);
+
+
+or
+
+myChart.setChartData( { chart : {}, data :[{ value : 100 }] } , &quot;json&quot;);
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setdataurl" id="setdataurl"></a>setDataURL(Url:string)</td>
+          <td class="text" valign="top">This function helps in setting or updating chart XML data for chart from Url. This function takes a URL as string. <br />
+             <p class="highlightBlock"><span class="codeInline">setDataURL</span> is deprecated.</p>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setDataURL( &quot;myxmlsource.xml&quot; );</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="setdataxml" id="setdataxml"></a>setDataXML(dataSource: string) </td>
+          <td class="text" valign="top">This function helps in setting or updating chart XML data for a string. <br />
+<p class="highlightBlock"><span class="codeInline">setDataXML</span> is deprecated.</p>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.setDataXML( &quot;&lt;chart&gt;&lt;set value='213' /&gt;&lt;/chart&gt;&quot;);</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="settransparent"></a>SetTransparent ( isTransparent: boolean )</td>
+          <td class="text" valign="top"> Makes the chart background ready to become transparent. You would need to set <span class="codeInline">bgAlpha</span>, <span class="codeInline">canvasBgAlpha</span> etc. attributes of the<span class="codeInline"> &lt;chart&gt;</span> element to finalize the transparency.
+            <p>The function accepts a boolean parameter. Only when <span class="codeInline">true</span> is passed the chart to the function the chart is prepared to have transparent background. </p>
+          </td>
+          <td class="text" valign="top"> <pre class="prettyprint">myChart.setDataXML( &quot;&lt;chartbgAlpha='0,0'&gt;&lt;set value='213' /&gt;&lt;/chart&gt;&quot;);
+myChart.setTransparent(true);</pre>   
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getchartdata" id="getchartdata"></a>getChartData(dataFormat:string)</td>
+          <td class="text" valign="top">This function returns chart data as per <span class="codeInline">dataFormat</span> provided as parameter. When <span class="codeInline">xml</span> is passed as <span class="codeInline">dataFormat</span> it provides XML data as string. When <span class="codeInline">json</span> is passed as <span class="codeInline">dataFormat</span>, data is returned as JSON Object.</td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var myXML = FusionCharts(&quot;myChartId&quot;).getChartData( &quot;xml&quot;);
+
+
+var myJSONObj = FusionCharts(&quot;myChartId&quot;).getChartData( &quot;json&quot; );</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getxmldata" id="getxmldata"></a>getXMLData()</td>
+          <td class="text" valign="top">Returns the XML data of chart as string. <br />          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var myXML = FusionCharts(&quot;myChartId&quot;).getXMLData();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getjsondata" id="getjsondata"></a>getJSONData()</td>
+          <td class="text" valign="top">Returns the JSON data of chart as Object. <br />          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var myJSONObj = FusionCharts(&quot;myChartId&quot;).getJSONData();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getdataascsv" id="getdataascsv"></a>getDataAsCSV()</td>
+          <td class="text" valign="top">Returns the data of chart as CSV string. The output CSV string can be configured using <a href="../../JavaScript/API/Methods.html#managedprint">XML parameters</a>. String representing data of chart in CSV format. </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var strCSV = FusionCharts(&quot;myChartId&quot;).getDataAsCSV();
+
+
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getxml" id="getxml"></a>getXML()</td>
+          <td class="text" valign="top">Returns the XML data of chart. <br />
+             <br />
+             <p class="highlightBlock"><span class="codeInline">getXML</span> is deprecated.</p>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var myXML = FusionCharts(&quot;myChartId&quot;).getXML();
+
+
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="getchartattribute" id="getchartattribute"></a>getChartAttribute()</td>
+          <td class="text" valign="top">Returns the value of the attribute as specified in <span class="codeInline">chart</span> XML Node or &quot;chart&quot; property of JSON data. 
+          <p>Value of the attribute; or &quot;null&quot; if the attribute was empty or not found in XML/JSON.</p></td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var caption = FusionCharts(&quot;myChartId&quot;).getChartAttribute( &quot;caption&quot;);
+
+</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><span class="codeInline"><a name="setchartattribute" id="setchartattribute"></a>setChartAttribute(name:string, value:string)<br />
+                <br />
+                  </span>or<span class="codeInline"><br />
+                  <br />
+                  setChartAttribute(AttributeCollection:Object)<br />
+                  <br />
+                  </span></td>
+          <td class="text" valign="top">Sets chart attribute and updates the chart with the new value. It takes two parameters. The <span class="codeInline">name</span> of the attribute and the <span class="codeInline">value</span> of the parameter. 
+             <p>The <span class="codeInline">name</span> suggests chart's root properties (also known as &quot;chart attributes&quot; which are passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through <span class="codeInline">chart</span> property in chart's JSON data).</p> 
+          <p>You can also pass a collection of attribute <span class="codeInline">name</span> and <span class="codeInline">value</span> pairs to the function by passing them as an Object. See second example on the right. </p>
+          <p>Once chart attributes get changed  <a href="Events.html#drawcomplete">drawcomplete</a> event is fired. </p>          </td>
+          <td valign="top">
+            <pre class="prettyprint">myChart.setChartAttribute ( &quot;caption&quot; , &quot;Latest sales report&quot; );
+ </pre>
+            <p>or</p>
+          <pre class="prettyprint">chartReference.setChartAttribute( { &quot;palette&quot; : &quot;2&quot;, paletteColors : &quot;ACBF72&quot;, useRoundEdges : 1 } );</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td valign="top"><span class="codeInline"><a name="configurelink" id="configurelink"></a>configureLink(objConfiguration: Object, level:Number)<br />
+             <br />
+             </span>or<span class="codeInline"><br />
+                <br />
+               configureLink(arrConfiguration: Array)</span></td>
+          <td class="text" valign="top">
+             Through this function you can pass all your desired configurations for the <i>LinkedCharts</i>. You can pass all the <a href="#chartparams">properties</a> that a <a href="#constructor">FusionCharts constructor</a> function accepts. Those chart properties will be applied to the <i>LinkedCharts</i>. If not provided, the <i>LinkedCharts</i> will inherit properties from the parent chart.
+             <p>Additionally, you can also configure the overlay button using <span class="codeInline">overlayButton</span> property. These settings also go as another object.</p> <p><span class="codeInline">configureLink</span> function can accept parameters in either of two formats :</p>
+             <ul>
+                <li>As two separate parameters, the first parameter is an Object containing all configurations (chart and overlayButton). The second parameter accepts a number which denotes the level being configured. The first drill-down level is 0 (zero). See example at the top on the right.</li>
+                <li>As a single dimensional indexed array each element of which is an object containing all chart and overlay button related configurations. Each drill down level is denoted by the index of the array where the first level is Zero. So, the Object in a particular array index actually applies those settings to the level number which is equal to array index number.                See example at the bottom on the right.</li>
+            </ul>
+             <p><strong><a name="overlaybutton" id="overlaybutton"></a>Overlay Button settings:</strong></p>
+             <p>The following are the properties that we can pass as settings for overlay buttons:</p>
+             <ul>
+                <li><span class="codeInline">show </span>: (true/false) whether to show the overlay button </li>
+                <li><span class="codeInline">message</span>: String contain the text for close button </li>
+                <li>                   <span class="codeInline">bgColor</span>: Hex coded background color of the overlay button </li>
+                <li>                   <span class="codeInline">borderColor</span>: Hex coded border color of the overlay button</li>
+                <li><span class="codeInline">font</span> : Name of the font </li>
+                <li><span class="codeInline">fontColor</span> : Hex coded color of the overlay button's text </li>
+                <li><span class="codeInline">fontSize </span>:&nbsp; Size of the font of overlay button text </li>
+                <li><span class="codeInline">bold</span> : (true/false) Whether the overlay button's text will be bold </li>
+                <li><span class="codeInline">padding</span> :padding around the overlay button in pixels <br />
+                   <br />
+               </li>
+             </ul>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">myChart.configureLink(
+  {
+    swfUrl: 'Charts/Bar2D.swf',
+    width: '30%',
+           
+    overlayButton:
+    {    
+      message: ' x ',
+      bgColor:'999999',
+      borderColor: 'cccccc'
+    }
+  },
+0);
+ 
+</pre><p>&nbsp;</p>
+             <pre class="prettyprint">myChart.configureLink(
+     [ {swfUrl: 'Charts/Bar2D.swf'},
+       {swfUrl: 'Charts/Pie2D.swf'},
+       {swfUrl: 'Charts/Line2D.swf'}, 
+&nbsp;&nbsp;&nbsp;&nbsp;   {swfUrl: 'Charts/Area2D.swf'}
+     ] 
+    );</pre>          </td>
+        </tr>
+        <tr>
+          <td class="codeInline" valign="top"><a name="resizeto" id="resizeto"></a>resizeTo(width:String, height:String)</td>
+          <td class="text" valign="top">This function resizes an existing chart. You can pass the width and height values in percentage or as pixel values (without the px suffix).
+          <p>Once a chart gets resized <a href="Events.html#resized">resized</a> (FC_Resized) , <a href="Events.html#drawcomplete">drawcomplete</a> events are fired. </p></td>
+          <td class="text" valign="top"><pre class="prettyprint">myChart.resizeTo( &quot;500&quot;, &quot;400&quot; )</pre>
+             <p>or</p>
+             <pre class="prettyprint">myChart.resizeTo( &quot;80%&quot;, &quot;100%&quot; )</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="exportchart" id="exportchart"></a>exportChart( exportSettings: Object)</td>
+          <td class="text" valign="top">Calls the export chart   routine to save the chart as PDF/image. exportSettings object here   contains over-riding parameters to over-ride the export parameters   initially specified in XML. For more information read <a href="../../exporting-image/javascript-ref/ECJavaScript.html">this</a>.
+             <p>In cases, while saving a chart to a server location, a <a href="Events.html#exported">callback function</a> is invoked to convey status of export. </p></td>
+          <td class="text" valign="top"><pre class="prettyprint">myChart.exportChart( { exportFormat : 'jpg'} )</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="print" id="print"></a>print()</td>
+          <td class="text" valign="top">Prints a chart.<br />          </td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts(&quot;myChartId&quot;).print()</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="clone" id="clone"></a>clone( [chartParams: Object] )</td>
+          <td class="text" valign="top">The function  allows you to duplicate a FusionCharts JavaScript object and uses it's settings to create another chart. 
+            <p> The function can optionally take an object as parameter. The object can contain  <a href="#chartparams">chart settings</a> which would override the existing settings of the source chart before it gets cloned.</p>
+          <p>The function returns an instance of FusionCharts JavaScript object.</p> </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var newChart = myChart.clone();
+
+
+or
+ </pre>
+            <pre class="prettyprint">var newChart = myChart.clone( { swfUrl : 'Area2D.swf' } );</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dispose" id="dispose"></a>dispose()</td>
+          <td class="text" valign="top">You can remove a chart instance from page and memory. using <span class="codeInline">dispose() </span>function. 
+             <p>Additionally, the function will raise <span class="codeInline"><a href="Events.html#beforedispose">BeforeDispose</a></span> event prior to removing a chart and <span class="codeInline"><a href="Events.html#disposed">disposed</a> </span>after the chart has been removed.</p></td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">FusionCharts(&quot;myChartId&quot;).dispose();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="charttype" id="charttype"></a>chartType()</td>
+          <td class="text" valign="top">This function returns the chart type or chart alias of the rendered by the FusionCharts JavaScript object.
+           <p>  Please note that the alias value is dependent on the chart SWF file-name. The alias is built removing .swf extension and all extra path information from the src value of the chart loaded.</p></td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var strCharType = FusionCharts(&quot;myChartId&quot;).chartType();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="isactive" id="isactive"></a><a href="#isactivemore">isActive</a>()</td>
+          <td class="text" valign="top">This function checks whether a FusionCharts SWF is visible and active. Returns true or false. </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var strCharType = FusionCharts(&quot;myChartId&quot;).isActive();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="hasrendered" id="hasrendered"></a><a href="#hasrenderedmore">hasRendered</a>()</td>
+          <td class="text" valign="top">This function returns Boolean value indicating whether the chart has finished rendering.<br />
+                <br />
+                     
+                     <p class="highlightBlock"><span class="codeInline">hasRendered()</span> is deprecated                  </p>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var strCharType = FusionCharts(&quot;myChartId&quot;).hasRendered();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="signature" id="signature"></a><a href="#signaturemore">signature</a>()</td>
+          <td class="text" valign="top">It returns a string representing the signature of chart. For FusionCharts v3 charts, it's &quot;FusionCharts/3.2&quot;</td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var strCharType = FusionCharts(&quot;myChartId&quot;).signature();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><a name="printmanager" id="printmanager"></a>FusionCharts.printManager class - static functions </strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="pmconfigure" id="pmconfigure"></a>configure(configuration: Object)</td>
+          <td class="text" valign="top">This function configures print Manager. It takes an Object. In this object you can pass two properties:
+             <p><span class="codeInline">enabled </span>and <span class="codeInline">message</span>.</p>
+             <p>This function needs to be called before you call <span class="codeInline">FusionCharts.printManager.enabled()</span></p>
+             <p>The <span class="codeInline">enabled </span>property sets the <span class="codeInline">Print Manager </span>on or off by setting the value to <span class="codeInline">true</span> or <span class="codeInline">false</span>, respectively.</p>
+             <p>The <span class="codeInline">message</span> property takes a string which gets displayed in place of the printable charts until the charts are prepared for printing. The default value is : 'Chart is being prepared for print.'</p>          </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">FusionCharts.printManager.configure( { enabled: true, message : 'wait please...'} );</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="pmenabled" id="pmenabled"></a>enabled on:Boolean)</td>
+          <td class="text" valign="top">This function initializes the print manager if true is passed as the parameter. Once this function is called, the print manager starts preparing all the charts in a page for managed print. </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">FusionCharts.printManager.enabled(true);</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="managedprint" id="managedprint"></a><a name="pmmanagedprint" id="pmmanagedprint"></a>managedPrint()</td>
+          <td class="text" valign="top">Prints the chart once the print manager completes its process of making the chart ready for managed print. After the function being called, it&nbsp; waits till the charts become ready. </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">FusionCharts.printManager.managedPrint();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="pmisready" id="pmisready"></a>isReady()</td>
+          <td class="text" valign="top">Returns true when the print manger has completed the process of making all charts in a page ready for print. </td>
+          <td class="text" valign="top">
+            <pre class="prettyprint">var goPrint = FusionCharts.printManager.isReady();</pre>          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+         </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><a name="debugmode" id="debugmode"></a>FusionCharts.debugMode class - static functions </strong></td>
+         </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dmoutputto" id="dmoutputto"></a>outputTo(outputFunction: function)</td>
+          <td class="text" valign="top">Function that would handle all debug output. Generally <span class="codeInline">console.log</span> is used in browsers supporting console. You can also use alert when setting <span class="codeInline">text</span> as outputFormat. 
+            <p>This function needs to be called before you call <span class="codeInline">FusionCharts.debugMode.enabled()</span></p></td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.debugMode.outputTo( function() { console.log(arguments); } );</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dmoutputformat" id="dmoutputformat"></a>outputFormat(outputFormat: string)</td>
+          <td class="text" valign="top">The supported debugMode output formats are: <span class="codeInline">text</span> (default), <span class="codeInline">verbose</span> and <span class="codeInline">event</span>. 
+            <p>This function needs to be called before you call <span class="codeInline">FusionCharts.debugMode.enabled</span>()</p>
+         <p> When the <span class="codeInline">outputFormat</span> is set to <span class="codeInline">event</span>, the output function assigned to the debugger (using <span class="codeInline">debugMode.outputTo</span> method) is sent arguments exactly matching <a href="../JS_EventOverview.html#advanced">FusionCharts Advanced events model</a>.</p></td>
+          <td class="text" valign="top"><pre class="prettyprint">FusionCharts.debugMode.outputFormat('verbose');</pre></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="dmenabled" id="dmenabled"></a>enabled(isEnabled:boolean)<br />
+            <br />
+          or<br />
+              <br />
+            enabled(outputFunction:function, outputFormat:string)<br />
+            <br />          </td>
+          <td class="text" valign="top">Enables FusionCharts JavaScript debugMode.<br />
+                
+                <p class="highlightBlock">Note that FusionCharts JavaScript debugMode works independent of the <a href="../../Debug/Window.html">debugMode</a> (debug window) that individual Flash charts offer.</p>
+          <p>  While using a single parameter you need to pass <span class="codeInline">true</span> to enable debugMode. </p>
+            <p>You can use a compact format which sets output function as well as output format and enables debugMode by passing two parameters. Here, the first  parameter will be the <a href="#dmoutputto">outputFunction</a> and the second parameter will be the <a href="#dmoutputformat">outputFormat</a>.</p></td>
+          <td valign="top"><pre class="prettyprint">FusionCharts.debugMode.enabled(true);</pre>
+            <p>or</p>
+          <pre class="prettyprint">FusionCharts.debugMode.enabled( function() { console.log(arguments); } , 'verbose');</pre></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="details" id="details"></a>More  examples </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p><strong><a name="isactivemore" id="isactivemore"></a></strong>chartJSInstance.<strong>isActive()</strong></p>
+        <p>You can check whether a chart is visible and active after its been rendered using <span class="codeInline">isActive()</span> function. Note that this is applicable only using FusionCharts JavaScript Object. </p>
+        <pre class="code_container prettyprint">var whetherChartActive = FusionCharts(&quot;myChartId&quot;).<strong>isActive()</strong>;
+<nocode>or</nocode>
+var whetherChartActive = FusionCharts.items[&quot;myChartId&quot;].<strong>isActive()</strong>;</pre>
+        <p>This function returns a boolean value true when the chart is visible and is active. In other cases it returns false. </p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p><strong><a name="hasrenderedmore" id="hasrenderedmore"></a></strong>chartObject<strong>.hasRendered()</strong></p>
+        <p>You can check whether a chart has completed rendering and is now ready to perform other interactive actions. <span class="codeInline">hasRendered()</span> function is available in both FusionCharts JavaScript Object and FusionCharts HTML Object. </p>
+        <pre class="code_container prettyprint">var whetherRendered = FusionCharts(&quot;myChartId&quot;).<strong>hasRendered()</strong>;
+<nocode>or</nocode>
+var whetherRendered = FusionCharts.items[&quot;myChartId&quot;].<strong>hasRendered()</strong>;
+<nocode>or</nocode>
+var whetherRendered = getChartFromId(&quot;myChartId&quot;).<strong>hasRendered()</strong>;
+<nocode>or</nocode>
+var whetherRendered = FusionCharts.getObjectReference(&quot;myChartId&quot;).<strong>hasRendered()</strong>;</pre>
+        <p>This function returns a boolean value true if called after the chart has completed rendered. You can also checkout the <a href="Events.html#drawcomplete">drawcomplete</a>, <a href="Events.html#rendered">rendered</a>, <a href="Events.html#loaded">loaded</a> events to track this status. </p>
+        <p class="highlightBlock">This function has been deprecated.</p>
+     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p><strong><a name="signaturemore" id="signaturemore"></a></strong>chartObject<strong>.signature</strong>()</p>
+        <p>This property returns a string representing the signature of the chart. For FusionCharts it's &quot;FusionCharts/3.2&quot;.&nbsp; This function is available in both FusionCharts JavaScript Object and FusionCharts HTML Object. </p>
+        <pre class="code_container prettyprint">var FCJOSignature = FusionCharts(&quot;myChartId&quot;).<strong>signature()</strong> ; 
+// returns &quot;FusionCharts/3.2&quot;
+
+var FCHOSignature = FusionCharts.getObjectReference(&quot;myChartId&quot;).<strong>signature()</strong> ; 
+// returns &quot;FusionCharts/3.2&quot; </pre><br />
+        <p><strong><a name="charttypemore" id="charttypemore"></a></strong>chartJSInstance<strong>.chartType() </strong></p>
+        <p>This function returns the chart type or chart alias of the rendered by the FusionCharts JavaScript object. Please note that the alias value is dependent on the <span class="msg_handler"><a>chart SWF file-name</a>. &raquo; </span><span class="veryLightYellowBg msg_body"> the alias is built removing .swf extension and all extra path information from the <a href="Properties.html#src">src</a> value of the chart loaded.</span> This is only applicable in FusionCharts JavaScript object. </p>
+        <pre class="code_container prettyprint">var cType = FusionCharts(&quot;myChartId&quot;).<strong>chartType()</strong> ;
+// returns &quot;MSColumn3D&quot;&nbsp;when MSColumn3D.swf is loaded </pre>
+     </td>
+  </tr>
+  <tr>
+     <td height="25"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="disposemore" id="disposemore"></a>Dispose a chart</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>You can remove a chart instance from page and memory. You need to use <span class="codeInline">dispose()</span> function of the chart's JavaScript Object. The function will take care of the rest. Additionally, the function will raise <span class="codeInline">beforedispose</span> event prior to removing a chart and <span class="codeInline">disposed</span> after the chart has been removed. The code is fairly simple and does not require to listen to the events in simple implementation.</p>
+        <pre class="code_container prettyprint">FusionCharts(&quot;myChartId&quot;).dispose();</pre>
+     </td>
+  </tr>
+  <tr>
+     <td height="25"></td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="clonemore" id="clonemore"></a>Duplicate  a chart</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>The function <span class="codeInline">clone()</span> allows you to duplicate a FusionCharts JavaScript object and uses its settings to create another chart. The function returns an instance of FusionCharts JavaScript object. The function can optionally take an object as parameter. The object can contain more chart settings which would override the existing settings of the source chart before it gets cloned.</p>
+        <pre class="code_container prettyprint">var newChart = FusionCharts(&quot;myChartId&quot;).clone();
+<nocode>or</nocode>
+var newChart2 = FusionCharts(&quot;myChartId&quot;).clone( 
+  { swfUrl : &quot;FusionCharts/Pie3D.swf&quot; } 
+);</pre>
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Properties|Properties.html","Events|Events.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

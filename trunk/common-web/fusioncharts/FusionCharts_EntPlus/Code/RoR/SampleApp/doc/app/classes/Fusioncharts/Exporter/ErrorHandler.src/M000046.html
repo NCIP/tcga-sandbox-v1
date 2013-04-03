@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>set_flash_err (Fusioncharts::Exporter::ErrorHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/error_handler.rb, line 16</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">set_flash_err</span>(<span class="ruby-identifier">fc_error</span>,<span class="ruby-identifier">flash</span>,<span class="ruby-identifier">is_html</span>,<span class="ruby-identifier">meta</span>,<span class="ruby-identifier">file_name</span>=<span class="ruby-keyword kw">nil</span>)
+         <span class="ruby-identifier">error_msgs</span> = <span class="ruby-identifier">is_html</span> <span class="ruby-value">? </span><span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">error2html</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">error2qs</span>
+         <span class="ruby-identifier">warning_msgs</span>= <span class="ruby-identifier">is_html</span> <span class="ruby-value">? </span><span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">warnings2html</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">warnings2qs</span>
+         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]=<span class="ruby-identifier">warning_msgs</span>
+         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>]=<span class="ruby-identifier">error_msgs</span>
+         <span class="ruby-identifier">separator</span> = (<span class="ruby-identifier">is_html</span> <span class="ruby-value">? </span><span class="ruby-value str">&quot;&lt;br&gt;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&amp;&quot;</span>)
+         <span class="ruby-identifier">meta_new</span> = <span class="ruby-identifier">meta!</span>=<span class="ruby-keyword kw">nil</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">meta</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+         <span class="ruby-keyword kw">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">fc_error</span>.<span class="ruby-identifier">empty?</span>) 
+           <span class="ruby-comment cmt"># This means error has occured, hence statusCode=0</span>
+           <span class="ruby-comment cmt"># Values for width and height are 0 in case of error. FileName is empty.</span>
+           <span class="ruby-identifier">width</span> =<span class="ruby-value str">&quot;0&quot;</span>
+           <span class="ruby-identifier">height</span>=<span class="ruby-value str">&quot;0&quot;</span>
+           <span class="ruby-identifier">display_path</span>=<span class="ruby-value str">&quot;&quot;</span>
+           <span class="ruby-identifier">meta_new</span>.<span class="ruby-identifier">update</span>({<span class="ruby-value str">&quot;width&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">width</span>,<span class="ruby-value str">&quot;height&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">height</span>})
+         <span class="ruby-keyword kw">else</span> 
+           <span class="ruby-comment cmt"># status code =1</span>
+           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>]<span class="ruby-operator">+=</span><span class="ruby-identifier">separator</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;statusCode=1&quot;</span>
+           <span class="ruby-comment cmt"># Values for width and height in case of success. file_name is path to the file on server.</span>
+          <span class="ruby-identifier">display_path</span> =<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HTTP_URI</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\/$/</span>, <span class="ruby-value str">''</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-operator">+</span><span class="ruby-identifier">file_name</span>
+         <span class="ruby-keyword kw">end</span>
+            <span class="ruby-comment cmt"># Whether success or failure, add file URI , width and height and DomId when status success</span>
+             <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>]<span class="ruby-operator">+=</span> <span class="ruby-identifier">is_html</span> <span class="ruby-value">? </span><span class="ruby-identifier">meta2html</span>(<span class="ruby-identifier">meta_new</span>,<span class="ruby-identifier">display_path</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">meta2qs</span>(<span class="ruby-identifier">meta_new</span>,<span class="ruby-identifier">display_path</span>) 
+       <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

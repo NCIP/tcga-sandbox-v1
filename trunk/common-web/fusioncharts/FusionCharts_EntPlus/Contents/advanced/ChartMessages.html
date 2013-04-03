@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Changing Chart Messages </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Changing chart messages" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Changing Chart Messages </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts v3 allows you to change the various messages that gets displayed to the user like &quot;No data to display&quot;, &quot;Loading Chart&quot;, &quot;Retrieving data&quot; etc.</p>
+      <p>The following attributes define the different messages for the chart:  </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="65%" border="0" class="table" cellpadding="2" cellspacing="0">
+      <tr>
+        <td width="25%" class="header">Attribute Name (message type) </td>
+        <td width="40%" class="header">What it does? </td>
+        <td width="40%" class="header">What message it controls (default values)</td>
+      </tr>
+      <tr>
+        <td class="codeInline">PBarLoadingText</td>
+        <td class="text">Sets a custom message when chart is loading. </td>
+        <td class="text">Loading Chart. Please Wait.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">XMLLoadingText</td>
+        <td class="text">Sets a custom message when chart data is loading. </td>
+        <td class="text">Retrieving Data. Please Wait.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">ParsingDataText</td>
+        <td class="text">Sets a custom message when data is being parsed by chart. </td>
+        <td class="text">Reading Data. Please Wait.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">ChartNoDataText</td>
+        <td class="text">Sets a custom message when the chart has retrieved data which does not contain any data for chart to plot or the data does not conform to the <a href="../DataFormats/XML/Overview.html">data structure</a> required by the chart type. </td>
+        <td class="text">No data to display.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">RenderingChartText</td>
+        <td class="text">Sets a custom message when the chart is being drawn. </td>
+        <td class="text">Rendering Chart. Please Wait.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">LoadDataErrorText</td>
+        <td class="text">Sets a custom message when there is error in loading the chart data from the data URL provided as datasource.This may happen when the URL is invalid or inaccessible. </td>
+        <td class="text">Error in loading data.</td>
+      </tr>
+      <tr>
+        <td class="codeInline">InvalidXMLText</td>
+        <td class="text">Sets a custom message when the data which is sent to the chart is invalid as per XML validation rules. </td>
+        <td class="text">Invalid  data.</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="addvaraible" id="addvaraible"></a>Using configure() function to set messages</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Let's quickly see an example where we edit the chart's &quot;No data to display&quot; message. This can be effectively useful when you want to start the chart with empty data and then populate the data on  user.</p>
+      <p> It is recommended to use <span class="codeInline"><a href="../JavaScript/API/Methods.html">configure()</a></span> function to set chart messages. For instance, if you wish to set chart <span class="codeInline">ChartNoDataText</span> message,  you need to pass the attribute name and the message text to configure() before rendering the chart. e.g., </p>
+      <pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;myChartId&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);
+<strong>  myChart.configure(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);</strong>
+  myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>
+      <p >In the above code we have created a Column2D chart and set blank data to the chart. But, before rendering the chart we also called <span class="codeInline">configure()</span> and pass the message type - <span class="codeInline">ChartNoDataText</span>. <span class="codeInline">ChartNoDataText</span> sets a custom message when data is not enough for chart to plot any graphic. As the second parameter of the function we pass the custom message that is to be shown in this situation. and the message text. When you run this chart, you'll get the following message instead of the normal message, which is way more intuitive for the user:</p>
+      <p> <img src="Images/AppMessage.gif" width="232" height="126" class="imageBorder" /></p>
+      <p>See it <a href="../../Code/JavaScript/messages/index.html" target="_blank">live</a>! </p>
+      <p class="header"><a name="multiple" id="multiple"></a>Setting multiple messages</p>
+      <p>It is very easy again to set multiple messages. You can opt to call <span class="codeInline">configure()</span> function multiple times and set one message at a time. e.g., </p>
+      <pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;myChartId&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);
+  <strong>myChart.configure( &quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);</strong>
+  <strong>myChart.configure( &quot;InvalidXMLText&quot;, &quot;Please validate data&quot;);</strong>
+  myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>
+		<p>See it <a href="../../Code/JavaScript/messages/multiple.html" target="_blank">live</a>! </p>
+		<p><br />  
+	     <a name="multiple2" id="multiple2"></a>In case you wish to set all the messages at one go, you can also achieve it calling <span class="codeInline"> configure()</span> function once. You need to pass an object to the function, where each message type will be property name and the custom message will be the respective value. e.g., </p>
+		<pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;myChartId&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);<strong>
+  myChart.configure( { 
+    &quot;ChartNoDataText&quot; : &quot;Please select a record above&quot; ,
+    &quot;InvalidXMLText&quot;  : &quot;Please validate data&quot;
+  });</strong>
+  myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>
+      <p>See it <a href="../../Code/JavaScript/messages/multipleCompact.html" target="_blank">live</a>! </p>
+      <p class="highlightBlock">You can also use the deprecated function <span class="codeInline">addVariable()</span> instead of <span class="codeInline">configure()</span> to do the same things shown above. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="deprecated" id="deprecated"></a>Deprecated methods of setting chart message</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can also use the deprecated method by passing the message as querystring values to the chart SWF path in chart's constructor. e.g., </p>
+      </td>
+  </tr>
+  <tr>
+    <td valign="top">
+       <pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;<strong>Column2D.swf?ChartNoDataText=Please select a record above</strong>&quot;, &quot;ChId1&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);<strong>
+  </strong>myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>    
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name="setbg" id="setbg"></a>Set background color of the chart when chart messages are shown</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>If you wish to set a background color for the chart when these messages are shown, you can do this by setting the <span class="codeInline"><a href="../JavaScript/API/Methods.html#parambgcolor">bgColor</a></span> parameter of the FusionCharts JavaScript constructor. e.g., if you wish to set, say, purple as the background color while the messages are being shown, your code should be as shown below:</p>
+             <pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;myChartId&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;, <strong>&quot;#DCD8EB&quot;</strong>);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);
+  myChart.configure(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);
+  myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre> 
+             <p>See it <a href="../../Code/JavaScript/messages/messagebgcolor.html" target="_blank">live</a>! </p>             
+				 <p class="highlightBlock">Note that this color actually stays below each chart when the chart renders with its own background color. You can blend the background color of chart and hidden color below by setting the <span class="codeInline">bgAlpha</span> attribute of  XML or JSON of the chart, to a value lower than 100. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using charts on SSL/HTTPS|SSL.html", "Debug - Basic Troubleshooting|../Debug/Basic.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

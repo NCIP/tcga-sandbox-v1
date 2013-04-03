@@ -1,0 +1,36 @@
+<div id="content" class="widelayout">
+    <div class="left">
+        <div class="trail"><a href="<% out.print(host); %>/tcga/">Home</a> > <a
+                href="<% out.print(host); %>/tcga/tcgaTools.jsp">Tools</a> > <span
+                class="trailDest"><%=h1String%></span></div>
+        <h1><%=h1String%>
+        </h1>
+    </div>
+    <div id="sidebar" class="rollup right">
+        <%@include file="/includes/modules/rightMenuTools.jspf" %>
+    </div>
+    <div class="clear"></div>
+    <div class="cachetable">
+        <table style="width:940px;border-collapse:collapse;border: 2px solid black">
+            <tr>
+                <th colspan="2" style="border: 1px solid black;padding:5px;">
+                    <form action="cacheAdmin.htm" method="post">
+                        <input type="hidden" name="remove" value="all"/>
+                        <input type="submit" value="Flush Entire Cache"/>
+                    </form>
+                </th>
+            </tr>
+            <c:forEach var="key" items="${cacheKeys}">
+                <tr>
+                    <td style="border: 1px solid black;padding:2px;">
+                        <form action="cacheAdmin.htm" method="post">
+                            <input type="hidden" name="remove" value="${key}"/>
+                            <input type="submit" value="Remove Entry"/>
+                        </form>
+                    </td>
+                    <td style="border: 1px solid black;padding:2px;">${key}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>

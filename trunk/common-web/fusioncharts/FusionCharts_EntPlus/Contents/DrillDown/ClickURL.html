@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Full Chart as a hotspot</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Drill-down charts|Simple.html", "Full chart as hotspot" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Full Chart as a hotspot</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Starting FusionCharts v3, you can also set 
+        the full chart as a single hotspot. This is useful, when you want to show 
+        a small thumbnail of the chart, which when clicked opens a detailed bigger 
+        chart. </p>
+      <p>To set the entire chart as a hotspot, just specify the target link in 
+        <span class="codeInline">clickURL</span> attribute of <span class="codeInline">&lt;chart&gt;</span> 
+        element as under:</p>
+      <p class="codeInline">&lt;chart ... clickURL='DetailedChart.html' ...&gt;</p>
+      <p>You can again specify the link in five ways:</p>
+      <ol>
+        <li>Simple link opening in same window</li>
+        <li>Simple link opening in new window</li>
+        <li>Link to another frame</li>
+        <li>Link opening in a new pop-up window</li>
+        <li>Existing JavaScript functions (on the same page) to be invoked as 
+          links</li>
+      </ol>
+      <p>If you set the entire chart as hotspot, the other links on the chart 
+        (individual links for data plot) wouldn't work. </p>
+        <p>Example XML:</p></td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart caption='Monthly Sales Summary' subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$' 
+      <strong>clickURL='n-http://www.fusioncharts.com'</strong>&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='17400' /&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='19800' /&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='21800' /&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='23800' /&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='May' value='29600' /&gt;
+      &nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='27600' /&gt;
+      &lt;/chart&gt;</pre>
+      See it <a href="../../Code/DrillDown/ChartHotSpot.html" target="_blank">live</a>!</td>
+  </tr>
+  <tr>
+  <td>
+    <p class="highlightBlock">Note: Internally the chart decodes a URL that you set as link. Before invoking the link it again encodes the Url. If you are passing multilingual characters via a URL or do not want this decode-encode mechanism to be handled by chart you can set <span class="codeInline">unescapeLinks='0' </span>in <span class="codeInline">&lt;chart&gt;</span> element of the chart's XML data. If you are using JSON data, you need to use <span class="codeInline">{ &quot;chart&quot; : { &quot;unescapeLinks&quot; : &quot;0&quot; ... } ... }</span> . </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Links in pop-up windows|PopUps.html","JavaScript functions as links|JavaScript.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

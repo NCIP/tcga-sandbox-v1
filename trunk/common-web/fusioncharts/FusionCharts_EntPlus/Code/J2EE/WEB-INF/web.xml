@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>FusionCharts Sample Application</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <jsp-config>
+  <taglib>
+    <taglib-uri>http://www.fusioncharts.com/jsp/core</taglib-uri>
+    <taglib-location>/META-INF/fusionchartsjsp.tld</taglib-location>
+  </taglib>
+    <taglib>
+    <taglib-uri>http://www.fusioncharts.com/jsp/functions</taglib-uri>
+    <taglib-location>/META-INF/fchelperfunctions.tld</taglib-location>
+  </taglib>
+  </jsp-config>
+  <servlet>
+    <description></description>
+    <display-name>FCExporter</display-name>
+    <servlet-name>FCExporter</servlet-name>
+    <servlet-class>com.fusioncharts.exporter.servlet.FCExporter</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FCExporter</servlet-name>
+    <url-pattern>/JSP/ExportExample/FCExporter</url-pattern>
+  </servlet-mapping>
+</web-app>

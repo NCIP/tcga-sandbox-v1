@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Data Plot </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Data plot" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Data Plot </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Data plot refers to the column in column chart, lines in a line chart, pie/doughnut slices in a pie/doughnut chart.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Specifying custom colors for individual data plots </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In all the charts, you can specify custom color for each data plot. This is done using the <span class="codeInline">color</span> attribute of <span class="codeInline">&lt;set&gt;</span> element as under. The color has to be in hex code format (RRGGBB) without #.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart ....&gt; 
+    &lt;set label='Jan' value='420000' color='FF0000'/&gt;
+    &lt;set label='Feb' value='910000' color='00FF00'/&gt;
+    &lt;set label='Mar' value='720000' color='0000FF'/&gt;
+    ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{...},
+  "data":[{
+      "label":"Jan",
+      "value":"420000",
+      "color":"FF0000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000",
+      "color":"00FF00"
+    },
+    {
+      "label":"Mar",
+      "value":"720000",
+      "color":"0000FF"
+    }
+...
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	
+<p><img src="Images/data_plot_color.jpg" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Removing the gradient color </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>By default, most charts in FusionCharts suite have FFFFFF as the plot gradient color. In case you wish to use solid fills for the column (or area), you have to use the <span class="codeInline">plotGradientColor</span> attribute with just a space as attribute value, i.e., <span class="codeInline">plotGradientColor</span>=' '</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart plotGradientColor=' ' ....&gt; 
+   &lt;set label='Jan' value='420000' color='FF0000'/&gt;
+   &lt;set label='Feb' value='910000' color='00FF00'/&gt;
+   &lt;set label='Mar' value='720000' color='0000FF'/&gt;
+   ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{ <strong>&quot;plotGradientColor&quot; : &quot; &quot;</strong> ...},
+  "data":[{
+      "label":"Jan",
+      "value":"420000",
+      "color":"FF0000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000",
+      "color":"00FF00"
+    },
+    {
+      "label":"Mar",
+      "value":"720000",
+      "color":"0000FF"
+    }
+...
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div> 
+	 
+  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/data_plot_gradient_no.jpg" class="imageBorder" /></p></td>
+  </tr> 
+  <tr>
+    <td valign="top" class="header">Applying common gradient </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using the <span class="codeInline">plotGradientColor</span> attribute, you can globally add a gradient color to the entire plot (column, area) of   chart by specifying a color as its attribute. For example, if you want to set <span class="codeInline">#333333</span> as the common gradient color for all the columns in a 2D column chart, your data would be as under:</p> 
+   
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart <strong>plotGradientColor='333333'</strong> ....&gt; 
+   &lt;set label='Jan' value='420000' /&gt;
+   &lt;set label='Feb' value='910000' /&gt;
+   &lt;set label='Mar' value='720000' /&gt;
+    ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "plotgradientcolor":"333333" ...
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    }
+...
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	
+	
+    <p><img src="Images/col2d_plotgradient3.jpg" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Controlling gradient properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The plot gradient properties can be controlled using the following attributes: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" class="header">Attribute Name</td>
+        <td width="10%" class="header">Range</td>
+        <td width="70%" class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> plotFillAngle </span> </td>
+        <td valign="top"><span class="text"> 0-360 </span> </td>
+        <td valign='top'><span class="text"> If you've opted to fill the plot (column, area etc.) as gradient, this attribute lets you set the fill angle for gradient. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="text"> plotFillRatio </span> </td>
+        <td valign="top"><span class="text"> 0-100 </span> </td>
+        <td valign='top'><span class="text"> If you've opted to fill the plot (column, area etc.) as gradient, this attribute lets you set the ratio for gradient. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> plotFillAlpha </span> </td>
+        <td valign="top"><span class="text"> 0-100 </span> </td>
+        <td valign='top'><span class="text"> If you've opted to fill the plot (column, area etc.) as gradient, this attribute lets you set the fill alpha for gradient. </span> </td>
+      </tr> 
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart plotGradientColor='333333' <strong>plotFillRatio='80,20' plotFillAlpha='95,100' plotFillAngle='45'</strong>&gt;</pre>
+    <p>Note that we have specified 2 values for <span class="codeInline">plotFillRatio</span> and <span class="codeInline">plotFillAlpha. </span>This is because one of the values specified is taken by the color specified for the column (or taken by default from the color palette) and the other one by the common gradient color specified using <span class="codeInline">plotGradientColor</span> attribute.</p> 
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Plot border</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>By default, each data plot (column, area, pie etc) shows a border around it. You can hide the same using <span class="codeInline">showPlotBorder='0'</span>.</p>
+    <p><img src="Images/plotborder1.jpg" class="imageBorder"/></p>
+   
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content"><pre class="prettyprint code_container">&lt;chart <strong>showPlotBorder='0'</strong> ....&gt; 
+   &lt;set label='Jan' value='420000' /&gt;
+   &lt;set label='Feb' value='910000' /&gt;
+   &lt;set label='Mar' value='720000' /&gt;
+      ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "<strong>showPlotBorder</strong>":<strong>"0"</strong> ...
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    }
+...
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	
+	
+	</td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Dashed Plot border </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can make the plot border dashed using <span class="codeInline">plotBorderDashed='1'</span>. The dash length &amp; gap can be customized using the <span class="codeInline">plotBorderDashLen</span> and <span class="codeInline">plotBorderDashGap</span> attributes respectively.</p> 
+    <pre class="prettyprint code_container">&lt;chart plotBorderDashed='1' plotBorderDashLen='2' plotBorderDashGap='2' ...&gt; </pre> 
+    <p>The above data would yield the following chart:</p> 
+    <p><img src="Images/plotborder2.jpg" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Using rounded border and glass fill effect for 2D Columns / 2D Bars</td>
+  </tr>  
+  <tr>
+    <td valign="top" class="text"><p>In charts that support 2D Columns or Bars (like column charts, bar charts, 2D combination charts etc.), you can opt to plot columns/bars with rounded edges and glass effect gradients. To do so, you need to add <span class="codeInline">useRoundEdges='1'</span> attribute to <span class="codeInline">&lt;chart&gt;</span> element as under:</p> 
+
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' <strong>useRoundEdges='1'</strong>&gt;
+  &lt;set label='Jan' value='420000' /&gt;
+  &lt;set label='Feb' value='910000' /&gt;
+  &lt;set label='Mar' value='800000' /&gt;
+  &lt;set label='Apr' value='550000' /&gt;
+  &lt;set label='May' value='810000' /&gt;
+  &lt;set label='Jun' value='510000' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0",
+    <strong>"useroundedges":"1"</strong>
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+
+ 
+    <p>This will yield the following results:</p>
+    <img src="Images/Col_RoundEdge.jpg" width="506" height="306" />
+    <p>As you can see in the above image, the columns have been rounded at edges and filled with a glass effect gradient. Apart from that, the canvas has also been modified to render the top part as rounded shape. </p>
+    <p>However, in this mode, the following features wouldn't work:</p>
+    <ul>
+      <li>When you plot the columns with rounded edges, shadow is applied to them by default and <span class="codeInline">showShadow</span> attribute doesn't work anymore. If you want to remove shadow from this mode, you'll have to over-ride the shadow with a new shadow style (applied to DATAPLOT) with alpha as 0.</li>
+      <li>Plot fill properties like gradient color, angle etc. wouldn't work anymore, as the colors for gradient are now calculated by the chart itself.</li>
+      <li>Plot border properties also do not work in this mode. Also, you cannot render the border as dash in this mode.    </li>
+    </ul></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to provide effects to data plot </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using Styles, you can apply effects like shadow, glow, bevel and blur to the data plot. In the example given below, we have given a bevel and shadow effect to the columns in a column chart. </p>
+    <img src="Images/plot1.jpg" width="400" height="200" />
+    <p>The XML/JSON going into the same is:</p> 
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab11">XML</a></li>
+      	 <li><a href="#tab12">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab11" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+   &lt;set label='Jan' value='420000' /&gt;
+   &lt;set label='Feb' value='910000' /&gt;
+   &lt;set label='Mar' value='800000' /&gt;
+   &lt;set label='Apr' value='550000' /&gt;
+   &lt;set label='May' value='810000' /&gt;
+   &lt;set label='Jun' value='510000' /&gt;
+   <strong>&lt;styles&gt;
+     &lt;definition&gt;
+         &lt;style name='myBevel' type='bevel' distance='3'/&gt;
+         &lt;style name='myShadow' type='shadow' angle='45' distance='3'/&gt;
+     &lt;/definition&gt;
+     &lt;application&gt;
+         &lt;apply toObject='DATAPLOT' styles='myBevel, myShadow' /&gt; 
+     &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab12" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myBevel",
+        "type": "bevel",
+        "distance": "3"
+      },
+      {
+        "name": "myShadow",
+        "type": "shadow",
+        "angle": "45",
+        "distance": "3"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DATAPLOT",
+        "styles": "myBevel, myShadow"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  
+  </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying animation using STYLES </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can customize animation of the data plot using STYLES. Given below is the XML/JSON which renders fade-in effect for columns, lines etc.</p> 
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab13">XML</a></li>
+      	 <li><a href="#tab14">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab13" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+   &lt;set label='Jan' value='420000' /&gt;
+   &lt;set label='Feb' value='910000' /&gt;
+   &lt;set label='Mar' value='800000' /&gt;
+   &lt;set label='Apr' value='550000' /&gt;
+   &lt;set label='May' value='810000' /&gt;
+   &lt;set label='Jun' value='510000' /&gt;
+   <strong>&lt;styles&gt;
+     &lt;definition&gt;
+        &lt;style name='myAnim' type='animation' param='_alpha' start='0' duration='2'/&gt;
+     &lt;/definition&gt;
+     &lt;application&gt;
+        &lt;apply toObject='DATAPLOT' styles='myAnim' /&gt; 
+     &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab14" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"800000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    },
+    {
+      "label":"May",
+      "value":"810000"
+    },
+    {
+      "label":"Jun",
+      "value":"510000"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myAnim",
+        "type": "animation",
+        "param": "_alpha",
+        "start": "0",
+        "duration": "2"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DATAPLOT",
+        "styles": "myAnim"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Titles &amp; Axis names|Titles.html", "Data Labels|DataLabels.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

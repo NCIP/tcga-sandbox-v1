@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<dataset>
+
+    <uuid_item_type item_type_id="1" item_type="participant" sort_order="1" xml_name="patient"/>
+    <uuid_item_type item_type_id="2" item_type="sample" sort_order="2" xml_name="sample"/>
+    <uuid_item_type item_type_id="3" item_type="aliquot" sort_order="3" xml_name="aliquot"/>
+
+
+    <uuid_hierarchy uuid="1" disease_abbreviation="GBM" item_type_id="1" barcode="TCGA-01-007" center_id_bcr="01"
+                    batch_number="1" tss_code="DD" participant_number="01"
+                    update_date="2011-02-29 01:17:43.911" create_date="2011-02-29 01:17:43.911" is_redacted="0"/>
+    <uuid_hierarchy uuid="2" disease_abbreviation="GBM" parent_uuid="1" item_type_id="2" barcode="TCGA-01-007-02"
+                    batch_number="1" center_id_bcr="01" tss_code="DD" participant_number="01"
+                    update_date="2011-02-29 01:17:43.911" create_date="2011-02-29 01:17:43.911" is_redacted="0"/>
+    <uuid_hierarchy uuid="3" disease_abbreviation="OV" parent_uuid="2" item_type_id="1" barcode="TCGA-01-007-03"
+                    batch_number="1" center_id_bcr="01" tss_code="DD" participant_number="01"
+                    update_date="2011-02-29 01:17:43.911" create_date="2011-02-29 01:17:43.911" is_redacted="0"/>
+    <uuid_hierarchy uuid="4" disease_abbreviation="COAD" parent_uuid="3" item_type_id="2" barcode="TCGA-01-007-04"
+                    batch_number="1" center_id_bcr="02" tss_code="DD" participant_number="01"
+                    update_date="2011-02-29 01:17:43.911" create_date="2011-02-29 01:17:43.911" is_redacted="0"
+                    is_shipped="1"/>
+    <uuid_hierarchy uuid="5" disease_abbreviation="READ" parent_uuid="4" item_type_id="3" barcode="TCGA-01-008-05"
+                    batch_number="1" center_id_bcr="02" tss_code="DD" participant_number="01"
+                    update_date="2011-02-29 01:17:43.911" create_date="2011-02-29 01:17:43.911" is_redacted="0"
+                    is_shipped="0"/>
+
+    <uuid_hierarchy uuid="6" disease_abbreviation="GBM" item_type_id="1" barcode="TCGA-00-1234" center_id_bcr="01"
+                    batch_number="1" tss_code="00" participant_number="1234" create_date="2011-11-17 12:14:00.0"
+                    is_redacted="1"/>
+
+    <CENTER_TYPE CENTER_TYPE_CODE="CGCC" CENTER_TYPE_DEFINITION="characterization center"/>
+    <Center CENTER_ID="1" DOMAIN_NAME="broad.mit.edu" CENTER_TYPE_CODE="CGCC"
+            DISPLAY_NAME="Broad Institute of MIT and Harvard" SHORT_NAME="BI" SORT_ORDER="2"/>
+    <Center CENTER_ID="2" DOMAIN_NAME="jhu-usc.edu" CENTER_TYPE_CODE="CGCC"
+            DISPLAY_NAME="Johns Hopkins / University of Southern California" SHORT_NAME="JHU_USC" SORT_ORDER="5"/>
+
+    <Generation_Method GENERATION_METHOD_ID="1" GENERATION_METHOD="Web"/>
+    <UUID UUID="9be34abb-c11f-416f-9fd4-34e712676a2f" CREATE_DATE="2008-09-10 12:15:18.0" CENTER_ID="1"
+          GENERATION_METHOD_ID="1" CREATED_BY="center_user" LATEST_BARCODE_ID="1"/>
+    <UUID UUID="3625e179-1228-4814-bf1c-af0735d3a210" CREATE_DATE="2008-09-16 12:15:18.0" CENTER_ID="2"
+          GENERATION_METHOD_ID="1" CREATED_BY="center_user" LATEST_BARCODE_ID="2"/>
+
+    <Disease DISEASE_ID="1" DISEASE_NAME="Glioblastoma multiforme" DISEASE_ABBREVIATION="GBM" ACTIVE="1"/>
+    <BARCODE_HISTORY BARCODE_ID="1" BARCODE="tcga-a3-3308-11a-01w-0898-10" UUID="9be34abb-c11f-416f-9fd4-34e712676a2f"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-15 22:06:32.0"/>
+    <BARCODE_HISTORY BARCODE_ID="2" BARCODE="tcga-a3-3308-11a-01d-0859-05" UUID="3625e179-1228-4814-bf1c-af0735d3a210"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-16 22:06:32.0"/>
+    <BARCODE_HISTORY BARCODE_ID="3" BARCODE="tcga-a3-3308-11a-01w-0898-11" UUID="9be34abb-c11f-416f-9fd4-34e712676a2f"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-15 22:06:32.0"/>
+    <BARCODE_HISTORY BARCODE_ID="4" BARCODE="tcga-a3-3308-11a-01d-0859-06" UUID="3625e179-1228-4814-bf1c-af0735d3a210"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-16 22:06:32.0"/>
+    <BARCODE_HISTORY BARCODE_ID="5" BARCODE="tcga-a3-3308-11a-01w-0898-12" UUID="9be34abb-c11f-416f-9fd4-34e712676a2f"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-15 22:06:32.0"/>
+    <BARCODE_HISTORY BARCODE_ID="6" BARCODE="tcga-a3-3308-11a-01d-0859-07" UUID="3625e179-1228-4814-bf1c-af0735d3a210"
+                     DISEASE_ID="1" EFFECTIVE_DATE="2008-10-16 22:06:32.0"/>
+
+</dataset>

@@ -1,0 +1,275 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and Styles </title>
+<script type="text/javascript" src="../../Charts/FusionCharts.js" ></script>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<script type="text/javascript" src="../assets/ui/js/json2.js" ></script>
+
+
+
+<style type="text/css">
+	input { border:1px solid #C9B4C9 ; background-color:#FCF8FD; padding:3px; cursor:pointer;} 
+	.show-code-block {
+
+    position: absolute;
+    top:0;
+	left:0;
+	width:398px;
+    height:298px;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    display: none;
+    z-index: 100;
+    background: #FFFFFF;
+    opacity: 0.95;
+    filter: alpha(opacity=95);
+    border: 1px solid #E6E4E4 !important;
+
+}
+
+.show-code-close-btn {
+	background-color:#dedede;
+	border:1px solid #cdcdcd;
+    float: right;
+    padding: 2px;
+    margin: 3px;
+	
+    position: relative;
+    z-index: 200;
+	cursor:pointer;
+}
+.show-code-close-btn a{
+	border-bottom:none;
+}
+
+
+#pre.prettyprint {
+    border:medium none !important;
+    font-size:100% !important;
+    margin:5px;
+    padding:2px;
+    white-space:normal;
+}
+
+	
+
+</style>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts Styles", "Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">FusionCharts and Styles </td>
+  </tr>
+  
+  <tr> 
+    <td class="text"><p>FusionCharts v3 introduces <span class="codeInline">Styles</span> 
+        to help you apply font, effects and animations to various objects of the 
+        chart. <span class="codeInline">Styles </span>lends a simple mechanism 
+        using which you can easily control the visual layout of charts. </p>
+      <p>See chart below which is setup to live-demonstrate some of the basic features of Styles. It has beveled column. In case you have missed the animation, you can again recheck the animation clicking on the button below saying - &quot;Click here to animate the chart above&quot;. </p>
+	  
+	  <div style="position:relative;">
+	  		  <div class="show-code-block">
+		  <div class="show-code-close-btn"><a class="qua qua-button" href="javascript:void(0)"><span>Close</span></a></div><pre id="pre" class="prettyprint"></pre>
+		  </div>
+      <div id="chart1Div" style="margin:10px 0;width:400px; height:300px;">The chart is supposed to load here. If you are unable to see the chart here and can see this message, please check <a href="../Debug/Basic.html">Basic Troubleshooting</a> page. </div>
+	  		</div>
+			
+			<input type="button" value="Click here to animate the chart above" onClick="reloadChart();" style="margin:0 0 0 0;" /><input type="button" value="View XML" onClick="viewXML();" style="margin:0 0 0 6px;" /><input type="button" value="View JSON" onClick="viewJSON();" style="margin:0 0 0 6px;" />
+        
+      <p class="text">To use <span class="codeInline">Styles</span>, all you 
+        need to do is:</p>      <ul>
+        <li>Define your own style attributes in the <span class="codeInline">XML/JSON</span> 
+          data document, and</li>
+        <li>Associate (i.e., apply) them with defined <span class="codeInline">Objects</span> 
+          of the chart.</li>
+      </ul>      <p class="text">Starting FusionCharts v3, each object on the chart has 
+        been assigned a unique name, for direct association with style definitions. 
+        For example, the background of the chart is termed as <span class="codeInline">BACKGROUND</span>. 
+        Similarly, the plot (columns, lines, areas etc.) on the chart is named 
+        as <span class="codeInline">DATAPLOT</span>. This enables you to associate 
+        each style to multiple chart objects or associate multiple chart objects 
+      to a particular style.</p>      
+      <p><span class="text">You can find the list of objects for each chart in 
+      individual </span><span class="codeInline">Chart XML Sheet</span>. </p>
+      <p class="header" style="padding:3px;"><a name="advantage"></a>Advantages of using Style</p>
+    </td>
+  </tr>
+  <tr> 
+    <td><ul>
+        <li>Better control over chart look &amp; feel.</li>
+        <li>You can precisely define custom animations and effects 
+          according to your own taste.</li>
+        <li>Your formatting (cosmetic) attributes are grouped together 
+          in one element in the<span class="codeInline"> XML/JSON</span> document, 
+          thereby separating data from visual formatting.</li>
+        <li>You can store the entire style definition in a central 
+          location in your application, so that all charts within application 
+          can utilize it.</li>
+        <li>Easy re-use of style definitions. Each style can be applied 
+          to multiple chart objects or vice versa.</li>
+      </ul></td>
+  </tr>
+  
+  <tr> 
+    <td><p class="header" style="padding:3px;"><a name="type"></a>Style Types</p>
+    <p>Before we delve into more details, let's briefly skim over 
+      the different style type options that are present in FusionCharts v3.</p>
+    </td>
+  </tr>
+  <tr> 
+    <td><table width="60%" class="table" border="0" cellpadding="4" cellspacing="0" >
+        <tr class="trVeryLightGrayBg">  
+          <td width="20%" valign="top" class="text" align="left"><strong><a href="Font.html">Font</a></strong></td>
+          <td width="68%" valign="top" class="text">The<span class="codeInline"> 
+            Font</span> style allows you to control text properties for all 
+              the text on the chart. Using this, you can set the font family, 
+              color, size, background color, border color, spacing etc. of individual 
+              text elements on the chart.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="text" align="left"><strong><a href="Animation.html">Animation</a></strong></td>
+          <td valign="top" class="text"><span class="codeInline">Animation</span> 
+            style type allows you to define your custom animations for different 
+            elements of the chart. By default, FusionCharts animates the data 
+            plot (columns, lines, area etc.) only. However, you can define your 
+            custom animations for other chart objects (like captions, titles, 
+            values etc.) in the <span class="codeInline">XML/JSON.</span> Each chart 
+              object can have multiple animation properties (like x, y, xscale, 
+              yscale, alpha etc.) and each sequence can have its own duration.</td>
+        </tr>
+        <tr class="trVeryLightGrayBg"> 
+          <td valign="top" class="text" align="left"><strong><a href="Shadow.html">Shadow</a></strong></td>
+          <td valign="top" class="text">To 
+              apply <span class="codeInline">shadow</span> effect to any object 
+              on the chart, use this style type with configurable properties.</td>
+        </tr>
+        <tr> 
+          <td valign="top" align="left" class="text"><strong><a href="Glow.html">Glow</a></strong></td>
+          <td valign="top" class="text"><span class="codeInline">Glow</span> 
+            Style type lets you apply glow effects to objects on the chart</td>
+        </tr>
+        <tr class="trVeryLightGrayBg"> 
+          <td valign="top" class="text" align="left"><strong><a href="Bevel.html">Bevel</a></strong></td>
+          <td valign="top" class="text">To 
+              apply<span class="codeInline"> bevel</span> effect for any of the 
+              chart objects, use this style type</td>
+        </tr>
+        <tr> 
+          <td valign="top"  align="left" class="text"><strong><a href="Blur.html">Blur</a></strong></td>
+          <td valign="top" class="text"><span class="codeInline">Blur</span> 
+            Style type helps to create a blur effect for any object on the chart. 
+            The amount and distance of blur are configurable.</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td class="highlightBlock">Note: In JavaScript charts, customized <span class="codeInline">animation</span>, <span class="codeInline">shadow</span>, <span class="codeInline">glow</span>, <span class="codeInline">bevel </span>and <span class="codeInline">blur</span> style types are not available. JavaScript charts provide limited support for customized <span class="codeInline">Font</span> style. </td>
+  </tr>
+</table>
+<script type="text/javascript"><!--
+	function reloadChart()
+	{
+			var dataString ='<chart showvalues="0"  showalternatehgridcolor="0" numdivlines="0" showyaxisvalues="0"  plotgradientcolor="590059" showplotborder="0" showshadow="1" showborder="1" canvasborderalpha="0" yaxisvaluespadding="10"  canvasbgalpha="5" bordercolor="8F8F8F" borderalpha="50" bgratio="0" bgalpha="20,10" canvasbgcolor="F7F0F9" basefont="Verdana" basefontsize="13" basefontcolor="9F9F9F" >\n\
+ <set value="340000" color="C987DC"  label="USA"/>\n\
+ <set value="160000" color="C987DC"  label="Brazil"/>\n\
+ <set value="220000" color="C987DC"  label="Spain"/>\n\
+ <set value="123000" color="C987DC"  label="India"/>\n\
+ <styles><definition><style name="Animation_0" type="ANIMATION" duration="3" start="0" param="_y" easing="Bounce"/>\n\
+ <style type="Bevel" name="Bevel_0" angle="210" Distance="40" shadowColor="5B005B" shadowAlpha="100" highlightColor="800080" highlightAlpha="61" blurY="6" Strength="4" Quality="2"/></definition>\n\
+ <application>\n\
+ <apply toObject="DATAPLOT" styles="Animation_0,Bevel_0"/>\n\
+ </application>\n\
+ </styles>\n\
+ </chart>';
+
+		if(FusionCharts("myChartId") && FusionCharts("myChartId").setXMLData)
+			FusionCharts("myChartId").setXMLData(dataString);
+		else
+			var animChart = FusionCharts.render( { swfUrl : "../../Charts/Column2D.swf", dataSource : dataString , dataFormat :  "xml" , renderAt : "chart1Div" , id: "myChartId", width:400, height:300 } );
+	}
+	
+	
+	function viewXML()
+	{
+		var chartDATA = '';
+		chartDATA = FusionCharts("myChartId").getChartData('xml').replace(/\</gi, "&lt;").replace(/\>/gi, "&gt;");
+		$('#pre.prettyprint').html( chartDATA );
+		$('.show-code-block').css('height', "100%" ).show();
+		prettyPrint();
+
+	}
+	
+	function viewJSON()
+	{
+		var chartDATA = '';
+		chartDATA = JSON.stringify( FusionCharts("myChartId").getChartData('json') ,null, 2);
+		$('#pre.prettyprint').html( chartDATA );
+		$('.show-code-block').show();	
+		prettyPrint();
+	}
+	
+	
+	window.onload = function () { reloadChart();} ;
+	$(document).ready(function()
+	{
+		$('.show-code-close-btn').click(function() {
+			$('.show-code-block').hide();
+		});
+		$('.show-code-close-btn a').click(function() {
+			$('.show-code-block').hide();
+		});
+
+	});
+
+// --></script>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("FusionCharts jQuery plugin API Reference|../jQuery/API.html", "How to use?|HowToUse.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

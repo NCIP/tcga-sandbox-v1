@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Exporting Charts as PDF or Images - Server-side export - Returning the exported output as download </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "Server-side export|ECServerOverview.html", "Returning image as download" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; Server-side export &gt; Returning the exported output as download </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>When returning the exported output (image/PDF) as download to browser, the entire process flow looks as under:</p>
+      <ol>
+        <li>The chart on your web page reads the XML data and renders. This XML data contains parameters that help you configure the export parameters.</li>
+        <li>When the user right clicks on chart and selects an export chart menu item, the chart sends the data to server (where the FusionCharts Export Handlers come into action).</li>
+        <li>The server-side Export Handlers accept this bitmap data from chart, along with other parameters, generate the image/PDF and  return it back to browser.</li>
+      </ol>
+      <p>Let's quickly see how to configure the entire setup. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting up the server-side export handlers </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>First, you'll need to copy-paste the required server side Export Handler files from <span class="codeInline">Download Package&gt;ExportHandlers</span> folder to your server. For this example, we've copied the PHP files to <span class="codeInline">http://www.domain.com/FusionCharts/ExportHandlers/PHP/FCExporter.php</span>. Make sure you've copied all the files from the respective folder.</p>
+      <p>This completes the server-side setup for download routine of export. Next, we'll configure the XML  for export parameters. </p>
+      <p class="highlightBlock">Our export handlers in few languages depend on some other libraries e.g., the PHP handler needs GD and GZip installed on your server. Similarly, Ruby on Rails needs RMagick and zlib to be present on your server. Make sure that you've these dependencies installed properly. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Adding export parameters to XML </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Now, you need to set the chart to allow export. This is done using: </p>
+    <pre class="prettyprint code_container">&lt;chart exportEnabled='1' ...&gt;</pre>
+    <p>If <span class="codeInline">exportEnabled</span> is set to 0, the chart cannot initiate export process, irrespective of the trigger. </p>
+    <p>Next, you need to set the export Handler, which is the path to server-side export handler. For our example, we've set the path as <span class="codeInline">http://www.domain.com/FusionCharts/ExportHandlers/PHP/FCExporter.php</span> - so the XML now looks like: <span class="codeInline">&lt;chart exportEnabled='1' exportHandler='http://www.domain.com/FusionCharts/ExportHandlers/PHP/FCExporter.php' ...&gt;</span> </p>
+    <p>Now, since we intend to use server-side export, we set <span class="codeInline">&lt;chart ... exportAtClient='0' ...&gt;</span></p>
+    <p>Finally, using server-side export handler, we intend to have the export file download to user's machine. So, we set: <span class="codeInline">&lt;chart exportAction='download' ...&gt; </span></p>
+    <p>The final XML for this example looks as under:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$' useRoundEdges='1' bgColor='FFFFFF,FFFFFF' showBorder='0' exportEnabled='1' <span class="codeInline">
+='http://www.domain.com/FusionCharts/ExportHandlers/PHP/FCExporter.php</span>' exportAtClient='0' exportAction='download' &gt;
+   &lt;set label='Alex' value='25000'  /&gt; 
+   &lt;set label='Mark' value='35000' /&gt; 
+   &lt;set label='David' value='42300' /&gt; 
+   &lt;set label='Graham' value='35300' /&gt; 
+   &lt;set label='John' value='31300' /&gt;
+&lt;/chart&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When you now run your chart and select &quot;Save as JPEG image&quot; from context menu, the chart will first start the capture process as shown below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECServerDown0.jpg" width="600" height="300" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>After capturing, the chart sends its data to export handler (PHP in this case), which in turn processes it and returns an output image for download as shown below:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECServerDown1.jpg" width="592" height="341" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="highlightBlock">Note that in the above image the dialog says <span class="codeInline">from: http://www.fusioncharts.com</span>. When the PHP files are hosted on your server, this will reflect your domain name. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting target window for download </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see above, by default, the export chart returned the image in the same browser window. However, if you want to specify a new browser window for the exported image, you can set: </p>
+    <pre class="code_container prettyprint">&lt;chart ... exportTargetWindow='_blank' ...&gt;</pre>
+    <p>This will open the output image in a new browser window. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Configuring file name of exported file </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Additionally, the return file name, by default is named as FusionCharts (.jpg/,png/.pdf). You can change this by setting: </p>
+    <pre class="code_container prettyprint">&lt;chart ... exportFileName='MyFileName' ...&gt;</pre>
+    <p>Note that you do not have to provide the extension here, as the extension depends on the format that was selected on chart during export. This will result in: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECServerDown2.jpg" width="381" height="300" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>That was all about server-side download routine. </p>
+    <p>Next we'll see how to have these images saved on server disk, rather than download them. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Server side export|ECServerOverview.html","Saving to server disk|ECServerSave.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

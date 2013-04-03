@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "XML Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and XML</td>
+  </tr>
+  <tr> 
+    <td class="text"><p>FusionCharts uses XML or JSON data to render the charts. In both data formats, the data file (or string) consists of data to be rendered, chart settings and cosmetics. </p>
+      <p>In this section, we'll explain XML  data format of FusionCharts. XML is a simple and structured language, which is easy to read and understand. Given below are the basics of XML: </p>
+      <ul>
+        <li> An XML document is a simple text file consisting of tags and data 
+          associated with them.</li>
+        <li>You can make up your own tags like <span class="codeInline">&lt;mytag&gt;&lt;/mytag&gt;</span><span class="text"> 
+          to store data</span></li>
+        <li>Every opening tag requires a matching closing tag like <span class="codeInline">&lt;name&gt;</span> 
+          requires <span class="codeInline">&lt;/name&gt;</span>. e.g.,<span class="codeInline"> 
+          &lt;name&gt;John Doe&lt;/name&gt;</span><span class="codetext">. </span>If 
+          an element has no content, the opening and closing tags may be combined 
+          into a single &quot;shortcut&quot; tag such as <span class="codeInline">&lt;name/&gt;</span><span class="codetext">.</span> 
+        </li>
+        <li>XML tags are case-sensitive. So <span class="codeInline">&lt;name&gt;</span> 
+          should be closed with<span class="codetext"> </span><span class="codeInline">&lt;/name&gt;</span> 
+          and not <span class="codeInline">&lt;/Name&gt;</span> or<span class="codetext"> 
+          </span><span class="codeInline">&lt;/NAME&gt;</span><span class="codetext"> 
+          </span>or any other variant of the same.</li>
+        <li>You can define attributes for a tag to render more details. e.g.,<span class="codetext"> 
+          </span><span class="codeInline">&lt;name isPetName='1'&gt;John Doe&lt;/name&gt;</span>. 
+          Here <span class="codeInline">isPetName</span> is an attribute of the 
+          <span class="codetext">name</span> element. In FusionCharts v3, we've 
+          four types of attributes: 
+          <ul>
+            <li><strong>Boolean</strong> - Attributes which can take a 0 or 1 
+              value. Like<span class="codeInline"> &lt;chart showLabels='1' &gt;</span></li>
+            <li><strong>Number</strong> - Attributes which take a numeric value. 
+              Like <span class="codeInline">&lt;chart yAxisMaxValue='200' &gt;</span></li>
+            <li><strong>String</strong> - Attributes which take a string value. 
+              Like <span class="codeInline">&lt;chart caption='My Chart' &gt;</span></li>
+            <li><strong>Hex Color Code</strong> - Attributes that take a hex color 
+              code (without #). Like <span class="codeInline">&lt;chart bgColor='FFFFDD' 
+              &gt;</span></li>
+          </ul>
+        </li>
+        <li>Special characters like ' (quote), &quot; (double quote), % (percentage) 
+          etc are to be replaced by the XML converts. Like, the character &quot; 
+          (double quote) in a string constant must be denoted as <span class="codetext">&amp;quot;</span></li>
+      </ul>
+      <p>There are a lot of properties that you can define for each chart 
+        type. However, it is not necessary to define all the attributes for a given 
+        chart. For example, if you do not want to change the default setting of 
+        the canvas (color, alpha etc.), you don't need to define any attributes 
+        for the canvas - the default values will be assumed. Thus, each chart 
+        can be generated using minimal attributes without concern for  finer 
+        details. </p>
+      <p>FusionCharts has a specific XML structure for each chart. Broadly, we 
+        define the XML structure into following types, depending on the chart 
+        type:</p>
+      <ul>
+        <li><strong><u><a name="ss" id="ss"></a>Single Series Charts</u></strong><br>
+          Single Series Charts are those which depict only one set of data on 
+          the chart. Like, our previous example of Monthly sales summary was a 
+          single series chart, as we had just one data-set (i.e., data for 1 year). 
+          In that chart, we were not comparing data between two datasets (e.g., 
+          monthly sales comparison between two or more years).
+            <div style="height: 15px; line-height: 15px;"></div>
+          Single series charts include Column 2D, Column 3D, Bar 2D, Line, Area 2D, Pie 2D, Pie 3D, Doughnut 2D, Doughnut 3D, Pareto 2D and Pareto 3D.
+          <div style="height: 15px; line-height: 15px;"></div>
+          XML for the single series chart is the simplest to understand, as you've 
+          already seen in the previous examples.
+          <div style="height: 15px; line-height: 15px;"></div>
+        </li>
+        <li><strong><u><a name="ms" id="ms"></a>Multi-Series Charts</u></strong><u><br>
+          </u>Multi-series charts are used to compare 2 or more datasets like 
+          monthly comparison for 2 or more years. Under multi-series charts, we 
+          can define the following subcategories: 
+          <ul>
+            <li><strong>Standard Multi-series Charts</strong><br>
+              The standard multi-series charts, like multi-series column, line, 
+              area etc., are used for straightforward comparison of various datasets 
+              on the chart.
+              <div style="height: 15px; line-height: 15px;"></div>
+            </li>
+            <li><strong><a name="stacked" id="stacked"></a>Stacked Charts<br>
+              </strong>Stacked charts, like stacked column, area etc., are used 
+              to compare cumulative or grouped data. e.g., monthly summary of 
+              sales on a chart. Say if we wanted to show which part of revenue 
+              came from products and which part from services, we can use the 
+              stacked column chart easily to depict the data. Each month would 
+              represent a data column and the column would be divided into two 
+              parts - one representing service and the other product. 
+              <div style="height: 15px; line-height: 15px;"></div>
+            </li>
+            <li><strong><a name="combi" id="combi"></a>Combination Charts</strong><br>
+              Combination Charts are a combination of two or more charts or y-axes. 
+              There are two sub-types of combination charts: 
+                <ul>
+                <li>Single Y-Axis Combination Chart - A single Y-axis (called primary axis) is drawn on the chart, against which all data is plotted. </li>
+                <li>Dual Y-Axis Combination Chart - The chart assumes two y-axes (primary and secondary). Each axis can then plot multiple data-series against it. </li>
+              </ul>
+              <div style="height: 15px; line-height: 15px;"></div>
+            </li>
+            <li><strong><a name="scroll" id="scroll"></a>Scroll charts <br />
+               </strong>Scroll charts are standard multi-series, combination, stacked charts with additional scrolling capabilities.<strong><br />   
+                     <br />
+               </strong></li>
+          </ul>
+        </li>
+        <li><u><strong><a name="xy" id="xy"></a>XY Plot Charts</strong></u> (Multi-series data) <br>
+          XY Plot Charts are charts where both the axes are numeric, like bubble 
+          and scatter chart. In bubble chart,  a third dimension of data (size of bubble) is also represented. 
+          <div style="height: 15px; line-height: 15px;"></div>
+        </li>
+        <li><u><strong><a name="mss" id="mss"></a>Multi-series Stacked Charts</strong></u><br />
+          In charts like multi-series stacked column and multi-series stacked 
+          column line combination charts, you've nested data-sets which allow 
+          you to create multi-series stacked charts (i.e., cluster of stacked columns).
+          <div style="height: 15px; line-height: 15px;"></div>
+        </li>
+        <li><strong><u><a name="zoom" id="zoom"></a>Zoom Line chart </u></strong><br />
+Zoom Line chart is an advanced chart that allows zooming, scrolling and pinning of data in the same chart. This chart can handle large sets of data including tens of thousands of points.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Embedding in other applications|../../FirstChart/OtherApplications.html","Single series chart XML|SingleSeries.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

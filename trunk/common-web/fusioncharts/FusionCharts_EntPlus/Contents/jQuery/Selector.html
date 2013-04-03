@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using :FusionCharts jQuery selector</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "Using <span class='veryLightYellowBg codeInline'>:FusionCharts</span> jQuery selector" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using <span class="veryLightYellowBg codeInline">:FusionCharts</span> jQuery selector </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts jQuery plugin also provides a custom jQuery selector <span class="veryLightYellowBg">:FusionCharts</span> which you can use to select all the charts rendered using FusionCharts jQuery plugin or using FusionCharts JavaScript Class. You can use this custom selector as a conventional jQuery selector. </p>
+       <p>In this page we will learn how to use <span class="veryLightYellowBg">:FusionCharts</span> custom selector to select and manipulate chart settings. </p>
+       <div class="highlightBlock">To aid your understanding of this section, we would recommend you to go through the following sections of documentation (if you've not already read them):     
+         <ul>
+           <li>
+           <a href="Overview.html">FusionCharts &amp; jQuery &gt; Overview </a></li>
+           <li><a href="AdvancedRendering.html">FusionCharts &amp; jQuery &gt; Various rendering methods </a></li>
+	       <li><a href="RetrieveUpdate.html">FusionCharts &amp; jQuery &gt; Updating data and properties </a></li>
+         </ul>
+      </div>
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; jQuery </span> folder</p>    </td>
+  </tr>
+    
+    <tr>
+    <td class="header"><a name="allcharts" id="allcharts"></a>Finding all charts in a page  </td>
+    </tr>
+    <tr>
+       <td class="text">
+         <p>To select all charts in a page you would need to use <span class="codeInline">$(&quot;</span><span class="veryLightYellowBg">:FusionCharts</span><span class="codeInline">&quot;)</span> selector. The code snippet below shows how to select all the charts inside a page and set a common title (caption chart attribute) to all selected charts:</p>
+         <pre class="code_container prettyprint">$(&quot;:FusionCharts&quot;).attrFusionCharts( { caption: &quot;New chart title&quot; } );</pre>
+
+		 <p>See it <a href="../../Code/jquery/Selector/UsingFusionChartsSelector.html" target="_blank">live</a>! </p>
+      </td>
+  </tr>
+    
+    <tr>
+      <td valign="top" class="header"><a name="append" id="append"></a>Finding all charts in an HTML element</td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>To select all charts in an HTML element you would need to use either <span class="veryLightYellowBg">:FusionCharts</span> selector as a part of a composite selector query or using <span class="codeInline">find</span> jQuery method. The code snippets below show various way which you can use to select charts in  HTML elements:</p>
+        
+        <pre class="code_container prettyprint">$(&quot;div :FusionCharts&quot;).attrFusionCharts( { caption: &quot;New chart title&quot; } );</pre>
+        <p>The above selector finds all charts inside all DIV HTML elements. </p>
+        <pre class="code_container prettyprint">$(&quot;div :FusionCharts&quot;).attrFusionCharts( { caption: &quot;New chart title&quot; } );</pre>
+        <p>The above selector finds all charts inside all DIV HTML elements. </p>
+        <pre class="code_container prettyprint">$(&quot;#topRow :FusionCharts&quot;).attrFusionCharts( { bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot; } );</pre>
+        <p>The above selector finds all charts inside all  HTML elements having 'topRow' as id. </p>
+        <pre class="code_container prettyprint">$(&quot;.myFusionCharts :FusionCharts&quot;).attrFusionCharts( {bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot;} );</pre>
+        <p>The above selector finds all charts inside all  HTML elements with class name - &quot;myFusionCharts&quot;. </p>
+        <pre class="code_container prettyprint">$(&quot;#bottomRow&quot;).find(&quot;:FusionCharts&quot;).attrFusionCharts( {bgColor : &quot;deeccd&quot;, showBorder:1, borderColor:&quot;008800&quot;} );</pre>
+        <p>The above selector finds all charts inside all  HTML elements with &quot;bottomRow&quot; as id. </p>
+        <pre class="code_container prettyprint">$(&quot;span.myFusionCharts&quot;).find(&quot;:FusionCharts&quot;).attrFusionCharts( {bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot;} );</pre>
+        <p>The above selector finds all charts inside all  SPAN HTML elements with class name - &quot;myFusionCharts&quot;. </p>
+        <pre class="code_container prettyprint">$(&quot;div#dashboard #upper:visible&quot;).find(&quot;:FusionCharts&quot;).attrFusionCharts( {bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot;} );</pre>
+        <p>The above selector finds all charts inside all visible DIV HTML elements having &quot;upper&quot; as id and all these elements are contained in DIV elements with &quot;dashboard&quot; as id. </p>
+        <p>See some of these implementations <a href="../../Code/jquery/Selector/UsingFusionChartsSelector.html" target="_blank">live</a>! </p>
+      </td>
+    </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Retrieving and updating properties of charts|RetrieveUpdate.html","Handling events|Events.html");
+	
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

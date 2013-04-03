@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>warnings (Fusioncharts::Exporter::FcError)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_error.rb, line 52</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">warnings</span>
+    <span class="ruby-identifier">warning_msgs</span>=<span class="ruby-value str">&quot;&quot;</span>
+    <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@warn_codes</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">message</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>.<span class="ruby-identifier">warning_message</span>(<span class="ruby-ivar">@warn_codes</span>[<span class="ruby-identifier">i</span>])
+        <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">empty?</span>)
+         <span class="ruby-identifier">message</span> = <span class="ruby-value str">&quot;Could not find warning message for &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@warn_codes</span>[<span class="ruby-identifier">i</span>] 
+       <span class="ruby-keyword kw">end</span>
+        <span class="ruby-comment cmt"># This is just a warning/notice</span>
+       <span class="ruby-identifier">warning_msgs</span><span class="ruby-operator">+=</span><span class="ruby-identifier">message</span>
+     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">warning_msgs</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

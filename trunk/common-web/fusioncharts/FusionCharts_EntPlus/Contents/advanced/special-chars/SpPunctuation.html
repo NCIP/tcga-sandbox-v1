@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using Special Punctuation on Chart</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Advanced charting", "Using Special characters", "Using special punctuation" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+<td balign="top" class="pageHeader">Using Special Punctuation on Chart</td>
+</tr>
+<tr>
+<td valign="top" class="text">
+  <p>You can directly embed most of the special characters and punctuation marks in the XML/JSON data source of your chart. However, &amp;,  <, >, ' (apostrophe) and "(quote) need to be specially encoded when providing the same as a part of the chart data. Apart from this, there is no need to encode any other special character.</p>
+  <p>In the following sections of this page, we'll learn how to use special punctuation marks like -  &amp;,  &lt;, &gt;, ' (apostrophe)  and &quot;(quote).</p>  </td>
+</tr>
+<tr>
+<td class="header"><a name="amp" id="amp"></a>Using <span class="codeInline"><strong>&</strong></span> sign</td>
+</tr>
+<tr>
+<td class="text">
+<p>To display <span class="codeInline">&amp;</span> character on a chart, you need to use the encoded form of the character - <span class="codeInline">&amp;amp;</span>&nbsp; in your chart data (XML or JSON). It is applicable in both Data URL and Data String methods. </p>
+<p> Following data includes<span class="codeInline"> &amp;</span> character:</p></td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Total Revenue of 2008 <strong>&amp;amp;</strong> 2009&quot; numberPrefix=&quot;$&quot; xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;235000&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;125100&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;334200&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;414500&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Total Revenue of 2008 <strong>&amp;amp;</strong> 2009&quot;,<br />&nbsp; &nbsp; &quot;numberprefix&quot;:&quot;$&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;235000&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;125100&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;334200&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;414500&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div>
+<div style="clear:both"></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with <span class="codeInline"><strong>&amp;</strong></span> in its caption, as under:</p>
+<p><img src="Images/SpCharAllAmp.jpg" alt="Using &amp; character in chart" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string, it is essential to encode <span class="codeInline">&amp;</span> character to<span class="codeInline"> %26.</span></strong></p>
+</td>
+</tr>
+<tr>
+<td class="header"><a name="ltgt" id="ltgt"></a>Using &lt; or &gt; sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>You can't directly use < and > characters in FusionCharts data  as these are invalid characters from XML perspective. To use < and >, you first need to convert them into <span class="codeInline">&amp;lt;</span> and <span class="codeInline">&amp;gt;</span>,  respectively. It is applicable in both Data URL and Data String methods. </p>
+  <p> Following data includes &lt; and &gt; characters:</p> </td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab5" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;0&quot; caption=&quot;Percentage of Labor Force By Age Group&quot; xAxisName=&quot;Age Group&quot; yAxisName=&quot;Labor Force&quot;&gt;<br />  &lt;set value=&quot;13&quot; <strong>label=&quot;&amp;lt;20&quot;/&gt;</strong><br />  &lt;set value=&quot;27&quot; label=&quot;21-60&quot;/&gt;<br />  &lt;set value=&quot;17&quot; <strong>label=&quot;&amp;gt;60&quot;/&gt;</strong><br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Percentage of Labor Force By Age Group&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Age Group&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Labor Force&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;13&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;label&quot;:&quot;&amp;lt;20&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;27&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;21-60&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;17&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;label&quot;:&quot;&amp;gt;60&quot;</strong><br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with &lt; and &gt; characters in its data labels:</p>
+<p><img src="Images/SpCharAllgtlt.jpg" alt="Using pound character in chart" /></p>
+<p>Typically, text in FusionCharts is rendered in normal mode. But, you can also render the text in limited HTML mode too. In case, you need to use HTML text as part of any label, you'll need to customize the chart object using Styles and set <span class="codeInline"><a href="../../Styles/Font.html#ishtml">isHTML</a></span> property to 1 in Font Styles. Also, you need to double encode the &lt; and &gt; characters in this case, or these would be considered as staring and end brackets of  HTML tags. Hence, <span class="codeInline">&amp;amp;lt;</span> should be used instead of &lt; and <span class="codeInline">&amp;amp;gt;</span> should be used instead of &gt;. A sample data is shown as below: </p>
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab51">XML</a></li>
+       <li><a href="#tab61">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab51" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;0&quot; caption=&quot;Percentage of Labor Force By Age Group&quot; xAxisName=&quot;Age Group&quot; yAxisName=&quot;Labor Force&quot;&gt;<br />  &lt;set value=&quot;13&quot; label=&quot;<strong>&amp;amp;lt;</strong>20&quot;/&gt;<br />  &lt;set value=&quot;27&quot; label=&quot;21-60&quot;/&gt;<br />  &lt;set value=&quot;17&quot; label=&quot;<strong>&amp;amp;gt;</strong>60&quot;/&gt;
+
+  &lt;styles&gt;
+    &lt;definition&gt;
+      &lt;style name=&quot;HTMLMode&quot; type=&quot;font&quot; <strong>isHTML=&quot;1&quot; </strong>/&gt;
+    &lt;/definition&gt;
+    &lt;application&gt;
+      &lt;apply toObject=&quot;<strong>DATALABELS</strong>&quot; styles=&quot;HTMLMode&quot; /&gt;
+    &lt;/application&gt;
+  &lt;/styles&gt;
+
+&lt;/chart&gt;</pre>
+       </div>
+<div id="tab61" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{
+&nbsp; &quot;chart&quot;:{
+&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,
+&nbsp; &nbsp; &quot;caption&quot;:&quot;Percentage of Labor Force By Age Group&quot;,
+&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Age Group&quot;,
+&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Labor Force&quot;
+&nbsp; },
+&nbsp; &quot;data&quot;:[
+    { &quot;value&quot;:&quot;13&quot;, &quot;label&quot;:&quot;<strong>&amp;amp;lt;</strong>20&quot;&nbsp; },
+&nbsp; &nbsp; { &quot;value&quot;:&quot;27&quot;, &quot;label&quot;:&quot;21-60&quot;&nbsp; },
+&nbsp; &nbsp; { &quot;value&quot;:&quot;17&quot;, &quot;label&quot;:&quot;<strong>&amp;amp;gt;</strong>60&quot; }
+&nbsp; ],
+    &quot;styles&quot;: {<br />    &quot;definition&quot;: [<br />      {<br />        &quot;name&quot;: &quot;HTMLMode&quot;,<br />        &quot;type&quot;: &quot;font&quot;,<br />        &quot;ishtml&quot;: &quot;1&quot;<br />      }<br />    ],<br />    &quot;application&quot;: [<br />      {<br />        &quot;toobject&quot;: &quot;DATALABELS&quot;,<br />        &quot;styles&quot;: &quot;HTMLMode&quot;<br />      }<br />    ]<br />  }
+}</pre>
+</div>
+    </div></div><div style="clear:both;"></div>
+
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string, it is essential to encode &lt; and &gt; characters to <span class="codeInline">%26lt;</span> and <span class="codeInline">%26gt;</span> ,respectively. In case, HTML text mode is set on, <span class="codeInline">%26amp;lt;</span> and <span class="codeInline">%26amp;gt</span>; are to be used, respectively. </strong></p></td>
+</tr>
+<tr>
+<td class="header"><a name="apos" id="apos"></a>Using Apostrophe(') sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display ' (apostrophe) character on a chart, it is recommended to encode it as <span class="codeInline">&amp;apos;</span>. It is applicable in both Data URL and Data String methods. </p>
+  <p>A sample where data includes the ' (apostrophe) character is as shown below: </p></td>
+</tr>
+<tr>
+<td class="text">
+<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab7" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; xAxisName=&quot;Student<strong>&amp;apos;</strong>s Name&quot; yAxisName=&quot;Score&quot; &gt;
+   &lt;set label='John<strong>&amp;apos;</strong>s Score' value='420' /&gt;
+   &lt;set label='Mary<strong>&amp;apos;</strong>s Score' value='295' /&gt;
+   &lt;set label='Tom<strong>&amp;apos;</strong>s Score' value='413' /&gt;
+   &lt;set label='Jack<strong>&amp;apos;</strong>s Score' value='523' /&gt;
+&lt;/chart&gt;</pre>
+       </div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">{
+&nbsp; &quot;chart&quot;:{
+&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,
+&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Student<strong>&amp;apos;</strong>s Name&quot;,
+&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Score&quot;
+&nbsp; },
+&nbsp; &quot;data&quot;:[{
+&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John<strong><strong>&amp;apos;</strong></strong>s Score&quot;,
+&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;
+&nbsp; &nbsp; },
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary<strong>&amp;apos;</strong>s Score&quot;,
+&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;
+&nbsp; &nbsp; },
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom<strong>&amp;apos;</strong>s Score&quot;,
+&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;413&quot;
+&nbsp; &nbsp; },
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jack<strong>&amp;apos;</strong>s Score&quot;,
+&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;
+&nbsp; &nbsp; }
+&nbsp; ]
+}</pre>
+</div></div></div></td></tr>
+<tr>
+<td class="text">
+<p>The above data produces a chart with '(apostrophe) in its data labels:</p>
+<p><img src="Images/SpCharAllapos.jpg" alt="Using pound character in chart" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string, it is essential to encode '(apostrophe) character to <span class="codeInline">%26apos;.</span></strong></p></td>
+</tr>
+<tr>
+<td class="header"><a name="quot" id="quot"></a>Using Quote(&quot;) sign</td>
+</tr>
+<tr>
+<td class="text">
+  <p>To display the " (double-quotation or quotes) character on a chart, is recommended to encode it as <span class="codeInline">&amp;quot;</span>. It is applicable in both Data URL and Data String methods. </p>
+  <p>The following data shows how quotes are used: </p></td>
+</tr>
+<tr>
+<td class="text"></td></tr>
+<tr>
+<td class="text"><div class="container" style="overflow:hidden;">
+    <ul class="tabs">
+       <li><a href="#tab11">XML</a></li>
+       <li><a href="#tab12">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab11" class="tab_content">
+<pre class="prettyprint code_container">&lt;chart showValues=&quot;0&quot; caption=&quot;Labor Force By Age Group&quot; xAxisName=&quot;Age Group&quot; yAxisName=&quot;Labor Force&quot;&gt;
+  &lt;set value=&quot;27&quot; label=&quot;<strong>&amp;quot;</strong>Teenager<strong>&amp;quot;</strong>&quot;/&gt;
+  &lt;set value=&quot;43&quot; label=&quot;<strong>&amp;quot;</strong>Adult<strong>&amp;quot;</strong>&quot;/&gt;
+&lt;/chart&gt;</pre>
+       </div>
+<div id="tab12" class="tab_content">
+  <pre id="pre-datajson6" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Labor Force By Age Group&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Age Group&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Labor Force&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[
+&nbsp; &nbsp; { &quot;value&quot;:&quot;27&quot;, &quot;label&quot;:&quot;<strong>&amp;quot;</strong>Teenager<strong>&amp;quot;</strong>&quot; },<br />&nbsp; &nbsp; { &quot;value&quot;:&quot;43&quot;, &quot;label&quot;:&quot;<strong>&amp;quot;</strong>Adult<strong>&amp;quot;</strong>&quot;  },<br />&nbsp; ]<br />}</pre>
+</div>
+    </div></div>
+<p>The above data produces a chart as shown below with quotes in data labels:</p>
+<p><img src="Images/SpCharAllquot.jpg" alt="Using pound character in chart" width="300" height="240" /></p>
+<p class="highlightBlock"><strong> When using the HTML embedding method with data provided as embedded string, it is essential to encode &quot;(quote) character to<span class="codeInline"> %26quot.</span></strong></p></td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+</tr>
+
+<tr>
+  <td class="header"><a name="percent" id="percent"></a>Using Percent(%) sign</td>
+</tr>
+<tr>
+  <td class="text"><p>At times, you might also want to include the % (percent) sign in your chart data. To display % (percent) sign on a chart, you can simply include it in the XML/JSON data source of the chart. It is applicable in both Data URL and Data String methods. </p>
+      <p> Following data includes the % character:</p></td>
+</tr>
+<tr>
+  <td class="text"><div class="container">
+    <ul class="tabs">
+      <li><a href="#tab3">XML</a></li>
+      <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+      <div id="tab3" class="tab_content">
+        <pre class="prettyprint code_container">&lt;chart showValues=&quot;1&quot; caption=&quot;Revenue for 2009&quot; <strong>numberSuffix=&quot;%&quot;</strong> xAxisName=&quot;Quarter&quot; yAxisName=&quot;Revenue&quot; &gt;<br />    &lt;set value=&quot;23&quot; label=&quot;Quarter 1&quot;/&gt;<br />    &lt;set value=&quot;14&quot; label=&quot;Quarter 2&quot;/&gt;<br />    &lt;set value=&quot;22&quot; label=&quot;Quarter 3&quot;/&gt;<br />    &lt;set value=&quot;41&quot; label=&quot;Quarter 4&quot;/&gt;<br />&lt;/chart&gt;</pre>
+      </div>
+      <div id="tab4" class="tab_content">
+        <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Revenue for 2009&quot;,<br />&nbsp; &nbsp; <strong>&quot;numbersuffix&quot;:&quot;%&quot;</strong>,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Revenue&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;23&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 1&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;14&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;22&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;41&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Quarter 4&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+      </div>
+    </div>
+  </div></td>
+</tr>
+<tr>
+  <td class="text"><p>The above data produces a chart with % suffixed to all numeric values:</p>
+      <p><img src="Images/SpCharAllprcnt.jpg" alt="Using percent character in chart" class="imageBorder"/></p>
+    <p class="highlightBlock"> Note that while using the HTML embedding method and dataXML, it is essential to encode percent character to<span class="codeInline"> %25.</span></p></td>
+</tr>
+
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Currency symbols|SpCharAll.html","Plotting discontinuos data|../DiscData.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with JSP - Creating Drill-down charts</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with J2EE|JSP_GettingStarted.html", "Creating Drill down charts" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with JSP &gt; Creating Drill-down charts</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In our previous example, we had used FusionCharts to plot a chart using data stored in database. We'll now extend that example itself to create a drill-down chart which can show more information.</p>
+    <p>If you recall from previous example, we were showing the sum of factory output in a pie chart as under: </p>    <img src="../../guide-for-web-developers/Images/Code_DBOut.jpg" width="572" height="273" class="imageBorder" />
+      <p>In this example, we'll extend it, so that when a user clicks on a pie slice for a factory, he can drill down to see date wise production for that factory. </p></td>
+  </tr>
+
+  <tr>
+    <td valign="top" class="header">Setting up the pie chart for Link </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>To set up the pie chart to enable links for 
+        drill-down involves just minor tweaking of our previous bean used in <span class="codeInline">BasicDBExampleUsingBean.jsp</span>. 
+        We basically need to add the <span class="codeInline">link</span> attribute 
+        for each<span class="codeInline"> &lt;set&gt;</span> element. We create 
+        a new page <span class="codeInline">Default.jsp</span> from the previous 
+        page in <span class="codeInline">DBExample</span> folder with exactly same code. We create a bean <span class="codeInline">FactoriesWithLinkToDetailedBean</span> with following code to construct xml: (<span class="codeInline">getFactoryXML()</span>) </p>      
+      <pre class="code_container prettyprint"><span class="codeComment">//strXML will be used to store the entire XML document generated</span>
+String strXML=&quot;&quot;;
+try{
+  DBConnection dbConn = new DBConnection();
+  Connection oConn= dbConn.getConnection();
+<span class="codeComment">
+  //Database Objects - Initialization
+</span>
+  Statement st1=null,st2=null;
+  ResultSet rs1=null,rs2=null;			
+  String strQuery=&quot;&quot;;
+  Map&lt;String,String&gt; chartAttributes=new HashMap&lt;String, String&gt;();;
+  chartAttributes.put(&quot;caption&quot;, &quot;Factory Output report&quot;);
+  chartAttributes.put(&quot;subCaption&quot;, &quot;By Quantity&quot;);
+  chartAttributes.put(&quot;pieSliceDepth&quot;, &quot;30&quot;);
+  chartAttributes.put(&quot;showBorder&quot;, &quot;1&quot;);
+  chartAttributes.put(&quot;formatNumberScale&quot;, &quot;0&quot;);
+  chartAttributes.put(&quot;numberSuffix&quot;, &quot; Units&quot;);		   
+  DOMHelper domHelper = new DOMHelper();
+  Document chartDoc = domHelper.getDocument();
+<span class="codeComment">  
+  // generate the  chart elements and  assign the attributes to it
+</span>
+  Element rootElement = chartDoc.createElement(&quot;chart&quot;);
+  domHelper.addAttributesToElement(rootElement, chartAttributes);		   
+<span class="codeComment">
+   //Iterate through each factory
+</span>
+  strQuery = &quot;select * from Factory_Master&quot;;
+  st1=oConn.createStatement();
+  rs1=st1.executeQuery(strQuery);			
+  String factoryId=null;
+  String factoryName=null;
+  String totalOutput=&quot;&quot;;
+			
+  while(rs1.next()) {
+    totalOutput=&quot;&quot;;
+    factoryId=rs1.getString(&quot;FactoryId&quot;);
+    factoryName=rs1.getString(&quot;FactoryName&quot;);
+<span class="codeComment">	
+    //Now create second recordset to get details for this factory</span>
+    strQuery = &quot;select sum(Quantity) as TotOutput from Factory_Output where FactoryId=&quot; + factoryId;
+    st2=oConn.createStatement();
+    rs2 = st2.executeQuery(strQuery);
+    if(rs2.next()){
+      totalOutput=rs2.getString(&quot;TotOutput&quot;);
+    }
+<span class="codeComment">
+    //Generate &lt;set label='..' value='...' link='...'/&gt;		</span>
+    Element setElem = chartDoc.createElement(&quot;set&quot;);
+    setElem.setAttribute(&quot;label&quot;, factoryName);
+    setElem.setAttribute(&quot;value&quot;, totalOutput);
+<span class="codeComment"><strong>	
+    // Encoding the URL since it has parameters</strong></span><strong>
+    String strDataURL = FusionChartsHelper.encodeDataURL(&quot;Detailed.jsp?factoryId=&quot;+factoryId,false);
+    setElem.setAttribute(&quot;link&quot;, strDataURL);</strong>
+    rootElement.appendChild(setElem);
+<span class="codeComment">
+    //close the resultset,statement
+    //enclose them in try catch block
+    //code omitted here
+</span>
+  }
+<span class="codeComment">
+  //Finally, close &lt;chart&gt; element
+</span>
+  chartDoc.appendChild(rootElement);
+  strXML=domHelper.getXMLString(chartDoc);
+<span class="codeComment">
+  //code omitted here
+  //close the resultset,statement,connection
+  //enclose them in try catch block
+</span>	    
+ }catch(java.sql.SQLException e){
+	System.out.println(&quot;Could not close the statement&quot;);
+	}	
+return strXML;
+</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the code above, in <span class="codeInline">getFactoryXML()</span> method, we're doing the following:</p>
+        <ol>
+          <li>We connect to the database using DBConnection class. </li>
+          <li>Thereafter, we generate the XML data document by iterating through the resultset. We construct the <span class="codeInline">xml</span> using <span class="codeInline">dom</span>.To each <span class="codeInline">&lt;set&gt;</span> element, we add the <span class="codeInline">link</span> attribute, which points to <span class="codeInline">Detailed.jsp</span> - the page that contains the chart to show details. We pass the factory id of the respective factory by appending it to the link. The value for the link attribute is then URL encoded. This is an important step. <br />
+              <pre class="code_container prettyprint"><span class="codeComment">// Encoding the URL since it has parameter</span>
+String strDataURL = FusionChartsHelper.encodeDataURL(&quot;Detailed.jsp?factoryId=&quot;+factoryId,false);
+setElem.setAttribute(&quot;link&quot;, strDataURL);
+</pre>
+              </li>
+          <li>Finally, we return the xml as a string obtained from the xml document. </li>
+      </ol>
+      <p>Let's now shift our attention to <span class="codeInline">Detailed.jsp</span> 
+        page - the page which renders the second chart based on the click in the first chart. </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Creating the detailed data chart page </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>The page <span class="codeInline">Detailed.jsp</span> 
+        contains the following code: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+<pre class="code_container prettyprint" >&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;%@ taglib prefix=&quot;tags&quot; tagdir=&quot;/WEB-INF/tags&quot;%&gt;
+&lt;%@ taglib uri=&quot;http://www.fusioncharts.com/jsp/core&quot; prefix=&quot;fc&quot;%&gt;
+<strong>&lt;jsp:useBean id=&quot;factoryDetails&quot; class=&quot;com.fusioncharts.sampledata.FactoryDetailsBean&quot; /&gt;</strong>
+&lt;c:set var=&quot;folderPath&quot; value=&quot;../../FusionCharts/&quot; /&gt;
+&lt;c:set var=&quot;title&quot; value=&quot;FusionCharts - Database + Drill-Down Example&quot;	scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;header1&quot; value=&quot;FusionCharts Database and Drill-Down Example&quot; scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;header2&quot; value=&quot;Detailed report for the factory&quot; scope=&quot;request&quot; /&gt;
+&lt;c:set var=&quot;jsPath&quot; value=&quot;${folderPath}&quot; scope=&quot;request&quot;/&gt;
+<strong>&lt;c:set target=&quot;${factoryDetails}&quot; property=&quot;factoryId&quot; value=&quot;${param.factoryId}&quot;/&gt;	</strong>
+<span class="codeComment">&lt;!-- 
+    This page is invoked from Default.jsp. When the user clicks on a pie
+    slice in Default.jsp, the factory Id is passed to this page. We need
+    to get that factory id, get the information from database and then show
+    a detailed chart.
+--&gt; </span>
+&lt;tags:template2&gt;
+    <span class="codeComment">&lt;!-- Create the chart - Pie 3D Chart with data contained in bean --&gt;</span>
+    &lt;fc:render chartId=&quot;${factoryDetails.chartId}&quot;
+    swfFilename=&quot;${folderPath}${factoryDetails.filename}&quot;
+    width=&quot;${factoryDetails.width}&quot; height=&quot;${factoryDetails.height}&quot;
+    debugMode=&quot;false&quot; xmlData=&quot;${factoryDetails.xml}&quot; /&gt;
+    
+&lt;/tags:template2&gt;
+</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this page, we're:</p>
+      <ol>
+          <li>Setting the value for jsPath the path to the folder containing the  JavaScript class, to enable easy embedding of FusionCharts.This is used by the <span class="codeInline">template2</span> tag file for including the javascript file. </li>
+          <li>Requesting the factory id for which we've to show detailed data. This value was sent to us as querystring, as a part of pie chart link.</li>
+          <li>Setting the value for factoryId in the bean <span class="codeInline">FactoryDetailsBean</span>.</li>
+          <li>In the bean, we are getting the requisite data for this factory (identified by factoryId) from database and then converting it into XML using string concatenation. This is done in the bean and happens whenever <br/>
+              <span class="codeInline"> &nbsp;&nbsp;&nbsp;setFactoryId()</span> is invoked. </li>
+          <li>Finally,  rendering a Column 2D chart (${factoryDetails.filename}) to show detailed data, by using the <span class="codeInline">fc:render</span> tag.</li>
+          </ol>
+      <p>The main code of creating the xml string is done in the bean <span class="codeInline">FactoryDetailsBean. </span>The relevant code is as follows: (<span class="codeInline">getFactoryDetailsXML(String factoryId)</span> method) </p>
+      <pre class="code_container prettyprint">
+//strXML will be used to store the entire XML document generated
+String strXML=&quot;&quot;;
+try{
+  DBConnection dbConn = new DBConnection();
+  Connection oConn= dbConn.getConnection();
+ <span class="codeComment"> //Database Objects - Initialization</span>
+  Statement st=null;
+  ResultSet rs=null;
+  java.sql.Date date=null;
+  java.util.Date uDate=null;
+  String uDateStr=&quot;&quot;;
+  String quantity=&quot;&quot;;
+  String strQuery=&quot;&quot;;
+  Map&lt;String,String&gt; chartAttributes=new HashMap&lt;String, String&gt;();
+  chartAttributes.put(&quot;caption&quot;, &quot;Factory &quot;+factoryId+&quot; Output&quot;);
+  chartAttributes.put(&quot;subCaption&quot;, &quot;(In Units)&quot;);
+  chartAttributes.put(&quot;xAxisName&quot;, &quot;Date&quot;);
+  chartAttributes.put(&quot;showValues&quot;, &quot;1&quot;);
+  chartAttributes.put(&quot;labelStep&quot;, &quot;2&quot;);
+  chartAttributes.put(&quot;palette&quot;, &quot;2&quot;);
+  DOMHelper domHelper = new DOMHelper();
+  Document chartDoc = domHelper.getDocument();
+  Element rootElement = chartDoc.createElement(&quot;chart&quot;);
+  domHelper.addAttributesToElement(rootElement, chartAttributes);
+
+  <span class="codeComment">//Now, we get the data for that factory</span>
+  strQuery = &quot;select * from Factory_Output where FactoryId=&quot; + factoryId+ &quot; order by DatePro Asc &quot;;
+
+  st=oConn.createStatement();
+  rs=st.executeQuery(strQuery);
+
+  while(rs.next()) {
+    date=rs.getDate(&quot;DatePro&quot;);
+    quantity=rs.getString(&quot;Quantity&quot;);
+    if(date!=null) {
+      uDate=new java.util.Date(date.getTime());
+      SimpleDateFormat sdf=new SimpleDateFormat(&quot;dd/MM&quot;);
+      uDateStr=sdf.format(uDate);
+    }
+    <span class="codeComment">//Generate &lt;set label='..' value='..'/&gt; </span>
+    Element setElem = chartDoc.createElement(&quot;set&quot;);
+    setElem.setAttribute(&quot;label&quot;, uDateStr);
+    setElem.setAttribute(&quot;value&quot;, quantity);
+    rootElement.appendChild(setElem);
+  }
+  <span class="codeComment">//Finally, close &lt;chart&gt; element</span>
+  chartDoc.appendChild(rootElement);
+  strXML=domHelper.getXMLString(chartDoc);
+ <span class="codeComment"> //close the resultset,statement,connection
+  //enclose them in try catch block
+  // code omitted here
+</span>
+}catch(java.sql.SQLException e){
+  System.out.println(&quot;Could not close the statement&quot;);
+}
+
+return strXML;
+</pre>
+      <p>Here, we are iterating through all the rows in the <span class="codeInline">Factory_Output</span> table for the given factoryId and creating the <span class="codeInline">set</span> elements as child of the <span class="codeInline">chart</span> element. The date is formatted before setting it as <span class="codeInline">label</span> for the <span class="codeInline">set</span> element.</p>
+      <p>When you now run the app, you'll see the detailed page as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../../guide-for-web-developers/Images/Code_Drill.jpg"  class="imageBorder" />&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Plotting from database|JSP_DB.html","J2EE, JavaScript &amp; dataURL|JSP_JS_URL.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

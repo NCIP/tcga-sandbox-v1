@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ASP - Chart Transparency</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with ASP|ASP_BasicExample.html", "Transparent chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with ASP &gt; Chart Transparency</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In the previous section we discussed the basics of using FusionCharts with ASP. In the current section, we will see how we can make the charts transparent. We will extend our previous example and only add a few more lines of code to make the chart transparent.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">All code discussed here is present in <span class="codeInline">Download Package &gt; Code &gt; ASP</span> &gt; <span class="codeInline">BasicExample</span> folder. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating a transparent and an opaque chart<span class="codeInline"></span></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We will build two Column 3D charts, both using the same data-source. We take the existing <span class="codeInline">SimpleChart.asp</span> and <span class="codeInline">Data.xml</span> (present in <span class="codeInline">Data</span> folder) and modify these to achieve our goal. We modify <span class="codeInline">SimpleChart.asp</span> to render two column 3D charts.</p>
+      <p>Let us first have a look at the modified code for <span class="codeInline">SimpleChart.asp</span>: ( We save it as <span class="codeInline">SimpleChart_Transparent.asp</span>)</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;%@ Language=VBScript %&gt;
+  &lt;HTML&gt;
+  &nbsp;&nbsp;&nbsp;&lt;HEAD&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TITLE&gt;FusionCharts - Simple Column 3D Chart&lt;/TITLE&gt; 
+  &nbsp;&nbsp;&nbsp;&lt;/HEAD&gt;
+  &nbsp;&nbsp;&nbsp;&lt;!-- #INCLUDE FILE=&quot;../Includes/FusionCharts.asp&quot; --&gt;
+  &nbsp;&nbsp;&nbsp;&lt;BODY&gt;
+    &nbsp;&nbsp;&nbsp;&nbsp; &lt;div style=&quot;padding:40px; <strong>background-color:#9d7fbd</strong>; border:1px solid #745C92; width: 600px;&quot;&gt;
+         &lt;%
+  &nbsp;&nbsp; &nbsp;&nbsp; <span class="codeComment">&nbsp;' Set the chart mode transparent. This would affect all the charts
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;' Rendered after this declaration. </span>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<strong>Call SetTransparentChart(True)</strong>
+        <span class="codeComment"> ' render chart : This would be a transparent chart</span>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Call renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;Data/Data_Transparent.xml&quot;, &quot;&quot;,
+                          &quot;myFirst_Transparent&quot;, 600, 300, false, false)
+        &nbsp;&nbsp; &nbsp;&nbsp; %&gt;
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&lt;BR /&gt;&lt;BR /&gt;
+&nbsp;&nbsp; &nbsp;&nbsp; &lt;%
+        <span class="codeComment"> ' Set the chart mode opaque. This would affect all the charts
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;' Rendered after this declaration. 
+        </span><strong>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Call SetTransparentChart(False)</strong>
+       <span class="codeComment">&nbsp;&nbsp;' Render chart : This would be an opaque chart</span>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Call renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;Data/Data_Transparent.xml&quot;, &quot;&quot;,
+                          &quot;myFirst_Opaque&quot;, 600, 300, false, false)
+        &nbsp;&nbsp; &nbsp;&nbsp; %&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp; &lt;/div&gt;
+      &nbsp; &lt;/BODY&gt;
+  &lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see above, we did the following: </p>
+      <ol>
+        <li>We've first called  <span class="codeInline">SetTransparentChart(true)</span>. This sets the subsequent chart to transparent mode. By transparent mode, it means that now the chart is prepared to be in transparent mode. Hence , the first chart rendered after this call would be rendered in transparent mode.<br />
+          <br />
+        </li>
+        <li>We again called  <span class="codeInline">SetTransparentChart(false).</span>This statement sets all subsequent charts to opaque mode. By opaque mode, it means that the chart can no longer be rendered transparent.<br />
+          <br />
+        </li>
+        <li>Moreover, we've placed the charts inside a purple colored container to make sure that the charts rendered are truly transparent or not.</li>
+      </ol>
+      <p>As you have noticed, we have used <span class="codeInline">Data_Transparent.xml</span> file as the dataURL source for both the charts. We did a little modification to the existing <span class="codeInline">Data.xml</span> file to set the background of the chart transparent and saved it as <span class="codeInline">Data_Transparent.xml</span>.</p>
+      <p>Let us have a look at the modified XML:</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' 
+      &nbsp;showValues='0' formatNumberScale='0' showBorder='1' <strong>canvasBgAlpha='0' bgAlpha='0'</strong>&gt;
+      &lt;set label='Jan' value='462' /&gt;
+      &lt;set label='Feb' value='857' /&gt;
+      &lt;set label='Mar' value='671' /&gt;
+      &lt;set label='Apr' value='494' /&gt;
+      &lt;set label='May' value='761' /&gt;
+      &lt;set label='Jun' value='960' /&gt;
+      &lt;set label='Jul' value='629' /&gt;
+      &lt;set label='Aug' value='622' /&gt;
+      &lt;set label='Sep' value='376' /&gt;
+      &lt;set label='Oct' value='494' /&gt;
+      &lt;set label='Nov' value='761' /&gt;
+     &nbsp;&lt;set label='Dec' value='960' /&gt;
+ &lt;/chart&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This XML is identical to our previous <span class="codeInline">SimpleChart.asp</span> example except for the <span class="codeInline">bgAlpha </span><span class="text">and</span><span class="codeInline"> canvasBgAlpha</span> attributes. <span class="codeInline">bgAlpha</span> sets the opacity of the chart's main background while <span class="codeInline">canvasBgAlpha</span> sets the opacity of the chart's 3D canvas.  The attributes are set to 0 to declare full transparency.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please note that to set a chart transparent we need to go through two steps. First we need to set the chart in Transparent mode. Finally, we need to set bgAlpha ( additionally canvasBgAlpha) attribute to apply transparency on the chart which has been set to transparent mode. One without the other is ineffective. Hence, we would find  from the above example, that even though the second chart is set with transparency attribute values it remains opaque, since it is set to opaque mode.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The resultant charts would look as follows:</p>
+    <p><img src="../Images/ASP_Transparent.jpg"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">We find that the first chart is transparent. The background has vanished and the container's purple color is seen through the chart. The second chart, since set to opaque mode, has not turned transparent. Rather, an opaque white background is being shown.</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("ASP, JavaScript &amp; dataStr|ASP_JS_XML.html","Using Multilingual text|ASP_UTF8Example.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

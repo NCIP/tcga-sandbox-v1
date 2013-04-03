@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Converting our previous chart into a Pie Chart</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Changing chart type" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Converting our previous chart into a Pie Chart</td>
+  </tr>
+  <tr><td height="10"></td></tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>In our previous example (<a href="FirstChart.html">Creating your first chart</a>), we had created a 3D column chart to graphically represent the weekly sales for one month. Here, we'll quickly convert this chart into a 3D Pie chart without changing the original data.</p>
+       <p>Once completed, the chart would look like the image shown below. However, the actual chart supports animation and lots more interactivity (like slicing of pie when clicked, rotation of chart using mouse, tool-tips on labels etc.)</p>
+       <img src="Images/ChangeChartToPie.jpg" width="376" height="238" class="imageBorder" />
+       <p>To change the chart type, all you have to do is to edit the previous code and change the name  SWF file to <span class="codeInline">Pie3D.swf</span>. Let's see how the change is incorporated in the HTML code (in your web page).</p>
+       <p class="highlightBlock" >Code examples discussed in this section are present in<span class="codeInline"> Download Package &gt; Code &gt; MyFirstChart</span> folder. The chart SWF files are present in <span class="codeInline">Download Package &gt; Charts </span>folder.</p>
+       <p>For this example, create a copy of <span class="codeInline">weekly-sales.html</span> 
+        and save it as <span class="codeInline">weekly-sales-pie.html</span> in the same 
+        folder. Finally, edit the HTML code to reflect the following changes:</p>
+       <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - change chart type&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 
+
+      var myChart = new FusionCharts( &quot;<strong>FusionCharts/Pie3D.swf</strong>&quot;, 
+		     &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+      
+    // --&gt;
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+	 <p>See it <a href="../../Code/MyFirstChart/weekly-sales-pie.html" target="_blank">live</a>!</p></td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text">In the above code, we've changed the path of the SWF file which was earlier pointing to <strong>Column3D.swf</strong> but now points to <strong>Pie3D.swf. </strong>You need to copy <span class="codeInline">Pie3D.swf</span> file from <span class="codeInline">Charts</span> folder of the Download Pack. If you now open the HTML file in a browser, you'll see a pie chart similar to this:</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p><img src="Images/ChangeChartToPie.jpg" width="376" height="238" class="imageBorder" /></p></td>
+  </tr>  
+  <tr>
+    <td valign="top" class="text">You can click on a pie slice (in the actual chart - not in the image above) to slice it out. Or, you can right click on the chart, choose "Enable Rotation" from the context menu, and then rotate the chart by dragging it with the mouse cursor. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	  <p class="highlightBlock"><strong>Existing users </strong>: You might be wondering what happened to functions like <span class="codeInline">setDataURL()</span> which you have already been using in your application. Yes - although deprecated, it will continue to work without any problem.</p>
+      <p class="highlightBlock">Please note that you can change the chart type without having to change the data, only if the new chart type is compatible with the original data.  In case of this example, we are converting a <a href="../DataFormats/XML/Overview.html#ss">single series</a> column chart into a single series pie chart. Since, both the charts are single series, the original data is valid for both the chart types. <br />
+          <br />
+    If you use  <a href="../DataFormats/XML/Overview.html#ms">multi-series</a> data on a single-series chart or vice-versa, you'll get a &quot;No data to display&quot; message on the chart.</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using XML embedded in the page|DataXML.html","Changing chart Dimensions|ChangeSize.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

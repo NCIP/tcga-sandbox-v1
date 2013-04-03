@@ -1,0 +1,57 @@
+<%--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--%>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="/<%=rootDir%>/images/general/tcga.a" />
+        <link rel="stylesheet" href="/<%=rootDir%>/styles/main.css?vers=<%=timestamp%>" type="text/css" media="all" />
+        <script type="text/javascript" src="/<%=rootDir%>/scripts/main.js?vers=<%=timestamp%>"></script>
+        <script type="text/javascript"><!--
+            Ext.onReady(function() {
+                if (Ext.isWebKit) {
+                    Ext.util.CSS.updateRule('.ext-strict .x-small-editor .x-form-text', 'height', '14px !important');
+                }
+            }, this);
+        --></script>
+
+        <script type="text/javascript"><!--
+            var ua = navigator.userAgent;
+            var re  = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+            var rv = parseFloat( RegExp.$1 );
+            
+            var checkForIe6 = function() {
+                if (re.exec(ua) != null) {
+                    var rv = parseFloat( RegExp.$1 );
+                    if ( rv < 7) {
+                        document.getElementById('browserWarning').style.display = 'block';
+                    }
+                }
+            }
+
+            var checkForIe7 = function() {
+                if (re.exec(ua) != null) {
+                    var rv = parseFloat( RegExp.$1 );
+                    if ( rv == 7) {
+                        return true;
+                    }
+                }
+
+                 return false;
+            }
+
+            $(document).ready(function() {
+                 checkForIe6();
+            });
+
+            var tcgaHost='<% out.print(host); %>';
+            var tcgaSecureHost='<% out.print(secureHost); %>';
+            var tcgaDbHost='<% out.print(dbHost); %>';
+            var servletPath = '<% out.print(servletPath); %>';
+            var requestURI = '<% out.print(requestURI); %>';
+        --></script>
+<% if (metaKeywords.length()>0) {%><meta name="keywords" content="<%=metaKeywords%>" /><%}%>
+<% if (metaDescription.length()>0) {%><meta name="description" content="<%=metaDescription%>" /><%}%>

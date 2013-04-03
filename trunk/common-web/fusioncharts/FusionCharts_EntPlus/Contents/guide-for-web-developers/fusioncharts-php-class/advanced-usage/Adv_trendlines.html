@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts PHP Class API - Advanced Usage - Creating Trendlines &amp; Vertical Trendlines </title>
+<link rel="stylesheet" type="text/css" href="../../../css/Style.css"/>
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "Guide for web developers", "FusionCharts PHP Class|../Overview.html", "Advanced Usage", "Creating Trendlines &amp; Vertical Trendlines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts PHP Class API &gt; Advanced Usage &gt; Creating Trendlines &amp; Vertical Trendlines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">Trendline is used to display trends, targets etc. on the chart. FusionCharts   ASP Class lets you create trendlines on charts. Let's find out how: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><span class="codeInline">addTrendLine()</span> function   of FusionCharts ASP Class lets you add a Trendline. Here is an example:</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="codeBlock">$FC-&gt;addTrendLine(&quot;startValue=44000;color=ff0000;displayvalue=Target&quot;);</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">This function accepts delimiter separated trendline   parameters like <span class="codeInline">startValue</span>, <span class="codeInline">color</span>(in hex color code), <span class="codeInline">displayValue</span> etc. The   resultant chart might look like the image below: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img height="251" src="../../Images/ClassImages/Adv_trendlines1.jpg" width="301" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">You can add a number of trendlines calling <span class="codeInline">addTrendline</span>() multiple times. The way of doing the same is shown below:</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="codeBlock">$FC-&gt;addTrendLine(&quot;startValue=42000;color=ff0000;displayvalue=Target;showOnTop=1&quot;); $FC-&gt;addTrendLine(&quot;startValue=30000;color=008800;displayvalue=Average;showOnTop=1&quot;); $FC-&gt;addTrendLine(&quot;startValue=50000;endValue=60000;color=0000ff;alpha=20;displayvalue=Dream Sales;showOnTop=1;isTrendZone=1&quot;);</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">And the resultant chart is: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img height="251" src="../../Images/ClassImages/Adv_trendlines2.jpg" width="301" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">Creating Vertical Trendlines</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">FusionCharts PHP Class API helps you create vertical trendlines/zones on scatter (XY   Plot) or Bubble charts. The <span class="codeInline">addVTrendLine()</span> function of FusionCharts PHP Class lets you create Vertical Trendlines on charts. Let's find out how: </td>
+  </tr>
+  
+
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="codeBlock"><span class="codeComment"># Add First VTrendLine</span><br />
+      <br />
+        <span class="codeBlock"><strong>$FC-&gt;addVTrendLine(&quot;startValue=25;endValues=25;isTrendZone=0;color=FF0000;alpha=50&quot;);</strong><br />
+      </span><br />
+      <span class="codeComment"># Add Second VTrendLine</span><br />
+<br />
+<span class="codeBlock"><strong>$FC-&gt;addVTrendLine(&quot;startValue=10;endValue=20;alpha=25;color=00FF00&quot;);<br />
+</strong></span></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top"><span class="text">This function accepts delimiter separated </span><span class="codeInline">vTrendline</span><span class="text"> (Vertical Trendline) parameters.</span><span class="text"> The resultant chart might look like the image below. </span></td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  
+  <tr>
+        <td valign="top"><img src="../../Images/ClassImages/ClassVTrendline.jpg" /></td>
+      </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Providing other elements' attributes|Adv_OtherElmAttribs.html","Creating vLines|Adv_vLines.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Pie &amp; Doughnut Charts </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Pie &amp; Doughnut chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Pie &amp; Doughnut Charts </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Pie &amp; doughnut charts are used for showing  data composition. Here, you&rsquo;ll find information on usage of various attributes  meant for customizing the functional and aesthetic aspects of pie/doughnut  charts.</p>    </td>
+  </tr>
+  <tr> 
+    <td><table width="40%" border="0" cellpadding="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute10.jpg" width="336" height="270"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute22.jpg" width="337" height="271"/></td>
+    </tr>
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute1.jpg" width="337" height="271"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute23.jpg" width="337" height="271"/></td>
+    </tr></table>    </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p></p></td>
+  </tr>
+     <tr> 
+    <td valign="top" class="header">Interactive Legend</td>
+  </tr>
+      <tr> 
+    <td valign="top" class="text"><p>Starting FusionCharts v 3.2, interactive legend feature has been added to pie/doughnut charts. The legend is an alternative way of labeling a pie/doughnut chart. As the legend is interactive, clicking on a legend key causes the corresponding pie/doughnut section to slide-out. Re-clicking the same key will cause the pie/doughnut section to slide-in.</p></td>
+  </tr>
+  <tr><td valign="top">
+  <table class="table" width="700" border="0" cellpadding="0">
+    <tr>
+    <td width="350" valign="top"><img src="Images/PiechartAttribute2.jpg" width="335" height="247" class="imageBorder"/></td>
+    <td width="350" valign="top"><img src="Images/PiechartAttribute3.jpg" width="339" height="258"/></td>
+    </tr></table></td>
+  </tr>
+  <tr><td valign="top" class="text"><p>The XML/JSON for the above chart looks as under:</p>
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;1&quot; caption=&quot;Marketing Expense&quot; numberprefix=&quot;$&quot; 
+ showlegend=&quot;1&quot; enablesmartlabels=&quot;0&quot; showlabels=&quot;0&quot; showpercentvalues=&quot;1&quot; &gt;
+   &lt;set value=&quot;43500&quot; label=&quot;Service&quot;/&gt;
+   &lt;set value=&quot;34510&quot; label=&quot;Banners&quot;/&gt;
+   &lt;set value=&quot;23420&quot; label=&quot;Print Ads&quot;/&gt;
+   &lt;set value=&quot;11450&quot; label=&quot;Others&quot;/&gt;
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"1",
+    "caption":"Marketing Expense",
+    "numberprefix":"$",
+    "showlegend":"1",
+    "enablesmartlabels":"0",
+    "showlabels":"0",
+    "showpercentvalues":"1"
+  },
+  "data":[{
+      "value":"43500",
+      "label":"Service"
+    },
+    {
+      "value":"34510",
+      "label":"Banners"
+    },
+    {
+      "value":"23420",
+      "label":"Print Ads"
+    },
+    {
+      "value":"11450",
+      "label":"Others"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  
+  </td>
+  </tr>
+   <tr>
+     <td valign="top" class="text">
+       <p class="highlightBlock">Starting v 3.2, legend keys are denoted by icons resembling dataplots. So, in case of pie/doughnut charts, the legend key resembles a pie/doughnut. For information on customizing the legends refer to <a href="Legend.html">XML/JSON Attributes for Legend</a>.</p>
+       <p>Legends are not displayed by default in pie/doughnut charts, they can be added by declaring the <span class="codeInline">showLegend</span> attribute.</p>
+     <pre class="prettyprint code_container">&lt;chart showLegend='1'... &gt;</pre>     </td></tr>
+  <tr>
+  <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr><td valign="top"></td></tr>
+  <tr><td valign="top" class="header">Smart Labels &amp; Lines</td></tr>
+  <tr><td valign="top" class="text"><p>Smart labels help in identifying each sector of the plot. If your chart contains a lot of data then it is better to use smart labels in place of standard labels. Since smart labels are connected to their respective plot sections by a line (called smart line), they make the chart clutter free and easy to read. Smart lines are displayed on pie/doughnut charts by default.</p></td></tr>
+   <tr><td valign="top" class="text"><img src="Images/PiechartAttribute4.jpg" class="imageBorder"/></td></tr>
+   
+  <tr><td height="20"></td></tr>
+  <tr> 
+    <td valign="top" class="textBold">Skipping Overlap labels</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>If you have too many labels in your chart then chances are that your chart will look cluttered even with the smart labels. FusionCharts prevents this clutter by  automatically skipping overlapping labels. This feature is active by default, but it can be disabled by declaring <span class="codeInline">skipOverlapLabels</span> attribute of the <span class="codeInline">&lt;chart&gt;</span> element as shown below:</p>
+    <pre class="prettyprint code_container">&lt;chart skipOverlapLabels='0'...  &gt;</pre>    </td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr> 
+    <td valign="top" class="text"><table class="table" width="700" border="0" cellpadding="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute7.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute9.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" align="center" class="text">Chart that has skipped labels with least values </td>
+    <td valign="top" align="center" class="text">Chart with all labels visible </td>
+    </tr>
+   </table>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="textBold">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="textBold">Managing label display</td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text"><p>Starting FusionCharts v3.2, pie/doughnut charts allow label wrapping. To enable that, you set:</p>
+      <p class="codeInline">&lt;chart  manageLabelOverflow='1' ..&gt;</p>
+      <p>By default, this attribute is set to 0.  Essentially, use of this attribute causes division of the chart into imaginary quadrants. Data labels are either wrapped or truncated depending on their length and also the quantity of data labels contained in the quadrant. If a quadrant contains many data labels, then long labels will be truncated (with ellipses, and then tool-tips are enabled for that label) and not wrapped owing to unavailability of overhead space.      </p>
+      <p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart manageLabelOverflow='1' ...  &gt;</pre>    </td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr> 
+    <td valign="top" class="text"><table class="table" width="700" border="0" cellpadding="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute26.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute27.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" align="center" class="text codeInline">manageLabelOverflow='0'</td>
+    <td valign="top" align="center" class="text codeInline">manageLabelOverflow='1'</td>
+    </tr>
+   </table>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><strong>Customization of smart line cosmetics </strong></td>
+  </tr>
+  <tr>
+  <td valign="top" class="text"><p>Following attributes can be used for cosmetic customization of smart lines:</p></td>
+    </tr>
+    <tr>
+    <td valign="top" class="text">
+    <table width="98%" border="0" class="table" cellpadding="4" cellspacing="0">
+      <tr >
+        <td width="20%" class="header">Attribute Name</td>
+        <td width="13%" class="header">Range</td>
+        <td width='62%' class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="codeInline">smartLineColor</td>
+        <td valign="top" class="text">Hex Code</td>
+        <td valign='top' class="text">Sets the color of smart lines</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="codeInline"> smartLineThickness</td>
+        <td valign="top" class="text"> In Pixels</td>
+        <td valign='top' class="text"> Sets the thickness of smart lines</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="codeInline"> smartLineAlpha</td>
+        <td valign="top" class="text"> 0-100</td>
+        <td valign='top' class="text"> Sets the transparency of smart lines</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="codeInline"> isSmartLineSlanted</td>
+        <td valign="top" class="text"> 0/1</td>
+        <td valign='top' class="text"> The smart lines can appear in two ways: Slanted or Straight. This attribute lets you choose between them.</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p> Example:</p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart smartLineColor='D11B2D' smartLineThickness='3' smartLineAlpha='75' isSmartLineSlanted='0'...&gt;</pre></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>This yields the following output:</p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="Images/PiechartAttribute5.jpg" class="imageBorder"/>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><strong>Disabling smart labels </strong></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>If the chart is composed of fewer data items, then you might want to disable the smart lines in order to make the chart bigger. This can be done by declaring the  <span class="codeInline">enableSmartLabels</span> attribute in the following way: </p>    </td>
+  </tr>
+  <tr> 
+   <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart enableSmartLabels='0'...&gt;</pre></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p><img src="Images/PiechartAttribute6.jpg" class="imageBorder"/></p>    </td>
+  </tr>
+  <tr>
+  <td valign="top" class="text">When the smart labels are switched off, the data labels would be displayed without the smart lines. But if the number of labels increases and smart lines are not being used, then the labels might overlap.</td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td valign="top" class="header">Different modes of displaying data values    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+    <tr> 
+    <td valign="top" class="text"><strong>Data values on charts</strong>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>You can determine  whether you want to display the actual values of the dataplots along with their  respective labels or display values converted into percentage. By default, the  actual values are displayed as shown in the chart shown below:</p>
+    <img src="Images/PiechartAttribute.jpg" class="imageBorder"/>
+    <p> To show  data values in percentage form, you must declare <span class="codeInline">showPercentValues</span> attribute of the <span class="codeInline">&lt;chart&gt;</span> tag.</p>
+    <pre class="prettyprint code_container">&lt;chart showPercentValues='1' ... &gt;</pre>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p><strong>Data values in  tooltips</strong></p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">By default, data values in percentage form are displayed in tooltips.  However, it is possible to display actual figures instead of percentage. This is done by deactivating the <span class="codeInline">showPercentInToolTip</span> attribute.</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p> Example:</p>
+    <pre class="prettyprint code_container">&lt;chart showPercentInToolTip='0'...&gt;</pre>
+    <p>This results in:</p>
+ <img src="Images/PiechartAttribute11.jpg" class="imageBorder"/>    </td>
+  </tr>
+  <tr><td height="30"></td></tr>
+  <tr>
+  <td valign="top" class="header">Slicing and rotation (end-user interactivity)    </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p>Pie and doughnut charts support end-user interactivity,  the charts can be sliced and rotated through simple mouse actions (this feature  is exclusive to pie and doughnut charts). </p></td></tr>
+    <tr><td><table class="table" width="700" border="0" cellpadding="0">
+    <tr><td><img src="Images/PiechartAttribute24.jpg" /></td>
+    <td><img src="Images/PiechartAttribute25.jpg"/></td></tr></table></td></tr>
+    <tr><td>
+    <p>The user can  click a pie/doughnut section to slice it out of the chart, and re-clicking will  cause the section to return to its original position. It is also possible to  display some pie/doughnut sections as sliced, at the time of rendering. This is  done by declaring <span class="codeInline">isSliced</span> attribute of the respective <span class="codeInline">&lt;set&gt;</span> elements.</p>
+    <p>Let's take a look at the following example:</p>
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart caption=&quot;Marketing Expense&quot; showPercentValues=&quot;1&quot; pieRadius='70'&gt;<br />  &lt;set label='Service' value='43500' /&gt;<br />  &lt;set label='Banners' value='34510'/&gt;<br />  &lt;set label='Print Ads' value='23420' <strong>isSliced='1'</strong>/&gt;<br />  &lt;set label='Others' value='11450' /&gt;<br />&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab4" class="tab_content">
+			  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{ &quot;caption&quot;:&quot;Marketing Expense&quot;, &quot;showPercentValues&quot;:&quot;1&quot;, &quot;pieRadius&quot;:&quot;70&quot; },<br />&nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;Service&quot;, &quot;value&quot;:&quot;43500&quot; },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;Banners&quot;, &quot;value&quot;:&quot;34510&quot; },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;Print Ads&quot;, &quot;value&quot;:&quot;23420&quot;, <strong>&quot;isSliced&quot;:&quot;1&quot;</strong> },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;Others&quot;, &quot;value&quot;:&quot;11450&quot; }]<br />}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+    <p><img src="Images/PresetSlice.jpg" alt="Preset slicing" class="imageBorder" /></p>
+    <p>By default,  the chart is in slicing mode, so rotation is not possible. In order to rotate  the chart, the chart must be switched to rotation mode which can be done from  the chart&rsquo;s context menu. However, it is also possible to make rotation active  by default. This is done by declaring the <span class="codeInline">enableRotation</span> attribute in the  following way:</p></td>
+  </tr>
+  <tr>
+  <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart enableRotation ='1'...&gt;</pre></td></tr>
+  <tr> 
+    <td valign="top" class="text"><p><table class="table" width="700" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute21.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute20.jpg" class="imageBorder"/></td>
+    </tr>
+    </table></p>    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+    <tr> 
+      <td valign="top" class="highlightBlock">Rotation and slicing cannot function simultaneously. This means, when you have opted to slice out different slices from your chart, you cannot rotate your chart at the same time.</td>
+    </tr>
+       <tr><td height="25"></td></tr>
+     <tr> 
+    <td valign="top" class="header">Customizing various cosmetic properties of pie/doughnut chart    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p><strong>Customizing the radius</strong></p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">FusionCharts automatically calculates the best fit pie/doughnut radius for the chart. But, you can configure an optimized pie/doughnut chart by increasing or decreasing its overall radius. To do this, you need to specify the desired radius (in pixels) as the value of <span class="codeInline">pieRadius </span> attribute.
+      <p>Changing the radius does not affect the size of the chart's background.</p>
+      <p> Example:</p>
+<pre class="prettyprint code_container">&lt;chart pieRadius='75'...&gt;</pre></td></tr>
+  <tr> 
+    <td valign="top" class="text"><p><table class="table" width="700" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute14.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute15.jpg" class="imageBorder"/></td>
+    </tr><tr>
+    <td valign="top" class="text codeInline" align="center">pieRadius='60'</td>
+    <td valign="top" class="text codeInline" align="center">pieRadius='80'</td>
+    </tr>
+    </table></p>    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr> 
+    <td valign="top" class="text"><p><strong>Applying bevel effect</strong></p>    </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text">You can define the 3D radius of chart in percentage using the <span class="codeInline">radius3D</span> attribute. It basically helps you set the bevel distance for the pie/doughnut. This is applicable only if the 3D Lighting Mode is set on by <span class="codeInline">use3DLighting</span>
+		attribute.
+<p> Example:</p>
+<pre class="prettyprint code_container">&lt;chart radius3D='90'...&gt;</pre></td>
+  <tr> 
+    <td valign="top" class="text"><p><table class="table" cellspacing="0" cellpadding="0" border="0" width="700">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute18.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute17.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" class="text codeInline" align="center">radius3D='45'</td>
+    <td valign="top" class="text codeInline" align="center">radius3D='80'</td>
+    </tr>
+    </table></p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p></p>    </td>
+  </tr>
+   <tr> 
+     <td valign="top" class="text"><strong>Setting the starting angle</strong></td>
+   </tr>
+    <tr> 
+    <td valign="top" class="text">A pie/doughnut chart has an internal angular scale, and data is plotted in accordance with this scale. The data that is specified in the first <span class="codeInline">&lt;set&gt;</span> element of your XML or in the first data object of JSON, gets plotted at position 0° on the chart's angular scale. The remaining data-items are plotted after the first one in the order of their listing. FusionCharts allows you to change the default position of the first data-item on the angular scale. This means that the first data-item can be positioned at an angle other than 0°. This can be achieved by setting the intended angle  (a value between 0-360) as the value for <span class="codeInline">startingAngle</span> attribute.
+      <p> Example:</p>
+<pre class="prettyprint code_container">&lt;chart startingAngle ='180'...&gt;</pre></td></tr>
+  <tr> 
+    <td valign="top" class="text"><p><table class="table" width="700" border="0" cellpadding="0">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute16.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute19.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" align="center" class="text codeInline">startingAngle ='0'</td>
+    <td valign="top" align="center" class="text codeInline">startingAngle ='180'</td>
+    </tr>
+    </table>    </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p></p>    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p><strong>Configuring the slicing distance</strong></p>    </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text">You can customize the slicing action of pie/doughnut charts by setting the distance of the sliced out slices from the center of the chart. To do this, specify the sliced out distance (in pixels) as the value for <span class="codeInline">slicingDistance</span> attribute.
+<p> Example:</p>
+<pre class="prettyprint code_container">&lt;chart slicingDistance ='20'...&gt;</pre></td></tr>
+  <tr> 
+    <td valign="top" class="text"><p><table class="table" cellspacing="0" cellpadding="0" border="0" width="700">
+    <tr>
+    <td valign="top"><img src="Images/PiechartAttribute13.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/PiechartAttribute12.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" align="center" class="text codeInline">slicingDistance ='15'</td>
+    <td valign="top" align="center" class="text codeInline">slicingDistance ='25'</td>
+    </tr>
+    </table></p>
+    <br />    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Custom About Menu Item|CustomAboutMenu.html", "Bubble &amp; Scatter chart|BubbleScatter.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

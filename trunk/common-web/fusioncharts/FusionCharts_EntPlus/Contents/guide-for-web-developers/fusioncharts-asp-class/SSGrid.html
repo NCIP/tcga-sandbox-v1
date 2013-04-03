@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts ASP Class API - Grid Chart </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "FusionCharts ASP Class|Overview.html", "Creating a Grid	" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts ASP Class API &gt; Grid Chart </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+        
+           <p>Let's create a grid chart that will visually depict the Weekly   Sales of a fictitious shop. The sample data that we intend to plot can be   tabularized as under: </p></td>
+       </tr>
+        <tr>
+           <td valign="top" class="text">
+			  <table cellspacing="0" cellpadding="5" class="table" width="250px">
+                    <tr style="border-bottom:1px solid #cccccc;">
+                       <td width="35%" height="24" class="header">Week</td>
+                       <td width="65%" align="right" class="header">Previous Month (sales) </td>
+                    </tr>
+                    <tr>
+                       <td height="24"  class="borderBottom">Week 1 </td>
+                       <td align="right"class="borderBottom">$40800</td>
+                    </tr>
+                    <tr>
+                       <td height="24" class="borderBottom" >Week 2 </td>
+                       <td align="right" class="borderBottom">$31400</td>
+                    </tr>
+                    <tr>
+                       <td height="24"  class="borderBottom">Week 3 </td>
+                       <td align="right" class="borderBottom">$26700</td>
+                    </tr>
+                    <tr >
+                       <td height="24" class="borderBottom"  >Week 4 </td>
+                       <td align="right" class="borderBottom">$54400</td>
+                    </tr>
+                    <tr>
+                      <td height="24" class="borderBottom"  >Week 5 </td>
+                      <td align="right" class="borderBottom">$88544</td>
+                    </tr>
+                    <tr>
+                      <td height="24" class="borderBottom"  >Week 6 </td>
+                      <td align="right" class="borderBottom">$22544</td>
+                    </tr>
+                    <tr>
+                      <td height="24" >Week 7 </td>
+                      <td align="right" >$65548</td>
+                    </tr>
+           </table>			 </td>
+	  </tr>
+   <tr>
+    <td valign="top" class="text"><p>Let's see how to use FusionCharts ASP Class to plot this data into a Grid chart: </p></td>
+  </tr>
+   <tr class="text">
+    <td valign="top"><pre class="prettyprint code_container">&lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+ &lt;%
+    <span class="codeComment">'Include FusionCharts ASP Class</span>
+%&gt; 
+&lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;
+&lt;%
+ &nbsp;&nbsp; dim FC
+    <span class="codeComment">' Create FusionCharts ASP class object</span>
+    set FC = new FusionCharts
+    <span class="codeComment">' Set chart type to Grid</span>
+    Call FC.setChartType(&quot;grid&quot;)
+    <span class="codeComment">' Set chart size </span>
+    Call FC.setSize(&quot;300&quot;,&quot;200&quot;)
+   <span class="codeComment"> ' Set the relative path of the SWF file</span>
+    Call FC.setSWFPath(&quot;../FusionCharts/&quot;)
+    <span class="codeComment">' Set grid value Percent on</span>
+    Call FC.setGridParams(&quot;showPercentValues=1&quot;)
+    <span class="codeComment">' Set alternate row back ground color</span>
+    Call FC.setGridParams(&quot;alternateRowBgColor=EAECEF&quot;)
+    <span class="codeComment">' number item per page</span>
+    Call FC.setGridParams(&quot;numberItemsPerPage=4&quot;)
+   <span class="codeComment"> ' set grid font and font size</span>
+    Call FC.setGridParams(&quot;baseFont=Verdana&quot;)
+    Call FC.setGridParams(&quot;baseFontSize=12&quot;)
+    <span class="codeComment">' Add chart values and category names</span>
+    Call FC.addChartData(&quot;40800&quot;,&quot;label=Week 1&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;31400&quot;,&quot;label=Week 2&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;26700&quot;,&quot;label=Week 3&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;54400&quot;,&quot;label=Week 4&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;88544&quot;,&quot;label=Week 5&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;22544&quot;,&quot;label=Week 6&quot;,&quot;&quot;)
+    Call FC.addChartData(&quot;65548&quot;,&quot;label=Week 7&quot;,&quot;&quot;)
+   %&gt;
+  &lt;html&gt;
+  &nbsp;&nbsp;&nbsp; &lt;head&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;SSGrid with ASP Class&lt;/title&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script language='javascript' src='../FusionCharts/FusionCharts.js'&gt;&lt;/script&gt;
+  &nbsp;&nbsp;&nbsp; &lt;/head&gt;
+  &nbsp;&nbsp;&nbsp; &lt;body&gt;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;%
+        <span class="codeComment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' Render Grid</span>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FC.renderChart(false)
+       &nbsp;&nbsp;&nbsp;&nbsp; %&gt;
+      &lt;/body&gt;
+ &lt;/html&gt;</pre>
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's analyze the steps involved in the above code:</p>
+      <ul type="disc">
+        <li>We include       <span class="codeInline">FusionCharts_Gen.asp</span> in the program. This file contains FusionCharts ASP Class codes. <br />
+           <br />
+        <pre class="prettyprint code_container">&lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;</pre>
+        <br />
+        </li>
+        <li>We create       a  chart object.<br />
+            <br />
+            <pre class="prettyprint code_container">set FC = new FusionCharts</pre>
+            </span><br />
+        </li>
+        <li>We specify the chart type.<br/>
+            <br/>
+         <pre class="prettyprint code_container">Call FC.setChartType(&quot;grid&quot;)</pre>
+            <br/>
+        </li>
+        <li>We specify the  size of the chart.<br/>
+            <br />
+           <pre class="prettyprint code_container">Call FC.setSize(&quot;300&quot;,&quot;200&quot;)</pre>
+          <br />
+        </li>
+        <li>Next, we set      relative path to the chart SWF files using <span class="codeInline">setSwfPath()</span> function. This is the path from which we load the chart SWF files. <br />
+           <br />
+        <pre class="prettyprint code_container">Call FC.setSWFPath(&quot;../FusionCharts/&quot;)</pre>
+          <br />
+        </li>
+        <li>Hereby, we use <span class="codeInline"><strong>setGridParams</strong></span>() to set grid chart parameters(attributes) (Note that for Grid chart it is necessary to use this function instead of <span class="codeInline">setChartParam()  </span>or <span class="codeInline">setChartParams()</span>. In the following line, we set font face and font size of the grid. The two attributes are separated by delimiters<span class="text">. </span><span class="codeInline"><br />
+                </span><br />
+           <pre class="prettyprint code_container">Call FC.<strong>setGridParams</strong>(&quot;baseFont=Verdana;baseFontSize=12&quot;)</pre>
+                <br />
+        </li>
+        <li>Then,  we set to show the grid values as percentage. <br />
+            <br />
+       <pre class="prettyprint code_container">Call FC.<strong>setGridParams</strong>(&quot;showPercentValues=1&quot;)</pre>
+  <br />
+        </li>
+        <li>Next, we set background color of alternate data rows. <br />
+            <br />
+       <pre class="prettyprint code_container">Call FC.<strong>setGridParams</strong>(&quot;alternateRowBgColor=EAECEF&quot;)</pre>
+              <br />
+        </li>
+        <li>Then,  we  set the number of data items that we want to display in one particular page. We set the no. of items per page to 4. In the following chart, the first page will display four data and the next page will display the remaining three data items.<br />
+            <br />
+     <pre class="prettyprint code_container">Call FC.<strong>setGridParams</strong>(&quot;numberItemsPerPage=4&quot;);</pre>
+            <br />
+        </li>
+        <li>Now, we provide chart data through <span class="codeInline">addChartData()</span> function. We pass the value first, and then,  the category name against each value as a parameter i.e., <span class="codeInline">label=Week 1</span>  etc. <br />
+           <br />
+<pre class="prettyprint code_container"> Call FC.addChartData(&quot;40800&quot;,&quot;label=Week 1&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;31400&quot;,&quot;label=Week 2&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;26700&quot;,&quot;label=Week 3&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;54400&quot;,&quot;label=Week 4&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;88544&quot;,&quot;label=Week 5&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;22544&quot;,&quot;label=Week 6&quot;,&quot;&quot;)
+ Call FC.addChartData(&quot;65548&quot;,&quot;label=Week 7&quot;,&quot;&quot;)</pre>
+         <br />
+        </li>
+        <li>Finally, we include       <span class="codeInline">FusionCharts.js</span> - FusionCharts JavaScript Embedding Class and<br />
+           <br />
+        </li>
+        <li>Display       the chart using <span class="codeInline">renderChart()</span> function.<br />
+           <br />
+         <pre class="prettyprint code_container">Call FC.renderChart(false);</pre> </li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here is the Grid chart displaying the first page with four data items that the FusionCharts ASP Class renders: </p>
+    <img src="../Images/ClassImages/ClassGrid.jpg" class="imageBorder" />
+    <p>To see the remaining data items that reside on the next page, we have to click on the arrow(button) lying at the bottom of first page. Then,  we will see the next page as shown in the image below :</p>
+    <img src="../Images/ClassImages/ClassGrid2.jpg" class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Multi Series Stacked Combination Dual Y Axis|MSStackedCDY.html","Advanced usage -  Providing chart attributes|advanced-usage/Adv_chart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Advanced Troubleshooting</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Debugging your charts|Basic.html", "Advanced Troubleshooting" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Advanced Troubleshooting</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In this section, we explore some of the common issues faced by FusionCharts users.</p>      </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Why are the JavaScript charts not working when running from local file system. Same code works fine in server </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>You seem to be using <a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL method</a> (provide data to chart from files or streams) to provide chart data. Many browsers restrict JavaScript from accessing local file system owing to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL. If you run the files from a server, it will run absolutely fine, as the   data is then read and streamed by the server, without the need for   JavaScript to directly access local filesystem. When running locally, however, if you provide the data as string (using the <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a> method), it works fine. </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+     <td valign="top" class="header">I have upgraded to FusionCharts XT and now my existing JavaScript charts of PowerCharts pack are not working! </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>Starting FusionCharts XT, the JavaScript files which handle JavaScript chart rendering for each of our products (FusionCharts, PowerCharts) are segregated. <span class="codeInline">FusionCharts.HC.Charts.js</span> handlers rendering of all FusionCharts JavaScript charts. <span class="codeInline">FusionCharts.HC.PowerCharts.js</span> handlers rendering of all PowerCharts JavaScript charts. <span class="codeInline">FusionCharts.HC.PowerCharts.js</span> is updated in the PowerCharts pack. You would need to download or update to the latest PowerCharts pack and copy  and use <span class="codeInline">FusionCharts.HC.PowerCharts.js</span> from the <span class="codeInline">Charts</span> folder of the downloaded PowerCharts pack. </p>        </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">How to enable JavaScript Debug mode?</td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><p>To enable the JavaScript Debug Mode, you would need to write the following lines of code </p>
+    <p class="code_container prettyprint"> FusionCharts.debugMode.enabled(true); </p>
+    <p>Also, you would need to specify where you would like to display the &quot;debugMode&quot; output. In case you want to see the error within the browser&rsquo;s JavaScript console, you need to write the following lines of code: </p>
+    <p class="code_container prettyprint">FusionCharts.debugMode.outputTo( function() { console.log(arguments); } ); </p>
+    <p>Please note that, depending upon your browser, you may need to specifically enable &quot;JavaScript Console&quot;. For further details on the above, please refer to <strong>Debugging your charts &gt; <a href="JS.html">Using JavaScript</a></strong> page.</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">I cannot understand the error codes which are shown when my chart fails. How do I comprehend them?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>For your reference, we have created a a table with all the errors and description of each. Please refer to the table from <strong>FusionCharts &amp; JavaScript &gt; <a href="../JavaScript/JS_Errors.html#errorlist">Handling errors</a></strong> page.</p>    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Charts are rendering fine in Windows, but when I copy the same folder to my Linux or Mac server, they stop working</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>You would need to check whether the files names which you are referring in the code using proper cases. Please note that, in Windows file names are not case-sensitive. But, in mac or Linux, file names are case-sensitive. Hence, if the actual file name is <span class="darkYellowTr">C</span><span class="codeInline">olumn3</span><span class="darkYellowTr">D</span><span class="codeInline">.swf</span>, you cannot use <span class="darkYellowTr">c</span><span class="codeInline">olumn3</span><span class="darkYellowTr">d</span><span class="codeInline">.swf</span> in your code. Although, this will work in Windows, but will fail in mac or Linux. </p>    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Charts stop rendering if I set the height in percentage</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>When you set percent size to a chart, it tries to get the width/height of its parent container. It seems that the container where you are rendering the chart is not set with a proper height when the chart is rendered into it. </p>
+      <p>For example, if you have a container <span class="codeInline">&lt;div id=&quot;chartContainer&quot;&gt;</span> and this DIV is not set with an absolute or relative height, the DIV's height will be zero. When a chart is rendered in this DIV with 100% height, the chart would try to derive the height of the parent DIV which is zero. The chart would render zero pixel as height. Please try once setting absolute height to the chart or the constrainer element and check. An example is give below: </p>
+    <pre class="code_container prettyprint">&lt;div id=&quot;chartContainer&quot; style=&quot;width:100%; <strong>height:800px;</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var chart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;ChartId&quot;, &quot;100%&quot;, &quot;100%&quot;, &quot;0&quot;, &quot;1&quot;); 
+    chart.setXMLUrl(&quot;Data.xml&quot;);    
+    chart.render(&quot;chartdiv&quot;);         
+&lt;/script&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">The chart can not load JSON from URL although the path to the JSON file is correct. </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>Many web servers like IIS6, does not serve .json (no wildcard MIME type) files by default. You would need to setup your web server to server json files. In IIS6 you can do this using these steps: </p>
+      <ul>
+        <li>Open the properties for the server in IIS Manager and click MIME Types Click &quot;New&quot;</li>
+        <li> Enter &quot;JSON&quot; for the extension and &quot;application/json&quot; for the MIME type</li>
+      </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">JavaScript links are not working although I have set the correct value e.g., link='JavaScript:alert(1234);' The links however, works when I run the code from my server </td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><p>Due to Flash Player security implementation, links from charts would not work if you run the chart from local file system. To make the links work, as well make all the chart API's work, you would need to configure Flash Player Global Security Settings. We have discussed more on how to configure this in the next topic. </p>    </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header"><a name="fpgss" id="fpgss"></a>How do I configure Flash Player Global Security Settings?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Flash Player's Global Security implementation blocks JavaScript to interact with  charts (Flash charts) when you are running the the web page/application with charts from local file system. To configure Flash Player Global Security Settings (to enable links and chart APIs) and enable JavaScript calls from charts, you would need to add the folder containing the chart SWF files to Flash Player's Trusted Zone. </p>
+      <p>Please refer to  <a href="../../Tools/FlashPlayerSecuritySetup/HowToSetup.html"> How to Setup Flash Player Global Security Settings</a> page for a detailed step-by-step guide.</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">JavaScript chart shows 'Invalid Data' even though the Flash charts work fine with the same data. Why? </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please make sure that there are no duplicate attributes or extra quotes (") mentioned in the XML of the chart.
+      
+      Although, the Flash chart ignores duplicate attributes, the JavaScript chart does a strict XML validation. </p>
+      <p>In case the issue still persists please enable the "debugMode" of the chart in the HTML page and check with the XML invoked.</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Charts work fine if my HTML and all SWF and JavaScript files are in the same folder. But, fails if they are segregated to separate folders.</td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <p>You would need to keep the points stated below:</p>
+      <ul>
+        <li>If you are getting the data from another domain, this would not work, as Flash charts block cross domain data transfer</li>
+        <li>If you are putting the files in any folder, which is not accessible by your web-site the charts are likely to fail</li>
+        <li>Since you have segregated the files in separate folders, please make sure you are putting the correct relative paths of the files in your code   </li>
+      </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Why is the word &quot;Chart&quot; displayed instead of the chart?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Any of these listed reasons can cause this error to occur:</p>
+      <ol>
+        <li> You have not set correct path of <span class="codeInline">FusionCharts.js</span> in your code</li>
+        <li>The page  contains JavaScript error</li>
+        <li>If you are  setting the data as XML/JSON String, you might be including new-line characters in the XML/JSON string. New line characters in XML/JSON string cause JavaScript error. </li>
+      </ol>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Why do the JavaScript charts show &quot;Retrieving data..&quot;  if I run them locally while the Flash charts renders fine? </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>JavaScript charts use AJAX to load data from the URL data sources. Some browsers does not allow AJAX data loading to function when running from local file system (using file:/// protocol). Hence, when you run the JavaScript charts from local file system and you are using <a href="../FirstChart/DataXML.html">Data URL method</a> (<span class="codeInline">setXMLUrl</span>, <span class="codeInline">setJSONUrl</span>, <span class="codeInline">setDataURL</span> or similar functions) to provide data to charts where  physical xml or json files are involved, this error occurs. </p>
+      <p>To over-come this situation you would need to render the JavaScript charts using <a href="../FirstChart/DataXML.html">Data String method</a>.</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Charts do not work in my Flex/Flash CS5 Applications </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>FusionCharts XT or lower does not work directly  in Flex or Flash (AS3) based applications. To use FusionCharts in Flex/Flash (AS3) based applications, you would need to use <a href="http://www.fusioncharts.com/flex/" target="_blank">FusionCharts for Flex</a>. </p>
+      <p>FusionCharts v3 (core) had been coded in ActionScript 2 (Flash 8 - AVM1). We haven't ported them to ActionScript 3 (AVM2); instead, we have modified the existing FusionCharts v3 SWF files - so that, they can load efficiently in your Flex solutions and then be controlled by your Flex code.
+        
+        As such, you need not bother about cross AVM issues. All that is to be done is to load the FusionCharts specialized SWF and SWC files, provide the data, and control it from your Flex project.
+        
+    For further details, please refer to <a href="http://www.fusioncharts.com/flex/docs/charts/" target="_blank">FusionCharts for Flex Documentation</a>. </p></td>
+  </tr>
+  
+
+  <tr>
+    <td valign="top" class="header">Why does the &quot;Waiting&quot; button never become &quot;Save&quot; button while exporting my chart?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please make sure you have done the following while exporting a chart to avoid the situation: </p>
+      <ul>
+        <li>You have defined the correct client side export handler's id in the data (XML/JSON) of the chart</li>
+        <li>You have passed the correct client side export handler's id&nbsp; while calling the <span class="codeInline">exportChart()</span> function</li>
+        <li>  Flash Player 10 or above is installed in the system</li>
+        <li>You have <a href="#fpgss">Flash Player Global Security settings</a> configured to run the samples from local file system </li>
+      </ul>    </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">I cannot  remove the 'Save as PDF' option from the right-click menu. Please help. </td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><p>If you wish to remove all &quot;Save as...&quot; options from the right-click menu, please try setting the attribute <span class="codeInline">exportShowMenuItem</span> to <strong class="codeInline">0 </strong>in the<span class="codeInline"> &lt;chart&gt;</span> element.</p>
+      <p>If you wish disable only the &quot;Save as PDF&quot; option, you can define <span class="codeInline">exportFormats=&quot;JPG|PNG&quot;</span> in <span class="codeInline">&lt;chart&gt;</span> element. Using similar method, you can disable any of the other options. </p>    </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">I cannot display multi-lingual or accented characters in chart, although in the XML I have declared &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; in the XML</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please note that in order to use any multi-lingual characters on the chart, you necessarily need to use UTF-8 encoded XML/JSON. More importantly, the XML/JSON file or stream requires UTF-8 BOM stamp to be present as the very first 3 Bytes of the file. Most of the text editors like Notepad can do this automatically. To know more on how to BOM mark a file, please read Using <a href="../advanced/special-chars/SpChar.html">Multi-lingual text</a> page in <strong>Advanced Charting &gt; Using special characters</strong> section. </p>
+    <p>Please note the two basic thumb rules: </p>
+    <ul>
+      <li> For <a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL</a> method - the XML/JSON should be having the BOM stamp</li>
+      <li>For <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a> method - the HTML/application file containing the XML/JSON should have the BOM stamp. </li>
+      </ul>
+    <p class="highlightBlock">BOM is Byte Order Mark. It is 'EF BB EF' - these 3 bytes in case of UTF-8 encoded files, the BOM being placed at the very beginning of the file. It is an indicator that the file is containing UTF-8 encoded strings. Also, please note that specifying the encoding setting i.e., <span class="codeInline">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span> in the XML header region does not add the Byte Order Mark (BOM) to the XML/JSON file. </p>
+    <p> However, please note that FusionCharts supports only left-to-right languages, as of now. It doesn't have native support for right-to-left languages like Hebrew. So, if you want to use Hebrew with FusionCharts, you'll have to programmatically reverse the sequence of words/characters and then provide the same to FusionCharts.</p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">When I pass  multi-lingual or accented characters to JavaScript functions from link, they get broken. Do you have a fix for this? </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please try setting  <span class="codeInline">unescapeLinks</span>='<span class="codeInline">0'</span> in the <span class="codeInline">&lt;chart&gt;</span> element in order to pass the multi-lingual or accented characters to JavaScript functions from links perfectly from a chart.</p>    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">I want to generate the chart automatically at server at a given interval and keep sending email containing the latest charts. Please help.</td>
+  </tr>
+  <tr>
+    <td valign="top"> <p>Please note that FusionCharts does not support mailing of charts directly, as of now. But since FusionCharts allows exporting to image and saving on server, you can write your own script to automatically email the saved image. </p>
+    <p>Also, if you are willing to export the charts directly as images(JPG/JPEG/PNG/PDF directly) without rendering it in the browser, please note that our developers have created a .NET based server-side Image Saver Assembly that allows exporting charts as images without rendering it in the browser. Please note that this works only using  .Net framework of Windows. This is an internal implementation, which is not included and/or associated with the FusionCharts pack. For receiving the same,  drop us a mail requesting for this assembly at <a href="mailto:support@fusioncharts.com">support[@]fusioncharts.com</a>.</p></td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">I cannot change chart message after a chart has been rendered?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>As of now, you cannot directly set a message to an already rendered chart. </p>
+      <p>However, as work-around, you can use a private JavaScript function to change the chart message after the chart has been rendered. The syntax to use this function is :</p>
+      <p class="code_container prettyprint">FusionCharts(&quot;chartDOMId&quot;).ref.showChartMessage(&quot;your message as string&quot;);</p>
+    <p>An example can be :</p>
+    <p class="code_container prettyprint">FusionCharts(&quot;myChartId&quot;).ref.showChartMessage(&quot;message&quot;); </p>
+    <p>Please note that this function will remove any existing chart from the canvas before showing the message. </p></td>
+  </tr>
+  
+  
+  
+  
+  
+  <tr>
+    <td valign="top" class="header">Why can't I show set alternate grid color in the Bar 2D chart when the same XML works for Column 2D chart?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please note that the Bar 2D chart is a horizontal rendering of the Column 2D chart. The alternate grid color in case of Column 2D is referred to the Horizontal bands, whereas in case of Bar 2D, the bands are located vertically. Hence the attribute for achieving the same in Bar 2D is setting <span class="codeInline">showAlternateVGridColor</span> to <span class="codeInline">1</span> in the <span class="codeInline">&lt;chart&gt;</span> element.</p>    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td valign="top" class="header">Chart is rendering values beyond the maximum limit which I have set using yAxisMaxValue attribute. Why is the max limit is not working?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please note that in case there is any data-value in the XML that is larger than the explicitly set <span class="codeInline">yAXisMaxValue</span>, FusionCharts automatically adjusts the Y-axis scale in order to fit and show all the data values in the chart canvas, ignoring the mentioned limit. </p>    </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">I am unable to find a single setting which can apply a single color to all the columns of a chart. Please help. </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please try setting a single color/the desired color (e.g. - &quot;FF0000&quot; for Red color) to the <span class="codeInline">paletteColors</span> attribute   in the <span class="codeInline">&lt;chart&gt;</span> element, in order to apply the same color to all the data-plots of the chart.</p>    </td>
+  </tr>
+  
+  
+  
+  
+  <tr> 
+    <td valign="top" class="header">I want to show only the points/anchors of a line chart and  hide all the lines? I have tried with alpha='0'. No result. </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please try setting the attribute <span class="codeInline">lineAlpha='0.1'</span> (a near zero value but not zero) in the <span class="codeInline">&lt;chart&gt;</span> or the <span class="codeInline">&lt;dataset&gt;</span> element of the chart data. This will draw near-invisible lines, but the anchors would be displayed properly. </p>    </td>
+  </tr>
+  
+  
+  <tr> 
+    <td valign="top" class="header">How to display legends on a Pie chart (both flash and JavaScript)?</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please try setting the attribute <span class="codeInline">showLegend</span> to <span class="codeInline">1</span> in the <span class="codeInline">&lt;chart&gt;</span> element to display the legends on a Pie chart.</p>    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td valign="top" class="header">I have 4 charts with same width. The chart is rendering different width of the canvas boxes. I want to fix the width of the canvas boxes for all the charts. Please help. </td>
+  </tr>
+  <tr>
+    <td valign="top"><p>Please   try explicitly setting common maximum values of <span class="codeInline">canvasLeftMargin</span>, <span class="codeInline">canvasRightMargin</span>, <span class="codeInline">canvasTopMargin</span> and <span class="codeInline">canvasBottomMargin</span> attributes in the  <span class="codeInline">&lt;chart&gt;</span> element. </p>    </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="header">I am using Bar 2D chart and have very long labels which is taking up more space on the chart. How can I give more space to the chart canvas?</td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="text"><p>You can configure the chart to limit the space allotment of the labels of a bar chart using the attribute <span class="codeInline">maxLabelWidthPercent</span> in the <span class="codeInline">&lt;chart&gt;</span> element. This attribute takes value in percentage. It sets the maximum width of data labels in terms of percentage of the total chart's width. This determines the maximum horizontal space which the data labels can occupy. If a data label is longer than the specified percentage width then it will either be wrapped or get truncated, subject to availability of vertical space. </p>
+      <p>Unnecessary space is not reserved for the data labels. Hence,  in case, all of the labels are shorter than the specified maximum width, this setting is ignored. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Basic Troubleshooting|Basic.html", "The new debug window|Window.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

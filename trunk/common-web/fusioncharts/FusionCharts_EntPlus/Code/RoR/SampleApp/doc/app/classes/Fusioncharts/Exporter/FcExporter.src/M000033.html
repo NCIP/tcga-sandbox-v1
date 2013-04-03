@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>validate_parameters (Fusioncharts::Exporter::FcExporter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_exporter.rb, line 48</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_parameters</span>
+      <span class="ruby-identifier">validation_result</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-identifier">validation_error</span> =  <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:stream</span>].<span class="ruby-identifier">nil?</span>)
+         <span class="ruby-identifier">validation_result</span> =<span class="ruby-keyword kw">false</span>
+         <span class="ruby-identifier">validation_error</span>.<span class="ruby-identifier">set_error_code</span>(<span class="ruby-value str">&quot;100&quot;</span>)
+      <span class="ruby-keyword kw">elsif</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_width</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span>  <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_height</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_width</span>].<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;0&quot;</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_height</span>].<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;0&quot;</span>))
+         <span class="ruby-identifier">validation_result</span> =<span class="ruby-keyword kw">false</span>
+         <span class="ruby-identifier">validation_error</span>.<span class="ruby-identifier">set_error_code</span>(<span class="ruby-value str">&quot;101&quot;</span>)
+      <span class="ruby-keyword kw">elsif</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:meta_bgColor</span>].<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-identifier">validation_error</span>.<span class="ruby-identifier">add_warning</span>(<span class="ruby-value str">&quot;513&quot;</span>)
+        <span class="ruby-identifier">validation_result</span> =<span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">validation_result</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">validation_result</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">validation_error</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

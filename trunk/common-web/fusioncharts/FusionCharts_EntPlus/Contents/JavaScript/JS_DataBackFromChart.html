@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Getting data back from chart</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Getting data back from chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Getting data back from chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class allows you to get data back from chart. Using API functions you can retrieve the chart data, along with all attributes or properties, in XML or JSON format. You can also retrieve the chart data in CSV format. </p>
+      <p>Moreover, you can read all chart attributes from a chart. By &quot;chart attribute&quot;, we mean all the XML attributes or JSON properties which are passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through <span class="codeInline">chart</span> property in chart's JSON data. </p>
+      <p>In this page, we would learn how to:</p>
+      <ul>
+        <li>Get chart data in XML format</li>
+        <li>Get chart data in JSON format</li>
+        <li>Get chart data in CSV format</li>
+        <li>Retrieve a chart attribute from chart </li>
+      </ul>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="xmldata"></a>Get XML data from chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can get chart XML data using FusionCharts JavaScript class API. FusionCharts provides various functions as listed below to achieve this:</p>
+      <ul>
+        <li><span class="codeInline msg_handler"><a>getXMLData()</a> &raquo;</span><span class="msg_body veryLightYellowBg ">  This function can only be called on <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span></li>
+        <li><span class="codeInline msg_handler "><a>getChartData( format )</a> &raquo; </span><span class="msg_body veryLightYellowBg "> This function takes  data-format (&quot;xml&quot; or &quot;json&quot;) of the data as parameter. This function can only be called on <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span></li>
+        <li><span class="codeInline msg_handler"><a>getXML()</a> &raquo;</span><span class="veryLightYellowBg msg_body"> This legacy function can be called on both <a href="JS_ChartInstance.html#html">FusionCharts HTML Object</a> and <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span>This function is deprecated. </li>
+      </ul>
+      <p>Let's now see how these functions work in code:</p>
+      				<p><strong><a name="html"></a>Get XML data from a chart using chart HTML Object </strong></p>
+				      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+var chartXML = chartReference.getXMLData();</pre>
+
+                  <p class="msg_handler"><a>Click here to see a complete implementation code sample &raquo;</a></p>
+						<pre class="msg_body code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Update Chart data&lt;/title&gt;
+    &lt;script type="text/javascript" src=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var myChart = new FusionCharts(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      myChart.setXMLUrl(&quot;AugustData.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+		function showData(format)
+		{
+			var chartReference = FusionCharts( "myChartId" );
+			alert(<strong>chartReference.getXMLData()</strong>);
+		}
+    // --&gt;
+    &lt;/script&gt;
+
+    &lt;input type=&quot;button&quot; onClick=&quot;<strong>showData</strong>('xml');&quot; value=&quot;Show XML Data&quot;&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+						
+<p class="highlightBlock"><img src="Images/getxmldata.jpg" width="419" height="548" class="imageBorder" />
+ <br />See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_XML_data_from_a_chart_using_getXMLData.html" target="_blank">live</a>!</p></pre>
+                  <p class="header" style="padding:3px;">Other functions</p>
+                  <p><strong><a name="getxmljs"></a>Get XML data from a chart using getXMLData() on FusionCharts JavaScript Object</strong></p>
+                  <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts.items[ &quot;myChartId&quot; ]; 
+var chartXML = chartReference.getXMLData();</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_XML_data_from_a_chart_using_getXMLData.html" target="_blank">live</a>!</p>
+<p><strong><a name="getchartdata"></a>Get XML from a chart using getChartData() function </strong><strong> on FusionCharts JavaScript Object</strong></p>
+            <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+var chartXML = chartReference.getChartData(&quot;xml&quot;);</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_XML_from_a_chart_using_getChartData.html" target="_blank">live</a>!</p>
+            <p><strong><a name="getxml"></a>Get XML from a chart using getXML() function on FusionCharts HTML Object </strong></p>
+            <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+var chartXML = chartReference.getXML();</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_XML_from_a_chart_using_getXML.html" target="_blank">live</a>!</p>
+      <p class="highlightBlock">The function <span class="codeInline">getXML()</span> is deprecated. </p>
+      <br />
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="jsondata"></a>Get JSON data from chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can get chart JSON data using FusionCharts JavaScript class API. FusionCharts provides various functions as listed below to achieve this:</p>
+      <ul>
+        <li><span class="codeInline msg_handler"><a>getJSONData()</a> &raquo;</span><span class="msg_body veryLightYellowBg "> This function can only be called on <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span></li>
+        <li><span class="codeInline msg_handler "><a>getChartData( format )</a> &raquo; </span><span class="msg_body veryLightYellowBg "> This function takes  data-format (&quot;xml&quot; or &quot;json&quot;) of the data as parameter. This function can only be called on <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span></li>
+      </ul>
+      <p>Let's now see how these functions work in code:</p>
+      <p><strong><a name="getjsondata"></a>Get JSON data from a chart using getJSONData() function </strong></p>
+      <pre class="code_container prettyprint">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+var chartJSON = chartReference.getJSONData();</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_JSON_data_from_a_chart_using_getJSONData.html" target="_blank">live</a>!</p>
+      <p><strong><a name="getchartdatajson"></a>Get JSON data from a chart using getChartData() function </strong></p>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+var chartXML = chartReference.getChartData(&quot;json&quot;);</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_JSON_data_from_a_chart_using_getChartData.html" target="_blank">live</a>!</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="csv" id="csv"></a>Get CSV Data from chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can access the data of the chart from FusionCharts JavaScript API as well. All you need to do is call API function - <span class="msg_handler"><a class="codeInline">getDataAsCSV()</a> &raquo; </span><span class="veryLightYellowBg msg_body"> This legacy function can be called either on <a href="JS_ChartInstance.html#html">FusionCharts HTML Object</a> or <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>. </span></p>
+      <p>Let us see a small sample which gets  CSV data from chart and display it in a JavaScript alert box as shown in the image below: </p>
+      <p><img src="Images/getCSVData.jpg" width="404" height="485" class="imageBorder" /></p>
+      <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;Getting CSV data from chart&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;0&quot; );
+      myChart.setXMLData(&quot;&lt;chart&gt;&lt;set label='A' value='10' /&gt;&lt;set label='B' value='11' /&gt;&lt;/chart&gt;&quot;);
+      myChart.render(&quot;chartContainer&quot;);<strong>
+</strong>      
+    // --&gt;     
+    &lt;/script&gt; 	   
+    &lt;input onclick = &quot;alert(<strong>FusionCharts('myChartId').getDataAsCSV())</strong>&quot; type=&quot;button&quot; value=&quot;Get CSV Data from chart&quot;&gt;
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+					     <p>In the above code, we're first creating a Column 3D chart with DOM Id as <span class="codeInline">myChartId</span>. We provide the following data to the chart and ask it to render:</p>
+					     <pre class="code_container prettyprint">&lt;chart&gt;
+  &lt;set label='A' value='10' /&gt;
+  &lt;set label='B' value='11' /&gt;
+&lt;/chart&gt;</pre>
+					     <p>Thereafter, we're creating a button, which when clicked, exports CSV data from the chart and shows in an alert box. We get the <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a> reference of the chart by <span class="codeInline">FusionCharts('myChartId')</span>. </p>
+					     <pre  class="code_container prettyprint">onclick = &quot;alert(<strong>FusionCharts('myChartId').getDataAsCSV()</strong>)&quot;</pre>
+                         <p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Get_CSV_Data_from_chart.html" target="_blank">live</a>!</p>
+					     <p class="highlightBlock">Note that the CSV data provides  only the data of the chart's dataplot devoid of all properties and trendline definitions.</p>
+					     <p class="msg_handler_slider" style="margin-bottom:0;"><a>Click here to see other implementations of the same function on various object references</a> &raquo;<br />
+      <pre class="code_container prettyprint msg_body">myChart.<strong>getDataAsCSV</strong>();
+...
+FusionCharts.getObjectReference(&quot;myChartId&quot;).<strong>getDataAsCSV</strong>();
+...
+FusionCharts.items[&quot;myChartId&quot;].<strong>getDataAsCSV</strong>();</pre>
+          <p class="highlightBlock">You can customize the output format of CSV data by setting various chart attributes in XML or JSON data. You can set the value separator, value qualifier and whether to show formatted data values. Read <strong>Exporting Chart Data</strong> &gt; <a href="../advanced/ChartMessages.html#setbg">Using JavaScript API</a> to know more on the attributes that configure CSV output format. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name="getchartattribute"></a>Read chart attributes from chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can read a particular chart property (also known as &quot;chart attribute&quot; which is passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through <span class="codeInline">chart</span> property in chart's JSON data)&nbsp; from a chart using FusionCharts JavaScript API call - <span class="msg_handler"><a>getChartAttribute()</a> &raquo; </span><span class="veryLightYellowBg msg_body"> This legacy function can be called either using <a href="JS_ChartInstance.html#html">FusionCharts HTML Object</a> or <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a>.</span></p>
+      <p>Let's build a sample which reads the caption of a chart and displays it in a JavaScript alert box as shown in the image below: </p>
+      <p><img src="Images/getAttribute.jpg" class="imageBorder" /></p>
+      <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;Getting CSV data from chart&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLData(&quot;&lt;chart caption='Sales Chart'&gt;&lt;set label='A' value='10' /&gt;&lt;set label='B' value='11' /&gt;&lt;/chart&gt;&quot;);
+      myChart.render(&quot;chartContainer&quot;);<strong>
+</strong>      
+    // --&gt;     
+    &lt;/script&gt; 	   
+    &lt;input onclick = &quot;alert(FusionCharts('myChartId')<strong>.getChartAttribute('caption')</strong>)&quot; type=&quot;button&quot; value=&quot;Read caption from chart&quot;&gt;
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+<p>See it <a href="../../Code/JavaScript/Basics/GettingDataBackFromChart/Read_chart_attributes_from_chart.html" target="_blank">live</a>!</p>
+      <p>The above code does the following:</p>
+      <ul>
+        <li>It creates a chart with a caption - &quot;Sales Chart&quot;</li>
+        <li> an HTML button is created which when clicked will call <span class="codeInline">getChartAttribute </span>of the rendered chart </li>
+        <li>The function is passed 'caption' as parameter </li>
+      </ul>
+      <p>When the button is clicked, <span class="codeInline">getChartAttribute()</span> function retrieves the value of caption attribute i.e., &quot;Sales Chart&quot; from the chart and displays in an alert box. We get the <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a> reference of the chart by <span class="codeInline">FusionCharts('myChartId')</span>. </p>
+      <p class="highlightBlock">To know more on the function <a href="API/Methods.html#getchartattribute"><span class="codeInline">getChartAttribute()</span></a> please read <strong>API Reference</strong>&gt; <a href="API/Methods.html">Functions</a> page. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Changing chart properties|JS_ChangeChartProperties.html","Listening to events|JS_EventOverview.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

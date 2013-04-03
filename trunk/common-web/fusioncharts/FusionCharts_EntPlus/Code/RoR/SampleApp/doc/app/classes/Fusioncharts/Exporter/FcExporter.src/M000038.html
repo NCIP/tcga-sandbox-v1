@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>format_handler (Fusioncharts::Exporter::FcExporter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_exporter.rb, line 117</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format_handler</span>(<span class="ruby-identifier">str_format</span>)
+      <span class="ruby-identifier">fc_error</span>=<span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">exporter_klass</span>=<span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HANDLERASSOCIATIONSHASH</span>[<span class="ruby-identifier">str_format</span>.<span class="ruby-identifier">upcase</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">exporter_suffix</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HANDLERASSOCIATIONSHASH</span>[<span class="ruby-identifier">str_format</span>.<span class="ruby-identifier">upcase</span>]
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">exporter_suffix</span> = <span class="ruby-identifier">str_format</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">class_name_str</span> = ((<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">RESOURCEPATH</span><span class="ruby-operator">+</span><span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">EXPORTHANDLER</span><span class="ruby-operator">+</span> (<span class="ruby-identifier">exporter_suffix</span>.<span class="ruby-identifier">downcase</span>)).<span class="ruby-identifier">camelize</span>)
+      <span class="ruby-comment cmt"># Check if Corresponding Resource Handler Class is present</span>
+     <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">class_exists?</span>(<span class="ruby-identifier">class_name_str</span>))
+       <span class="ruby-identifier">class_name</span>= <span class="ruby-identifier">class_name_str</span>.<span class="ruby-identifier">constantize</span>
+       <span class="ruby-identifier">exporter_klass</span>=<span class="ruby-identifier">class_name</span>.<span class="ruby-identifier">new</span>
+     <span class="ruby-keyword kw">else</span> 
+         <span class="ruby-comment cmt">#error_codes=&quot;E404,&quot;</span>
+         <span class="ruby-identifier">fc_error</span>=<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">FcError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;404&quot;</span>)
+     <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">exporter_klass</span><span class="ruby-operator">==</span><span class="ruby-keyword kw">nil</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">fc_error</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">exporter_klass</span>
+      <span class="ruby-comment cmt">#Object.const_get(Fusioncharts::Exporter::Properties.BASEPACKAGE).const_get(Fusioncharts::Exporter::Properties.EXPORTERPACKAGE).const_get((Fusioncharts::Exporter::Properties.EXPORTHANDLER + exporter_suffix.downcase).camelize).new</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

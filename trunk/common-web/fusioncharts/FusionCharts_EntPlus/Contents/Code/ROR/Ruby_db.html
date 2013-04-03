@@ -1,0 +1,270 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ROR - Plotting data from a database </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with Ruby on Rails|Ruby_basicexample.html", "Plotting from database" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Using FusionCharts with ROR &gt; Plotting data from a database </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this section, we'll show you how to use FusionCharts and Ruby to plot charts from data contained in a database. We'll create a pie chart to show &quot;Factory Output Quantity  by Factory&quot; using:</p>
+ <ul>
+        <li><span class="codeInline">dataStr</span>  method first.</li>
+        <li>Thereafter, we'll convert this chart to use <span class="codeInline">dataUrl</span>  method. </li>
+        <li>Next, we will create a multi-series line chart from database </li>
+      </ul>
+        <p>For the sake of ease, we'll use the MySQL Database. You can, however, use any database with FusionCharts including SQLLite, MS SQL, Oracle, Access etc.  Database configuration will be available here <span class="codeInline">Download Package >> RoR >> config >> database.yml</span>. In the production version, we have used database named as <span class="codeInline">factorydb</span>. </p>
+      <p><strong>Before you go further with this page, we recommend you to please see the previous section &quot;Basic Examples&quot; as we start off from concepts explained in that page. </strong></p>  
+    <p class="highlightBlock">All code discussed here is present in <br/>
+        <span class="codeInline">Controller : Download Package > Code > RoR > SampleApp &gt; app > controllers > fusioncharts &gt; db_example_controller.rb</span>. <br/>
+        <span class="codeInline">Rhtml : Download Package > Code > RoR > SampleApp &gt; app > views > fusioncharts &gt; db_example</span> folder. </p>    
+    <p><span class="header">Database Structure </span></p>    <p>Let's quickly have a look at the database structure. </p>    <p><img src="../../guide-for-web-developers/Images/Code_RubyDB.jpg" width="368" height="160" class="imageBorder" /></p>    
+    <p>The database contains just 2 tables:</p>    <ol>
+        <li><span class="codeInline">factory_masters</span>: To store the name and id of each factory</li>
+        <li><span class="codeInline">factory_output_quantities</span>: To store the number of units produced by each factory for a given date.</li>
+    </ol>    <p>Note that the name of the table is pluralized, as per Ruby conventions. For demonstration, we've fed some sample data in the database. </p>    <p class="header">Database Configuration </p>    <ol>
+        <li>All the database configuration is present in the file <span class="codeInline">app &gt; config &gt; database.yml</span>. Here we need to specify the database name, user name and password to access the database. We have used the MySQL database for our examples. We assume that you have created the database with the name factorydb, either by using the rake db:create utility or by using MySQL create database command. </li>
+        <li>Once this is done, we need to create the required tables. The required sql script &quot;create_tables.sql&quot; is present in the <span class="codeInline">Download Package > Code > RoR >db </span>folder. You could run this script in your mysql and create the tables and insert the sample data. The other way of creating these tables, is to run rake db:migrate for the migration scripts &quot;001_create_factory_masters.rb&quot; and &quot;002_create_factory_output_quantities.rb&quot; present in the folder <span class="codeInline">Download Package > Code > RoR >db &gt; migrate. </span>Note that these scripts will not create foreign key relationships. You would have to manually alter the table to create these relationships, if you think necessary. To insert the sample data please run the sql script <span class="codeInline">&quot;</span>insert_sample_data.sql<span class="codeInline">&quot; </span>present in the<span class="codeInline"> Download Package > Code > RoR >db</span> folder. </li>
+    </ol>    <p>Let's now shift our attention to the code that will interact with the database, fetch data and then render a chart. </p>    
+    <p class="header">Database Example Using dataStr method</p>    
+    <pre class="code_container prettyprint"><b>Controller: Fusioncharts::DbExampleController
+Action: basic_dbexample
+  </b>class Fusioncharts::DbExampleController &lt; ApplicationController
+    <span class="codeComment">#This is the layout which all functions in this controller make use of.</span>
+    layout &quot;common&quot;
+    <span class="codeComment">#This action retrieves the Factory data 
+    #which holds factory name and corresponding total output quantity.
+    #The view for this action basic_dbexample will use these values to construct the
+    #xml for this chart. To build the xml, the view takes help of the builder file (basic_factories_quantity.builder)</span>
+    def basic_dbexample
+      response.content_type = Mime::HTML
+<span class="codeComment">      #Get data from factory masters table</span>
+      @factories = Fusioncharts::FactoryMaster.find(:all)
+    end <font color="blue">
+</font><b>View:</b>
+    &lt;% @page_title=&quot;FusionCharts - Database Example&quot; %&gt;
+    &lt;% @page_heading=&quot;FusionCharts Database Example Using dataXML method&quot; %&gt;
+    &lt;% @page_subheading=&quot;Click on any pie slice to slice it out. Or, right click to enable rotation mode.&quot; %&gt;
+    &lt;%
+<span class="codeComment">      #In this example, we show how to connect FusionCharts to a database.
+      #For the sake of ease, we've used a database which contains two tables, 
+      #which are linked to each other. 
+      # The xml is obtained as a string from builder template.</span>
+      str_xml = render :file=&gt;&quot;fusioncharts/db_example/basic_factories_quantity&quot;,:locals=&gt;{:factories =&gt; @factories}
+    <span class="codeComment">  #Create the chart - Pie 3D Chart with data from strXML</span>
+      render_chart '/FusionCharts/Pie3D.swf', '', str_xml, 'FactorySum', 600, 300, false, false do-%&gt; 
+    &lt;% end-%&gt; </pre>    
+    <p class="text">Now, here we need to understand some lines of code. </p>    <ol>
+    <li>The <span class="codeInline">basic_dbexample</span><span class="text"> action of the controller, first performs a find on </span><span class="codeInline">FactoryMaster</span><span class="text"> model, getting all the values. </span></li>
+    <li>For each factory in the record set obtained in the previous step, we need the total output quantity for that factory. This is done in the FactoryMaster Model. Note that <span class="codeInline">FactoryMaster</span> and <span class="codeInline">FactoryOutputQuantity</span> are related to each other as shown:<br><br>
+      <pre class="code_container prettyprint"><span class="codeComment">#Model class to store data of factory id and name
+#As per Ruby On Rails conventions, we have the corresponding table 
+#factory_masters in the database</span>
+class <strong>Fusioncharts::FactoryMaster</strong> &lt; ActiveRecord::Base
+  has_many :factory_output_quantities,
+  :order =&gt; 'date_pro asc'
+<span class="codeComment">  #Calculates the total output quantity by summing the quantity from factory_output_quantities </span>
+  def total_quantity
+    self.factory_output_quantities.sum(:quantity)
+  end
+end
+<span class="codeComment">#Model class to store output data of factories
+#As per Ruby On Rails conventions, we have the corresponding table 
+#factory_output_quantities in the database</span>
+class <strong>Fusioncharts::FactoryOutputQuantity</strong> &lt; ActiveRecord::Base
+  belongs_to :factory_master
+end</pre>
+      <p> Based on this relation, Ruby On Rails is able to get the data for <span class="codeInline">FactoryOutputQuantity</span> when a find is performed on FactoryMaster.</p>
+  </li>
+    <li>The view <span class="codeInline">basic_dbexample.html.erb</span> passes the <span class="codeInline">@factories</span> present in the controller to the builder file &quot;<span class="text"><strong>basic_factories_quantity</strong></span>&quot;, as local parameter. The xml obtained from the builder is assigned to <span class="codeInline">str_xml</span> variable.</li>
+    <li>Finally, <span class="codeInline">render_chart</span> function is called by setting the <span class="codeInline">str_xml</span> as xml parameter.</li>
+    </ol>    
+    <p>Let us now take a look at the builder file.</p>    
+    <pre class="code_container prettyprint"><strong>Builder - basic_factories_quantity.builder</strong><span class="codeComment">
+    #Creates xml with values for Factory Output
+    #along with their names.
+    #It uses the factories parameter from locals hash.
+    #This data is used for building xml for chart with factory name and total output.
+    </span>xml = Builder::XmlMarkup.new
+    xml.chart(:caption=&gt;'Factory Output report', :subCaption=&gt;'By Quantity', :pieSliceDepth=&gt;'30', 
+      :showBorder=&gt;'1', :formatNumberScale=&gt;'0', :numberSuffix=&gt;'Units') do
+      factories.each do |factory|
+        xml.set(:label=&gt;factory.name,:value=&gt;factory.total_quantity)
+      end
+    end</pre>    
+    <p>The builder builds chart element with several attributes, then iterates through the factories (received via :locals from the view) to create the &lt;set&gt; element with value for <span class="codeInline">label</span>  as factory name and value for <span class="codeInline">value</span> attribute as total factory output. </p>
+    <p>
+        When you now run the code, you'll see a beautiful pie chart as under:</p>
+        <img src="../../guide-for-web-developers/Images/Code_DB.jpg" class="imageBorder" />
+    <p class="header"><a name="dataurl" id="dataurl"></a>Converting the example to use dataURL method</p>
+    <p class="text">Let's now convert this example to use dataURL method. In dataURL mode, you need the following:</p>
+    <ol>
+        <li><strong>Chart Container View Page </strong> - The page which embeds the HTML code to render the chart. This page also tells the chart where to load the data from. We'll name this page as <span class="codeInline">default.html.erb</span>. </li>
+        <li><strong>Data Provider Builder Page</strong> - This builder provides the XML data to the chart. We'll name this page as <span class="codeInline">pie_data.builder.</span></li>
+        </ol>    
+    <p class="highlightBlock">The pages in this example are contained in<span class="codeInline"> Download Package &gt; Code &gt; PHP &gt; DB_dataURL</span> folder. </p>    
+<p class="text">&nbsp;The code for the Chart Container is as follows: </p>
+<pre class="code_container prettyprint"><strong>Controller</strong>: Fusioncharts::DbDataUrlController
+<strong>Action</strong>: default
+  def default
+    @str_data_url = &quot;/Fusioncharts/db_data_url/pie_data?animate=0&quot;
+   <span class="codeComment"> #The common layout for this view</span>
+    render(:layout =&gt; &quot;layouts/common&quot;)
+  end
+<strong>View: </strong>
+&lt;% @page_title=&quot;FusionCharts - dataURL and Database Example&quot; %&gt;
+&lt;% @page_heading=&quot;FusionCharts dataURL and Database&quot; %&gt;
+&lt;% @page_subheading=&quot;Click on any pie slice to slice it out. 
+Or, right click to enable rotation mode.&quot; %&gt;
+&lt;%
+#Create the chart - Pie 3D Chart with dataURL as @str_data_url.
+render_chart '/FusionCharts/Pie3D.swf',@str_data_url,'','FactorySum', 600, 300, false, false do-%&gt;
+&lt;% end -%&gt;</pre>
+<p class="text">&nbsp;In the above code, we have </p>
+ <ol>
+        <li>Created the <span class="codeInline">dataURL</span> string and store it in <span class="codeInline">@str_data_url</span> variable. We append a dummy property <span class="codeInline">animate</span> to show how to pass parameters to <span class="codeInline">dataURL</span>. After building the <span class="codeInline">dataURL</span>, we encode it using CGI.escape function defined in <span class="text">the </span>action.</li>
+        <li>We apply the common layout before rendering the view.</li>
+        <li>Finally, in the view, we render the chart using <span class="codeInline">render_chart</span> method and setting <span class="codeInline">dataURL</span> as <span class="codeInline">@str_data_url</span>. </li>
+      </ol>
+<p class="header">Creating the Data Provider builder template</p>
+<p class="text">pie_data action and the corresponding builder template have the following code:</p>
+<pre class="code_container prettyprint"><strong>Controller</strong>: Fusioncharts::DbDataUrlController
+<strong>Action</strong>: pie_data
+# Finds all factories
+  # Uses the Model FactoryMaster
+  # Content-type for its view is text/xml
+  def pie_data    
+      response.content_type = Mime::XML
+      @animate_chart = params[:animate]            
+      if @animate_chart.nil? or @animate_chart.empty?
+         @animate_chart = '1'
+      end        
+      # Find all the factories     
+     @factories = Fusioncharts::FactoryMaster.find(:all)
+  end
+<strong>Builder</strong>: 
+#Creates xml with values for factories
+#along with their names.
+#The values required for building the xml is obtained 
+#from the corresponding controller action pie_data
+#It accesses @factories from the controller.
+#Here, this data is used for building xml for pie chart with factory name and total output.
+xml = Builder::XmlMarkup.new(:indent=&gt;0)
+xml.chart(:caption=&gt;'Factory Output report', :subCaption=&gt;'By Quantity', 
+:pieSliceDepth=&gt;'30', :showBorder=&gt;'1', 
+:formatNumberScale=&gt;'0', :numberSuffix=&gt;' Units', 
+:animation=&gt;@animate_chart) do
+	@factories.each do|factory|
+		xml.set(:label=&gt;factory.name,:value=&gt;factory.total_quantity)
+    end
+end</pre><p class="text">In the action, we first set the content-type header as XML and then find all the factories present in factory_masters table. </p>
+<p class="text">In the builder, we construct the xml for the chart using the factories data (@factories) from the controller. </p>
+<p class="text">When you now view this page, you'll get a beautiful pie chart. </p>
+<p class="header"><a name="msline" id="msline"></a>Create multi-series line chart </p>
+<p>Let's now see how we can create a multi-series chart from database. This is no different from creating the Pie chart we saw above. </p>
+<p>All you need to do is to build proper XML from the database that you query from your database. <a href="../../DataFormats/XML/MultiSeries.html">Multi-series charts have a different data format</a> from the format of an XML for a single-series chart like pie. </p>
+<p>Let us see how the code would look for this: </p>
+<pre class="code_container prettyprint"><strong>Controller: DbExampleController
+Action: multiseries</strong>
+<span class="codeComment">  #This action retrieves the factory data for all factories
+  #The view for this action is multiseries.html.erb and it uses the builder file
+  #msfactory_details.builder to build the xml for the chart.</span>
+  def multiseries
+      response.content_type = Mime::HTML
+      @chart_attributes={:caption=>'Factory Output report', :subCaption=>'By Quantity', 
+      :xAxisName=>'Factory',:yAxisName=>'Units', :rotateValues=>'1', :formatNumberScale=>'0',  :animation=>'1' }
+      #Get data from factory masters table
+     <strong> @factories = Fusioncharts::FactoryMaster.find(:all,:include=>"factory_output_quantities")</strong>
+      #selects the date of production in the ascending order
+      <strong>@factory_dates_of_production = Fusioncharts::FactoryOutputQuantity.find
+                                    (:all,:select=>"DISTINCT date_pro",:order=>"date_pro asc")</strong>
+  end
+<strong>View: multiseries.html.erb</strong>
+&lt;% @page_title=&quot; FusionCharts Multiseries chart using data from database &quot; %&gt;
+&lt;% @page_heading=&quot; FusionCharts Multiseries chart using data from database &quot; %&gt;
+&lt;% @page_subheading=&quot;Output of various factories.&quot; %&gt;
+&lt;p class='text'&gt;This is very simple implementation of a multi-series chart using a simple database.&lt;/p&gt;
+&lt;%
+# The xml is obtained as a string from builder template.
+	str_xml = render :file=&gt;&quot;fusioncharts/db_example/msfactory_details&quot;
+,<strong>:locals=&gt;{:factories =&gt; @factories,:factory_dates_of_production=&gt;@factory_dates_of_production}</strong>
+#Create the chart - Pie 3D Chart with data from strXML
+    render_chart '/FusionCharts/MSLine.swf','', str_xml, 'FactorySum', 700, 400, false, false do-%&gt;
+&lt;% end-%&gt;
+<strong>Builder: msfactory_details.builder</strong>
+<span class="codeComment">#Creates xml with values for Factory Output
+#along with their names.
+#It uses the factories parameter from locals hash.
+#This data is used for building xml for multi-series chart 
+#with factory name and output for each factory.
+#For a multi-series chart, dataset tag with seriesName attribute has to be present.
+#Within the dataset, add the set tag with value attribute.</span>
+xml = Builder::XmlMarkup.new
+xml.chart(@chart_attributes) do
+  xml.categories do 
+  	 factory_dates_of_production.each do |factory_datepro|
+  		xml.category(:label=>factory_datepro.formatted_full_date)
+    end
+  end
+  factories.each do |factory|
+    # whenever the factory name changes, start a new dataset element
+    xml.dataset(:seriesName=>factory.name) do 
+      factory.factory_output_quantities.each do |output|
+        xml.set(:value=>output.quantity)
+      end
+    end
+  end
+end</pre>
+<p>In the action multiseres, we find the list of factories along with their output details (highlighted in the above code) and the dates of production of each factory. In the view, we render the chart providing the dataStr ( third parameter ) as the xml obtained from the builder file.</p>
+<p>In the builder file, we construct the xml for the chart by using the locals parameter passed to it. The dates of production of each factory is used as category labels, factory name is used as seriesName and each factory output quantity is the value for each set element.</p>
+<p>Finally, the chart would look as shown in the image below:</p><p><img src="../../guide-for-web-developers/Images/code/php/mschartfromdb.jpg" width="701" height="401"/></p></td>
+</tr>
+ 
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using with data in Forms|Ruby_form.html","Creating Drill down charts|Ruby_drill.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

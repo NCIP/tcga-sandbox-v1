@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Zoom Line Chart XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html","FusionCharts Data Formats", "XML|Overview.html", "Zoom Line chart XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Zoom Line Chart XML</td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p>The Zoom Line chart is essentially a multi-series line chart with intuitive zooming, scrolling and pinning capabilities. It can handle large datasets (comprising of tens of thousands of data points) easily. </p>
+      <p>Shown below is an example of a Zoom Line chart:</p></td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/MSZoomLine1.jpg" width="650" height="400" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Zoom Line Chart can accept XML data in two formats:</p>
+      <ul>
+        <li><strong><a name="standard" id="standard"></a></strong><a href="MultiSeries.html"><strong>Standard Multi-series XML Data</strong></a>: The advantage of this format is that you do not have to change your existing code. Additionally, you can specify <span class="codeInline">displayValue</span> and <span class="codeInline">toolText</span> for each data point. This format must be used  when you've less than 1,000 data points to plot.&nbsp;Using this format for very large datasets will result in longer parsing time</li>
+        <li><strong><a name="compact" id="compact"></a>Compact XML data</strong>: This is a new data format specifically introduced for zoom line chart. Using this format, you can provide tens of thousands of data points. This format reduces the XML size and parsing time. Use this format when you've more than 1,000 data points to show on the chart</li>
+      </ul>      
+      <p>Since the standard <a href="MultiSeries.html">Multi-series XML format</a> has already been discussed, we will skip that and just show the compact format. Shown below is the structure of the compact XML format: </p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+	<pre class="prettyprint code_container">&lt;chart compactDataMode=&quot;1&quot; dataSeparator=&quot;|&quot;
+  caption=&quot;Business Results 2005 v 2006&quot; 
+  xaxisname=&quot;Month&quot; yaxisname=&quot;Revenue&quot; showvalues=&quot;0&quot; numberprefix=&quot;$&quot; 
+  paletteThemeColor='5D57A5' divLineColor='5D57A5' divLineAlpha='40' vDivLineAlpha='40'&gt;<br />
+  &lt;categories&gt;Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec&lt;/categories&gt;<br />
+  &lt;dataset seriesname=&quot;2006&quot;&gt;27400|29800|25800|26800|29600|32600|31800|36700|29700|31900|34800|24800&lt;/dataset&gt;<br />
+  &lt;dataset seriesname=&quot;2005&quot;&gt;10000|11500|12500|15000|11000|9800|11800|19700|21700|21900|22900|20800&lt;/dataset&gt;<br />
+  &lt;trendlines&gt;
+    &lt;line startvalue=&quot;15000&quot; displayvalue=&quot;Trend Line 1&quot; /&gt;
+    &lt;line startvalue=&quot;33000&quot; endvalue=&quot;35000&quot; istrendzone=&quot;1&quot; displayvalue=&quot;Trend Zone 1&quot; showontop=&quot;1&quot; valueonright=&quot;0&quot; /&gt;
+  &lt;/trendlines&gt;<br />
+  &lt;vtrendlines&gt;
+    &lt;line startindex=&quot;5&quot; displayalways=&quot;1&quot; displayvalue=&quot;Split&quot; valueontop=&quot;1&quot; /&gt;
+    &lt;line index=&quot;30&quot; displayalways=&quot;0&quot; displaywhencount=&quot;20&quot; displayvalue=&quot;Dividend&quot; dashed=&quot;1&quot; showontop=&quot;1&quot; color=&quot;FF5904&quot; thickness=&quot;2&quot; dashlen=&quot;3&quot; dashgap=&quot;3&quot; /&gt;
+  &lt;/vtrendlines&gt;
+&lt;/chart&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When specifying data in compact mode, you'll necessarily need to specify following two attributes:</p>
+      <ul>
+        <li><span class="codeInline">compactDataMode=&quot;1&quot;</span> : This tells the chart that data has been specified in compact mode </li>
+        <li><span class="codeInline">dataSeparator=&quot;|&quot;</span> : This specifies the data separator character that is used for separating  labels and data. In the example above, we've used the | (pipe) character. However, you can use comma, semi-colon or any other character - just make sure that character is not part of your data label or value. </li>
+      </ul>
+    <p>The Zoom Line chart supports horizontal trend lines, which can be defined in the same way as they are defined in multi-series charts. Vertical trendlines, based on data index, are also supported. Vertical trendlines can be  displayed conditionally based on level of zoom the chart is viewed at.</p>
+    <p> Consider the XML below:</p>
+    <pre class="code_container code_container">&lt;line startIndex='5' displayAlways='1' displayValue='Split' valueOnTop='1'/&gt; </pre>
+    <p>The above vertical trendline has an attribute <span class="codeInline">displayAlways='1'</span> which instructs the chart to show the vertical trendline at all times, irrespective of the level of zoom applied to the chart. Also, the position of trend line is specified as indexes (<span class="codeInline">startIndex</span> and <span class="codeInline">endIndex</span>). Index refers to  the order of precedence of data points - from left to right on the x-axis (<span class="codeInline">&lt;category&gt;</span>). For instance, the first x-axis label has an index of 1. </p>
+    <p>Here is the XML code for another vertical trendline:</p>
+    <pre class="code_container code_container">&lt;line index='30' displayAlways='0' displayWhenCount='20'  displayValue='Dividend' 
+dashed='1' showOnTop='1' color='FF5904' thickness='2' dashLen='3' dashGap='3' /&gt; </pre>
+    <p>This line has an additional attribute <span class="codeInline">displayWhenCount='20'</span> which instructs the chart to show the trend-line only when user has zoomed into the chart such that   20 or lesser number of dataplots are visible on a single screen. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="featurenotsupported" id="featurenotsupported"></a>Features not supported in  Zoom Line Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Since the zoom line chart plots very large datasets, certain  features/attributes which are available in most of the charts of FusionCharts Suite are not supported in zoom line chart. These are: </p>
+      <ul>
+        <li>Compact data format does NOT support <span class="codeInline">displayValue</span> and <span class="codeInline">toolText </span>for each data item. However, standard data format does support this.</li>
+        <li>Input number formatting is not present in this chart (i.e., where numbers could be provided in European format and the chart converted them to standard numeric format)</li>
+        <li>Linking of each data item is not supported in this chart, as click action causes  zooming</li>
+        <li>vLines are not supported in this chart, you can use <span class="codeInline">vTrendLines</span> instead</li>
+        <li>Tooltips are not supported for trend lines</li>
+        <li>Animation is not supported in this chart </li>
+        <li>Individual &lt;set&gt; anchors cannot be customized, customization can only be done at &lt;dataset&gt; level </li>
+    </ul></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Multi Series Stacked chart XML|MSStacked.html","XML for <i>LinkedCharts</i>|LinkedCharts.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

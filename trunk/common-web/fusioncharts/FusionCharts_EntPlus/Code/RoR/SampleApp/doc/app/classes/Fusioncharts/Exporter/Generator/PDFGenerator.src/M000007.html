@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>add_image_to_pdf (Fusioncharts::Exporter::Generator::PDFGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/generator.rb, line 142</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_image_to_pdf</span>(<span class="ruby-identifier">id</span>=<span class="ruby-value">0</span>, <span class="ruby-identifier">compress</span>=<span class="ruby-keyword kw">true</span>)
+    <span class="ruby-ivar">@compress</span>=<span class="ruby-identifier">compress</span>
+    <span class="ruby-identifier">bitmap_data</span> = <span class="ruby-identifier">get_bitmap_data_24</span>
+
+    <span class="ruby-comment cmt">#PDF Object number</span>
+    <span class="ruby-identifier">img_obj_no</span>= <span class="ruby-value">6</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span><span class="ruby-operator">*</span><span class="ruby-value">3</span>
+                
+                <span class="ruby-comment cmt">#Get chart Image binary</span>
+                <span class="ruby-identifier">bitmap_data</span>=<span class="ruby-identifier">get_bitmap_data_24</span>(<span class="ruby-identifier">id</span>)
+                <span class="ruby-comment cmt">#Compress image binary</span>
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@compress</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">cl</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NameError</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">image_binary</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>.<span class="ruby-identifier">deflate</span>(<span class="ruby-identifier">bitmap_data</span>,<span class="ruby-value">9</span>)
+      <span class="ruby-identifier">compress_str</span> = <span class="ruby-value str">&quot;/Filter /FlateDecode &quot;</span>
+    <span class="ruby-keyword kw">else</span> 
+      <span class="ruby-identifier">image_binary</span>=<span class="ruby-identifier">bitmap_data</span>
+      <span class="ruby-identifier">compress_str</span> = <span class="ruby-value str">&quot;&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-comment cmt">#get the length of the image binary</span>
+    <span class="ruby-identifier">len</span> = <span class="ruby-identifier">image_binary</span>.<span class="ruby-identifier">length</span>
+    
+    <span class="ruby-identifier">width</span>=<span class="ruby-ivar">@pages_data</span>[<span class="ruby-identifier">id</span>][<span class="ruby-identifier">:width</span>].<span class="ruby-identifier">to_s</span>
+    <span class="ruby-identifier">height</span>=<span class="ruby-ivar">@pages_data</span>[<span class="ruby-identifier">id</span>][<span class="ruby-identifier">:height</span>].<span class="ruby-identifier">to_s</span>
+    
+                <span class="ruby-comment cmt">#Build PDF object containing the image binary and other formats required</span>
+      <span class="ruby-identifier">pdf_image_str</span> = <span class="ruby-identifier">img_obj_no</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; 0 obj\n&lt;&lt;\n/Subtype /Image /ColorSpace /DeviceRGB /BitsPerComponent 8  /HDPI 72 /VDPI 72 &quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">compress_str</span>
+      <span class="ruby-identifier">pdf_image_str</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;/Width &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">width</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; /Height &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">height</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; /Length &quot;</span>
+      <span class="ruby-identifier">pdf_image_str</span><span class="ruby-operator">+=</span> <span class="ruby-identifier">len</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &gt;&gt;\nstream\n&quot;</span>
+      <span class="ruby-identifier">pdf_image_str</span><span class="ruby-operator">+=</span> <span class="ruby-identifier">image_binary</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;endstream\nendobj\n&quot;</span>
+           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pdf_image_str</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

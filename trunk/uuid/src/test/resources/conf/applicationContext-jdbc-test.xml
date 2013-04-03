@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+  ~ Copyright Notice.  The software subject to this notice and license includes both human
+  ~ readable source code form and machine readable, binary, object code form (the "caBIG
+  ~ Software").
+  ~
+  ~ Please refer to the complete License text for full details at the root of the project.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.uuid"/>
+    <context:component-scan base-package="gov.nih.nci.ncicb.tcga.dcc.common.bean.validation"/>
+    <aop:aspectj-autoproxy/>
+
+    <import resource="security-test.xml"/>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:samples/tcgadata.properties</value>
+                <value>classpath:conf/uuidApp-test.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="uuidDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${dbUnitConnectionURL}"/>
+        <property name="username" value="${dbUnitUserName}"/>
+        <property name="password" value="${dbUnitPassword}"/>
+    </bean>
+
+    <!-- Transaction manager for UUID Datasource  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="uuidService" class="gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDServiceImpl">
+        <property name="uuidDAO" ref="uuidDAO"/>
+        <property name="centerQueries" ref="centerQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="emailManager" ref="emailManager"/>
+    </bean>
+
+    <bean id="uuidDAO" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+        <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
+        <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
+    </bean>
+
+    <bean id="commonBarcodeAndUUIDValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidatorImpl"/>
+
+    <bean id="shippedBiospecimenQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.ShippedBiospecimenQueriesJDBCImpl"
+          p:dataSource-ref="uuidDataSource"/>
+
+    <bean id="codeTableQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CodeTableQueriesJDBCImpl"
+          p:dataSource-ref="uuidDataSource"/>
+
+    <bean id="emailManager" class="gov.nih.nci.ncicb.tcga.dcc.common.util.EmailManager"/>
+    <bean id="mailSender" class="gov.nih.nci.ncicb.tcga.dcc.common.mail.impl.MailSenderImpl">
+        <property name="defaultFromAddress" value="${tcga.uuid.defaultFromAddress}"/>
+        <property name="defaultReplyTo" value="${tcga.uuid.defaultReplyTo}"/>
+        <property name="defaultFromName" value="${tcga.uuid.defaultFromName}"/>
+        <property name="mailEnabled" value="${tcga.uuid.enableEmail}"/>
+        <property name="subjectPrefix" value="${tcga.uuid.subjectPrefix}"/>
+        <property name="javaMailSender" ref="mailSenderImpl"/>
+    </bean>
+
+    <bean id="mailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${tcga.uuid.mailHost}"/>
+    </bean>
+
+    <bean id="centerQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.CenterQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="platformQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PlatformQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="sampleTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.SampleTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="portionAnalyteQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.PortionAnalyteQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="tumorQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TumorQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="tissueSourceSiteQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.TissueSourceSiteQueriesJDBCImpl">
+        <property name="dataSource" ref="uuidDataSource"/>
+    </bean>
+
+    <bean id="cacheAspect" class="gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.CacheAspect"/>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+
+    <bean id="beanCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"/>
+
+    <bean id="iOCConstraintValidatorFactory"
+          class="gov.nih.nci.ncicb.tcga.dcc.common.bean.validation.IOCConstraintValidatorFactory"/>
+
+    <bean id="validator" factory-bean="iOCConstraintValidatorFactory" factory-method="getValidator"/>
+
+</beans>

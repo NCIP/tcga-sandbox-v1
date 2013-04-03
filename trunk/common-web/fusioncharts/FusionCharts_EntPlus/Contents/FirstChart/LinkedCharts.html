@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>First Chart - Creating <em>LinkedCharts</em> </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Creating <i>LinkedCharts</i>" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Creating <i>LinkedCharts</i> </td>
+  </tr>
+  <tr>
+  <td class="text">
+     <p>FusionCharts v3.2 introduces a new and smart drill-down feature - <i>LinkedCharts</i> - that allows you to create unlimited level of drill-down charts using a single data source. All the links originate from a parent chart and its data, which comprehensively contains data or data URL for all descendant (child, grand-child) charts. Upon clicking the data plot items (columns, pie etc.) of the parent chart, users can drill-down into descendant charts. The descendant charts (or children charts) can either replace the parent chart with an option to drill-up, or can be opened in new dialogs or frames. </p>
+     <p>Let's consider a simple scenario with a single level of drill-down. There is a parent chart that shows yearly sales, which when clicked would render child charts having quarterly sales for that year.  <em>LinkedCharts </em>allows you to build these kinds of scenarios (and much more complex) without having to write any additional line of code.</p>
+     <p>A very basic implementation of <em>LinkedChart</em> feature (where we assume that the parent chart is a Column 2D chart with four columns -representing four years) works in the following way:</p>
+    </td>
+  </tr>
+  <tr>
+<td class="text">
+   <table width="700" cellpadding="0" cellspacing="0"><tr><td>
+      <img src="Images/linked-charts.jpg" /></td>
+   <td  align="center"><img src="Images/linked-charts-after-click.jpg" /></td>
+   </tr>
+		<tr>
+		   <td align="center" class="imageCaption">Parent chart when the data for year 2005 is clicked </td>
+		   <td align="center" class="imageCaption"><i>LinkedChart</i> with data for 2005 replaces the parent chart  </td>
+		</tr>
+   </table>
+   <p>Watch it <a href="../../Code/MyFirstChart/linked-charts.html" target="_blank">live</a>!</p>
+   <p class="header">How to render?</p>
+   <p class="text">To create <em>LinkedCharts</em>, you need  to follow these steps:</p>
+   <ul>
+     <li>First,  create the XML/JSON data for <strong>parent  chart</strong>. This is called the <strong>parent data source</strong> and comprehensively contains Data String or data URL for all descendant charts. </li>
+     <li>Next, append the <strong>data string </strong>or <strong>data URL </strong>for all the <strong>descendant charts </strong>(also called child chart) within the parent data source. If <strong>data string</strong> method is used, data for each descendant chart is embedded within the <strong>parent data source</strong> and linked using <strong>unique data identifiers</strong>.</li>
+     <li>You're done. Yes, no additional code is required! </li>
+     </ul>
+   <p>Let's see the code for a simple <em>LinkedChart</em> that renders a sales chart for 4 years with links:</p>
+   <pre class="code_container prettyprint">&lt;html&gt;
+&lt;head&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot; &gt;&lt;/script&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="chartContainer"&gt;FusionCharts will load here&lt;/div&gt;
+  &lt;script type="text/javascript"&gt;&lt;!--
+
+    var myChart = new FusionCharts( "FusionCharts/Column2D.swf", "myChartId", "320", "250", "0", "1" );
+    myChart.setXMLUrl( "Linked-Data.xml" );
+    myChart.render( "chartContainer" );
+
+    // --&gt;
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+	<p class="text">In the above code (which we have saved as <span class="codeInline">linked-charts.html</span>) we render a Column2D chart with <span class="codeInline">Linked-Data.xml</span> as the data source for the chart. This is the parent chart from which descendant charts would be generated.&nbsp; Let's see how to define the data for all the <em>LinkedCharts </em>in the parent chart's data. The definition of data involves two parent things:</p>
+	<ol>
+	  <li>Select the option whether to embed the chart data for the descendant charts<em> </em>into the parent chart's data source or to keep them as separate Urls sources.</li>
+	  <li>As per the option decided, define the <span class="codeInline">link </span>attribute of each data plot (column, line, area etc.) and specify the descendant chart's data-format and data-source.</li>
+	  </ol>
+   <p>To begin with, let's find out below, how the data is stored in a single  data source:</p>
+</td>
+</tr>
+  
+  <tr>
+  <td class="header"><a name="data" id="data"></a>Defining <i>LinkedCharts</i> using a single data source</td>  
+  </tr>
+
+  <tr>
+     <td valign="top" class="text"><br />
+
+	<div class="container">
+    <ul class="tabs">
+       <li><a href="#tabXML_LC1">XML</a></li>
+       <li><a href="#tabJSON_LC1">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tabXML_LC1" class="tab_content">
+        		      <pre class="code_container prettyprint lang-xml" >&lt;chart caption=&quot;Yearly sales&quot; xAxisName=&quot;Year&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;2004&quot; value=&quot;37800&quot; link=&quot;<strong>newchart</strong>-xml-<strong>2004</strong>-<strong>quarterly</strong>&quot; /&gt;
+  &lt;set label=&quot;2005&quot; value=&quot;21900&quot; link=&quot;newchart-xml-2005-quarterly&quot; /&gt;
+  &lt;set label=&quot;2006&quot; value=&quot;32900&quot; link=&quot;newchart-xml-2006-quarterly&quot; /&gt;
+  &lt;set label=&quot;2007&quot; value=&quot;39800&quot; link=&quot;newchart-xml-2007-quarterly&quot; /&gt;
+  
+  &lt;<strong>linkeddata</strong> id=&quot;<strong>2004-quarterly</strong>&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2004&quot;
+    xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+      &lt;set label=&quot;Q1&quot; value=&quot;11700&quot; /&gt;<br />      &lt;set label=&quot;Q2&quot; value=&quot;8600&quot; /&gt;<br />      &lt;set label=&quot;Q3&quot; value=&quot;6900&quot; /&gt;<br />      &lt;set label=&quot;Q4&quot; value=&quot;10600&quot; /&gt;
+   &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+  
+  &lt;<strong>linkeddata</strong> id=&quot;2005-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2005&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+      &lt;set label=&quot;Q1&quot; value=&quot;5500&quot; /&gt;<br />      &lt;set label=&quot;Q2&quot; value=&quot;7100&quot; /&gt;<br />      &lt;set label=&quot;Q3&quot; value=&quot;3900&quot; /&gt;<br />      &lt;set label=&quot;Q4&quot; value=&quot;5400&quot; /&gt;
+   &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;<strong>linkeddata</strong> id=&quot;2006-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2006&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+      &lt;set label=&quot;Q1&quot; value=&quot;6700&quot; /&gt;<br />      &lt;set label=&quot;Q2&quot; value=&quot;9200&quot; /&gt;<br />      &lt;set label=&quot;Q3&quot; value=&quot;10800&quot; /&gt;<br />      &lt;set label=&quot;Q4&quot; value=&quot;6200&quot; /&gt;
+   &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;<strong>linkeddata</strong> id=&quot;2007-quarterly&quot;&gt;
+    &lt;chart caption=&quot;Quarterly Sales Summary&quot; subcaption=&quot;For the year 2007&quot;
+      xAxisName=&quot;Quarter&quot; yAxisName=&quot;Sales&quot;&gt;
+      &lt;set label=&quot;Q1&quot; value=&quot;8900&quot; /&gt;<br />      &lt;set label=&quot;Q2&quot; value=&quot;6600&quot; /&gt;<br />      &lt;set label=&quot;Q3&quot; value=&quot;11200&quot; /&gt;<br />      &lt;set label=&quot;Q4&quot; value=&quot;13100&quot; /&gt;
+   &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+&lt;/chart&gt;</pre>
+       </div>
+<div id="tabJSON_LC1" class="tab_content"  >
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{ &quot;caption&quot;:&quot;Yearly sales&quot;, &quot;xaxisname&quot;:&quot;Year&quot;, &quot;yaxisname&quot;:&quot;Sales&quot; },<br />&nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;2004&quot;, &quot;value&quot;:&quot;37800&quot;, &quot;link&quot;:&quot;newchart-json-2004-quarterly&quot; },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;2005&quot;, &quot;value&quot;:&quot;21900&quot;, &quot;link&quot;:&quot;newchart-json-2005-quarterly&quot; },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;2006&quot;, &quot;value&quot;:&quot;32900&quot;, &quot;link&quot;:&quot;newchart-json-2006-quarterly&quot; },<br />&nbsp; &nbsp;       { &quot;label&quot;:&quot;2007&quot;, &quot;value&quot;:&quot;39800&quot;, &quot;link&quot;:&quot;newchart-json-2007-quarterly&quot; }],<br />&nbsp; &quot;linkeddata&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;id&quot;:&quot;2004-quarterly&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;linkedchart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;subcaption&quot;:&quot;For the year 2004&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Sales&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;Q1&quot;, &quot;value&quot;:&quot;11700&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q2&quot;, &quot;value&quot;:&quot;8600&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q3&quot;, &quot;value&quot;:&quot;6900&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp;       &nbsp; { &quot;label&quot;:&quot;Q4&quot;, &quot;value&quot;:&quot;10600&quot; }]<br />&nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;id&quot;:&quot;2005-quarterly&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;linkedchart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;subcaption&quot;:&quot;For the year 2005&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Sales&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;Q1&quot;, &quot;value&quot;:&quot;5500&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q2&quot;, &quot;value&quot;:&quot;7100&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q3&quot;,&nbsp;&quot;value&quot;:&quot;3900&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q4&quot;, &quot;value&quot;:&quot;5400&quot; }]<br />&nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;id&quot;:&quot;2006-quarterly&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;linkedchart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;subcaption&quot;:&quot;For the year 2006&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Sales&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;Q1&quot;, &quot;value&quot;:&quot;6700&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp;       &nbsp; { &quot;label&quot;:&quot;Q2&quot;, &quot;value&quot;:&quot;9200&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q3&quot;, &quot;value&quot;:&quot;10800&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q4&quot;, &quot;value&quot;:&quot;6200&quot; }]<br />&nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;id&quot;:&quot;2007-quarterly&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;linkedchart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;caption&quot;:&quot;Quarterly Sales Summary&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;subcaption&quot;:&quot;For the year 2007&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Quarter&quot;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Sales&quot;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &quot;data&quot;:[{ &quot;label&quot;:&quot;Q1&quot;, &quot;value&quot;:&quot;8900&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp;       &nbsp; { &quot;label&quot;:&quot;Q2&quot;, &quot;value&quot;:&quot;6600&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q3&quot;, &quot;value&quot;:&quot;11200&quot; },<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       { &quot;label&quot;:&quot;Q4&quot;, &quot;value&quot;:&quot;13100&quot; }]<br />&nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div>
+</div>
+</div>
+</td>
+  </tr>
+  
+  <tr>
+  <td class="text"><br />
+  	<div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML - Explanation</a></li>
+       <li><a href="#tab2">JSON - Explanation</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+     <p>The above chart XML contains Yearly sales data for four years. Each dataplot is set with a link whose value starts with a prefix - <span class="codeInline">newchart</span>. The prefix lets the parent chart know that it is going to open a <i>LinkedChart</i> when the dataplot is clicked. <span class="codeInline">newchart</span> takes additional parameters
+     as listed below:</p>
+     <ol>
+       <li><span class="codeInline">newchart</span> is followed by a hyphen (-) and then the data-format for the new chart is specified. In this example it is <span class="codeInline">xml</span>. It can also take <span class="codeInline">xmlurl</span>, <span class="codeInline">json </span><span class="text">and </span><span class="codeInline">jsonurl</span> as its value</li>
+        <li>The rest of the value, after a hyphen again (-), of the link attribute defines the data-source as per the data-format provided in that link </li>
+        <li>When <span class="codeInline">xml</span> is set as the data format, the data becomes an id of a <span class="codeInline">&lt;linkeddata&gt;</span> node in the same <span class="codeInline">xml</span> that contains the data for the existing chart</li>
+        <li>In other cases, a URL of <span class="codeInline">XML</span> is set as the data</li>
+      </ol>
+     <p>The XML contains some nodes called <span class="codeInline">&lt;linkeddata&gt;. </span>For each <span class="codeInline">&lt;linkeddata&gt;</span> node of the parent data (<span class="codeInline">xml </span>in this sample) an id is defined. This id is passed as the data source id of the <span class="codeInline">xml</span> data for the <i>LinkedChart</i> (as we discussed in point 3 above).The <span class="codeInline">&lt;linkeddata&gt;</span>node contains complete chart data (here XML) for the <i>LinkedChart</i>. Hence, when a dataplot is clicked, the new chart that opens up takes data from this node.</p>
+       </div>
+		 
+		 
+		 
+		  <div id="tab2" class="tab_content">
+           <p>In case of JSON data (shown above), annual sales data for four years has been defined.  Each dataplot is set with a link whose value starts with a prefix - <span class="codeInline">newchart</span>. The prefix lets the parent chart know that it is going to open a <i>LinkedChart</i> when the dataplot is clicked. <span class="codeInline">newchart</span> takes additional parameters
+     as listed below:</p>
+           <ol>
+       <li><span class="codeInline">newchart</span> is followed by a hyphen (-) and then the data format for the new chart is specified. In this example it is <span class="codeInline">json</span>. It can also take <span class="codeInline">xml, xmlurl </span><span class="text">and </span><span class="codeInline">jsonurl</span> as its value</li>
+        <li>The rest of the value, after a hyphen again (-), of the link attribute defines the data as per the specified data format</li>
+        <li>When <span class="codeInline">json</span> is set as the data format, the data becomes an id of a <span class="codeInline">linkeddata </span>element in the same <span class="codeInline">json</span> that contains the data for the existing chart </li>
+        <li>In other cases, a URL of <span class="codeInline">JSON</span> data source is set specified</li>
+      </ol>
+           
+              <p>The JSON contains a  special Array called <span class="codeInline">linkeddata. </span>Each element of <span class="codeInline">linkeddata </span>Array  contains data for the child <em>LinkedCharts</em>. Each element is an Object with an <span class="codeInline">id</span> property. The string that forms the value of the <span class="codeInline">id </span>property, serves as  a JSON data for the <i>LinkedChart</i> (as we discussed in point 3 above). Each <span class="codeInline">linkeddata </span>element contains full chart data (JSON data in this case) for the <i>LinkedChart</i> -in a separate property <span class="codeInline">linkedchart</span>. Hence, when a dataplot is clicked, the new chart that opens up takes data from this property.</p>
+		  </div>
+	 </div>
+  </div><p>&nbsp;</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="header"><a name="background" id="background"></a>What happens in the background? </td>
+  </tr>
+  <tr>
+    <td class="text">
+      <p>To achieve the seamless implementation of the <i>LinkedChart</i>s, FusionCharts JavaScript does the following: </p>
+      <ul>
+        <li> It automatically creates and shows a detailed child chart when a data plot item <span class="msg_handler"><a>link</a> &raquo; </span><span class="veryLightYellowBg msg_body"> (specially defined links using <span class="codeInline">newchart</span> prefix) </span> in the parent chart is clicked </li>
+        <li>It clones all chart configuration settings from the parent chart to create the child chart or the <i>LinkedChart</i> </li>
+        <li><span class="msg_handler">It also allows you to configure specific properties for the descendant <a>charts</a> &raquo; </span><span class="veryLightYellowBg msg_body"> e.g., type of chart, width, height, where the charts will be shown etc. </span>using <a href="../JavaScript/API/Methods.html#configurelink"><span class="codeInline">configureLink()</span></a> function </li>
+        <li>It notifies your code by way of <a href="../JavaScript/API/Events.html#linkedcharts">events</a> whenever a link is invoked,  link item is opened and link item is closed</li>
+        <li>It allows you to drill-down to unlimited <a href="../DrillDown/LinkedCharts.html#multilevel">numbers of levels</a> </li>
+      </ul>
+      <p class="highlightBlock"><i>LinkedCharts</i> feature provides a number of customizable options for the <i>LinkedCharts</i> as per your requirements. It can let you open <i>LinkedCharts</i><a href="../../Code/JavaScript/Basics/UsingLinkedCharts/jqprettyphoto.html" target="_blank"> in light box </a><span class="text">or </span><a href="../../Code/JavaScript/Basics/UsingLinkedCharts/ExtJs.html" target="_blank">floating boxes</a> or in a <a href="../../Code/JavaScript/Basics/UsingLinkedCharts/linked-charts-config-renderat-xml.html" target="_blank">separate HTML container</a>. It allows you to configure the type of the drilled-down chart. It invokes JavaScript events that one can listen to and perform advanced actions. To know more on this feature and for more code samples, go through <strong>Drill Down Charts</strong> &gt; <a href="../DrillDown/LinkedCharts.html"><em>LinkedCharts</em></a>. If you require more details on the JavaScript API pertinent to <span class="codeInline">LinkedCharts</span>, please go through : <strong>FusionCharts and JavaScript</strong>&gt;<span class="codeInline"> <a href="../JavaScript/JS_LinkedCharts.html">Using <i>LinkedCharts</i></a></span>. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Adding Drill-down links to charts|Drilldown.html","Exporting chart to Image/PDF|ExportChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and JSON </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "JSON Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and JSON </td>
+  </tr>
+  <tr> 
+    <td class="text">
+       <p>Starting FusionCharts v3.2, FusionCharts can also build charts using JSON (JavaScript Object Notation) data format. JSON is a light-weight and simple data format 
+         that is easy to read and understand. Though derived from JavaScript, the data structure is language-independent, with encoders and parsers available for virtually every programming language. </p>
+       <p class="highlightBlock"><strong>Important:</strong> To use JSON data format with FusionCharts, you'll need to embed the charts using FusionCharts JavaScript class (<span class="codeInline">FusionCharts.js</span>), as the charts internally still use XML. The JavaScript class provides the bridge between JSON and XML.</p>
+       <p>Here are a few basic things to know about JSON data:</p>
+       <ul>
+        <li> JSON data is text based data consisting of key and value pairs in format <span class="codeInline">key : value</span> . The values have data associated with them</li>
+        <li>You can make up your own key-value pairs like <span class="codeInline">name : &quot;John Doe&quot; </span><span class="text"> 
+          to store data</span></li>
+        <li>Every JSON data is enveloped by curly brace and key:value pairs are comma separated, like <span class="codeInline">{ firstName : &quot;John&quot; , lastName: &quot;Doe&quot; }</span><span class="codetext">. In JavaScript, this format is called an Object</span></li>
+        <li>A key can be a value within single or double-quotes  e.g. <span class="codeInline">{ &quot;name&quot; : &quot;John Doe&quot; }</span></li>
+        <li>You can use Objects as values too. For example, <span class="codeInline">{ &quot;employee&quot; : { &quot;name&quot; :  &quot;John Doe&quot; , &quot;department&quot; : &quot;Project Manager&quot; , &quot;age&quot; : 35 }  </span> }</li>
+        <li>In JSON, the basic data types are:<ul><li><span class="codeInline">Number</span> (<span class="codeInline">integer </span><span class="text">or</span><span class="codeInline"> real</span>)</li>
+              <li class="codeInline"> String<span class="text"> (double-quoted Unicode with backslash escaping) </span></li>
+              <li class="codeInline">Boolean <span class="text">(</span>1<span class="text"> or</span> 0 in FusionCharts JSON<span class="text">)</span> </li>
+              <li class="codeInline">null</li>
+              <li class="codeInline">Array <span class="text">(an ordered sequence of values of Number, String, Boolean, null, Object or Array type, comma-separated and enclosed in square brackets) e.g.</span> [ &quot;employees&quot; : [ &quot;Employees&quot; , { &quot;name&quot; : &quot;John Doe&quot; } , 35 ] </li>
+              <li class="codeInline">Object <span class="text">(a collection of key:value pairs, comma-separated and enclosed in curly braces. Value can be of Number, String, Boolean, null, Object or Array type) e.g. </span>{ &quot;employee&quot; : { &quot;name&quot; : &quot;John Doe&quot; , &quot;department&quot; : &quot;Project Manager&quot; , &quot;age&quot; : 35 } } </li>
+              </ul>
+        </li>
+      </ul>
+      <p>A   FusionCharts chart is controlled by a single JSON data source i.e., the same source contains data to plot, functional settings and cosmetic properties. There are many properties that you can define for each chart 
+        type. However, it is not necessary to define all the properties for a given 
+        chart. For example, if you do not want to change the default setting of 
+        the canvas (color, alpha etc.), you don't have to define any property 
+        for the canvas - the default values will be assumed. Thus, each chart 
+        can be generated using minimal properties. </p>
+      <p>FusionCharts has a specific JSON structure for each category of charts. Broadly, we 
+        can classify different JSON structure into following categories:</p>
+      <ul>
+        <li><strong><u><a name="ss" id="ss"></a>Single Series Charts</u></strong><br />
+          Single Series Charts are those which depict only one set of data on 
+          the chart.
+            <div style="height: 15px; line-height: 15px;"></div>
+          Single series charts include Column 2D, Column 3D, Bar 2D, Line, Area 2D, Pie 2D, Pie 3D, Doughnut 2D, Doughnut 3D, Pareto 3D and Pareto 3D.
+          <div style="height: 12px; line-height: 12px;"></div>
+        </li>
+        <li><strong><u><a name="ms" id="ms"></a>Multi-Series Charts</u></strong><u><br />
+          </u>Multi-series charts are used to compare 2 or more datasets like 
+          monthly comparison for 2 or more years. Under multi-series charts, we 
+          can define the following subcategories:
+          <ul>
+            <li><strong>Standard Multi-series Charts</strong><br />
+              The standard multi-series charts, like multi-series column, line, 
+              area etc., are used for straightforward comparison of various datasets 
+              on the chart.<br />
+            </li>
+            <li><a name="stacked" id="stacked"></a><strong>Stacked Charts<br />
+              </strong>Stacked charts, like stacked column, area etc., are used 
+              to compare cumulative or grouped data. For instance, if we want to show which part of revenue 
+              came from products and which part from services, we can use the 
+              stacked column chart easily to depict the data. Each month would 
+              represent a data column and the column would be divided into two 
+              parts- one representing service and the other product. <br />
+            </li>
+            <li><a name="combi" id="combi"></a><strong>Combination Charts</strong><br />
+              Combination Charts are a combination of two or more plot types (i.e. column, line and area). 
+              There are two sub-types in combination charts:</li>
+            <li>
+  <ul>
+    <li>Single Y-Axis Combination Chart - A single Y-axis (called primary axis) is drawn on the chart, against which all data is plotted </li>
+    <li>Dual Y-Axis Combination Chart - The chart assumes two y-axes (primary and secondary). Multiple data series can be plotted against either Y-axis</li>
+  </ul>
+            </li>
+            <li><a name="scroll" id="scroll"></a><strong>Scroll charts <br />
+              </strong>Scroll charts are standard multi-series, combination, stacked charts with additional scrolling capabilities.<strong>
+              <div style="height: 15px; line-height: 15px;"></div>
+            </strong></li>
+          </ul>
+        </li>
+        <li><u><strong><a name="xy" id="xy"></a>XY Plot Charts</strong></u> (Multi-series data) <br />
+          XY Plot Charts are charts where both the axes are numeric, like bubble 
+          and scatter chart. In bubble chart,  a third dimension of data is represented by the size of the bubble. 
+            <div style="height: 15px; line-height: 15px;"></div>
+        </li>
+        <li><u><strong><a name="mss" id="mss"></a>Multi-series Stacked Charts</strong></u><br />
+          In charts like multi-series stacked column and multi-series stacked 
+          column line combination charts, you can have nested data-sets, which allow 
+          you to create multi-series stacked charts (i.e., cluster of stacked columns).
+            <div style="height: 15px; line-height: 15px;"></div>
+        </li>
+        <li><strong><u><a name="zoom" id="zoom"></a>Zoom Line chart </u></strong><br />
+          Zoom Line chart is an advanced chart that allows zooming, scrolling and pinning of data in the same chart. This chart can handle large sets of data up to tens of thousands of points.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("XML for <i>LinkedCharts</i>|../XML/LinkedCharts.html","Single Series chart JSON|SingleSeries.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

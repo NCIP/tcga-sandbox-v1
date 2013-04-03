@@ -1,0 +1,41 @@
+<% @page_title="FusionCharts - Multiple Charts on one Page" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Multiple Charts on the same page. Each chart has a unique ID." %>
+<%
+enable_FC_print_manager_js do-%>
+%>
+<% end -%>
+<%
+	#Create the chart - Column 3D Chart with data from Data/Data.xml
+	render_chart '/FusionCharts/Column3D.swf', '/Data/Data.xml', '', 'chart1', 600, 300, false, true do-%>
+<% end -%>
+<BR><BR>
+<%
+	#Create the Column 2D chart 
+	render_chart '/FusionCharts/Column2D.swf', '/Data/Data.xml', '', 'chart2', 600, 300, false, true do-%>
+<% end -%>
+<BR><BR>
+<%
+	#Create the Line 2D chart 
+	render_chart '/FusionCharts/Line.swf', '/Data/Data.xml', '', 'chart3', 600, 300, false, true do-%>
+<% end -%>
+<script type="text/javascript">
+
+	// The Print Manager takes a  bit of time to make all the charts ready for managed print
+	// Hence, declaring an event listener to listen to the PrintReadyStateChange evnet that
+	// Print Manager invokes when all charts are ready for print
+	// Add an event listener 
+	FusionCharts.addEventListener("PrintReadyStateChange", function (e, a) {
+			// Enables Print button when print manager is ready
+			document.getElementById('printButton').disabled = !a.ready;
+			// Also adds pertinent text 
+			document.getElementById('status').innerHTML = a.ready ?
+				 'Charts are ready for print. You may use File->Print now.' :
+				 'Charts are not ready for managed print. Please wait.'
+        });
+
+</script>
+<BR><BR>
+<!-- adds button which will invoke managedPrint() function when Print Manager is ready -->
+<button type="button" disabled="disabled" id="printButton" onClick="FusionCharts.printManager.managedPrint()">Print Page</button>
+<span id="status">Charts are not ready for managed print. Please wait.</span>

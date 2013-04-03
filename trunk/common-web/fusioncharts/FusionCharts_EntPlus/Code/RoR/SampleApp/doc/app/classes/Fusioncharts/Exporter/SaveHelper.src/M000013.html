@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_unique_filename (Fusioncharts::Exporter::SaveHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/save_helper.rb, line 63</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">generate_unique_filename</span>(<span class="ruby-identifier">complete_file_path_without_ext</span>,<span class="ruby-identifier">extension</span>) 
+       <span class="ruby-identifier">md5_str</span>=<span class="ruby-value str">&quot;&quot;</span>
+       <span class="ruby-identifier">finished</span>=<span class="ruby-keyword kw">false</span>
+       <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">finished</span>
+          <span class="ruby-identifier">md5</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">new</span>
+          <span class="ruby-identifier">now</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+          <span class="ruby-identifier">md5</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>
+          <span class="ruby-identifier">md5</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">String</span>(<span class="ruby-identifier">now</span>.<span class="ruby-identifier">usec</span>)
+          <span class="ruby-identifier">md5</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">String</span>(<span class="ruby-identifier">rand</span>(<span class="ruby-value">0</span>))
+          <span class="ruby-identifier">md5</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">String</span>(<span class="ruby-identifier">$$</span>)
+          <span class="ruby-comment cmt">#md5 &lt;&lt; constant</span>
+          <span class="ruby-identifier">md5</span>.<span class="ruby-identifier">hexdigest</span>
+          <span class="ruby-keyword kw">if</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">FILESUFFIXFORMAT</span><span class="ruby-operator">==</span><span class="ruby-value str">&quot;TIMESTAMP&quot;</span>)
+            <span class="ruby-identifier">md5_str</span> = <span class="ruby-identifier">md5</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%m%d%Y%S&quot;</span>).<span class="ruby-identifier">to_s</span> 
+          <span class="ruby-keyword kw">else</span> 
+            <span class="ruby-identifier">md5_str</span> = <span class="ruby-identifier">md5</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">9</span>){<span class="ruby-identifier">rand</span> <span class="ruby-value">10</span>}.<span class="ruby-identifier">join</span> 
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">finished</span>=<span class="ruby-operator">!</span><span class="ruby-constant">FileTest</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">complete_file_path_without_ext</span><span class="ruby-operator">+</span><span class="ruby-identifier">md5_str</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">extension</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">complete_file_path_without_ext</span><span class="ruby-operator">+</span><span class="ruby-identifier">md5_str</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extension</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

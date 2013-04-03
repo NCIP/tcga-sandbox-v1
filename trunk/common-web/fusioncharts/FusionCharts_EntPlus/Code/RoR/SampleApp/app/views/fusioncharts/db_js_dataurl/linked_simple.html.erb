@@ -1,0 +1,45 @@
+<% @page_title="FusionCharts - Linked Charts" %>
+<% @page_heading="FusionCharts Database and Linked Charts" %>
+<% @page_subheading="Click on any pie slice to open linked chart." %>
+<%
+	# The xml is obtained as a string from builder template.
+	str_xml = render :file=>"fusioncharts/db_js_dataurl/factories_quantity_with_link",:locals=>{:factories => @factories}
+
+	render_chart '/FusionCharts/Pie3D.swf','',str_xml,'FactorySum', 500, 250, false, true do-%>
+<% end -%>
+<br>
+<center>
+	<!-- linked chart container -->
+	<div id="linked-chart" style="width:600px; height:250px; border:1px solid #999;">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" height="250" >
+	   <tr><td align="center" valign="middle">Click on a pie slice above to see the linked chart appear here</td></tr></table>
+	</div>
+</center>
+
+<script type="text/javascript">
+	
+	// Configure linked chart
+	// set chart type to column2D, render the linked chart to another container
+	// configute the overlay button
+	FusionCharts("FactorySum").configureLink (
+	{
+		swfUrl	: "/FusionCharts/Column2D.swf",
+		renderAt : "linked-chart",
+		width 	: "100%" ,
+		height	: "100%" ,
+		overlayButton: {
+			 show : true,
+			 message: ' x ',
+			 bgColor:'E4E7D9',
+			 borderColor: 'B7BBA9'
+		}		
+	}, 0);
+	
+	// store the content of the target div
+	var store =document.getElementById("linked-chart").innerHTML;
+	
+	// When linked chart is closed revert back to the target div's original content 
+	// This is achieve by setting event-listener to LinkedItemClosed event
+	FusionCharts("FactorySum").addEventListener(FusionChartsEvents.LinkedItemClosed, function() { document.getElementById("linked-chart").innerHTML = store;  } );
+	
+</script>

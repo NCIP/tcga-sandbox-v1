@@ -1,0 +1,41 @@
+<div id="menuTools" class="box boxMenu">
+    <h3><span id="menuarrow">&nbsp;</span>In This Section</h3>
+    <ul class="boxbody">
+        <li><%
+            if ("/tcgaTools.jsp".equals(request.getServletPath())) {
+                out.println("Tools");
+            }
+            else {
+                out.println("<a href=\"" + host + "/tcga/tcgaTools.jsp\">Tools</a>");
+            }
+        %></li>
+        <li><%
+            if ("/tcgaAnalyticalTools.jsp".equals(request.getServletPath())) {
+                out.println("Analytical Tools");
+            }
+            else {
+                out.println("<a href=\"" + host + "/tcga/tcgaAnalyticalTools.jsp\">Analytical Tools</a>");
+            }
+        %></li>
+        <li><%
+            if ("/WEB-INF/jsp/main.jsp".equals(request.getServletPath())) {
+                out.println("Annotations Manager");
+            }
+            else {
+                out.println("<a href=\"" + secureHost + "/annotations/\">Annotations Manager</a>");
+            }
+        %></li>
+ 		<li class="last"><%
+			if ("/WEB-INF/jsp/uuidBrowser.jsp".equals(request.getServletPath())) {
+				out.println("Biospecimen Metadata Browser");
+			}
+			else {
+                out.println("<a href=\"" + secureHost + "/uuid/uuidBrowser.htm\">Biospecimen Metadata Browser</a>");
+			}
+		%></li>
+    </ul>
+</div>
+
+<script type="text/javascript">tcga.util.loadNavMenus();</script>
+
+

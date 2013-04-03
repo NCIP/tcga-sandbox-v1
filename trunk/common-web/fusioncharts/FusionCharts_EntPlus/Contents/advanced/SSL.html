@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts over HTTPS (SSL) </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Using chart on SSL/HTTPS" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts over HTTPS (SSL) </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts can work over HTTPS (Secure Sockets Layer too) in the same way as HTTP. You can make the chart function seamlessly over HTTPS by providing chart data using any of the following JavaScript methods:</p>
+      <ul>
+    <li class="codeInline"><a href="../JavaScript/API/Methods.html#setxmlurl">setXMLUrl</a></li>
+    <li class="codeInline"><a href="../JavaScript/API/Methods.html#setjsonurl">setJSONUrl</a></li>
+    <li class="codeInline"><a href="../JavaScript/API/Methods.html#setchartdataurl">setChartDataUrl</a></li>
+    <li class="codeInline"><a href="../JavaScript/API/Methods.html#setchartdata">setChartData</a></li>
+    </ul>
+      <p>If however  you're using pure HTML embedding (which we don&rsquo;t recommend) in conjunction with  <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">dataURL</a></span> method, then you must clean a few headers &ndash; in order to make the chart  work over HTTPS. This is required, because loading XML/JSON files in Flash over an SSL Connection in Internet Explorer fails if the <span class="codeInline">Pragma:no-cache</span> or <span class="codeInline">Cache-control:no-cache</span> HTTP headers are set on the server header. You need to remove any such settings from your server configuration. </p>
+      <p class="highlightBlock">When using Firefox or any other browser, you would not find this error. This error occurs only in Internet Explorer.<br />
+      Also, this happens only in <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL </a></span>method and not in <span class="codeInline"><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String</a></span> method, as in <span class="codeInline">dataURL</span> method the SWF has to download XML/JSON data. </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Set backgrounds for charts|BgSWF.html", "Changing chart messages|ChartMessages.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

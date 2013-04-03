@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Charting Data from HTML Forms </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Creating charts using data from Forms" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Charting Data from HTML Forms </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In this page, we'll show you how to use data from HTML Forms and render a chart using that data. </p>
+        <p>We'll build a simple restaurant sales example, where one will enter the items sold by a restaurant in a day. We'll acquire this data and plot it on a chart. For the sake of simplicity, we wouldn't do any validation on this data. However, your real life applications might process data before presenting it on the chart. </p>
+      <p class="highlightBlock">The code examples contained in this page are present in<span class="codeInline"> Download Package &gt; Code &gt; MyFirstChart</span> &gt; <span class="codeInline">FormBased.html</span></p></td>
+  </tr>
+  <tr>
+    <td class="text"> The application will look as under:
+      <div style="height: 25px; line-height: 25px;"></div>
+      <img src="Images/FormBasedChart.jpg"/>
+      <p>See it <a href="../../Code/MyFirstChart/FormBased.html" target="_blank">live</a>!</p></td>
+  </tr>
+  <tr>
+    <td class="text">The user can put values in the input boxes for the food items and click &quot;Chart it!&quot;. This button will generate the chart with the latest data provided in the input boxes.
+      <p>The code for the above application is given below:</p></td>
+  </tr>
+  <tr>
+    <td class="text" valign="top" width="500"><pre class="code_container prettyprint lang-xml" >&lt;html&gt;
+    &lt;head&gt;
+	&lt;title&gt;FusionCharts - Form Based Data Charting Example&lt;/title&gt;
+	
+        &lt;script type=&quot;text/javascript&quot; src=&quot;../../Charts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+	
+    &lt;/head&gt;
+	
+    &lt;body&gt;
+	
+	&lt;input type='text' size='5' id='soups' value='108'/&gt; &lt;span&gt;bowls&lt;/span&gt;
+	&lt;input type='text' size='5' id='salads' value='162'/&gt; &lt;span&gt;plates&lt;/span&gt;
+	&lt;input type='text' size='5' id='sandwiches' value='360'/&gt; &lt;span&gt;pieces&lt;/span&gt;
+	&lt;input type='text' size='5' id='beverages' value='171'/&gt; &lt;span&gt;cans&lt;/span&gt;
+	&lt;input type='text' size='5' id='deserts' value='99'/&gt; &lt;span&gt;plates&lt;/span&gt;
+
+ 	&lt;input name=&quot;button&quot; type='button' value='Chart it!' onclick=&quot;chartIt();&quot; /&gt;
+	
+	&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+	
+   &lt;script type=&quot;text/javascript&quot;&gt;
+	
+	function chartIt()
+		{
+		  // retrieving Form data
+		  var soupSales = document.getElementById(&quot;soups&quot;).value;
+		  var saladsSales = document.getElementById(&quot;salads&quot;).value;
+		  var sandwichesSales = document.getElementById(&quot;sandwiches&quot;).value;
+		  var beveragesSales = document.getElementById(&quot;beverages&quot;).value;
+		  var desertsSales = document.getElementById(&quot;deserts&quot;).value;
+				
+		  // creating chart data from Form data
+		  var chartXMLData = &quot;&quot;;
+		  chartXMLData += &quot;&lt;chart caption='Restaurant Sales' subCaption='for one day' &gt;&quot;;
+		  chartXMLData += &quot;&lt;set label='Soups' value='&quot; + soupSales + &quot;' /&gt;&quot;;
+		  chartXMLData += &quot;&lt;set label='Salads' value='&quot; + saladsSales + &quot;' /&gt;&quot;;
+		  chartXMLData += &quot;&lt;set label='Sandwiches' value='&quot; + sandwichesSales + &quot;' /&gt;&quot;;
+		  chartXMLData += &quot;&lt;set label='Beverages' value='&quot; + beveragesSales + &quot;' /&gt;&quot;;
+		  chartXMLData += &quot;&lt;set label='Deserts' value='&quot; + desertsSales + &quot;' /&gt;&quot;;
+		  chartXMLData += &quot;&lt;/chart&gt;&quot;;
+				
+		  //rendering the chart	
+		  var myChart = new FusionCharts( &quot;../../Charts/Pie3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+		  myChart.setXMLData( chartXMLData );
+		  myChart.render( &quot;chartContainer&quot; );
+	     }
+    &lt;/script&gt;
+	
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+        <br/>
+      See it <a href="../../Code/MyFirstChart/FormBased.html" target="_blank">live</a>!</td>
+  </tr>
+  <tr>
+    <td class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="text">Let's analyze the steps involved in the following code:<br/>
+        <br/>
+        <ul>
+          <li>We have included the JavaScript class file <span class="codeInline">FusionCharts.js</span> </li>
+          <li>We have created five text input boxes for five products</li>
+          <li>Each text input box is set with an <span class="codeInline">id</span> which can be used to refer to its value<br />
+              <br/>
+              <pre class="code_container prettyprint">&lt;input type='text' size='5' id='soups' value='108'/&gt; &lt;span&gt;bowls&lt;/span&gt;
+&lt;input type='text' size='5' id='salads' value='162'/&gt; &lt;span&gt;plates&lt;/span&gt;
+&lt;input type='text' size='5' id='sandwiches' value='360'/&gt; &lt;span&gt;pieces&lt;/span&gt;
+&lt;input type='text' size='5' id='beverages' value='171'/&gt; &lt;span&gt;cans&lt;/span&gt;
+&lt;input type='text' size='5' id='deserts' value='99'/&gt; &lt;span&gt;plates&lt;/span&gt;
+    </pre>
+            <br/>
+          </li>
+          <li>A button is placed below the text input boxes to call a JavaScript function - <span class="codeInline">chartIt()</span> when clicked <br />
+              <br />
+              <pre class="code_container prettyprint"> &lt;input name=&quot;button&quot; type='button' value='Chart it!' onclick=&quot;chartIt();&quot; /&gt;</pre>
+              <br />
+          </li>
+          <li>The function first retrieves all the values from the text input boxes<br/>
+              <br/>
+              <pre class="code_container prettyprint">var soupSales = document.getElementById(&quot;soups&quot;).value;
+var saladsSales = document.getElementById(&quot;salads&quot;).value;
+var sandwichesSales = document.getElementById(&quot;sandwiches&quot;).value;
+var beveragesSales = document.getElementById(&quot;beverages&quot;).value;
+var desertsSales = document.getElementById(&quot;deserts&quot;).value;
+    </pre>
+            <br/>
+          </li>
+          <li>It creates an XML string for the chart with all the retrieved values<br/>
+              <br/>
+              <pre class="code_container prettyprint">var chartXMLData = &quot;&quot;;
+chartXMLData += &quot;&lt;chart caption='Restaurant Sales' subCaption='for one day' &gt;&quot;;
+chartXMLData += &quot;&lt;set label='Soups' value='&quot; + soupSales + &quot;' /&gt;&quot;;
+chartXMLData += &quot;&lt;set label='Salads' value='&quot; + saladsSales + &quot;' /&gt;&quot;;
+chartXMLData += &quot;&lt;set label='Sandwiches' value='&quot; + sandwichesSales + &quot;' /&gt;&quot;;
+chartXMLData += &quot;&lt;set label='Beverages' value='&quot; + beveragesSales + &quot;' /&gt;&quot;;
+chartXMLData += &quot;&lt;set label='Deserts' value='&quot; + desertsSales + &quot;' /&gt;&quot;;
+chartXMLData += &quot;&lt;/chart&gt;&quot;;
+
+    </pre>
+              <br/>
+          </li>
+          <li>It renders a pie chart and passes the XML string to the chart<br/>
+              <br/>
+              <pre class="code_container prettyprint">var myChart = new FusionCharts( &quot;../../Charts/Pie3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+myChart.setXMLData( chartXMLData );
+myChart.render( &quot;chartContainer&quot; );
+    </pre>
+              <br/>
+          </li>
+        </ul></td>
+  </tr>
+  <tr>
+    <td class="highlightBlock">Note : This is a very basic JavaScript example to showcase the use of Form data in charts. Hence, we have kept the code as simple as possible. It can always be optimized and shortened as per your needs. </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating multiple charts in a page|MultipleCharts.html","Using HTML embedded method|HtmlEmbed.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

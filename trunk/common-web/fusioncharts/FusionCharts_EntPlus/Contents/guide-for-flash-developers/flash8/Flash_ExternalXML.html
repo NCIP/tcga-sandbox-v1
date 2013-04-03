@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and Flash - Using External data </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for Flash Developers", "Using Flash 8 (AS2)|Flash_Overview.html", "Data from external source" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and Flash &gt; Using External data </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>In the previous example we have seen how we can create a chart in Flash 8. In this section, we will modify the code to load chart data from external data source. To make the sample easy we will take a static XML file containing hardcoded data in it. In real-life implementation you can always use other dynamic sources. </p>
+       <p class="highlightBlock">If you wish to use FusionCharts in your Adobe Flex solutions please read <a href="../Flash_Flex.html">Using Flex</a> or if you wish to use FusionCharts in your Flash CS4/CS4/CS5 movies, please have a look at <a href="../Flash_CS3CS4.html">Using Flash CS3/CS4</a>.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Loading external data </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>In this sample we will do the following:</p>
+       <ul>
+          <li>Make a copy of the existing <span class="codeInline">MyFirstChart.fla</span> file and rename it to <span class="codeInline">ExternalXML.fla</span></li>
+          <li>Load external data  from <span class="codeInline">Data.xml</span> file </li>
+         </ul>
+       <p>The code shown below works this out :</p>
+      </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <pre class="code_container prettyprint">#include &quot;com/fusioncharts/includes/LoadingFunctions.as&quot;
+#include &quot;com/fusioncharts/includes/AppMessages.as&quot;
+import com.fusioncharts.core.charts.Column2DChart;
+// Initialize XML object
+<strong>var xmlData:XML = new XML();</strong>
+// ------------- Define XML Data for the chart -------------- //
+// Here, we're loading the XML data from an external file.
+// For a simple head-start we've used a pre-defined Data.xml 
+// Ideally, you would NOT use a physical data file. Instead you'll have 
+// your own scripts/services/feeds to relay the XML data - dynamically built from 
+// database or other data sources
+// load XML from external XML 
+// For your real-life project you can pass your XML building URL instead of &quot;Data.xml&quot;
+<strong>xmlData.load(&quot;Data.xml&quot;);</strong>
+// We render the chart after XML get loaded from external file
+// Declare Event handler which will be called when XML loads
+<strong>xmlData.onLoad=function(success)</strong>
+{<br /><span class="codeComment">  //Only proceed if data has loaded successfully</span>
+  if (success){
+  <span class="codeComment">// -------------- Actual Code to create the chart ------------//
+  //To create a chart, you first need to create an empty movie clip to act as chart holder.
+  var chartContainerMC:MovieClip = createEmptyMovieClip(&quot;ChartHolder&quot;,1);
+
+  //Now, instantiate the chart using Constructor function of the chart.</span>
+  <span class="codeComment">/**
+  * @param	targetMC	Movie clip reference in which
+  *				the chart will create its own movie clip(s)
+  * @param	depth		Depth inside parent movie clip in which
+  *				the chart will create its own movie clips.
+  * @param	width		Width of chart
+  * @param	height	        Height of chart
+  * @param	x	        x Position of chart
+  * @param	y	        y Position of chart
+  * @param	debugMode	Boolean value indicating whether the chart
+  *				is in debug mode.
+  * @param	lang		2 Letter ISO code for the language of application
+  *				messages. Depends on what data you've fed.
+  * @param	scaleMode	Scale mode of the movie - noScale or exactFit
+  */</span>
+  var myFirstChart:Column2DChart = new Column2DChart(chartContainerMC, 1, 450, 325, 20, 0, false, &quot;EN&quot;, &quot;noScale&quot;);
+ <span class="codeComment"> //FusionCharts necessarily needs its data in XML format
+  //to use the charts.
+  //Convey the XML data to chart. </span>
+  myFirstChart.setXMLData(xmlData);
+  <span class="codeComment">//Draw the chart</span>
+  myFirstChart.render();<br />  }
+}
+//Stop
+stop();</pre>     </td>
+  </tr>
+  
+  
+  <tr>
+    <td valign="top" class="text">
+       <p>In the above code we have done the following:</p>
+       <ul>
+          <li>Used XML class to load an external XML file (<span class="codeInline">Data.xml</span>) <br />
+              <br />
+                      <pre class="prettyprint code_container">xmlData.load(&quot;Data.xml&quot;);</pre><br />
+             
+          </li>
+          <li>Defined an event-listener to <span class="codeInline">onLoad</span> event of the XML object <br />
+             <br />
+            
+                            <pre class="prettyprint code_container">xmlData.onLoad=function(success)</pre><br />
+            
+             
+          </li>
+          <li>Rendered the chart in the listener method in the same way as we did in the previous sample. <br />
+             <br />
+             <pre class="code_container prettyprint">var chartContainerMC:MovieClip = createEmptyMovieClip(&quot;ChartHolder&quot;,1);
+var myFirstChart:Column2DChart = new Column2DChart(chartContainerMC, 1, 450, 325, 20, 0, false, &quot;EN&quot;, &quot;noScale&quot;);
+myFirstChart.setXMLData(xmlData);
+myFirstChart.render();</pre>
+             </li>
+       </ul>
+       <p class="highlightBlock">Please note that due to security issues, by default, Flash cannot load cross-domain external data unless cross domain xml is defined in the domain containing the swf. </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+			We next see how to load multiple charts in the same application.
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Flash Overview|Flash_Overview.html","Loading Multiple charts|Flash_Multiple.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

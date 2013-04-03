@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Data Labels </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Data labels" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Data Labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Data labels refer to the names for the data points which appear on the x-axis.</p>
+    <p><img src="../advanced/Images/xAxis_Wrap.jpg"/></p>
+    <p>In the chart shown above, <span class="codeInline">Jan 2006</span>,<span class="codeInline"> Feb 2006</span> etc are the data labels for the chart. By default, they get wrapped and show ellipses, along with tool-tips, when there is not enough space on the chart. </p>    
+        <p>You can choose not to show the data labels by using <span class="codeInline">&lt;chart showLabels='0'&gt;</span>. By default, they're visible. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Display modes for data labels</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">        
+      <p class="text">The data labels can be displayed on the charts in the following ways: </p>
+      <ul>
+        <li><a href="#auto">Auto mode</a> - Default mode, where the chart automatically selects the best mode of display (between rotate and wrap) </li>
+        <li><a href="#wrap">Wrap mode</a></li>
+        <li><a href="#rotate">Rotated and slanted mode</a></li>
+        <li><a href="#stagger">Staggered mode with customizable staggered lines</a></li>
+        <li><a href="#step">Every n-th label</a></li>
+        </ul> <br /> 
+  
+      <div class="highlightBlock"><a name="advancedLabel"></a>Starting FusionCharts XT, advanced X axis label management has been implemented to achieve the following:<br/>
+	      <br/>
+	  <ul>
+	  <li>All the X axis labels should get centrally aligned to the respective data-plots (columns, points on line charts etc.) </li>
+	  <li>X axis labels should not overlap each other</li>
+	  <li>X axis labels should not overlap with other chart objects such as legends or X axis name</li>
+	  <li>Long labels should not go outside the chart </li>
+	  <li>Optimized truncation of  longer labels and putting ellipses at the end</li>
+	  </ul>
+	  <p><strong>Note</strong>: Bar, Pie, Doughnut, Marimekko, Zoom Line and Multi-series Combination 3D charts do not apply the advanced label management rules mentioned above. Also, you can opt not to apply  the advanced label management to the X axis labels. For this, you need to set the attribute <span class="codeInline">labelDisplay='none</span>' in <span class="codeInline">&lt;chart&gt;</span> element. </p>
+	  </div><p>Now, let's us take a detailed look at each of them.</p>
+    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+  <td valign="top" class="header"><a name="auto"></a>Auto Mode</td>
+  </tr>
+  <tr>
+  <td valign="top" class="text">
+    <p>In auto mode  the chart automatically chooses the most appropriate display mode for data labels -  depending on availability of space. So, if the number of data labels is greater  than what can be accommodated in the available space, then the data labels are  either truncated (with ellipses to indicate truncation), wrapped, or rotated. Tooltips showing full  label text appears when the user hovers over a  truncated data label. The auto mode is active by default, and can be disabled by switching to an alternative label display mode.</p>
+    <table class="table">
+  <tr>
+  <td><img src="Images/AutoLabel1.jpg" width="300" height="200" alt="Auto Labels wrappped" /></td>
+  <td><img src="Images/AutoLabel2.jpg" width="300" height="200" alt="Auto label truncated" /></td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  <tr>
+  <td class="text"><p>In auto mode, you can set whether the long data labels would be truncated by adding ellipses using the <span class="codeInline">useEllipsesWhenOverflow</span> attribute. By default, this attribute is set to 1 in order to prevent the long labels from overflowing the chart background. But, if you do not wish to show ellipses at the end, set this attribute in the following way:</p> 
+  <pre class="prettyprint code_container">&lt;chart labelDisplay='AUTO' useEllipsesWhenOverflow='0'&gt;</pre>
+  </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header"><a name="wrap"></a>Wrap Mode</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p> The wrap mode enables you to wrap your long x-axis labels in multiple lines as shown below. To enable wrap mode, all you need to do is set :</p>
+        <pre class="prettyprint code_container">&lt;chart labelDisplay='WRAP'&gt; </pre>
+        <p><img src="../advanced/Images/xAxis_Wrap.jpg" width="309" height="206" /></p>
+    <p>If enough space is not available on chart, the wrapped mode will automatically trim labels, add ellipses (...) at end of them and would show tool-tips for such labels. Shown below is an example: </p>
+    <img src="Images/LabelEllipses.jpg" alt="Wrap mode with ellipses" width="304" height="203" />
+        <p>In all the horizontal bar charts, you can specify the maximum % of available width that you wish to allot for data labels. By default, the best fit is calculated.</p>
+         <p>The attribute is:</p>
+          <pre class="prettyprint code_container">&lt;chart ... maxLabelWidthPercent='50'&gt;</pre>
+          <p>This attribute takes a value between 5 and 80. Shown below are 2 examples of bar chart with this attribute:</p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <table class="table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/BarLabel1.jpg" alt="Bar chart with lesser label space" width="303" height="203" /></td>
+    <td valign="top"><img src="Images/BarLabel2.jpg" alt="Bar chart with more label space" width="302" height="202" /></td>
+    </tr>
+    <tr>
+    <td valign="top" class="imageCaption">Bar chart with <span class="codeInline">maxLabelWidthPercent='15'</span></td>
+    <td valign="top" class="imageCaption">Bar chart with <span class="codeInline">maxLabelWidthPercent='65'</span></td>
+  </tr>
+    </table>
+  </tr>
+  <tr><td height="15"></td></tr>
+  <tr>
+    <td valign="top" class="header"><a name="rotate"></a>Rotating and Slanting Labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can opt to rotate the x-axis labels by using <span class="codeInline">&lt;chart labelDisplay='Rotate' ..&gt;</span>. </p>
+      <p>Consider the data below: </p>
+      
+		<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart numberPrefix='$' <strong>labelDisplay='ROTATE'</strong>&gt;
+  &lt;set label='Jan 2006' value='434' /&gt;
+  &lt;set label='Feb 2006' value='376' /&gt;
+  &lt;set label='Mar 2006' value='343' /&gt;
+  &lt;set label='Apr 2006' value='234' /&gt;
+  &lt;set label='May 2006' value='356' /&gt;
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "numberprefix":"$",
+    <strong>"labeldisplay":"ROTATE"</strong>
+  },
+  "data":[{
+      "label":"Jan 2006",
+      "value":"434"
+    },
+    {
+      "label":"Feb 2006",
+      "value":"376"
+    },
+    {
+      "label":"Mar 2006",
+      "value":"343"
+    },
+    {
+      "label":"Apr 2006",
+      "value":"234"
+    },
+    {
+      "label":"May 2006",
+      "value":"356"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+		
+		
+<p>It yields the following chart: </p>
+<img src="../advanced/Images/xAxis_Rotate.jpg" width="306" height="208" />
+<p>You can also slant the labels at 45 degree by using <span class="codeInline">&lt;chart labelDisplay='Rotate' slantLabels='1' ..&gt;</span> to achieve the following results: </p>
+<p><img src="../advanced/Images/xAxis_Slant.jpg" width="306" height="210" /></p>
+<p class="highlightBlock"> <strong>Note</strong>: In case of Scatter and Bubble charts, when the attribute <span class="codeInline">xAxisLabelMode</span> is set to <a href="BubbleScatter.html#xaxislables">auto </a>slanting of the X axis labels is not applicable.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="stagger"></a>Staggering labels on multiple lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 introduces the stagger mode for labels. Staggering basically distributes labels into multiple lines (by default 2). To enable stagger mode, just set:</p>
+    <pre class="prettyprint code_container">&lt;chart labelDisplay='Stagger' ..&gt;</pre> 
+    <p>It will yield the following:</p>
+<img src="../advanced/Images/xAxis_Stagger.jpg" width="308" height="207" />
+ <p>You can also choose how many lines to stagger the labels to, by setting the number in <span class="codeInline">&lt; chart labelDisplay='Stagger' staggerLines='n' ..&gt;</span> where n is the number of lines. Shown below is an example with <span class="codeInline">staggerLines</span> set to 3.</p> 
+    <p><img src="../advanced/Images/xAxis_StaggerLines.jpg" width="306" height="208" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="step"></a>Showing every n-th label </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If your x-axis labels represent a continuous quantity like time, date etc. which are incremental in nature, you can opt to show every n-th label instead of all the labels. This enhances the clarity of the chart. Consider the data below:</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart numberPrefix='$' <strong>labelStep='4' </strong>showValues='0'&gt;
+  &lt;set label='Jan 2006' value='434' /&gt;
+  &lt;set label='Feb 2006' value='376' /&gt;
+  &lt;set label='Mar 2006' value='343' /&gt;
+  &lt;set label='Apr 2006' value='234' /&gt;
+  &lt;set label='May 2006' value='356' /&gt;
+  &lt;set label='Jun 2006' value='183' /&gt;
+  &lt;set label='Jul 2006' value='365' /&gt;
+  &lt;set label='Aug 2006' value='357' /&gt;
+  &lt;set label='Sep 2006' value='375' /&gt;
+  &lt;set label='Oct 2006' value='345' /&gt;
+  &lt;set label='Nov 2006' value='655' /&gt;
+  &lt;set label='Dec 2006' value='435' /&gt;
+  &lt;set label='Jan 2007' value='586' /&gt;
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "numberprefix":"$",
+    <strong>"labelstep":"4",</strong>
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan 2006",
+      "value":"434"
+    },
+    {
+      "label":"Feb 2006",
+      "value":"376"
+    },
+    {
+      "label":"Mar 2006",
+      "value":"343"
+    },
+    {
+      "label":"Apr 2006",
+      "value":"234"
+    },
+    {
+      "label":"May 2006",
+      "value":"356"
+    },
+    {
+      "label":"Jun 2006",
+      "value":"183"
+    },
+    {
+      "label":"Jul 2006",
+      "value":"365"
+    },
+    {
+      "label":"Aug 2006",
+      "value":"357"
+    },
+    {
+      "label":"Sep 2006",
+      "value":"375"
+    },
+    {
+      "label":"Oct 2006",
+      "value":"345"
+    },
+    {
+      "label":"Nov 2006",
+      "value":"655"
+    },
+    {
+      "label":"Dec 2006",
+      "value":"435"
+    },
+    {
+      "label":"Jan 2007",
+      "value":"586"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above chart, we're plotting consecutive months on the chart. So, if we show all the months, the chart gets cluttered. To avoid this, we've set <span class="codeInline">labelStep</span> as 4, so that every 4th x-axis label is only shown. </p>
+        <p>When you view the chart, you'll get the following output: </p>
+        <p><img src="../advanced/Images/xAxis_Step.jpg" width="384" height="210" /></p>
+        </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Showing specific data labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>You can opt to show only specific data labels by using <span class="codeInline">&lt;chart showLabels='0'&gt; </span>and then setting <span class="codeInline">showLabel='1'</span> for the set you want to show the label. A chart having the same looks as under:</p>
+      <p><img src="Images/Labels_Specific.jpg" width="300" height="200" /></p>
+    <p>The XML/JSON going into the same is:</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart numberPrefix='$' <strong>showLabels='0'</strong>&gt;
+  &lt;set label='Jan 2006' value='434' /&gt;
+  &lt;set label='Feb 2006' value='376' <strong>showLabel='1'</strong>/&gt;
+  &lt;set label='Mar 2006' value='343' /&gt;
+  &lt;set label='Apr 2006' value='234' /&gt;
+  &lt;set label='May 2006' value='356' /&gt;
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab6" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "numberprefix":"$",
+    "showlabels":"0"
+  },
+  "data":[{
+      "label":"Jan 2006",
+      "value":"434"
+    },
+    {
+      "label":"Feb 2006",
+      "value":"376",
+<strong>      "showlabel":"1"</strong>
+    },
+    {
+      "label":"Mar 2006",
+      "value":"343"
+    },
+    {
+      "label":"Apr 2006",
+      "value":"234"
+    },
+    {
+      "label":"May 2006",
+      "value":"356"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+  <td class="header"><a name="advancedLabel"></a>Long label management in Line and Area charts</td>
+  </tr>
+  <tr>
+  <td class="text">
+     <p> Starting FusionCharts XT, all line and area charts apply an additional label management method to render X axis labels. </p>
+     <p>All the line and area charts automatically adjust the canvas padding (the space between the canvas border and the position where the line/area chart begins and ends)  to accommodate long labels. This ensures that the first and last X axis labels are not rendered outside the canvas border and the labels never overlap each other. A line and an area chart where the canvas padding gets automatically calculated and applied due to long labels look as under:</p>
+  </td></tr>
+	
+	
+	<tr>
+    <td valign="top">
+    <table class="table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/autoCanvasPaddingLine.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/autoCanvasPaddingArea.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" class="imageCaption" align="center">Line chart with automated canvas padding</td>
+    <td valign="top" class="imageCaption" align="center">Area chart with automated canvas padding</td>
+  </tr>
+    </table>
+  </tr>
+ <tr><td height="25"></td></tr>
+  <tr>
+  <td class="text">You might  want the chart not to adjust the canvas padding automatically . For this, you need to explicitly set a value to the <span class="codeInline">canvasPadding</span> attribute. This will ensure that the canvas padding is not  adjusted automatically by the chart. However, to accommodate long labels, the chart automatically adjusts the right and left canvas margins (space between the canvas borders and the chart borders). The images below show the above charts with <span class="codeInline">canvasPadding</span> attribute is set with a value (here, <span class="codeInline">canvasPadding='0'</span>). Note how the chart left and right margins get automatically adjusted to accommodate the long labels. <br/>
+      <br/></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <table class="table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td valign="top"><img src="Images/forceCanvasPaddingLine.jpg" class="imageBorder"/></td>
+    <td valign="top"><img src="Images/forceCanvasPaddingArea.jpg" class="imageBorder"/></td>
+    </tr>
+    <tr>
+    <td valign="top" class="imageCaption" align="center">Line chart with <span class="codeInline">canvasPadding='0'</span></td>
+    <td valign="top" class="imageCaption" align="center">Area chart with <span class="codeInline">canvasPadding='0'</span></td>
+  </tr>
+    </table>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Changing Font Properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><strong>Using a single font property for all the labels </strong></p>
+    <p>If you want to specify a single font property for all the text outside canvas area, you can use <span class="codeInline">outCnvBaseFont</span> attribute group. The font properties specified as a part of this attribute group will be applied to Caption, Sub-Caption,   X-Axis &amp; Y-Axis names, Data Labels, Divisional Line and Trendline values.</p>
+        <p>The following attributes are a part of this group: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" align="left" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="17%" valign="top" class="header">Attribute Name</td>
+          <td width="50%" valign="top" class="header">Description</td>
+          <td width="23%" valign="top" class="header">Example</td>
+        </tr>
+        <tr>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline">outCnvbaseFont</td>
+          <td valign="top" bordercolor="f1f1f1"><span class="text">Lets you define the font family e.g., Arial, Verdana etc</span></td>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline"><span class="codeInline">outCnvBaseFont</span>='Verdana'</td>
+        </tr>
+        <tr>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline"><span class="text"><span class="codeInline">outCnvbaseFontSize</span></span></td>
+          <td valign="top" bordercolor="f1f1f1"><span class="text">Lets you define the font size (8-72)</span></td>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline"><span class="codeInline">outCnvbaseFontSize</span>='10' </td>
+        </tr>
+        <tr>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline"><span class="codeInline">outCnvbaseFontColor</span></td>
+          <td valign="top" bordercolor="f1f1f1"><span class="text"> Lets you define the font color. Use hex code for the color without #. E.g., 000000 or 009933 or 999999 </span></td>
+          <td valign="top" bordercolor="f1f1f1" class="codeInline"><span class="codeInline">outCnvbaseFontColor=</span>'<span class="text">009933</span>'</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p><strong>Example data: </strong></p>
+    </td>
+  </tr>
+  <tr><td>
+    <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxis='Quarter' yAxisName='Sales' <strong>outCnvBaseFont='Arial' outCnvBaseFontSize='12' outCnvBaseFontColor='333333'</strong>&gt;
+    &lt;set label='Quarter 1' value='420500' /&gt;
+    &lt;set label='Quarter 2' value='295400' /&gt;
+    &lt;set label='Quarter 3' value='523400' /&gt; 
+    &lt;set label='Quarter 4' value='465400' /&gt; 
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxis":"Quarter",
+    "yaxisname":"Sales",
+    <strong>"outcnvbasefont":"Arial",
+    "outcnvbasefontsize":"12"</strong>,
+    <strong>"outcnvbasefontcolor":"333333"</strong>
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><strong>Output:</strong></p>
+    <p><img src="Images/Title_5.jpg" width="406" height="208" /></p>
+    <p>As you can see above, all the text outside chart canvas has assumed the font properties specified as part of that attribute group.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to specify font properties for the data labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you do not want all the text on your chart to have similar font properties, you can use STYLES to define individual font properties for different text on the chart. Using STYLES, you can specify a different font name, size, color, background &amp; border color and also make the text bold or italicized. </p>
+      <p>Shown below is a change in the basic font properties of the data labels. </p>
+<img src="Images/Labels_Styles.jpg" width="400" height="200" />
+      <p>The XML/JSON for this chart is as under. To read more on STYLES, please refer to <a href="../Styles/Styles.html">FusionCharts and Styles</a>.</p>
+      
+		<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+    &lt;set label='Qtr 1' value='420500' /&gt;
+    &lt;set label='Qtr 2' value='295400' /&gt;
+    &lt;set label='Qtr 3' value='523400' /&gt; 
+    &lt;set label='Qtr 4' value='465400' /&gt; 
+    <strong>&lt;styles&gt;
+       &lt;definition&gt;
+          &lt;style name='myLabelsFont' type='font' font='Arial' size='14' color='666666' bold='1' underline='1'/&gt;
+       &lt;/definition&gt;
+       &lt;application&gt;
+          &lt;apply toObject='DataLabels' styles='myLabelsFont' /&gt;
+       &lt;/application&gt;
+    &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myLabelsFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "14",
+        "color": "666666",
+        "bold": "1",
+        "underline": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myLabelsFont"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+		
+		
+		
+<p>You can also define a background and border color for the data labels using STYLES. </p>
+    <p><img src="Images/Labels_Styles_Bg.jpg" width="400" height="200" /></p>
+    
+	 
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab11">XML</a></li>
+      	 <li><a href="#tab12">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab11" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+      &lt;set label='Qtr 1' value='420500' /&gt;
+      &lt;set label='Qtr 2' value='295400' /&gt;
+      &lt;set label='Qtr 3' value='523400' /&gt; 
+      &lt;set label='Qtr 4' value='465400' /&gt; 
+      <strong>&lt;styles&gt;
+        &lt;definition&gt;
+           &lt;style name='myLabelsFont' type='font' bgColor='FFFFFF' borderColor='666666'/&gt;
+        &lt;/definition&gt;
+        &lt;application&gt;
+           &lt;apply toObject='DataLabels' styles='myLabelsFont' /&gt;
+        &lt;/application&gt;
+      &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab12" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myLabelsFont",
+        "type": "font",
+        "bgcolor": "FFFFFF",
+        "bordercolor": "666666"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myLabelsFont"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying effects </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply effects (shadow, glow, blur, bevel etc.) to the chart titles using STYLES. Shown below is an example:</p>
+    <p><img src="Images/Labels_Styles_Shadow.jpg" width="400" height="200" /></p>
+    <p>Here, we've changed the font properties of the data labels and applied a shadow to it. The data can be listed as under:</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab13">XML</a></li>
+      	 <li><a href="#tab14">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab13" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+    &lt;set label='Quarter 1' value='420500' /&gt;
+    &lt;set label='Quarter 2' value='295400' /&gt;
+    &lt;set label='Quarter 3' value='523400' /&gt; 
+    &lt;set label='Quarter 4' value='465400' /&gt;
+    <strong>&lt;styles&gt;
+       &lt;definition&gt;
+           </strong>&lt;style name='myLabelsFont' type='font' font='Arial' size='14' color='666666' bold='1' underline='1'/&gt;<strong>
+           &lt;style name='myShadow' type='Shadow' color='999999' angle='45'/&gt;
+       &lt;/definition&gt;
+       &lt;application&gt;
+           &lt;apply toObject='DataLabels' styles='</strong>myLabelsFont<strong>,myShadow' /&gt;
+       &lt;/application&gt;
+    &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+		  <div id="tab14" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myLabelsFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "14",
+        "color": "666666",
+        "bold": "1",
+        "underline": "1"
+      },
+      {
+        "name": "myShadow",
+        "type": "Shadow",
+        "color": "999999",
+        "angle": "45"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myLabelsFont,myShadow"
+      }
+    ]
+  }</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We can also apply a glow to the data labels as under:</p>
+   <img src="Images/Labels_Styles_Glow.jpg" width="400" height="200" />
+    <p>Here, we've changed the font properties of the data labels and applied a shadow to it. The data can be listed as under:</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab15">XML</a></li>
+      	 <li><a href="#tab16">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab15" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+    &lt;set label='Quarter 1' value='420500' /&gt;
+    &lt;set label='Quarter 2' value='295400' /&gt;
+    &lt;set label='Quarter 3' value='523400' /&gt; 
+    &lt;set label='Quarter 4' value='465400' /&gt;
+    <strong>&lt;styles&gt;
+        &lt;definition&gt;
+            </strong>&lt;style name='myLabelsFont' type='font' font='Arial' size='14' color='666666' bold='1' underline='1'/&gt;<strong>
+            &lt;style name='myGlow' type='Glow' color='FF5904'/&gt; 
+        &lt;/definition&gt;
+        &lt;application&gt;
+            &lt;apply toObject='DataLabels' styles='</strong>myLabelsFont<strong>,myGlow' /&gt;
+        &lt;/application&gt;
+    &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab16" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myLabelsFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "14",
+        "color": "666666",
+        "bold": "1",
+        "underline": "1"
+      },
+      {
+        "name": "myGlow",
+        "type": "Glow",
+        "color": "FF5904"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myLabelsFont,myGlow"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying animation to data labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply animation effects to the data labels using STYLES. Shown below is an  example which animates the x-position of the data labels from the center of the chart canvas to their respective positions.</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab17">XML</a></li>
+      	 <li><a href="#tab18">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab17" class="tab_content">
+    		  <pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+    &lt;set label='Quarter 1' value='420500' /&gt;
+    &lt;set label='Quarter 2' value='295400' /&gt;
+    &lt;set label='Quarter 3' value='523400' /&gt; 
+    &lt;set label='Quarter 4' value='465400' /&gt;
+    <strong>&lt;styles&gt;
+       &lt;definition&gt;
+          &lt;style name='myAnim' type='animation' param='_x' start='$canvasCenterX' duration='1' /&gt;
+       &lt;/definition&gt;
+       &lt;application&gt;
+          &lt;apply toObject='DataLabels' styles='myAnim' /&gt;
+       &lt;/application&gt;
+    &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre>
+    		</div>
+			<div id="tab18" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myAnim",
+        "type": "animation",
+        "param": "_x",
+        "start": "$canvasCenterX",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DataLabels",
+        "styles": "myAnim"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Data Plot|DataPlot.html", "Data Values|DataValues.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

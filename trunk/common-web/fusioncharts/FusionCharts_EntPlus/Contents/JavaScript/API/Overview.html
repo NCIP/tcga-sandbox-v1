@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Introduction to FusionCharts JavaScript API </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+<style type="text/css">
+table.table td {
+text-align:left !important;
+border:none !important;
+pading:5px;
+}
+
+.apiheader  { font-weight:bold; font-size : 16px !important;  }
+.apisubheader {  font-weight:bold; font-size : 14px !important; }
+.apiheadercolor {  color:#5d5d5d  !important; }
+.apisubheadercolor {  color: #484775 !important; }
+td.text ul {
+	margin-top: -18px;
+}
+td.text ul ul {
+	margin-top: 0;
+}
+
+.jsreferencemap p {
+	margin-top: 6px;
+	margin-bottom: 12px
+}
+.notice {
+	color: #cc3333;
+}
+</style>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../JS_Overview.html", "API Reference", "Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Introduction to FusionCharts JavaScript API </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript classes provide a rich and powerful API. It eases the implementation and management of charts using its powerful functions, properties and events. It is a highly enhanced JavaScript architecture. It provides various features like pure JavaScript charts for iPhone/iPad and non-Flash player based browsers, multiple data formats (XML and JSON), better event management, better printing support for Mozilla browsers, better UTF-8 handling, easier HTTPS data support, smart drill-down using <i>LinkedCharts</i> handlers and more. </p>
+      <!--<p>Before we move on to the details of the API, let's take a quick look at the architectural landscape of FusionCharts and FusionCharts JavaScript class with respect to HTML/JavaScript and chart data sources in the image shown below : </p>-->
+      <p>The following pages contain lists and detailed description of: </p>
+      <ul>
+        <li>FusionCharts JavaScript class <a href="Methods.html">functions</a></li>
+        <li>FusionCharts JavaScript class <a href="Properties.html">properties</a> </li>
+        <li>FusionCharts JavaScript class <a href="Events.html">events</a> </li>
+        <li>Advanced API available in special charts: 
+								<ul>
+        <li><a href="SpecialCharts/PieDoughnut_JSAPI.html">Pie/Doughnut</a> charts</li>
+        <li><a href="SpecialCharts/Combi3D_JSAPI.html">True Combination 3D</a> chart (MSCombi3D) </li>
+        <li><a href="SpecialCharts/ZoomLine_JSAPI.html">Zoom Line</a> chart </li>
+								</ul>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td valign="top" class="header"><a name="quickref" id="quickref"></a>FusionCharts API Quick-reference map </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Here is a quick reference map of FusionCharts JavaScript API. Click on the desired item to know more.</p>
+      <table width="700" border="0" cellspacing="0" cellpadding="5" class="table jsreferencemap">
+        <tr>
+          <td colspan="3" style="padding:10px; background-color:#fafff5; border:1px solid #e3e2e2 !important; border-bottom:none !important; color:#5d5d5d !important; font-size:16px !important;"><span class="apiheadercolor apiheader">HTML</span></td>
+        </tr>
+        <tr>
+          <td width="20" rowspan="3" style="background-color:#fafff5;">&nbsp;</td>
+          <td colspan="2" style="padding:10px; background-color:#fbffff;border:1px solid #e3e2e2 !important; border-bottom:1px dotted  #efecec !important;"><span class="apiheadercolor apiheader">JavaScript (window object) </span></td>
+        </tr>
+        <tr >
+          <td width="35" rowspan="2" style="background-color:#fbffff;border-left:1px solid #e3e2e2 !important; ">&nbsp;</td>
+          <td width="641" style="padding:0 10px;background-color:#fbffff;">
+            <p><span class="codeInline"><b><a href="Methods.html#staticfusioncharts" title="FusionCharts JavaScript Object">FusionCharts()</a></b></span><em class="text-light"> - collection of all charts in a page</em></p>
+			<p class="codeInline"><b><a href="Methods.html#getchartfromid">getChartFromId()</a></b> <em class="notice">- deprecated</em></p>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" style="padding:0 0 20px 10px;background-color:#fbffff;  ">
+            <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color:#f9f6ff;border:1px solid #e3e2e2 !important;">
+              <tr>
+                <td style="padding:10px 0;"><span class="apiheadercolor apisubheader">&nbsp;&nbsp;&nbsp; FusionCharts JavaScript Class</span></td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="padding:0 20px 20px 20px;">
+                   <table width="570" border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="table">
+                      <tr>
+                         <td colspan="3" style="padding:8px 5px;"><strong>FusionCharts JavaScript Class - static members </strong></td>
+                      </tr>
+                      <tr>
+                         <td width="22%" class="header apisubheadercolor" style="background-color:#fafafa; color:#484775;border:1px solid #e3e2e2 !important;"><a href="Properties.html">Properties</a></td>
+                         <td width="36%" class="header apisubheadercolor" style="background-color:#fafafa; color:#484775;border:1px solid #e3e2e2 !important;"><a href="Methods.html">Function</a></td>
+                         <td width="42%" class="header apisubheadercolor" style="background-color:#fafafa; color:#484775;border:1px solid #e3e2e2 !important;">&nbsp;&nbsp;&nbsp;&nbsp;Objects</td>
+                      </tr>
+                      <tr>
+                         <td height="210" valign="top">
+                            <p><a href="Properties.html#version" title="Allows you to retrieve the version of FusionCharts JavaScript Library">version</a></p>
+                            <p><a href="Properties.html#items" title="Object containing all instances of FusionCharts">items</a></p>
+                            <p>&nbsp;</p>
+                         </td>
+                         <td valign="top" style="border:1px solid #e3e2e2 !important;">
+                            <p><a href="Methods.html#staticrender" title="Allows users to render FusionCharts with only one line of code!">render()</a> <span class="text-light"></p>
+                            <p><a href="Methods.html#getobjectreference">getObjectReference()</a></p>
+                            <p><a href="Methods.html#staticaddeventlistener" title="adds functions to be executed when a FusionCharts event is executed">addEventListener()</a></p>
+                            <p><a href="Methods.html#staticremoveeventlistener" title="removes a previous added event listener">removeEventListener()</a></p>
+                            <p> <a href="Methods.html#setcurrentrenderer" title="sets the default chart engine (flash or javascript renderer) for the charts">setCurrentRenderer()</a></p>
+                         </td>
+                        <td style="padding:20px;">
+                            <table width="200" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
+                               <tr>
+                                  <td valign="top" style="background-color:#f6f8ff;border:1px solid #e3e2e2 !important;"><strong><a href="Methods.html#printmanager">printManager</a></strong></td>
+                               </tr>
+                               <tr>
+                                  <td valign="top" style="background-color:#fbfcff;">
+                                     <p><a href="Methods.html#pmconfigure">configure()</a></p>
+                                     <p><a href="Methods.html#pmenabled">enabled()</a></p>
+                                     <p><a href="Methods.html#pmmanagedprint">managedPrint()</a></p>
+                                     <p><a href="Methods.html#pmisready">isReady()</a></p>
+                                 </td>
+                               </tr>
+                            </table>
+                            <br />
+                            <table width="200" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
+                              <tr>
+                                <td valign="top" style="background-color:#f6f8ff;border:1px solid #e3e2e2 !important;"><strong><a href="Methods.html#debugmode">debugMode</a></strong></td>
+                              </tr>
+                              <tr>
+                                <td valign="top" style="background-color:#fbfcff;">
+                                  <p><a href="Methods.html#dmoutputto">outPutTo()</a></p>
+                                  <p><a href="Methods.html#dmoutputformat">outputFormat()</a></p>
+                                  <p><a href="Methods.html#dmenabled">enabled()</a></p>
+                                </td>
+                              </tr>
+                            </table>
+                        </td>
+                      </tr>
+                   </table>
+                   <br />
+                  <table width="570" border="0" cellspacing="0" cellpadding="0" class="table" style="background-color:#ffffff;">
+                    <tr>
+                      <td colspan="5" style="padding:8px 5px;"><strong>FusionCharts JavaScript Class - instance (prototype) members </strong></td>
+                    </tr>
+                    <tr>
+                      <td width="13%" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">Properties</td>
+                      <td width="25%" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">Functions</td>
+                      <td width="22%" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">Functions</td>
+                      <td width="22%" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">Functions</td>
+                      <td width="18%" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">Functions</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>i<a href="Properties.html#id">d</a></p>
+                        <p><a href="Properties.html#width">width</a></p>
+                        <p><a href="Properties.html#height">height</a></p>
+                        <p><a href="Properties.html#src">src</a></p>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td valign="top" style="border:1px solid #e3e2e2 !important;">
+                        <p><a href="Methods.html#constructor">FusionCharts</a><br />
+                          <small class="text-light">- constructor</small></p>
+                        <p><a href="Methods.html#render">render</a></p>
+                        <p><a href="Methods.html#configure">configure</a></p>
+                        <p><a href="Methods.html#configurelink">configureLink</a></p>
+                        <p><a href="Methods.html#staticaddeventlistener">addEventListener</a></p>
+                        <p><a href="Methods.html#staticremoveeventlistener">removeEventListener</a></p>
+                        <p><a href="Methods.html#clone">clone</a></p>
+                        <p><a href="Methods.html#dispose">dispose</a></p>
+                        <p><a href="Methods.html#addvariable">addVariable</a> <small class="notice">- deprecated</small></p>
+                      </td>
+                      <td valign="top">
+                        <p><a href="Methods.html#setxmlurl">setXMLUrl</a></p>
+                        <p><a href="Methods.html#setxmldata">setXMLData</a></p>
+                        <p><a href="Methods.html#setjsonurl">setJSONUrl</a></p>
+                        <p><a href="Methods.html#setjsondata">setJSONData</a></p>
+                        <p><a href="Methods.html#setchartdata">setChartData</a></p>
+                        <p><a href="Methods.html#setchartdataurl">setChartDataUrl</a></p>
+						<p><a href="Methods.html#setchartattribute">setChartAttribute</a></p>
+                        <p><a href="Methods.html#setdataurl">setDataURL</a> <br /><small class="notice">- deprecated</small></p>
+                        <p><a href="Methods.html#setdataxml">setDataXML</a> <br /><small class="notice">- deprecated</small></p>
+                      </td>
+                      <td valign="top" style="border:1px solid #e3e2e2 !important;">
+                        <p><a href="Methods.html#getxml">getXML</a></p>
+                        <p><a href="Methods.html#getxmldata">getXMLData</a></p>
+                        <p><a href="Methods.html#getjsondata">getJSONData</a></p>
+                        <p><a href="Methods.html#getchartdata">getChartData</a></p>
+                        <p><a href="Methods.html#getdataascsv">getDataAsCSV</a></p>
+                        <p><a href="Methods.html#getchartattribute">getChartAttribute</a></p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td valign="top">
+                        <p><a href="Methods.html#exportchart">exportChart</a></p>
+                        <p><a href="Methods.html#print">print</a></p>
+                        <p><a href="Methods.html#resizeto">resizeTo</a></p>
+                        <p><a href="Methods.html#hasrendered">hasRendered</a></p>
+                        <p><a href="Methods.html#isactive">isActive</a></p>
+                        <p><a href="Methods.html#charttype">chartType</a></p>
+                        <p><a href="Methods.html#signature">signature</a></p>
+                      </td>
+                    </tr>
+                    <tr>
+                       <td colspan="5" valign="top" class="header" style="border:1px solid #e3e2e2 !important;">Chart Specific functions </td>
+                    </tr>
+                    <tr>
+                       <td colspan="5" valign="top" >
+                          <p> <a href="SpecialCharts/PieDoughnut_JSAPI.html#togglepieslice">togglePieSlice()</a>, <a href="SpecialCharts/PieDoughnut_JSAPI.html#enableslicingmovement">enableSlicingMovement()</a>, <a href="SpecialCharts/PieDoughnut_JSAPI.html#enablelink">enableLink()</a></p>
+						  <p>Available for: <strong>Pie2D, Pie3D, Doughnut2D and Doughnut3D</strong> charts.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                       <td colspan="5" valign="top" style="border:1px dashed #e3e2e2 !important; border-left:none; border-right:none;">
+                          <p><a href="SpecialCharts/Combi3D_JSAPI.html#view2d">view2D()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#view3d">view3D()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#resetview">resetView()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#rotateview">rotateView()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#getviewangles">getViewAngles()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#fittostage">fitToStage()</a>, <a href="SpecialCharts/Combi3D_JSAPI.html#view100">view100Percent()</a></p>
+						  <p>Available for: <strong>MSCombi3D (True 3D)</strong> chart.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                       <td colspan="5" valign="top">
+                          <p><a href="SpecialCharts/ZoomLine_JSAPI.html#zoomout">zoomOut()</a>, <a href="SpecialCharts/ZoomLine_JSAPI.html#resetchart">resetChart()</a>, <a href="SpecialCharts/ZoomLine_JSAPI.html#zoomto">zoomTo()</a>, <a href="SpecialCharts/ZoomLine_JSAPI.html#setzoommode">setZoomMode()</a>, <a href="SpecialCharts/ZoomLine_JSAPI.html#getviewstartindex">getViewStartIndex()</a>, <a href="SpecialCharts/ZoomLine_JSAPI.html#getviewendindex">getViewEndIndex()</a></p>
+							<p>Available for: <strong>Zoom Line </strong> chart.</p>
+					   </td>
+                    </tr>
+                  </table>
+                  <br />
+                  <table width="570" border="0" cellspacing="0" cellpadding="0" class="table" style="background-color:#ffffff;">
+                     
+                     <tr>
+                        <td colspan="3" class="header apisubheadercolor" style="background-color:#fafafa;border:1px solid #e3e2e2 !important;">FusionCharts Events (listened using addEventListener - Advanced event model) </td>
+                        </tr>
+                     <tr>
+                        <td valign="top">
+                           <p><a href="Events.html#initialize">Initialize</a></p>
+                           <p><a href="Events.html#dataloadrequested">DataLoadRequested</a></p>
+                           <p><a href="Events.html#dataloadrequestcancelled">DataLoadRequestCancelled</a></p>
+                           <p><a href="Events.html#dataloadrequestcompleted">DataLoadRequestCompleted</a></p>
+                           <p><a href="Events.html#dataloadcancelled">DataLoadCancelled</a></p>
+                           <p><a href="Events.html#beforedataupdate">BeforeDataUpdate</a></p>
+						   <p><a href="Events.html#dataupdated">DataUpdated</a></p>
+                           <p><a href="Events.html#loaded">Loaded</a></p>
+                           <p><a href="Events.html#dataloaded">DataLoaded</a></p>
+                           <p><a href="Events.html#rendered">Rendered</a></p>
+                           <p><a href="Events.html#drawcomplete">DrawComplete</a></p>
+                           <p><a href="Events.html#rendered"></a><a href="Events.html#resized">Resized</a></p>
+                       </td>
+                        <td valign="top" style="border:1px solid #e3e2e2 !important;">
+                           <p><a href="Events.html#exported">Exported</a></p>
+                           <p><a href="Events.html#printreadystatechange">PrintReadyStateChange</a></p>
+                           <p><a href="Events.html#beforelinkeditemopen"><br />
+                           BeforeLinkedItemOpen</a></p>
+                           <p><a href="Events.html#linkeditemopened">LinkedItemOpened</a></p>
+                           <p><a href="Events.html#beforelinkeditemclose">BeforeLinkedItemClose</a></p>
+                           <p><a href="Events.html#linkeditemclosed">LinkedItemClosed</a></p>
+                           <p>&nbsp;</p>
+                           <p><a href="Events.html#beforedispose">BeforeDispose</a></p>
+                           <p><a href="Events.html#disposed">Disposed</a></p>
+                        </td>
+                        <td valign="top">
+                           <p><a href="Events.html#nodatatodisplay">NoDataToDisplay</a></p>
+                           <p><a href="Events.html#dataloaderror">DataLoadError</a></p>
+                           <p><a href="Events.html#dataxmlinvalid">DataXMLInvalid</a></p>
+                           <p>&nbsp;</p>
+                           <p><a href="Events.html#error">Error</a></p>
+                           <p><a href="Events.html#warning">Warning</a></p>
+                        </td>
+                     </tr>
+                     
+                     <tr>
+                        <td colspan="3" valign="top" class="header" style="border:1px solid #e3e2e2 !important;"><strong>FusionCharts Simple Events (to be defined as global functions - Simple event model) </strong></td>
+                        </tr>
+                     <tr>
+                        <td width="33%" valign="top">
+                           <p><a href="Events.html#loaded">FC_Loaded</a></p>
+                           <p><a href="Events.html#dataloaded">FC_DataLoaded</a></p>
+                           <p><a href="Events.html#rendered">FC_Rendered</a></p>
+                       </td>
+                        <td width="33%" valign="top" style="border:1px solid #e3e2e2 !important;">
+                           <p><a href="Events.html#exported">FC_Exported</a></p>
+                           <p>&nbsp;</p>
+                       </td>
+                        <td width="33%" valign="top">
+                           <p><a href="Events.html#dataloaderror">FC_DataLoadError</a></p>
+                           <p><a href="Events.html#nodatatodisplay">FC_NoDataToDisplay</a></p>
+                           <p><a href="Events.html#dataxmlinvalid">FC_DataXMLInvalid</a></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" valign="top" class="header" style="border:1px solid #e3e2e2 !important;" >Chart Specific events (Zoom Line chart) </td>
+                        </tr>
+                     
+                     <tr>
+                        <td valign="top">
+                           <p><strong>As Global functions </strong><br />
+                           <span class="text-light">(Simple event model)</span></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#zoomed">FC_Zoomed</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#pinned">FC_Pinned</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#zoomedout">FC_ZoomedOut</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#resetzoomchart">FC_ResetZoomChart</a></p>
+                        </td>
+                        <td colspan="2" valign="top" style="border:1px solid #e3e2e2 !important;">
+                           <p><strong>Using addEventListener</strong><br />
+                           <span class="text-light">(Advanced event model)</span></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#zoomed">Zoomed</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#pinned">Pinned</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#zoomedout">ZoomedOut</a></p>
+                           <p><a href="SpecialCharts/ZoomLine_JSAPI.html#resetzoomchart">ResetZoomChart</a></p>
+                           
+                       </td>
+                        </tr>
+                  </table>
+                  </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Handling errors|../JS_Errors.html","Properties|Properties.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

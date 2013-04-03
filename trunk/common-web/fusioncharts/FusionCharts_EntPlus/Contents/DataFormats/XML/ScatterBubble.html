@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Scatter &amp; Bubble Chart XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html","FusionCharts Data Formats", "XML|Overview.html", "Scatter &amp; Bubble chart XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Scatter &amp; Bubble Chart XML</td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p>In scatter charts, dataplots are displayed as a collection of anchors (points) and in bubble charts they are displayed as bubbles. The XML structure of scatter chart is similar to <a href="MultiSeries.html">multi series chart</a> except for a few elements and attributes.</p>
+      <p><a name="scatter" id="scatter"></a>Shown below is an example of a scatter chart:</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/Scatter.jpg" width="604" height="354" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The above chart shows the comparison in performance of two servers. On the x-axis, we've server load and on the y axis we have response time in seconds. We are comparing the performance of two servers here - Server 1 and Server 2.</p>
+      <p>The XML for the above chart looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;chart palette='2' caption='Server Performance' yAxisName='Response Time (sec)'<br />&nbsp;xAxisName='Server Load (TPS)' xAxisMaxValue='100' xAxisMinValue='20' yAxisMaxValue='7'&gt;<br /><br />&nbsp; &nbsp;&lt;categories verticalLineColor='666666' verticalLineThickness='1'&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='20' x='20' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='30' x='30' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='40' x='40' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='50' x='50' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='60' x='60' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='70' x='70' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='80' x='80' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='90' x='90' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='100' x='100' showVerticalLine='0'/&gt;<br />&nbsp; &nbsp;&lt;/categories&gt;<br /><br />&nbsp; &nbsp;&lt;dataset seriesName='Server 1' color='009900' anchorSides='3' anchorRadius='4'<br />&nbsp; &nbsp; anchorBgColor='D5FFD5' anchorBorderColor='009900'&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='2.4' x='21' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='3.5' x='32' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='2.5' x='43' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.1' x='48' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='3.5' x='50' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.6' x='56' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.8' x='59' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.9' x='73' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.6' x='89' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='4.2' x='93' /&gt;<br />&nbsp; &nbsp;&lt;/dataset&gt;<br /><br />&nbsp; &nbsp;&lt;dataset seriesName='Server 2' color='0000FF' anchorSides='4' anchorRadius='4'<br />&nbsp; &nbsp; anchorBgColor='C6C6FF' anchorBorderColor='0000FF'&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.4' x='23'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.5' x='29'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.5' x='33'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.1' x='41'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.5' x='47'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.6' x='49'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.8' x='51'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.9' x='53'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.6' x='57'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.2' x='58'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.9' x='61'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.1' x='63'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.9' x='64'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.7' x='71'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.1' x='77'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.3' x='79'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.7' x='83'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.8' x='89'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.9' x='91'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set y='1.0' x='93'/&gt;<br />&nbsp; &nbsp;&lt;/dataset&gt;<br /><br />&nbsp; &nbsp;&lt;vTrendlines&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='20' endValue='65' alpha='5' color='00FF00' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='65' endValue='75' alpha='15' color='FFFF00' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='75' endValue='100' alpha='15' color='FF0000' /&gt;<br />&nbsp; &nbsp;&lt;/vTrendlines&gt;<br /><br />&nbsp; &nbsp;&lt;trendlines&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='5.2' displayValue='Check' lineThickness='2' color='FF0000'<br />&nbsp; &nbsp; &nbsp; &nbsp;valueOnRight='1' dashed='1' dashGap='5'/&gt;<br />&nbsp; &nbsp;&lt;/trendlines&gt;<br /><br />&lt;/chart&gt;</pre> <br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation of Scatter Chart XML </td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p>In scatter chart, the &lt;set&gt; element (child element of the 
+      &lt;dataset&gt; element) represents a set of data to be plotted on the chart like any other multi-series charts. But, instead of displaying the value attribute, each &lt;set&gt; element defines the position of each data point in form of two numeric parameters namely x and y.
+A &lt;set&gt; element of a scatter chart would look like:</p>
+      <pre class="code_container prettyprint">&lt;set y='2.4' x='21' /&gt;</pre>
+      <p>The x and y here are actual values from your data (and not pixel points). Based on the entire set of x and y values, the limits for x-axis and y-axis are calculated by the chart. </p>
+      <p>Then we have the <span class="codeInline">&lt;vTrendlines&gt;</span> element that helps display vertical trend lines in the chart to either highlight a specific value or build a trend zone to indicate grouping of data. In the above example, we have three vertical trend lines defined in the chart which have been rendered as trend zones denoting different levels of server load.</p>
+      <p>Next, we have the <span class="codeInline">&lt;trendLines&gt;</span> element which has already been discussed in multi-series charts. Using this function of the chart, you could draw custom horizontal lines on the chart to represent a trend. For example, in our above XML, we have defined a line at 5.2 with a display value check on the right side of the canvas. </p>
+    </td>
+  </tr>
+    <tr>
+      <td valign="top" class="header"><a name="bubble" id="bubble"></a>Bubble Charts</td>
+    </tr>
+    <tr> 
+    <td valign="top" class="text"><p>In Bubble chart, each data item (bubble) has three parameters - x,y and size (in relative value, not pixels). A simple Bubble Chart is shown below: </p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/Bubble.jpg" width="589" height="295" class="imageBorder" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The XML for the above chart is given below:</p></td>
+  </tr><tr> 
+    <td valign="top" class="text">
+        <pre class="prettyprint code_container">&lt;chart palette='3' numberPrefix='$' is3D='1' xAxisMaxValue='100' showPlotBorder='0'<br />&nbsp;xAxisName='Stickiness' yAxisName='Cost Per Service' chartRightMargin='30'&gt;<br /><br />&nbsp; &nbsp;&lt;categories&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='0%' x='0' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='20%' x='20' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='40%' x='40' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='60%' x='60' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='80%' x='80' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='100%' x='100' showVerticalLine='1'/&gt;<br />&nbsp; &nbsp;&lt;/categories&gt;<br /><br />&nbsp; &nbsp;&lt;dataSet showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='30' y='1.3' z='116' &nbsp;name='Traders'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='32' y='3.5' z='99' name='Farmers'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='8' y='2.1' z='33' name='Individuals'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='62' y='2.5' z='72' name='Medium Business Houses'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='78' y='2.3' z='55' name='Corporate Group A'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='75' y='1.4' z='58' name='Corporate Group C'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='68' y='3.7' z='80' name='HNW Individuals'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set x='50' y='2.1' z='105' name='Small Business Houses'/&gt;<br />&nbsp; &nbsp;&lt;/dataSet&gt;<br /><br />&nbsp; &nbsp;&lt;trendlines&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='2.5' isTrendZone='0' displayValue='Median Cost' color='0372AB'/&gt;<br />&nbsp; &nbsp;&lt;/trendlines&gt;<br /><br />&nbsp; &nbsp;&lt;vTrendlines&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='0' endValue='60' isTrendZone='1' displayValue='Potential Wins'<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color='663333' alpha='10'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;line startValue='60' endValue='100' isTrendZone='1' displayValue='Cash Cows'<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color='990099' alpha='5'/&gt;<br />&nbsp; &nbsp;&lt;/vTrendlines&gt;<br /><br />&lt;/chart&gt;</pre> <br />   </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+
+  <tr> 
+    <td valign="top" class="text"><p>The position of a bubble plot is defined on the basis of the numeric values of x and y axis and the radius of the plot depends on the magnitude of the third numeric value (and not pixels).</p>
+      <p>The basic XML structure for a scatter chart is again very similar to that of a multi-series chart. But a few additional features which are not present in a typical multi-series chart are as follows: </p>
+    <p> A &lt;set&gt; element of a bubble chart would look like: </p>
+    <pre class="code_container prettyprint"> &lt;set x='30' y='1.3' z='116' &nbsp;name='Traders'/&gt; </pre>
+    <p>Next, we have the <span class="codeInline">&lt;trendLines&gt;</span> element which has already been discussed in multi-series charts. Using this function of the chart, you could draw custom horizontal lines on the chart to represent a trend. For example, in our above XML, we have defined a line at 2.5 to represent the Median Cost. </p>
+    <p>Then we have the <span class="codeInline">&lt;vTrendlines&gt;</span> element which helps you display vertical lines in your chart to represent visual grouping of data. In our example we have two trend lines defined in the chart which have been rendered as zones. The first zone covers 60 percent from the starting position which is referred as <span class="codeInline">Potential Wins</span> and other one covering the rest is referred as <span class="codeInline">Cash Cows</span>.</p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Combination chart XML|Combination.html","Multi Series Stacked chart XML|MSStacked.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

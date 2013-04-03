@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>DataUrl Method </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for Web Developers", "How FusionCharts works?|HowFCWorks.html", "DataURL method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">DataUrl Method </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In this method, you provide the URL of chart data-source  (XML/JSON) to FusionCharts. The chart sends a request for  data to the specified Url, reads it, parses it and then renders the charts accordingly. This method can be used to render a new chart or update an existing chart. The image below (followed by the listed steps) illustrate the process involved in a generic Data URL Method:</p>
+       <p><img src="../../FirstChart/Images/dataURLMethod.jpg" /></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+     
+      <ol>
+        <li>First, you set the URL of XML or JSON data as the chart's data-source. This URL points to a static XML/JSON file or to a server side script that outputs dynamic XML/JSON data</li>
+        <li>FusionCharts JavaScript class or the chart&nbsp;sends a request for XML or JSON data document to the specified Url</li>
+        <li>At this URL, your <span class="msg_handler"><a>server side scripts</a> &raquo; </span><span class="veryLightYellowBg msg_body">like ASP, ASP.NET C#, ASP.NET VB.NET, PHP, J2EE, Ruby on Rails, ColdFusion etc.</span> now
+          <ul>
+              <li>Interact with the database</li>
+            <li>Get data from database in native objects like Recordsets, Data Readers etc.</li>
+            <li>Generate chart data (XML or JSON) using simple string concatenation or using XML/JSON objects</li>
+            <li>And relay this data to output stream</li>
+          </ul>
+        </li>
+        <li>FusionCharts now accepts this data, parses it and finally renders the chart</li>
+      </ol>
+      <p>Effectively, in this process you need the following to build a chart:</p>
+      <ol>
+        <li><strong>Chart Container Page </strong> - The page contains the  code  to embed the chart. The chart code contains the URL to XML/JSON Data.</li>
+        <li><strong>Chart SWF File</strong> - SWF file for the chart that you wish to render. Each chart in FusionCharts is a separate SWF file. For example, if you want to create 3D column chart, you'll need the SWF file called <span class="codeInline">Column3D.swf</span>.</li>
+        <li><strong>Javascript Class Files</strong> - These files help in embedding the chart SWF file in your HTML page and rendering JavaScript (HTML5) fallback charts. The files are named <span class="codeInline">FusionCharts.js</span>,<span class="codeInline">FusionCharts.HC.js, FusionCharts.HC.Charts.js</span> and <span class="codeInline">jquery.min.js</span>. </li>
+        <li><strong>Data  Provider Page </strong>- The server-side page which will provide XML/JSON data to FusionCharts. This page outputs ONLY in XML or JSON format with no HTML tags. </li>
+    </ol></td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="header">Sample Usage of dataURL method using FusionCharts JavaScript Class </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;div id=&quot;chart1div&quot;&gt;
+&nbsp;&nbsp;&nbsp;This text is replaced by the chart.
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+&nbsp;&nbsp;&nbsp;var chart1 = new FusionCharts(&quot;Column2D.swf&quot;, &quot;ChId1&quot;, &quot;600&quot;, &quot;400&quot;, &quot;0&quot;, &quot;1&quot;);<strong>
+&nbsp;&nbsp;&nbsp;chart1.setXMLUrl(&quot;Data.asp&quot;);</strong>
+&nbsp;&nbsp;&nbsp;chart1.render(&quot;chart1div&quot;);
+&lt;/script&gt;</pre>
+      <p class="highlightBlock">FusionCharts JavaScript class provides other functions to achieve the same : <a href="../../JavaScript/API/Methods.html#setjsonurl">setJSONUrl</a>, <a href="../../JavaScript/API/Methods.html#setchartdataurl">setChartDataUrl</a>, <a href="../../JavaScript/API/Methods.html#setchartdata">setChartData</a>, <a href="../../JavaScript/API/Methods.html#setdataurl">setDataURL</a> (deprecated) </p>
+    </td>
+  </tr>
+    <tr>
+  <td valign="top" ><p class="header">Using various server side scripts</p></td>
+  </tr>
+  <tr><td valign="top" class="text">To ease embedding of charts in your web pages, FusionCharts provides wrapper classes ready for various server-side scripts like ASP, ASP.NET C#, ASP.NET VB.NET, PHP, J2EE, Ruby on Rails and ColdFusion. Moreover,  in ASP and PHP, the APIs allow you to connect to arrays and databases and even dynamically build XML data which can directly be provided to chart.
+  <p>Here, we provide highlights of code snippets that are used in each technology to embed FusionCharts using Data URL method.</p>
+  </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using ASP</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container code_container codeInline">Call renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.asp&quot;, &quot;&quot;, &quot;myFirst&quot;, 600, 300, false, false)</td>
+  </tr>
+  
+  <tr>
+     <td class="text"><p>Read more from <a href="../asp/ASP_BasicExample.html">here</a> on FusionCharts and ASP. For more details read the sections <b>Using with ASP</b> and <b>FusionCharts ASP Class</b> under the section <b> Guide for Web Developers</b>. </p>
+     </td>
+  </tr>  
+  <tr>
+     <td class="text"><strong>Using ASP.NET C# </strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container codeInline">FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.aspx&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, false, false);</td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../csnet/CS_BasicExample.html">here</a> on FusionCharts and ASP.NET C#. For more details read the sections <b>Using with C# (ASP.NET) </b> under <b> Guide for Web Developers. </b></p>
+     </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using ASP.NET VB</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container codeInline">FusionCharts.RenderChart(&quot;../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.aspx&quot;, &quot;&quot;, &quot;myFirst&quot;, &quot;600&quot;, &quot;300&quot;, False, False)</td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../vbnet/VBNET_BasicExample.html">here</a> on FusionCharts and ASP.NET VB. For more details read the section <b>Using with VB.NET (ASP.NET)</b> under <b> Guide for Web Developers</b>. </p>
+     </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using PHP</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container codeInline">renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.php&quot;, &quot;&quot;, &quot;myFirst&quot;, 600, 300, false, false);</td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../php/PHP_BasicExample.html">here</a> on FusionCharts and PHP. For more details read <b>Using with PHP </b> and <b>FusionCharts PHP Class</b> sections under <b> Guide for Web Developers. </b></p>
+     </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using J2EE</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container codeInline"> &lt;jsp:include page=&quot;../Includes/FusionChartsRenderer.jsp&quot; flush=&quot;true&quot;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;chartSWF&quot; value=&quot;../../FusionCharts/Column3D.swf&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;strURL&quot; value=&quot;Data/Data.jsp&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;strXML&quot; value=&quot;&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;chartId&quot; value=&quot;myFirst&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;chartWidth&quot; value=&quot;600&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;chartHeight&quot; value=&quot;300&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;debugMode&quot; value=&quot;false&quot; /&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;jsp:param name=&quot;registerWithJS&quot; value=&quot;false&quot; /&gt;<br />
+&lt;/jsp:include&gt;</td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../../Code/J2EE/JSP_BasicExample.html">here</a> on FusionCharts and J2EE. For more details read <b>Using with J2EE </b> section under <b> Guide for Web Developers. </b></p>
+     </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using ColdFusion</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+
+     <td class="code_container codeInline"> &lt;cfoutput&gt;#renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;Data/Data.cfm&quot;, &quot;&quot;, &quot;myFirst&quot;, 600, 300, false, false)#&lt;/cfoutput&gt;</td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../coldfusion/CFM_BasicExample.html">here</a> on FusionCharts and ColdFusion. For more details read <b>Using with ColdFusion</b>  section under <b> Guide for Web Developers. </b></p>
+     </td>
+  </tr>
+  <tr>
+     <td class="text"><strong>Using Ruby on Rails</strong></td>
+  </tr>
+  <tr><td height="20"></td></tr>
+  <tr>
+     <td class="code_container codeInline">render_chart '/FusionCharts/Column3D.swf', 'Data.builder, '', 'configuredChart', 600, 300, false, false </td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Read more from <a href="../../Code/ROR/Ruby_basicexample.html">here</a> on FusionCharts and RoR. For more details read <b>Using with RoR </b> section under <b> Guide for Web Developers</b>.</p>
+     </td>
+  </tr> 
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Guide for web developers|HowFCWorks.html","Data String method|DataXMLExp.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

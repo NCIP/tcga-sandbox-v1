@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>FusionCharts Gallery</title>
+        <link href="assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="assets/ui/js/jquery-1.4.2.min.js"></script>
+        <!--[if IE 6]>
+                <script type="text/javascript" src="assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+
+                <script>
+                  /* select the element name, css selector, background etc */
+                  DD_belatedPNG.fix('img');
+
+                  /* string argument can be any CSS selector */
+                </script>
+		  <p>&nbsp;</p>
+		  <P align="center"></P>
+                <![endif]-->
+        <style type="text/css">
+            p.center {
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                font-size: 75%;
+                padding: 0 5px;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //Set default open/close settings
+                $('div.acc_container').hide(); //Hide/close all containers
+
+                //On Click
+                $('h4.acc_trigger').click(function() {
+                    if( $(this).next('div.acc_container').is(':hidden') ) { //If immediate next container is closed...
+                        $('h4.acc_trigger.active').removeClass('active').next('div.acc_container').slideUp(); //Remove all "active" state and slide up the immediate next container
+                        $(this).addClass('active').next('div.acc_container').slideDown(); //Add "active" state to clicked trigger and slide down the immediate next container
+						
+						document.cookie = "GALLERY_ITEM_CATEGORY=" + $(this).attr('id');
+						
+                        return false;
+                    }
+                    if( !($(this).next('div.acc_container').is(':hidden')) ) {
+                        $(this).removeClass('active').next('div.acc_container').slideUp();
+                    }
+                    return false; //Prevent the browser jump to the link anchor
+                });
+
+                //This is for add class "current" in the clicked menu list hyperlink
+                $('ul.nav_list li a').click(function() {
+                    $('ul.nav_list li a.current').removeClass('current');
+                    $(this).addClass('current');
+					
+					document.cookie = "GALLERY_ITEM_TITLE=" + $(this).attr('id');
+					
+                });
+				
+				
+				
+				
+				// initial action
+				var config = getGalleryItem();
+
+				var selectedGroup = $("h4.acc_trigger#"+config["GALLERY_ITEM_CATEGORY"]+"");
+				selectedGroup.addClass('active').next('div.acc_container').slideDown();
+				
+				var selectedItem = $("div.acc_container ul.nav_list li a#"+config["GALLERY_ITEM_TITLE"]+"");
+				selectedItem.addClass('current');
+
+				$('#demoframe').attr({'src': config["GALLERY_ITEM_URL"],  'height': config["GALLERY_ITEM_HEIGHT"] });
+				
+
+            });
+
+            function viewGallery (url, height) {
+				if(!height) height = 600;
+                $('#demoframe').attr({'src': url, 'height': height});
+                $('html, body').animate({scrollTop: 120}, 'slow');
+
+				document.cookie = "GALLERY_ITEM_URL=" + url;
+				document.cookie = "GALLERY_ITEM_HEIGHT=" + height;
+								
+            }
+
+            function resizeFrame (height){
+                $('#demoframe').attr({'height': height});
+            }
+			
+							
+			function getGalleryItem()
+			{
+				var ret = {'GALLERY_ITEM_URL': 'Column2D/Col2d1.html',  'GALLERY_ITEM_HEIGHT': 600, 'GALLERY_ITEM_CATEGORY' : 'C2DC', 'GALLERY_ITEM_TITLE' :'C1I1'};
+				
+				if(document.cookies=="") return ret;
+				
+				var cookies = document.cookie.split("; ");
+				var cookieItems = {};
+				for(var i in cookies)
+				{	
+					var tmpItemDetails = cookies[i].split("=");
+					cookieItems[tmpItemDetails[0]] = tmpItemDetails[1];
+				}
+				
+				
+				if(cookieItems && cookieItems["GALLERY_ITEM_URL"])
+				{
+					ret["GALLERY_ITEM_URL"] = cookieItems["GALLERY_ITEM_URL"];
+					ret["GALLERY_ITEM_HEIGHT"] = cookieItems["GALLERY_ITEM_HEIGHT"]? cookieItems["GALLERY_ITEM_HEIGHT"] : 600;
+					ret["GALLERY_ITEM_CATEGORY"] = cookieItems["GALLERY_ITEM_CATEGORY"];
+					ret["GALLERY_ITEM_TITLE"] = cookieItems["GALLERY_ITEM_TITLE"];
+					
+				
+				}
+						
+				return ret;
+			}
+
+
+        </script>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header">
+                <div class="back-to-home" ><a href="../index.html">Back to home</a></div>
+                <div class="logo"><a href="index.html"><img src="assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                <h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Chart Gallery</h1>
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <h2 class="headline">Click on the demos on the left to see the live chart rendering on the right panel. You can also see the data for the chart by clicking on the View XML or View JSON.</h2>
+                    <!-- accordian menu -->
+                    <div class="accordian-menu-block">
+                        <div class="container">
+                            <h4 class="acc_trigger" id="C2DC"><a href="#">Column 2D Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C1I1" href="javascript:void(0)" onclick="viewGallery('Column2D/Col2d1.html', 600)" title="Single Series Column 2D with Caption Left Aligned">Top 5 Sales Person</a></li>
+                                    <li><a id="C1I2" href="javascript:void(0)" onclick="viewGallery('Column2D/Col2D2.html', 600)" title="Single Series Column 2D with Animated vLine">Monthly Unit Sales</a></li>
+                                    <li><a id="C1I3" href="javascript:void(0)" onclick="viewGallery('Column2D/MSCol2D1.html', 600)" title="Multi Series Column 2D with Trend Zone">Global Export Index</a></li>
+                                    <li><a id="C1I4" href="javascript:void(0)" onclick="viewGallery('Column2D/MSCol2D2.html', 600)" title="Multi Series Column 2D with Values Placed Inside the Columns">Country Comparison</a></li>
+                                    <li><a id="C1I5" href="javascript:void(0)" onclick="viewGallery('Column2D/MSCol2D3.html', 600)" title="Multi Series Column 2D Displaying Values">Business Results: 2005</a></li>
+                                    <li class="acc-last"><a id="C1I6"  href="javascript:void(0)" onclick="viewGallery('Column2D/MSCol2D4.html', 600)" title="Multi Series Column 2D with Glass Effect">Production Forecast</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="C3DC"><a href="#">Column 3D Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C2I1" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D1.html', 600)" title="Single Series Column 3D Chart">Top 5 Sales Person</a></li>
+                                    <li><a id="C2I2" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D2.html', 600)" title="Single Series Column 3D Chart with Staggered Labels">1996 - Top 10 Cities by Sales</a></li>
+                                    <li><a id="C2I3" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D3.html', 600)" title="Single Series Column 3D Chart in Percentage(%) Values">Decline in Net Interest Margins</a></li>
+                                    <li><a id="C2I4" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D4.html', 600)" title="Single Series Column 3D Chart with Trendline and Rotated Labels">Monthly Unit Sales</a></li>
+                                    <li><a id="C2I5" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D5.html', 600)" title="Single Series Column 3D Chart with Slant Labels">Average Delay in Shipping Time</a></li>
+                                    <li><a id="C2I6" href="javascript:void(0)" onclick="viewGallery('Column3D/Col3D6.html', 600)" title="Single Series Column 3D Chart with Missing Data-plots">Discontinuous Data-plots</a></li>
+                                    <li><a id="C2I7" href="javascript:void(0)" onclick="viewGallery('Column3D/MSCol3D1.html', 600)" title="Multi Series Column 3D Chart with Legends in Multiple Lines">Category wise Sales for 1996</a></li>
+                                    <li><a id="C2I8" href="javascript:void(0)" onclick="viewGallery('Column3D/MSCol3D2.html', 600)" title="Multi Series Column 3D Chart">Country Comparison</a></li>
+                                    <li><a id="C2I9" href="javascript:void(0)" onclick="viewGallery('Column3D/MSCol3D3.html', 600)" title="Multi Series Column 3D Chart with Values Placed Inside the Columns">Product Sales</a></li>
+                                    <li><a id="C2I10" href="javascript:void(0)" onclick="viewGallery('Column3D/MSCol3D4.html', 600)" title="Multi Series Column 3D Chart with 3 Different Parameters">Global Cereal Export</a></li>
+                                    <li><a id="C2I11" href="javascript:void(0)" onclick="viewGallery('Column3D/3DChart_Col_1.html', 600)" title="Multi Series True Column 3D Chart in Manhatten Mode">Country Comparison</a></li>
+                                    <li><a id="C2I12" href="javascript:void(0)" onclick="viewGallery('Column3D/3DChart_Col_2.html', 600)" title="Multi Series True Column 3D Chart">Site Hits Per Hour</a></li>
+                                    <li class="acc-last"><a id="C2I13"  href="javascript:void(0)" onclick="viewGallery('Column3D/3DChart_Col_3.html', 600)" title="Multi Series True Column 3D Chart with Degree Sign in Labels">Weather Report</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="PDC"><a href="#">Pie and Doughnut Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C3I1" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Donut1.html', 600)" title="Doughnut 3D Chart with No Labels Displayed">Project Cost Breakdown</a></li>
+                                    <li><a id="C3I2" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Donut2.html', 600)" title="Doughnut 3D Chart with Smart Labels">Product Sales - 2005</a></li>
+                                    
+                                    <li><a id="C3I4" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Donut2D1.html', 600)" title="Doughnut 2D Chart in Percentage Value">Marketing Expenses</a></li>
+                                    <li><a id="C3I5" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Pie2D1.html', 600)" title="Pie 2D Chart with Border">Airline Delay Causes</a></li>
+                                    <li><a id="C3I6" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Pie2D3.html', 600)" title="Pie 2D Chart with Legend and thin slice borders">Industry Resources</a></li>
+                                    
+                                    <li><a id="C3I8" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Pie3D2.html', 600)" title="Pie 3D Chart Displaying Percentage Value in Tool-tip">Sales Per Employee - Year 1996</a></li>
+                                    <li><a id="C3I9" href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Pie3D3.html', 600)" title="Pie 3D Chart with Numerous Slices">Alphabet Usage in a Novel</a></li>
+                                    <li class="acc-last"><a id="C3I10"  href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Pie3D4.html', 600)" title="Pie 3D Chart with Colored Background and Labels">Engineering Master's Degrees</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="LAC"><a href="#">Line and Area Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C4I1" href="javascript:void(0)" onclick="viewGallery('Area_Line/Line1.html', 600)" title="Single Series Line 2D Chart with Multiple Trend Zones">Temperature Monitoring</a></li>
+                                    <li><a id="C4I2" href="javascript:void(0)" onclick="viewGallery('Area_Line/Line2.html', 600)" title="Single Series Line 2D Chart with Auto Positioning of labels Above/Below the Line Plot	">Monthly Sales Summary</a></li>
+                                    <li><a id="C4I3" href="javascript:void(0)" onclick="viewGallery('Area_Line/Line3.html', 600)" title="Single Series Line 2D Chart with Grid on Transparent Canvas">Web Statistics</a></li>
+                                    <li><a id="C4I4" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLine1.html', 600)" title="Multi Series Line 2D Chart with Anchors">Production Forecast</a></li>
+                                    <li><a id="C4I5" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLine2.html', 600)" title="Multi Series Line 2D Chart with No Anchor">Sales Comparison</a></li>
+                                    <li><a id="C4I6" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLine3.html', 600)" title="Multi Series Line 2D Chart">Daily Visits</a></li>
+                                    <li><a id="C4I7" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLine4.html', 600)" title="Multi Series Line 2D Chart with Slant Labels">Site Hits Per Hour</a></li>
+                                    <li><a id="C4I8" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLine5.html', 600)" title="Multi Series Line 2D Chart with Discontinuous Data and Slant Labels">Discontinuous Dataplot Demo</a></li>
+                                    <li><a id="C4I9" href="javascript:void(0)" onclick="viewGallery('Area_Line/3DChart_Line_1.html', 600)" title="Multi Series Line 3D Chart">Monthly Sales Summary</a></li>
+                                    <li><a id="C4I10" href="javascript:void(0)" onclick="viewGallery('Area_Line/Area1.html', 600)" title="Single Series Area 2D Chart">Sea-level comparison</a></li>
+                                    <li><a id="C4I11" href="javascript:void(0)" onclick="viewGallery('Area_Line/Area2.html', 600)" title="Single Series Area 2D Chart with Canvas Padding">Fruit Production for March</a></li>
+									<li><a id="C4I12" href="javascript:void(0)" onclick="viewGallery('Area_Line/areawithanchor.html', 600)" title="Single Series Area 2D Chart with Anchors">Monthly Report-Unique Visitors</a></li>
+                                    <li><a id="C4I13" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSArea1.html', 600)" title="Multi Series Area 2D Chart">Monthly Sales Summary (2D)</a></li>
+                                    <li><a id="C4I14" href="javascript:void(0)" onclick="viewGallery('Area_Line/3DChart_Area_1.html', 600)" title="Multi Series Area 3D Chart">Monthly Sales Summary (3D)</a></li>
+                                    <li class="acc-last"><a id="C4I15"  href="javascript:void(0)" onclick="viewGallery('Area_Line/3DChart_Area_2.html', 600)" title="Multi Series Area 3D Chart with 4 dataplots">Visits from Search Engines</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="BC"><a href="#">Bar Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C5I1" href="javascript:void(0)" onclick="viewGallery('Bar/Bar2D1.html', 600)" title="Single Series Bar 2D Chart with No Divisional Lines">Brand Winner</a></li>
+                                    <li><a id="C5I2" href="javascript:void(0)" onclick="viewGallery('Bar/Bar2D2.html', 600)" title="Single Series Bar 2D Chart">Industry Leads</a></li>
+                                    <li><a id="C5I3" href="javascript:void(0)" onclick="viewGallery('Bar/Bar2D3.html', 600)" title="Single Series Bar 2D Chart with Glass Effect">Fruit Production for March</a></li>
+                                    <li><a id="C5I4" href="javascript:void(0)" onclick="viewGallery('Bar/MSBar2D1.html', 600)" title="Multi Series Bar 2D Chart with Glass Effect">Business Results: 2004 vs 2005</a></li>
+                                    <li><a id="C5I5" href="javascript:void(0)" onclick="viewGallery('Bar/MSBar2D2.html', 600)" title="Multi Series Bar 2D Chart with Values Displayed">Business Results: 2005</a></li>
+                                    <li><a id="C5I6" href="javascript:void(0)" onclick="viewGallery('Bar/MSBar3D1.html', 600)" title="Multi Series Bar 3D Chart with Canvas Base">Country Comparison</a></li>
+									<li class="acc-last"><a id="C5I7"  href="javascript:void(0)" onclick="viewGallery('Bar/Bar2D4.html', 600)" title="Single Series Bar 2D Chart">Pizza Mania </a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="STC"><a href="#">Stacked Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C6I1" href="javascript:void(0)" onclick="viewGallery('StackedColumn2D/StCol2D1.html', 600)" title="Stacked Column 2D Chart with Glass Effect">Product Comparison (Glass effect)</a></li>
+                                    <li><a id="C6I2" href="javascript:void(0)" onclick="viewGallery('StackedColumn2D/100PStCol2D1.html', 600)" title="100% Stacked Column 2D Chart">Market Activity (100% Stacked)</a></li>
+                                    <li><a id="C6I3" href="javascript:void(0)" onclick="viewGallery('StackedColumn3D/StCol3D1.html', 600)" title="Stacked Column 3D Chart">Visits from Search Engine</a></li>
+                                    <li><a id="C6I4" href="javascript:void(0)" onclick="viewGallery('StackedColumn3D/StCol3D3.html', 600)" title="Stacked Column 3D Chart with Rotated Labels">Market Activity</a></li>
+	                                <li><a id="C6I5" href="javascript:void(0)" onclick="viewGallery('StackedColumn3D/100PStCol3D.html', 600)" title="100% Stacked Column 3D Chart">Market Activity (100% Stacked)</a></li>
+                                    <li><a id="C6I6" href="javascript:void(0)" onclick="viewGallery('StackedArea2D/StArea2D1.html', 600)" title="Stacked Area 2D Chart">Visits from Search Engines</a></li>
+                                    <li><a id="C6I7" href="javascript:void(0)" onclick="viewGallery('StackedArea2D/100PStArea2D.html', 600)" title="100% Stacked Area 2D Chart">Visits from Search Engines (100%)</a></li>
+                                    <li><a id="C6I8" href="javascript:void(0)" onclick="viewGallery('StackedArea2D/StArea2D2.html', 600)" title="Stacked Area 2D Chart with Rotated Labels">Site Hits Per Hour</a></li>
+                                    <li><a id="C6I9" href="javascript:void(0)" onclick="viewGallery('StackedArea2D/StArea2D3.html', 600)" title="Stacked Area 2D Chart with Ellipses in Labels & Dataplot not from Origin">Product-wise Sales</a></li>
+                                    <li><a id="C6I10" href="javascript:void(0)" onclick="viewGallery('StackedBar2D/StBar2D1.html', 600)" title="Stacked Bar 2D Chart with Dashed Trendline">Monthly Sales Summary (2D)</a></li>
+                                    <li><a id="C6I11" href="javascript:void(0)" onclick="viewGallery('StackedBar2D/StBar2D2.html', 600)" title="Stacked Bar 2D Chart with Negative Values">Cumulative Sales</a></li>
+                                    <li><a id="C6I12" href="javascript:void(0)" onclick="viewGallery('StackedBar2D/100PStBar2D1.html', 600)" title="100% Stacked Bar 2D Chart">Monthly Sales Summary (100%)</a></li>
+                                    <li><a id="C6I13" href="javascript:void(0)" onclick="viewGallery('StackedBar3D/StBar3D1.html', 600)" title="Stacked Bar 3D Chart with Canvas Base">Product Comparison (3D Bar)</a></li>
+                                    <li><a id="C6I14" href="javascript:void(0)" onclick="viewGallery('StackedBar3D/100PStBar3D.html', 600)" title="100% Stacked Bar 3D Chart">Monthly Sales Summary (100%)</a></li>
+                                    <li class="acc-last"><a id="C6I15"  href="javascript:void(0)" onclick="viewGallery('StackedColumn2D/StCol2D2.html', 600)" title="Multi Series Stacked Column 2D with Glass Effect">Break-up of Annual Revenue</a></li>                                    
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="CMBC"><a href="#">Combination Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C7I1" href="javascript:void(0)" onclick="viewGallery('Combi2DSingleY/Combi2DSY1.html', 600)" title="2D Single Y Combination Chart with Semi-transparent Area Plot">Sales (Column-Area Plot) (2D)</a></li>
+                                    <li><a id="C7I2" href="javascript:void(0)" onclick="viewGallery('Combi2DSingleY/Combi2DSY2.html', 600)" title="2D Single Y Combination Chart with Line Plot">Sales (Column-Line Plot) (2D)</a></li>
+                                    <li><a id="C7I3" href="javascript:void(0)" onclick="viewGallery('Combi2DSingleY/Combi2DSY3.html', 600)" title="2D Single Y Combination Chart">Sales (Area-Line Plot) (2D)</a></li>
+                                    <li><a id="C7I4" href="javascript:void(0)" onclick="viewGallery('Combi2DSingleY/Combi2DSY4.html', 600)"title="2D Single Y Combination Chart">Sales (Column-Area-Line) (2D)</a></li>
+                                    <li><a id="C7I5" href="javascript:void(0)" onclick="viewGallery('Combi3D/Combi3D1.html', 600)">Sales (Column-Area-Line) (3D)</a></li>
+                                    <li><a id="C7I6" href="javascript:void(0)" onclick="viewGallery('Combi3D/Combi3D2.html', 600)" title="3D Single Y Combination Chart">Company Revenue (True 3D)</a></li>
+                                    <li><a id="C7I7" href="javascript:void(0)" onclick="viewGallery('Combi3D/Combi3D3.html', 600)" title="3D Single Y Combination Chart">Traffic Report</a></li>
+                                    <li><a id="C7I8" href="javascript:void(0)" onclick="viewGallery('Combi3D/Combi3D4.html', 600)" title="3D Single Y Combination Chart">Monthly Sales Summary</a></li>
+                                    <li><a id="C7I9" href="javascript:void(0)" onclick="viewGallery('Combi3DSingleY/ColumnLine3DSY1.html', 600)" title="3D Single Y Combination Chart">Company Revenue (3D)</a></li>
+                                    <li><a id="C7I10"  href="javascript:void(0)" onclick="viewGallery('Combi3DSingleY/ColumnLine3DSY2.html', 600)" title="3D Single Y Combination Chart with Enlarged Anchors">Total Crimes for 2005-2006</a></li>
+									<li><a id="C7I11" href="javascript:void(0)" onclick="viewGallery('Combi3DSingleY/StCol3DLine.html', 600)" title="Stacked Column 3D Line Chart">Stacked Column 3D Line</a></li>
+                                    <li class="acc-last"><a id="C7I12"  href="javascript:void(0)" onclick="viewGallery('Combi3DSingleY/StCol2DLine.html', 600)" title="Stacked Column 2D Line Chart">Stacked Column 2D Line</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="CDYC"><a href="#">Combination (Dual Y) Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C8I1" href="javascript:void(0)" onclick="viewGallery('Column3DLineDY/Col3DLineDY1.html', 600)" title="Column 3D Line Dual Y Chart">Sales (Multi Series)</a></li>
+                                    <li><a id="C8I2" href="javascript:void(0)" onclick="viewGallery('Column3DLineDY/Col3DLineDY2.html', 600)" title="Column 3D Line Dual Y Chart">Web Statistics</a></li>
+                                    <li><a id="C8I3" href="javascript:void(0)" onclick="viewGallery('Column3DLineDY/Col3DLineDY3.html', 600)" title="Column 3D Line Dual Y Chart">Yearly Sales Comparison</a></li>
+                                    <li><a id="C8I4" href="javascript:void(0)" onclick="viewGallery('Column3DLineDY/Col3DLineDY4.html', 600)" title="Column 3D Line Dual Y Chart">Inventory by Product Categories</a></li>
+                                    <li><a id="C8I5" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D1.html', 600)" title="2D Dual Y Combination Chart">Population Chart</a></li>
+                                    <li><a id="C8I6" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D2.html', 600)" title="2D Dual Y Combination Charts">Population Statistics</a></li>
+                                    <li><a id="C8I7" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D3.html', 600)" title="2D Dual Y Combination Chart">Population Chart (Area-Line)</a></li>
+                                    <li><a id="C8I8" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D4.html', 600)" title="2D Dual Y Combination Chart">Population Chart (Line Plot)</a></li>
+                                    <li><a id="C8I9" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D5.html', 600)" title="2D Dual Y Combination Chart">Population Chart (Column Plot)</a></li>
+                                    <li><a id="C8I10" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D6.html', 600)" title="2D Dual Y Combination Chart">Sales by Product: March 2006</a></li>
+                                    <li><a id="C8I11" href="javascript:void(0)" onclick="viewGallery('Combi2DDY/CombiDY2D7.html', 600)" title="Mulit-series Stacked Column 2D Line Dual Y Combination Chart">Annual Revenue</a></li>
+                                    <li><a id="C8I12" href="javascript:void(0)" onclick="viewGallery('StackedColumn3DLineDY/StCol3DLineDY1.html', 600)" title="Stacked Column 3D Line Dual Y Chart">Sales (Stacked)</a></li>
+                                    <li class="acc-last"><a id="C8I13"  href="javascript:void(0)" onclick="viewGallery('StackedColumn3DLineDY/StCol3DLineDY2.html', 600)" title="Stacked Column 3D Line Dual Y">Visits from search Engines</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="XYZC"><a href="#">Bubble/XY Plot Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C9I1" href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot1.html', 600)" title="Scatter Chart with Vertical Trend Zones">Investment Overview</a></li>									
+                                    <li><a id="C9I2" href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot3.html', 600)" title="Scatter Chart with dashed Trendline">Server Performance</a></li>
+									<li><a id="C9I3" href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot4.html', 600)" title="Scatter Chart with Vertical Trend Zones">Scatter with Quadrants</a></li>
+                                    <li><a id="C9I4" href="javascript:void(0)" onclick="viewGallery('Bubble/Bubble1.html', 600)" title="Bubble Chart">Cost vs Revenue</a></li>
+                                    <li><a id="C9I5" href="javascript:void(0)" onclick="viewGallery('Bubble/Bubble2.html', 600)" title="Bubble Chart">Cost per Service vs Stickiness</a></li>
+                                    <li><a id="C9I6" href="javascript:void(0)" onclick="viewGallery('Bubble/Bubble3.html', 600)" title="Bubble Chart">Original Cost vs Price</a></li>
+									<li><a id="C9I7" href="javascript:void(0)" onclick="viewGallery('Bubble/Bubble4.html', 600)" title="Bubble Chart">Bubble with Quadrants</a></li>
+									<li><a id="C9I8" href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot7.html', 600)" title="Scatter Chart">Scatter with Regression</a></li>
+									<li><a id="C9I9" href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot5.html', 600)" title="Scatter Chart">Income Expenditure</a></li>
+									<li class="acc-last"><a id="C9I10"  href="javascript:void(0)" onclick="viewGallery('XYPlot/XYPlot6.html', 600)" title="Scatter Chart">Scatter with mixed labels</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="SCRLC"><a href="#">Scroll Charts</a></h4>
+                            <div class="acc_container">
+                                <ul class="nav_list">
+                                    <li><a id="C10I2" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollCol1.html', 600)" title="Scroll Column 2D Chart">Business Results: 2005 vs 2006</a></li>
+									<li><a id="C10I1" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollArea1.html', 600)" title="Scroll Area 2D Chart">Site Hits Per Hour (Area)</a></li>
+                                    
+                                    <li><a id="C10I3" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollCol2.html', 600)" title="Scroll Column 2D Chart">Site Hits Per Hour (Column)</a></li>
+                                    <li><a id="C10I4" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollCombi1.html', 600)" title="Scroll Combination 2D Chart displaying Trendline">Hits Per Hour</a></li>
+                                    <li><a id="C10I5" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollCombiDY1.html', 600)" title="Scroll Combination 2D Dual Y Chart">Sales by Product: March 2006</a></li>
+                                    <li><a id="C10I6" href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollLine1.html', 600)" title="Scroll Line 2D Chart">Site Hits Per Hour (Line)</a></li>
+                                    <li class="acc-last"><a id="C10I7"  href="javascript:void(0)" onclick="viewGallery('Scroll/ScrollStCol1.html', 600)" title="Scroll Stacked Column 2D Chart">Daily Sales</a></li>
+                                </ul>
+                            </div>
+                            <h4 class="acc_trigger" id="MKTSLSC"><a href="#">Pareto &amp; Marimekko Charts</a></h4>
+                            <div class="acc_container" style="border-bottom:1px solid #e6e4e4;">
+                                <ul class="nav_list">
+									<li><a id="C11I1" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Pareto3D.html', 600)" title="Pareto 3D Chart">Software Testing  (Pareto 3D)</a></li>
+									<li><a id="C11I2" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Pareto3.html', 600)" title="Pareto 2D Chart">Software Testing  (Pareto 2D)</a></li>
+									<li><a id="C11I3" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Pareto1.html', 600)" title="Pareto 2D Chart">Circuit Board Fault Analysis</a></li>
+									<li><a id="C11I4" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Pareto2.html', 600)" title="Pareto 2D Chart">Customer Complain Report</a></li>
+									<li><a id="C11I5" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Pareto4.html', 600)" title="Pareto 3D Chart">Hardware Defects  (Pareto 3D)</a></li>
+									<li><a id="C11I6" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Marimekko1.html', 600)" title="Marimekko Chart">Market Analysis (Marimekko) </a></li>
+									<li><a id="C11I7" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Marimekko2.html', 600)" title="Marimekko Chart">Browser Statistics (Marimekko) </a></li>
+									<li><a id="C11I8" href="javascript:void(0)" onclick="viewGallery('MarketingSales/Marimekko3.html', 600)" title="Marimekko Chart">Website Visit (Marimekko) </a></li>
+									<li class="acc-last"><a id="C11I9"  href="javascript:void(0)" onclick="viewGallery('MarketingSales/Marimekko4.html', 600)" title="Marimekko Chart">Share Analysis (Marimekko)</a></li>
+                                </ul>
+                            </div>
+							<h4 class="acc_trigger" id="ZLC"><a href="#">Zoom/Pin Line Charts</a></h4>
+                            <div class="acc_container" style="border-bottom:1px solid #e6e4e4;">
+                                <ul class="nav_list">                                   
+                                    <li><a id="C12I1"  href="javascript:void(0)" onclick="viewGallery('ZoomLine/Zoomline.html', 600)" title="Zoom Line Chart">Yearly Visits (Zoom Line)</a></li>
+									<li><a id="C12I2"  href="javascript:void(0)" onclick="viewGallery('ZoomLine/Zoomline1.html', 600)" title="Zoom Line Chart">Adobe Inc. (Zoom Line)</a></li>
+                                    <li><a id="C12I3"  href="javascript:void(0)" onclick="viewGallery('ZoomLine/Zoomline2.html', 600)" title="Zoom Line Chart">Showing 20,000 dataplots</a></li>
+									<li class="acc-last"><a id="C12I4"  href="javascript:void(0)" onclick="viewGallery('ZoomLine/Zoomline3.html', 600)" title="Zoom Line Chart">Log Axis (Zoom Line)</a></li>
+
+                                </ul>
+                            </div>
+							<h4 class="acc_trigger"><a href="#" id="STYC">Cosmetics and Styles</a></h4>
+                            <div class="acc_container" style="border-bottom:1px solid #e6e4e4;">
+                                <ul class="nav_list">
+									<li><a id="C13I1" href="javascript:void(0)" onclick="viewGallery('Area_Line/Line1blur.html', 600)" title="Single Series Line Chart with Blur effect">Production Forecast (blur) </a></li>
+									<li><a id="C13I2" href="javascript:void(0)" onclick="viewGallery('Area_Line/MSLineshadow.html', 600)" title="Multi Series Line Chart with Shadow effect">Performance Assessment</a></li>
+									<li><a id="C13I3" href="javascript:void(0)" onclick="viewGallery('Column2D/Col2Danimation.html', 600)" title="Column 2D Chart with Animation">Industry Growth Rate</a></li>
+									<li><a id="C13I4" href="javascript:void(0)" onclick="viewGallery('Column2D/Col2Danimation2.html', 600)" title="Column 2D Chart with Animation">Wildlife Conservation Comparison</a></li>
+									<li><a id="C13I5" href="javascript:void(0)" onclick="viewGallery('Column2D/Col2Dbevel.html', 600)" title="Column 2D Chart with Bevel effect">Annual Sales Summary</a></li>
+									<li><a id="C13I6" href="javascript:void(0)" onclick="viewGallery('Column3D/MSCol3Dfont.html', 600)" title="Multi Series Column 3D Chart with Font style">Monthly Unit Sales</a></li>
+									<li class="acc-last"><a id="C13I7"  href="javascript:void(0)" onclick="viewGallery('Pie_Doughnut/Donut2DGlow.html', 600)" title="Doughnut2D Chart with Glow effect">Production Forecast (glow) </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- accordian menu end -->
+                    <!-- chart render view port -->
+                    <div class="chart-viewport-block">
+                        <iframe style="border:none;" frameborder="0" height="550px" width="100%" id="demoframe" src="Column2D/Col2d1.html"> </iframe>
+                    </div>
+                    <div class="clear"></div>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../Contents/assets/ui/howtoinstall.html">How to Install</a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../Contents/index.html">Documentation</a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../Contents/assets/ui/demos.html">Live Demos</a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../Contents/assets/ui/support.html">Help &amp; Support</a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../Contents/assets/ui/license.html">License &amp; Upgrade</a></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

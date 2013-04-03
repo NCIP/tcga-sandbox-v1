@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Using JavaScript (HTML5) renderer</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<script type="text/javascript" src="../../Charts/FusionCharts.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Using JavaScript (HTML5) renderer" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+	
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+		<td class="pageHeader">Using JavaScript (HTML5) renderer</td>     
+  </tr>
+    <tr>
+    <td class="text">
+       <p>Starting FusionCharts v3.2, FusionCharts also allows you to create JavaScript charts (sometimes also referred to as HTML5/Canvas charts). This feature allows you to create charts in web browsers where Flash Player is not supported or is not installed or is disabled, e.g. in iPhone/iPad. FusionCharts internally makes use of extended version of Highcharts library to generate JavaScript charts. This feature works seamlessly with the current implementation mode of FusionCharts, which means you do not have to write any additional code to implement this. <span class="codeInline">FusionCharts.js</span> JavaScript class automatically detects devices like iPhone/iPad/iPod, where Flash is not supported and renders JavaScript charts instead. You can also ignore Flash and only use JavaScript for charting.</p>
+       <p>First, let's look at the default code, which enables rendering of both Flash and JavaScript charts - with JavaScript rendering  coming into effect, only when Flash Player is not available.</p>
+
+      <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - Using JavaScript&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      <strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		    &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+
+      myChart.<strong>setXMLUrl(&quot;Data.xml&quot;);</strong>
+
+      myChart.render(&quot;chartContainer&quot;);</strong>      
+    // --&gt;  
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+      <p>See it <a href="../../Code/MyFirstChart/weekly-sales.html" target="_blank">live</a> in your iPad or iPhone or any browser where Flash Player is not supported. </p>
+      <div class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine. <br />
+      <span class="msg_handler_slider"><a href="#">Click here to see the code using the Data String method</a> &raquo; </span>
+	  <div class="msg_body">
+	  <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - Using JavaScript&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      <strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		    &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+
+      myChart.<strong>setXMLData(&quot;&lt;chart caption='Weekly Sales Summary' xAxisName='Week' &quot; +
+        &quot;yAxisName='Sales' numberPrefix='$'&gt;&quot; +
+          &quot;&lt;set label='Week 1' value='14400' /&gt;&quot; +
+          &quot;&lt;set label='Week 2' value='19600' /&gt;&quot; +
+          &quot;&lt;set label='Week 3' value='24000' /&gt;&quot; +
+          &quot;&lt;set label='Week 4' value='15700' /&gt;&quot; +
+        &quot;&lt;/chart&gt;&quot;);</strong>
+
+      myChart.render(&quot;chartContainer&quot;);</strong>      
+    // --&gt;  
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+<p>See it <a href="../../Code/MyFirstChart/weekly-sales-xml-embed.html" target="_blank">live</a> in your iPad or iPhone or any browser where Flash Player is not supported. </p>
+</div>
+</div>
+      </td>
+    </tr>
+    
+    <tr>
+       <td class="text"><p>As you can see, the code has not changed a bit from our first sample - <span class="codeInline">weekly-sales.html</span> That's exactly our point! If you open this page in your iPad or iPhone or any browser where Flash Player is not supported, you will see that the charts have been rendered using JavaScript. FusionCharts JavaScript framework automatically does this for you. </p></td>
+    </tr>
+    <tr>
+       <td class="text">          
+		   <table width="800" border="0" cellspacing="0" cellpadding="0" height="388" style="padding:0;margin:0;">
+            <tr>
+               <td width="500" style="background-image:url(../FirstChart/Images/iPad.jpg); height:388px;background-repeat:no-repeat;background-position:bottom; padding:0 0 40px 0;" height="388" align="center" valign="bottom" ><div id="ipadChartLive"></div></td>
+               <td width="300" style="background-image:url(../FirstChart/Images/iphone.jpg); background-repeat:no-repeat; background-position:bottom; height:388px;padding:0 0 44px 0;" height="388" align="center" valign="bottom" ><div id="iphoneChartLive"></div></td>
+            </tr>
+         </table></td>
+    </tr>
+    
+    <tr>
+      <td height="15"></td>
+    </tr>
+    <tr>
+      <td height="15" class="highlightBlock">JavaScript notes: For rendering JavaScript charts, FusionCharts makes use of<span class="codeInline"> FusionCharts.HC.js, FusionCharts.HC.Charts.js</span> and <span class="codeInline">jquery.min.js</span>. These files are present in <span class="codeInline">Charts</span> folder of the <span class="codeInline">Download Pack</span>. You do not need to load these files explicitly in HTML. <span class="codeInline">FusionCharts.js</span> automatically takes care of the loading. </td>
+    </tr>
+    <tr><td height="15"></td></tr>
+    
+    <tr>
+       <td class="header"><a name="force" id="force"></a>Explicitly render JavaScript only charts</td>
+    </tr>
+    <tr>
+      <td class="text">
+          <p>If you wish to render JavaScript charts only, you  just have to add a line of code as shown below: </p>
+          <p class="prettyprint lang-js code_container">FusionCharts.setCurrentRenderer('javascript')</p>
+          <p>This code will ask FusionCharts renderer to skip Flash rendering and create pure JavaScript charts. </p>
+          <p class="highlightBlock">This setting gets applied to all the charts rendered after this line. Hence, if you declare this at the beginning, all the charts in the page will rendered using JavaScript. You would not need to declare the same for each chart in the page. </p>
+          <p>The modified code will look like the following:</p>
+
+<pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - Using pure JavaScript&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      <strong>FusionCharts.setCurrentRenderer('javascript');</strong>
+
+      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		    &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      
+       myChart.render(&quot;chartContainer&quot;);
+
+    // --&gt;  
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+<p><br />
+  See it <a href="../../Code/MyFirstChart/weekly-sales-force-js.html" target="_blank">live</a>!</p>
+<div class="highlightBlock">Note : Many browsers restrict JavaScript from accessing local file system owing   to security reasons. The JavaScript charts, when running locally, would not be able to access data provided as a URL. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>), it works fine. <br />
+      <span class="msg_handler_slider"><a href="#">Click here to see the code using the Data String method</a> &raquo; </span>
+	  <div class="msg_body">
+	  <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts - Using JavaScript&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+<strong>      
+     FusionCharts.setCurrentRenderer('javascript');</strong>
+
+      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+		    &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+
+      myChart.setXMLData(&quot;&lt;chart caption='Weekly Sales Summary' xAxisName='Week' &quot; +
+        &quot;yAxisName='Sales' numberPrefix='$'&gt;&quot; +
+          &quot;&lt;set label='Week 1' value='14400' /&gt;&quot; +
+          &quot;&lt;set label='Week 2' value='19600' /&gt;&quot; +
+          &quot;&lt;set label='Week 3' value='24000' /&gt;&quot; +
+          &quot;&lt;set label='Week 4' value='15700' /&gt;&quot; +
+        &quot;&lt;/chart&gt;&quot;);
+
+      myChart.render(&quot;chartContainer&quot;);      
+    // --&gt;  
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+      <p>See it <a href="../../Code/MyFirstChart/weekly-sales-datastring-force-js.html" target="_blank">live</a> in your iPad or iPhone or any browser where Flash Player is not supported. </p>
+</div>
+</div>
+      </td>
+    </tr>
+    
+    <tr>
+       <td class="text">
+          <p>When you open this page, you would see that even in regular browsers, the chart comes in pure JavaScript form as shown below:</p>
+          <p><img src="Images/pure-js.jpg" width="395" height="266" class="imageBorder" /></p>
+          
+       </td>
+    </tr>
+</table>
+<script  type="text/javascript">
+	
+	$(document).ready(function() {
+	
+
+		var dataXML1 = "<chart caption='Weekly Sales Summary' xAxisName='Week' yAxisName='Sales' numberPrefix='$'><set label='Week 1' value='14400' /><set label='Week 2' value='19600' /><set label='Week 3' value='24000' /><set label='Week 4' value='15700' /></chart>";
+	
+		var dataXML2 = "<chart showLabels='0' showValues='0' showYAxisValues='0' yAxisMinValue='10000' yAxisMaxValue='24500' canvasBorderAlpha='0' chartLeftMargin='0' chartTopMargin='0' chartRightMargin='0' chartBottomMargin='0'><set label='Week 1' value='14400' /><set label='Week 2' value='19600' /><set label='Week 3' value='24000' /><set label='Week 4' value='15700' /></chart>";
+										 
+		FusionCharts.setCurrentRenderer('javascript');									 
+		var salesChart = new FusionCharts('../../Charts/Column2D.swf', 'chart-1', '420', '280', '0', '1');
+		salesChart.setXMLData(dataXML1);
+		salesChart.render('ipadChartLive');
+	
+		var salesLine = new FusionCharts('../../Charts/Column2D.swf', 'chart-2', '175', '70', '0', '1');
+		salesLine.setXMLData(dataXML2);
+		salesLine.render('iphoneChartLive');
+
+
+	});
+</script>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating your first chart|FirstChart.html","Using JSON data instead of XML|JSONData.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

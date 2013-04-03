@@ -1,0 +1,10 @@
+﻿<%	str_xml = get_UTF8_BOM #Function present in fusioncharts_helper library
+	
+	str_xml +="<?xml version='1.0' encoding='UTF-8'?>"
+	str_xml +="<chart caption='Industrie rapport de la production' subCaption='par quantité' decimals='0' showLabels='1' numberSuffix=' Units' pieSliceDepth='30' formatNumberScale='0'>"
+	@factories.each do|factory|
+		str_xml += "<set label='"+factory.name+"' value='"+factory.total_quantity.to_s+"'/>"
+	end
+	str_xml+="</chart>"
+	#Output the xml
+ %><%=str_xml%>

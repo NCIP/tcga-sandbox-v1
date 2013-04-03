@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+    <description>Set of tags provided by FusionCharts for easy rendering and printing of charts.</description>
+	<tlib-version>1.0</tlib-version> 
+	<short-name>fc</short-name> 
+	<uri>http://www.fusioncharts.com/jsp/core</uri> 
+	<tag> 
+		<description>Renders the chart using javascript embedding.</description>
+		<name>render</name> 
+		<tag-class>com.fusioncharts.jsp.taglib.ChartTag</tag-class> 
+		<body-content>tagdependent</body-content> 
+		<attribute>
+			<description>SWF File Name (and Path) of the chart which you intend to plot. 
+			Here, we are plotting a Column 3D chart. <![CDATA[<br/>]]> 
+			So, we've specified it as ../../FusionCharts/Column3D.swf
+			</description>
+			<name>swfFilename</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the xml or json to the chart directly, 
+			pass the XML/JSON data as this attribute.<![CDATA[<br/>]]> 
+			For using this attribute, you also have to provide the value for dataFormat attribute.
+			</description>
+			<name>chartData</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	        <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the url to the xml or json to the chart, 
+			pass the url value in this attribute.<![CDATA[<br/>]]> 
+			For using this attribute, you also have to provide the value for dataFormat attribute.
+			</description>
+			<name>chartDataUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	        <type>java.lang.String</type>
+		</attribute>		
+		<attribute>
+			<description>When using the attributes chartData or chartDataUrl, the format of the data
+			needs to be specified. <![CDATA[<br/>]]>The expected values are "xml","json","xml-url","json-url"
+			</description>
+			<name>dataFormat</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+        	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the url to the xml to the chart, 
+			pass the url value in this attribute.
+			</description>
+			<name>xmlUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	        <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the xml data to the chart directly, 
+			pass the data in this attribute.
+			</description>		
+			<name>xmlData</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+        	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the url to the json to the chart, 
+			pass the url value in this attribute.
+			</description>		
+			<name>jsonUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	        <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the json data to the chart directly, 
+			pass the data in this attribute.
+			</description>
+			<name>jsonData</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+        	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Id for the chart, using which it will be recognized in the HTML page.<![CDATA[<br/>]]> 
+			Each chart on the page needs to have a unique Id.
+			</description>
+			<name>chartId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Intended width for the chart (in pixels)</description>
+			<name>width</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Intended height for the chart (in pixels)</description>
+			<name>height</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Whether to start the chart in debug mode.</description>		
+			<name>debugMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<description>Whether to register the chart with JavaScript.</description>		
+			<name>registerWithJS</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<description>"window" (default) - here the chart /Flash Player acts as a separate always window lying above the HTML elements. <![CDATA[<br/>]]>So the HTML elements like html menu always below the charts ; <![CDATA[<br/>]]>"opaque" - mode where chart unlike "window" mode stay integrated with HTML elements - here DHTML elements can come over the chart ; <![CDATA[<br/>]]>"transparent" - almost like OPAQUE mode - but with more feature that can turn a chart background transparent/translucent <![CDATA[<br/>]]>(if bgAlpha is set accrodingly) so that the color/HTML elements below the chart (which are part of HTML and not chart) become visible.
+			</description>	
+			<name>windowMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Background color of the Flash movie (here chart) which comes below the chart and is visible if chart's background color is set to transparent or translucent using bgAlpha, it also comes as background color of the preloader state like when messages like "Loading chart", "retrieving data" "No data to display" etc. are shown - format - Hexcoded #RRGGBB color e.g. "#ff0000"</description>
+			<name>bgColor</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>"noScale" - recommended/default, <![CDATA[<br/>]]>"exactFit" - scales the chart to fit the container exactly with width and height (causes distortion in some cases), <![CDATA[<br/>]]>"noBorder" - constrained scale. (not recommended at all), <![CDATA[<br/>]]>"showAll"    - (not recommended)</description>
+			<name>scaleMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>	
+		<attribute>
+			<description>Language, currently it takes the only value, "EN" for English</description>
+			<name>lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Checks the Flash Player version and if version is less than 8 and autoInstallRedirect is set on then asks the user to install Flash Player from Adobe site</description>
+			<name>detectFlashVersion</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If set on, the user would be redirected to Adobe site if Flash player 8 is not installed. </description>
+			<name>autoInstallRedirect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Whether the renderer is flash or javascript. By default, flash is the renderer.</description>
+			<name>renderer</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The container for the chart in the page where it needs to be rendered</description>
+			<name>renderAt</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>	
+	
+	</tag> 
+	<tag> 
+		<description>Renders the chart using html embedding.</description>
+		<name>renderHTML</name> 
+		<tag-class>com.fusioncharts.jsp.taglib.ChartHTMLTag</tag-class> 
+		<body-content>tagdependent</body-content> 
+		<attribute>
+			<description>SWF File Name (and Path) of the chart which you intend to plot.Here, we are plotting a Column 3D chart. <![CDATA[<br/>]]> 
+			So, we've specified it as ../../FusionCharts/Column3D.swf </description>
+			<name>swfFilename</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the url to the xml to the chart, 
+			pass the url value in this attribute.
+			</description>
+			<name>xmlUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>If you intend to provide the xml data to the chart directly, 
+			pass the data in this attribute.
+			</description>	
+			<name>xmlData</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Id for the chart, using which it will be recognized in the HTML page.<![CDATA[<br/>]]> 
+			Each chart on the page needs to have a unique Id.
+			</description>
+			<name>chartId</name>
+			<required>true</required>			
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Intended width for the chart (in pixels)</description>
+			<name>width</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Intended height for the chart (in pixels)</description>
+			<name>height</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Whether to start the chart in debug mode.</description>
+			<name>debugMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<description>Whether to register the chart with JavaScript.</description>		
+			<name>registerWithJS</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<description>"window" (default) - here the chart /Flash Player acts as a separate always window lying above the HTML elements. <![CDATA[<br/>]]>So the HTML elements like html menu always below the charts ; <![CDATA[<br/>]]>"opaque" - mode where chart unlike "window" mode stay integrated with HTML elements - here DHTML elements can come over the chart ; <![CDATA[<br/>]]>"transparent" - almost like OPAQUE mode - but with more feature that can turn a chart background transparent/translucent <![CDATA[<br/>]]>(if bgAlpha is set accrodingly) so that the color/HTML elements below the chart (which are part of HTML and not chart) become visible.
+			</description>	
+			<name>windowMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	  <type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Background color of the Flash movie (here chart) which comes below the chart and is visible if chart's background color is set to transparent or translucent using bgAlpha, it also comes as background color of the preloader state like when messages like "Loading chart", "retrieving data" "No data to display" etc. are shown - format - Hexcoded #RRGGBB color e.g. "#ff0000"</description>
+			<name>bgColor</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>"noScale" - recommended/default, <![CDATA[<br/>]]>"exactFit" - scales the chart to fit the container exactly with width and height (causes distortion in some cases), <![CDATA[<br/>]]>"noBorder" - constrained scale. (not recommended at all), <![CDATA[<br/>]]>"showAll"    - (not recommended)</description>
+			<name>scaleMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>	
+		<attribute>
+			<description>Language, currently it takes the only value, "EN" for English</description>
+			<name>lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Whether the tag has to use single quotes. Set this value to true if the xml itself uses doubles quotes to wrap the xml attribute values.</description>
+			<name>useSingleQuotes</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.Boolean</type>
+		</attribute>	
+	</tag>
+	<tag> 
+		<description>Enables the FCPrintManager.</description>
+		<name>printManager</name> 
+		<tag-class>com.fusioncharts.jsp.taglib.PrintManagerTag</tag-class> 
+		<body-content>tagdependent</body-content> 
+		<attribute>
+			<description>Whether printManager should be enabled or not
+			</description>
+			<name>enabled</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	      	<type>java.lang.Boolean</type>
+		</attribute>
+		</tag>
+</taglib> 

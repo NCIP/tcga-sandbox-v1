@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>FusionCharts RoR Samples</title>
+        <%= stylesheet_link_tag "style" %>
+        <%= javascript_include_tag "jquery-1.4.2.min" %>
+        <!--[if IE 6]>
+            <%= javascript_include_tag "DD_belatedPNG_0.0.8a-min" %>
+            <script>
+            /* select the element name, css selector, background etc */
+            DD_belatedPNG.fix('img');
+            /* string argument can be any CSS selector */
+            </script>
+        <![endif]-->
+        <style type="text/css">
+            h2.headline {
+                font: normal 110% / 137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 15px 0 15px 0;
+                color: #000000;
+            }
+            
+            ul.nolist {
+                list-style: none;
+            } .underline-dull {
+                height: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header">
+                <div class="back-to-home" style="visibility:hidden;">
+                    <a href="index.html">Back to home</a>
+                </div>
+                <div class="logo">
+                    <a href="http://www.fusioncharts.com"><%= image_tag "fusionchartsv3.2-logo.png", :width=>"131", :height=>"75", :alt=>"FusionCharts v3.2 logo" %>
+                    </a>
+                </div>
+                <h1 class="logo-text">FusionCharts RoR Samples</h1>
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <!--
+                    -->
+                    <ul class="nolist">
+                        <li>
+                            <h2 class="headline">Basic Examples</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Simple Column 3D chart using data from XML file (dataUrl method)', :controller=>'fusioncharts/basic_example',:action => 'simple_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Simple Column 3D chart with XML data hard-coded in the builder file (dataStr method)', :controller=>'fusioncharts/basic_example',:action => 'data_xml' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Simple Column 3D chart using data from JSON file (dataUrl method)', :controller=>'fusioncharts/json_example',:action => 'json_url_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Simple Column 3D chart with JSON data hard-coded in json.erb (dataStr method)', :controller=>'fusioncharts/json_example',:action => 'json_data_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'HTML Embedding using dataUrl method', :controller=>'fusioncharts/basic_example',:action => 'basic_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'HTML embedding using dataStr method', :controller=>'fusioncharts/basic_example',:action => 'basic_data_xml' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Configuring chart using yml file', :controller=>'fusioncharts/basic_example',:action => 'configured_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Multiple Charts on a single page', :controller=>'fusioncharts/basic_example',:action => 'multi_chart' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Creating pure JavaScript based charts', :controller=>'fusioncharts/basic_example',:action => 'multi_chart_js' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Using managed print for Mozilla browsers', :controller=>'fusioncharts/basic_example',:action => 'managed_print' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Transparent Chart', :controller=>'fusioncharts/basic_example',:action => 'simple_chart_transparent' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Plotting Chart from Data Contained in Arrays</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Single Series Chart Example', :controller=>'fusioncharts/array_example',:action => 'single_series' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Multi Series Chart Example', :controller=>'fusioncharts/array_example',:action => 'multi_series' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Stacked Chart Example', :controller=>'fusioncharts/array_example',:action => 'stacked' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Combination Chart Example', :controller=>'fusioncharts/array_example',:action => 'combination' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Form Based Example</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Plotting Charts from Data in Forms', :controller=>'fusioncharts/form_based',:action => 'default' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Database Examples</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Database Example Using dataStr Method', :controller=>'fusioncharts/db_example',:action => 'basic_dbexample' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Database Example Using dataUrl Method', :controller=>'fusioncharts/db_data_url',:action => 'default' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Multi-series line chart from database using dataURL method', :controller=>'fusioncharts/db_example',:action => 'multiseries' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Database and Drill-down Examples</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Database and Drill-Down Example', :controller=>'fusioncharts/db_example',:action => 'default' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Linked charts', :controller=>'fusioncharts/db_js_dataurl',:action => 'linked_simple' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Client Side Dynamic Chart Example', :controller=>'fusioncharts/db_js',:action => 'default' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Dynamic Chart Example Using dataUrl Method', :controller=>'fusioncharts/db_js_dataurl',:action => 'default' %>
+                                </li>
+								<li>
+								 <%= link_to 'Drilldown using AJAX', :controller=>'fusioncharts/ajax_example',:action => 'default_factories_chart' %>
+								 </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Exporting of charts</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Download after export', :controller=>'fusioncharts/export_example',:action => 'download' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Save to a folder after export', :controller=>'fusioncharts/export_example',:action => 'save' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Export multiple charts simultaneously', :controller=>'fusioncharts/export_example',:action => 'multiple_charts' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Automatic export', :controller=>'fusioncharts/export_example',:action => 'automatic' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="headline">Multilingual (UTF-8) Examples</h2>
+                            <ul class="sec-arr-list">
+                                <li>
+                                    <%= link_to 'Japanese Example using data from Database', :controller=>'fusioncharts/utf8_example',:action => 'japanese_dbexample' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'French Example using data from Database', :controller=>'fusioncharts/utf8_example',:action => 'french_dbexample' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'Japanese Example using data from XML file', :controller=>'fusioncharts/utf8_example',:action => 'japanese_xmlfile_example' %>
+                                </li>
+                                <li>
+                                    <%= link_to 'French Example using data from XML file', :controller=>'fusioncharts/utf8_example',:action => 'french_xmlfile_example' %>
+                                </li>
+                            </ul>
+                            <div class="underline-dull">
+                            </div>
+                        </li>
+                       
+                    </ul>
+                    <p>
+                        &nbsp;
+                    </p>
+                   
+                </div>
+            </div>
+            <!-- footer -->
+            <p>
+                &nbsp;
+            </p>
+            <div id="footer">
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="howto_install.html">How to Install</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="http://www.fusioncharts.com/OnlineDocs.asp" target="_blank">Documentation</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="chart_gallery.html">Chart Gallery</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="demos.html">Live Demos</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="support.html">Help &amp; Support</a>
+                    </li>
+                    <li class="pipe">
+                        |
+                    </li>
+                    <li>
+                        <a href="license.html">License and Upgrade</a>
+                    </li>
+                </ul>
+            </div>
+        </div>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Chart Limits </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Chart Limits" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Chart Limits </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Chart limits are the minimum &amp; maximum y-axis values. FusionCharts automatically calculates the best chart limits when you don't specify them explicitly.</p>
+    <p> In FusionCharts, the axis limits encompasses all values present in the chart i.e., no data value can be below the minimum y-axis value or above maximum y-axis value - they have to be within the axis range. Even if you force an axis limit that is lower/higher than this, FusionCharts will automatically adjust it. </p>
+    <img src="Images/divlines1.jpg" width="238" height="252" class="imageBorder" />
+    <p>The XML/JSON code going into the above is:</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+     &lt;set label='Jan' value='420000' /&gt;
+     &lt;set label='Feb' value='910000' /&gt;
+    &nbsp;&lt;set label='Mar' value='720000' /&gt;
+     &lt;set label='Apr' value='550000' /&gt;
+     ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    }
+...
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Note that the chart limits have not been defined.</p>  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting chart limits explicitly </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set the chart limits explicitly using the <span class="codeInline">yAxisMaxValue</span> and <span class="codeInline">yAxisMinValue</span> attributes.</p> 
+    <pre class="prettyprint code_container">&lt;chart yAxisMinValue='0' yAxisMaxValue='100' ...&gt;</pre>
+    <p>&nbsp;</p>
+    <p class="highlightBlock">For scatter chart and bubble chart, you can also set X Axis limits using <span class="codeInline">xAxisMinValue</span> and <span class="codeInline">xAxisMaxValue</span> attributes. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Set Adaptive y-Min </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set whether the y-axis lower limit would be 0 (in case of all positive values on chart) or should the y-axis lower   limit will adapt itself to a different figure based on values provided to the chart.</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' <strong>setAdaptiveYMin='1'</strong> &gt;
+      &lt;set label='Jan' value='420000' /&gt;
+      &lt;set label='Feb' value='910000' /&gt;
+      &lt;set label='Mar' value='720000' /&gt;
+      &lt;set label='Apr' value='550000' /&gt;
+      ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container"></pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 
+    <p>Note the change in the y-axis minimum value now:</p> 
+    <img src="Images/chart_limits.jpg" width="172" height="187" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td height="25"><p class="highlightBlock">For scatter chart and bubble chart, you can also set chart to calculate an adaptive minimum value  for X Axis. You can achieve this by setting <span class="codeInline">setAdaptiveXMin='1'</span></p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Setting axis limits for charts with dual y-axis </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>For charts that support dual Y Axis, you need to set axis limits for each axis as under:</p>
+      <pre class="prettyprint code_container">&lt;chart PYAxisMinValue='0' PYAxisMaxValue='100' SYAxisMinValue='10' SYAxisMaxValue='20' ..&gt;</pre>
+    <p>Here, <span class="codeInline">PYAxisMinValue</span> and <span class="codeInline">PYAxisMaxValue</span> refer to y-axis min value and max value of primary axis. <span class="codeInline">SYAxisMinValue</span> and <span class="codeInline">SYAxisMaxValue</span> refer to y-axis min and max value of secondary axis. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Syncing axis limits in dual y-axis chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you want both the axis of a dual y-axis chart to have same limits, you can set :
+    <pre class="prettyprint code_container">&lt;chart syncAxisLimits='1' ..&gt; </pre> <br /> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Dynamic axis in Zoom Line Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The Zoom Line chart supports dynamic axis i.e., the axis reflects limits that are pertinent to current view of zoom (if data has been zoomed in). So if the data items that are currently visible in zoomed mode range from 10-92, the axis will have limits of 0-100. However, if upon scrolling/zooming out, the data range changes from 18-991, then the axis will automatically be changed from 0-100. By default, dynamic axis is not enabled. To enable it, you need to set the following:</p>
+      <pre class="prettyprint code_container"> &lt;chart dynamicAxis='1' ..&gt; </pre>
+    <p>This applies to both linear and log axis of Zoom Line Chart. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Hiding limits </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can always hide the limit values of a chart. To hide the limits you need to set the following: </p>
+        <pre class="prettyprint code_container">&lt;chart showLimits='0' ..&gt; </pre>
+        <br />
+        <p class="highlightBlock">For scatter chart and bubble chart, you can also hide the limit values of X Axis setting <span class="codeInline">showVLimits='0'</span></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Chart Palettes|ChartPalettes.html", "Div lines &amp; Grids|DivLines.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

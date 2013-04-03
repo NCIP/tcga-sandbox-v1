@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using XML data embedded in  HTML page</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Using XML embedded in the page" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using XML data embedded in  HTML page</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>In our previous examples, we had created charts by providing chart data through an external XML file. Here, we'll show you how to embed the XML directly into  an HTML page.</p>
+      <p class="highlightBlock">In our previous examples, we had used the JavaScript function <span class="codeInline">setXMLUrl()</span> to provide URL of the XML file to the chart. Hence, the term <strong><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html">Data URL method</a></strong> is used for referring to the technique used earlier. <br />
+         <br />
+       Here, we'll use <span class="codeInline">setXMLData() </span>function which takes XML  embedded as string from the JavaScript. We call it <strong><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a></strong>. <br />
+       <br />
+      <strong>Existing users :</strong> You might be wondering what happened to the functions like <span class="codeInline">setDataURL()</span> and <span class="codeInline">setDataXML()</span> which you have already been using in your application. Yes - although deprecated, these will continue to work without any problem.</p>    
+    </td>
+  </tr>
+  
+  
+  <tr> 
+    <td valign="top" class="text">Create a copy of <span class="codeInline">weekly-sales.html</span> 
+      and save it as <span class="codeInline">weekly-sales-xml-embed.html</span>. Next, modify the code as shown below:<br /><br /></td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text">
+       <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First chart using FusionCharts - 
+          using XML data embedded in the page&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var myChart = new FusionCharts(&quot;FusionCharts/Column3D.swf&quot;, 
+            &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+
+      myChart.<strong>setXMLData(&quot;&lt;chart caption='Weekly Sales Summary' xAxisName='Week' " +
+        "yAxisName='Sales' numberPrefix='$'&gt;" +
+          "&lt;set label='Week 1' value='14400' /&gt;" +
+          "&lt;set label='Week 2' value='19600' /&gt;" +
+          "&lt;set label='Week 3' value='24000' /&gt;" +
+          "&lt;set label='Week 4' value='15700' /&gt;" +
+        "&lt;/chart&gt;&quot;);</strong>
+
+      myChart.render(&quot;chartContainer&quot;);
+
+    // --&gt;
+    &lt;/script&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+       <br />See it <a href="../../Code/MyFirstChart/weekly-sales-xml-embed.html" target="_blank">live</a>!</td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+       <p>In the above code, we have provided the entire XML data as a string inside the code itself and passed it to the chart using <span class="codeInline">setXMLUrl()</span> method. </p>
+       <p>There are certain pointers to be kept in mind when using Data String method: </p>
+     <ul>
+       <li>If you use double quotation marks for specifying string parameters in JavaScript, use single quotes to specify attribute values in XML. Else, it'll result in a syntax error. </li>
+       <li>If an XML attribute has single quotation mark (') or double quotation marks (&quot;) as part of its value, encode them as XML entities.  The encoded form of single quotation mark (') is <span class="codeInline">&amp;apos;</span> and the encoded form of double quotation marks (&quot;) is <span class="codeInline">&amp;quot;</span>.</li>
+       <li>If you have special characters like <span class="codeInline">&amp;</span>  &lt; &gt; in your XML, you must  encode them as <span class="codeInline">&amp;amp;</span>, <span class="codeInline">&amp;lt;</span> and <span class="codeInline">&amp;gt;</span> (respectively) in your XML String. </li>
+       </ul>
+     <p class="highlightBlock"><strong>Existing Users: </strong>Prior to v3.2, while using this method, you would need to encode various characters. Since v3.2, except for a few characters listed in <a href="../advanced/special-chars/SpCharAll.html">Using Currency Symbols</a> and <a href="../advanced/special-chars/SpPunctuation.html">Using Special Punctuation</a> pages (from <span class="codeInline">Advanced Charting &gt; Using Special Characters</span> section),&nbsp;no character is required to be encoded while using this process. The new FusionCharts JavaScript class takes care of everything.</p>
+     </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using JSON data instead of XML|JSONData.html","Changing chart type|ChangeChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

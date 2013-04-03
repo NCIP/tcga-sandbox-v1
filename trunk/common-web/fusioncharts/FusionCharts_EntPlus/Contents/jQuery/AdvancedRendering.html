@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using various chart rendering methods in FusionCharts jQuery plugin</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "Using various rendering methods" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using various chart rendering methods in FusionCharts jQuery plugin</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts jQuery plugin provides you various methods using which you can render charts in HTML containers. There are three methods to choose from as listed below:</p>
+       <ul>
+         <li><span class="codeInline"><a href="#insert">insertFusionCharts</a> </span>: Renders charts inside HTML elements replacing existing contents </li>
+         <li><span class="codeInline"><a href="#append">appendFusionCharts</a> </span>: Renders and inserts charts at the end of  HTML elements preserving existing contents </li>
+         <li><span class="codeInline"><a href="#prepend">prependFusionCharts</a> </span>: Renders and inserts charts at the beginning of  HTML elements preserving existing contents</li>
+       </ul> 
+       
+       <p class="highlightBlock">To aid your understanding of this section, we would recommend you to go through the <a href="Overview.html"><strong>Overview</strong></a> page of FusionCharts jQuery plugin </p>
+       <p>In this page we will learn in details, how to use these methods. </p>
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; jQuery </span> folder</p>
+    </td>
+  </tr>
+    
+    <tr>
+    <td class="header"><a name="insert" id="insert"></a>Using <span class="codeInline">insertFusionCharts</span> method </td>
+    </tr>
+    <tr>
+      <td class="text">
+        <p>In the <a href="Overview.html">previous page</a> we have learned how to use <span class="codeInline">insertFusionCharts()</span> method to render chart. <span class="codeInline">insertFusionCharts</span> method is the basic method which renders charts inside HTML elements. The HTML elements  need to be selected using jQuery selector. In case, multiple HTML elements are selected using the jQuery selector, a chart will be rendered inside each selected HTML element. All existing elements inside the selected elements will be replaced by the rendered charts. </p>
+        <p>An example can be as follows:</p>
+        <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/jquery.min.js&quot;</strong>&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.jqueryplugin.js&quot;</strong>&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+       
+      $(document).ready(function(){
+          $(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+               swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+               dataSource: &quot;Data.xml&quot;, 
+               dataFormat: &quot;xmlurl&quot;, 
+               width: &quot;400&quot;, 
+               height: &quot;300&quot;, 
+               id: &quot;myChartId&quot;
+         }); 
+
+       });
+<strong>      </strong>
+    // --&gt;     
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+        <p><a href="../../Code/jquery/BasicExample/FirstChart.html" target="_blank">Click here to  view a demo of the above implementation.</a></p>
+        <p>As stated in the above code, the <span class="codeInline">insertFusionCharts</span> method takes a set of key(chart setting)/value pairs containing  configuration properties of the rendered chart. The detailed list of acceptable chart-configurations are provided in the <a href="Overview.html#chartparams">Overview</a> page and also stated below:</p>
+        <table width="99%" border="0" class="table text">
+           <tr>
+             <td width="250" valign="top" class="header"><a name="chartparams" id="chartparams"></a>Chart configuration or property </td>
+             <td valign="top" class="header">Description and  acceptable value </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">swfUrl</span></td>
+             <td valign="top">Path (as string) to the chart SWF file. You can get the list of chart SWF file names from <a href="../Introduction/ChartList.html">Chart List</a> page. </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">id</span></td>
+             <td valign="top"> Sets the DOM id of the chart. The value is provided as string. (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">width</span></td>
+             <td valign="top">Width of the chart&nbsp; (optional - default is 400). The value is provided as  number if the width is set in pixels or as string if the width is to be set in percentage (e.g., &quot;50%&quot;) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">height</span></td>
+             <td valign="top">Height of the chart (optional - default is 300). The value is provided as  number if the height is set in pixels or as string  if the height is to be set in percentage (e.g., &quot;50%&quot;)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataSource</span></td>
+             <td valign="top"> XML or JSON chart data. It can be a URL for XML or JSON. It can also be a string containing XML or   JSON object</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataFormat</span></td>
+             <td valign="top">Defines the format of the dataSource.
+               <ul>
+                   <li> Set it to <span class="codeInline">xmlurl</span> when data source is a URL to XML data</li>
+                   <li>Set it to <span class="codeInline">xml</span> when the data source is an XML String</li>
+                 <li>Set it to <span class="codeInline">jsonurl</span> when data source is a URL to JSON data</li>
+                 <li>Set it to <span class="codeInline">json </span>when the data source is a JSON String or JSON object</li>
+               </ul>
+             </td>
+           </tr>
+           <tr valign="top">
+             <td valign="top"><span class="codeInline">renderer</span></td>
+             <td valign="top">Sets the chart renderer engine. Acceptable values are  '<span class="codeInline">flash</span>' and <span class="codeInline"> 'javascript</span>'. The default value is automatically selected depending on the availability and support of Flash player. When set to <span class="codeInline">javascript</span>, FusionCharts JavaScript class renders pure JavaScript charts. (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">bgColor</span></td>
+             <td valign="top">This sets the color of the flash player's background on which a chart gets drawn. It is passed as a string containing hex coded color value. This background color is not same as the background color of a chart. This background is visible while showing chart messages or when chart's <span class="codeInline">bgAlpha</span> is set to less than 100. (optional - default value is &quot;#FFFFFF&quot; i.e., white) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">scaleMode</span></td>
+             <td valign="top">Flash player's mode of scaling a chart. <span class="codeInline">NoScale</span> is the default value. There are other settings namely, <span class="codeInline"> showAll</span>, <span class="codeInline">ExactFit</span>, <span class="codeInline">noBorder</span>. But these are not supported and might result in distorted charts.&nbsp; (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">lang</span></td>
+             <td valign="top">Sets the language for chart messages. It presently supports only English. The value is &quot;EN&quot;. (optional) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">detectFlashVersion</span></td>
+             <td valign="top">Set to &quot;1&quot; to make FusionCharts Class check whether Flash Player 8 is present in the Browser. (optional - Default value is &quot;0' ) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">autoInstallRedirect</span></td>
+             <td valign="top">Set to &quot;1&quot; with <span class="codeInline">detectFlashVersion</span> set to &quot;1&quot; and FusionCharts redirects to Flash Player installation page of Adobe's Web site. (optional - default is &quot;0')</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">debugMode</span></td>
+             <td valign="top">Sets the chart debug window on. Can take &quot;0&quot; or &quot;1&quot;. When set to &quot;1&quot;, the chart shows a debug window over itself. (optional - default value is &quot;0&quot;)</td>
+           </tr>
+        </table>
+        <p>The <span class="codeInline">insertFusionCharts</span> method  returns a jQuery array containing the selected HTML elements where the charts render.</p>
+        <p class="highlightBlock"><a href="API.html#insertfusioncharts">Click here to read   API Reference guide of <span class="codeInline">insertFusionCharts()</span> method.</a></p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="text"> </td>
+    </tr>
+    <tr>
+       <td valign="top" class="header">Using JSON as data source </td>
+    </tr>
+    <tr>
+       <td valign="top">
+          <p>Apart from XML you can also provide data in JSON format. You can provide JSON as JavaScript Object, as JSON string or as an URL. To provide data as JSON you would need to pass the JSON data source to <span class="codeInline">dataSource</span> property and set json or jsonurl to <span class="codeInline">dataFormat</span> property. </p>
+          <p>The code snippet below shows how you can pass JSON Object as data source: </p>
+          <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+	swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+	width: &quot;400&quot;, 
+	height: &quot;300&quot;, 
+	id: &quot;myChartId&quot;,
+	
+	<strong>dataFormat: &quot;json&quot;, </strong>
+	dataSource: <strong>{ 
+		&quot;chart&quot;: { 
+			  &quot;caption&quot; : &quot;Weekly Sales Summary&quot; ,
+			  &quot;xAxisName&quot; : &quot;Week&quot;,
+			  &quot;yAxisName&quot; : &quot;Sales&quot;,
+			  &quot;numberPrefix&quot; : &quot;$&quot;
+		},
+			
+		&quot;data&quot; : 
+		 [
+			  { &quot;label&quot; : &quot;Week 1&quot;, &quot;value&quot; : &quot;14400&quot; },
+			  { &quot;label&quot; : &quot;Week 2&quot;, &quot;value&quot; : &quot;19600&quot; },
+			  { &quot;label&quot; : &quot;Week 3&quot;, &quot;value&quot; : &quot;24000&quot; },
+			  { &quot;label&quot; : &quot;Week 4&quot;, &quot;value&quot; : &quot;15700&quot; }
+		 ]
+		}</strong>
+}); </pre>
+          <p>See it <a href="../../Code/jquery/creatingcharts/insertFusionCharts_jsonobject.html">live</a>!</p>
+          <p>The code snippet below shows how you can pass JSON string as data source: </p>
+          <pre class="code_container prettyprint lang-html">$(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+	swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+	width: &quot;400&quot;, 
+	height: &quot;300&quot;, 
+	id: &quot;myChartId&quot;,
+	
+	<strong>dataFormat: &quot;json&quot;, </strong>
+	dataSource: <strong>'{ "chart": { "caption" : "Weekly Sales Summary" , "xAxisName" : "Week", "yAxisName" : "Sales", "numberPrefix" : "$" }, ' +
+			' 	"data" : [  ' +
+			'		   { "label" : "Week 1", "value" : "14400" }, ' +
+			'		   { "label" : "Week 2", "value" : "19600" }, ' +
+			'		   { "label" : "Week 3", "value" : "24000" }, ' +
+			'		   { "label" : "Week 4", "value" : "15700" }  ' +
+			'  ] }'</strong>
+}); </pre>
+          <p>See it <a href="../../Code/jquery/creatingcharts/insertFusionCharts_jsonstring.html">live</a>!</p>
+          <p>The code snippet below shows how you can pass an URL containing JSON  as data source: </p>
+          <pre class="code_container prettyprint lang-html">$(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+	swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+	width: &quot;400&quot;, 
+	height: &quot;300&quot;, 
+	id: &quot;myChartId&quot;,
+	
+	<strong>dataFormat: &quot;jsonurl&quot;, </strong>
+	<strong>dataSource: &quot;data.json&quot;</strong>
+}); </pre>
+          <p>See it <a href="../../Code/jquery/creatingcharts/insertFusionCharts_jsonurl.html">live</a>!</p>
+       </td>
+    </tr>
+    
+    <tr>
+      <td class="text">&nbsp;</td>
+    </tr>
+    
+
+    
+    <tr>
+      <td valign="top" class="header"><a name="append" id="append"></a>Inserting chart at the end of HTML elements</td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>Using <span class="codeInline">appendFusionCharts</span> method, you  can render and insert charts  at the end of selected HTML elements, thus preserving all existing elements inside the selected elements. An example code sample is shown below:</p>
+        
+        <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>appendFusionCharts</strong>({
+   swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+   dataSource: &quot;March.xml&quot;, 
+   dataFormat: &quot;xmlurl&quot;, 
+   width: &quot;400&quot;, 
+   height: &quot;300&quot;, 
+   id: &quot;myChartMarID&quot;
+}); </pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/AppendPrepend.html" target="_blank">live</a>! </p>
+        <p><span id="internal-source-marker_0.8308518259248712">The parameters accepted by <span class="codeInline">appendFusionCharts</span> method is same as that of the </span><span class="codeInline">insertFusionCharts</span> method. The detailed list of acceptable chart-configurations are provided in the <a href="#chartparams">Chart configurations</a> table above. </p>
+        <p>The <span class="codeInline">appendFusionCharts</span> method  returns a jQuery array containing the selected HTML elements where the charts render.</p>
+        <p class="highlightBlock"><a href="API.html#appendfusioncharts">Click here to read   API Reference guide of <span class="codeInline">appendFusionCharts()</span> method</a></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><a name="prepend" id="prepend"></a>Inserting  chart at the beginning of HTML elements </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>You can also render and insert charts at the beginning of selected HTML elements. This also preserves all the the elements already present in the selected elements.You would need to use <span class="codeInline">prependFusionCharts</span> method to achieve this. An example code snippet is shown below:</p>
+        <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>prependFusionCharts</strong>({
+   swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+   dataSource: &quot;January.xml&quot;, 
+   dataFormat: &quot;xmlurl&quot;, 
+   width: &quot;400&quot;, 
+   height: &quot;300&quot;, 
+   id: &quot;myChartJanID&quot;
+}); </pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/AppendPrepend.html" target="_blank">live</a>! </p>
+        <p><span id="internal-source-marker_0.8308518259248712">The parameters accepted by <span class="codeInline">prependFusionCharts</span> method is same as that of the </span><span class="codeInline">insertFusionCharts</span> method. The detailed list of acceptable chart-configurations are provided in the <a href="#chartparams">Chart configurations</a> table above. </p>
+        <p>The <span class="codeInline">prependFusionCharts</span> method  returns a jQuery array containing the selected HTML elements where the charts render.</p>
+        <p class="highlightBlock"><a href="API.html#prependfusioncharts">Click here to read   API Reference guide of <span class="codeInline">prependFusionCharts()</span> method</a></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><a name="clone" id="clone"></a>Cloning a chart </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>You can clone existing charts and pass the list of cloned charts to a function for further processing. To clone charts, you would need to use <span class="codeInline">cloneFusionCharts</span> method. This method looks for all the charts in jQuery selected elements and clones them. The example below clones all the charts present in a div with id - &quot;leftPanel&quot; and renders them as JavaScript charts in a div with id - &quot;rightPanel&quot; :</p>
+        <pre class="code_container prettyprint">$(&quot;#leftPanel&quot;).cloneFusionCharts( function() { $(&quot;#rightPanel&quot;).insertFusionCharts(this[0]); }, { renderer: &quot;javascript&quot; }  ); </pre>
+        <p>In the above code <span class="codeInline">cloneFusionCharts</span> finds all the charts in HTML elements with id - &quot;leftPanel&quot;. It clones the charts present in that HTML element and passes the  array containing the cloned charts to the anonymous callback function defined as the first parameter. This function generates these cloned charts inside HTML elements having &quot;rightPanel&quot; as id.</p>
+        <p>The second parameter also adds a new configuration (setting <span class="codeInline">renderer</span> to 'javascript' ) to the cloned charts. Hence, the cloned charts will be rendered using JavaScript rendering engine. </p>
+        <p><strong>Additional Notes:</strong></p>
+        <p>A   array of cloned charts is passed  to a callback function whose name or reference needs to be passed as a mandatory parameter to <span class="codeInline">cloneFusionCharts</span> method. </p>
+        <p>Please note that  you can optionally add various configurations to the cloned charts or over-write some configurations of the cloned charts by passing these configurations as the first parameter of <span class="codeInline">the cloneFusionCharts</span> method. The list of configurations are passed as a set of key/value pairs (JavaScript object). The configurations which can be passed as given in the list below:</p>
+        <table width="99%" border="0" class="table text">
+           <tr>
+             <td width="250" valign="top" class="header"><a name="cloneparams" id="cloneparams"></a>Chart configuration or property </td>
+             <td valign="top" class="header">Description and  acceptable value </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">swfUrl</span></td>
+             <td valign="top">Path (as string) to the chart SWF file. You can get the list of chart SWF file names from <a href="../Introduction/ChartList.html">Chart List</a> page. </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">id</span></td>
+             <td valign="top"> Sets the DOM id of the chart. The value is provided as string. (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">width</span></td>
+             <td valign="top">Width of the chart&nbsp; (optional - default is 400). The value is provided as  number if the width is set in pixels or as string  if the width is to be set in percentage (e.g., &quot;50%&quot;) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">height</span></td>
+             <td valign="top">Height of the chart (optional - default is 300). The value is provided as  number if the height is set in pixels or as string  if the height is to be set in percentage (e.g., &quot;50%&quot;)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataSource</span></td>
+             <td valign="top"> XML or JSON chart data. It can be a URL for XML or JSON. It can also be a string containing XML or   JSON object</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataFormat</span></td>
+             <td valign="top">Defines the format of the dataSource.
+               <ul>
+                   <li> Set it to <span class="codeInline">xmlurl</span> when data source is a URL to XML data</li>
+                   <li>Set it to <span class="codeInline">xml</span> when the data source is an XML String</li>
+                 <li>Set it to <span class="codeInline">jsonurl</span> when data source is a URL to JSON data</li>
+                 <li>Set it to <span class="codeInline">json </span>when the data source is a JSON String or JSON object</li>
+               </ul>
+             </td>
+           </tr>
+           <tr valign="top">
+             <td valign="top"><span class="codeInline">renderer</span></td>
+             <td valign="top">Sets the chart renderer engine. Acceptable values are  '<span class="codeInline">flash</span>' and <span class="codeInline"> 'javascript</span>'. The default value is automatically selected depending on the availability and support of Flash player.  When set to <span class="codeInline">javascript</span>, FusionCharts JavaScript class renders pure JavaScript charts. (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">bgColor</span></td>
+             <td valign="top">This sets the color of the flash player's background on which a chart gets drawn. It is passed as a string containing hex coded color value. This background color is not same as the background color of a chart. This background is visible while showing chart messages or when chart's <span class="codeInline">bgAlpha</span> is set to less than 100. (optional - default value is &quot;#FFFFFF&quot; i.e., white) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">scaleMode</span></td>
+             <td valign="top">Flash player's mode of scaling a chart. <span class="codeInline">NoScale</span> is the default value. There are other settings namely, <span class="codeInline"> showAll</span>, <span class="codeInline">ExactFit</span>, <span class="codeInline">noBorder</span>. But these are not supported and might result in distorted charts.&nbsp; (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">lang</span></td>
+             <td valign="top">Sets the language for chart messages. It presently supports only English. The value is &quot;EN&quot;. (optional) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">detectFlashVersion</span></td>
+             <td valign="top">Set to &quot;1&quot; to make FusionCharts Class check whether Flash Player 8 is present in the Browser. (optional - Default value is &quot;0' ) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">autoInstallRedirect</span></td>
+             <td valign="top">Set to &quot;1&quot; with <span class="codeInline">detectFlashVersion</span> set to &quot;1&quot; and FusionCharts redirects to Flash Player installation page of Adobe's Web site. (optional - default is &quot;0')</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">debugMode</span></td>
+             <td valign="top">Sets the chart debug window on. Can take &quot;0&quot; or &quot;1&quot;. When set to &quot;1&quot;, the chart shows a debug window over itself. (optional - default value is &quot;0&quot;)</td>
+           </tr>
+        </table>
+        <p>&nbsp;</p>
+        <p class="highlightBlock"><a href="API.html#clonefusioncharts">Click here to read   API Reference guide of  <span class="codeInline">cloneFusionCharts()</span> method</a></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="highlightBlock"><strong>FusionCharts jQuery plugin also  supports creating charts within elements that haven't yet been added to the HTML document object. Such charts  will not be visible until the newly created elements are added to the document object.</strong></td>
+    </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("FusionCharts jQuery plugin overview|Overview.html","Retrieving and updating properties of charts|RetrieveUpdate.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

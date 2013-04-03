@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title> 
+     Using FusionCharts with JSP &gt; Getting Started </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with J2EE", "Getting Started" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader"> 
+     Using FusionCharts with JSP &gt; Getting Started </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> 
+      <p>FusionCharts can effectively be used with JSP to plot dynamic data-driven 
+        charts. In this page, we will discuss, </p>
+      <ul>
+		 <li>How to setup FusionCharts in J2EE environment. </li>
+          <li>How to embed FusionCharts in your existing web application. </li>
+</ul>
+      <p class="header">How to setup FusionCharts in J2EE environment.</p>
+      <p>The following are the steps for setting up FusionCharts in J2EE environment: </p>
+      <ul>
+          <li> Place the <span class="codeInline">FusionCharts</span> folder containing all the <span class="codeInline">.swf</span> and <span class="codeInline">.js</span> files within the web application</li>
+          <li> Copy the <span class="codeInline">fchelper.jar</span>, <span class="codeInline">fctl.jar</span>, <span class="codeInline">fcexporter.jar</span> and <span class="codeInline">fcexporthandler.jar</span> to the classpath of your web server (in Tomcat, <span class="codeInline">{WebAppRoot}/WEB-INF/lib</span>) </li>
+          <li> Copy <span class="codeInline">jstl-api.jar</span>, <span class="codeInline">jstl-impl.jar</span> in case you are using JSTL in your JSPs.</li>
+		  <li> Additionally, copy <span class="codeInline">fcsampleshelper.jar</span> when trying the sample applications provided with the download </li>
+      </ul>
+      <p><br />
+          In case you are trying the sample application from the download, then all this is already in place for you. Please follow the <span class="codeInline">ReadMe.txt</span> present in <span class="codeInline">Download Package > Code > J2EE folder</span>.
+</p>
+      <p>Please note that the <span class="codeInline">FusionCharts JSP Tag Library (fctl.jar)</span> depends on <span class="codeInline">FusionCharts Helper classes (fchelper.jar). </span>(so always include <span class="codeInline">fchelper.jar</span> in classpath) </p>
+      <p class="header">How to embed FusionCharts in your existing web application</p>
+      <p>After you complete the initial setup, all you are left to do is - use the FusionCharts jsp tags to embed the chart in your jsp by providing the necessary attributes to it. </p>
+      <p>Steps to incorporate FusionCharts in your jsp: </p>
+      <ol>
+          <li>Three lines of code in jsp ( no logic ) to embed the chart. </li>
+          <li>Bean to provide the render data and data source for the chart.</li>
+          </ol>
+      <p>Let's quickly see each of them. </p>
+      <p>Code in the jsp:</p>
+      <pre class="code_container prettyprint">  &lt;%@ taglib uri=&quot;http://www.fusioncharts.com/jsp/core&quot; prefix=&quot;fc&quot; %&gt; 
+  &lt;jsp:useBean id=&quot;chartData&quot; class=&quot;com.fusioncharts.sampledata.BasicRenderData&quot;/&gt;
+  &lt;fc:render chartId=&quot;${chartData.chartId}&quot; swfFilename=&quot;${folderPath}${chartData.swfFilename}&quot; 
+  width=&quot;${chartData.width}&quot; height=&quot;${chartData.height}&quot; debugMode=&quot;false&quot; 
+  registerWithJS=&quot;false&quot; xmlUrl=&quot;${chartData.url}&quot; /&gt;          </pre>      <p class="text">Code in the bean (<span class="codeInline">com.fusioncharts.sampledata.BasicRenderData</span>) : </p>
+      <pre class="code_container prettyprint">  protected String xml;	
+  protected String chartId = &quot;basicChart&quot;;	
+  protected String URL = &quot;Data/Data.xml&quot;;	
+  protected String width = &quot;600&quot;;	
+  protected String height = &quot;300&quot;;	
+  protected String swfFilename = &quot;Column3D.swf&quot;;
+  // followed by getter and setter methods for the fields</pre>
+</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> 
+      <p>From the above class, you can either use the <span class="codeInline">xml</span> field or the URL field for providing the data in your jsp. If you are using the <span class="codeInline">xml</span> field, then set its value to a valid <span class="codeInline">FusionCharts</span> <span class="codeInline">xml</span>. If you are using the URL field, then place <span class="codeInline">Data.xml</span> in <span class="codeInline">Data</span> folder. A sample xml  is shown below: </p>      </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+	<pre class="code_container prettyprint">  &lt;chart caption='Monthly Unit Sales' 
+    xAxisName='Month' yAxisName='Units' showValues='0' 
+     formatNumberScale='0' showBorder='1'&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='462' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='857' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='671' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='494' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='761' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='960' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jul' value='629' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Aug' value='622' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Sep' value='376' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Oct' value='494' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Nov' value='761' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Dec' value='960' /&gt;
+  &lt;/chart&gt;</pre>    <p>That's all! Integrating FusionCharts in JSP is as simple as that. In the coming pages, we will explore the examples present in the download package and see how they can be built. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("PHP Class - Using Multilingual text|../../guide-for-web-developers/php-class/PHPClass_UTF8Example.html","Basic Examples|JSP_BasicExample.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

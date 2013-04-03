@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creating Drill-Down Charts</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Drill-down charts", "Simple example" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Creating Drill-Down Charts</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts can be easily and extensively 
+        used to create drill-down charts. All the charts (except for Zoom line chart) in FusionCharts v3 suite 
+        support drill down for data elements i.e., in each chart type, the data 
+        plot of that chart (columns in Column Charts, Pie slices in Pie Charts 
+        etc.) can act as hotspots for the chart. Using the drill down functionality 
+        provided by FusionCharts, you can easily produce charts that enact &quot;drill 
+        down&quot; or &quot;zoom in (data)&quot; capabilities. Moreover, you can make the whole chart as a hot-spot for drill-down.</p>
+       <p>Broadly, drill-down feature can be divided into two types:</p>
+       <ol>
+          <li><strong>Simple links </strong>: Drill-down to open simple URLs or call JavaScript functions (present on same page) </li>
+          <li><strong>Chart links</strong> (<i>LinkedCharts</i>): Drill-down  to detailed <i>LinkedCharts</i> </li>
+       </ol>
+       <p>Using FusionCharts, you can create endless levels of drill-down. It has been kept very generic to accommodate all types of requirements. </p>
+       <p>Using Simple links In FusionCharts v3, you can define the following types of links:</p>
+       <ul>
+        <li>Simple links that <a href="#simple">open in the same page</a></li>
+        <li>Simple links that open in a <a href="#newwindow">new page</a></li>
+        <li>Links that open in a specified <a href="Frames.html">frame</a></li>
+        <li>Links that open in a new <a href="PopUps.html">pop-up window</a></li>
+        <li>Existing <a href="JavaScript.html">JavaScript functions</a> (on the same page) to be invoked as 
+          links</li>
+        <li>Use the <a href="ClickURL.html">whole chart as a hotspot </a>to use the simple link types named above </li>
+       </ul>
+       <p>We will progressively see each type of drill-down in this page and in the pages that follow. Moreover, later in this section, we will learn  how <a href="LinkedCharts.html">Chart links (<i>LinkedCharts</i>)</a> work. </p>
+       </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="simple" id="simple"></a>Defining links for a Chart</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>To define a simple link for any data plot, 
+        just define the <span class="codeInline">link</span> attribute for the 
+        <span class="codeInline">&lt;set&gt;</span> element as under:<br />
+        <span class="codeInline">&lt;set ... value='2235' ... <strong>link='ShowDetails.asp%3FMonth%3DJan'</strong> 
+        ...&gt; </span></p>
+      <p>With the above XML, the data plot (be it column, pie or line/area anchor), 
+        when clicked, will take to the page <span class="codeInline">ShowDetails.asp?Month=Jan</span>, 
+        which might contain another chart to show detailed results for the month 
+        of January.</p>
+      <p>As you will note, the above link has been URL Encoded. FusionCharts expects 
+        all the links in URL Encoded format, if you have characters special characters 
+        (like ?,&amp;, etc.) in your link. When the user clicks on the link, FusionCharts 
+        decodes it and invokes <span class="codeInline">ShowDetails.asp?Month=Jan</span>. 
+      </p>
+      <p class="highlightBlock">All the server side scripting languages provide 
+        a generic function to URL Encode any string - like in ASP and ASP.NET, 
+        we've Server.URLEncode(strURL) and so on.</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">XML Example:</td>
+  </tr>
+  <tr> 
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart caption='Monthly Sales Summary' 
+      subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='17400' link='DemoLinkPages/DemoLink1.html'/&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='19800' link='DemoLinkPages/DemoLink2.html'/&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='21800' link='DemoLinkPages/DemoLink3.html'/&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='23800' link='DemoLinkPages/DemoLink4.html'/&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='29600' link='DemoLinkPages/DemoLink5.html'/&gt; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='27600' link='DemoLinkPages/DemoLink6.html'/&gt; 
+      &lt;/chart&gt;</pre>
+    See it <a href="../../Code/DrillDown/SimpleExample.html" target="_blank">live</a>! <br />
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="newwindow" id="newwindow"></a>Opening links in new window</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Quite often, you might want to open the drill-down 
+      link in a new window instead of the same window. To have a link open in 
+      a new window, all you need to do is, add <span class="codeInline">n-</span> 
+      before any link. E.g.,</p>
+      <p><span class="codeInline">&lt;set ... value='2235' ... <strong>link='n-ShowDetails.asp%3FMonth%3DJan'</strong> 
+        ...&gt; </span></p>
+      <p>The above link, when clicked, would open in a new window.</p>
+      <p>Example XML:</p></td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;chart caption='Monthly Sales Summary' 
+      subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jan' value='17400' link='n-DemoLinkPages/DemoLink1.html'/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Feb' value='19800' link='n-DemoLinkPages/DemoLink2.html'/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Mar' value='21800' link='n-DemoLinkPages/DemoLink3.html'/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Apr' value='23800' link='n-DemoLinkPages/DemoLink4.html'/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='May' value='29600' link='n-DemoLinkPages/DemoLink5.html'/&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='Jun' value='27600' link='n-DemoLinkPages/DemoLink6.html'/&gt;
+      &lt;/chart&gt;</pre>See it <a href="../../Code/DrillDown/NewWindow.html" target="_blank">live</a>!</td>
+  </tr>
+  <tr>
+  <td>
+    <p class="highlightBlock">Note: Internally the chart decodes a URL that you set as link. Before invoking the link it again encodes the Url. If you are passing multilingual characters via a URL or do not want this decode-encode mechanism to be handled by chart you can set, <span class="codeInline">unescapeLinks='0' </span>in <span class="codeInline">&lt;chart&gt;</span> element of the chart's XML data. If you are using JSON data, you need to use <span class="codeInline">{ &quot;chart&quot; : { &quot;unescapeLinks&quot; : &quot;0&quot; ... } ... }</span> . </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Flex|../guide-for-flash-developers/Flash_Flex.html","Links in Frames|Frames.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+/*******************************************************************************
+ * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Copyright Notice.  The software subject to this notice and license includes both human
+ * readable source code form and machine readable, binary, object code form (the "caBIG
+ * Software").
+ *
+ * Please refer to the complete License text for full details at the root of the project.
+ ******************************************************************************/
+
+/*
+ * Modifications to the tabs - used to allow the tabs to be a bit more configurable.
+ * See: conflooktabpanel
+ */
+.x-tab-panel-header-plain {
+    background: transparent !important;
+    border-top-width: 1px !important;
+    border-right-width: 1px !important;
+    border-left-width: 1px !important;
+    border-bottom-width: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.x-tab-strip-wrap {
+    background: url(../images/extensions/tab-bg.gif) repeat-x bottom;
+    width: 100%;
+    border-bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    zoom: 1;
+}
+
+ul.x-tab-strip {
+    display: block;
+    width: 5000px;
+    zoom: 1;
+}
+
+ul.x-tab-strip-top {
+    border-bottom: 0px solid #8db2e3;
+}
+
+.x-tab-strip-text {
+    color: #005ba4;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+    font: bold 11px tahoma, arial, helvetica;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+a.x-tab-strip-over {
+    text-decoration: none;
+}
+
+.x-tab-strip-over span.x-tab-strip-text {
+    color: #cccccc;
+}
+
+li.x-tab-strip-active {
+    background: #ffffff;
+    border-bottom: solid 1px #cccccc;
+    color: #404040;
+}
+
+.x-tab-strip-active span.x-tab-strip-text {
+    color: #404040;
+    font-weight: bold;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.x-tab-panel-header {
+    padding: 0px;
+    line-height: 15px;
+}
+
+.x-tool-loginicon {
+    height: 15px;
+    width: 18px;
+    background-image: url(../images/door_in.png);
+}
+
+.x-cols-icon {
+    background-image: url(../images/default/grid/columns.gif) !important;
+}
+
+.icon-grid {
+    background-image: url(../images/grid.png) !important;
+}
+
+.icon-xl {
+    background-image: url(../images/excel.png) !important;
+}
+
+.icon-txt {
+    background-image: url(../images/csv.png) !important;
+}
+
+.icon-find {
+    background-image: url(../images/find.png) !important;
+}
+
+.icon-filter {
+    background-image: url(../images/filter.png) !important;
+}
+
+.icon-calc {
+    background-image: url(../images/calc.png) !important;
+}
+
+.icon-reset {
+    background-image: url(../images/reset.png) !important;
+}
+
+.icon-help {
+    background-image: url(../images/help.png) !important;
+}
+
+.icon-report {
+    background-image: url(../images/report.png) !important;
+}
+
+.icon-page_code {
+    background-image: url(../images/page_code.png) !important;
+}
+
+.icon-breakdown {
+    background-image: url(../images/report.png) !important;
+}
+
+.x-grid3-row-over .x-grid3-cell-inner {
+    font-weight: bold;
+}
+
+.x-panel-resize {
+    height: 5px;
+    background: transparent url(../images/panel-handle.gif) no-repeat center bottom;
+    position: relative;
+    left: 0;
+    top: 2px;
+    cursor: n-resize;
+    cursor: row-resize;
+    /* for IE */
+    font-size: 1px;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.ux-lovcombo-icon {
+    width: 16px;
+    height: 16px;
+    float: left;
+    background-position: -1px -1px ! important;
+    background-repeat: no-repeat ! important;
+}
+
+.ux-lovcombo-icon-checked {
+    background: transparent url(../images/default/menu/checked.gif);
+}
+
+.ux-lovcombo-icon-unchecked {
+    background: transparent url(../images/default/menu/unchecked.gif);
+}
+
+#codeTables {
+    width: 902px;
+    height: 550px;
+    background: #fff url(../images/codeTables/bg2.png) no-repeat;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-left: 2px;
+    font-family: tahoma, arial, sans-serif;
+}
+
+#codeTables-menu {
+    position: absolute;
+    left: 5px;
+    top: 20px;
+    width: 115px;
+    overflow: visible;
+    font-family: arial, tahoma, sans-serif;
+    z-index: 1;
+}
+
+#codeTables-menu a {
+    text-align: right;
+    color: #fff;
+    font-size: 12px !important;
+    line-height: 16px;
+    padding: 5px 0 3px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    padding-right: 11px;
+    -moz-outline: none;
+    outline: 0 none;
+}
+
+#codeTables-menu a:hover {
+    background: transparent url(../images/codeTables/over-item2.png) no-repeat;
+    text-decoration: none;
+}
+
+#codeTables-menu a.active {
+    background: transparent url(../images/codeTables/active-item2.png) no-repeat;
+    text-decoration: none;
+    color: #1860A8;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#codeTables-menu h4 {
+    display: none;
+    font-size: 11px !important;
+    font-weight: bold;
+    font-family: tahoma, arial, sans-serif;
+    color: #284F85;
+    margin: 0;
+    padding: 4px;
+    line-height: 16px;
+    background: transparent url(../images/codeTables/top-bottom.gif) repeat-x 0 -1px;
+    border-bottom: 1px solid #89a8cf;
+}
+
+#codeTables-box {
+    position: absolute;
+    left: 114px;
+    top: 12px;
+    line-height: 14px;
+    font-size: 11px;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 0;
+}
+
+#codeTables-box-inner {
+    width: 777px;
+    height: 520px;
+    line-height: 14px;
+    font-size: 11px;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #3e6598 #3e6598 #3e6598 #3e6598;
+    overflow: auto;
+}
+
+#codeTables-ct {
+    padding: 2px;
+}
+
+#codeTables-ct p i {
+    color: #c33;
+    font-style: normal;
+    font-weight: bold;
+}
+
+#codeTables-ct h2 {
+    border-bottom: 2px solid #99bbe8;
+    cursor: pointer;
+    padding-top: 6px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+}
+
+#codeTables-ct h2 div {
+    background: transparent url(../images/codeTables/group-expand-sprite.gif) no-repeat 3px -47px;
+    padding: 4px 4px 4px 17px;
+    color: #3764a0;
+    font: bold 11px tahoma, arial, helvetica, sans-serif;
+}
+
+#codeTables-ct .collapsed h2 div {
+    background-position: 3px 3px;
+}
+
+#codeTables-ct .collapsed dl {
+    display: none;
+}
+
+#codeTables-ct dl {
+    padding: 5px 5px 5px 5px;;
+}
+
+.x-grid3-progresscol .x-grid3-cell-inner {
+    padding: 0px;
+}
+
+.x-grid3-progresscol.x-grid3-dirty-cell {
+    background-image: none;
+}
+
+.x-grid3-progresscol.x-grid3-dirty-cell .x-progress-text, .x-grid3-progresscol.x-grid3-dirty-cell .x-progress-text-ie, .x-grid3-progresscol.x-grid3-dirty-cell .x-progress-bar .x-progress-text-front-ie {
+    background: url(../images/progress-dirty.gif) no-repeat scroll 0 0 transparent;
+}
+
+.x-grid3-progresscol .x-progress-toptext, .x-grid3-progresscol .x-progress-bottomtext {
+    text-align: center;
+}
+
+.x-grid3-progresscol .x-progress-bar {
+    height: 16px;
+}
+
+.x-grid3-progresscol .x-progress-wrap {
+    padding-right: 1px;
+}
+
+.x-grid3-progresscol .x-progress-wrap-ie {
+    padding-right: 0px !important;
+}
+
+.x-grid3-progresscol .x-progress-wrap-ie .x-progress-bar {
+    height: 18px;
+}
+
+.x-grid3-progresscol .x-progress-text {
+    width: 100%;
+    color: black;
+    font-weight: normal;
+    padding: 2px;
+}
+
+.x-grid3-progresscol .x-progress-text-front-ie {
+    padding: 2.5px 5px;
+}
+
+.x-grid3-progresscol .x-progress-text-front {
+    padding: 2px 5px;
+}
+
+.x-progress-bar-red, .x-progress-bar-orange, .x-progress-bar-green {
+    float: left;
+}
+
+.x-progress-bar-red {
+    background: #ff0000 url(../images/progress-bg-red.gif) repeat-x scroll left center !important;
+    border-right: 1px solid #cb7878;
+    border-top: 1px solid #ecb7ad;
+    border-bottom: 1px solid #bf5f5f;
+}
+
+.x-progress-bar-orange {
+    background: #9cbfee url(../images/progress-bg-orange.gif) repeat-x scroll left center !important;
+    border-right: 1px solid #deab7e;
+    border-top: 1px solid #d7b290;
+    border-bottom: 1px solid #d7b290;
+}
+
+.x-progress-bar-green {
+    background: #00ff00 url(../images/progress-bg-green.gif) repeat-x scroll left center !important;
+    border-right: 1px solid #5bd976;
+    border-top: 1px solid #79e18f;
+    border-bottom: 1px solid #2da36d;
+}
+
+td.ux-grid-hd-group-cell {
+    background: url(../images/default/grid/grid3-hrow.gif) repeat-x bottom;
+}
+
+.bcr-disabled {
+    opacity: 0.4;
+    filter: alpha(opacity = 40);
+}

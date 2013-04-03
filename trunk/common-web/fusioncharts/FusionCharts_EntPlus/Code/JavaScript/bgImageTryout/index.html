@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>FusionCharts - Chart Background image try-out demo</title>
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../assets/jquery.ui/jquery-ui.css"/>
+        <script type="text/javascript" src="../../../Charts/FusionCharts.js"></script>
+		<script type="text/javascript" src="../../assets/jquery.ui/jquery.min.js"></script>
+		<script type="text/javascript" src="../../assets/jquery.ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+        <!--[if IE 6]>
+		<script type="text/javascript" src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+			
+			#resizable, .resizable { width: 450px; height: 300px; padding: 10px; border:1px solid #DAD9DC; background:#FAFAFB; margin-top:15px; }
+			#chartContainer { width: 100%; height: 100%; padding: 0; border:none; }
+			.ui-resizable-helper { border: 1px dotted #C4BED5; }
+			
+			#footerBtns {	margin:2px 0;}
+			#resetBtn {	cursor:pointer;	font-size:80%; text-align:right;  width:50%; float:right; line-height:18px;}
+			#toggleFlashJSChart { cursor:pointer; font-size:80%; text-align:left; width:50%; float:left; font-size:95%; line-height:18px; }
+			#toggleFlashJSChart a{ color: #5C6B79; }
+			#toggleFlashJSChart a:hover{ color: #659FD1;}
+			
+			
+			#configPanel { width: 380px; padding: 10px 10px 5px; border:1px solid #DAD9DC; background:#FCFCFD; margin-bottom:3px; color:#797682; font-size:80%; }
+			#configPanel #content {background:#FAFAFB; text-align:left; }
+			
+			#alignmentContainer { position:relative; }
+			#alignmentContainer #disabled { position:relative; height:100%; width:80px; background-color:#fff; position:absolute; top:0; left:0; }
+			#alignmentTable TD {  background-color:#ddd;}
+			#alignmentTable a img { border:none; }
+			#alignmentTable a, .alignNormal{ border:1px solid #ccc; display:block; }
+			#alignmentTable a:hover{ border:1px solid #635C76;}
+			.alignSelected { border:1px solid #635C76 !important;}
+			
+			
+			.panelShadow {
+				-moz-box-shadow: 1px 1px 4px #ccc;
+				-webkit-box-shadow: 1px 1px 4px #ccc;
+				box-shadow: 1px 1px 4px #ccc;
+				/* For IE 8 */
+				-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc')";
+				/* For IE 5.5 - 7 */
+				filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc');
+			}
+						
+			.curveCornerTop 
+			{
+				-moz-border-top-left-radius:5px;
+				-webkit-border-top-left-radius:5px;
+				border-top-left-radius: 5px;
+				-moz-border-top-right-radius:5px;
+				-webkit-border-top-right-radius:5px;
+				border-top-right-radius: 5px;
+			}
+			
+			.ui-button-text-only .ui-button-text {
+				padding-bottom: 0.15em;
+				padding-top: 0.15em;
+			}
+			
+        </style>
+        <script type="text/javascript" ><!--//
+		
+			var bgSettings = { "bgImage":"ChartBG-Small.jpg" , "bgImageAlpha":"100",  "bgImageScale":"100",  "bgImageDisplayMode":"none",  "bgImageHAlign":"left",  "bgImageVAlign":"top"};
+			
+			var initReset = false;
+			var initSetting = false;
+			
+			$(document).ready ( function()  {
+				$( "div#resetBtn").hide();
+				$( "#alignmentContainer #disabled").css( { opacity: .5} );
+
+				$( "#resizable" ).resizable({
+					helper: "ui-resizable-helper",
+					maxHeight: 1200,
+					maxWidth: 900,
+					minHeight: 150,
+					minWidth: 150
+				});
+				
+				$("#alignmentTable a").css( {opacity: .7} );
+				$("#alignmentTable a.alignSelected").css( {opacity: 1} );
+				
+				$("#alignmentTable a").click(
+					function()
+					{
+						
+						var abbr = {"T": "top", "L": "left", "B": "bottom", "R": "right", "C": "middle" };
+
+						$("#alignmentTable a").removeClass("alignSelected").addClass("alignNormal").css( {opacity: .7} );;
+						$(this).addClass("alignSelected").css( {opacity: 1} );					
+						
+						if(initReset) return;
+						
+						var aSet = $(this).find("img").attr("src").replace(/btn[\\\/]A(.+?).jpg$/, "$1").split("");
+						chart.setChartAttribute( { "bgImageVAlign": abbr[aSet[0]], "bgImageHAlign": abbr[aSet[1]]  } );
+						
+						if(!initSetting) 
+						{
+							initSetting = true;
+							$( "div#resetBtn").show();
+						}
+						
+					}
+				);
+				
+				
+				$( "#scaleSlider" ).slider({
+					value:100, min: 0, max: 300, step: 5,
+					slide: function( event, ui ) {
+						$( "#scaleAmount span" ).html( ui.value );
+					},
+					change: function( event, ui ) {
+						if(initReset) return;
+						chart.setChartAttribute( "bgImageScale" , ui.value  );
+						if(!initSetting) 
+						{
+							initSetting = true;
+							$( "div#resetBtn").show();
+						}
+					}
+					
+				});
+				$( "#scaleAmount span" ).html($( "#scaleSlider" ).slider( "value" ) );
+
+				$( "#alphaSlider" ).slider({
+					value:100, min: 0, max: 100, step: 5,
+					slide: function( event, ui ) {
+						$( "#alphaAmount span" ).html( ui.value );
+					},
+					change: function( event, ui ) {
+						if(initReset) return;
+						chart.setChartAttribute( "bgImageAlpha" , ui.value  );
+						if(!initSetting) 
+						{
+							initSetting = true;
+							$( "div#resetBtn").show();
+						}
+					}
+				});
+				$( "#alphaAmount span" ).html($( "#alphaSlider" ).slider( "value" ) );
+				
+				$( "#selectModes #modes" ).buttonset();
+				
+				$( "#selectModes #modes input" ).click(
+					function()
+					{
+						if(initReset) return;
+						var dMode = $(this).next("label").text().toLowerCase();
+						chart.setChartAttribute( "bgImageDisplayMode" , dMode );
+						
+						
+						if(dMode=="stretch" || dMode=="fit" || dMode=="fill" )
+						{
+							$( "#scaleSlider" ).slider( "disable");
+							$( "#scaleAmount" ).css( { color : '#cccccc' } );
+						}
+						else
+						{
+							$( "#scaleSlider" ).slider( "enable");
+							$( "#scaleAmount" ).css( { color : '#797682' } );
+						}
+						
+						if(dMode=="stretch" || dMode=="center" )
+						{
+							disableAlignement();
+						}
+						else
+						{
+							enableAlignement();
+						}
+						
+						if(!initSetting) 
+						{
+							initSetting = true;
+							$( "div#resetBtn").show();
+						}
+						
+						
+					}
+				);
+				
+				$( "div#resetBtn" ).click(function() {  resetAll(); });
+				
+				$( "a#renderSwitcher" ).click(function() { //toggleFlashJSChart 
+				 	
+					$("a#renderSwitcher").toggle(); 
+					var renderer = $(this).html().replace(/^.+?(flash|javascript).+?$/i, "$1");
+					console.log(renderer);
+					
+					if (!(chart instanceof FusionCharts)) 
+					{
+						alert(chart instanceof FusionCharts);
+						return;
+					}
+					
+					var newChart = chart.clone({ "renderer": renderer , "id":"ChartId_"+ renderer });
+					chart.dispose();
+					newChart.render();
+					chart = newChart;
+					
+				 });
+				
+				
+			});
+			
+			function resetAll()
+			{
+				
+				intiReset = true;
+				
+				bgSettings["bgImageAlpha"] = "100";
+				bgSettings["bgImageScale"] = "100"; 
+				bgSettings["bgImageDisplayMode"] = "none";
+				bgSettings["bgImageHAlign"] = "left";
+				bgSettings["bgImageVAlign"] = "top";
+
+				$( "#alphaSlider" ).slider( "value", 100 );
+				$( "#alphaAmount span" ).html( "100" );
+				$( "#scaleSlider" ).slider( "value", 100 );
+				$( "#scaleAmount span" ).html( "100" );
+				
+				
+				$( "#alignmentTable a:first" ).click();
+				$( "#selectModes #modes input[type=radio]:first" ).click();
+				$( "#selectModes #modes input").button("refresh");
+				$("#resizable").css( { width: "450px",  height: "300px"  } );
+				
+				intiReset = false;
+				initSetting = false;
+				$( "div#resetBtn").hide();
+			}
+			
+			
+			function getBgImageSettings()
+			{
+				var xmlAttr = "";
+				for (var attrName in bgSettings)
+				{
+					xmlAttr+= attrName + "='" + bgSettings[attrName] + "' ";
+				}
+				return xmlAttr;
+			}
+			
+			
+			function disableAlignement()
+			{
+				$( "#alignmentCaption" ).css( { color : '#cccccc' } );
+				$( "#alignmentContainer #disabled").show();
+				
+			}
+			
+			function enableAlignement()
+			{
+				$( "#alignmentCaption" ).css( { color : '#797682' } );
+				$( "#alignmentContainer #disabled").hide();
+			}
+		// -->
+        </script>
+    </head>
+    <body>
+
+    <div id="wrapper">
+
+            <div id="header">
+
+               <div class="logo"><a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank"><img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                <h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Background Image Demo</h1>
+            </div>
+
+            <div class="content-area">
+               <div id="content-area-inner-main">
+                  <p class="text" style="text-align:center;margin-bottom:10px;">Configure the background image of the chart using the settings given below:</p>
+                  <div id="messageBox" style="margin-left:120px; margin-right:120px; display:none; "></div>
+                  <center>
+                    
+                     <div id="configPanel" class="curveCornerTop panelShadow">
+                        <div id="content">
+                           <div style="float:right; width:250px;">
+                              <div id="scaler">
+                                 <div id="scaleAmount"><strong> Magnification of image: <span></span>%</strong></div>
+                                 <div id="scaleSlider" style="margin:7px 15px 15px 0;"></div>
+                                 <div id="alphaAmount"><strong> Transparency of image: <span></span>%</strong></div>
+                                 <div id="alphaSlider" style="margin:7px 15px 5px 0;"></div>
+                              </div>
+                           </div>
+                           <div style="margin-left:5px;"><strong id="alignmentCaption">Alignment</strong>
+                                 <div id="alignmentContainer">
+                                    <table id="alignmentTable" width="60" border="0" cellspacing="2" cellpadding="0">
+                                       <tr>
+                                          <td><a href="javascript:void(0)" class="alignSelected" title="Top-Left"><img src="btn/ATL.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Top-Middle"><img src="btn/ATC.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Top-Right"><img src="btn/ATR.jpg" /></a></td>
+                                       </tr>
+                                       <tr>
+                                          <td><a href="javascript:void(0)" title="Middle-Left"><img src="btn/ACL.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Middle-Middle"><img src="btn/ACC.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Middle-Right"><img src="btn/ACR.jpg" /></a></td>
+                                       </tr>
+                                       <tr>
+                                          <td><a href="javascript:void(0)" title="Bottom-Left"><img src="btn/ABL.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Bottom-Middle"><img src="btn/ABC.jpg" /></a></td>
+                                          <td><a href="javascript:void(0)" title="Bottom-Right"><img src="btn/ABR.jpg" /></a></td>
+                                       </tr>
+                                    </table>
+									<div id='disabled' style="display:none;">&nbsp;</div>
+                                 </div>
+                           </div>
+                           <div style="clear:both;"></div>
+                           <div id="selectModes" style="margin:10px 0 0 5px ;"><strong>Display mode of background image:</strong>
+                                 <div id="modes" style="margin:5px 0;">
+                                    <input type="radio" id="radio1" name="radio" checked="checked"/>
+                                    <label for="radio1">None</label>
+                                    <input type="radio" id="radio2" name="radio"  />
+                                    <label for="radio2">Stretch</label>
+                                    <input type="radio" id="radio3" name="radio" />
+                                    <label for="radio3">Tile</label>
+                                    <input type="radio" id="radio4" name="radio" />
+                                    <label for="radio4">Center</label>
+                                    <input type="radio" id="radio5" name="radio" />
+                                    <label for="radio5">Fit</label>
+                                    <input type="radio" id="radio6" name="radio" />
+                                    <label for="radio6">Fill</label>
+                                 </div>
+                           </div>
+						   <div id="footerBtns">
+							 <div id="toggleFlashJSChart"><a id="renderSwitcher" href="javascript:void(0)" style="display:none;">View Flash Chart</a><a id="renderSwitcher" href="javascript:void(0)">View JavaScript Chart</a></div>
+							 <div id="resetBtn"><a href="javascript:resetAll();">Click here to reset all settings</a></div>
+							 <div class="clear"></div>
+
+						   </div>
+						   
+						   
+                        </div>
+                     </div>
+                     <div id="resizable" class="panelShadow"><div id="chartContainer">FusionCharts</div></div>
+                  </center>
+                  <script type="text/javascript"><!--
+                            var chart = new FusionCharts("../../../Charts/Column2D.swf", "myChartId", "100%", "100%", "0", "1");
+                            chart.setXMLData("<chart "+ getBgImageSettings()+" canvasBgAlpha='40' labelDisplay='NONE' canvasBorderthickness='.5' canvasBorderColor='cccccc' baseFontColor='000000' baseFontSize='11' numDivLines='0' showLimits='0' plotFillAlpha='95' plotBorderAlpha='50' bgAlpha='0,0' borderColor='DFDAEB' borderAlpha='100' ><set label='John' value='420' /><set label='Mary' value='295' /><set label='Tom' value='523' /><styles><definition><style name='myShadow' type='shadow' color='FFFFFF' angle='0'	distance='1' strength='8' quality='16' blurX='2' blurY='2'/></definition><application><apply toObject='DataLabels' styles='myShadow'/><apply toObject='DataValues' styles='myShadow' /></application></styles></chart>");
+                           chart.render("chartContainer");
+							
+						// -->
+                        </script>
+                  <div class="clear"></div>
+                  <p>&nbsp;</p>
+               </div>
+            </div>
+    </div>
+        <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+				if(isJSRenderer(chart)) $("a#renderSwitcher").html("&nbsp;");
+				
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead.", isJSRenderer(chart) );
+			});	
+		// -->
+		</script>		
+    </body>
+</html>

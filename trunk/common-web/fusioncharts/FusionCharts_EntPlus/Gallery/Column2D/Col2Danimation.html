@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Single Series Column 2D Chart</title>
+        <link href="../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/prettify/prettify.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+        <script type="text/javascript" src="../assets/ui/js/json2.js"></script>
+         <script type="text/javascript" src="../assets/ui/js/lib.js" ></script>
+<!--[if IE 6]>
+        <script type="text/javascript" src="../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+		  <p>&nbsp;</p>
+		  <P align="center"></P>
+        <![endif]-->
+    </head>
+
+    <body>
+        <h3 class="chart-title" >Single Series Column 2D Chart</h3>
+        <p>&nbsp;</p>
+        <script type="text/javascript" src="../Data/String/js/animation.js" ></script>
+        
+        <div id="chartdiv" align="center">Chart will load here</div>
+        <script type="text/javascript">
+            FusionCharts.setCurrentRenderer(GALLERY_RENDERER);
+            var chart = new FusionCharts("../../Charts/Column2D.swf", "ChartId", "560", "400", "0", "1");
+            chart.setXMLData( dataString );
+            chart.render("chartdiv");
+        </script>
+		  <p>&nbsp;</p>
+		  <P align="center">Simple Column 2D chart with animation displaying the industry growth rate of 4 countries</P>
+          <p>&nbsp;</p>
+        <div class="qua-button-holder"></div>
+        <div class="show-code-block"></div>
+     </body>
+ </html>

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combination Chart JSON </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "JSON|Overview.html", "Combination chart JSON" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Combination Chart JSON </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Combination charts are helpful when you want 
+        to plot multiple chart types on the same chart or use two different scales 
+        for two different axes. FusionCharts v3 offers two categories of Combination 
+        Charts:</p>
+      <ol>
+        <li><strong>Single Y Axis Combination Chart</strong>: In these charts, 
+          there is only one y-axis and all the data sets are plotted against this 
+          axis.</li>
+        <li><strong>Dual Y Axis Combination Chart</strong>: In these charts, there 
+          are two y-axes, which can represent different scales (e.g., revenue 
+          and quantity or visits and downloads etc.). The axis on the left of 
+          the chart is called primary axis and the one on right is called secondary 
+          axis (though, you can reverse this in few charts by configuring the JSON).</li>
+      </ol>
+      <p class="highlightBlock">Note that the basic JSON structure of Combination charts is same as multi-series chart </p>
+      <p>FusionCharts v3 has both 2D and 3D combination charts. Shown 
+      below is a 2D Single Y Combination Chart.</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/Combi_2D.jpg" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In the above chart, all the data-series are 
+        plotted against the same (primary) y-axis. Each dataset has an attribute <span class="codeInline">renderAs </span>that specifies whether the series has to be rendered as column, line or area. </p>
+      <p>The JSON for the above chart looks as under:</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><div style="width:100%;height:500px; overflow:auto;"  class="code_container"><pre class="prettyprint lang-js">{
+  "chart":{
+    "caption":"Business Results 2005 v 2006",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "showvalues":"0",
+    "numberprefix":"$"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Jan"
+        },
+        {
+          "label":"Feb"
+        },
+        {
+          "label":"Mar"
+        },
+        {
+          "label":"Apr"
+        },
+        {
+          "label":"May"
+        },
+        {
+          "label":"Jun"
+        },
+        {
+          "label":"Jul"
+        },
+        {
+          "label":"Aug"
+        },
+        {
+          "label":"Sep"
+        },
+        {
+          "label":"Oct"
+        },
+        {
+          "label":"Nov"
+        },
+        {
+          "label":"Dec"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"2006",
+      "data":[{
+          "value":"27400"
+        },
+        {
+          "value":"29800"
+        },
+        {
+          "value":"25800"
+        },
+        {
+          "value":"26800"
+        },
+        {
+          "value":"29600"
+        },
+        {
+          "value":"32600"
+        },
+        {
+          "value":"31800"
+        },
+        {
+          "value":"36700"
+        },
+        {
+          "value":"29700"
+        },
+        {
+          "value":"31900"
+        },
+        {
+          "value":"34800"
+        },
+        {
+          "value":"24800"
+        }
+      ]
+    },
+    {
+      "seriesname":"2005",
+      "renderas":"Area",
+      "data":[{
+          "value":"10000"
+        },
+        {
+          "value":"11500"
+        },
+        {
+          "value":"12500"
+        },
+        {
+          "value":"15000"
+        },
+        {
+          "value":"11000"
+        },
+        {
+          "value":"9800"
+        },
+        {
+          "value":"11800"
+        },
+        {
+          "value":"19700"
+        },
+        {
+          "value":"21700"
+        },
+        {
+          "value":"21900"
+        },
+        {
+          "value":"22900"
+        },
+        {
+          "value":"20800"
+        }
+      ]
+    },
+    {
+      "seriesname":"2004",
+      "renderas":"Line",
+      "data":[{
+          "value":"7000"
+        },
+        {
+          "value":"10500"
+        },
+        {
+          "value":"9500"
+        },
+        {
+          "value":"10000"
+        },
+        {
+          "value":"9000"
+        },
+        {
+          "value":"8800"
+        },
+        {
+          "value":"9800"
+        },
+        {
+          "value":"15700"
+        },
+        {
+          "value":"16700"
+        },
+        {
+          "value":"14900"
+        },
+        {
+          "value":"12900"
+        },
+        {
+          "value":"8800"
+        }
+      ]
+    }
+  ],
+  "trendlines":{
+    "line":[{
+        "startvalue":"22000",
+        "color":"91C728",
+        "displayvalue":"Target",
+        "showontop":"1"
+      }
+    ]
+  },
+  "styles": {
+    "definition": [
+      {
+        "name": "CanvasAnim",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Canvas",
+        "styles": "CanvasAnim"
+      }
+    ]
+  }
+}</pre></div></td>
+  </tr>  
+  <tr> 
+    <td valign="top" class="text"><p>An example of a 2D Dual Y Combination Chart looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/Combi_DY_CP_AS.jpg" width="598" height="397" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>As you can see in the image above, we're plotting sales and quantity on the chart. The chart has two  y-axes:</p>
+      <ul>
+          <li>The primary y-axis (left) representing  sales. The columns 
+            which represent sales are plotted against the primary  y-axis </li>
+        <li>The secondary y-axis (right) representing  quantity. The 
+          area plot which represents quantity is plotted against the secondary y-axis </li>
+      </ul>
+      <p>For Dual Y Axis combination charts, it is necessary to provide at least 
+        2 datasets - one for the primary axis and the other for the secondary 
+        axis. If you do not provide this, the chart will not render properly.</p>
+        <p>The JSON for the above Dual Y Axis chart looks as under:</p>
+    </td></tr>
+  <tr> 
+    <td valign="top" class="text"><div class="code_container" style="width:100%;height:500px; overflow:auto;"><pre class="prettyprint lang-js" >{
+  "chart":{
+    "caption":"Sales Volume",
+    "pyaxisname":"Revenue",
+    "syaxisname":"Quantity",
+    "showvalues":"0",
+    "numberprefix":"$"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Jan"
+        },
+        {
+          "label":"Feb"
+        },
+        {
+          "label":"Mar"
+        },
+        {
+          "label":"Apr"
+        },
+        {
+          "label":"May"
+        },
+        {
+          "label":"Jun"
+        },
+        {
+          "label":"Jul"
+        },
+        {
+          "label":"Aug"
+        },
+        {
+          "label":"Sep"
+        },
+        {
+          "label":"Oct"
+        },
+        {
+          "label":"Nov"
+        },
+        {
+          "label":"Dec"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"Revenue",
+      "parentyaxis":"P",
+      "data":[{
+          "value":"1700000"
+        },
+        {
+          "value":"610000"
+        },
+        {
+          "value":"1420000"
+        },
+        {
+          "value":"1350000"
+        },
+        {
+          "value":"2140000"
+        },
+        {
+          "value":"1210000"
+        },
+        {
+          "value":"1130000"
+        },
+        {
+          "value":"1560000"
+        },
+        {
+          "value":"2120000"
+        },
+        {
+          "value":"900000"
+        },
+        {
+          "value":"1320000"
+        },
+        {
+          "value":"1010000"
+        }
+      ]
+    },
+    {
+      "seriesname":"Quantity",
+      "parentyaxis":"S",
+      "data":[{
+          "value":"340"
+        },
+        {
+          "value":"120"
+        },
+        {
+          "value":"280"
+        },
+        {
+          "value":"270"
+        },
+        {
+          "value":"430"
+        },
+        {
+          "value":"240"
+        },
+        {
+          "value":"230"
+        },
+        {
+          "value":"310"
+        },
+        {
+          "value":"430"
+        },
+        {
+          "value":"180"
+        },
+        {
+          "value":"260"
+        },
+        {
+          "value":"200"
+        }
+      ]
+    }
+  ],
+  "trendlines":{
+    "line":[{
+        "startvalue":"2100000",
+        "color":"009933",
+        "displayvalue":"Target"
+      }
+    ]
+  },
+  "styles": {
+    "definition": [
+      {
+        "name": "CanvasAnim",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Canvas",
+        "styles": "CanvasAnim"
+      }
+    ]
+  }
+}</pre></div><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The JSON structure for a combination chart is 
+      very similar to that of <a href="MultiSeries.html">multi-series chart</a>. So, we won't be discussing it 
+      all over again. Rather, we'll discuss the differences.</p> 
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Single Y Axis Combination Charts</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Single Y Axis Combination Charts allow you 
+        to plot multiple data-sets as different types of plots (columns, lines 
+        or areas), but against the same y-axis (primary). Since all the data-sets 
+        belong to the same primary axis, the number formatting properties do NOT 
+        change across them. </p>
+      <p>To select which data-set should be rendered as what plot type, you use 
+      the <span class="codeInline">renderAs</span> property as under:</p>
+		<pre class="code_container prettyprint lang-js">"seriesname":"2005",  <strong>"renderas":"Area"</strong>
+"seriesname":"2006",  <strong>"renderas":"line"</strong>
+"seriesname":"2007",  <strong>"renderas":"column"</strong></pre><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Dual Y Axis Combination Charts</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>In Dual Y Axis Combination Charts, you've 
+        two y-axes. Each y-axis can have its own scale and number formatting 
+        properties. You can also explicitly set y-axis lower and upper limits for 
+        both the axes.</p>
+      <p>You can choose the axis of each dataset using the <span class="codeInline">parentYAxis</span> property in the <span class="codeInline">dataset </span><span class="text">object</span>. This 
+        attribute can take a value of <span class="codeInline">P</span> or <span class="codeInline">S</span>. <span class="codeInline">P</span> denotes primary axis and <span class="codeInline">S</span> denotes 
+      secondary axis.</p>
+      <pre class="code_container prettyprint lang-js">  "dataset":[{
+      "seriesname":"Revenue",
+     <strong> "parentyaxis":"P",</strong>
+<nocode>...</nocode></pre>
+      <p>and the Quantity dataset on secondary axis:</p>
+      <pre class="code_container prettyprint lang-js">  "dataset":[{
+      "seriesname":"Quantity",
+    <strong>  "parentyaxis":"S",</strong>
+<nocode>...</nocode></pre><br />
+      <p class="highlightBlock">In Dual Y 3D Combination Charts, the column chart 
+        by default plots on the primary axis and lines on the secondary. To switch this, you can specify the property &quot;primaryAxisOnLeft&quot;:&quot;0&quot; in the chart object. You can have 
+        more than one primary or secondary datasets but at least one of each is 
+        required.</p>
+      <p>Each trend-line has to be associated with an axis, against which 
+        it will be plotted. Example:</p>
+      <pre class="code_container prettyprint lang-js"> "trendlines":{
+    "line":[{
+        "startvalue":"2100000",
+        <strong>"parentYAxis": "S",</strong>
+        "color":"009933",
+        "displayvalue":"Target"
+      }
+    ]
+  },</pre>
+      <p class="text">By default, they conform to the primary axis.</p>
+	  <p class="text">Thereafter, you can define <a href="../../Styles/Styles.html">STYLES</a> elements similar to what we discussed in the Single Series JSON format page. 
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Multi Series chart JSON|MultiSeries.html","Scatter &amp; Bubble chart JSON|ScatterBubble.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

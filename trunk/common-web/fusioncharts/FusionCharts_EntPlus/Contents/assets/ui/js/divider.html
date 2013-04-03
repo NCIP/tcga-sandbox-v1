@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<style type="text/css">
+			body, table, tr, td
+			{
+				padding:0;
+				margin:0;
+			}
+			table 
+			{
+				cursor:pointer;
+			}
+			
+			table.expand
+			{
+				/*border-left:1px solid #e5e5e5;*/
+			}
+		
+		</style>
+		<script type="text/javascript">
+		
+			function isLocalStorageAvailable()
+			{
+				try
+				{
+					return ('localStorage' in window==true && window['localStorage'] !== null && typeof localStorage.getItem=='function');
+				}
+				catch(e)
+				{
+					return false;
+				}
+			}
+
+			var isLocalStore = isLocalStorageAvailable() ;
+		
+					
+			function expandCollapse()
+			{
+				if(isLocalStore) {
+					localStorage.removeItem("FC__MENU_COLLAPSED");
+					localStorage.setItem("FC__MENU_COLLAPSED", false);
+				}
+				try{ parent.document.getElementById("mainframeset").cols = "255,0,*";	}
+				catch(e) {}
+			}
+		
+			
+		
+		</script>
+    </head>
+	<body style="padding:0; margin:0; margin-left:6px; margin-top:7px;">
+	<table id="ectable" cellpadding="0" cellspacing="0" border="0" width="18" height="100%" class="expand" title="Click here to show the Navigation Panels">
+		<tr><td height="100%" valign="top" align="middle" onClick="expandCollapse();" >
+			<img id="ec" src="../Images/expand.png" title="Show navigation panels" width="16" height="16"/>
+			
+		</td></tr>
+	</table>
+	</body>
+	
+</html>	
+	

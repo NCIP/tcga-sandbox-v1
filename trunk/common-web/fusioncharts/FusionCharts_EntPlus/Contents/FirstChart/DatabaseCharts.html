@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creating Database driven Charts</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Creating Database driven charts" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+<td valign="top" class="pageHeader">Creating Database driven Charts</td>
+</tr>
+<tr>
+<td valign="top" class="text">
+   <p>In the previous section, we had explained how FusionCharts can be used with server-side scripts. These scripts can, in turn, connect to databases, web services or other live data sources and provide dynamic data to FusionCharts. This enables you to use FusionCharts for real-time charting. It means whenever the chart is rendered, it gets the latest data from database and plots the same. FusionCharts works with all databases including MS SQL, Oracle, MySQL, PostgreSQL, CSV or even legacy data storage.</p>
+   <p>Creating a chart using dynamic data from database involves following steps:</p>
+<ol>
+<li>Initiate database connection in your server side script.</li>
+<li>Retrieve the data from database that you wish to show on the chart.</li>
+<li>Generate chart data (XML or JSON) by iterating through each record. This can be either done using simple String concatenation or, using XML/JSON objects if your server-side scripts support the same. For ASP and PHP, we've APIs that help you convert arrays and recordsets into FusionCharts XML format.</li>
+<li>Provide the chart data to the chart as string/URL. No need to save/store them on server as physical files; you can virtually relay them. </li>
+</ol>
+</td>
+</tr>
+<tr><td height="12"></td></tr>
+<tr>
+<td nvalign="top" class="header"><a name="methods" id="methods"></a>Different methods of providing dynamic data  to charts</td>
+</tr>
+<tr>
+<td valign="top" class="text">
+   <p>Data can be provided to charts using following two methods: </p>
+   <ol>
+      <li><a href="../guide-for-web-developers/how-fusioncharts-works/DataURL.html"><strong>Data URL </strong></a>- In this method, a URL is provided to the chart as Data source. Upon loading or while updating, the chart invokes this URL and reads the XML or JSON data transmitted from the Url.   </li>
+      <li><a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html"><strong>Data String</strong></a>  - In this method, the entire data (XML or JSON) is provided as a string  embedded in the same page as the chart. When the chart loads, it  reads the Data String and plots data accordingly.</li>
+   </ol>
+   <p>Following illustrations provide an overview of each method:</p>
+   <p class="header" style="padding: 3px;">Data URL method </p>
+   <p><img src="Images/dataURLMethod.jpg" alt="Click to see an animated feature tour on this process" width="600" height="329" border="0"/></p>
+ <p class="header" style="padding: 3px;">Data String method</p>
+ <p><img src="Images/dataEmbedMethod.jpg" alt="Click to see an animated feature tour on this process" width="600" height="329" border="0" /></p>
+ </td>
+</tr>
+<tr>
+<td valign="top" class="header"><a name="technologies" id="technologies"></a>Using different server side technologies for creating database driven charts</td>
+</tr>
+<tr>
+<td valign="top" class="text">
+   <p>In forthcoming sections, you will see how to create charts using dynamic data from database and using various server-side scripting languages. For quick reference, you may use the following links: </p>
+   <ul>
+ <li><a href="../guide-for-web-developers/asp/ASP_DB.html">Using ASP and MSSQL/MS Access to create database driven charts</a></li>
+ <li><a href="../guide-for-web-developers/php/PHP_DB.html">Using PHP and MYSQL to create database driven charts</a></li>
+ <li><a href="../Code/J2EE/JSP_DB.html">Using J2EE to create database driven charts</a></li>
+ <li><a href="../guide-for-web-developers/coldfusion/CFM_DB.html">Using ColdFusion to create database driven charts</a></li>
+ <li><a href="../guide-for-web-developers/vbnet/VBNET_DB.html">Using VB.NET and MSSQL/MS Access to create database driven charts</a></li>
+ <li><a href="../guide-for-web-developers/csnet/CS_DB.html">Using C#.NET and MSSQL/MS Access to create database driven charts</a></li>
+ <li><a href="../Code/ROR/Ruby_db.html">Using Ruby on Rails to create database driven charts</a>
+ </ul>
+ </td>
+</tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Server side scripts|ServerSideScripts.html","Adding Drill down links to charts|Drilldown.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

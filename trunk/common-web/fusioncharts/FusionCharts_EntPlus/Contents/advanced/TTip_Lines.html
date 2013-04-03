@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Multiple lines in tool tip</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Tooltip in multiple lines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Multiple lines in tool tip</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>By default, if your tool-tips are larger than the chart width, FusionCharts will automatically wrap them. However, if you want to add manual breaks to the content of your tool-text, you can do so as under: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart&gt;
+  &nbsp;&lt;set label='John' value='420' tooltext='John Miller<strong>{br}</strong>Score: 420<strong>{br}</strong>Rank:2'/&gt;
+   &lt;set label='Mary' value='295' tooltext='Mary Evans<strong>{br}</strong>Score: 295<strong>{br}</strong>Rank:3'/&gt;
+   &lt;set label='Tom' value='523' tooltext='Tom Bowler<strong>{br}</strong>Score: 523<strong>{br}</strong>Rank:1'/&gt;
+&lt;/chart&gt;</pre></div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{},<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;John&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;John Miller<strong>{br}</strong>Score: 420<strong>{br}</strong>Rank:2&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mary&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;Mary Evans<strong>{br}</strong>Score: 295<strong>{br}</strong>Rank:3&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Tom&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;tooltext&quot;:&quot;Tom Bowler<strong>{br}</strong>Score: 523<strong>{br}</strong>Rank:1&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above data, to add a line break in the tool-tip, we've used the pseudo code {br}.</p>
+      <p>When you now see the chart, you'll get the following output: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/ToolTipMultiple.jpg" width="405" height="207" /><br /><br /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="labelbreak" id="labelbreak"></a>Applying HTML to labels </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Similarly, you can apply line breaks to your data labels also. Consider the XML/JSON below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%; overflow:auto;">
+       <div id="tab3" class="tab_content">
+         <pre class="prettyprint code_container">&lt;chart&gt;
+   &lt;set label='John Miller{br}Score: 420{br}Rank:2' value='420' /&gt;
+   &lt;set label='Mary Evans{br}Score: 295{br}Rank:3' value='295' /&gt;
+   &lt;set label='Tom Bowler{br}Score: 523{br}Rank:1' value='523' /&gt;<br />&lt;/chart&gt;</pre>
+       </div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />  &quot;chart&quot;: {},<br />  &quot;data&quot;: [<br />    {<br />      &quot;label&quot;: &quot;John Miller{br}Score: 420{br}Rank:2&quot;,<br />      &quot;value&quot;: &quot;420&quot;<br />    },<br />    {<br />      &quot;label&quot;: &quot;Mary Evans{br}Score: 295{br}Rank:3&quot;,<br />      &quot;value&quot;: &quot;295&quot;<br />    },<br />    {<br />      &quot;label&quot;: &quot;Tom Bowler{br}Score: 523{br}Rank:1&quot;,<br />      &quot;value&quot;: &quot;523&quot;<br />    }<br />  ]<br />}</pre>
+</div>
+    </div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The above XML will now render the following chart: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/LabelHTML.jpg" width="407" height="206" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Gradients|Gradients.html", "Resizing charts in %|PercentResize.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

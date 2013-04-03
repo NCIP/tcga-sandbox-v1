@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Multi-Series Chart XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "XML|Overview.html", "Multi-Series chart XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Multi-Series Chart XML</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Multi-series charts are charts where you 
+        compare multiple series of data. </p>
+      <p>In our previous example, we had 
+        seen how to plot a chart indicating <span class="codeInline">Monthly Sales Summary</span> for 1 year. 
+        This data belonged to one particular series, which is for the year say, 
+        2005. Now, if you need to compare the data for 2 or more years, you'll 
+        have to use multi-series charts. Using multi-series charts, you can compare 
+        data for 2 or more number of series. </p>
+      <p>A simple 2D multi-series chart looks 
+        as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/MS_Col2Dchart.jpg" width="604" height="404" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>As you can see above, here we are comparing 
+      data for the year 2006 and 2005.</p> 
+      <p>The XML for this chart looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><pre class="prettyprint code_container"> &lt;chart caption='Business Results 2005 v 2006' xAxisName='Month' yAxisName='Revenue' showValues='0' numberPrefix='$'&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&lt;categories&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category  label='Jan' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Feb' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Mar' /&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;category label='Apr' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='May' /&gt;
+       &lt;category label='Jun' /&gt;
+      &nbsp;&lt;vLine color='FF5904' thickness='2'/&gt; <BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Jul' /&gt;
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Aug' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Sep' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Oct' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Nov' /&gt;
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;category label='Dec' /&gt;<BR> &nbsp;&nbsp;&nbsp;&lt;/categories&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&lt;dataset seriesName='2006'&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='27400' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='29800' /&gt;
+    &nbsp;&nbsp;&nbsp;&lt;set value='25800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='26800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='29600' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='32600' /&gt;
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='31800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='36700' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='29700' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='31900' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;set value='34800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='24800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&lt;/dataset&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&lt;dataset seriesName='2005'&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='10000' /&gt;
+    &nbsp;&nbsp;&nbsp;&lt;set value='11500' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='12500' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='15000' /&gt;
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='11000' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='9800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='11800' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='19700' /&gt;
+    &nbsp;&nbsp;&nbsp;&lt;set value='21700' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='21900' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='22900' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;set value='20800' /&gt;
+    &lt;/dataset&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&lt;trendlines&gt;
+    &nbsp;&nbsp;&nbsp;&lt;line startValue='26000' color='91C728' displayValue='Target' showOnTop='1'/&gt;<BR> &nbsp;&nbsp;&nbsp;&lt;/trendlines&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&lt;styles&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;definition&gt;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='CanvasAnim' type='animation' param='_xScale' start='0' duration='1' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/definition&gt;<BR> <BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;application&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &lt;apply toObject='Canvas' styles='CanvasAnim' /&gt;<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;&nbsp;&nbsp;&nbsp;<BR> &nbsp;&nbsp;&nbsp;&lt;/styles&gt;<BR> <BR> &lt;/chart&gt; </pre><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>If you've already gone through the <a href="SingleSeries.html">single 
+        series XML structure</a>, you'll find notable differences between the two 
+        XML structures. There are the new <span class="codeInline">&lt;category&gt;</span> 
+        and <span class="codeInline">&lt;dataset&gt;</span> elements and the <span class="codeInline">&lt;set&gt;</span> 
+        elements now just contain the <span class="codeInline">value</span> attribute.</p>
+      <p>However, if you're still unaware of the FusionCharts XML structure, let's 
+        get to the basics first. The <span class="codeInline">&lt;chart&gt;</span> 
+        element is the main element of any FusionCharts XML document - it represents 
+        the starting point and the ending point of data. The <span class="codeInline">&lt;chart&gt;</span> 
+        element has a number of attributes that help configure the cosmetic and functional properties of the chart. 
+        You can find full list of such attributes in &quot;<span class="codeInline">Chart 
+        XML Sheet</span>&quot; of each chart.</p>
+      <p>In the most general form, attributes have the following form:<br>
+        <span class="codeInline">attributeName=&quot;Value&quot;<br>
+        e.g., xAxisName=&quot;Month&quot;</span> </p>
+      <p>The attributes can occur in any order and quotes can be single or double 
+        like <span class="codeInline">xAxisName='Month'. </span><span class="text">However, 
+        you need to make sure that a particular attribute occurs only once for 
+        a given element.</span> Duplicate attributes result in XML validation error.</p>
+      <p>Next to the <span class="codeInline">&lt;chart&gt;</span> element is 
+        <span class="codeInline">&lt;categories&gt;</span> element and its child 
+        <span class="codeInline"> &lt;category&gt;</span> elements. Each <span class="codeInline">&lt;category&gt;</span> 
+        element represents a label on the x-axis. The <span class="codeInline">&lt;category&gt;</span> 
+        elements need to be defined for all the multi-series charts before you 
+        can define the data. For example, in our chart, the categories are the 
+        month names (Jan, Feb, Mar .... ) as we're plotting a chart to show monthly 
+        sales summary for two consecutive years. </p>
+      <p>Between <span class="codeInline">&lt;category&gt;</span> elements, we 
+        can have <span class="codeInline">&lt;vLine&gt;</span> element, which 
+        indicate vertical separator lines running along the height/width of the 
+        chart canvas.</p>
+      <pre class="code_container prettyprint">&lt;vLine color='FF5904' thickness='2'/&gt;</pre>
+      <p>Now, in a multi-series chart, each series of data (i.e., each set of 
+        data) needs to be enclosed between a <span class="codeInline">&lt;dataset&gt;</span> 
+        element. In our example, we're plotting a chart showing monthly 
+        sales trend for 2 different years. The first <span class="codeInline">dataset</span> contains data for the year 2006 and the second one for 2005. Depending 
+        on the chart type, there are a number of properties which you can define 
+        for each <span class="codeInline">&lt;dataset&gt;</span> element, which 
+        you can see in &quot;<span class="codeInline">Chart XML Sheet</span>&quot; of that chart.</p>
+      <p>Moving on, each <span class="codeInline">&lt;set&gt;</span> element (which 
+        is a child element of the <span class="codeInline">&lt;dataset&gt;</span> 
+        element) represents a set of data which is to be plotted on the chart. A typical 
+        <span class="codeInline"> &lt;set&gt;</span> element would look like:</p>
+      <pre class="code_container prettyprint">&lt;set value=&quot;27400&quot;/&gt;</pre><br />
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="highlightBlock">You should note that the number of 
+      <span class="codeInline">&lt;category&gt;</span> elements should be equal 
+      to the number of data rows in each data sets, i.e., if you mention twelve 
+      categories (twelve months), the data for both years (2005 &amp; 2006) should 
+      also contain twelve <span class="codeInline">&lt;set&gt; </span>elements 
+      (twelve rows of data). Else, the chart will display empty space at that position. </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Next we have the <span class="codeInline">&lt;trendLines&gt;</span> 
+        element. Using this function of the chart, you could draw custom lines 
+        on the chart to represent a trend. For example, in our above XML, we have 
+        defined a line at 26000 to represent the Target sales for the period. 
+      </p>
+      <p>Finally, you've <span class="codeInline">&lt;styles&gt;</span> element 
+        which is new in FusionCharts v3. It helps you apply font, effects and 
+        animations to various objects of the chart. <span class="codeInline">Styles</span> 
+        lends a simple mechanism using which you can easily control the visual 
+        layout of charts. To read more on <span class="codeInline">Styles</span>, 
+        please see <a href="../../Styles/Styles.html"><span class="codeInline">FusionCharts v3 Styles</span></a> 
+        section.</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Single Series chart XML|SingleSeries.html","Combination chart XML|Combination.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

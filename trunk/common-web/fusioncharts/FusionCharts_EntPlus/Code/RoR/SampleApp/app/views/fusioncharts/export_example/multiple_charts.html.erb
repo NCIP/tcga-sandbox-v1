@@ -1,0 +1,82 @@
+<%
+#This page demonstrates the feature of exporting multiple charts in the specified export format.
+#When the user clicks on the "Export to ..." button, 
+#the exportCharts function is called and within this function, 
+#FusionCharts(DOMId).exportChart will be invoked for each chart displayed on the page.
+#FusionCharts.items is the array containing the DOMIds of all these charts.
+#After capturing the data and processing it, the chart gets saved in a file in the server 
+#and a links to these files are provided to the user.
+#In this example also, we will be using exportAction='save'.
+#Please ensure that the SAVEPATH in the properties.rb file has the correct entry. 
+#The SAVEPATH variable specifies the absolute or relative path to the folder on the server where the image needs to be saved.
+%>
+<% @page_title="FusionCharts - Export example - Export Multiple Charts on one Page" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="FusionCharts - Export example - Export Multiple Charts on one Page" %>
+<p>Click any one of the buttons below to export all the charts present in the page. </p>
+
+<script type="text/javascript">
+		
+		var initiateExport = false;
+	
+		function exportCharts(exportFormat)
+		{
+				initiateExport = true;
+				for ( var chartRef in FusionCharts.items )
+				{
+					//alert(chartRef);
+					if ( FusionCharts.items[chartRef].exportChart )
+					{
+						document.getElementById ( "linkToExportedFile" ).innerHTML = "Exporting...";
+						FusionCharts.items[chartRef].exportChart( { "exportFormat" : exportFormat } );
+					}
+					else
+					{
+						
+						document.getElementById ( "linkToExportedFile" ).innerHTML = "Please wait till the chart completes rendering..." ;
+					}
+				}
+				
+		}
+		
+		function FC_Exported ( statusObj )
+		{
+			if (initiateExport)  
+			{
+				initiateExport = false;
+				document.getElementById ( "linkToExportedFile" ).innerHTML = "";
+			}
+			
+			if ( statusObj.statusCode == "1" )
+			{
+				document.getElementById ( "linkToExportedFile" ).innerHTML += "Export successful. View it from <a target='_blank' href='" + statusObj.fileName + "'>here</a>.<br/>";	
+			}
+			else
+			{
+				document.getElementById ( "linkToExportedFile" ).innerHTML += "Export unsuccessful. Error from export handler : " + statusObj.statusMessage + "<br/>" ;	
+	
+			}
+		}
+		
+		
+	</script>
+
+
+<%
+	#Create the chart - Column 3D Chart with data from /Data/SaveData.xml
+	render_chart "/FusionCharts/Column3D.swf", "/Data/SaveData.xml", "", "chart1", 600, 300, false, true do-%> 
+<% end -%>
+<%
+	#Create the chart - Column 2D Chart with data from /Data/SaveData.xml
+	render_chart "/FusionCharts/Column2D.swf", "/Data/SaveData.xml", "", "chart2", 600, 300, false, true do-%> 
+<% end -%>
+<%
+	#Create the chart - Line  Chart with data from /Data/SaveData.xml
+	render_chart "/FusionCharts/Line.swf", "/Data/SaveData.xml", "", "chart3", 600, 300, false, true do-%> 
+<% end -%>
+<div id="linkToExportedFile" style="margin-top:10px; padding:5px; width:600px; background:#efefef; border : 1px dashed #cdcdcd; color: 666666;">Exported status.</div>
+
+<input value="Export to JPG" type="button" onClick="JavaScript:exportCharts('JPG')" />
+<input value="Export to PNG" type="button" onClick="JavaScript:exportCharts('PNG')" />
+<input value="Export to PDF" type="button" onClick="JavaScript:exportCharts('PDF')" />
+

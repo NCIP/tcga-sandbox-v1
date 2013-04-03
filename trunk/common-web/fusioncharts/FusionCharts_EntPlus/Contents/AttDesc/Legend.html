@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Legend  </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Legend" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Legend  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In multi-series / combination charts, the series name of each data-set shows up   in the legend of the chart. This helps you relate a data plot to its series name using its color. The legend does not appear for single-series charts because there is only one series in the chart.</p> 
+    <img src="Images/legend1.jpg" alt="FusionCharts Legend" width="504" height="304" />
+    <p>Notice the legend below the chart which helps identify the series name. Starting v3.2, each series is represented by its own icon. </p>
+      <p>Starting v3.2, the legend is interactive. That is, when you click on each legend icon, it hides the data-set corresponding to that item. In the example below, profit legend icon was clicked that resulted in the chart as under. Note how the Profit icon has also been converted to gray-scale. To show the area back, you click on this icon again. </p>
+      <img src="Images/LegendClick.jpg" width="503" height="303" />
+      <p>The XML/JSON going into the chart above is:</p> 
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart palette='2' caption='Sales' subCaption='March 2006' showValues='0' divLineDecimalPrecision='1' limitsDecimalPrecision='1' numberPrefix='$' formatNumberScale='0' &gt;
+    &lt;categories&gt;
+      &nbsp;&nbsp;&lt;category label='Quarter 1' /&gt;
+      &nbsp;&nbsp;&lt;category label='Quarter 2' /&gt;
+      &nbsp;&nbsp;&lt;category label='Quarter 3' /&gt;
+      &nbsp; &lt;category label='Quarter 4' /&gt;
+    &lt;/categories&gt;
+    &lt;dataset seriesName='Revenue' &gt;
+        &lt;set value='5854' /&gt;
+       &nbsp;&lt;set value='4171' /&gt;
+        &lt;set value='1375' /&gt;
+        &lt;set value='1875' /&gt;
+    &lt;/dataset&gt;
+    &lt;dataset seriesName='Profit' renderAs='Area'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;set value='3242' /&gt;
+        &lt;set value='3171' /&gt;
+        &lt;set value='700' /&gt;
+        &lt;set value='1287' /&gt;
+   &nbsp;&lt;/dataset&gt;
+    &lt;dataset seriesName='Predicted Profit' renderAs='Line'&gt;
+        &lt;set value='4342' /&gt;
+        &lt;set value='2371' /&gt;
+        &lt;set value='740' /&gt;
+        &lt;set value='3487' /&gt;
+    &lt;/dataset&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "palette":"2",
+    "caption":"Sales",
+    "subcaption":"March 2006",
+    "showvalues":"0",
+    "divlinedecimalprecision":"1",
+    "limitsdecimalprecision":"1",
+    "numberprefix":"$",
+    "formatnumberscale":"0"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Quarter 1"
+        },
+        {
+          "label":"Quarter 2"
+        },
+        {
+          "label":"Quarter 3"
+        },
+        {
+          "label":"Quarter 4"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"Revenue",
+      "data":[{
+          "value":"5854"
+        },
+        {
+          "value":"4171"
+        },
+        {
+          "value":"1375"
+        },
+        {
+          "value":"1875"
+        }
+      ]
+    },
+    {
+      "seriesname":"Profit",
+      "renderas":"Area",
+      "data":[{
+          "value":"3242"
+        },
+        {
+          "value":"3171"
+        },
+        {
+          "value":"700"
+        },
+        {
+          "value":"1287"
+        }
+      ]
+    },
+    {
+      "seriesname":"Predicted Profit",
+      "renderas":"Line",
+      "data":[{
+          "value":"4342"
+        },
+        {
+          "value":"2371"
+        },
+        {
+          "value":"740"
+        },
+        {
+          "value":"3487"
+        }
+      ]
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  
+      <p>To enable legend for a pie/doughnut chart, you use the following data:</p> 
+    
+	 
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart <strong>showLegend=&quot;1&quot;</strong> caption=&quot;Sales Per Employee for year 1996&quot; palette=&quot;2&quot; animation=&quot;1&quot; formatNumberScale=&quot;0&quot; numberPrefix=&quot;$&quot; pieSliceDepth=&quot;30&quot; startingAngle=&quot;125&quot;&gt;
+   &lt;set label=&quot;Leverling&quot; value=&quot;100524&quot;/&gt;
+   &lt;set label=&quot;Fuller&quot; value=&quot;87790&quot; isSliced=&quot;1&quot; /&gt;
+   &lt;set label=&quot;Davolio&quot; value=&quot;81898&quot; isSliced=&quot;0&quot; /&gt;
+  &nbsp;&lt;set label=&quot;Peacock&quot; value=&quot;76438&quot; isSliced=&quot;0&quot; /&gt;
+  &nbsp;&lt;set label=&quot;King&quot; value=&quot;57430&quot; isSliced=&quot;0&quot; /&gt;
+  &nbsp;&lt;set label=&quot;Callahan&quot; value=&quot;55091&quot; isSliced=&quot;0&quot;  /&gt;
+  &nbsp;&lt;set label=&quot;Dodsworth&quot; value=&quot;43962&quot; isSliced=&quot;0&quot; /&gt;
+  &nbsp;&lt;set label=&quot;Suyama&quot; value=&quot;22474&quot; isSliced=&quot;0&quot; /&gt;
+  &nbsp;&lt;set label=&quot;Buchanan&quot; value=&quot;21637&quot; isSliced=&quot;0&quot; /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+   <strong> "showlegend":"1",</strong>
+    "caption":"Sales Per Employee for year 1996",
+    "palette":"2",
+    "animation":"1",
+    "formatnumberscale":"0",
+    "numberprefix":"$",
+    "pieslicedepth":"30",
+    "startingangle":"125"
+  },
+  "data":[{
+      "label":"Leverling",
+      "value":"100524"
+    },
+    {
+      "label":"Fuller",
+      "value":"87790",
+      "issliced":"1"
+    },
+    {
+      "label":"Davolio",
+      "value":"81898",
+      "issliced":"0"
+    },
+    {
+      "label":"Peacock",
+      "value":"76438",
+      "issliced":"0"
+    },
+    {
+      "label":"King",
+      "value":"57430",
+      "issliced":"0"
+    },
+    {
+      "label":"Callahan",
+      "value":"55091",
+      "issliced":"0"
+    },
+    {
+      "label":"Dodsworth",
+      "value":"43962",
+      "issliced":"0"
+    },
+    {
+      "label":"Suyama",
+      "value":"22474",
+      "issliced":"0"
+    },
+    {
+      "label":"Buchanan",
+      "value":"21637",
+      "issliced":"0"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	   
+  <p>This results in the chart below. Note how the pie that is sliced out (of <span class="codeInline">Fuller</span>) also shows in the legend with a border around it. Again, the legend here is interactive. When you click on a legend item, the respective pie slice moves in/out.</p>
+    <p><img src="Images/LegendPie.jpg" width="563" height="387" class="imageBorder" /></p>
+    </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Legend Customization Options </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts offers a lot of customization options for legend - both functional and cosmetic. Let's quickly run through each of them.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Setting legend position to right </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The legend can be placed in 2 positions: RIGHT and BOTTOM. It gets placed below the canvas by default. To place it to the right of the chart canvas, set <span class="codeInline">legendPosition='RIGHT'</span>.</p>
+    <pre class="prettyprint code_container">&lt;chart legendPosition='RIGHT'...&gt;</pre>
+    <p>This results in a chart as under:</p>
+    <p><img src="Images/LegendRight.jpg" alt="Legend at right position" width="507" height="306" /></p>
+     </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Configuring legend icon size </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can increase the size of legend icons by specifying a value between 0 and 5 for the attribute <span class="codeInline">legendIconScale</span> i.e., a value greater than 0 (not equal to) and less than 5. Shown below is an example of <span class="codeInline">legendIconScale='2'</span>. The chart will automatically shrink to adjust the legend.</p> 
+    <p><img src="Images/LegendScale.jpg" alt="Legend Icon Size Configuration" width="505" height="305" /></p>
+    </td>
+  </tr>
+  <tr><td height="5"></td></tr>
+  <tr>
+    <td valign="top" class="header">Legend Scroll bar </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you've a lot of items in legend (i.e., a lot of data-series) and not enough space on the chart, the legend automatically shows up the scroll bar. Shown below is an example:</p> 
+    <img src="Images/LegendScroll.gif" alt="Scrolling in Legend" width="456" height="307" />
+    <p>You can customize the visual properties of this scroll bar using following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="table">
+      <tr>
+        <td width="15%" class="header">Attribute Name</td>
+        <td width="15%" class="header">Range</td>
+        <td width='75%' class="header">Description</td>
+      </tr>
+
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="text"> legendScrollBgColor </td>
+        <td valign="top" class="text"> Hex Code </td>
+        <td valign='top' class="text"> This attribute lets you configure the background color of the scroll bar </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text"> legendScrollBarColor </td>
+        <td valign="top" class="text"> Hex Code </td>
+        <td valign='top' class="text"> This attribute lets you configure the bar color of the scroll bar</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="text"> legendScrollBtnColor </td>
+        <td valign="top" class="text"> Hex Code </td>
+        <td valign='top' class="text"> This attribute lets you configure the color of buttons of the scroll bar </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Setting number of columns in legend (when rendering at bottom of chart) </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When rendering the legend at bottom of chart, you can also customize the number of columns across which the legend items will be split. If FusionCharts can accommodate the items within those number of columns, it will render accordingly. This can be done by setting:</p>    
+    <pre class="prettyprint code_container">&lt;chart legendNumColumns='2' ...&gt; </pre>
+    <p>This results in a chart as under. Note, that by default the chart at this size would have rendered the legend in a single column. Setting 2 columns forces it to wrap first label. However, if you specify number of columns as 3, FusionCharts will ignore it, as there isn't enough space to render 3 columns horizontally. </p>
+    <p class="highlightBlock">Note that this attribute does not work when rendering legend at right side of chart. </p>
+    <p><img src="Images/LegendColumns.gif" alt="Specifying number of columns in legend" width="454" height="305" /></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Reversing the order of items in legend </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The order of items in legend can be reversed by setting the XML/JSON as under. This is specifically useful in stacked charts to change order of items. </p>
+    <pre class="prettyprint code_container">&lt;chart reverseLegend='1' ...&gt; </pre>
+    <p>This results in:</p>
+    <p><img src="Images/LegendReverse.jpg" alt="Reverse order of items in Legend" width="504" height="304" /></p>
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Hiding the legend </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The legend can be hidden as well using <span class="codeInline">showLegend='0'</span>.</p> 
+    <pre class="prettyprint code_container">&lt;chart showLegend='0'...&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Customizing the legend </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The looks of the legend can be customized using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" cellpadding="0" cellspacing="0" class="table">
+      <tr>
+        <td width="18%" class="header">Attribute Name</td>
+        <td width="13%" class="header">Range</td>
+        <td width='67%' class="header">Description</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="text"> legendBgColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> Background color for the legend </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> legendBgAlpha </span> </td>
+        <td valign="top"><span class="text"> 0-100 </span> </td>
+        <td valign='top'><span class="text"> Background alpha for the legend </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="text"> legendBorderColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> Border Color for the legend </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> legendBorderThickness </span> </td>
+        <td valign="top"><span class="text"> In Pixels </span> </td>
+        <td valign='top'><span class="text"> Border thickness for the legend </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="text"> legendBorderAlpha </span> </td>
+        <td valign="top"><span class="text"> 0-100 </span> </td>
+        <td valign='top'><span class="text"> Border alpha for the legend </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> legendShadow </span> </td>
+        <td valign="top"><span class="text"> 0/1 </span> </td>
+        <td valign='top'><span class="text"> Whether to show a shadow for legend </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> legendScrollBgColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> If you've too many items on the legend, a scroll bar shows up on the same. This attribute lets you configure the background color of the scroll bar. </span> </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top"><span class="text"> legendScrollBarColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> If you've too many items on the legend, a scroll bar shows up on the same. This attribute lets you configure the bar color of the scroll bar. </span> </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top"><span class="text"> legendScrollBtnColor </span> </td>
+        <td valign="top"><span class="text"> Hex Code </span> </td>
+        <td valign='top'><span class="text"> If you've too many items on the legend, a scroll bar shows up on the same. This attribute lets you configure the color of buttons of the scroll bar. </span> </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to customize the font properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using STYLES, the font properties of the legend can be customized.</p> 
+  
+      <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Business Results 2005 v 2006' xAxisName='Month' yAxisName='Revenue' showValues='0' numberPrefix='$'&gt;
+    &lt;categories&gt;
+        &lt;category label='Jan' /&gt;
+        &lt;category label='Feb' /&gt;
+        &lt;category label='Mar' /&gt;
+        &lt;category label='Apr' /&gt;
+        &lt;category label='May' /&gt;
+        &lt;category label='Jun' /&gt;
+    &lt;/categories&gt;
+    &lt;dataset seriesName='2006'&gt;
+        &lt;set value='27400' /&gt;
+        &lt;set value='29800' /&gt;
+        &lt;set value='25800' /&gt;
+        &lt;set value='26800' /&gt;
+        &lt;set value='29600' /&gt;
+        &lt;set value='32600' /&gt;
+    &lt;/dataset&gt;
+    &lt;dataset seriesName='2005'&gt;
+        &lt;set value='10000'/&gt;
+        &lt;set value='11500'/&gt;
+        &lt;set value='12500'/&gt;
+        &lt;set value='15000'/&gt;
+        &lt;set value='11000' /&gt;
+        &lt;set value='9800' /&gt;
+    &lt;/dataset&gt;   
+    <strong>&lt;styles&gt;
+       &lt;definition&gt;
+           &lt;style name='myLegendFont' type='font' size='12' color='078BC5' bold='1' /&gt;
+       &lt;/definition&gt;
+       &lt;application&gt;
+           &lt;apply toObject='Legend' styles='myLegendFont' /&gt;
+       &lt;/application&gt;
+    &lt;/styles&gt;</strong>  
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Business Results 2005 v 2006",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "showvalues":"0",
+    "numberprefix":"$"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Jan"
+        },
+        {
+          "label":"Feb"
+        },
+        {
+          "label":"Mar"
+        },
+        {
+          "label":"Apr"
+        },
+        {
+          "label":"May"
+        },
+        {
+          "label":"Jun"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"2006",
+      "data":[{
+          "value":"27400"
+        },
+        {
+          "value":"29800"
+        },
+        {
+          "value":"25800"
+        },
+        {
+          "value":"26800"
+        },
+        {
+          "value":"29600"
+        },
+        {
+          "value":"32600"
+        }
+      ]
+    },
+    {
+      "seriesname":"2005",
+      "data":[{
+          "value":"10000"
+        },
+        {
+          "value":"11500"
+        },
+        {
+          "value":"12500"
+        },
+        {
+          "value":"15000"
+        },
+        {
+          "value":"11000"
+        },
+        {
+          "value":"9800"
+        }
+      ]
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myLegendFont",
+        "type": "font",
+        "size": "12",
+        "color": "078BC5",
+        "bold": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Legend",
+        "styles": "myLegendFont"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+  
+  
+    <p>The above XML/JSON would yield a legend which looks as under:</p> 
+    <img src="Images/legend2.jpg" width="177" height="41" class="imageBorder" />
+    <p>To read more on STYLES, please refer to <a href="../Styles/Styles.html">FusionCharts and Styles</a>.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Animation using Styles </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The legend can be animated using STYLES. Here, we will give a fade-in effect to the legend. </p>
+	 
+	 
+	  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content"><pre class="prettyprint code_container">&lt;chart ... &gt;
+        ...
+          <strong>&lt;styles&gt;
+             &lt;definition&gt;
+                  &lt;style name='myAnim' type='animation' param='_alpha' start='0' duration='1'/&gt;
+             &lt;/definition&gt;
+             &lt;application&gt;
+                  &lt;apply toObject='Legend' styles='myAnim' /&gt;
+             &lt;/application&gt;
+          &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{...},
+...
+  "styles": {
+    "definition": [
+      {
+        "name": "myAnim",
+        "type": "animation",
+        "param": "_alpha",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Legend",
+        "styles": "myAnim"
+      }
+    ]
+  }
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+       </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Smart Labels &amp; Line|SmartLabels.html", "Number Formatting basics|Number_Basics.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

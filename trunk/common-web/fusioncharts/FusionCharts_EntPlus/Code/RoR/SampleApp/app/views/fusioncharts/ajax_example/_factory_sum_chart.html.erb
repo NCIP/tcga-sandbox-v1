@@ -1,0 +1,8 @@
+<%
+	# The xml is obtained as a string from builder template.
+	str_xml = render :file=>"fusioncharts/ajax_example/default_factories_quantity",:locals=>{:factories => factories}
+
+	#Create the chart - Pie 3D Chart with data from strXML
+	render_chart '/FusionCharts/Pie3D.swf','', str_xml, 'FactorySum', 600, 300, false, true  do-%>
+<% end-%> 
+

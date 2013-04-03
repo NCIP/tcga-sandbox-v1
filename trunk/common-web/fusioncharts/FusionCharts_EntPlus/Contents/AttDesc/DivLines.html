@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Divisional Lines </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Div lines &amp; Grids" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Divisional Lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Divisional lines are horizontal lines running through the canvas. They break   up the y-axis into smaller units helping in better visual data interpretation. </p>
+      <p>In scatter and bubble charts, there are additional vertical divisional lines to care for better visualization. </p>
+      <img src="Images/divlines1.jpg" width="238" height="252" class="imageBorder"/>
+    <p>The XML/JSON code going into the above is:</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+  &lt;set label='Jan' value='420000' /&gt;
+  &lt;set label='Feb' value='910000' /&gt;
+  &lt;set label='Mar' value='720000' /&gt;
+  &lt;set label='Apr' value='550000' /&gt;
+  ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    },
+    {
+      "label":"Apr",
+      "value":"550000"
+    }
+...
+  ]
+}</pre>
+			</div>
+	    </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+	 
+	 
+<p>Note that we haven't specified the number of div lines we want, nor the y-axis min or max value.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Adjusting divisional lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In certain cases, you would want to explicitly specify the y-axis upper &amp; lower limit values and also the number of divisional lines. In those cases, you need to disable automatic adjustment of divisional lines using <span class="codeInline">adjustDiv='0'</span>. Then you can specify the y-axis upper and lower limits using the <span class="codeInline">yAxisMaxValue</span> and <span class="codeInline">yAxisMinValue</span> attributes respectively. Also, the number of divisional lines can be specified using the <span class="codeInline">numDivLines</span> attribute. </p>
+      <p>Note: This attribute is not applicable for Zoom Line chart, in which axis can be configured to show pre-defined intervals, as explained later. </p>
+    <pre class="prettyprint code_container">&lt;chart ... adjustDiv='0' yAxisMaxvalue='100' yAxisMinValue='0' numDivLines='5'&gt;</pre> </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Hiding y-axis values</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can hide all the y-axis values using <span class="codeInline">showYAxisValues='0'</span>.</p>
+  
+   <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' <strong>showYAxisValues='0'</strong>&gt;
+  &lt;set label='Jan' value='420000' /&gt;
+  &lt;set label='Feb' value='910000' /&gt;
+  &lt;set label='Mar' value='720000' /&gt;
+  ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0",
+    "showyaxisvalues":"0"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    }
+...
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+  
+
+<p>The above would yield the following result:</p>
+<img src="Images/yaxisvalues1.jpg" width="141" height="246" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Skipping y-axis values</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="text">You can skip every nth y-axis value using the<span class="codeInline"> yAxisValuesStep </span>attribute. This attribute assumes default values based on space available in the chart to render y-axis values, and can over-ride the values provided in XML/JSON to avoid overlapping y-axis values. </p>
+   
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0' <strong>yAxisValuesStep='2'</strong>&gt;
+   &lt;set label='Jan' value='420000' /&gt;
+   &lt;set label='Feb' value='910000' /&gt;
+   &lt;set label='Mar' value='720000' /&gt; 
+    ....
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content">
+			  <pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Monthly Revenue",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "numberprefix":"$",
+    "showvalues":"0",
+    "yaxisvaluesstep":"2"
+  },
+  "data":[{
+      "label":"Jan",
+      "value":"420000"
+    },
+    {
+      "label":"Feb",
+      "value":"910000"
+    },
+    {
+      "label":"Mar",
+      "value":"720000"
+    }
+...
+  ]
+}</pre>
+			</div>
+	    </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+	
+	
+<p>Now the chart would look as under:</p> 
+<img src="Images/yaxisvalues2.jpg" width="171" height="238" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="header" style="padding: 3px;">Setting div interval hints in Zoom Line Chart</p>
+    <p>When using the linear axis in Zoom Line Chart, you can set div interval hints using:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='10,20,50,100' ...&gt;</pre>
+    <p>Using the above code you basically instruct the chart to put div interval in multiples of either 10, 20, 50 or 100, whichever is applicable. Based on which intervals are valid (intervals have to be less than range of chart limits and divisible) and how much space is available on the chart to render the same, the chart automatically uses the best interval hint among all values provided. </p>
+    <p>So, if you've a chart with axis limits 0-100 and you wish to plot divisional lines at 0,50 and 100, you must specify:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='50' ...&gt;</pre>
+    <p>However, if you want to plot intervals at 0,20,40,60,100, you can set:</p>
+    <pre class="prettyprint code_container">&lt;chart divIntervalHints='20' ...&gt;</pre><br />
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing the divisional lines</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p class="text">The looks of the divisional lines can be customized using the following attributes: </p>
+      <table width="100%" border="0" class="table" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="top" class="header">Attribute Name</td>
+          <td valign="top" class="header">Range</td>
+          <td valign="top" class="header">Description</td>
+        </tr>
+        <tr class='trLightBlueBg'>
+          <td width="25%" valign="top" class="codeInline"><span class="codeInline"> divLineColor </span> </td>
+          <td width="15%" valign="top"><span class="text"> Hex Code </span> </td>
+          <td width='45%' valign='top'><span class="text"> Color for divisional lines (without the '#') </span></td>
+        </tr>
+        <tr class="tableGreyBorder">
+          <td width="25%" valign="top" class="codeInline"><span class="codeInline"> divLineThickness </span> </td>
+          <td width="15%" valign="top"><span class="text"> 1-5 </span> </td>
+          <td width='45%' valign='top'><span class="text"> Thickness of divisional lines </span> </td>
+        </tr>
+        <tr class='trLightBlueBg'>
+          <td width="25%" valign="top" class="codeInline"><span class="codeInline"> divLineAlpha </span> </td>
+          <td width="15%" valign="top"><span class="text"> 0-100 </span> </td>
+          <td width='45%' valign='top'><span class="text"> Alpha of divisional lines </span> </td>
+        </tr>
+      </table>    </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart ... divLineColor='8CB1FF' divLineThickness='2' divLineAlpha='40'&gt;</pre>
+    <p>This would yield the following result:</p>
+   <img src="Images/divlines3.jpg" width="180" height="115" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Dashed divisional lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The divisional line can be made dashed using<span class="codeInline"> divLineIsDashed='1'. </span></p>
+      <p>The dash properties - dash length and dash gap can be customized using the <span class="codeInline">divLineDashLen</span> &amp; <span class="codeInline">divLineDashGap</span> attributes respectively. </p>
+      <pre class="prettyprint code_container">&lt;chart divLineIsDashed='1' divLineDashLen='1' divLineDashGap='2' ...&gt;</pre>
+      <p>The dashed div lines with the customized dash properties would look as shown below:</p>
+      <img src="Images/divlines2.jpg" width="180" height="115" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Alternate Horizontal Grid Bands </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The horizontal grid bands appear alternately between the divisional lines for all 2D charts. They can be hidden by setting <span class="codeInline">showAlternateHGridColor='0'</span>.</p>
+    <pre class="prettyprint code_container">&lt;chart showAlternateHGridColor='0' ...&gt;</pre> 
+    <p>The chart without the alternate horizontal grid bands would look as under:</p>  
+    <img src="Images/divlines4.jpg" width="238" height="249" class="imageBorder" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Customizing the horizontal grid bands </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The color and alpha of the alternate horizontal grid bands can be customized using the <span class="codeInline">alternateHGridColor</span> and <span class="codeInline">alternateVGridAlpha</span> attributes.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to set font properties for y-axis values </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using Styles, you can individually set the font properties for the y-axis values.</p> 
+    <img src="Images/divlines5.jpg" width="400" height="250" />
+    <p>The data for this chart is as under. To read more on STYLES, please see &quot;<span class="codeInline">For Web Developers &gt; FusionCharts and STYLES</span>&quot; section.</p> 
+  
+    <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt; 
+   &lt;set label='Qtr 4' value='465400' /&gt; 
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+         &lt;style name='myValuesFont' type='font' font='Arial' size='12' color='666666' bold='1'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+        &lt;apply toObject='YAXISVALUES' styles='myValuesFont' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+<strong> "styles": {
+    "definition": [
+      {
+        "name": "myValuesFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "12",
+        "color": "666666",
+        "bold": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "YAXISVALUES",
+        "styles": "myValuesFont"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+  
+  </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying effects to div lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>We can apply effects (shadow, glow, blur, bevel) to the y-axis values and div lines using STYLES. Here, we will see a chart having shadow for the div lines.</p> 
+    <img src="Images/divlines6.jpg" width="400" height="250" /></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt;
+   &lt;set label='Qtr 4' value='465400' /&gt;
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+         &lt;style name='myShadow' type='shadow' angle='45' distance='3' color='000000'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+         &lt;apply toObject='DIVLINES' styles='myShadow' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+		  <div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myShadow",
+        "type": "shadow",
+        "angle": "45",
+        "distance": "3",
+        "color": "000000"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DIVLINES",
+        "styles": "myShadow"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+	   
+ </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Similarly, the other effects can be applied to the div lines and to the y-axis values as well.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Animating div lines &amp; y-axis values </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply animation effects to the div lines &amp; y-axis values. In the example given below, the x-Scale of the div lines will be animated and y-position of the y-axis values will be animated. </p>
+ 
+    <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab11">XML</a></li>
+      	 <li><a href="#tab12">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab11" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+  &lt;set label='Qtr 1' value='420500' /&gt;
+  &lt;set label='Qtr 2' value='295400' /&gt;
+  &lt;set label='Qtr 3' value='523400' /&gt; 
+  &lt;set label='Qtr 4' value='465400' /&gt; 
+  <strong>&lt;styles&gt;
+    &lt;definition&gt;
+       &lt;style name='myAnim1' type='animation' param='_xScale' start='0' duration='1'/&gt;
+       &lt;style name='myAnim2' type='animation' param='_y' start='$canvasStartY' duration='1'/&gt;
+    &lt;/definition&gt;
+    &lt;application&gt;
+       &lt;apply toObject='DIVLINES' styles='myAnim1' /&gt;
+       &lt;apply toObject='YAXISVALUES' styles='myAnim2' /&gt;
+    &lt;/application&gt;
+  &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab12" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myAnim1",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      },
+      {
+        "name": "myAnim2",
+        "type": "animation",
+        "param": "_y",
+        "start": "$canvasStartY",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "DIVLINES",
+        "styles": "myAnim1"
+      },
+      {
+        "toobject": "YAXISVALUES",
+        "styles": "myAnim2"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+ 
+     </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Animating alternate horizontal grid bands</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Animation effects can be applied to the alternate horizontal grid using STYLES. The following XML/JSON would animate the x-Scale and the alpha of the horizontal grid bands.</p> 
+  
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab13">XML</a></li>
+      	 <li><a href="#tab14">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab13" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt; 
+   &lt;set label='Qtr 4' value='465400' /&gt;
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+          &lt;style name='myAnim1' type='animation' param='_xScale' start='0' duration='1'/&gt;
+          &lt;style name='myAnim2' type='animation' param='_alpha' start='0' duration='1'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+          &lt;apply toObject='HGRID' styles='myAnim1, myAnim2' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab14" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+<strong>  "styles": {
+    "definition": [
+      {
+        "name": "myAnim1",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      },
+      {
+        "name": "myAnim2",
+        "type": "animation",
+        "param": "_alpha",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "HGRID",
+        "styles": "myAnim1, myAnim2"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div><div style="clear:both"></div>
+  
+  </td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name='vdivlines' id='vdivlines'></a>Vertical Divisional lines and grids for Scatter and Bubble charts</td>
+  </tr>
+  <tr>
+  <td class="text"><p> In scatter and bubble charts, you can also customize vertical divisional lines and vertical grids along with horizontal divisional lines and grids. The attributes to customize the vertical divisional lines and grids are as follows:</p></td></tr> 
+  <tr>
+  <td>
+  <table width="100%" border="0" class="table" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="top" class="header">Attribute Name</td>
+          <td valign="top" class="header">Range</td>
+		  <td valign="top" class="header">Description</td>
+        </tr>
+        <tr class='trVeryLightYellowBg'>
+          <td valign="top"><span>adjustVDiv</span><div class="version-info">Since v3.2.2</div></td>
+          <td valign="top">Boolean</td>
+          <td valign='top'>FusionCharts automatically tries to adjust divisional lines and limit values of the x-axis based on the data provided. However, if you want to set your explicit lower and upper limit values and number of divisional lines for the x-axis, first set this attribute to 0. That would disable automatic adjustment of divisional lines. </td>
+        </tr>
+        <tr>
+          <td valign="top"><span>showXAxisValues</span>
+            <div class="version-info">Since v3.2.2</div></td>
+          <td valign="top">Boolean</td>
+          <td valign='top'>FusionCharts x-axis is divided into horizontal sections using div (divisional) lines. Each div line assumes a value based on its position. Using this attribute you can set whether to show those div line (x-axis) values or not. This attribute shows or hides the x-axis divisional lines and limits. </td>
+        </tr>
+        <tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				numVDivlines				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				Numeric Value &gt; 0				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Number of vertical axis division lines that you want to display on the chart.				</span>			</td>	
+		</tr>
+			<tr >
+			  <td valign="top"><span>xAxisValuesStep</span><div class="version-info">Since v3.2.2</div></td>
+			  <td valign="top">Number 1 or above </td>
+			  <td valign='top'>By default, all div lines show their values. However, you can opt to skip every x(th) div line value using this attribute. </td>
+	    </tr>
+			<tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineColor				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">				</span>Hex Code 			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Color for vertical  divisional lines.				</span>			</td>	
+		</tr>
+				<tr>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineThickness				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				1-5				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Thickness of vertical  divisional lines.				</span>			</td>	
+		</tr>
+				<tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineAlpha				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0-100				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Transparency of the vertical  divisional lines.				</span>			</td>	
+		</tr>
+				<tr>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineIsDashed				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0/1				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Whether the vertical divisional lines should display as dash.				</span>			</td>	
+		</tr>
+				<tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineDashLen				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				In Pixels				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					If the vertical divisional lines are to be displayed as dash, this attribute lets you control the length of each dash.				</span>			</td>	
+		</tr>
+				<tr>		
+			<td width="25%" valign="top">
+				<span class="text">
+				vDivlineDashGap				</span><div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				In Pixels				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					If the vertical divisional lines are to be displayed as dash, this attribute lets you control the length of each gap between two dashes.				</span>			</td>	
+		</tr>
+				<tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				showAlternateVGridColor				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0/1				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Whether to show alternate colored vertical grid bands.				</span>			</td>	
+		</tr>
+				<tr>		
+			<td width="25%" valign="top">
+				<span class="text">
+				alternateVGridColor				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				Hex Code				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Color of the alternate vertical grid bands.				</span>			</td>	
+		</tr>
+				<tr class='trVeryLightYellowBg'>		
+			<td width="25%" valign="top">
+				<span class="text">
+				alternateVGridAlpha				</span>
+				<div class="version-info">Since v3.2.2</div>			</td>
+			<td width="15%" valign="top">
+				<span class="text">
+				0-100				</span>			</td>
+			<td width='45%' valign='top'>
+				<span class="text">
+					Transparency of the alternate vertical grid bands.				</span>			</td>	
+		</tr>
+						</table>    </td>
+  </tr>
+  
+  </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Chart Limits|ChartLimits.html", "Vertical Div Lines|VDivLines.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

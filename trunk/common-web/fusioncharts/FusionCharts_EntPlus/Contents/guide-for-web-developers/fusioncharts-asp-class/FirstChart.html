@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>FusionCharts ASP Class API - First Chart </title> 
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "FusionCharts ASP Class|Overview.html", "Creating first chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts ASP Class API &gt; First Chart </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+           <p>To begin with, let's create a simple chart that will visually depict the Weekly   Sales of a fictitious shop. The sample data  we intend to plot can be   tabularized as shown below:</p> </td>
+        <tr>
+           <td valign="top" class="text">
+			  <table cellspacing="0" cellpadding="5" class="table"width="250px">
+                    <tr style="border-bottom:1px solid #cccccc;">
+                       <td width="35%" height="24" class="header">Week</td>
+                       <td width="65%" align="right" class="header">Previous Month (sales) </td>
+                    </tr>
+                    <tr>
+                       <td height="24"  class="borderBottom">Week 1 </td>
+                       <td align="right"class="borderBottom">$40800</td>
+                    </tr>
+                    <tr>
+                       <td height="24" class="borderBottom" >Week 2 </td>
+                       <td align="right" class="borderBottom">$31400</td>
+                    </tr>
+                    <tr>
+                       <td height="24"  class="borderBottom">Week 3 </td>
+                       <td align="right" class="borderBottom">$26700</td>
+                    </tr>
+                    <tr>
+                       <td height="24"  >Week 4 </td>
+                       <td align="right">$54400</td>
+                    </tr>
+           </table>			 </td>
+	  </tr>
+   <tr>
+    <td valign="top" class="text"><p>Let's see how to use FusionCharts ASP Class to plot this data into a column3D chart: </p></td>
+  </tr>
+   <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;%@LANGUAGE=&quot;VBSCRIPT&quot;%&gt;
+ &lt;%
+  <span class="codeComment"> ' Include FusionCharts ASP Class</span>
+ %&gt; 
+ &lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;
+ &lt;%
+dim FC
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Create FusionCharts ASP class object</span>
+set FC = new FusionCharts
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart type to Column3D</span>
+Call FC.setChartType(&quot;Column3D&quot;)
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart size </span>
+Call FC.setSize(&quot;300&quot;,&quot;250&quot;)
+<span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set the relative path of the SWF file</span>
+Call FC.setSWFPath(&quot;../FusionCharts/&quot;)
+ <span class="codeInline">&nbsp;&nbsp;&nbsp; dim strParam</span>
+        <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Define chart attributes</span>
+       &nbsp;&nbsp;&nbsp; strParam=&quot;caption=Weekly Sales;xAxisName=Week;yAxisName=Revenue;numberPrefix=$&quot;
+        <span class="codeComment">&nbsp;&nbsp;&nbsp; ' Set chart attributes</span>
+     &nbsp;&nbsp;&nbsp; Call FC.setChartParams(strParam)
+       <span class="codeComment">&nbsp;&nbsp;&nbsp;  ' Add chart values and category names</span>
+       &nbsp; Call FC.addChartData(&quot;40800&quot;,&quot;label=Week 1&quot;,&quot;&quot;)
+       &nbsp; Call FC.addChartData(&quot;31400&quot;,&quot;label=Week 2&quot;,&quot;&quot;)
+       &nbsp; Call FC.addChartData(&quot;26700&quot;,&quot;label=Week 3&quot;,&quot;&quot;)
+     &nbsp;&nbsp;&nbsp; Call FC.addChartData(&quot;54400&quot;,&quot;label=Week 4&quot;,&quot;&quot;)
+  %&gt;
+    &lt;html&gt;
+  &nbsp;&nbsp;&nbsp; &lt;head&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;First Chart Using FusionCharts ASP Class&lt;/title&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script language='javascript' src='../FusionCharts/FusionCharts.js'&gt;&lt;/script&gt;
+  &nbsp;&nbsp;&nbsp; &lt;/head&gt;
+  &nbsp;&nbsp;&nbsp; &lt;body&gt;
+       &nbsp;&nbsp;&nbsp;&nbsp;&lt;%
+        <span class="codeComment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' Render Chart with JS embedding Method</span>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call FC.renderChart(false)
+       &nbsp;&nbsp;&nbsp; %&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;</pre>
+     </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let's analyze the steps involved in the above code:</p>
+      <ul type="disc">
+        <li>We include       <span class="codeInline">FusionCharts_Gen.asp</span> in the program. This file contains FusionCharts ASP Class codes. <br />
+           <br />
+        <pre class="prettyprint code_container">&lt;!--#include file=&quot;../Class/FusionCharts_Gen.asp&quot;--&gt;</pre>
+        <br />
+        </li>
+        <li>We create       a  chart object.<br />
+           <br />
+            <pre class="prettyprint code_container">set FC = new FusionCharts</pre>
+            <br />
+        </li>
+        <li>We specify the chart type.<br/><br/>
+        <pre class="prettyprint code_container">Call FC.setChartType(&quot;Column3D&quot;)</pre>
+          <br/>
+        </li>
+		  <li>We specify the  size of the chart.<br/><br />
+          <pre class="prettyprint code_container">Call FC.setSize(&quot;300&quot;,&quot;250&quot;)</pre><br />
+      </ul>
+      <ul type="disc"><li>Next, we set a relative path to the chart SWF files using <span class="codeInline">setSwfPath()</span> function. This is the path from which we load the chart SWF files. <br />
+          <br />
+          <pre class="prettyprint code_container">Call FC.setSWFPath(&quot;../FusionCharts/&quot;)</pre>
+          <br />
+        </li>
+        <li>We store       all desired chart attributes in the <span class="codeInline">strParam</span> variable and set       chart attributes using <span class="codeInline">setChartParams()</span>       function.<br />
+          <br />
+          <pre class="prettyprint code_container">strParam=&quot;caption=Weekly Sales;xAxisName=Week;yAxisName=Revenue;numberPrefix=$&quot;
+Call FC.setChartParams(strParam);</pre>
+          <br />
+        </li>
+        <li>Now, we provide chart data through the <span class="codeInline">addChartData()</span> function.We pass the value first and then the category name against each value as a parameter i.e., <span class="codeInline">label=Week 1</span>  etc. <br />
+          <br />
+          <pre class="prettyprint code_container">Call FC.addChartData(&quot;40800&quot;,&quot;label=Week 1&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;31400&quot;,&quot;label=Week 2&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;26700&quot;,&quot;label=Week 3&quot;,&quot;&quot;)
+Call FC.addChartData(&quot;54400&quot;,&quot;label=Week 4&quot;,&quot;&quot;)</pre>
+		<P class="highlightBlock"><strong>NOTE:</strong> ASP does not support the 
+		  concept of optional parameter. 
+		  Hence, we need to provide all the 
+		  parameters. In case you have 
+		  nothing to pass as a parameter to a 
+		  function, you need to provide a blank 
+		  (&quot;&quot;) value, as we did here for <span class="codeInline">addChartData()</span>. In the coming pages we will follow this rule as well. </P>
+          
+        </li>
+        <li>Finally, we include       <span class="codeInline">FusionCharts.js</span> - FusionCharts JavaScript Embedding Class.<br />
+          <br />
+        </li>
+        <li>And display       the chart using <span class="codeInline">renderChart()</span> function. Please note <span class="codeInline">False</span> is passed as a parameter to the <span class="codeInline">renderChart()</span> function. This is done to render the chart using JavaScript embedding method. IF you wish to render the chart using HTML embedding method, you would need to pass <span class="codeInline">True</span> instead. <br />
+          <br />
+        <pre class="prettyprint code_container">Call FC.renderChart(false)</pre></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here is the Column 3D chart that our FusionCharts ASP Class renders:</p> 
+    <img src="../Images/ClassImages/ClassFirstChart.jpg" width="284" height="226" class="imageBorder" />
+    <p class="highlightBlock">Please go through <a href="Functions.html">FusionCharts ASP Class API Reference</a> section to know more about the functions used in the above code. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">How to change chart width and chart height? </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>When we declare an object of FusionCharts ASP Class, we use initializing functions like <span class="codeInline">setChartType, setSize</span> etc.<br />
+        <br />
+        In the code above, the statement <span class="codeInline">Call FC.setSize(&quot;300&quot;,&quot;250&quot;)</span>  sets the chart's width to 300 pixels and height to 250 pixels. <br />
+        <br />
+      Hence, we can use this to set the desired dimension of our charts. Let's set our chart's dimension to 450 x 350 pixels. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">Call FC<strong>.setSize(&quot;450&quot;,&quot;350&quot;)</strong></pre>
+    <p><img src="../Images/ClassImages/ClassFirstChartChangeSize.jpg" width="451" height="326" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">How to change chart type? </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As we discussed above chart type is also specified using  <span class="codeInline">setChartType</span> function, while declaring FusionCharts ASP Class object.</p>
+    <pre class="prettyprint code_container">Call FC.setChartType(&quot;<strong>Column3D</strong>&quot;)</pre>
+    <br />
+    To make a Pie Chart for our Weekly Revenue data, we just need to provide <span class="codeInline">Pie3D</span> instead of <span class="codeInline">Column3D</span> to <span class="codeInline">setChartType</span> function. <br />
+    <br />
+    <pre class="prettyprint code_container">Call FC.setChartType(&quot;<strong>Pie3D</strong>&quot;) </pre><br />
+    <img src="../Images/ClassImages/ClassChangeChart.jpg" width="298" height="187" class="imageBorder" /></td>
+  </tr>
+  <tr>
+     <td valign="top" class="text"><a name="ChartTypesList" href="Javascript:void(0);"> </a><p>To change chart type you can use any of the Chart Type names listed below :</p> </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text"><table width="477" border="0" cellpadding="5" cellspacing="0" class="table" >
+      <tr>
+        <td width="156" class="header">Chart Type Name </td>
+        <td width="299" class="header">Description</td>
+      </tr>
+      <tr>
+        <td>Column2D</td>
+        <td>Single Series Column 2D Chart </td>
+      </tr>
+      <tr>
+        <td>Column3D</td>
+        <td>Single Series  Column 3D Chart</td>
+      </tr>
+      <tr>
+        <td>Line2D</td>
+        <td>Single Series  Line 2D Chart</td>
+      </tr>
+      <tr>
+        <td>Pie3D</td>
+        <td>Single Series  Pie 3D Chart</td>
+      </tr>
+      <tr>
+        <td>Pie2D</td>
+        <td>Single Series  Pie 2D Chart</td>
+      </tr>
+      <tr>
+        <td>Bar2D</td>
+        <td>Single Series  Bar 2D Chart</td>
+      </tr>
+      <tr>
+        <td>Area2D</td>
+        <td>Single Series  Area 2D Chart</td>
+      </tr>
+      <tr>
+        <td>Doughnut2D</td>
+        <td>Single Series  Doughnut 2D Chart</td>
+      </tr>
+      <tr>
+        <td>Doughnut3D</td>
+        <td>Single Series  Doughnut 3D Chart</td>
+      </tr>
+      <tr>
+        <td>Pareto2D</td>
+        <td>Pareto 2D Chart </td>
+      </tr>
+      <tr>
+        <td>Pareto3D</td>
+        <td>Pareto 3D Chart </td>
+      </tr>
+      <tr>
+        <td height="10" class="header">&nbsp;</td>
+        <td height="10" class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>MSColumn3D</td>
+        <td>Multi-Series Column 3D Chart</td>
+      </tr>
+      <tr>
+        <td>MSColumn2D</td>
+        <td>Multi-Series Column 2D Chart</td>
+      </tr>
+      <tr>
+        <td>MSArea2D</td>
+        <td>Multi-Series Area 2D Chart</td>
+      </tr>
+      <tr>
+        <td>MSLine2D</td>
+        <td>Multi-Series Line 2D Chart</td>
+      </tr>
+      <tr>
+        <td>ZoomLine</td>
+        <td>Zoom Line chart</td>
+      </tr>
+      <tr>
+        <td>MSBar2D</td>
+        <td>Multi-Series Bar 2D Chart</td>
+      </tr>
+      <tr>
+        <td>MSBar3D</td>
+        <td>Multi-Series Bar 3D Chart</td>
+      </tr>
+      <tr>
+        <td class="header">&nbsp;</td>
+        <td class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>StackedColumn2D</td>
+        <td>Stacked Column 2D Chart </td>
+      </tr>
+      <tr>
+        <td>StackedColumn3D</td>
+        <td> Stacked Column 3D Chart</td>
+      </tr>
+      <tr>
+        <td>StackedBar2D</td>
+        <td> Stacked Bar 2D Chart</td>
+      </tr>
+      <tr>
+        <td>StackedBar3D</td>
+        <td>Stacked Bar 3D Chart</td>
+      </tr>
+      <tr>
+        <td>StackedArea2D</td>
+        <td> Stacked Area 2D Chart</td>
+      </tr>
+      <tr>
+        <td>MSStackedColumn2D</td>
+        <td>Multi-Series Stacked Column 2D Chart </td>
+      </tr>
+      <tr>
+        <td class="header">&nbsp;</td>
+        <td class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Bubble</td>
+        <td>Multi-Series Bubble Chart </td>
+      </tr>
+      <tr>
+        <td>Scatter</td>
+        <td>Multi-Series Scatter Chart </td>
+      </tr>
+      <tr>
+        <td class="header">&nbsp;</td>
+        <td class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>ScrollColumn2D</td>
+        <td>Multi-Series Column 2D Scroll Chart </td>
+      </tr>
+      <tr>
+        <td>ScrollLine2D</td>
+        <td>Multi-Series Line 2D Scroll Chart </td>
+      </tr>
+      <tr>
+        <td>ScrollArea2D</td>
+        <td>Multi-Series Area 2D Scroll Chart </td>
+      </tr>
+      <tr>
+        <td>ScrollStackedColumn2D</td>
+        <td> Stacked Column 2D Scroll Chart </td>
+      </tr>
+      <tr>
+        <td class="header">&nbsp;</td>
+        <td class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>MSCombi3D</td>
+        <td>Multi-Series Combination Single Y-Axis 3D Chart </td>
+      </tr>
+      <tr>
+        <td>MSCombi2D</td>
+        <td>Multi-Series Combination Single Y-Axis 2D Chart </td>
+      </tr>
+      <tr>
+        <td>MSColumn3DLine</td>
+        <td><span ="borderBottom">Multi-Series Combination Single Y-Axis Chart<br />
+          (Column 3D + Line) </span></td>
+      </tr>
+      <tr>
+        <td>MSCombiDY2D</td>
+        <td>Multi-Series Combination Dual Y-axis 2D Chart </td>
+      </tr>
+      <tr>
+        <td><span ="borderBottom">MSColumn3DLineDY</span></td>
+        <td><span ="borderBottom"> Multi-Series Combination Dual Y-Axis Chart<br />
+          (Column 3D + Line) </span></td>
+      </tr>
+      <tr>
+        <td>StackedColumn2DLine</td>
+        <td>Stacked Combination Column 2D Line Single Y-Axis Chart </td>
+      </tr>
+      <tr>
+        <td>StackedColumn3DLine</td>
+        <td>Stacked Combination Column 3D Line Single Y-Axis Chart </td>
+      </tr>
+      <tr>
+        <td>StackedColumn3DLineDY</td>
+        <td> Stacked Combination Column 3D Line Dual Y-Axis Chart </td>
+      </tr>
+      <tr>
+        <td>ScrollCombi2D</td>
+        <td>Combination 2D Single Y-Axis Scroll Chart </td>
+      </tr>
+      <tr>
+        <td>ScrollCombiDY2D</td>
+        <td>Combination Dual Y-Axis 2D Scroll Chart </td>
+      </tr>
+      <tr>
+        <td>MSStackedColumn2DLineDY</td>
+        <td>Combination Multi-Series  Stacked Column  2D-Line Dual Y-Axis Chart</td>
+      </tr>
+      <tr>
+        <td class="header">&nbsp;</td>
+        <td class="header">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Marimekko</td>
+        <td>Marimekko</td>
+      </tr>
+      <tr>
+        <td>Grid</td>
+        <td>Single Series Grid Chart </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top"><p class="highlightBlock">Please note that Chart Type Names -&nbsp;<strong>Line</strong>, <strong>MSLine</strong> and <strong>MSColumnLine3D</strong> from previous version are changed to <strong>Line2D</strong>, <strong>MSLine2D</strong> and <strong>MSColumn3DLine</strong> (respectively). The old Names are still applicable, though deprecated. We recommend to use the new Names.</p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Basic set up|Setup.html","Creating Multiple charts|MultipleCharts.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

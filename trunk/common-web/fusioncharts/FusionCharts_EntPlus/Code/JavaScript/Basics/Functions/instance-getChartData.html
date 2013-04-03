@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT - Using getChartData Function Demo</title>
+        
+        <link href="../../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../../assets/ui/css/prettify.css" />
+
+        <script type="text/javascript" src="../../../assets/ui/js/prettify.js"></script>
+		<script type="text/javascript" src="../../../../Charts/FusionCharts.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../../assets/ui/js/lib.js"></script>
+		<script type="text/javascript" src="../../../assets/ui/js/json2.js" ></script>		
+
+		
+		
+        <!--[if IE 6]>
+        <script src="../../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+			
+			.show-code-block {
+
+				position: absolute;
+				top:0;
+				left:0;
+				width:400px;
+				height:300px;
+				overflow: auto;
+				padding: 0;
+				margin: 0;
+				display: none;
+				z-index: 100;
+				background: #FFFFFF;
+				opacity: 0.95;
+				filter: alpha(opacity=95);
+				border: 1px solid #E6E4E4 !important;
+			
+			}
+			
+		
+	
+			
+			
+        </style>
+        <script type="text/javascript">
+			function viewXML()
+			{
+				if(!$('.show-code-block').is(':hidden')) $('.show-code-block').hide();
+				
+				var chartDATA = '';
+				chartDATA = FusionCharts("myChartId").getChartData('xml').replace(/\</gi, "&lt;").replace(/\>/gi, "&gt;");
+				$('#pre.prettyprint').html( chartDATA );
+				$('.show-code-block').css('height', "100%" ).show();
+				prettyPrint();
+		
+			}
+			
+			function viewJSON()
+			{
+				
+				if(!$('.show-code-block').is(':hidden')) $('.show-code-block').hide();
+				
+				var chartDATA = '';
+				chartDATA = JSON.stringify( FusionCharts("myChartId").getChartData('json') ,null, 2);
+				$('#pre.prettyprint').html( chartDATA );
+				$('.show-code-block').show();	
+				prettyPrint();
+			}
+			
+			
+			$(document).ready(function()
+			{
+				$('.show-code-close-btn').click(function() {
+					$('.show-code-block').hide();
+				});
+				$('.show-code-close-btn a').click(function() {
+					$('.show-code-block').hide();
+				});
+		
+			});
+		
+		</script>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo">
+                    <a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank">
+                        <img src="../../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" />
+                    </a>
+                </div>
+					 <h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Using getChartData() function</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <p class="text" align="center">Using getChartData() function to get XML/JSON data from chart. Click buttons below the chart.</p>
+					<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+					<p>&nbsp;</p>
+
+
+                    <div class="clear"></div>
+                    <div class="gen-chart-render">
+
+						 <center>
+						<div style="position:relative; text-align:center; ">
+						
+						  <div class="show-code-block" style="margin-left:245px;">
+					 			 <div class="show-code-close-btn" style="padding:3px;" ><a class="qua qua-button" href="javascript:void(0)" style="float:none; margin-right:0;"><span>Close</span></a></div><pre id="pre" class="prettyprint"></pre>
+						  </div>
+				 		  <div id="chartContainer">FusionCharts will load here!</div>
+						
+						</div>
+						  </center>
+						
+                        
+
+                        <script type="text/javascript"><!--
+
+                            var myChart = new FusionCharts( "../../../../Charts/Column3D.swf", "myChartId", "400", "300");
+                            myChart.setXMLData('<chart caption="Weekly Sales Summary" xAxisName="Week" yAxisName="Sales" numberPrefix="$">\n\t<set label="Week 1" value="14400" />\n\t<set label="Week 2" value="19600" />\n\t<set label="Week 3" value="24000" />\n\t<set label="Week 4" value="15700" />\n</chart>');
+
+                            myChart.render( "chartContainer" );
+
+                            // -->
+                        </script>
+
+                    </div>
+                    <br/>
+                    <a class="qua qua-button" onClick="viewXML()" style="margin-left: 280px;" href="javascript:void(0)">
+                        <span>Get Chart data as XML</span>
+                    </a>
+                    <a class="qua qua-button" onClick="viewJSON();" style="" href="javascript:void(0)">
+                        <span>Get Chart data as JSON</span>
+                    </a>
+                    <div class="clear"></div>
+
+                   
+                    <p class="small">&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>    </div>
+
+                
+            </div>
+
+            <!-- footer -->
+            <div id="footer"> <ul>
+                    <li><a href="../../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+            </div>
+        </div>
+       <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead", isJSRenderer(myChart) );
+			});	
+		// -->
+		</script>   
+    </body>
+    
+</html>

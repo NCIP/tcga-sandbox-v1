@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Single Series Chart XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html","FusionCharts Data Formats", "XML|Overview.html", "Single-Series chart XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Single Series Chart XML</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>This section explains the XML structure used by single-series charts in FusionCharts, namely Column 2D, Column 3D, Bar 2D, Line, Area 2D, Pie 2D, Pie 3D, Doughnut 2D, Doughnut 3D, Pareto 3D and Pareto 3D.</p>
+      <p>Let's recall our previous XML. It had a structure similar to the XML below. We've added a few new XML elements here as well.</p> </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <pre class="code_container prettyprint">&lt;chart caption='Monthly Sales Summary' subcaption='For the year 2006' xAxisName='Month' yAxisName='Sales' numberPrefix='$'&gt;<br /> 
+     &lt;set label='January' value='17400' /&gt;
+     &lt;set label='February' value='19800' /&gt;
+     &lt;set label='March' value='21800' /&gt;
+     &lt;set label='April' value='23800' /&gt;
+     &lt;set label='May' value='29600' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='June' value='27600' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;vLine color='FF5904' thickness='2'/&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='July' value='31800' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='August' value='39700' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='September' value='37800' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='October' value='21900' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&lt;set label='November' value='32900' /&gt;
+     &lt;set label='December' value='39800' /&gt;<br />
+     &lt;trendlines&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;line startValue='22000' color='00cc00' displayValue='Average' /&gt;
+     &lt;/trendlines&gt;<br />
+     &lt;styles&gt;<br /> <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;definition&gt;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='CanvasAnim' type='animation' param='_xScale' start='0' duration='1' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/definition&gt;
+     <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;application&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&lt;apply toObject='Canvas' styles='CanvasAnim' /&gt;<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;&nbsp;&nbsp;&nbsp;
+      <br /> &nbsp;&nbsp;&nbsp; &lt;/styles&gt; 
+<br /> &lt;/chart&gt;</pre><br />
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>The <span class="codeInline">&lt;chart&gt;</span> 
+        element is the main element of any FusionCharts XML document - it represents 
+        the starting point and the ending point of data. The <span class="codeInline">&lt;chart&gt;</span> 
+        element has a number of attributes which helps configure the cosmetic and functional properties of the chart. 
+        You can find  list of all such attributes in &quot;<span class="codeInline">Chart 
+        XML Sheet</span>&quot; of each chart (present in <span class="codeInline">Chart XML API</span> section).</p>
+      <p>In the most general form, attributes have the following form:<br>
+        <span class="codeInline">attributeName=&quot;Value&quot;<br>
+        e.g., xAxisName=&quot;Month&quot;</span> </p>
+      <p>The attributes can occur in any order and quotes can be single or double 
+        like <span class="codeInline">xAxisName='Month'. </span><span class="text">However, 
+        you need to make sure that a particular attribute occurs only once for 
+        a given element.</span> Duplicate attributes result in XML validation error.</p>
+      <p>Moving on, each <span class="codeInline">&lt;set&gt;</span> element (which 
+        is a child element of the <span class="codeInline">&lt;chart&gt;</span> 
+        element) represents a set of data that is to be plotted on the chart. A typical 
+        <span class="codeInline"> &lt;set&gt;</span> element would look like:</p>
+      <pre class="code_container prettyprint">&lt;set label=&quot;Jan&quot; value=&quot;17400&quot; color=&quot;3300FF&quot; toolTip=&quot;January, 17400&quot; link=&quot;details.asp?month=jan&quot; showLabel=&quot;1&quot;/&gt;</pre>
+      <p>Between <span class="codeInline">&lt;set&gt;</span> elements, we can 
+        have <span class="codeInline">&lt;vLine&gt;</span> element, which indicate 
+        vertical separator lines running along the height/width of the chart canvas.</p>
+      <pre class="code_container prettyprint">&lt;vLine color='FF5904' thickness='2'/&gt;</pre>
+      <p>Next we have the <span class="codeInline">&lt;trendLines&gt;</span> element. 
+        Using this function of the chart, you could draw custom lines on the chart 
+        to represent a trend. For example, in our above XML, we have defined a 
+        line at 22000 to represent the average sales for the period. </p>
+      <p>Finally, you've <span class="codeInline">&lt;styles&gt;</span> element 
+        which is new in FusionCharts v3. It helps you apply font, effects and 
+        animations to various objects of the chart. <span class="codeInline">Styles</span> 
+        lends a simple mechanism using which you can easily control the visual 
+        layout of charts. To read more on <span class="codeInline">Styles</span>, 
+        please see <span class="codeInline"><a href="../../Styles/Styles.html">FusionCharts v3 Styles</a></span> 
+        section.</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("XML Overview|Overview.html","Multi Series chart XML|MultiSeries.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

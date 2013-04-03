@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Resizing Charts in Percentage </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Resizing charts in %" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Resizing Charts in Percentage </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>You can  set percent values for chart width and height instead of absolute pixel values. The chart will automatically adjust its dimension with respect to the parent container element. Let's see how this is done in HTML.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot; style=&quot;width:800px; height:300px;&quot;&gt;
+      &nbsp;&nbsp;&nbsp;This text is replaced by the chart
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  &nbsp;&nbsp;var myChart = new FusionCharts(&quot;Column3D.swf&quot;, &quot;myChartId&quot;, <strong>&quot;80%&quot;, &quot;100%&quot;</strong>, &quot;0&quot;, &quot;1&quot;);
+   &nbsp;myChart.setXMLUrl(&quot;Data.xml&quot;);
+    myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>   
+      <p>See it <a href="../../Code/MyFirstChart/weekly-sales-resize.html" target="_blank">live</a>!</p>
+  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we have specified the width of the chart to be 80% and height -100%. The DIV with id - &quot;<span class="codeInline">chartContainer</span>&quot; is the container element of the chart. Hence, its width and height would be derived in percentage from the DIV's dimension.</p>
+      <p> In the example above, we have set the width of the DIV to 800 pixels and the height to 300 pixels. As such, the chart's size would automatically be 640x300. The chart would  look like the image below:</p>
+      <p><img src="../FirstChart/Images/ResizePercent.jpg" width="631" height="296"  class="imageBorder"/></p>
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="header"><a name="dynamic" id="dynamic"></a>Dynamic resize feature of charts </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>Starting v3.2, FusionCharts can dynamically resize itself when the parent container resizes. For this you would need to :</p>
+        <ul>
+           <li>Set the chart's size in percentage, and </li>
+           <li>Set your HTML chart container such that its dimension changes dynamically when the browser resizes or changes, due to some other changes made in a web page (like when an element is added/removed) </li>
+       </ul>
+        <p>Whenever the container element resizes, the chart will also dynamically resize itself instantly.</p>
+        <p>In the example below, we've created a  very basic sample where the chart would fill up the whole of web browser's space and if the browser's size is changed or adjusted, the chart would resize itself accordingly. Note the width and height declared for BODY and DIV elements using CSS.</p></td>
+  </tr>
+  
+
+  <tr>
+     <td valign="top" class="text">
+        <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts 
+          - Using dynamically resizable chart&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;   
+  &lt;/head&gt;   
+  <strong>&lt;body style=&quot;height:100%;</strong>&quot;&gt; 
+    &lt;div id=&quot;chartContainer<strong>&quot; style=&quot;height:100%</strong>;&quot; &gt;
+        FusionCharts will load here
+    &lt;/div&gt;          
+		
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 		  
+			
+      var myChart = new FusionCharts(&quot;FusionCharts/Area2D.swf&quot;, &quot;myChartId&quot;, &quot;<strong>100%&quot;, &quot;100%&quot;</strong>, &quot;0&quot;, &quot;1&quot;);       
+      myChart.setXMLUrl(&quot;LargeData.xml&quot;);         
+      myChart.render(&quot;chartContainer&quot;);          	  
+      // --&gt;&lt;/script&gt;
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+        <br />See it <a href="../../Code/MyFirstChart/site-visitor-resize-dynamic.html">live</a>!</td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+        <p>In the above code we have:</p>
+        <ol>
+           <li>Set the height of the body to be 100%</li>
+           <li>Set the height of the container DIV to 100%, which means that it would vertically fill up the body space of the HTML. This is not required for width as a DIV,  by default, takes the full width</li>
+           <li>Set the chart's width and height to 100%</li>
+         </ol>
+      </td>
+  </tr>
+
+  </table>
+  <!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Tooltip in multiple lines|TTip_Lines.html", "Set background for charts|BgSWF.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

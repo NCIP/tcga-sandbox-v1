@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT - Creating chart with jQuery</title>
+        
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+       <script type="text/javascript" src="../../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../../../Charts/jquery.min.js"></script>
+        <script type="text/javascript" src="../../../Charts/FusionCharts.jqueryplugin.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../assets/ui/js/lib.js"></script>
+
+        <!--[if IE 6]>
+        <script src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+        </style>
+        
+    </head>
+    <body>
+	
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo">
+                    <a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank">
+                        <img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" />
+                    </a>
+                </div><h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">FusionCharts jQuery plugin samples</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+
+                    <div class="clear"></div>
+                    <div class="gen-chart-render">
+	                    <p class="text">The example below shows how to use :FusionCharts selector to<br />
+						select charts inside the whole page or inside selective HTML Containers and<br />
+						configure the the selected charts in various ways
+						</p>
+						<p>Click buttons below to find how  :FusionCharts selector works</p>
+						<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+						<p>&nbsp;</p>
+										
+					<div align="center" style="clear:both;padding:5px;">
+						<a class="qua qua-button" id="allCharts" style="margin-left: 210px; width:450px;" href="javascript:void(0)"><span>Find all charts in the page and set new caption of the chart</span></a><br /><br />
+
+
+						<a class="qua qua-button"  id="topCharts" style="margin-left: 210px;width:450px;" href="javascript:void(0)"><span>Find all charts in the top row and set red background of the charts</span></a><br /><br />
+
+
+						<a class="qua qua-button" id="bottomCharts" style="margin-left: 210px;width:450px;" href="javascript:void(0)"><span>Find all charts in the bottom row and set green background of the charts</span></a>
+						
+	                   </div>
+
+						<p>&nbsp;</p>
+						<div id="topRowCharts">
+                        <span id="chartContainerJan">January Column 2D Chart will load here</span>
+						<span id="chartContainerFeb">February Column 2D Chart will load her</span>
+						</div>
+						<div id="bottomRowCharts">
+						<span id="chartContainerMarch">March Pie Chart will load here</span>
+						</div>
+
+                        <script type="text/javascript">
+							var FebXML = '<chart caption="Weekly Sales Summary for February" xAxisName="Febuary" yAxisName="Sales" numberPrefix="$">\n\
+								<set label="Week 1" value="19400" />\n\
+								<set label="Week 2" value="13600" />\n\
+								<set label="Week 3" value="22000" />\n\
+								<set label="Week 4" value="10700" />\n\
+							</chart>';
+						
+						
+							var JanXML ='<chart caption="Weekly Sales Summary for January"  xAxisName="January" yAxisName="Sales" numberPrefix="$"> \n\
+								<set label="Week 1" value="14400" /> \n\
+								<set label="Week 2" value="19600" /> \n\
+								<set label="Week 3" value="24000" /> \n\
+								<set label="Week 4" value="15700" /> \n\
+							</chart>';
+
+							var MarXML ='<chart caption="Weekly Sales Summary for January"  xAxisName="January" yAxisName="Sales" numberPrefix="$"> \n\
+								<set label="Week 1" value="14400" /> \n\
+								<set label="Week 2" value="19600" /> \n\
+								<set label="Week 3" value="24000" /> \n\
+								<set label="Week 4" value="15700" /> \n\
+							</chart>';
+													
+						
+						
+							$('#chartContainerJan').insertFusionCharts({swfUrl: "../../../Charts/Column3D.swf", dataSource : JanXML, dataFormat: "xml", width: "400", height: "300", id:"JanChartId"});
+							$('#chartContainerFeb').insertFusionCharts({swfUrl: "../../../Charts/Column3D.swf", dataSource : FebXML, dataFormat: "xml", width: "400", height: "300", id:"FebChartId"});
+							$('#chartContainerMarch').insertFusionCharts({swfUrl: "../../../Charts/Pie3D.swf", dataSource : MarXML, dataFormat: "xml", width: "400", height: "300", id:"MarchChartId"});
+                        </script>
+
+                    </div>
+					
+                    <br/>
+                    <div class="clear"></div>
+				   
+				     <script type="text/javascript">
+
+
+													
+						$(document).ready(function(){
+						
+							$("#allCharts").click(function() {
+								$(":FusionCharts").attrFusionCharts( { caption: "New chart title"} );
+								return false;
+							});
+							
+							$("#topCharts").click(function() {
+								$("div#topRowCharts :FusionCharts").attrFusionCharts( { bgColor : "ecdecd", showBorder:1, borderColor:"880000" } );
+								return false;								
+							});
+							
+							$("#bottomCharts").click(function() {
+								$("div#bottomRowCharts").find(":FusionCharts").attrFusionCharts( { bgColor : "deeccd", showBorder:1, borderColor:"008800" } );
+								return false;								
+							});
+						
+						});
+
+                    </script>
+
+                    <p class="small">&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>    </div>
+
+                
+            </div>
+
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li><a href="../../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+
+            </div>
+        </div>
+       <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead", isJSRenderer(FusionCharts("JanChartId")) );
+			});	
+		// -->
+		</script>   
+    </body>
+    
+</html>

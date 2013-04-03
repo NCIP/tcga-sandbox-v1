@@ -1,0 +1,170 @@
+﻿<html>
+<head>
+<title>FusionCharts XT Documentation Navigation Bar</title>
+<style>
+<!--
+body {margin:0;}
+
+table#whtbar_mbars td { cursor:pointer };
+
+-->
+</style>
+<script type="text/javascript" language="javascript" src="xmlreadhelper.js"></script>
+<script language="javascript" src="whver.js"></script>
+<script language="javascript1.2" src="whutils.js"></script>
+<script language="javascript1.2" src="whmsg.js"></script>
+<script language="javascript1.2" src="whproxy.js"></script>
+<script language="javascript1.2" src="whmozemu.js"></script>
+<script language="javascript1.2" src="whtbar.js"></script>
+<script type="text/javascript">
+	if (document.images) {
+		var img1 = new Image();
+		img1.src = "../Images/contentbutton.png";
+
+		var img2 = new Image();
+		img2.src = "../Images/indexbutton.png";
+
+		var img3 = new Image();
+		img3.src = "../Images/searchbutton.png";
+	}
+</script>
+</head>
+<body marginheight="0"  marginwidth="0"  bgcolor="#FFFFFF" scroll="no">
+<div><div style="float:left; height:28px;">
+<script language="javascript1.2">
+<!--
+
+	var nav_=window.location.hash;
+	nav_=nav_?nav_.replace('#',''):'1';
+
+
+	
+	if (window.gbWhTBar)
+	{
+		setButtonFont("avprev","Microsoft Sans Serif","8pt","Black","Normal","Normal","none");
+		setButtonFont("avnext","Microsoft Sans Serif","8pt","Black","Normal","Normal","none");
+		setButtonFont("rolesel","Microsoft Sans Serif","8pt","Black","Normal","Normal","none");
+		setButtonFont("synctoc","Microsoft Sans Serif","8pt","Black","Normal","Normal","none");
+		setButtonFont("hide2","Microsoft Sans Serif","8pt","Black","Normal","Normal","none");
+
+
+		gsIPrev = "wht_prev.gif";
+		gsIPrevD = "wht_prev_g.gif";
+		gsINext = "wht_next.gif";
+		gsINextD = "wht_next_g.gif";
+		gsISync = "wht_sync.gif";
+		gsIHide = "wht_hide.gif";
+		setBackgroundcolor("#ffffff");
+		
+		
+		addButton("toc",BTN_TEXT|BTN_IMG,"Contents","","","","",0,0,"","","","","","");
+		addButton("idx",BTN_TEXT|BTN_IMG,"Index","","","","",0,0,"","","","","","");
+		addButton("fts",BTN_TEXT|BTN_IMG,"Search","","","","",0,0,"","","","","","");
+		//addButton("hide2",BTN_TEXT|BTN_IMG,"","","","","",0,0,"","","","","","");
+
+		addButton("blankblock");
+		writeStyle(true);
+		ReSortMinibarButtons();
+		writeToolBar();
+	}
+	else
+		document.location.reload();
+
+	if (window.gbNav6)
+	{
+		var oMsg=new whMessage(WH_MSG_RELOADNS6,this, 1,null);
+		SendMessage(oMsg);
+	}
+	
+	
+	
+	
+//-->
+</script>
+</div>
+<div style="float:right; margin-top:6px; cursor:pointer;" title="Close navigation panels"><img id="ec" src="../Images/collapse.png" title="Close navigation panels" width="16" height="16" onClick="collapseNavBar()"/></div>
+<div style="clear:all;"></div>
+<script type="text/javascript">
+	function isLocalStorageAvailable()
+	{
+		try
+		{
+			return ('localStorage' in window==true && window['localStorage'] !== null && typeof localStorage.getItem=='function');
+		}
+		catch(e)
+		{
+			return false;
+		}
+	}
+	var isLocalStore = isLocalStorageAvailable();
+
+			
+	function collapseNavBar()
+	{
+			
+		if(isLocalStore) {
+			localStorage.removeItem("FC__MENU_COLLAPSED");
+			localStorage.setItem("FC__MENU_COLLAPSED", true);
+		}
+		try{
+			parent.parent.document.getElementById("mainframeset").cols = "0,25,*";
+		}catch(e) {}
+		
+	}
+	
+
+	function customTrackHash()
+	{	
+		customHighlightMbar(parseInt(nav_));
+		
+		window.setInterval (
+		function ()
+		{
+			var newNav = window.location.hash;
+			if(newNav) newNav = newNav.replace('#','');
+			if(nav_!=newNav)
+			{
+				nav_ = newNav;
+				if(nav_=="1") showToc();
+				if(nav_=="2") showIndex();
+				if(nav_=="3") showFts();
+				
+				if (nav_=="1" || nav_=="2" || nav_=="3") customHighlightMbar(parseInt(nav_));
+				
+			}
+			
+			
+		
+		}, 333);
+	}
+
+	function customHighlightMbar(buttonIndex)
+	{
+		var buttonIndices = ['toc', 'toc', 'idx', 'fts'];
+		var buttonClasses = ['minibarcontentsbg', 'minibarcontentsbg', 'minibarindexbg', 'minibarsearchbg'];
+		
+		for(var i=1; i<buttonIndices.length; i++)
+		{
+			var elm = document.getElementById("btn"+buttonIndices[i]);
+		
+			if( i==buttonIndex )
+			{
+				elm.parentNode.className ="clsBtnDown";
+				elm.className = "btnsel"+buttonIndices[i];
+				
+			}
+			else
+			{
+				elm.parentNode.className ="clsBtnNormal";
+				elm.className = "btn"+buttonIndices[i];
+				
+			}
+			
+		}
+		document.getElementById("whtbar_mbars").className= buttonClasses[buttonIndex];
+		
+	}
+</script>
+</div>
+</body>
+</html>

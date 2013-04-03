@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Combi3D Chart - JavaScript API </title>
+<link rel="stylesheet" href="../../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "FusionCharts &amp; JavaScript|../../JS_Overview.html", "API Reference|../Overview.html", "Chart Specific API", "3D chart JavaScript API" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Combi3D Chart - JavaScript API </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top" class="text"><p>Combination 3D chart exposes a number of functions for better interactivity. These functions can be called using JavaScript. Shown below is a list of these functions along with their description and parameter(s):</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="table">
+      <tr>
+        <td width="20%" class="header">Function Name</td>
+        <td width="15%" class="header">Parameter </td>
+        <td width="65%" class="header">Description</td>
+      </tr>
+      <tr>
+        <td width="20%" valign="top" class="codeInline"><a name="view2d" id="view2d"></a>view2D()</td>
+        <td width="15%" valign="top" class="text">None</td>
+        <td width="65%" class="text">Sets the chart to 2D-View mode.  This function will not work if the current view is already in 2D mode.</td>
+      </tr>
+      <tr>
+        <td width="20%" valign="top" class="codeInline"><a name="view3d" id="view3d"></a>view3D()</td>
+        <td width="15%" valign="top" class="text">None</td>
+        <td width="65%" class="text">Sets the chart to the last 3D state before it has been set to 2D mode This function will not work if the current view is already in 3D mode.</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><a name="view100" id="view100"></a>view100Percent()<div class="version-info">Since v 3.2.2</div></td>
+        <td valign="top" class="text">None</td>
+        <td class="text">Sets the chart view to 100% mode. </td>
+      </tr>
+      <tr>
+        <td width="20%" valign="top" class="codeInline"><a name="resetview" id="resetview"></a>resetView()</td>
+        <td width="15%" valign="top" class="text">None</td>
+        <td width="65%" class="text">Sets the chart back to the initial mode at which it was rendered. </td>
+      </tr>
+      <tr >
+        <td valign="top" class="codeInline"><a name="fittostage" id="fittostage"></a>fitToStage()</td>
+        <td valign="top">None</td>
+        <td class="text">Set the chart's zoom level for best possible view on the stage. </td>
+      </tr>
+      <tr >
+        <td width="20%" valign="top" class="codeInline"><a name="rotateview" id="rotateview"></a>rotateView(x,y)</td>
+        <td width="15%" valign="top" class="codeInline">x,y </td>
+        <td width="65%" class="text">This function  lets you rotate the camera view angle. Relatively, we would see the chart to rotate. When <span class="codeInline">animate3D</span> is set to 1, the chart animates to reach the x and y angle position of the camera. In case of <span class="codeInline">animate3D=0</span>, the view angles are set instantly without animation. </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><a name="getviewangles" id="getviewangles"></a>getViewAngles()</td>
+        <td valign="top" class="text">None</td>
+        <td class="text">This function returns the current view/camera angles of the chart. The function returns an object with 2 properties, <span class="codeInline">xAng</span> and <span class="codeInline">yAng</span>. <span class="codeInline">xAng</span> stores the value of x  angle while <span class="codeInline">yAng</span> stores the value of y  angle. 
+        <p>Example:</p>
+            <span class="codeInline">&nbsp; var a=getViewAngles();<br />
+         &nbsp; alert(a.xAng);<br />
+         &nbsp; alert(a.yAng);</span></td>
+      </tr>
+    </table>    
+    </td>
+  </tr>
+  <tr>
+    <td height="25"></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Usage Example:</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Given below are the examples of how to use these functions using JavaScript.</p> 
+    <p class="highlightBlock">You can also experience these API live from the consolidated example  clicking <a href="../../../../Code/JavaScript/Combi3D_JSAPI/index.html" target="_blank">here</a>. </p>
+    <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/view2D.html" target="_blank" class=""><strong class="codeInline">view2D()</strong></a></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;HTML&gt;
+    &lt;HEAD&gt;
+  &nbsp; &nbsp; &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart - View 2D Example&lt;/TITLE&gt; 
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../Charts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+      &nbsp; &nbsp; &nbsp; function viewAs2D()
+      &nbsp; &nbsp; &nbsp; {
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span class="codeComment">//Get chart from its ID</span>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  var chartToView2D = getChartFromId(&quot;chart1Id&quot;);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; chartToView2D.<strong>view2D</strong>();
+&nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp;   &lt;/SCRIPT&gt;
+&nbsp;   &lt;/HEAD&gt;
+&nbsp;   &lt;BODY&gt;
+&nbsp; &nbsp; &lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+&nbsp; &nbsp; &lt;script language=&quot;JavaScript&quot;&gt;
+        &nbsp; 
+&nbsp; &nbsp; &nbsp; var chart1 = new FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+&nbsp; &nbsp; &nbsp; chart1.setXMLData(&quot;&lt;chart &gt;&lt;categories&gt;&lt;category label='A' /&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10' /&gt;&lt;/dataset&gt;
+                        &lt;dataset&gt;&lt;set label='B' value='11' /&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chart1.render(&quot;chart1div&quot;);
+  &nbsp; 
+&nbsp; &nbsp; &lt;/script&gt;
+&nbsp; &nbsp; &lt;input type='button' value='2D View' onClick='view2D();'&gt;
+  &nbsp; &lt;/BODY&gt;
+&lt;/HTML&gt;</pre>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we've first created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button, which when clicked invokes the local <span class="codeInline">viewAs2D()</span> function. This function just gets the reference to the chart using <span class="codeInline">getChartFromId()</span> function and finally invokes the <span class="codeInline">view2D()</span> method of the chart.</p>
+       <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/view2D.html" target="_blank" class="">live</a>! </p>
+       <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/view3D.html" target="_blank"><strong class="codeInline">view3D()</strong></a></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;HTML&gt;
+    &lt;HEAD&gt;
+   &nbsp; &nbsp; &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart -  View 3D Example&lt;/TITLE&gt; 
+  &nbsp; &nbsp;  &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp; &nbsp;  &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+      &nbsp; &nbsp; &nbsp; function viewAs3D()
+      &nbsp; &nbsp; &nbsp; {
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span class="codeComment">//Get chart from its ID</span>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; var chartToView3D = getChartFromId(&quot;chart1Id&quot;);
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; chartToView3D.<strong>view3D</strong>();
+      &nbsp; &nbsp; &nbsp; }
+  &nbsp; &nbsp;  &lt;/SCRIPT&gt;
+  &nbsp; &lt;/HEAD&gt;
+  &nbsp; &lt;BODY&gt;
+  &nbsp;&nbsp;&nbsp; &lt;h5&gt;Please drag the chart to another view, then set to 2D View mode and click on '3D View' button to get the desired result&lt;/h5&gt; 
+  
+ &nbsp;&nbsp;&nbsp;  &lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+  &nbsp; &nbsp; &lt;script language=&quot;JavaScript&quot;&gt;<br/>
+&nbsp; &nbsp;   &nbsp; var chart1 = new FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+&nbsp; &nbsp;   &nbsp; chart1.setXMLData(&quot;&lt;chart &gt;&lt;categories&gt;&lt;category label='A' /&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10'/&gt;&lt;/dataset&gt;
+                           &lt;dataset&gt;&lt;set label='B' value='11' /&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+        chart1.render(&quot;chart1div&quot;);
+
+&nbsp; &nbsp;   &lt;/script&gt;
+&nbsp;&nbsp;&nbsp;   &lt;input type='button' value='3D View' onClick='view3D();'&gt;
+ &nbsp;  &lt;/BODY&gt;
+&lt;/HTML&gt;</pre>    
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In the above code, we've first created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button.</p>
+        <p><span class="codeInline">View3D() </span>function sets the chart to the last 3D Mode of the chart, before it has been set to 2D mode. Hence, before calling the function one must use mouse or <span class="codeInline">rotateView()</span> function to give the chart a different 3D state. Now, the chart needs to be set to 'View 2D' mode. Once done, one can properly use this function.</p>
+      <p>Now, when the button is clicked the local <span class="codeInline">viewAs3D()</span> function is invoked. This function just gets the reference to the chart using <span class="codeInline">getChartFromId()</span> function and finally invokes the<span class="codeInline"> view3D()</span> method on the chart and resets the chart to the last 3D view. </p>
+      <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/view3D.html" target="_blank" class="">live</a>! </p>
+      <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/view100.html" target="_blank" class=""><strong class="codeInline">view100Percent()</strong></a></p>
+  </tr>
+  
+    <tr>
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;HTML&gt;
+    &lt;HEAD&gt;
+  &nbsp; &nbsp; &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart -  View 100 Percent Example&lt;/TITLE&gt; 
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+        &nbsp; &nbsp; &nbsp; function view100()
+        &nbsp; &nbsp; &nbsp; {
+        <span class="codeComment">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; //Get chart from its ID</span>
+        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; var chartToReset3DView = getChartFromId(&quot;chart1Id&quot;);
+        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; chartToReset3DView.view100Percent();
+        &nbsp; &nbsp; &nbsp; }
+  &nbsp; &nbsp; &lt;/SCRIPT&gt;
+  &nbsp; &lt;/HEAD&gt; 
+  &nbsp; &lt;BODY&gt;
+  &nbsp; &nbsp; &lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+  &nbsp;&nbsp;&nbsp; &lt;script language=&quot;JavaScript&quot;&gt; 
+        
+&nbsp; &nbsp; &nbsp;   var chart1 = new FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+&nbsp; &nbsp; &nbsp;   chart1.setXMLData(&quot;&lt;chart &gt;&lt;categories&gt;&lt;category label='A' /&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10' /&gt;&lt;/dataset&gt;
+                           &lt;dataset&gt;&lt;set label='B' value='11' /&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+&nbsp; &nbsp;&nbsp;  &nbsp; chart1.render(&quot;chart1div&quot;);
+       
+&nbsp; &nbsp;   &lt;/script&gt;
+&nbsp; &nbsp;   &lt;input type='button' value=View 100 Percent' onClick='view100();'&gt;
+&nbsp;   &lt;/BODY&gt;
+&lt;/HTML&gt;</pre>
+      <p>In the above code, we've  created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button to call <span class="codeInline">View100 </span>JavaScript function. This function invokes <span class="codeInline">view100Percent()</span> function and sets the chart to 100 percent view.</p>
+      <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/view100.html" target="_blank" class="">live</a>! </p>
+      <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/resetView.html" target="_blank"><strong class="codeInline">resetView()</strong></a></p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text">
+       <pre class="prettyprint code_container">&lt;HTML&gt;
+    &lt;HEAD&gt;
+  &nbsp; &nbsp; &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart -  Reset 3D View Example&lt;/TITLE&gt; 
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+        &nbsp; &nbsp; &nbsp; function reset3DView()
+        &nbsp; &nbsp; &nbsp; {
+        <span class="codeComment">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; //Get chart from its ID</span>
+        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; var chartToReset3DView = getChartFromId(&quot;chart1Id&quot;);
+        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; chartToReset3DView.<span class="codeInline"><strong>resetView</strong></span>();
+        &nbsp; &nbsp; &nbsp; }
+  &nbsp; &nbsp; &lt;/SCRIPT&gt;
+  &nbsp; &lt;/HEAD&gt; 
+  &nbsp; &lt;BODY&gt;
+  &nbsp; &nbsp; &lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+  &nbsp;&nbsp;&nbsp; &lt;script language=&quot;JavaScript&quot;&gt; 
+        
+&nbsp; &nbsp; &nbsp;   var chart1 = new FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;); 
+&nbsp; &nbsp; &nbsp;   chart1.setXMLData(&quot;&lt;chart &gt;&lt;categories&gt;&lt;category label='A' /&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10' /&gt;&lt;/dataset&gt;
+                           &lt;dataset&gt;&lt;set label='B' value='11' /&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+&nbsp; &nbsp;&nbsp;  &nbsp; chart1.render(&quot;chart1div&quot;);
+       
+&nbsp; &nbsp;   &lt;/script&gt;
+&nbsp; &nbsp;   &lt;input type='button' value='Reset to Initial View' onClick='reset3DView();'&gt;
+&nbsp;   &lt;/BODY&gt;
+&lt;/HTML&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we've first created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button, which when clicked invokes the local <span class="codeInline">reset3DView()</span> function. This function just gets the reference to the chart using <span class="codeInline">getChartFromId()</span> function and finally invokes the<span class="codeInline"> resetView()</span> method on the chart.</p>
+       <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/resetView.html" target="_blank" class="">live</a>! </p>
+       <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/rotateView.html"><strong class="codeInline">rotateView(x,y)</strong></a></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;HTML&gt;
+   &lt;HEAD&gt;
+&nbsp; &nbsp; &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart -  Rotate Chart Example&lt;/TITLE&gt; 
+&nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+&nbsp; &nbsp; &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+&nbsp; &nbsp; &nbsp; function rotateBy(xAngle,yAngle)
+&nbsp; &nbsp; &nbsp; {
+<span class="codeComment">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; //Get chart from its ID</span>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; var chartToRotate = getChartFromId(&quot;chart1Id&quot;);
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; chartToRotate.<span class="codeInline"><strong>rotateView</strong></span><strong>(xAngle,yAngle);</strong>
+&nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/SCRIPT&gt;
+&nbsp;  &lt;/HEAD&gt;
+&nbsp;  &lt;BODY&gt;
+&nbsp;&nbsp;&nbsp;
+    &lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+&nbsp; &nbsp; &lt;script type=&quot;text/javascript&quot;&gt; 
+
+&nbsp; &nbsp;&nbsp;&nbsp; var chart1 = new FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chart1.setXMLData(&quot;&lt;chart &gt;&lt;categories&gt;&lt;category label='A' /&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10' /&gt;&lt;/dataset&gt;
+                         &lt;dataset&gt;&lt;set label='B' value='11' /&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+      chart1.render(&quot;chart1div&quot;);
+
+&nbsp; &nbsp; &lt;/script&gt;
+
+&nbsp;&nbsp;&nbsp; &lt;strong&gt;Rotate Chart To&lt;/strong&gt;&lt;br /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;xAngle Value: &lt;input type=&quot;text&quot; id=&quot;xAngle&quot; /&gt;&lt;br /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;yAngle Value: &lt;input type=&quot;text&quot; id=&quot;yAngle&quot;/&gt;&lt;br /&gt; 
+&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; &lt;input type=&quot;button&quot; value=&quot;Rotate Chart&quot; id=&quot;btnRotate&quot;
+     onClick=&quot;rotate(document.getElementById('xAngle').value,document.getElementById('yAngle').value);&quot; /&gt;
+&nbsp;  &lt;/BODY&gt;
+&lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we've first created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button, which when clicked invokes the local <span class="codeInline">rotateBy(xAngle,yAngle)</span> function. This function just gets the reference to the chart using <span class="codeInline">getChartFromId()</span> function and finally invokes the<span class="codeInline"> rotateView(x,y)</span> method on the chart.</p>
+       <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/rotateView.html" target="_blank" class="">live</a>! </p>
+       <p class="header" style="padding:3px;"><a href="../../../../Code/JavaScript/Combi3D_JSAPI/getViewAngles.html" target="_blank"><strong class="codeInline">Object getViewAngles()</strong></a></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;HTML&gt;
+    &lt;HEAD&gt;
+        &lt;TITLE&gt;FusionCharts &amp;amp; JavaScript - Combi3D chart - Get Angles Example&lt;/TITLE&gt; 
+      &nbsp; &nbsp;&lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+      &nbsp;  &lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;
+      &nbsp; &nbsp; &nbsp; function getAngles()
+      &nbsp; &nbsp; &nbsp; {
+      <span class="codeComment">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; //Get chart from its ID</span>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;       var chart = getChartFromId(&quot;chart1Id&quot;);
+      <strong>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; var vAngles=chart.getViewAngles();</strong>
+      <strong>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; alert(&quot;X :&quot;+ vAngles.xAng + &quot;, Y :&quot;+ vAngles.yAng);</strong>
+      &nbsp; &nbsp; &nbsp; }
+      &nbsp;  &lt;/SCRIPT&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+      &nbsp; &nbsp;&lt;div id=&quot;chart1div&quot;&gt;FusionCharts&lt;/div&gt;
+      &nbsp; &nbsp; &lt;script language=&quot;JavaScript&quot;&gt;
+      
+      &nbsp; &nbsp;&nbsp;&nbsp; var chart1 = new   FusionCharts(&quot;../../Charts/MSCombi3D.swf&quot;, &quot;chart1Id&quot;, &quot;400&quot;, &quot;300&quot;,   &quot;0&quot;, &quot;1&quot;); 
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  chart1.setXMLData(&quot;&lt;chart&gt;&lt;categories&gt;&lt;category label='A'/&gt;&lt;/categories&gt;&lt;dataset&gt;&lt;set label='A' value='10'/&gt;&lt;/dataset&gt;
+                               &lt;dataset&gt;&lt;set label='B' value='11'/&gt;&lt;/dataset&gt;&lt;/chart&gt;&quot;);
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  chart1.render(&quot;chart1div&quot;);
+      
+      &nbsp; &nbsp; &lt;/script&gt;
+&nbsp;&nbsp;&nbsp;       &lt;input type='button' value='Get Current Angles' onClick='getAngles();'&gt;
+    &lt;/BODY&gt;
+&lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we've first created a True 3D chart with DOM Id as <span class="codeInline">chart1Id</span>. Thereafter, we've created an HTML button, which when clicked invokes the local <span class="codeInline">getAngles()</span> function. This function just gets the reference to the chart using <span class="codeInline">getChartFromId()</span> function and finally invokes the<span class="codeInline"> getViewAngles()</span> method on the chart. This function returns an object that has two properties: <span class="codeInline">xAng</span>, which gives the camera angle for X-axis, and <span class="codeInline">yAng</span>, gives the camera angle for Y-axis. These two properties are encapsulated in the object.</p>
+       <p>See it <a href="../../../../Code/JavaScript/Combi3D_JSAPI/getViewAngles.html" target="_blank" class="">live</a>! </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("API Reference - Events|../Events.html","Zoom chart JavaScript API|ZoomLine_JSAPI.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

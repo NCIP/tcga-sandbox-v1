@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Exporting Charts as PDF or Images - JavaScript Reference - Export Attributes </title>
+
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+<style type="text/css">
+table1 caption { text-align:left; font-weight: bold; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 11px;
+	padding-bottom: 6px; }
+table tr td  {
+vertical-align:top; }
+.table td p { margin: 5px 0; text-align:left; }
+</style>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "JavaScript Reference|ECReferenceJS.html", "Export attributes" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="0" >
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; JavaScript Reference &gt; Export Attributes </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>These attributes are used while calling the <span class="codeInline">exportChart()</span> function of any FusionCharts object. They are meant to be passed as simple JavaScript object (JSON-like property-list) whenever there is the exportAttributes in context.</p>
+      <p>Typical usage of these attributes is in <span class="codeInline">exportAttributes</span> of every new <span class="codeInline">FusionChartsExportObject</span>.</p>
+      <p><strong>Example:</strong></p>
+      <pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;
+    var myExporter = new FusionChartsExportObject('myExporter', 'FusionCharts/FCExporter.swf');<br />    // customize the exporter by modifying the exportAttributes<br /><strong>    myExporter.exportAttributes.exportAtClient = '1';<br />    myExporter.exportAttributes.exportFormat = 'PDF';</strong><br />    // render the UI<br />    myExporter.Render('ExporterContainerID');<br />&lt;/script&gt;</pre>
+      <p>In the <span class="codeInline">FusionChartsExportObject</span> constructor, you can provide export Attributes in {key1: 'value1', key2: 'value2', ... } format.</p>
+      <p><strong>Example:</strong></p>
+      <pre class="prettyprint code_container"><span class="codeInline">var myComponent = new FusionChartsExportObject('myComponent', 'FusionCharts/FCexporter.swf', null<br />    <strong>{ exportAtClient: '1', exportFormat: 'PDF' }</strong> );</span></pre>
+      </p><br />
+
+<table width="98%" cellpadding="0" cellspacing="0" border="0" class="table">
+        <tr>
+          <td width="19%" class="header">Attribute Name</td>
+		  <td width="16%" class="header">Value Type</td>
+		  <td width="54%" class="header">Description</td>
+		  <td width="11%" class="header">Default Value</td>
+        </tr>
+        <tr>
+          <td scope="col">exportHandler</td>
+          <td>string</td>
+          <td> 	
+
+            <p>In case of server side exporting, this refers to the path of the server-side export handler (the ready-to-use scripts that we provide).</p>
+          <p>In case of client-side exporting, this refers to the DOMId of FusionCharts Export component that is embedded in your web page, along with the chart. </p></td>
+          <td><em>undefined</em></td>
+        </tr>
+        <tr>
+          <td scope="col">exportAtClient</td>
+          <td>boolean<br />
+            (0/1) </td>
+          <td><p> 	Whether to use client side export handlers, or server side export handlers.</p>
+          <p><strong>Note:</strong> By default the value is set to 0 which means the export is supposed to  be done at server-side.</p></td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td scope="col">exportFormat</td>
+          <td>string enum<br />
+            ('PNG' / 'JPG' / 'PDF')</td>
+          <td><p>You can choose the format in which the chart is exported.</p></td>
+          <td>PNG</td>
+        </tr>
+        <tr>
+          <td scope="col">exportFileName</td>
+          <td>string</td>
+          <td><p>Using this attribute you can specify the name  (excluding the extension) of the file to be exported.</p>
+              <p>When server-side–save  export is specified this attribute must provide the relative path of the destination file that is going to be  saved to the server.<br />
+                e.g. “../gallery/charts/myExpenseChart”</p></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td scope="col">exportAction</td>
+          <td>string enum<br />
+            ('download' / 'save') </td>
+          <td><p> In case of server-side exporting, the action specifies whether the exported image will be sent back to client as download, or whether it'll be saved on the server.</p>
+              <p><strong>Note:</strong> Thus is only available for server side export.</p></td>
+          <td>download</td>
+        </tr>
+        <tr>
+          <td scope="col">exportTargetWindow</td>
+          <td>string enum<br />
+            ('_self' / '_blank')</td>
+          <td><p><span class="text">In case of server-side exporting and when using download as action, this lets you configure whether the return image/PDF would open in same window (as an attachment for download), or whether it will open in a new window. </span></p>
+              <p><strong>Note:</strong> Thus is only available for server side export.</p></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td scope="col">showExportDialog</td>
+          <td>boolean<br />
+(0/1)</td>
+          <td><p>Whether to show the export dialog during capture phase. If not, the chart starts capturing process without the dialog visible.</p></td>
+          <td>1</td>
+        </tr>
+		<tr>
+          <td scope="col">exportCallback</td>
+		  <td>string</td>
+		  <td><p>This attribute specifies the name of the callback JavaScript  function which would be called when the export event is complete.</p>
+		      <p>The internal JavaScript function <em>FC_Exported </em>is the default method that will be called when no value specified.</p></td>
+		  <td>FC_Exported</td>
+	    </tr>
+      </table>
+   </td></tr></table>
+   <!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Component attributes|ECReferenceComponent.html","Initiating from JavaScript|ECJavaScript.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+
+</html>
+

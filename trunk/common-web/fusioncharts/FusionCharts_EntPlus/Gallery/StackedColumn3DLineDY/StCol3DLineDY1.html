@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+        <title>Stacked Column 3D Line DY</title>
+        <link href="../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/prettify/prettify.css" rel="stylesheet" type="text/css" />
+        <script language="JavaScript" src="../../Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+        <script type="text/javascript" src="../assets/ui/js/json2.js"></script>
+         <script type="text/javascript" src="../assets/ui/js/lib.js" ></script>
+<!--[if IE 6]>
+        <script type="text/javascript" src="../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+		  <p>&nbsp;</p>
+		  <P align="center"></P>
+        <![endif]-->
+    </head>   
+
+<body>
+
+<h3 class="chart-title">Stacked Column 3D Line DY</h3>
+        <p>&nbsp;</p>
+        <script type="text/javascript" src="../Data/String/js/StCol3DLineDY1.js" ></script>
+        
+        <div id="chartdiv" align="center">Chart will load here</div>
+        <script type="text/javascript">
+            FusionCharts.setCurrentRenderer(GALLERY_RENDERER);
+            var chart = new FusionCharts("../../Charts/StackedColumn3DLineDY.swf", "ChartId", "560", "400", "0", "0");
+		   chart.setXMLData( dataString );		   
+		   chart.render("chartdiv");
+		</script>
+		  <p>&nbsp;</p>
+		  <P align="center">3D Stacked Column chart with line data set. Columns are plotted against primary y-axis and line is plotted against secondary axis with both the Axis limits at a sync.</P> 
+ <br/> 
+<div class="qua-button-holder"></div>
+       
+        <div class="show-code-block"></div>
+     </body>
+ </html>

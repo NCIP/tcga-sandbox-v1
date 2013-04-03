@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT - Using FC_DataLoadError Event Demo</title>
+        
+        <link href="../../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../../../Charts/FusionCharts.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../../assets/ui/js/lib.js"></script>
+        <!--[if IE 6]>
+        <script src="../../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <!-- header -->
+            <div id="header"> 
+                <div class="logo">
+                    <a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank">
+                        <img src="../../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" />
+                    </a>
+                </div><h1 class="brand-name">FusionCharts XT</h1>
+                <h1 class="logo-text">Using FC_DataLoadError Event Listener</h1>
+                
+            </div>
+            <!-- content area -->
+            <div class="content-area">
+                <div id="content-area-inner-main">
+                    <p class="text" align="center">Using FC_DataLoadError Event Listener to display an alert box with a mesasage along with the chart id.</p>
+					<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+					<p>&nbsp;</p>
+
+
+                    <div class="clear"></div>
+                    <div class="gen-chart-render">
+
+
+                        <div id="chartContainer">FusionCharts will load here!</div>
+
+                        <script type="text/javascript"><!--
+
+                            var myChart = new FusionCharts("../../../../Charts/Column3D.swf", "myChartId", "400", "300", "0", "1");
+                            myChart.setXMLUrl("sample-data.xml");
+                            myChart.render("chartContainer");
+
+                            function FC_DataLoadError(DOMId) {
+                                alert("Error in loading data error occured in chart having id - " + DOMId);
+                            }
+							
+							
+							myChart.addEventListener( "nodatatodisplay", function() { 
+								if ( window.windowIsReady ){
+									notifyLocalAJAXSecurityRestriction(); 
+								}else
+								{
+									$(document).ready (function(){
+										notifyLocalAJAXSecurityRestriction();
+									});
+								}
+							});							
+							
+
+                            // -->
+                        </script>
+
+                    </div>
+                    <br/>
+
+                    <div class="clear"></div>
+
+                    <p>&nbsp;</p>
+                    <p class="small">&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <div class="underline-dull"></div>    </div>
+
+                
+            </div>
+
+            <!-- footer -->
+            <div id="footer">
+                <ul>
+                    <li><a href="../../index.html"><span>&laquo; Back to list of examples</span></a></li>
+                    <li class="pipe">|</li>
+                    <li><a href="../../../NoChart.html"><span>Unable to see the chart above?</span></a></li>
+                </ul>
+
+            </div>
+        </div>
+         <script type="text/javascript"><!--//
+			$(document).ready(function() {
+				window.windowIsReady = true;
+				showConditionalMessage( "Your browser does not seem to have Flash Player support. A JavaScript chart is rendered instead.", isJSRenderer(myChart) );
+			});	
+			
+			function notifyLocalAJAXSecurityRestriction()
+			{
+				if(isLocal())
+				{
+					addConditionalMessage( "<br /><br />"+isLocal()+ " This sample uses data provided as URL. Due to the browser's restriction on JavaScript from accessing local file system owing to security reasons, it is not possible to detect whether the the URL containing the data actually exists or is unaccessible. Hence, DataLoadError event is not raised. NoDataToDisplay event is reaised instead. If you you run the sample from a server, the DataLoadError event will work fine, though.", isJSRenderer(myChart) );
+				}
+			}
+
+		// -->
+		</script> 
+    </body>
+    
+</html>

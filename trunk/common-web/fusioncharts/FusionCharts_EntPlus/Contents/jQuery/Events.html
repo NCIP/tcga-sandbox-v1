@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Handling events using FusionCharts jQuery plugin</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "Handling events" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Handling events using FusionCharts jQuery plugin</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <p>FusionCharts  jQuery plugin also enables you to bind  FusionCharts events using jQuery <span class="codeInline">bind</span> method. The event handler needs to be attached to the  the container element of the FusionCharts object. To avoid conflict with other jQuery events having same names, &quot;fusioncharts&quot; has been appended to the all FusionCharts event names or types.</p>
+       <p class="highlightBlock">To aid your understanding of this section, we would recommend you to go through the <a href="Overview.html"><strong>Overview</strong></a> page of FusionCharts jQuery plugin and  <a href="../JavaScript/API/Events.html"><strong>Events</strong></a> page of<strong> FusionCharts &amp; JavaScript &gt;  API</strong> section </p>
+	   <p>
+         The code snippet below shows how you can bind to <span class="codeInline">DrawComplete</span> event of FusionCharts:</p>
+       <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).bind( &quot;fusionchartsdrawcomplete&quot;, function (e, args) { 
+   alert(&quot;Chart named &quot; + e.sender.id + &quot; has completed chart drawing.&quot; ); 
+}); </pre>
+       <p>See it <a href="../../Code/jquery/BasicExample/EventDrawComplete.html" target="_blank">live</a>! </p>
+       <p>In the above code, the chart container element with id &quot;chartContainer&quot; is set with <span class="codeInline">bind</span> method to handle <span class="codeInline">DrawComplete</span> event of charts. The event name or event type is passed as &quot;<span class="codeInline">fusionchartsdrawcomplete</span>&quot; (&quot;fusioncharts&quot; prefixed). An anonymous function is passed to handle this event. All charts found in the &quot;<span class="codeInline">chartContainer</span>&quot; element will raise this event. The event handler function will show an alert with the DOMId of the chart which will raise the event. </p>
+       <p>Using FusionCharts jQuery plugin, you can render FusionCharts anywhere within a web page, change chart type, update and retrieve chart data, update  functional and cosmetic settings and use all existing features of FusionCharts.</p>
+       <div class="highlightBlock">
+      Note that the list of FusionCharts event names or event types can be derived from FusionCharts &amp; JavaScript &gt;  API &gt; <a href="../JavaScript/API/Events.html">Events</a> page. The event names used here are similar to  those listed in the &quot;Name (Advanced model)&quot; column of the list of events in the <a href="../JavaScript/API/Events.html">Events</a> page. You would just need to prefix the listed event names with &quot;fusioncharts&quot;. This is done to avoid conflict with the pre-existing jQuery event types having same names,  e.g., the event name <span class="codeInline">Loaded</span> (as listed in the <a href="../JavaScript/API/Events.html">Events</a> page) needs to be passed as &quot;fusionchartsloaded&quot;. The parameters passed to the event handler function for each event are also same as stated in the <a href="../JavaScript/API/Events.html">Events</a> page. </div>
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; jQuery </span> folder</p>    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using :FusionCharts custom jQuery selector|Selector.html","FusionCharts jQuery plugin API Reference|API.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

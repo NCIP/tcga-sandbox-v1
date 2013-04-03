@@ -1,0 +1,46 @@
+<!-- Main Navigation -->
+<!--[if lt IE 7]>
+<style type="text/css"><!--
+#mainnav ul {
+	margin-bottom: -7px;
+}
+--></style>
+<![endif]-->
+<div id="mainnav">
+	<ul id="mainnavlist" class="level1">
+		<li class="level1-li nav0"><a class="level1-a" href="<% out.print(host); %>/tcga/tcgaHome2.jsp"><span>Home</span></a></li>
+		<li class="level1-li nav1"><a class="level1-a" href="<% out.print(dbHost); %>/tcga-portal/"><span>Query the Data</span></a></li>
+		<li class="level1-li nav2"><a class="level1-a" href="<% out.print(host); %>/tcga/tcgaDownload.jsp"><span>Download Data</span></a>
+			<ul class="time">
+                <li><a href="<% out.print(host); %>/tcga/tcgaDownload.jsp">Download Data</a></li>
+                <li><a href="<% out.print(host); %>/tcga/dataAccessMatrix.htm">Data Matrix</a></li>
+                <li><a href="<% out.print(host); %>/tcga/findArchives.htm">Bulk Download</a></li>
+                <li><a href="<% out.print(host); %>/tcgafiles/ftp_auth/distro_ftpusers/anonymous/tumor/">Open-Access HTTP Directory</a></li>
+                <li><a class="last" href="<% out.print(secureHost); %>/tcgafiles/ftp_auth/distro_ftpusers/tcga4yeo/tumor/">Controlled-Access HTTP Directory</a></li>
+			</ul>
+		</li>
+		<li class="level1-li nav3"><a class="level1-a" href="<% out.print(host); %>/tcga/tcgaTools.jsp"><span>Tools</span></a>
+			<ul class="time">
+				<li><a href="<% out.print(host); %>/tcga/tcgaTools.jsp">Tools</a></li>
+				<li><a href="<% out.print(host); %>/tcga/tcgaAnalyticalTools.jsp">Analytical Tools</a></li>
+				<li><a href="<% out.print(secureHost); %>/annotations/">Annotations Manager</a></li>
+				<li><a class="last" href="<% out.print(secureHost); %>/uuid/uuidBrowser.htm">Biospecimen Metadata Browser</a></li>
+			</ul>
+		</li>
+		<li class="level1-li nav4"><a class="level1-a" href="<% out.print(host); %>/tcga/tcgaAbout.jsp"><span>About the Data</span></a>
+            <ul class="time">
+				 <li><a href="<% out.print(host); %>/tcga/tcgaAbout.jsp">About the Data</a></li>
+				 <li><a href="<% out.print(host); %>/tcga/tcgaDataType.jsp">Data Levels and Data Types</a></li>
+				 <li><a href="<% out.print(host); %>/tcga/tcgaPlatformDesign.jsp">Platform Design</a></li>
+				 <li><a href="<% out.print(host); %>/tcga/tcgaAccessTiers.jsp">Access Tiers</a></li>
+				 <li><a href="<% out.print(host); %>/datareports/">Reports</a></li>
+				 <li><a href="<% out.print(host); %>/tcga/tcgaAnnouncements.jsp">Announcements</a></li>
+				 <li><a href="<% out.print(host); %>/tcga/tcgaHelp.jsp">User Guides and Help</a></li>
+				 <li><a href="http://tcga-data.nci.nih.gov/docs/publications">TCGA Publications</a></li>
+				 <li><a class="last" href="http://cancergenome.nih.gov/publications" target="_blank">Publications using TCGA Data</a></li>
+			</ul>
+		</li>
+		<li class="level1-li nav5"><a class="level1-a" target="_blank" href="http://cancergenome.nih.gov/abouttcga/policies/publicationguidelines"><span>Publication Guidelines</span></a></li>
+	</ul>
+</div>
+<!-- END Main Navigation -->

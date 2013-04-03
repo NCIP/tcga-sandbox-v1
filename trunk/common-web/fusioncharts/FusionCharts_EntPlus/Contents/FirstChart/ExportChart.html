@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Export charts to image/PDF </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Exporting charts to Image/PDF" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Export charts to image/PDF </td>
+  </tr>
+  <tr>
+    <td class="text">
+      <p>All charts in the FusionCharts  pack can be configured to be exported as   image (JPEG or PNG) or PDF. The export can be handled either at client-side or at server-side. Exported image/PDF can  be saved at client-side or stored on the server. </p>
+      <p>The image (below) shows how chart export is initiated at client-side from the chart's context menu. The initiation can also be done using  JavaScript APIs. By default, these menu items do not appear in the chart. You'll need to configure the export options and handlers to make the chart ready for exporting. In this section, we briefly explain all export options.</p>
+      <p><img src="Images/SAI_SaveAsImage.jpg" width="492" height="295" /></p>
+      <p>FusionCharts, by itself, cannot directly export the charts as images. It  needs assistance either from server-side scripts, or other client side Flash  movies (in Flash Player 10). FusionCharts sends the bitmap snapshot of its chart to these objects, which in turn convert them into an image or PDF. These objects are  called <strong>FusionCharts Export Handlers</strong>.</p>
+      <p>The export handlers come in two flavors: Server-side Handlers &amp; Client-side Handler. </p>
+      <p class="header" style="padding: 3px;">Server-side Export Handlers</p>
+      <p>The  server-side export handlers help you export FusionCharts as images/PDF  with the help of scripts that are placed on your servers. We provide  ready-to-use scripts for ASP.NET, PHP (uses GD and zlib library), Ruby  on Rails (uses RMagick and zlib) and Java. </p>
+      <p>These  scripts accept compressed bitmap data from FusionCharts (over HTTP or  HTTPS) and convert the same into images/PDFs. Post conversion, you've  two options:</p>
+      <ul>
+        <li>Save the generated output (image/PDF) on the server&rsquo;s disk. This  allows you to use these images later for embedding in your  emails/reports.</li>
+        <li>Or, send it back to the browser so that your user can download it instantly. </li>
+      </ul>
+      <p class="header" style="padding: 3px;">Client-side Export Handlers</p>
+      <p>The client-side FusionCharts  Export Component, as the name suggests, helps you bypass all server  scripts and save the charts as images/PDFs at the client side.  You would typically use client-side export when your server doesn't  support any of the technologies mentioned in server-side exporting or  you don&rsquo;t want to transfer data between your client and server (which  in turn will make the export process faster).</p>
+      <p>Client-side  exporting is done using FusionCharts Export Component SWF file (needs Flash Player 10) and FusionCharts Export Javascript class.</p>
+      <p>In both client and  server side exports, you can configure the output formats (PDF/JPEG/PNG)  that you wish to make available from your context menu along with the  cosmetics of the export dialog box itself. You can also make your own  custom export panels (with custom buttons, look &amp; feel)   that are displayed along with  the chart in a &lt;DIV&gt;, and then connect the same to the chart's export  handlers.</p>
+      <p class="header" style="padding: 3px;">Batch Export</p>
+      <p>You can also use the client side Export handler to export <strong>ALL </strong>the charts present in a web page upon a single click. This is called batch exporting. The exported files  for each chart can then either be saved individually, or all the exported  charts can be saved as a single file:</p>
+     <p><img src="Images/ECBatchSetup2.jpg" width="716" height="596" /></p>  </td>
+  </tr>
+  <tr>
+    <td class="header"><a name="xml_setup" id="xml_setup"></a><a name="json_setup" id="json_setup"></a>Setting up chart  for export </td>  
+  </tr>
+<tr>
+  <td class="text">
+    <p>To enable export feature of the chart you need to add export settings in chart data (XML/JSON). You need to set <span class="codeInline">exportEnabled</span> XML chart attribute or JSON chart property to 1. You also need to set whether to use client or server side export using <span class="codeInline">exportAtClient</span> attribute and finally set&nbsp; the <span class="codeInline">exportHandler</span>.</p>   </td>
+</tr>
+ <tr>
+    <td valign="top" class="header">How to setup chart data for  export ? </td>
+ </tr>
+ <tr> 
+    <td valign="top" class="text">
+	 <br />
+	 <div class="container">
+    <ul class="tabs">
+       <li><a href="#tabexportxml">XML</a></li>
+       <li><a href="#tabexportjson">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tabexportxml" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart<strong> exportEnabled='1' exportAtClient='0' exportHandler='FCExporter.php'</strong> 
+    yAxisName='Sales Figure' caption='Top 5 Sales Person' numberPrefix='$'&gt;
+  &lt;set label='Alex' value='25000' /&gt;
+  &lt;set label='Mark' value='35000' /&gt;
+  &lt;set label='David' value='42300' /&gt;
+  &lt;set label='Graham' value='35300' /&gt;
+  &lt;set label='John' value='31300' /&gt;
+&lt;/chart&gt;</pre>
+       </div>
+		<div id="tabexportjson" class="tab_content">
+	  <pre id="pre-datajson3" class="prettyprint code_container">{
+  "chart":{
+<strong>    "exportenabled":"1",
+    "exportatclient":"0",
+    "exporthandler":"FCExporter.php",
+</strong>    "yaxisname":"Sales Figure",
+    "caption":"Top 5 Sales Person",
+    "numberprefix":"$"
+  },
+  "data":[
+    { "label":"Alex", "value":"25000" },
+    { "label":"Mark", "value":"35000" },
+    { "label":"David", "value":"42300" },
+    { "label":"Graham", "value":"35300" },
+    { "label":"John", "value":"31300" }
+  ]
+}</pre>
+	</div></div></div><div style="clear:both;"></div>
+	 
+	 <br />
+ </td>
+  </tr>
+  
+  
+  <tr>
+    <td class="text"><p>In this example, we're using the server-side Export Handler (<span class="codeInline">FCExporter.php</span>) to assist FusionCharts in export of chart. </p>
+    </td>
+  </tr>
+  <tr>
+  <td class="header"><a name="features" id="features"></a>Features provided in export  </td>
+  </tr>
+  
+  <tr>
+     <td class="text">
+        <p>Export feature provides a wide range of export options to explore. You can :</p>
+        <ul>
+           <li>Save exported image/PDF to server side location or have it downloaded </li>
+           <li>Configure and select export-formats (PDF/PNG/JPEG)</li>
+           <li>Configure the cosmetics of export progress dialog or Flash export handler </li>
+           <li>Initiate export from context menu or JavaScript automatically</li>
+           <li>Invoke post export events</li>
+           <li>Batch export all charts present in a page etc</li>
+       </ul>
+        <p>For more details on each export feature, please go through<strong> <a href="../exporting-image/ECOverview.html">Exporting as Image/PDF</a></strong> section. </p>
+        <div class="highlightBlock">
+           <p>Please note that there are a few limitations of exporting pure JavaScript charts as listed below:</p>
+           <ul>
+               <li>Pure client-side export is currently not supported</li>
+               <li>Client Side export component currently does not have an equivalent JavaScript fallback</li>
+               <li>Server-side export feature requires a separate setup and implementation</li>
+              </ul>
+           <p>When rendered using JavaScript (HTML5), there is only one mode of export - at server-side. By default, JavaScript (HTML5) charts use Highcharts server to get exported image. However you can place the PHP and JAR files on your servers and then over-ride the URL. </p>
+        </div>
+     </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating <i>LinkedCharts</i>|LinkedCharts.html","Embedding in other applications|OtherApplications.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

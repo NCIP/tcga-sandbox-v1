@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>LinkedCharts XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html","FusionCharts Data Formats", "XML|Overview.html", "<i>LinkedCharts</i> XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+<td valign="top" class="pageHeader"><i>LinkedCharts</i> XML</td>
+</tr>
+<tr>
+<td valign="top" class="text">
+   <p>FusionCharts v3.2 introduces <i>LinkedCharts</i>, which is a smart and efficient method  of creating drill-down charts. <i>LinkedCharts</i> are not special chart types. Any chart can be used as a <i>LinkedChart</i>. You can create a master summarized chart whose data-plots, when clicked, will  create detailed charts. You can define the data-string or data-url of the detailed charts <a href="#embedded">within the data-source of the master chart</a>. </p>
+   <p>This section shows how  to create a single XML data source using data-string for rendering <i>LinkedCharts</i>. For better  understanding, we'll create an XML for a column chart &ndash; which shows sales for 4  years from 2004-2007. Clicking on a column (say 2005) will bring up another  chart showing quarterly sales for that year (see image below).</p>
+   <table class="table" cellpadding="0" cellspacing="0"><tr><td>
+      <img src="../../FirstChart/Images/linked-charts.jpg" width="322" height="252" /></td>
+   <td  align="center"><img src="../../FirstChart/Images/linked-charts-after-click.jpg" width="322" height="252" /></td>
+   </tr>
+		<tr>
+		   <td>Main chart when the data for year 2005 is clicked </td>
+		   <td><i>LinkedChart</i> with data for 2005 replaces the main chart  </td>
+		</tr>
+   </table>
+   <p>Watch it <a href="../../../Code/MyFirstChart/linked-charts.html" target="_blank">live</a>!</p>
+   <p class="highlightBlock">To learn  how <i>LinkedCharts</i> work,  read FusionCharts and JavaScript &gt; <a href="../../JavaScript/JS_LinkedCharts.html">Using <i>LinkedCharts</i></a> page. </p>
+   <p class="header"><a name="embedded" id="embedded"></a> Embedded data-string of <i>LinkedCharts</i> in data of master chart</p>
+   <p>Following  XML data  contains data for <i>LinkedChart</i>s:</p>
+   <pre class="prettyprint code_container lang-xml">&lt;chart caption="Yearly sales" xAxisName="Year" yAxisName="Sales"&gt;
+  &lt;set label="2004" value="37800" link="newchart-xml-2004-quarterly" /&gt;
+  &lt;set label="2005" value="21900" link="newchart-xml-2005-quarterly" /&gt;
+  &lt;set label="2006" value="32900" link="newchart-xml-2006-quarterly" /&gt;
+  &lt;set label="2007" value="39800" link="newchart-xml-2007-quarterly" /&gt;
+  
+  &lt;linkeddata id="2004-quarterly"&gt;
+    &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2004"
+    xAxisName="Quarter" yAxisName="Sales" &gt;
+      &lt;set label="Q1" value="3700" /&gt;
+      &lt;set label="Q2" value="2900" /&gt;
+      &lt;set label="Q3" value="3200" /&gt;
+      &lt;set label="Q4" value="3900" /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+  
+  &lt;linkeddata id="2005-quarterly"&gt;
+    &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2005"
+      xAxisName="Quarter" yAxisName="Sales"&gt;
+      &lt;set label="Q1" value="7800" /&gt;
+      &lt;set label="Q2" value="2100" /&gt;
+      &lt;set label="Q3" value="3290" /&gt;
+      &lt;set label="Q4" value="3800" /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;linkeddata id="2006-quarterly"&gt;
+    &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2006"
+      xAxisName="Quarter" yAxisName="Sales"&gt;
+      &lt;set label="Q1" value="3800" /&gt;
+      &lt;set label="Q2" value="2190" /&gt;
+      &lt;set label="Q3" value="3290" /&gt;
+      &lt;set label="Q4" value="3980" /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+  &lt;linkeddata id="2007-quarterly"&gt;
+    &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2007"
+      xAxisName="Quarter" yAxisName="Sales"&gt;
+      &lt;set label="Q1" value="3780" /&gt;
+      &lt;set label="Q2" value="1900" /&gt;
+      &lt;set label="Q3" value="2900" /&gt;
+      &lt;set label="Q4" value="9800" /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;
+
+&lt;/chart&gt;
+</pre>
+<p>The  initial part of the XML defines the data for the master chart, and rest of the XML is a group of <span class="codeInline">&lt;linkeddata&gt; </span><span class="text">nod</span>es, each of which contains data for a specific <i>LinkedChart</i>. The  XML data for the master chart is as shown follows: </p>
+<pre class="prettyprint code_container lang-xml">&lt;chart caption="Yearly sales" xAxisName="Year" yAxisName="Sales"&gt;
+  &lt;set label="2004" value="37800" link="newchart-xml-2004-quarterly" /&gt;
+  &lt;set label="2005" value="21900" link="newchart-xml-2005-quarterly" /&gt;
+  &lt;set label="2006" value="32900" link="newchart-xml-2006-quarterly" /&gt;
+  &lt;set label="2007" value="39800" link="newchart-xml-2007-quarterly" /&gt;
+  . . .</pre>
+  <p>Note, that every <span class="codeInline">&lt;set&gt;</span> element contains the <span class="codeInline">link</span> attribute. The value of this attribute follows the syntax: </p>
+<pre class="codeInline"><a name="linkwithid" id="linkwithid"></a>link="newchart-xml-id"</pre>
+<ul>
+<li><span class="codeInline">newchart</span> - indicates that the click action on the dataplot will lead to rendering of a new <i>LinkedChart</i></li>
+<li><span class="codeInline">xml</span> - indicates that the new chart will use xml data</li>
+<li><span class="codeInline">id</span> - this can be any string, and each set element must have a unique link id with the entire XML. This id will be searched in the<span class="codeInline"> id </span><span class="text">a</span>ttribute of<span class="codeInline"> &lt;linkeddata&gt; </span>node latter in the XML. Once matched, the chart data present in that node will be used as the data for the <i>LinkedChart</i>, which renders when a particular link is clicked. </li>
+</ul>
+<p>Next, separate&nbsp;nodes of chart XML data for each <i>LinkedChart</i> are declared under the <span class="codeInline">&lt;linkeddata&gt;</span> element. Following XML shows one of the nodes, which provides  data for a drill-down chart, which renders when the  first column&nbsp;of the master chart is clicked:</p>
+<pre class="prettyprint code_container lang-xml">&lt;linkeddata id="2004-quarterly"&gt;
+    &lt;chart caption="Quarterly Sales Summary" subcaption="For the year 2004"
+    xAxisName="Quarter" yAxisName="Sales" &gt;
+      &lt;set label="Q1" value="3700" /&gt;
+      &lt;set label="Q2" value="2900" /&gt;
+      &lt;set label="Q3" value="3200" /&gt;
+      &lt;set label="Q4" value="3900" /&gt;
+    &lt;/chart&gt;
+  &lt;/linkeddata&gt;</pre>
+  <p>The XML data for drill-down charts is specified under separate <span class="codeInline">&lt;linkeddata&gt;</span> element, and each data node is mapped to its parent dataplot in the master chart by means of a unique id (which is specified in the individual <span class="codeInline">&lt;set&gt;</span> element of the master chart). In the above XML the<span class="codeInline"> id</span> of this node is &quot;2004-quarterly&quot;.&nbsp; This id matches with the id passed through the first dataplot's link attribute in the XML of the master chart  : <span class="codeInline">link=&quot;newchart-xml-<strong>2004-quarterly</strong>&quot;</span>. Hence, when the first data-plot is clicked, the chart that opens up will take data from this node. </p>
+   </td>
+</tr>
+<tr>
+   <td valign="top" class="text">&nbsp;</td>
+</tr>
+<tr>
+   <td valign="top" class="header"><a name="url" id="url"></a>Providing URL of <em>LinkedChart</em> XML in the data-source of the master chart</td>
+</tr>
+<tr>
+   <td valign="top" class="text">
+      <p>Instead of embedding the data of  <i>LinkedCharts</i> inside the data-source of the master chart, you can also specify the data source URL of the <i>LinkedCharts</i>. See the XML below&quot;:</p>
+      <pre class="prettyprint code_container">&lt;chart caption=&quot;Yearly Sales&quot; xAxisName=&quot;Year&quot; yAxisName=&quot;Sales&quot;&gt;
+  &lt;set label=&quot;2004&quot; value=&quot;37800&quot; <strong>link=&quot;newchart-xmlurl-Data2004.xml&quot;</strong> /&gt;
+  &lt;set label=&quot;2005&quot; value=&quot;21900&quot; link=&quot;newchart-xmlurl-Data2005.xml&quot; /&gt;
+  &lt;set label=&quot;2006&quot; value=&quot;32900&quot; link=&quot;newchart-xmlurl-Data2006.xml&quot; /&gt;
+  &lt;set label=&quot;2007&quot; value=&quot;39800&quot; link=&quot;newchart-xmlurl-Data2007.xml&quot; /&gt;
+&lt;/chart&gt;</pre>
+		<p>Note, here also, every <span class="codeInline">&lt;set&gt;</span> element contains the <span class="codeInline">link</span> attribute. The value of this attribute follows the syntax: </p>
+      <pre class="codeInline"><a name="linkwithurl" id="linkwithurl"></a>link=&quot;newchart-xmlurl-url&quot;</pre>
+      <ul>
+         <li><span class="codeInline">newchart</span> - indicates that the click action on the dataplot will lead to rendering of a new <i>LinkedChart</i></li>
+         <li><span class="codeInline">xmlurl</span> - indicates that the new chart will get xml data from a URL </li>
+         <li><span class="codeInline">url</span> - sets the url/path of the xml data source</li>
+      </ul>
+      <p>When the first dataplot is clicked,  a chart is rendered based on data obtained from the file <span class="codeInline">Data2004.xml</span>. </p>
+   </td>
+</tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Zoom Line chart XML|ZoomLine.html","JSON Overview|../JSON/Overview.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

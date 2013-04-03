@@ -1,0 +1,187 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Blur Style Type</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts Styles|Styles.html", "Blur Style type" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Blur Style Type</td>
+  </tr>
+  <tr> 
+    <td class="text"><p>The <span class="codeInline">Blur Style Type</span> 
+      is the simplest of all style types, which basically helps to blur any chart 
+      object for visual effect.</p>
+      <img src="Images/Styles/style_19.jpg"/>
+	  <p class="highlightBlock">Note: In JavaScript charts, customized <span class="codeInline">blur</span> style type is not available.  </p>
+            <p>It has the following parameters: </p></td>
+  </tr>
+  
+  <tr> 
+    <td><table border="0" class="table" cellpadding="3" cellspacing="0" width="85%">
+        <tr> 
+          <td width="15%" valign="top" class="header">Properties</td>
+          <td width="70%" valign="top" class="header">Description</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurX</td>
+          <td valign="top" class="text">The amount to blur horizontally. 
+              Valid values are from 0 to 255. The default value is 4. Values that 
+              are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized to render 
+              quicker than other values.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">blurY</td>
+          <td valign="top" class="text">The amount to blur vertically.</td>
+        </tr>
+        <tr> 
+          <td valign="top" class="codeInline">quality</td>
+          <td valign="top" class="text">The number of times to 
+              apply the filter. The default value is 1, which is equivalent to 
+              low quality. A value of 2 is medium quality, and a value of 3 is 
+              high quality and approximates a Gaussian blur.</td>
+        </tr>
+      </table></td>
+  </tr>
+     <tr>
+    <td height="25"></td>
+    </tr>
+  <tr> 
+    <td class="header">Controlling blur amount</td>
+    </tr>
+ 
+  <tr>
+    <td><p class="text">You can configure the  amount of blur as under:</p>
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab1" class="tab_content">
+ <pre class="prettyprint code_container">&lt;style name='MyFirstBlur' type='Blur' <strong>blurX='6' blurY='6'</strong> /&gt;</pre></div>
+ <div id="tab2" class="tab_content">
+   <pre id="pre-datajson" class="prettyprint code_container"> "definition":[{ "name":"MyFirstBlur", "type":"Blur" <strong>"blurx":"6", "blury":"6"</strong> }]</pre>
+ </div></div></div></td></tr>
+ <tr>
+ <td height="25"></td></tr>
+ <tr>
+ <td class="text"><table border="0" cellpadding="3" cellspacing="0" class="table" width="65%">
+        <tr> 
+          <td width="15%" valign="top"  class="header">Property</td>
+          <td width="35%" valign="top"  class="header">Format</td>
+          <td width="15%" valign="top"  class="header">Example</td>
+        </tr>
+        <tr> 
+          <td valign="top"  class="codeInline">blurX            </td>
+          <td valign="top"  class="codeInline">blurX='value'            </td>
+          <td valign="top"  class="codeInline">blurX='6'            </td>
+        </tr>
+        <tr> 
+          <td valign="top"  class="codeInline">blurY</td>
+          <td valign="top"  class="codeInline">blurY='value'</td>
+          <td valign="top"  class="codeInline">blurY='6'</td>
+        </tr>
+      </table> 
+ </td></tr>
+ <tr><td class="text"><p>When applied to columns, it gives the following effect:</p></td>
+  </tr>
+  <tr> 
+    <td></td>
+  </tr>
+  <tr> 
+    <td><table width="95%" border="0" cellspacing="0" cellpadding="2">
+        <tr> 
+          <td><img src="Images/Styles/style_16.jpg" /></td>
+        </tr>
+             <tr>
+    <td height="25"></td>
+    </tr>
+       <tr> 
+    <td class="header">Controlling blur quality</td>
+    </tr> 
+    <tr>
+    <td class="text"><p>To change the quality of the blur, use the <span class="codeInline">quality</span> attribute as under:</p>
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+ <pre class="prettyprint code_container">&lt;style name='MyFirstBlur' type='Blur' blurX='6' blurY='6' <strong>quality='3'</strong> /&gt;</pre></div>
+ <div id="tab4" class="tab_content">
+   <pre id="pre-datajson" class="prettyprint code_container"> "definition":[{ "name":"MyFirstBlur", "type":"Blur" "blurx":"6", "blury":"6" <strong>"quality":"3"</strong> }]</pre>
+ </div></div></div>
+    </td></tr>
+    <tr>
+    <td height="25"></td></tr>
+    <tr> 
+    <td><table border="0" cellpadding="3" cellspacing="0" class="table" width="65%" >
+        <tr> 
+          <td width="15%" valign="top"  class="header">Property</td>
+          <td width="35%" valign="top"  class="header">Format</td>
+          <td width="15%" valign="top"  class="header">Example</td>
+        </tr>
+        <tr> 
+          <td valign="top"  class="codeInline">quality</td>
+          <td valign="top"  class="codeInline">quality='value'</td>
+          <td valign="top"  class="codeInline">quality='3'</td>
+        </tr>
+      </table></td>
+  </tr>
+    <tr>
+    <td class="text"><p>It gives the following output:</p>
+    <p><img src="Images/Styles/style_22.jpg"/></p>
+    
+      </td>
+      </tr>
+      </table></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Bevel Style type|Bevel.html","Grid Component Overview|../grid-component/Grid_Overview.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

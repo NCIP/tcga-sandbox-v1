@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>How to Setup Flash Player Global Security Settings - FusionCharts</title>
+<link rel="stylesheet" href="../../Contents/css/Style.css" type="text/css" />
+
+<script type="text/javascript" src="../../Contents/assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../Contents/assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../Contents/assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+</head>
+
+<body>
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center" style="margin-top:10px;">
+  <tr> 
+    <td class="pageHeader" >How to setup Flash Player Global Security Settings?</td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">To enable communication between charts and JavaScript (like updating data, retrieving data, printing, exporting, event handling etc.) in your local machine, you need to Setup Flash Player Global Security settings.</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header"><a name="online"></a>Setting up online</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+        <p>If you have Flash Player version lower than 10.3, you can manipulate the settings from Adobe Flash Player Settings Manager in the <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html" target="_blank">Global Security Settings</a> panel. It can be done using these simple steps:</p>
+    
+        <ol> 
+					<li>Select the Always allow radio button on the top to allow security exceptions. This control is marked as "1" in the image below</li>
+				    <li> From the Edit Locations... drop down box, select "Add location..." option to bring up a dialog box. The drop down box is marked as "2" in the image below</li>
+				   <li>Now select Browse for folder... and browse to the location where you are keeping the chart SWF files</li>
+				   <li>After confirming your selection you should see the path of the exception added in area "3" of the image below<br />
+				      <br />
+				         <img src="Images/installation_securitySetting.jpg" alt="Installation Security Settings" width="600" height="402" class="imageBorder" /><br />
+      </ol>
+		   
+    </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+  <td class="header"><a name="103"></a>Flash Player version 10.3 and above</td></tr>
+  <tr>
+  <td class="text"><p>To configure the Flash Player Global Security settings for version 10.3 and above you need to follow the following steps:</p></td></tr>
+  <tr>
+  <td class="text">
+  <ul>
+  <li>Right click on the chart and select &quot;<strong>Global Settings...</strong>&quot; from the right-click menu<br/>
+    <br/>
+   <img src="Images/FlashPlayer1.jpg" /><br/><br/></li>
+  <li>Click &quot;<strong>Advanced</strong>&quot; tab in the Flash Player Settings Manager window<br/><br/>
+  <img src="Images/FlashPlayer2.jpg" /> <br/><br/></li>
+  <li>Click &quot;<strong>Trusted Location Settings</strong>&quot; button<br/><br/>
+  <img src="Images/FlashPlayer3.jpg" /><br/><br/></li>
+  <li>Click &quot;<strong>Add</strong>&quot; button <br/>
+    <br/>
+  <img src="Images/FlashPlayer4.jpg" class="imageBorder"/><br/>
+      <br/></li>
+  <li>Click &quot;<strong>Add Folder</strong>&quot;<br/>
+    <br/>
+  <img src="Images/FlashPlayer5.jpg" /><br/><br/>
+  </li>
+  <li>Select the folder and click <strong>OK</strong> to select the folder which contains chart SWF files <br/>
+    <br/>
+  <img src="Images/FlashPlayer6.jpg" /><br/><br/>
+  </li>
+  <li>Click "<strong>Confirm</strong>" to add the folder in trusted location list <br/>
+    <br/>
+  <img src="Images/FlashPlayer7.jpg" /><br/><br/>
+  </li>
+  <li>The path of the folder is displayed. Click "<strong>Close</strong>"<br/>
+    <br/>
+  <img src="Images/FlashPlayer8.jpg" /><br/><br/>
+  </li>
+  <li>Click the close button to close the window<br/><br/>
+  <img src="Images/FlashPlayer9.jpg" /><br/><br/>
+  </li>
+  </ul>
+  </td></tr>
+  <tr>
+     <td valign="top" class="header"><a name="offline"></a>Setting up offline</td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">
+        <p>You can also configure Flash Player Global security settings offline. We have provided batch or script files to ease this. You need to do the following: </p>
+        <p>Go to <strong>FusionCharts Download Pack</strong>'s<span class="codeInline"> Tools</span> &gt; <span class="codeInline">FlashPlayerSecuritySetup</span> folder        </p>
+        <ul>
+          <li>To setup Windows (XP/Vista/7) operating system:
+            <ul>
+              <li>Go inside <span class="codeInline">Windows</span> folder</li>
+              <li>Copy <span class="codeInline">FlashSecuritySetup.bat</span> to the folder where you have kept the chart swf files</li>
+              <li>Execute the file. You might need to run the file as administrator<br />
+                <br />
+                </li>
+            </ul>
+          </li>
+          <li> To setup mac (Tiger/Leopard/Snow-leopard/Lion):
+            <ul>
+              <li>Go inside <span class="codeInline">mac</span> folder</li>
+              <li>Extract the archive <span class="codeInline">FlashSecuritySetup.app.zip</span> or <span class="codeInline">FlashSecuritySetup.workflow.zip</span></li>
+              <li>Copy <span class="codeInline">FlashSecuritySetup.app</span> or <span class="codeInline">FlashSecuritySetup.workflow</span> to the folder where you have kept the chart swf files</li>
+              <li>Execute either of the files<br />
+                 <br />
+              </li>
+            </ul>
+           </li>
+          <li>To setup linux operating system:
+            <ul>
+              <li>Go inside <span class="codeInline">linux</span> folder</li>
+              <li>Copy <span class="codeInline">FlashSecuritySetup.sh</span> to the directory where you have kept the chart swf files</li>
+              <li>Make the file executable</li>
+              <li>Execute the file</li>
+            </ul>
+           </li>
+       </ul>
+        <p>And you are done! </p>
+        <p class="highlightBlock">Script files for offline configuration might come handy if you are generating FusionCharts in an application which is deployed only for offline use. If you are providing an installation process while deploying your application, you can always add and execute the add the script files.</p>     </td>
+  </tr>
+  <tr>
+     <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

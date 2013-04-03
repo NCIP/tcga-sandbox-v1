@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creating your First Chart</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="pageHeader">Creating your First Chart</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"> 
+      <p>After all the warming up, it is time to build your first chart using   FusionCharts! Let's start with a simple&nbsp;&quot;Weekly Sales Summary&quot; chart,   which we will plot in&nbsp;3D using a Column Chart. Once done, it should look   as under, although with animation and interactivity when you view it   live.</p>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; MyFirstChart</span> folder</p>
+      
+      <img src="Images/FirstChart.jpg" alt="First Chart - Weekly Sales" class="imageBorder" /><br/><br/>
+      <div style="height: 25px; line-height: 25px;">Follow the steps below to get started:<br />
+      </div>
+      <ol>
+        <li>Create a folder <span class="codeInline">LearningFusionCharts</span> on your hard-drive. We'll use this folder as the root folder for building all FusionCharts examples. </li>
+        <li>Create a folder named <span class="codeInline">MyFirstChart</span> inside the above folder. Inside <span class="codeInline">MyFirstChart</span> folder, create a folder named<span class="codeInline"> FusionCharts</span>. </li>
+        <li>Copy <span class="codeInline">Column3D.swf</span> from <span class="codeInline">Download Pack &gt; Charts </span>folder to <span class="codeInline">FusionCharts</span> folder. This is the SWF file required to render this chart in Flash.</li>
+        <li>Copy <span class="codeInline">FusionCharts.js, FusionCharts.HC.js, FusionCharts.HC.Charts.js </span> and <span class="codeInline">jquery.min.js</span> files from <span class="codeInline">Download Pack &gt; Charts</span> folder to <span class="codeInline">FusionCharts</span> folder. These JavaScript files help you easily embed FusionCharts in your page   and also render the chart in JavaScript, when viewed on a machine/device   that does not support Flash.</li>
+        <li>Create an <span class="msg_handler"><a>XML file</a> &raquo; </span><span class="msg_body veryLightYellowBg">(Creating an XML file is as easy as creating a text file using Windows Notepad or any other text editor. It is actually a plain text file with extension - xml)</span> in <span class="codeInline">MyFirstChart</span> folder with name <span class="codeInline">Data.xml</span>.</li>
+        <li> <a name="xml" id="xml"></a>The code given below (left), is the  <em>XML-lized</em> form of the sales data shown in the table (right).  Copy the XML code to <span class="codeInline">Data.xml</span> file.<br />
+          <br />
+          <table width="700" cellpadding="0"  border="0">
+            <tr>
+              <td class="text" valign="top" width="500"><pre class="code_container prettyprint lang-xml" >&lt;chart caption='Weekly Sales Summary'
+   xAxisName='Week' yAxisName='Amount' numberPrefix='$'&gt; 
+    &lt;set label='Week 1' value='14400' /&gt; 
+    &lt;set label='Week 2' value='19600' /&gt; 
+    &lt;set label='Week 3' value='24000' /&gt; 
+    &lt;set label='Week 4' value='15700' /&gt; 
+&lt;/chart&gt;</pre></td>
+              <td class="textBold" align="center" valign="middle" width="200"><table width="200" height="182" border="0" cellpadding="5" cellspacing="5" class="table">
+                  <tr class="header">
+                    <td class="header">Week</td>
+                    <td align="right" class="header"> Sales </td>
+                  </tr>
+                  <tr class="text">
+                    <td>Week 1 </td>
+                    <td align="right"> $14,400 </td>
+                  </tr>
+                  <tr class="text">
+                    <td>Week 2 </td>
+                    <td align="right"> $19,600 </td>
+                  </tr>
+                  <tr class="text">
+                    <td>Week 3 </td>
+                    <td align="right">$24,000</td>
+                  </tr>
+                  <tr class="text">
+                    <td>Week 4 </td>
+                    <td align="right"> $15,700 </td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table>
+        </li>
+        <li><a name="html" id="html"></a>Create  an HTML file <span class="codeInline">weekly-sales.html</span> in the same folder and  copy-paste the code<br /><br/>
+          <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+      &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+</strong>      
+    // --&gt;     
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+		</li>
+      </ol>
+      <br />
+      And that completes the recipe!
+      <p>Open the file <span class="codeInline">weekly-sales.html</span> in a <span class="msg_handler"><a>Web Browser</a> &raquo; </span><span class="msg_body veryLightYellowBg">Internet Explorer, Firefox,  Opera, Chrome or Safari (Mac/iPhone/iPad/Windows)</span> and you will see an animated Column 3D chart similar to the one below:</p>
+      <img src="Images/FirstChart.jpg" alt="First Chart - Weekly Sales" class="imageBorder" />
+      <p>See it <a href="../../Code/MyFirstChart/weekly-sales.html" target="_blank">live</a>!</p>
+      <p class="highlightBlock"><strong>Rendering the chart as JavaScript : </strong>The same code can render the chart as JavaScript. You just have to add a line of code <span class="codeInline">FusionCharts.setCurrentRenderer('javascript')</span>.  This code will ask FusionCharts renderer to skip Flash rendering and create pure JavaScript charts. Click <a href="UsingPureJS.html#force"><strong>here</strong></a> to see the complete code and a live example. </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header"><a name="how_it_works"></a>How it works? </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>Now that you've already rendered a chart, let's get behind the scenes and understand how FusionCharts renders charts in a web-page. Essentially, to create a chart, you need the following 4  items:</p>
+      <ol>
+        <li><strong>Chart SWF files :</strong> Each chart in FusionCharts is an SWF file that creates a  specific type of chart. So, if you want to create 3D column chart, you'll need the SWF file called <span class="codeInline">Column3D.swf</span>. Similarly for creating a 3D pie chart you'll need <span class="codeInline">Pie3D.swf</span>. For the complete list of chart SWF files, refer to <a href="../Introduction/ChartList.html">Chart List</a>. The chart SWF file is loaded and rendered using Adobe Flash player plug-in that is installed on your machine (more specifically, browser). </li>
+        <li><strong>Chart data :</strong> FusionCharts data file contains  both data for plotting, and cosmetic/functional configuration for the chart. FusionCharts accepts data in  <a href="../DataFormats/XML/Overview.html">XML</a> and <a href="../DataFormats/JSON/Overview.html">JSON</a> format. The XML or JSON data document can either be produced manually or generated using server-side scripts that  are connected to your databases or live data sources. In the above example,  we have used a hand-coded  XML file for plotting the chart. </li>
+        <li><strong>JavaScript class files :</strong> These are also present in the <span class="codeInline">Charts</span> folder in the root of the <span class="codeInline">Download Package</span>. The JavaScript class files help in embedding the chart SWF files into a web page, and also help in rendering JavaScript (HTML5) fallback charts. Additionally, it  provides a JavaScript interface for controlling the chart. </li>
+        <li><strong>HTML wrapper file (or a dynamic web page):</strong> The HTML wrapper file is where the charts are rendered. This file contains the code which integrates all other components (discussed above) to produce the charts.</li>
+      </ol>
+      <p class="highlightBlock"><strong>What happens if Flash player is not available?</strong><br />
+        <br/>
+        In case Flash Player is not available on certain devices (like iPad/iPhone), FusionCharts JavaScript library automatically renders the same chart using JavaScript. If you are running the sample from local file system, please note that you would need to provide the data using <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>, i.e., passing the data (XML/JSON) to the chart as String or JSON Object. Many browsers restrict JavaScript from accessing local file system owing   to security reasons. In the above example, since you had provided data   as a URL, the JavaScript charts would not be able to access the same,   when running locally. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="DataXML.html">Data String method</a>), it works fine. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="understanding_data"></a>Explanation of  chart data</td>
+  </tr>
+  <tr>
+    <td valign="top"  class="text"><p>Let&apos;s take a closer look at the data and its XML form:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="750"  cellpadding="0"  border="0">
+        <tr>
+          <td width="550"><pre class="code_container prettyprint lang-xml">&lt;chart caption='Weekly Sales Summary'
+   xAxisName='Week' yAxisName='Amount' numberPrefix='$'&gt; 
+    &lt;set label='Week 1' value='14400' /&gt; 
+    &lt;set label='Week 2' value='19600' /&gt; 
+    &lt;set label='Week 3' value='24000' /&gt; 
+    &lt;set label='Week 4' value='15700' /&gt; 
+&lt;/chart&gt;</pre></td>
+          <td class="textBold" align="center" valign="middle" width="200"><table width="200" height="182" border="0" cellpadding="5" cellspacing="5" class="table">
+              <tr class="header">
+                <td class="header">Week</td>
+                <td align="right" class="header"> Sales </td>
+              </tr>
+              <tr class="text">
+                <td>Week 1 </td>
+                <td align="right"> $14,400 </td>
+              </tr>
+              <tr class="text">
+                <td>Week 2 </td>
+                <td align="right"> $19,600 </td>
+              </tr>
+              <tr class="text">
+                <td>Week 3 </td>
+                <td align="right">$24,000</td>
+              </tr>
+              <tr class="text">
+                <td>Week 4 </td>
+                <td align="right"> $15,700 </td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Basically, what we've done above can be listed in the following points:</p>
+      <ul>
+        <li>We've created the root <span class="codeInline">&lt;chart&gt;</span> element, with a few attributes to define caption, axis titles and number             prefix character.</li>
+        <li>For each data row (in table), we've created a <span class="codeInline">&lt;set&gt;</span> element. <span class="codeInline">label</span> attribute of this element             represents the week name and <span class="codeInline">value</span>             attribute represents the sales value for that week. This is the entire data that we wish to plot on the chart. Note how we've removed the number prefix ($) and comma separators from each value before specifying it in XML as <span class="codeInline">&lt;set value='14400'&gt;</span>. FusionCharts needs the numbers to be in pure numeric format when specified in XML or JSON. </li>
+      </ul>
+      Just as a measure to check if the XML document is structurally valid,           open the file in your browser. You should be able to see the XML data           document in a formatted way, without any errors.
+     
+      <p class="highlightBlock">Note that you can also provide chart data in JSON format. View an example of JSON data <a href="JSONData.html">here</a>. Or, to learn more about FusionCharts JSON data format, please go through <strong>FusionCharts data formats &gt; <a href="../DataFormats/JSON/Overview.html">JSON</a></strong> section. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="understanding_html"></a>Explanation of HTML &amp; JavaScript code used to embed the chart</td>
+  </tr>
+  <tr>
+    <td valign="top"><p>In the HTML wrapper file (or your web page), the shots are called by the included JavaScript class file <span class="codeInline">FusionCharts.js</span>. Let&apos;s take a second look at the HTML code to gain an understanding of how it works.</p>
+      <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First chart using FusionCharts&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+<strong>      var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, 
+      &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+</strong>
+    // --&gt;
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the very beginning, the JavaScript class file <span class="codeInline">FusionCharts.js</span> is included into the HTML using the code shown below. <span class="codeInline">FusionCharts.js</span> is smart enough to automatically load the other required JavaScript files - <span class="codeInline">jquery.min.js, FusionCharts.HC.js </span>and<span class="codeInline"> FusionCharts.HC.js </span> on-demand. Make sure that all the three JavaScript files are present in the same folder in which <span class="codeInline">FusionCharts.js</span> is located. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" >
+      <pre class="code_container prettyprint">&lt;script type=&quot;text/javascript&quot; src=&quot;<strong>FusionCharts/FusionCharts.js</strong>&quot;&gt;&lt;/script&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Next, an HTML DIV with id <span class="codeInline">chartContainer </span> is created in the  body of the page. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Now comes the essential part, which  instantiates the chart. This is called the <span class="codeInline">chart constructor</span>. 
+      </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, 
+      &quot;900&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; ); </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, <span class="codeInline">myChart</span> is the name of the JavaScript object (variable) that contains reference to the chart.</p>
+      <p>The following parameters are passed on to the <span class="codeInline">MyChart</span> object:</p>
+      <ol>
+        <li>Relative URL of the chart SWF file of the chart type that we intend to use. <span class="codeInline">FusionCharts/Column3D.swf</span> in this example as <span class="codeInline">Column3D.swf</span> is the name of SWF and it is contained in a relative path inside <span class="codeInline">FusionCharts</span> folder. </li>
+        <li>ID of the chart. You can give any ID for the chart. Just make sure 
+          that if you're using multiple charts in the same HTML page, each chart 
+          should have a unique ID. In our example above, we provide &quot;<span class="codeInline">myChartId</span>&quot; as the ID. </li>
+        <li>Required width and height of the chart. When providing in pixels, just give the numeric value (without px). </li>
+        <li>The last two parameters are <span class="codeInline">debugMode </span>and <span class="codeInline">registerWithJS</span>. <span class="codeInline">debugMode</span> is set to &quot;0&quot; (off) normally except for when debugging is required. <span class="codeInline">registerWithJS</span> allows the chart and JavaScript to interact with each other. This parameter is deprecated and is always set to &quot;1&quot; (on) internally. We'll explain these parameters <a href="../JavaScript/API/Methods.html#chartparams">later</a>.</li>
+      </ol>
+      <p>The code below provides the reference (relative URL) of chart data file (XML in this case). The path of the XML file is set using <span class="codeInline">setXMLUrl()</span> function as shown below:</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="code_container prettyprint">myChart.setXMLUrl( &quot;Data.xml&quot; );</pre></td>
+  </tr>
+  <tr>
+    <td><p class="highlightBlock"> The code sample above uses URL of static XML file. Ideally, you would NOT use a physical data file. Instead you'll have  	'your own server side scripts to use dynamic data and build XML. You can always provide the URL of the script to virtually relay the dynamically built data.</p>
+      <p>Finally, the <span class="codeInline">render()</span> method is called and the ID of HTML DIV, where the chart is meant to be rendered, is provided. This line of code  renders the desired chart inside the DIV.</p></td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="code_container prettyprint">myChart.render( &quot;chartContainer&quot; );</pre></td>
+  </tr>
+  <tr>
+    <td height="23" class="text">
+      <p class="highlightBlock"><strong>Existing users </strong>: You might be wondering what happened to the functions like <span class="codeInline">setDataURL()</span>which you have already been using in your application. Yes - although deprecated, it will continue to work without any problem.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="shortcut_render"></a>Compact rendering method</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Since v3.2, FusionCharts also provides alternate methods of declaring and rendering a chart using JavaScript.</p>
+      <p>You can use a compact single-line of JavaScript (instead of the three lines we saw in the above sample) to render a chart as shown below:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt; 	
+     &lt;title&gt;My First chart using FusionCharts - Compact Rendering Method&lt;/title&gt; 	
+	  &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+     &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+	  &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+<strong>        var myChart = FusionCharts.render( &quot;FusionCharts/Column3D.swf&quot;, 
+            &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;chartContainer&quot;, &quot;Data.xml&quot; );
+</strong>      
+	   // --&gt; 
+	  &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+      <p>See it <a href="../../Code/MyFirstChart/weekly-sales-shortcut.html" target="_blank">live</a>!</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">The above code uses the static <span class="codeInline">render</span> function of the global <span class="codeInline">FusionCharts</span> object. This function takes all required parameters to render a chart like the chart SWF, chart ID, width &amp; height of chart, div ID where chart will be rendered and reference to chart data.
+      <p>There are additional ways of rendering a chart as well, which have been explained in <strong><a href="../JavaScript/JS_CreateChart.html">Creating charts</a> </strong>page in &quot;FusionCharts and JavaScript&quot; section.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="trouble"></a>Troubleshooting</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If for any reason, you do not see a chart, run through the following checks:</p>
+      <p>If you see an endless loading progress bar in your browser, or if the 
+        right click menu (right click at the place where the chart is supposed 
+        to be) shows &quot;<strong>Movie not loaded</strong>&quot;, 
+        check the following:</p>
+      <ul>
+        <li>Have you pasted the chart SWF files in <span class="codeInline">FusionCharts </span><span class="text">folder of </span><span class="codeInline">MyFirstChart</span> folder?</li>
+        <li>Have you provided the SWF path properly in your <span class="codeInline">weekly-sales.html</span> page?</li>
+        <li>Do you have Adobe Flash Player 8 (or above) installed for this 
+          browser?</li>
+        <li>Have you enabled your browser to show Active X/Plugin controls? 
+          Normally, all browsers are Flash-enabled, but sometimes security settings can disable execution of Active X/Plugin controls. </li>
+      </ul>
+      <p>If you get an &quot;<strong>Error in Loading Data</strong>&quot; message, check the following:</p>
+      <ul>
+        <li>Whether <span class="codeInline">Data.xml</span> is in the same folder 
+          as the <span class="codeInline">weekly-sales.html</span> HTML file?</li>
+        <li>Whether <span class="codeInline">Data.xml</span> is named as <span class="codeInline">Data.xml</span> and not <span class="codeInline">Data.xml.txt</span>? (as many basic 
+          text editors append <span class="codeInline">.txt</span> after the file name).</li>
+      </ul>
+      <p>If you get an &quot;<strong>Invalid XML Data</strong>&quot; message, it means that the 
+        XML data document is malformed. Check it again for common errors like:</p>
+      <ul>
+        <li>Difference in case of tags. <span class="codeInline">&lt;chart&gt;</span> should end with <span class="codeInline">&lt;/chart&gt;</span> and <strong>not</strong> <span class="codeInline">&lt;/Chart&gt;</span> or<span class="codeInline"> &lt;/CHART&gt;</span></li>
+        <li>Missing opening/closing quotation marks for any attributes. e.g., <span class="codeInline">&lt;chart caption=Weekly Sales Summary' </span>should 
+          be <span class="codeInline">&lt;chart caption='Weekly Sales Summary'</span></li>
+        <li>Missing closing tag for any element</li>
+      </ul>
+      <p>To check whether your final XML is ok, open it in your browser and you'll see the error.</p>
+      <p>If  only the text &quot;<strong>FusionCharts will load here!</strong>&quot; is displayed, check with the following:</p>
+      <ul>
+        <li>Have you pasted the <span class="codeInline">FusionCharts.js</span>, <span class="codeInline">jquery.min.js</span>, <span class="codeInline">FusionCharts.HC.js</span> and <span class="codeInline">FusionCharts.HC.Charts.js</span> files in <span class="codeInline">FusionCharts</span> folder of <span class="codeInline">MyFirstChart</span> folder?</li>
+        <li>Have you included and provided the path of <span class="codeInline">FusionCharts.js</span> properly in your <span class="codeInline">weekly-sales.html</span> page?</li>
+        <li>Are there any JavaScript syntax or runtime errors that might have halted the execution of FusionCharts functions?</li>
+        <li>Have you given different names for the chart's JavaScript variable and chart's ID?</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Upgrading to XT from v3.x.y|../Introduction/Upgrading32.html","Creating charts in JavaScript|UsingPureJS.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

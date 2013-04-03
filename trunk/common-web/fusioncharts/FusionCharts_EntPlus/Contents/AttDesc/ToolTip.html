@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Tool Tip </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Tooltip" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Tool Tip </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>A  tool-tip is shown when the mouse is hovered over a particular   data point. It shows the following information:</p>
+      <ul>
+        <li>Single series chart (except pie &amp; doughnut): Name &amp; value </li>
+        <li>Pie &amp; Doughnut: Name &amp; value/percentage </li>
+        <li>Multi-series &amp; combination chart: Series Name, Category Name, Data Value</li>
+      </ul>    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/tooltip1.jpg" width="120" height="110" class="imageBorder" /></p>
+    <p>You can opt not to show the tool tip using <span class="codeInline">showToolTip='0' </span>attribute.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart showToolTip='0'...&gt;</pre>
+    <p>To show the tool-tip without shadow, you may set:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart showToolTipShadow='0' ...&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Custom Tool Text</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can set a custom tool tip for any of the data points using <span class="codeInline">tooltext</span> attribute of the <span class="codeInline">&lt;set&gt;</span> element which is used to define the individual data elements. </p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Monthly Revenue' xAxisName='Month' yAxisName='Revenue' numberPrefix='$' showValues='0'&gt;
+  &nbsp;&lt;set label='Jan' value='220000' <strong>toolText='Highest'</strong>/&gt;
+  &nbsp;&lt;set label='Feb' value='90000' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;...
+&lt;/chart&gt; </pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{<br />  &quot;chart&quot;:{<br />    &quot;caption&quot;:&quot;Monthly Revenue&quot;,<br />    &quot;xaxisname&quot;:&quot;Month&quot;,<br />    &quot;yaxisname&quot;:&quot;Revenue&quot;,<br />    &quot;numberprefix&quot;:&quot;$&quot;,<br />    &quot;showvalues&quot;:&quot;0&quot;<br />  },<br />  &quot;data&quot;:[{<br />      &quot;label&quot;:&quot;Jan&quot;,<br />      &quot;value&quot;:&quot;220000&quot;,<br />      <strong>&quot;tooltext&quot;:&quot;Highest&quot;</strong><br />    },<br />    {<br />      &quot;label&quot;:&quot;Feb&quot;,<br />      &quot;value&quot;:&quot;90000&quot;<br />    }<br />...<br />  ]<br />}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 
+  <p>The above would yield the following result:</p>
+    <p><img src="Images/tooltip7.jpg" width="120" height="110" class="imageBorder" /></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing the tool tip</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can customize the background &amp; border color of the tool tip using the <span class="codeInline">toolTipBorderColor</span> and <span class="codeInline">toolTipBgColor</span> attributes respectively. The colors should be without the '#' symbol. </p>    <pre class="prettyprint code_container">&lt;chart ... toolTipBorderColor='D9E5F1' toolTipBgColor='D9E5F1'&gt;</pre>
+    <p>This would yield the following result:</p>
+    <p><img src="Images/tooltip2.jpg" width="120" height="110" class="imageBorder" /></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Specifying font properties for tool tip using STYLES</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using STYLES, you can set individual font properties for different text on the chart. </p>
+      <p>Here, we will customize the font properties of the tool tip using STYLES to have the following end result:</p>
+      <img src="Images/tooltip4.jpg" width="400" height="200" />
+      <p>The data for this chart is as under. To read more on STYLES, please refer to <a href="../Styles/Styles.html">FusionCharts and Styles</a>.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' &gt;
+  &lt;set label='Qtr 1' value='420500' /&gt;
+  &lt;set label='Qtr 2' value='295400' /&gt;
+  &lt;set label='Qtr 3' value='523400' /&gt;
+  &lt;set label='Qtr 4' value='465400' /&gt;
+  <strong>&lt;styles&gt;
+      &lt;definition&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myToolTipFont' type='font' font='Arial' size='12' color='FF5904'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='ToolTip' styles='myToolTipFont' /&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;
+  &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+ <strong> "styles": {
+    "definition": [
+      {
+        "name": "myToolTipFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "12",
+        "color": "FF5904"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "ToolTip",
+        "styles": "myToolTipFont"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  
+	  
+ </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Tool Tip in multiple lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>FusionCharts v3 allows you to put your tool tips in multiple lines with a little manual tweaking. Consider the XML/JSON below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='John' value='420' tooltext='John Miller<strong>{br}</strong>Score: 420<strong>{br}</strong>Rank:2'/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Mary' value='295' tooltext='Mary Evans<strong>{br}</strong>Score: 295<strong>{br}</strong>Rank:3'/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Tom' value='523' tooltext='Tom Bowler<strong>{br}</strong>Score: 523<strong>{br}</strong>Rank:1'/&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{},
+  "data":[{
+      "label":"John",
+      "value":"420",
+      "tooltext":"John Miller<strong>{br}</strong>Score: 420<strong>{br}</strong>Rank:2"
+    },
+    {
+      "label":"Mary",
+      "value":"295",
+      "tooltext":"Mary Evans<strong>{br}S</strong>core: 295<strong>{br}</strong>Rank:3"
+    },
+    {
+      "label":"Tom",
+      "value":"523",
+      "tooltext":"Tom Bowler<strong>{br}</strong>Score: 523<strong>{br}</strong>Rank:1"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+
+
+<p>In the above data, to add a line break in the tool-tip, we've used the pseudo code {br}.</p>
+<p>When you now see the chart, you'll get the following output: </p>
+<img src="../advanced/Images/ToolTipMultiple.jpg" width="405" height="207" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Anchors &amp; Lines|Anchors.html", "Chart Paddings &amp; Margins|Padding.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

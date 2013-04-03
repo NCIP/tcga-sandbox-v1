@@ -1,0 +1,226 @@
+<html>
+	<head>
+		<title>FusionCharts XT Documentation</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<script type="text/javascript">
+			
+			function isLocalStorageAvailable()
+			{
+				try
+				{
+					return ('localStorage' in window==true && window['localStorage'] !== null && typeof localStorage.getItem=='function');
+				}
+				catch(e)
+				{
+					return false;
+				}
+			}
+
+			var isLocalStore = isLocalStorageAvailable();
+			if(isLocalStore)
+			{
+				localStorage.removeItem("FC__MENU_COLLAPSED");
+				localStorage.setItem("FC__MENU_COLLAPSED", false);
+			}
+			
+				
+
+			var hashChangedTo ="";
+			var oldMenuCollapsedState = "false";
+			
+			onHashChange = function()
+			{
+				var nav=1;
+				if(!window.location.search)
+				{
+					if(hashChangedTo.toLowerCase()=="#contents") nav = 1;
+					if(hashChangedTo.toLowerCase()=="#index") nav = 2;
+					if(hashChangedTo.toLowerCase()=="#search") nav = 3;
+					if(window.frames['navframe'] && window.frames['navframe'].location.hash!="#"+nav)
+						window.frames['navframe'].location = "assets/ui/js/whskin_frmset010.html#"+nav; 
+				}
+				else
+				{
+					if(window.frames['contentFrame'])
+						window.frames['contentFrame'].location = window.location.search.replace(/^\?/,"")+hashChangedTo; 
+				}
+			}
+			
+			
+			
+			window.onload = function()
+			{
+			
+				window.setInterval(
+					function() 
+					{
+						tmpHash = window.location.hash;
+						
+						if(hashChangedTo!=tmpHash)
+						{
+							hashChangedTo = tmpHash;
+							onHashChange();
+						}
+					}
+					, 247
+				
+				);
+			
+				window.setInterval(
+					function () {
+						if (isLocalStore)
+						{
+							var fcmenucollapsed = localStorage.getItem("FC__MENU_COLLAPSED");
+							
+							if (fcmenucollapsed == null) {
+								return;
+							}
+							
+							if (oldMenuCollapsedState != fcmenucollapsed) 
+							{
+								
+								if( fcmenucollapsed == "true" )
+								{
+									var panelsCols = document.getElementById("mainframeset").cols;
+									if(panelsCols!="0,25,*")
+										document.getElementById("mainframeset").cols = "0,25,*";	
+								}
+								else
+								{
+									var panelsCols = document.getElementById("mainframeset").cols;
+									if(panelsCols!="255,0,*")
+										document.getElementById("mainframeset").cols = "255,0,*";	
+								}
+								
+								oldMenuCollapsedState=fcmenucollapsed;
+							}
+							
+							
+							
+						}
+					}
+					, 251
+				
+				);
+
+			
+			
+			}
+			
+			
+			
+			
+			function getCookie(cname)
+			{
+				var ret="";
+				var cookies={};
+				var arrCookies=document.cookie.split(/\s?;\s?/);
+				
+				for (var i in arrCookies)
+				{
+					iCookie = arrCookies[i].split(/\s?=\s?/);
+					
+					if(cname==iCookie[0]){
+						ret = unescape(iCookie[1]);
+						break;
+					}
+				}
+				return ret;
+			}
+			
+			
+			var whereTo = {"nav": 1, "topic" :"Introduction/Overview.html"};
+			
+			var qs_ = window.location.search;
+			var lh_ = window.location.hash;
+			
+			var cl_;
+			if(isLocalStorageAvailable())
+			{
+				cl_ = localStorage.getItem("fc__menu");
+			}
+			if(!cl_)
+			{
+				cl_ = getCookie("menu");
+			}
+			
+			if(!qs_ && lh_)
+			{
+				if(lh_.toLowerCase()=="#contents") whereTo["nav"] = 1;
+				if(lh_.toLowerCase()=="#index") whereTo["nav"] = 2;
+				if(lh_.toLowerCase()=="#search") whereTo["nav"] = 3;
+			}
+			else
+			{
+				if(!qs_ && cl_!="")
+				{
+					whereTo["topic"] =cl_;
+				}
+				else
+				{
+				  if (qs_)
+				  {
+					whereTo["topic"] = qs_.replace(/^\?/,'')+lh_;
+				  }
+				}
+			}
+			
+		</script>
+		
+		<script type="text/javascript" language="javascript" src="assets/ui/js/whver.js"></script>
+		<script type="text/javascript" language="javascript" src="assets/ui/js/whutils.js"></script>
+		<script type="text/javascript" language="javascript" src="assets/ui/js/whmsg.js"></script>
+		
+		<script type="text/javascript" language="javascript" src="assets/ui/js/whstub.js"></script>
+		<script language="javascript">
+		<!--
+		var nWebhelpNavPaneMode = 1;				//1: DHTML 2:PureHTML 3:Noframe At all
+		var strPaneDHTML  = "whskin_pdhtml.html";	//whd_nvp10.htm  if tab enabled, whnframe.htm if tab disabled.
+		var strPaneList   = "whskin_pdhtml.html";
+		var strPane = strPaneDHTML;
+		var nViewFrameType = 2;
+		//-->
+		</script>
+		<script type="text/javascript" language="javascript" src="assets/ui/js/whstart.js"></script>
+		<script type="text/javascript" language="javascript">
+		<!--
+		
+			function CMRAgent( strID, strURL, strLabel, strFrameAttr )
+			{
+			  this.m_strID = strID;
+			  this.m_strURL = strURL;
+			  this.m_strLabel = strLabel;
+			  this.m_strFrameAttr = strFrameAttr;
+			}
+		
+			function CMRServer()
+			{
+			  this.m_cAgents = new Array;
+			}
+			var cMRServer = new CMRServer;
+		//-->
+		</script>
+		
+	</head>
+	<script type="text/javascript">
+	  
+	  
+	  document.write
+	  ( '<frameset rows="60,*,45" cols="*" frameborder="0" border="0" framespacing="0">'+
+		  '<frame src="HeaderPage.html" name="topFrame" scrolling="No" frameborder="0" >' +
+		  '<frameset id="mainframeset" rows="*" cols="255,0,*" framespacing="0" frameborder="0" border="0" borderColor="gray">' +
+			"<frame src=\"assets/ui/js/whskin_frmset010.html#"+whereTo["nav"]+"\"  frameborder=\"1\" border=\"1\" marginheight=\"0\" marginwidth=\"0\" scrolling=\"auto\" name=\"navframe\" id=\"navframe\" />"+ 
+ 			"<frame src=\"assets/ui/js/divider.html\"  frameborder=\"0\" border=\"0\" scrolling=\"No\" marginheight=\"0\" marginwidth=\"0\" name=\"divider\"  id=\"divider\"/>"+ 
+			'<frame src="'+whereTo["topic"]+'" name="contentFrame"  id="contentFrame" frameborder="0" scrolling="Auto" />' +      
+		  '</frameset>' +
+		  '<frame src="FooterPage.html" name="bottomFrame" marginheight="0" marginwidth="0" scrolling="No" frameborder="0" />'+
+		'</frameset>'
+	  );
+	  </script>
+	
+	<noframes>
+		<body>
+			You need to enable frames, JavaScript and cookies in your browser to see FusionCharts documentation.
+		</body>
+	</noframes>
+</html>

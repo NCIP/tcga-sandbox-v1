@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts and Flash - Handling Loading/Rendering Events </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for Flash Developers", "Using Flash 8 (AS2)|Flash_Overview.html", "Loading/Rendering events" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts and Flash &gt; Handling Loading/Rendering Events </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>When you're loading a FusionCharts chart inside your Flash movie, you can be notified when the chart has finished rendering. Here, we'll see a simple example, wherein we modify our previous Basic example to track the rendering event. The modified file is saved as <span class="codeInline">RenderEvent.fla</span>.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Adding event listeners </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>All the charts in FusionCharts suite expose an event <span class="codeInline">rendered</span> once they've finished rendering. You can create your listener objects to listen to this event, using the following code: </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top"><pre class="prettyprint code_container">//Create a listener object to listen to the rendered event of the chart
+      var objL:Object = new Object();
+      objL.rendered = function(){
+      &nbsp;&nbsp;&nbsp;trace(&quot;The chart has finished rendering&quot;);
+      }
+      <span class="codeComment">//Register the object with the chart</span>
+    myFirstChart.addEventListener(&quot;rendered&quot;, objL);</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, we've created a listener object and associated it with the chart's instance (<span class="codeInline">myFirstChart</span>) . For the sake of demonstration, we just trace out a message whenever the chart has rendered. When you run this code, you'll see the following results:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/Flash_Render.jpg" width="514" height="410" class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Handling Click events|Flash_Click.html","Flash FAQs|Flash_FAQ.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

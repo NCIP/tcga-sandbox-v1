@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts Link format </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Drill-down charts|Simple.html", "FusionCharts Link format" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader"><a href="../DrillDown/LinkFormat.html">FusionCharts Link format</a> </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts provides the option to turn each data plot item (like column, pie etc.) or the whole chart as a hot-spot that be clicked on for drill down. A data plot item is set as hot-spot by setting <span class="codeInline">link </span>attribute for that data-plot in chart data. A full chart is set as a hot-spot using <span class="codeInline">clickURL</span> of chart data-source. Additionally, you can set a link for about menu item using <span class="codeInline"> aboutMenuItemLink</span> attribute. You can also set a link to the branding logo using <span class="codeInline">logoLink </span>attribute.</p>
+       <p> The syntax of the hot-spot links follow a specific format which is termed as <em>FusionCharts Link Format</em>. In most cases, the syntax can be identified as two or more sections separated by a dash (-). The left most section generally specifies the type of the link followed by other required parameters.  The formats can be listed as follows: </p>
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+         <tr>
+           <td width="100" class="header">Link type </td>
+           <td width="95" class="header">Prefix</td>
+           <td width="305" class="header">Syntax</td>
+           <td width="806"  class="header">What it does </td>
+           <td width="350" class="header">Example</td>
+         </tr>
+         <tr  class="trVeryLightGrayBg">
+           <td>Simple</td>
+           <td>none</td>
+           <td> URL </td>
+           <td>Opens the URL in the same window where the chart is rendered. It replaces the page containing the chart. The URL can be absolute or relative to the page containing the chart. <a href="Simple.html#simple">Read More &raquo;</a></td>
+           <td class="codeInline">link=&quot;http://www.fusioncharts.com&quot;</td>
+         </tr>
+         <tr>
+           <td>New window </td>
+           <td>N-</td>
+           <td>N-url</td>
+           <td>Opens the URL in a new browser window. To use this feature, you need to disable any popup blockers in the browser. The URL can be absolute or relative to the page containing the chart. <a href="Simple.html#newwindow">Read More &raquo;</a></td>
+           <td class="codeInline">link=&quot;N-../detailedChart.aspx&quot;</td>
+         </tr>
+         <tr  class="trVeryLightGrayBg">
+           <td>Frame</td>
+           <td>F-</td>
+           <td>F-FrameName-url</td>
+           <td>Opens the URL in a frame or an iframe. The name of the frame is passed as the first parameter after the prefix followed by the URL to open.  The URL can be absolute or relative to the page containing the chart. <a href="Frames.html">Read More &raquo;</a></td>
+           <td class="codeInline">link=&quot;F-detailsFrame-DemoLink1.html&quot;</td>
+         </tr>
+         <tr>
+           <td>Popup</td>
+           <td>P-</td>
+           <td>P-nameOfWindow,Popup settings-url</td>
+           <td>Opens link in a configurable popup window. The first parameter after the prefix P- is the name of the popup window. This is followed by comma separated list of attributes for the new window. The last parameter is the Url. The URL can be absolute or relative to the page containing the chart. <a href="PopUps.html">Read More &raquo;</a></td>
+           <td class="codeInline">link=&quot;P-detailsWin,width=400, height=300, toolbar=no, scrollbars=no,           resizable=no-ShowDetails.asp&quot; </td>
+         </tr>
+         <tr  class="trVeryLightGrayBg">
+           <td>JavaScript</td>
+           <td>JavaScript:</td>
+           <td>JavaScript:JavaScript statement</td>
+           <td>Any JavaScript statement or function call can be passed as&nbsp; a parameter, which is then executed when the link is clicked.<a href="JavaScript.html"> Read More &raquo;</a></td>
+           <td class="codeInline">link=&quot;JavaScript<strong>:</strong>myJSFunction('USA',       235);&quot;</td>
+         </tr>
+         <tr>
+           <td>JavaScript</td>
+           <td>J-</td>
+           <td>J-JavaScriptFunctionName-parameters</td>
+           <td>A single JavaScript function is called using this link type. The name of the JavaScript function is followed by the prefix J-. The function will be passed a single string parameter, which comes after the function name. <a href="JavaScript.html">Read More &raquo;</a></td>
+           <td>
+             <p class="codeInline">link=&quot;j-myJSFunction-China, 90&quot;</p>
+           </td>
+         </tr>
+         <tr class="trVeryLightGrayBg">
+           <td valign="top"><em>LinkedCharts</em></td>
+           <td valign="top">newchart-</td>
+           <td valign="top">newchart-dataformat-datasource</td>
+           <td valign="top">This link invokes and creates <em>LinkedCharts</em>. The first parameter after <span class="codeInline">newchart</span>- prefix is the data-format of the LinkedChart data. The second format specific the URL or id of the data-source as per the data-format. &nbsp; <a href="LinkedCharts.html#link">Read More &raquo;</a></td>
+           <td><span class="codeInline">link=&quot;newchart-xmlurl-quarterly2005.xml&quot; </span><br />
+             <br />
+           or<br />
+             <br />
+             <span class="codeInline">link=&quot;newchart-xml-2004quarterly&quot; </span><br />
+             <br />
+or<br />
+<br />
+<span class="codeInline">link=&quot;newchart-jsonurl-2005.json&quot;</span> <br />
+<br />
+or<br />
+<br />
+<span class="codeInline">link=&quot;newchart-json-2006Data&quot;</span> <br />
+<br />
+<br />
+</td>
+         </tr>
+       </table>
+    </td>
+  </tr>
+  
+  <tr>
+  <td>
+    <p class="highlightBlock">Note: Internally the chart decodes a URL that you set as link. Before invoking the link it again encodes the Url. If you are passing multilingual characters via a URL or do not want this decode-encode mechanism to be handled by chart you can set <span class="codeInline">unescapeLinks='0' </span>in <span class="codeInline">&lt;chart&gt;</span> element of the chart's XML data. If you are using JSON data, you need to use <span class="codeInline">{ &quot;chart&quot; : { &quot;unescapeLinks&quot; : &quot;0&quot; ... } ... }</span> . </p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("<i>LinkedCharts</i>|LinkedCharts.html","FusionCharts &amp; JavaScript|../JavaScript/JS_Overview.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

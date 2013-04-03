@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Exporting Charts as PDF or Images - Debug Mode</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+
+
+<style type="text/css">
+table2 caption { text-align:left; font-weight: bold; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 11px;
+	padding-bottom: 6px; }
+table2 td { padding-bottom: 10px;}
+table2 td p { margin: 0; }
+</style>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Exporting as Image/PDF|ECOverview.html", "Export component debug mode" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; Debug Mode</td>
+  <tr>
+		<td>
+
+      <p>With so much of things to do in life, scripting can at times get a tad tough on us! But with FusionCharts, we are trying to make it slightly easier for you to know that small error which is causing your FusionCharts Export Component to not work as it should.</p>
+      <P class="header">Enabling the &quot;debugMode&quot;</P>
+      <p>It is not a good idea that everyone gets to see that error on your page. So, we have hidden them all. But, you can enable the <strong>debugMode</strong> of the <span class="codeInline">FusionChartsExportObject</span> and get to see all the errors that were trapped by <span class="codeInline">FusionChartsExportObject</span>.</p>
+      <p>To enable <span class="codeInline">debugMode</span> on any individual instance of the <span class="codeInline">FusionChartsExportObject</span>, use the following code.      </p>
+      <pre class="prettyprint code_container">var myComponent = new FusionChartsExportObject('myComponent', 'FusionCharts/FCExporter.swf');<br />myComponent.debugMode = true;</pre>
+      <p>You can also enable <span class="codeInline">debugMode</span> in the constructor function of <span class="codeInline">FusionChartsExportObject</span> by setting debugMode as <span class="codeInline">true</span>.</p>
+      <p>You can also <strong>enable debugMode globally for all FusionChartsExportObject in a page</strong> by using the code below: </p>
+      <pre class="prettyprint code_container">&lt;script type=&quot;text/javascript&quot;&gt;<br />   FusionChartsExportObject.debugMode = true;<br />&lt;/script&gt;</pre>
+      <p>Paste this code just after you have included the FusionChartsExportComponent.js in the page head. After you've enabled <span class="codeInline">debugMode</span>, <span class="codeInline">FusionChartsExportObject</span> will halt at every error and let you know of it as a JavaScript alert message.</p>
+      <p class="header">Debugging your Export Components from the Error codes</p>
+      <p>When <span class="codeInline">FusionChartsExportObject</span> encounters an error, it raises an error code that can help you pin-point what is causing the error. The following table lists all the error codes and the possible ways to debug them.</p>
+      <table class="table" width="95%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="14%" valign="top" class="header" >Error Code</td>
+          <td width="81%" class="header" >Debug Information</td>
+        </tr>
+        <tr>
+          <td valign="top">10901271400</td>
+          <td>The <span class="codeInline">FusionChartsExportObject</span> did not find the infosoftglobal.FusionCharts object defined. <span class="codeInline">FusionChartsExportObject</span> is dependent upon <span class="codeInline">the infosoftglobal.FusionCharts</span> object for a large number of its core functionalities.
+            <p><strong>Solution:</strong></p>
+          <p>Check whether <span class="codeInline">FusionCharts.js</span> is included in the page. Also make sure that <span class="codeInline">FusionCharts.js</span> is <strong>included before</strong> including <span class="codeInline">FusionChartsExportComponent.js</span></p>          </td></tr>
+        <tr>
+          <td valign="top">10902091233</td>
+          <td>The value of the <span class="codeInline">containerNode</span> parameter of the <span class="codeInline">Render()</span> function refers to  an HTML Element Node that does not exist or does not support appending of HTML data.
+
+          <p><strong>Solution:</strong></p>
+          <p>Verify whether the HTML container element (usually a &lt;span&gt; or &lt;div&gt;) is actually defined before the <span class="codeInline">Render()</span> function is called. When a DOM ID string is passed to the <span class="codeInline">containerNode</span> parameter of the <span class="codeInline">Render()</span> function, it should be exactly the DOM ID of the HTML container element.</p>          </td></tr>
+        <tr>
+          <td valign="top">10902101448</td>
+          <td>The <span class="codeInline">FusionChartsExportComponent</span> failed to render due to an exception raised by the internally while the <span class="codeInline">Render()</span> function was invoked.
+            <p><strong>Solution:</strong></p>
+          <p>Verify the parameters of the erring <span class="codeInline">FusionChartsExportObject</span>. Try by removing all optional parameters and then slowly adding the parameters one by one until the error occurs again.</p>
+          
+          <p><strong>Note:</strong> You can also take a cue from the Error Message to get some idea what is causing the error.</p></td></tr>
+        <tr>
+          <td valign="top">10902182119</td>
+          <td>The Flash Player of the browser is not compatible with the <span class="codeInline">FusionChartsExportObject</span>. It generally happens when the general version detection methodology of Flash Player fails.
+            <p><strong>Solution:</strong></p>
+          <p>Upgrade your Flash Player to Adobe's latest version. <span class="codeInline">FCExporter.swf</span> requires version 10 or higher in order to function.</p>
+          <p>In case upgrading fails to solve your issue, try to run this code in another browser or another computer and check whether the code runs. If it runs fine, try to check what are the differences between the two cases that is causing your codes to not run in the former case.</p>
+          <p><strong>Note:</strong> You can also take a cue from the Error Message to get some idea what is causing the error.</p>
+          </td></tr>
+        <tr>
+          <td valign="top">10902041759</td>
+          <td>The incoming data stream from the charts after the <em>capture phase</em> is incomplete or corrupt. <span class="codeInline">FusionChartsExportObject</span> could not extract a valid &quot;id&quot; from the steam.</td>
+        </tr>
+        <tr>
+          <td valign="top">10902041939</td>
+          <td><span class="codeInline">FCExporter.swf</span> did not convey a valid &quot;id&quot; to the FusionChartsExportObject.</td>
+        </tr>
+        <tr>
+          <td valign="top">10902041917</td>
+          <td>FusionChartsExportObject could not load the FCExporter.swf EMBED element from the &quot;id&quot; conveyed by the FCExporter.sef itself.
+            <p><strong>Solution:</strong></p>
+            <p>A possible cause for this is when there is more than one DOM element defined by the same &quot;id&quot; that was used to instantiate the FusionChartsExportObject. Check whether the &quot;id&quot; used to define the FusionChartsExportObject has not been repeated anywhere else as DOM Id of any other element.</p></td></tr>
+        <tr>
+          <td valign="top">10902061902</td>
+          <td>The FusionChartsExportObject did not have the minimum number of parameters that are required in order to initialize it.
+            <p><strong>Solution:</strong></p>
+          <p>Refer to JavaScript API to check whether you are following the correct constructor syntax to initialize your new FusionChartsExportObject.</p>          </td></tr>
+        <tr>
+          <td valign="top">10902091732</td>
+          <td>The FusionChartsExportObject did not have the minimum number of parameters that are required in order to initialize it.
+            <p><strong>Solution:</strong></p>
+          <p>Refer to JavaScript API to check whether you are following the correct constructor syntax to initialize your new FusionChartsExportObject.</p>
+          <p>It is likely that you are not providing the <em>swfLocation</em> parameter of the FusionChartsExportObject.</p>
+          </td></tr>
+        <tr>
+          <td valign="top">10902091820</td>
+          <td>There is a type mismatch of the <em>id</em> and/or <em>swfLocation</em> parameter.
+            <p><strong>Solution:</strong></p>
+          <p>Refer to JavaScript API to check whether you are following the correct constructor syntax to initialize your new FusionChartsExportObject.</p></td></tr>
+        <tr>
+          <td valign="top">10902182131</td>
+          <td>Invalid Adobe Flash player version.
+            <p><strong>Solution:</strong></p>
+          <p>Upgrade your Flash Player to Adobe's latest version. FCExporter.swf requires version 10 or higher in order to function.</p>          </td></tr>
+        <tr>
+          <td valign="top">10902220400</td>
+          <td>There was an internal error while accessing its internal objects.
+            <p><strong>Solution:</strong></p>
+          <p>Verify the parameters of the erring FusionChartsExportObject. Try by removing all optional parameters and then slowly adding the parameters one by one until the error occurs again.</p>
+          </td></tr>
+        <tr>
+          <td valign="top">10902091318</td>
+          <td>The FusionChartsExportComponent could not update itself internally. In general, this is caused when one or more of the parameters are of incorrect type.
+            <p><strong>Solution:</strong></p>
+            <p>Verify the parameters of the erring FusionChartsExportObject. Try by removing all optional parameters and then slowly adding the parameters one by one until the error occurs again.</p>
+            <p><strong>Note:</strong> You can also take a cue from the Error Message to get some idea what is causing the error.</p></td></tr>
+        <tr>
+          <td valign="top">10902091853</td>
+          <td>The <em>sourceCharts</em> to initiate exporting was not a valid Array.
+            <p><strong>Solution:</strong></p>
+          <p>Refer to JavaScript API to check whether you are following the correct syntax to define your <em>sourceCharts</em>.</p></td></tr>
+        <tr>
+          <td valign="top">10902092026</td>
+          <td>The chart reference provided as <em>sourceCharts</em> did not return a valid object.
+            <p><strong>Solution:</strong></p>
+          <p>Check whether the Chart IDs provided in sourceCharts are correct. If they are correct, make sure that the charts are already rendered.</p></td></tr>
+        <tr>
+          <td valign="top">10902092036</td>
+          <td>There was some error while internally calling exportChart() function on the <em>sourceCharts</em> provided.
+            <p><strong>Solution:</strong></p>
+          <p>Make sure you are using correct FusionCharts SWF files. Export component requires FusionCharts version 3.1 or higher.</p>
+          <p><strong>Note:</strong></p>
+		  <p>This error also happens when you do not have the appropriate Local Security Settings of your Flash player plugin. When this is the case,
+		     usually you will face an error prior to the rendering of the Export Component saying, &quot;Adobe Flash Player has stopped a potentially
+			 unsafe operation.&quot; It is recommended that you either run this application from a local/remote server or modify the &quot;Global Security Settings&quot;
+			 within Adobe Flash&trade; Player Settings Manager.</p></td></tr>
+      </table><br />
+  </td>
+  </tr>
+  </table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Exporting pure JavaScript charts|ECPureJS.html","Troubleshooting|ECTroubleshooting.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>  
+</body>
+
+</html>

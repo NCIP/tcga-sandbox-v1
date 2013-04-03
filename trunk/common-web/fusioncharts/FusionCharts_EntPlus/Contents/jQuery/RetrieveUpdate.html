@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Retrieving and updating properties of  charts using FusionCharts jQuery plugin </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+		document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "Retrieving and updating properties of charts" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Retrieving and updating properties of  charts using FusionCharts jQuery plugin </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts jQuery plugin also allows you to configure an existing chart. At run-time, you can update chart data, chart size, chart type, rendering engine (flash/javascript) of an existing chart. You can also   dynamically update chart's root properties (also known as &quot;chart attributes&quot; which are passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through chart   property in chart's JSON data) on-the-fly. This feature would come   handy when you wish to change the chart titles, theme colors, number   formatting or scaling setup, divisional line and grid configurations and   other functional and cosmetic features of an existing chart. While the   API allows you to update selective configurations and properties, internally, FusionCharts   re-draws the entire chart.</p>
+      <p class="highlightBlock">To aid your understanding of this section, we would recommend you to go through the <a href="Overview.html"><strong>Overview</strong></a> page of FusionCharts jQuery plugin </p>
+       <p>The following two methods of FusionCharts jQuery plugin needs to be used to achieve these:</p>
+       <ul>
+         <li><span class="codeInline">updateFusionCharts</span><strong> : </strong>  Helps in updating <a href="Overview.html#chartparams">chart configurations</a> of an existing chart at run-time. Barring <span class="codeInline">id</span>, you can re-configure <span class="codeInline">swfUrl, dataSource, dataFormat, width, height, renderer, bgColor, debugMode, scaleMode</span> etc.  of existing charts. <a href="API.html#updatefusioncharts">Click here to learn more on <span class="codeInline">updateFusionCharts</span></a>. </li>
+         <li><span class="codeInline">attrFusionCharts </span><strong>: </strong>Helps in retrieving the value of a &quot;chart attribute&quot; or update one of many &quot;chart attributes&quot; of an existing chart. <a href="API.html#attrfusioncharts">Click here to learn more on <span class="codeInline">attrFusionCharts</span></a>. </li>
+       </ul>
+       <p>In the following sections of this page we go through some use-cases to showcase how to use these methods.</p>
+	   
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; jQuery </span> folder</p>    </td>
+  </tr>
+    
+    <tr>
+      <td valign="top" class="header"><span class="header"><a name="charttype" id="charttype"></a></span>Changing type of an existing chart </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>Using <span class="codeInline">updateFusionCharts</span> method you can  change chart type of an existing chart. This method accepts new configuration values for chart as a set of  key/value pairs (JavaScript Object). To change chart type, you would need to change the value of the <span class="codeInline">swfUrl</span> configuration of an existing chart. </p>
+        <p>A code snippet is shown below: </p>
+        <pre class="code_container prettyprint">
+$(&quot;#chartContainer&quot;).<strong>updateFusionCharts</strong>({&quot;swfUrl&quot;: &quot;FusionCharts/Pie3D.swf&quot;});
+</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/ChangeType.html" target="_blank">live</a>!</p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">updateFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements. A new SWF file-name is set through <span class="codeInline">swfUrl</span> property of the parameter passed to the method. The charts rendered in the selections are re-rendered using the newly set SWF file-name.</p>
+        <p>The detailed list of acceptable chart-configurations which can be passed to <span class="codeInline">updateFusionCharts</span> method are provided in the table below:</p>
+        <table width="99%" border="0" class="table text">
+           <tr>
+             <td width="250" valign="top" class="header"><a name="chartparams" id="chartparams"></a>Chart configuration or property </td>
+             <td valign="top" class="header">Description and  acceptable value </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">swfUrl</span></td>
+             <td valign="top">Path (as string) to the chart SWF file. You can get the list of chart SWF file names from <a href="../Introduction/ChartList.html">Chart List</a> page. </td>
+           </tr>
+           
+           <tr>
+             <td valign="top"><span class="codeInline">width</span></td>
+             <td valign="top">Width of the chart&nbsp; (optional - default is 400). The value is provided as  number if the width is set in pixels or as string and if the width is to be set in percentage (e.g., &quot;50%&quot;) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">height</span></td>
+             <td valign="top">Height of the chart (optional - default is 300). The value is provided as  number if the height is set in pixels or as string and if the height is to be set in percentage (e.g., &quot;50%&quot;)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataSource</span></td>
+             <td valign="top"> XML or JSON chart data. It can be a URL for XML or JSON. It can also be a string containing XML or   JSON object</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">dataFormat</span></td>
+             <td valign="top">Defines the format of the dataSource.
+               <ul>
+                   <li> Set it to <span class="codeInline">xmlurl</span> when data source is a URL to XML data</li>
+                   <li>Set it to <span class="codeInline">xml</span> when the data source is an XML String</li>
+                 <li>Set it to <span class="codeInline">jsonurl</span> when data source is a URL to JSON data</li>
+                 <li>Set it to <span class="codeInline">json </span>when the data source is a JSON String or JSON object</li>
+               </ul>
+             </td>
+           </tr>
+           <tr valign="top">
+             <td valign="top"><span class="codeInline">renderer</span></td>
+             <td valign="top">Sets the chart renderer engine. Acceptable values are  '<span class="codeInline">flash</span>' and <span class="codeInline"> 'javascript</span>'. The default value is automatically selected depending on the availability and support of Flash player.  When set to <span class="codeInline">javascript</span>, FusionCharts JavaScript class renders pure JavaScript charts. (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">bgColor</span></td>
+             <td valign="top">This sets the color of the flash player's background on which a chart gets drawn. It is passed as a string containing hex coded color value. This background color is not same as the background color of a chart. This background is visible while showing chart messages or when chart's <span class="codeInline">bgAlpha</span> is set to less than 100. (optional - default value is &quot;#FFFFFF&quot; i.e., white) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">scaleMode</span></td>
+             <td valign="top">Flash player's mode of scaling a chart. <span class="codeInline">NoScale</span> is the default value. There are other settings namely, <span class="codeInline"> showAll</span>, <span class="codeInline">ExactFit</span>, <span class="codeInline">noBorder</span>. But these are not supported and might result in distorted charts.&nbsp; (optional)</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">lang</span></td>
+             <td valign="top">Sets the language for chart messages. It presently supports only English. The value is &quot;EN&quot;. (optional) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">detectFlashVersion</span></td>
+             <td valign="top">Set to &quot;1&quot; to make FusionCharts Class check whether Flash Player 8 is present in the Browser. (optional - Default value is &quot;0' ) </td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">autoInstallRedirect</span></td>
+             <td valign="top">Set to &quot;1&quot; with <span class="codeInline">detectFlashVersion</span> set to &quot;1&quot; and FusionCharts redirects to Flash Player installation page of Adobe's Web site. (optional - default is &quot;0')</td>
+           </tr>
+           <tr>
+             <td valign="top"><span class="codeInline">debugMode</span></td>
+             <td valign="top">Sets the chart debug window on. Can take &quot;0&quot; or &quot;1&quot;. When set to &quot;1&quot;, the chart shows a debug window over itself. (optional - default value is &quot;0&quot;)</td>
+           </tr>
+        </table>
+        <p class="highlightBlock">While changing chart type, please make sure that the chart type which you are setting can accept the data of the existing chart or you are also changing the data of existing chart along with the chart type. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><span class="header"><a name="changedata" id="changedata"></a></span>Changing data of an existing chart </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p><span class="codeInline">updateFusionCharts</span> method can accept and apply multiple configurations passed to it. We would like to  change chart type as well as the data of an existing chart. To change data you would need to provide fresh configurations through <span class="codeInline">dataSource</span> and/or <span class="codeInline">dataFormat</span> properties. </p>
+        <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>updateFusionCharts</strong>({&quot;dataSource&quot;: NewMSXMLAsString, &quot;dataFormat&quot;: &quot;xml&quot;, &quot;swfUrl&quot; : &quot;MSColumn3D.swf&quot;});</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/ChangeChartType_Data.html" target="_blank">live</a>!</p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">updateFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements. A new SWF file-name is set through <span class="codeInline">swfUrl</span> property of the parameter passed to the method. The charts rendered in the selections are re-rendered using the newly set SWF file-name. Fresh data is also  passed to the method and all the charts found in the selection are updated with the fresh data. </p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td valign="top" class="header"><span class="header"><a name="changesize" id="changesize"></a></span>Changing width and height of an  an existing chart</td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>To change width and height of an existing chart all you would need to do is to pass <span class="codeInline">width</span> and <span class="codeInline">height</span> configuration to  <span class="codeInline">updateFusionCharts</span> method as shown below: </p>
+        <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>updateFusionCharts</strong>({ width : 280, height : 200  });</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/ChangeSize.html" target="_blank">live</a>!</p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">updateFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements and set new <span class="codeInline">width</span> and <span class="codeInline">height</span> to these charts after re-rendering them. 
+        <div class="highlightBlock">Please note that you can pass the width and height values in either of the two formats:<br/>
+        <ul>
+          <li>If you wish to set chart size in pixels, you can pass the pixel value (without px suffix) as number to <span class="codeInline">width</span> or <span class="codeInline">height</span> properties, e.g., <span class="codeInline"> {width : 280, height : 200 } </span></li>
+          <li>If you wish to set chart size in percentage values (relative to the size of the chart's container HTML element), you would need to pass the value as string with % as suffix, e.g., <span class="codeInline">{width : &quot;80%&quot;, height : &quot;100%&quot; }</span></li>
+        </ul></div></p>
+      </td>
+    </tr>
+	<tr>
+	<td>&nbsp;</td></tr>
+    <tr>
+      <td valign="top" class="header"><span class="header"><a name="renderasjs" id="renderasjs"></a></span>Convert to JavaScript charts </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>Using <span class="codeInline">updateFusionCharts</span> method, you can convert any Flash chart into JavaScript chart passing just a single configuration property - <span class="codeInline">renderer: 'javascript'</span>. The code snippet below will showcase with live example:</p>
+        <pre class="code_container prettyprint">$(&quot;#chartContainer&quot;).<strong>updateFusionCharts</strong>({ renderer :'javascript'  });</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/ConvertToJS.html" target="_blank">live</a>!</p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">updateFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements.  The <span class="codeInline">renderer</span> setting is to the method having 'javascript' as the preferred renderer. The <span class="codeInline">updateFusionCharts</span> method re-renders the found charts using 'javascript' as the rendering engine. </p>
+        <div class="highlightBlock"><strong>Note : </strong>JavaScript charts use AJAX to load data from data URL sources (XML/JSON files/streams). Many browser block AJAX data-loading when running from local file system (using file:/// protocol). Hence, a JavaScript chart would fail to render if it is run from local file system and if it uses Data URL method (i.e. loading data from XML/JSON files). It is recommended to use Data String method (XML data passed as string or JSON data passed as string or JSON object) while running the chart from local file system. </div>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><a name="gettitle" id="gettitle"></a>Using <span class="codeInline">attrFusionCharts</span> to get the current title of a chart </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>The <span class="codeInline">attrFusionCharts</span> method helps in retrieving value of a &quot;chart attribute&quot;.To achieve this, you would need to pass the name of the attribute as string to <span class="codeInline">attrFusionCharts</span> method. The code snippet below gets the value of the caption attribute of a chart:</p>
+        <pre class="code_container prettyprint"> // Get the latest caption of the chart and show it as alert message
+var oldCaption = $(&quot;#chartContainer&quot;).<strong>attrFusionCharts</strong>(&quot;caption&quot;);
+alert(&quot;The existing title of the chart is &quot;  + oldCaption);</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/attrFusionCharts.html" target="_blank">live</a>! </p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">attrFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements. The method is passed with a string parameter &quot;caption&quot;. The method returns the value of the caption attribute of all the found charts. </p>
+        <p class="highlightBlock">All the chart attributes are listed under &quot;<span class="codeInline">&lt;chart&gt;</span> element attributes&quot; section of each chart page in <strong>Chart XML API</strong> section. </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><a name="settitle" id="settitle"></a>Using <span class="codeInline">attrFusionCharts</span> to set a new title to a chart </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>The <span class="codeInline">attrFusionCharts</span> method also helps in applying or setting value of a &quot;chart attribute&quot;.For this, you would need to pass the name of the attribute and the new value to be set  to <span class="codeInline">attrFusionCharts</span> method. The code snippet below sets a new title to an existing chart:</p>
+        <pre class="code_container prettyprint">// Set a new caption of the chart [ updating a single attribute of the chart ]
+$(&quot;#chartContainer&quot;).<strong>attrFusionCharts</strong>(&quot;caption&quot;: &quot;Updated chart title&quot;);</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/attrFusionCharts.html" target="_blank">live</a>! </p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">attrFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements. The method is passed with  two parameters, the name of the attribute (namely, &quot;caption&quot;) and the new value to set. The method sets the &quot;caption&quot; attribute of all the found charts with the new value passed as the second parameter. </p>
+        <p class="highlightBlock">All the chart attributes are listed under &quot;<span class="codeInline">&lt;chart&gt;</span> element attributes&quot; section of each chart page in <strong>Chart XML API</strong> section.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" class="header"><a name="settitle" id="settitle"></a>Setting a new color theme (using multiple chart attributes) through <span class="codeInline">attrFusionCharts</span></td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">
+        <p>The <span class="codeInline">attrFusionCharts</span> method also helps in passing a set of key(attribute-name)/value pairs (JavaScript Object) to apply multiple chart attributes to  existing charts at run-time. The code snippet below shows how to set a different color theme to existing charts updating two chart attributes - <span class="codeInline">palette</span> and <span class="codeInline">paletteColors</span>:</p>
+        <pre class="code_container prettyprint">// Set palette and paletteColors attributes [ updating multiple attributes of the chart ]
+$(&quot;#chartContainer&quot;).<strong>attrFusionCharts</strong>({&quot;palette&quot;: &quot;5&quot;, &quot;paletteColors&quot;: &quot;D977B7&quot;});</pre>
+        <p>See it <a href="../../Code/jquery/BasicExample/attrFusionCharts.html" target="_blank">live</a>! </p>
+        <p>In the above code, the HTML elements with id - <span class="codeInline">chartContainer,</span> which contain charts, are selected using jQuery selector. <span class="codeInline">attrFusionCharts</span> method is applied on these elements to find all the FusionCharts objects rendered in the selected elements.The method is passed with an Object containing two properties (chart attribute names - <span class="codeInline">palette</span> and <span class="codeInline">paletteColors</span>) and the respective values which would get reflected in the charts found by the method. </p>
+        <p class="highlightBlock">All the chart attributes are listed under &quot;<span class="codeInline">&lt;chart&gt;</span> element attributes&quot; section of each chart page in <strong>Chart XML API</strong> section.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="text">&nbsp;</td>
+    </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Various rendering methods|AdvancedRendering.html","Using :FusionCharts custom jQuery selector|Selector.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

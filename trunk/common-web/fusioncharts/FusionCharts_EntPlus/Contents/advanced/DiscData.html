@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Plotting Discontinuous data </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Advanced charting", "Plotting discontinuous data" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Plotting Discontinuous data </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>You might often want to plot charts with incomplete data points - i.e.,   missing data. For example, when plotting a monthly sales chart, you might not have   data for all the months. So, you might just want to indicate the missing data with a   blank space on the chart not plotting anything at that particular place. FusionCharts lets you do this very easily.</p>
+      <p>Consider the following XML:  </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%;height:360px; overflow:auto;">
+       <div id="tab1" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart &gt;
+    &lt;set label='Jan' value='420' /&gt;
+    &lt;set label='Feb' value='295' /&gt;
+    &lt;set label='Mar' value='523' /&gt; 
+    &lt;set label='Apr' value='473' /&gt; 
+    <strong>&lt;set label='May' /&gt; 
+    &lt;set label='Jun' /&gt; </strong>
+    &lt;set label='Jul' value='354' /&gt; 
+    &lt;set label='Aug' value='457' /&gt; 
+    &lt;set label='Sep' value='127' /&gt; 
+    &lt;set label='Oct' value='354' /&gt; 
+    &lt;set label='Nov' value='485' /&gt; 
+    &lt;set label='Dec' value='486' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab2" class="tab_content">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{},<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;473&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp;<strong> &quot;label&quot;:&quot;May&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; <strong>&quot;label&quot;:&quot;Jun&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jul&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Aug&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;457&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Sep&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;127&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Oct&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Nov&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;485&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Dec&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;486&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Here, we do not have data for May and June. So, we're not providing any value attribute for the same. The chart will look as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/DiscChart.jpg" alt="" width="462" height="211" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can see that there are no columns for May and June in this chart. </p>
+    <p>If you run the same data against a line chart, you'll see the following output:   </p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/DiscChart2.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The line chart shows a break for May and Jun, as there's no data for the same. If you do not even have data labels for the missing data, you can write empty set elements for the missing data as under:</p>
+      <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab3">XML</a></li>
+       <li><a href="#tab4">JSON</a></li>
+    </ul>
+    <div class="tab_container">
+       <div id="tab3" class="tab_content">
+<pre class="prettyprint code_container">&lt;set /&gt;</pre></div>
+<div id="tab4" class="tab_content">
+  <pre id="pre-datajson4" class="prettyprint code_container">&quot;data&quot;:[{}<br />&nbsp; ]</pre>
+</div></div></div></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header"><a name="null" id="null"></a>Connecting Null Data </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In our above line chart, we were showing a break for the months of May and June. If you do not want to show this break for May and Jun, and want April to directly connect to July, you can do so using the newly introduced <span class="codeInline">connectNullData</span> attribute in v3. </p>
+      <p>To do so, you just need to set <span class="codeInline">&lt;chart ... connectNullData='1' ..&gt;</span> and the chart will now look as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/DiscChart3.jpg" class="imageBorder"/></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This attribute is valid for all the line and area charts. </p>
+      <p>Full XML data for chart reproduced again, as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab5">XML</a></li>
+       <li><a href="#tab6">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%;height:360px; overflow:auto;">
+       <div id="tab5" class="tab_content">
+       <pre class="prettyprint code_container">&lt;chart showValues='0' connectNullData='1'&gt;
+    &lt;set label='Jan' value='420' /&gt;
+    &lt;set label='Feb' value='295' /&gt;
+    &lt;set label='Mar' value='523' /&gt; 
+    &lt;set label='Apr' value='473' /&gt; 
+    &lt;set label='May' /&gt; 
+    &lt;set label='Jun' /&gt; 
+    &lt;set label='Jul' value='354' /&gt; 
+    &lt;set label='Aug' value='457' /&gt; 
+    &lt;set label='Sep' value='127' /&gt; 
+    &lt;set label='Oct' value='354' /&gt; 
+    &lt;set label='Nov' value='485' /&gt; 
+    &lt;set label='Dec' value='486' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab6" class="tab_content">
+  <pre id="pre-datajson2" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;connectnulldata&quot;:&quot;1&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;473&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;May&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jun&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jul&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Aug&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;457&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Sep&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;127&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Oct&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Nov&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;485&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Dec&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;486&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Or, if you want to highlight this break while connecting, you can use the dashed feature as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="container">
+    <ul class="tabs">
+       <li><a href="#tab7">XML</a></li>
+       <li><a href="#tab8">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%;height:360px; overflow:auto;">
+       <div id="tab7" class="tab_content">
+    <pre class="prettyprint code_container">&lt;chart showValues='0' connectNullData='1' lineDashGap='6'&gt;
+    &lt;set label='Jan' value='420' /&gt;
+    &lt;set label='Feb' value='295' /&gt;
+    &lt;set label='Mar' value='523' /&gt; 
+    &lt;set label='Apr' value='473' <strong>dashed='1'</strong>/&gt; 
+    &lt;set label='May'  /&gt; 
+    &lt;set label='Jun' /&gt; 
+    &lt;set label='Jul' value='354' /&gt; 
+    &lt;set label='Aug' value='457' /&gt; 
+    &lt;set label='Sep' value='127' /&gt; 
+    &lt;set label='Oct' value='354' /&gt; 
+    &lt;set label='Nov' value='485' /&gt; 
+    &lt;set label='Dec' value='486' /&gt; 
+&lt;/chart&gt;</pre></div>
+<div id="tab8" class="tab_content">
+  <pre id="pre-datajson3" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;connectnulldata&quot;:&quot;1&quot;,<br />&nbsp; &nbsp; &quot;linedashgap&quot;:&quot;6&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;420&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;295&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;523&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;473&quot;,<br />&nbsp; &nbsp; &nbsp; <strong>&quot;dashed&quot;:&quot;1&quot;</strong><br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;May&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jun&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jul&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Aug&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;457&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Sep&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;127&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Oct&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;354&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Nov&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;485&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Dec&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;486&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This will result in the following chart: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="Images/DiscChart4.jpg" class="imageBorder"/></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using Special punctuations|special-chars/SpPunctuation.html","Highlighting selective data|Highlight.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

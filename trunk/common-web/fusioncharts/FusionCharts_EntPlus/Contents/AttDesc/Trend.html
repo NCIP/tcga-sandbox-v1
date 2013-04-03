@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Trend Lines &amp; Zones </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Trend lines &amp; zones" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Trend Lines &amp; Zones </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Trend lines are horizontal/vertical lines spanning the chart canvas which aid in   interpretation of data with respect to some pre-determined value. For example, when you are plotting the quarterly revenue of a company, you might want to show what the target revenue was.</p> 
+    <img src="Images/trendlines1.jpg" width="400" height="250" />
+    <p>The data going into the above is:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+   <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0'&gt;
+  &nbsp;&lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt;
+   &lt;set label='Qtr 4' value='465400' /&gt; 
+   <strong>&lt;trendLines&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;line startValue='430000' color='009933' displayvalue='Target' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;/trendLines&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+ <strong> "trendlines":[{
+      "line":[{
+          "startvalue":"430000",
+          "color":"009933",
+          "displayvalue":"Target"
+        }
+      ]
+    }
+  ]</strong>
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+   	 
+ </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The trend line is plotted at the value which you have specified. If the value specified is not within the chart limits, then the trend line is not plotted at all.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Adding tool-text to trendlines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The trendlines can also show tool-text when hovered over. To specify a custom tool-text for trend-line, the following data can be used:</p>
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0'&gt;
+ &nbsp;&lt;set label='Qtr 1' value='420500' /&gt;
+  &lt;set label='Qtr 2' value='295400' /&gt;
+  &lt;set label='Qtr 3' value='523400' /&gt;
+  &lt;set label='Qtr 4' value='465400' /&gt;
+  &lt;trendLines&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;line startValue='430000' color='009933' displayvalue='Target' <strong>toolText='This trend was calculated last year'</strong>/&gt;
+&nbsp;&nbsp;&lt;/trendLines&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+  "trendlines":[{
+      "line":[{
+          "startvalue":"430000",
+          "color":"009933",
+          "displayvalue":"Target",
+         <strong> "tooltext":"This trend was calculated last year"</strong>
+        }
+      ]
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 
+  <p>This results in:</p>
+  <p><img src="Images/TrendTooltext.jpg" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Trend zones </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Trend zones are similar to trend lines except that they mark out an entire zone rather than just a line.</p>
+    <img src="Images/trendlines2.jpg" class="imageBorder" />
+    <p>For a trend zone, the data would be as under:</p>
+    
+	  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab14">XML</a></li>
+      	 <li><a href="#tab15">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab14" class="tab_content">
+	 
+	 <pre class="prettyprint code_container">&lt;trendLines&gt;
+     &lt;line startValue='430000' <strong>endValue='450000'</strong> color='009933' <strong>isTrendZone='1'</strong> displayvalue='Target' /&gt; 
+&lt;/trendLines&gt;</pre></div>
+<div id="tab15" class="tab_content">
+	 
+	 <pre class="prettyprint code_container">"trendlines":[{
+      "line":[{
+          "startvalue":"430000",
+         <strong> "endvalue":"450000",</strong>
+          "color":"009933",
+          <strong>"istrendzone":"1",</strong>
+          "displayvalue":"Target"
+        }
+      ]
+    }
+  ]
+</pre>
+</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Note that for converting a trend line into a trend zone, all we have to do is add an end value and set <span class="codeInline">isTrendZone</span> to 1.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing trend lines &amp; zones </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The looks of the trend lines can be customized using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" valign="top" class="header">Attribute Name</td>
+        <td width="15%" valign="top" class="header">Range</td>
+        <td width='65%' valign='top' class="header">Description</td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="text"> color </td>
+        <td valign="top" class="text"> Hex Code </td>
+        <td valign='top' class="text"> Color of the trend line and its associated text </td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="text">thickness </td>
+        <td valign="top" class="text"> In Pixels </td>
+        <td valign='top' class="text"> If you've opted to show the trend as a line, this attribute lets you define the thickness of trend line. </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="text">alpha </td>
+        <td valign="top" class="text"> 0-100 </td>
+        <td valign='top' class="text"> Alpha of the trend line</td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Slanted trend lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can have slanted trend lines as well, i.e., trend lines having a different starting &amp; ending value.</p>
+      <pre class="prettyprint code_container">&lt;line <strong>startValue='430000' endValue='450000'</strong> color='009933' displayvalue='Target' /&gt; </pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Value on Right </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can show the trendline label to the right of the chart canvas by setting <span class="codeInline">valueOnRight
+	='1'</span>.</p>
+    <pre class="prettyprint code_container">&lt;line startValue='430000' color='009933' displayvalue='Target' <strong>valueOnRight='1'</strong>/&gt; </pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Dashed trend lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The trend lines can be made dashed by setting <span class="codeInline">dashed='1'</span>. The dash length and gap can be customized using <span class="codeInline">dashLen</span> &amp; <span class="codeInline">dashGap</span> attributes respectively.</p>
+    <pre class="prettyprint code_container">&lt;line startValue='430000' color='009933' displayvalue='Target' <strong>dashed='1' dashLen='2' dashGap='2' </strong>/&gt; </pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Animation using Styles </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using Styles, we can animate the trend lines. Here, we will animate the x-scale &amp; the alpha of the trend line.</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content">	 <pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0'&gt;
+  &lt;set label='Qtr 1' value='420500' /&gt;
+  &lt;set label='Qtr 2' value='295400' /&gt;
+  &lt;set label='Qtr 3' value='523400' /&gt;
+  &lt;set label='Qtr 4' value='465400' /&gt; 
+  &lt;trendLines&gt;
+      &lt;line startValue='430000' color='009933' displayvalue='Target' /&gt; 
+  &lt;/trendLines&gt;
+  <strong>&lt;styles&gt;
+     &lt;definition&gt;
+         &lt;style name='Anim1' type='animation' param='_xScale' start='0' duration='1' /&gt;
+         &lt;style name='Anim2' type='animation' param='_alpha' start='0' duration='1' /&gt;
+     &lt;/definition&gt;
+     &lt;application&gt;
+         &lt;apply toObject='TRENDLINES' styles='Anim1, Anim2' /&gt;
+     &lt;/application&gt;
+  &lt;/styles&gt;      </strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+  "trendlines":[{
+      "line":[{
+          "startvalue":"430000",
+          "color":"009933",
+          "displayvalue":"Target"
+        }
+      ]
+    }
+  ],
+  "styles": {
+    "definition": [
+      {
+        "name": "Anim1",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      },
+      {
+        "name": "Anim2",
+        "type": "animation",
+        "param": "_alpha",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "TRENDLINES",
+        "styles": "Anim1, Anim2"
+      }
+    ]
+  }
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	 
+	 
+</td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Trend lines in Dual-Y Axis Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>A dual y-axis chart has 2 y-axes. So when you are  defining a trend line, you also need to define which axis the line has to be defined on. This can be done using the <span class="codeInline">parentYAxis</span> attribute. By default, the trend line shows up on the primary y-axis but if you want to show it on the secondary y-axis you have to configure the same by setting <span class="codeInline">parentYAxis='S'</span>.</p> 
+    <pre class="prettyprint code_container">&lt;line startValue='430000' color='009933' displayvalue='Target' <strong>parentYAxis='S' </strong>/&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Vertical trend lines in Scatter, Bubble or Zoom Line Charts </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Scatter, Bubble or Zoom Line charts support vertical trend lines as well, which run through the height of the chart. The vertical trend lines are otherwise similar to horizontal trend lines. An example of vertical trend line  is:</p>
+      
+		<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;vTrendlines&gt;
+   &lt;line startValue='20' endValue='65' alpha='5' color='00FF00' /&gt;
+   &lt;line startValue='65' endValue='75' alpha='15' color='FFFF00' /&gt;
+   &lt;line startValue='75' endValue='100' alpha='15' color='FF0000' /&gt;
+&lt;/vTrendlines&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">"vtrendlines":[{
+      "line":[{
+          "startvalue":"20",
+          "endvalue":"65",
+          "alpha":"5",
+          "color":"00FF00"
+        },
+        {
+          "startvalue":"65",
+          "endvalue":"75",
+          "alpha":"15",
+          "color":"FFFF00"
+        },
+        {
+          "startvalue":"75",
+          "endvalue":"100",
+          "alpha":"15",
+          "color":"FF0000"
+        }
+      ]
+    }
+  ]
+</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>
+		
+
+      <p>In Zoom Line Chart, you can define conditional vertical trend lines that show up when certain conditions are met with respect to how many data points are contained in currently viewed (zoomed-in) dataset. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Zero Plane|ZeroPlane.html", "Anchors & Lines|Anchors.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Grid Component - How to Use? </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Grid Component|Grid_Overview.html", "How to use?" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Grid Component &gt; How to Use? </td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="text"><p>Here, we'll see how to use the grid component. To start with, we'll first create a very basic page with just a grid (and no chart even). To do so, create a new HTML file <span class="codeInline">SimpleGrid.html</span> with the following code: </p>
+    <p class="highlightBlock">All code examples discussed in this section is present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">Grid</span>. </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <pre class="prettyprint code_container">&lt;html&gt;
+  &lt;head&gt;
+  &nbsp;&nbsp;&lt;script language=&quot;JavaScript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body bgcolor=&quot;#ffffff&quot;&gt;
+        &nbsp;&nbsp;&nbsp;&lt;div id=&quot;chartdiv&quot; align=&quot;center&quot;&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The grid will appear within this DIV. 
+        &nbsp;&nbsp;&nbsp;&lt;/div&gt;
+  &nbsp;&nbsp;&nbsp;<strong>&lt;script type=&quot;text/javascript&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var myChart = new FusionCharts(&quot;../FusionCharts/SSGrid.swf&quot;, &quot;myGrid1&quot;, &quot;300&quot;, &quot;200&quot;, &quot;0&quot;, &quot;1&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myChart.setXMLUrl(&quot;Data.xml&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myChart.render(&quot;chartdiv&quot;);
+&nbsp;&nbsp;&nbsp;&lt;/script&gt;</strong>
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, like any other previous chart, we're embedding the grid component (<span class="codeInline">SSGrid.swf</span>) and then providing <span class="codeInline">Data.xml </span>as its <span class="codeInline">dataURL</span>. <span class="codeInline">Data.xml</span> contains the following single series  data:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <div class="container">
+    <ul class="tabs">
+       <li><a href="#tab1">XML</a></li>
+       <li><a href="#tab2">JSON</a></li>
+    </ul>
+    <div class="tab_container" style="width:100%; height:383px; overflow:auto;">
+       <div id="tab1" class="tab_content">
+    <pre class="prettyprint code_container">&lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' showValues='0' decimals='0' formatNumberScale='0' labelDisplay='Rotate'&gt;
+    &lt;set label='Jan' value='462' /&gt;
+    &lt;set label='Feb' value='857' /&gt;
+    &lt;set label='Mar' value='671' /&gt;
+    &lt;set label='Apr' value='494' /&gt;
+    &lt;set label='May' value='761' /&gt;
+    &lt;set label='Jun' value='960' /&gt;
+    &lt;set label='Jul' value='629' /&gt;
+    &lt;set label='Aug' value='622' /&gt;
+    &lt;set label='Sep' value='376' /&gt;
+    &lt;set label='Oct' value='494' /&gt;
+    &lt;set label='Nov' value='761' /&gt;
+    &lt;set label='Dec' value='960' /&gt;
+&lt;/chart&gt;</pre>
+</div>
+<div class="tab_content" id="tab2">
+  <pre id="pre-datajson" class="prettyprint code_container">{<br />&nbsp; &quot;chart&quot;:{<br />&nbsp; &nbsp; &quot;caption&quot;:&quot;Monthly Unit Sales&quot;,<br />&nbsp; &nbsp; &quot;xaxisname&quot;:&quot;Month&quot;,<br />&nbsp; &nbsp; &quot;yaxisname&quot;:&quot;Units&quot;,<br />&nbsp; &nbsp; &quot;showvalues&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;decimals&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;formatnumberscale&quot;:&quot;0&quot;,<br />&nbsp; &nbsp; &quot;labeldisplay&quot;:&quot;Rotate&quot;<br />&nbsp; },<br />&nbsp; &quot;data&quot;:[{<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jan&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;462&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Feb&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;857&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Mar&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;671&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Apr&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;494&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;May&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;761&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jun&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;960&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Jul&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;629&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Aug&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;622&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Sep&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;376&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Oct&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;494&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Nov&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;761&quot;<br />&nbsp; &nbsp; },<br />&nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &quot;label&quot;:&quot;Dec&quot;,<br />&nbsp; &nbsp; &nbsp; &quot;value&quot;:&quot;960&quot;<br />&nbsp; &nbsp; }<br />&nbsp; ]<br />}</pre>
+</div></div></div></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>When you now view this page, you'll see the following output:</p>
+      <img src="Images/Grid_Single.jpg" />
+      <p>See it <a href="../../Code/Grid/SimpleGrid.html" target="_blank">live</a>!</p>
+      <p>Let's now see how to plug this grid with a chart.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="gridwithchart"></a>Combining the grid with a chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Using the grid with a chart is same as using two chart types. The only difference is that the grid and chart now use the same data source instead of two different data sources. The following HTML code (<span class="codeInline">GridWithChart.html</span>) would explain the concept:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <pre class="prettyprint code_container">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script language=&quot;JavaScript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body bgcolor=&quot;#ffffff&quot;&gt;
+    &lt;div id=&quot;chartDiv&quot; align=&quot;center&quot;&gt;The chart will appear within this DIV. &lt;/div&gt;<strong>      </strong>
+    <strong>&lt;script type=&quot;text/javascript&quot;&gt;
+      var myChart = new FusionCharts(&quot;../FusionCharts/Column2D.swf&quot;, &quot;myChart&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartDiv&quot;);
+    &lt;/script&gt;</strong>
+    &lt;div id=&quot;gridDiv&quot; align=&quot;center&quot;&gt;The grid will appear within this DIV. &lt;/div&gt;<strong>      </strong>
+    <strong>&lt;script type=&quot;text/javascript&quot;&gt;
+      var myGrid = new FusionCharts(&quot;../FusionCharts/SSGrid.swf&quot;, &quot;myGrid1&quot;, &quot;300&quot;, &quot;200&quot;, &quot;0&quot;, &quot;1&quot;);
+      myGrid.setXMLUrl(&quot;Data.xml&quot;);
+      myGrid.render(&quot;gridDiv&quot;);
+    &lt;/script</strong><strong>&gt;
+  </strong>&lt;/body&gt;
+&lt;/html&gt;</pre>      
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above code, we're first rendering the chart and then rendering the grid. The <span class="codeInline">dataURL</span> for both is provided as <span class="codeInline">Data.xml</span>, as want the grid to relate to the chart itself. </p>
+    <p>When you now view this, you'll get the following output: </p>
+   <img src="Images/Grid_Chart.jpg"/>
+    <p>See it <a href="../../Code/Grid/GridWithChart.html" target="_blank">live</a>!</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="gridparam"></a>Providing parameters to grid </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Apart from the configuration parameters provided in XML/JSON, you can also specify exclusive parameters for the grid. This is done using FlashVars, as the XML/JSON already contains parameters for the chart and you cannot disturb that. The grid supports a lot of parameters listed in <a href="Grid_Parameters.html">next section</a>. Here, we'll just see how to use them. </p>
+    <p>Shown below is an example, where we convert our above example to show percentage values in grid instead of values. The grid exposes a parameter which helps you do so. Also, we'll set the grid to show shadow for the color boxes and navigation buttons. The following code does the same (<span class="codeInline">ParameterGrid.html</span>): </p></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <pre class="prettyprint code_container">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script language=&quot;JavaScript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body bgcolor=&quot;#ffffff&quot;&gt;
+    &lt;div id=&quot;griddiv&quot; align=&quot;center&quot;&gt;The grid will appear within this DIV.&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var myGrid = new FusionCharts(&quot;../FusionCharts/SSGrid.swf&quot;, &quot;myGrid1&quot;, &quot;300&quot;, &quot;200&quot;, &quot;0&quot;, &quot;1&quot;);
+        myGrid.setXMLUrl(&quot;Data.xml&quot;);
+        //Set Grid specific parameters
+<strong>        myGrid.configure('showPercentValues', '1');
+        myGrid.configure('showShadow', '1');
+</strong>        myGrid.render(&quot;griddiv&quot;);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>     
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see above, we've added two new parameters for the grid named as <span class="codeInline">showPercentValues</span> and <span class="codeInline">showShadow</span>. We've set 1 as value for both these parameters. The supported list of parameters for the grid is listed in <a href="Grid_Parameters.html">next section</a>. </p>
+      <p class="highlightBlock"><strong>Existing users</strong>: Earlier <span class="codeInline"><a href="../JavaScript/API/Methods.html#addvariable">addVariable()</a></span> function was used to set these parameters. <span class="codeInline">addVariable()</span> is now deprecated. We recommend the use of <a href="../JavaScript/API/Methods.html#configure"> <span class="codeInline">configure()</span></a> function to set these parameters. </p>
+      <p>When you now see this grid, it will look as under: </p>
+      <img src="Images/Grid_Param.jpg" alt="" width="310" height="213" />
+      <p>See it <a href="../../Code/Grid/ParameterGrid.html" target="_blank">live</a>!</p>
+      <p>As you can see, the numbers have been converted to percent values and also there's the shadow effect.</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Grid Component Overview|Grid_Overview.html","Grid Parameters|Grid_Parameters.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

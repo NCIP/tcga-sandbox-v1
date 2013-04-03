@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with JSP &gt; Charting Data from 
+        Forms 
+    </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with J2EE|JSP_GettingStarted.html", "Using with data in forms" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with JSP &gt; Charting Data from 
+        Forms 
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <p>In this section, we'll show you how to use FusionCharts with JSP to plot 
+        data collected in forms. </p>
+      <p>We'll build a simple restaurant sales example, where the user will enter the items sold by a restaurant in a given week. This data will be submitted in a form to the server. We'll acquire this data and plot in on a chart. For the sake of simplicity, we wouldn't do any processing on this data. However, your real life applications might process data before presenting it on the chart. </p>
+    <p><strong>Before you go further with this page, we recommend you to please see the previous section &quot;<a href="JSP_BasicExample.html">Basic Examples</a>&quot; as we start off from concepts explained in that page. </strong></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">The code examples contained in this 
+      page are present in<span class="codeInline"> Download Package &gt; Code 
+      &gt; J2EE</span> &gt; <span class="codeInline">FormBased</span> folder. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Building the Form </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">The form is contained in <span class="codeInline">Default.jsp</span> 
+      and looks as under: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../../guide-for-web-developers/Images/Code_Form.gif" width="445" height="387" class="imageBorder" /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">It's a very simple form which submits to <span class="codeInline">Chart.jsp</span>. 
+      You can also use java server faces to create such form. Here, we have used plain HTML in our page. As such, we wouldn't go into the code of this form. You can directly open 
+      the source from download and see it. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Requesting the data and Creating the Chart </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">The work of requesting the data from submitted 
+      form, setting it in the bean which constructs the xml and rendering the chart is done in <span class="codeInline">Chart.jsp</span>, 
+      present in the same folder. It contains the following code: </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="code_container prettyprint">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ taglib uri=&quot;http://www.fusioncharts.com/jsp/core&quot; prefix=&quot;fc&quot; %&gt; 
+&lt;%@ taglib prefix=&quot;tags&quot; tagdir=&quot;/WEB-INF/tags&quot; %&gt;
+<strong>&lt;jsp:useBean id=&quot;restaurantBean&quot; class=&quot;com.fusioncharts.sampledata.RestaurantBean&quot;/&gt;
+&lt;c:set var=&quot;folderPath&quot; value=&quot;../../FusionCharts/&quot;/&gt;</strong>
+&lt;c:set var=&quot;title&quot; value=&quot;FusionCharts - Form Based Data Charting Example&quot; scope=&quot;request&quot;/&gt;
+&lt;c:set var=&quot;header1&quot; value=&quot;FusionCharts Form-Based Data Example&quot; scope=&quot;request&quot;/&gt;
+&lt;c:set var=&quot;header2&quot; value=&quot;Restaurant Sales Chart below&quot; scope=&quot;request&quot;/&gt;
+&lt;c:set var=&quot;intro&quot; value=&quot;Click on any pie slice to see slicing effect. Or,
+right click on chart and choose 'Enable Rotation', and then drag and
+rotate the chart.&quot;/&gt;
+<strong>&lt;c:set var=&quot;jsPath&quot; value=&quot;${folderPath}&quot; scope=&quot;request&quot;/&gt;</strong>
+<strong>&lt;c:set target=&quot;${restaurantBean}&quot; property=&quot;soups&quot; value=&quot;${param.Soups}&quot;/&gt; 
+&lt;c:set target=&quot;${restaurantBean}&quot; property=&quot;salads&quot; value=&quot;${param.Salads}&quot;/&gt;
+&lt;c:set target=&quot;${restaurantBean}&quot; property=&quot;sandwiches&quot; value=&quot;${param.Sandwiches}&quot;/&gt;
+&lt;c:set target=&quot;${restaurantBean}&quot; property=&quot;beverages&quot; value=&quot;${param.Beverages}&quot;/&gt;
+&lt;c:set target=&quot;${restaurantBean}&quot; property=&quot;desserts&quot; value=&quot;${param.Desserts}&quot;/&gt;</strong>
+&lt;tags:template2&gt; 
+<strong>&lt;fc:render chartId=&quot;${restaurantBean.chartId}&quot; swfFilename=&quot;${folderPath}${restaurantBean.filename}&quot; 
+           width=&quot;${restaurantBean.width}&quot; height=&quot;${restaurantBean.height}&quot; 
+           xmlData=&quot;${restaurantBean.xml}&quot; /&gt;</strong>
+&lt;br/&gt;
+&lt;a href='javascript:history.go(-1);'&gt;Enter data again&lt;/a&gt; &lt;br/&gt;&lt;br/&gt;
+&lt;/tags:template2&gt;</pre></td> </tr>
+  <tr>
+    <td valign="top" class="text"><p>As you can see in the above code, we're doing the following:</p>
+      <ul>
+          <li>Included the path to the folder containing the <span class="codeInline">javascript</span> files, which are required when using the JavaScript method.</li>
+          <li>Requesting data from the submitted form and setting it in the bean. (c:set tags) </li>
+          <li>Getting the xml from RestaurantBean for the chart.</li>
+          <li>Rendering a Pie 3D chart by using fc:render tag and passing the xml as attribute.</li>
+      </ul>
+      <p>The actual xml is constructed in <span class="codeInline">RestaurantBean</span> as shown below:</p>
+      <pre class="code_container prettyprint"><span class="codeComment">//Initialize &lt;chart&gt; element</span>
+xml = &quot;&lt;chart caption='Sales by Product Category' subCaption='For this week' 
+showPercentValues='0' pieSliceDepth='30' showBorder='1'&gt;&quot;;
+<span class="codeComment">//Add all data</span>
+xml += &quot;&lt;set label='Soups' value='&quot; + soups + &quot;' /&gt;&quot;;
+xml += &quot;&lt;set label='Salads' value='&quot; + salads + &quot;' /&gt;&quot;;
+xml += &quot;&lt;set label='Sandwiches' value='&quot; + sandwiches + &quot;' /&gt;&quot;;
+xml += &quot;&lt;set label='Beverages' value='&quot; + beverages + &quot;' /&gt;&quot;;
+xml += &quot;&lt;set label='Desserts' value='&quot; + desserts + &quot;' /&gt;&quot;;
+<span class="codeComment">//Close &lt;chart&gt; element</span>
+xml += &quot;&lt;/chart&gt;&quot;; </pre>
+      <p>Here, <span class="codeInline">soups, salads, sandwiches, beverages</span> and <span class="codeInline">desserts</span> are names of the bean class members whose values are set using <span class="codeInline">c:set </span>tags in <span class="codeInline">Chart.jsp</span>. </p>
+      <p>When you finally run the code, you'll see a chart as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../../guide-for-web-developers/Images/Code_FormChart.jpg" width="468" height="268" class="imageBorder" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Charting data from Array|JSP_Array.html","Plotting from database|JSP_DB.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+	<div id="content" class="widelayout">
+	    <div class="left">
+	        <div class="trail"><a href="<% out.print(host); %>/tcga/">Home</a> > <a href="<% out.print(host); %>/tcga/tcgaTools.jsp">Tools</a> > <span class="trailDest"><%=h1String%></span></div>
+            <a name="skip" id="skip"></a>
+	        <h1><%=h1String%></h1>
+	    </div>
+	    <div id="sidebar" class="rollup right">
+	        <%@include file="/includes/modules/rightMenuTools.jspf" %>
+	    </div>
+	    <div class="clear"></div>
+	    <div id="redirectMsg">	    
+	    <% if ( h1String.equals("UUID Manager") ){ %>
+	    	<p>The UUID Manager you are attempting to reach has been removed and replaced by the Metadata Browser.<br />Please make sure that you update your bookmarks to reflect this change.</p>
+			<p>You will be automatically sent to the Metadata Browser in 10 seconds. If you are not re-directed, please click on this link: <a href="/uuid/uuidBrowser.htm" title="Biospecimen Metadata Browser">https://tcga-data.nci.nih.gov/uuid/uuidBrowser.htm</a>.</p>
+	    <% } else { %>
+	    	<p>The UUID Manager web service you are attempting to reach has been removed and replaced by the Biospecimen Metadata web service.</p>
+	    	<p>The base URLs to query metadata are <a href="/uuid/uuidws/metadata/xml?elementType=Participant" title="Query Metadata XML">https://tcga-data.nci.nih.gov/uuid/uuidws/metadata/xml?elementType=Participant</a> (for XML-formatted responses) and <a href="/uuid/uuidws/metadata/json?elementType=Participant" title="Query Metadata - JSON">https://tcga-data.nci.nih.gov/uuid/uuidws/metadata/json?elementType=Participant</a> (for JSON-formatted responses).</p>
+			<p>For more information on querying the Biospecimen Metadata web service, see the user guide: <a href="https://wiki.nci.nih.gov/x/xQpyAg" title="Biospecimen Metadata web service user guide" target="_blank">https://wiki.nci.nih.gov/x/xQpyAg</a></p>	    
+	    <% } %>
+		</div>  
+	</div>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Changing chart properties </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Changing chart properties" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Changing chart properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class allows you to change various settings and properties of an existing chart. You can  dynamically update chart's root properties (also known as &quot;chart attributes&quot; which are passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through <span class="codeInline">chart</span> property in chart's JSON data) on-the-fly. This feature would come handy when you wish to change the chart titles, theme colors, number formatting or scaling setup, divisional line and grid configurations and other functional and cosmetic features of an existing chart. While the API allows you to update selective properties, internally, FusionCharts re-draws the entire chart. </p>
+      <p>Moreover, you can also change chart's width and height at run-time.</p>
+      <p class="highlightBlock">All the chart attributes are listed under &quot;&lt;chart&gt; element attributes&quot; section of each chart page in <strong>Chart XML API</strong> section. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="setchartattribute" id="setchartattribute"></a>Change chart Attribute </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+				<p>You need to use <span class="codeInline">setChartAttribute()</span> function to set a chart attribute. All you need to do is  pass the name of the attribute and its new value to this function. This function is available in all the instances of FusionCharts JavaScript class. If you wish to change more than one chart attributes at one go, you can pass multiple attributes and their respective values as an Object. Each property name of the Object will take the name of the attribute. Value of each property will take the new value of the attribute. </p>
+				<p>Let's take some samples to illustrate the working of the function: </p>
+				<p><strong><a name="chartcaption" id="chartcaption"></a>Change chart caption</strong></p>
+      <pre class="code_container prettyprint lang-js">myChart.setChartAttribute( &quot;caption&quot; , &quot;Latest sales report&quot; );</pre>
+
+				<p>In the above code we pass the attribute name as the first parameter and the new value&nbsp; as the second parameter. </p>
+				<p>Let us create a small sample that changes color theme of an existing  chart as shown in the images below:</p>
+				<table width="630" border="0" cellspacing="0" cellpadding="0" >
+         <tr>
+            <td><img src="Images/setAttribute1.jpg" width="312" height="303" class="" /></td>
+            <td><img src="Images/setAttribute2.jpg" width="312" height="303" class="" /></td>
+         </tr>
+         <tr>
+            <td align="center" class="imageCaption">The chart after rendered for the first time </td>
+            <td align="center" class="imageCaption">Chart with changed theme</td>
+         </tr>
+      </table>
+            <br />
+    See it <a href="../../Code/JavaScript/Basics/ChangingChartProperties/Change_chart_Theme.html" target="_blank">live</a>! </td>
+</tr>
+<tr><td height="30"></td></tr>
+<tr>
+<td><pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Update Chart data&lt;/title&gt;
+    &lt;script type="text/javascript" src=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;center&gt;
+    &lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here!&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var myChart = new FusionCharts( &quot;../../FusionCharts/Column2D.swf&quot;, 
+        &quot;myChartId&quot;, &quot;300&quot;, &quot;240&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+
+	  function changeAttribute()
+	  {
+		  // get chart reference
+		  var chartReference = FusionCharts( "myChartId" ); 
+		  
+		  // change palette, palette colors and set glass effect to chart
+		  chartReference.<strong>setChartAttribute( { "palette" : "2", paletteColors : "ACBF72", useRoundEdges : 1 } );</strong>
+	  }
+    // --&gt;
+    &lt;/script&gt;
+
+    &lt;input type=&quot;button&quot; onClick=&quot;<strong>changeAttribute</strong>();&quot; value=&quot;Change Chart Theme&quot; &gt;
+    &lt;/center&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+				<p>In the above code do the following:</p>
+				<ul>
+				   <li>We create a chart </li>
+		         <li>We place a button that calls <span class="codeInline">changeAttribute() </span>function</li>
+			      <li> We get chart reference using  <span class="codeInline">FusionCharts(&quot;myChartId&quot;) </span><span class="text">function</span> </li>
+			      <li>We pass an object containing new attribute values to <span class="codeInline">setChartAttribute()</span> function</li>
+			      <li>The object contains three attributes as three properties - <span class="codeInline">palette</span>, <span class="codeInline">paletteColors</span> and <span class="codeInline">useRoundEdges</span>. If you've to update multiple properties of the chart at once, it is recommended to use the object notation as used in this code and pass all of them at once. This eliminates the need for multiple re-draws. </li>
+			</ul>
+				<p class="header" style="padding:5px;">Other samples</p>
+				<p><strong><a name="chartsubcaption" id="chartsubcaption"></a>Change chart sub-caption</strong></p>
+				<pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+chartReference.setChartAttribute({&quot;subCaption&quot; : &quot;new sub-title&quot;});</pre>
+
+					<p>In the above code we pass an object as the parameter. </p>
+					<p><strong><a name="numberformattingsettings" id="numberformattingsettings"></a>Change number formatting settings</strong></p>
+      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+chartReference.setChartAttribute({formatNumberScale : 1, decimals : 2, yAxisForceDecimals : 1});</pre>
+
+      <p><strong><a name="gridsettings" id="gridsettings"></a>Change grid settings </strong></p>
+						<pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+chartReference.setChartAttribute({showAlternateHGridColor : 1, alternateHGridColor : &quot;ACBF72&quot;});</pre>
+
+      <p><strong><a name="tooltipsoff" id="tooltipsoff"></a>Set  tooltips off</strong></p>
+						<pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+chartReference.setChartAttribute(&quot;showTooltip&quot;,0);</pre>
+
+				 <p><strong><a name="shadowoff" id="shadowoff"></a>Set off shadow and  lighting effects</strong></p>
+						<pre class="code_container prettyprint lang-js">var chartReference = FusionCharts(&quot;myChartId&quot;); 
+chartReference.setChartAttribute({&quot;showShadow&quot; : &quot;0&quot;, &quot;use3DLighting&quot; : &quot;0&quot;});</pre>
+						<br />
+				  <p class="textBold"><a name="limitations" id="limitations"></a>Limitations:</p>
+				  <p>Listed below are the few limitations of <span class="codeInline">setChartAttribute()</span> function: </p>
+				  <ul>
+				    <li><span class="codeInline">setChartAttribure()</span> works only using <a href="JS_ChartInstance.html#js">FusionCharts JavaScript Object</a> reference. This function is not available if you  use <a href="JS_ChartInstance.html#html">FusionCharts HTML Object </a>reference.</li>
+		      <li>You can update only those attribute which are available in &lt;chart&gt; element of a chart's XML data or &quot;chart&quot; property of a chart's JSON data. </li>
+				  </ul><br />
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="highlightBlock">Please note that the chart reloads itself with changed data when new attribute is set. During re-draw the chart forces animation='0'. If you wish to re-animate after property change, explicitly specify &quot;animation&quot;: &quot;1&quot; in JSON update.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="configure" id="configure"></a>Change  chart messages and Grid settings</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class provides an easy function to set <a href="../advanced/ChartMessages.html">chart messages</a> and Grid settings. For this you need to use <a href="API/Methods.html#configure"><span class="codeInline">configure()</span></a> function. </p>
+      <p>When you wish to set a chart message this function takes the message attribute name and the custom message that you wish to set. Let's take a sample as shown below:</p>
+      <pre class="prettyprint code_container">&lt;div id=&quot;chartContainer&quot;&gt;FusionCharts will load here&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+  var myChart = new FusionCharts(&quot;Column2D.swf&quot;, &quot;myChartId&quot;, &quot;300&quot;, &quot;250&quot;, &quot;0&quot;, &quot;1&quot;);
+  myChart.setXMLUrl(&quot;&lt;chart&gt;&lt;/chart&gt;&quot;);
+<strong>  myChart.configure(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;);</strong>
+  myChart.render(&quot;chartContainer&quot;);
+// --&gt;&lt;/script&gt;</pre>
+<p>The line <span class="codeInline">myChart.configure(&quot;ChartNoDataText&quot;, &quot;Please select a record above&quot;) </span>sets a custom chart message when the chart does not find any data to plot.</p>
+<p class="highlightBlock">There are advanced ways to use <span class="codeInline">configure() </span>function while setting the chart messages. For details read Advanced Charting &gt; <a href="../advanced/ChartMessages.html">Changing Chart Messages</a> page.</p>
+<p>Most of the settings of a <a href="../grid-component/Grid_Overview.html">Grid </a>component are to be set using <span class="codeInline">configure()</span> function. Let's take an example: </p>
+    <pre class="prettyprint code_container">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script language=&quot;JavaScript&quot; src=&quot;../FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body bgcolor=&quot;#ffffff&quot;&gt;
+    &lt;div id=&quot;griddiv&quot; align=&quot;center&quot;&gt;The grid will appear within this DIV.&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var myGrid = new FusionCharts(&quot;../FusionCharts/SSGrid.swf&quot;, &quot;myGrid1&quot;, &quot;300&quot;, &quot;200&quot;, &quot;0&quot;, &quot;1&quot;);
+        myGrid.setXMLUrl(&quot;Data.xml&quot;);
+        //Set Grid specific parameters
+<strong>        myGrid.configure('showPercentValues', '1');
+        myGrid.configure('showShadow', '1');
+</strong>        myGrid.render(&quot;griddiv&quot;);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+    <p>In the above sample we have created a grid. We used <span class="codeInline">configure()</span> function to show shadow and values in percentage.</p>
+    <div class="highlightBlock">Additional references : 
+    <ul>
+      <li><a href="../grid-component/Grid_Overview.html">Grid Component</a></li>
+      <li> <a href="../grid-component/Grid_Usage.html">How to create a grid </a></li>
+      <li><a href="../grid-component/Grid_Parameters.html">List of parameters to set-up a grid </a></li>
+    </ul>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="header"><a name="changedimension" id="changedimension"></a>Change chart width and height</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript Class allows you to resize an existing chart using <span class="codeInline">resizeTo()</span> function. You can pass the new width and height of the chart in pixels or percent parameters of&nbsp; <span class="codeInline">resizeTo()</span> function. You can also make change width and height property of the chart object and then call <span class="codeInline">resizeTo()</span> function. The code samples below shows how you can do this:</p>
+            <p><strong><a name="resizechartpixel" id="resizechartpixel"></a>Resize chart using pixel values </strong></p>
+						      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts( &quot;myChartId&quot; ); 
+chartReference.resizeTo( &quot;500&quot;, &quot;350&quot; );</pre>
+
+            <p><strong><a name="resizechartpercent" id="resizechartpercent"></a>Resize chart using percent values </strong></p>
+						      <pre class="code_container prettyprint">var chartReference = FusionCharts( &quot;myChartId&quot; ); 
+chartReference.resizeTo( &quot;80%&quot;, &quot;75%&quot; );</pre>
+
+            <p><strong><a name="resizechartwh" id="resizechartwh"></a>Resize chart setting width and height properties </strong></p>
+						      <pre class="code_container prettyprint lang-js">var chartReference = FusionCharts( &quot;myChartId&quot; ); 
+chartReference.width = &quot;500&quot;;
+chartReference.height = &quot;80%&quot;;
+chartReference.resizeTo();</pre>
+
+            <p class="highlightBlock">Please note that <span class="codeInline">resizeTo()</span>function, <span class="codeInline">width</span> and <span class="codeInline">height </span>properties only work using <a href="JS_ChartInstance.html#js"> FusionCharts JavaScript object</a>. It is not available in <a href="JS_ChartInstance.html#html">FusionCharts HTML Object</a>. </p>
+				 <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics </span>folder.</p>
+		</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Providing &amp; updating data|JS_ChangeData.html","Getting data back from chart|JS_DataBackFromChart.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts PHP Class API -HTML Embedding  </title>
+<link rel="stylesheet" type="text/css" href="../../../css/Style.css"/>
+<script type="text/javascript" src="../../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../../Introduction/Overview.html", "Guide for web developers", "FusionCharts PHP Class|../Overview.html", "Advanced Usage", "Using HTML embedding method" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  
+  <tr> 
+    <td class="pageHeader">FusionCharts PHP Class API &gt;HTML Embedding  </td>
+  </tr>
+  
+  <tr>
+     <td valign="top" class="text">
+        
+           Here, we  create a chart  using HTML embedding method . We don't need to include       <span class="codeInline">FusionCharts.js</span> - FusionCharts JavaScript Embedding Class. </td>
+  <tr>
+           <td valign="top" class="text">&nbsp;</td>
+        </tr>
+        
+   <tr>
+    <td valign="top" class="text">Let's see how to use FusionCharts PHP Class to create a chart using HTML embedding method: </td>
+  </tr>
+   <tr>
+      <td valign="top" class="text">&nbsp;</td>
+   </tr>
+   
+   <tr>
+    <td valign="top" class="codeBlock"><p>&lt;html&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;head&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Render as HTML Using FusionCharts PHP Class&lt;/title&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;/head&gt;<br />
+&nbsp;&nbsp;&nbsp; &lt;body&gt;</p>
+      <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;?php <br />
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="codeComment">&nbsp; # Pass true to renderChart() function<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # to use HTML Embedding Method.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # This is helpful if you wish not use FusionCharts.js<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # or when rendering the chart using AJAX</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&nbsp; $FC-&gt;renderChart(true);</strong><br />
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ?&gt;</p>
+      <p> &nbsp;&nbsp;&nbsp; &lt;/body&gt;<br />
+      &lt;/html&gt;</p>
+      <p>
+      </p></td>
+  </tr>
+   <tr>
+     <td valign="top" class="text"><p>Let's analyze the steps involved in the above code:</p>
+       <ul>
+         <li>We don't use <span class="codeInline">FusionCharts.js</span> to embed javascript.<br />
+           <br />
+         </li>
+         <li>Here, we render the chart as: <br />
+           <br />
+           <span class="codeInline">$FC-&gt;renderChart(true);</span><br />
+           <br />
+           The <span class="codeInline">renderChart</span>() function passes a parameter 'true'.This helps in using<span class="codeInline"> HTML  Embedding Method</span>. Passing this parameter 'true' helps us not to use <span class="codeInline">FusionCharts.js</span>.&nbsp; This also helps to render  chart using <span class="codeInline">AJAX</span>. <br />
+           <br />
+           <br />
+</li>
+     </ul></td>
+  </tr>
+  <tr><td></td></tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Handling Delimiter|Adv_delim.html","FusionCharts PHP Class API reference|../Functions.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

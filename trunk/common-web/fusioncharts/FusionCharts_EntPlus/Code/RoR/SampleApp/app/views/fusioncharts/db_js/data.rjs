@@ -1,0 +1,11 @@
+#create a javascript array, to contain the date of production
+#and the factory output quantity.
+index_count=-1
+factories.each do |factory|
+  index_count = index_count + 1
+  
+  page << "\t\t\t\tdata["+index_count.to_s+"] = new Array();" 
+  factory.factory_output_quantities.each do |factory_output|
+    page << "\t\t\t\t data["+index_count.to_s+"].push(new Array('"+ formatted_date(factory_output.date_pro)+ "','"+ factory_output.quantity.to_s+"'));"
+  end
+end 

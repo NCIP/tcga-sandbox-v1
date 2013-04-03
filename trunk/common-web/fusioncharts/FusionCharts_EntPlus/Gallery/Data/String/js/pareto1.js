@@ -1,0 +1,7 @@
+var dataString ='<chart showvalues="0" caption="Circuit Board Fault Analysis" xaxisname="Type of Faults" animation="1" stack100percent="0" canvasbgangle="0" canvasborderthickness="1" chartleftmargin="15" chartrightmargin="5" charttopmargin="18" chartbottommargin="18" captionpadding="15" xaxisnamepadding="5" yaxisnamepadding="5" yaxisvaluespadding="2" labelpadding="3" valuepadding="2" canvaspadding="" basefontsize="10" outcnvbasefontsize="13" zeroplanealpha="80" zeroplanethickness="2" bgcolor="F8F8FA" slantlabels="0" labeldisplay="auto" showcumulativeline="1" showlinevalues="0" linecolor="8080FF" showplotborder="0" plotgradientcolor="" useroundedges="0" linethickness="2" linedashed="1" plotbordercolor="7F7F7F" showcanvasbg="1" showcanvasbase="1" canvasbasedepth="11" canvasbgdepth="3" zeroplaneshowborder="1" canvasbgcolor="FFFFFF" canvasbgalpha="100" canvasbasecolor="D3DBCA" showalternatehgridcolor="0" bgalpha="100" outcnvbasefont="Calibri" canvasbordercolor="EFEFEF" borderalpha="30" linedashgap="4" anchorradius="4" anchorbgcolor="FFFFFF" anchorbordercolor="8080FF" drawanchors="1" >\n\
+	<set value="205" color="BCC5E1"  label="Assembly Error"/>\n\
+	<set value="165" color="9F9F9F"  label="Component Failure"/>\n\
+	<set value="85" color="8CB0F2"  label="Solder Short"/>\n\
+	<set value="62" color="59ACAC"  label="Mechanical Damage"/>\n\
+	<set value="33" color="B5D7CC"  label="Others"/>\n\
+	</chart>';

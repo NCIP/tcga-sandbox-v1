@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_image (Fusioncharts::Exporter::Generator::ImageGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/generator.rb, line 235</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_image</span>
+        <span class="ruby-keyword kw">begin</span> 
+          <span class="ruby-identifier">cl1</span> = <span class="ruby-constant">Magick</span>
+          <span class="ruby-identifier">cl2</span>=<span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">10</span>,<span class="ruby-value">10</span>)
+          <span class="ruby-identifier">cl3</span>=<span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Draw</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span><span class="ruby-identifier">e</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NameError</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@bgcolor</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">bgcolor</span>=<span class="ruby-value str">&quot;white&quot;</span>
+        <span class="ruby-keyword kw">else</span> 
+          <span class="ruby-identifier">bgcolor</span>=<span class="ruby-value str">&quot;#&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@bgcolor</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">img</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@width</span>, <span class="ruby-ivar">@height</span>) {<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">background_color</span> = <span class="ruby-identifier">bgcolor</span>}
+        <span class="ruby-identifier">img</span>.<span class="ruby-identifier">format</span>=<span class="ruby-ivar">@format</span>
+        <span class="ruby-identifier">rows</span> = <span class="ruby-ivar">@image_data</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;;&quot;</span>) 
+        <span class="ruby-identifier">y</span>=<span class="ruby-value">0</span>
+        <span class="ruby-identifier">draw</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Draw</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+            <span class="ruby-comment cmt">### Reset the count for each new row</span>
+            <span class="ruby-identifier">ri</span> = <span class="ruby-value">0</span>
+            <span class="ruby-identifier">pixels</span> = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;,&quot;</span>) 
+            <span class="ruby-identifier">pixels</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pixel</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">c</span>,<span class="ruby-identifier">r</span> = <span class="ruby-identifier">pixel</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;_&quot;</span>)
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> 
+                  <span class="ruby-identifier">mycolor</span> = <span class="ruby-value str">&quot;#&quot;</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{c.rjust(6,'0')}&quot;</span>
+                  <span class="ruby-identifier">x</span>=<span class="ruby-identifier">ri</span>
+                  <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">fill</span>(<span class="ruby-identifier">mycolor</span>)
+                  <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">line</span>(<span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">y</span>.<span class="ruby-identifier">to_s</span>,(<span class="ruby-identifier">x</span><span class="ruby-operator">-</span><span class="ruby-value">1</span><span class="ruby-operator">+</span><span class="ruby-identifier">r</span>.<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">y</span>.<span class="ruby-identifier">to_s</span>)
+               <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt">#End of if c.length&gt;0   </span>
+                <span class="ruby-identifier">ri</span> = <span class="ruby-identifier">ri</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">to_i</span> 
+            <span class="ruby-keyword kw">end</span>  <span class="ruby-comment cmt"># End of inner do|pixel|</span>
+              <span class="ruby-identifier">y</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># End of outer do|row|</span>
+        <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">draw</span>(<span class="ruby-identifier">img</span>)
+        <span class="ruby-identifier">img</span>.<span class="ruby-identifier">format</span>=<span class="ruby-ivar">@format</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">img</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿<html>
+<head>
+<style>
+<!--
+body {margin:0; padding:0; border:none; height:100% }
+
+
+
+-->
+</style>
+<title>Navigation Pane</title>
+</head>
+<body scroll="no">
+<script language="javascript" src="whver.js"></script>
+<script language="javascript1.2" src="whmozemu.js"></script>
+<script language="javascript1.2" src="whmsg.js"></script>
+<script language="javascript1.2" src="whproxy.js"></script>
+<script language="javascript1.2" src="whutils.js"></script>
+<script language="javascript1.2" src="whphost.js"></script>
+<script language="javascript1.2">
+<!--
+
+var nav_;
+function writeWebHelpPane()
+{
+  var bPreferXML	      = false;
+  var strProjectFileXML =  "whproj.xml";
+  var strProjectFileHTM =  "whproj.htm";	
+  addProject(bPreferXML, strProjectFileXML, strProjectFileHTM);
+
+  addPane("toc","../../../Menu.html?noCollapse");
+  addPane("idx","whidhtml.htm");
+  addPane("fts","whfdhtml.htm");
+  
+  nav_=window.location.hash;
+  nav_=nav_?nav_.replace('#',''):'1';
+  
+  setShowPane(("toc,toc,idx,fts".split(",")[parseInt(nav_)]));
+  //setShowPane("toc");
+
+}
+
+writeWebHelpPane();
+
+
+function customTrackHash()
+{
+	
+	window.setInterval (
+		function ()
+		{
+			var newNav = window.location.hash;
+			if(newNav) newNav = newNav.replace('#','');
+			
+			if(nav_!=newNav)
+			{
+				nav_ = newNav;
+			}
+			
+			
+		
+		}, 333
+	);
+};
+
+//-->
+</script>
+</body>
+</html>

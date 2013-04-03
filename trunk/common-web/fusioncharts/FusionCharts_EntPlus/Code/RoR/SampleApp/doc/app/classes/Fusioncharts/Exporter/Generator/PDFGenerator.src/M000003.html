@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_pdf_objects (Fusioncharts::Exporter::Generator::PDFGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/generator.rb, line 41</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_pdf_objects</span>(<span class="ruby-identifier">compress</span>=<span class="ruby-keyword kw">true</span>)
+      <span class="ruby-ivar">@compress</span> = <span class="ruby-identifier">compress</span>
+       <span class="ruby-identifier">pdf_bytes</span> =<span class="ruby-value str">&quot;&quot;</span>
+       <span class="ruby-comment cmt">#Store all PDF objects in this temporary string to be written to ByteArray</span>
+       <span class="ruby-identifier">str_tmp_obj</span>=<span class="ruby-value str">&quot;&quot;</span>
+       <span class="ruby-identifier">xref_list</span>=[]
+       <span class="ruby-identifier">xref_index</span> =<span class="ruby-value">0</span>
+       <span class="ruby-comment cmt">#start xref array</span>
+                   <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-value str">&quot;xref\n0 &quot;</span>
+       <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+       
+                   <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-value str">&quot;0000000000 65535 f \n&quot;</span> <span class="ruby-comment cmt">#Address Refenrece to obj 0</span>
+                   <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+       
+      <span class="ruby-comment cmt">#Build PDF objects sequentially</span>
+      <span class="ruby-comment cmt">#version and header</span>
+      <span class="ruby-identifier">str_tmp_obj</span>=<span class="ruby-value str">&quot;%PDF-1.3\n%{FC}\n&quot;</span>
+      <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">str_tmp_obj</span>
+      
+      <span class="ruby-comment cmt">#OBJECT 1 : info (optional)</span>
+      <span class="ruby-identifier">str_tmp_obj</span>=<span class="ruby-value str">&quot;1 0 obj&lt;&lt;\n/Author (FusionCharts)\n/Title (FusionCharts)\n/Creator (FusionCharts)\n&gt;&gt;\nendobj\n&quot;</span>
+      <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>) <span class="ruby-comment cmt">#refenrece to obj 1</span>
+      <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+      <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">str_tmp_obj</span>
+      
+      <span class="ruby-comment cmt">#OBJECT 2 : Starts with Pages Catalogue</span>
+      <span class="ruby-identifier">str_tmp_obj</span>=<span class="ruby-value str">&quot;2 0 obj\n&lt;&lt; /Type /Catalog /Pages 3 0 R &gt;&gt;\nendobj\n&quot;</span>
+      <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>) <span class="ruby-comment cmt">#refenrece to obj 2</span>
+      <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+      <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">str_tmp_obj</span>
+
+      <span class="ruby-comment cmt">#OBJECT 3 : Page Tree (reference to pages of the catalogue)</span>
+      <span class="ruby-identifier">str_tmp_obj</span>=<span class="ruby-value str">&quot;3 0 obj\n&lt;&lt;  /Type /Pages /Kids [&quot;</span>
+      <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@pageIndex</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)  <span class="ruby-keyword kw">do</span><span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">str_tmp_obj</span><span class="ruby-operator">+=</span>(((<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)<span class="ruby-operator">*</span><span class="ruby-value">3</span>)<span class="ruby-operator">+</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; 0 R\n&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">str_tmp_obj</span><span class="ruby-operator">+=</span><span class="ruby-value str">&quot;] /Count &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@pageIndex</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &gt;&gt;\nendobj\n&quot;</span>
+      
+      <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>) <span class="ruby-comment cmt">#refenrece to obj 3</span>
+      <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+      <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">str_tmp_obj</span>
+      
+      <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@pageIndex</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span><span class="ruby-operator">|</span><span class="ruby-identifier">itr</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">width</span>=<span class="ruby-ivar">@pages_data</span>[<span class="ruby-identifier">itr</span>][<span class="ruby-identifier">:width</span>].<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">height</span>=<span class="ruby-ivar">@pages_data</span>[<span class="ruby-identifier">itr</span>][<span class="ruby-identifier">:height</span>].<span class="ruby-identifier">to_s</span>
+        
+        <span class="ruby-comment cmt">#OBJECT 4..7..10..n : Page config</span>
+        <span class="ruby-identifier">str_tmp_obj</span>=(((<span class="ruby-identifier">itr</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>)<span class="ruby-operator">*</span><span class="ruby-value">3</span>)<span class="ruby-operator">-</span><span class="ruby-value">2</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; 0 obj\n&lt;&lt;\n/Type /Page /Parent 3 0 R \n/MediaBox [ 0 0 &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">width</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">height</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; ]\n/Resources &lt;&lt;\n/ProcSet [ /PDF ]\n/XObject &lt;&lt;/R&quot;</span><span class="ruby-operator">+</span>(<span class="ruby-identifier">itr</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; &quot;</span><span class="ruby-operator">+</span>((<span class="ruby-identifier">itr</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>)<span class="ruby-operator">*</span><span class="ruby-value">3</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; 0 R&gt;&gt;\n&gt;&gt;\n/Contents [ &quot;</span><span class="ruby-operator">+</span>(((<span class="ruby-identifier">itr</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>)<span class="ruby-operator">*</span><span class="ruby-value">3</span>)<span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot; 0 R ]\n&gt;&gt;\nendobj\n&quot;</span>
+        <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>) <span class="ruby-comment cmt">#refenrece to obj 4,7,10,13,16...</span>
+        <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+        <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">str_tmp_obj</span>
+
+
+        <span class="ruby-comment cmt">#OBJECT 5...8...11...n : Page resource object (xobject resource that transforms the image)</span>
+        <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>)  <span class="ruby-comment cmt">#refenrece to obj 5,8,11,14,17...</span>
+        <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+        <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">get_xobj_resource</span>(<span class="ruby-identifier">itr</span>);
+
+        <span class="ruby-comment cmt">#OBJECT 6...9...12...n : Binary xobject of the page (image)</span>
+        <span class="ruby-identifier">img_BA</span>=<span class="ruby-identifier">add_image_to_pdf</span>(<span class="ruby-identifier">itr</span>,<span class="ruby-ivar">@compress</span>)
+        <span class="ruby-identifier">xref_list</span>[<span class="ruby-identifier">xref_index</span>]=<span class="ruby-identifier">calculate_xpos</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span>)  <span class="ruby-comment cmt">#refenrece to obj 6,9,12,15,18...</span>
+        <span class="ruby-identifier">xref_index</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_index</span>
+        <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">img_BA</span>
+    <span class="ruby-keyword kw">end</span>
+  
+    <span class="ruby-comment cmt">#xrefs      compilation</span>
+                <span class="ruby-identifier">xref_list</span>[<span class="ruby-value">0</span>]<span class="ruby-operator">+=</span>(<span class="ruby-identifier">xref_list</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;\n&quot;</span>
+                
+                <span class="ruby-comment cmt">#get trailer</span>
+                <span class="ruby-identifier">trailer</span>=<span class="ruby-identifier">get_trailer</span>(<span class="ruby-identifier">pdf_bytes</span>.<span class="ruby-identifier">length</span> ,<span class="ruby-identifier">xref_list</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+                
+                <span class="ruby-comment cmt">#write xref and trailer to PDF</span>
+                <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">xref_list</span>.<span class="ruby-identifier">to_s</span>
+                <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-identifier">trailer</span>
+                
+                <span class="ruby-comment cmt">#write EOF</span>
+                <span class="ruby-identifier">pdf_bytes</span><span class="ruby-operator">+=</span><span class="ruby-value str">&quot;%%EOF\n&quot;</span>
+                
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pdf_bytes</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Chart Titles </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Titles &amp; Axis names" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Chart Titles </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts allows you to add a caption, sub-caption, x-axis title and y-axis title for your charts. You can configure the font properties for each of them individually or collectively. You can also apply styles and animation effects to them.</p>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Chart Caption </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Caption refers to the   title of the Chart, e.g., &quot;Monthly Summary&quot;.
+</p>
+      <p>XML/JSON Attribute:</p>
+       <pre class="prettyprint code_container">&lt;chart caption='Monthly Summary' ...&gt; </pre>
+    <p>This will add a title to the chart as shown below: </p>
+    <img src="Images/Title_1.jpg" width="355" height="118" /></p>
+    <p>To align the caption/sub-caption at left or side of canvas, you'll have to use STYLES as under. This feature was added in v3.2.</p> 
+    
+	 <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxis='Quarter' yAxisName='Sales' outCnvBaseFont='Arial' outCnvBaseFontSize='12' outCnvBaseFontColor='333333'&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Quarter 1' value='420500' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Quarter 2' value='295400' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Quarter 3' value='523400' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;set label='Quarter 4' value='465400' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;styles&gt;
+&nbsp;&nbsp;&nbsp;&lt;definition&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myCaptionFont' type='font' <strong>align='left'</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&lt;/definition&gt;
+&nbsp;&nbsp;&nbsp;&lt;application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='Caption' styles='myCaptionFont' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='SubCaption' styles='myCaptionFont' /&gt;
+&nbsp;&nbsp;&nbsp;&lt;/application&gt;
+&nbsp;&nbsp;&nbsp;&lt;/styles&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxis":"Quarter",
+    "yaxisname":"Sales",
+    "outcnvbasefont":"Arial",
+    "outcnvbasefontsize":"12",
+    "outcnvbasefontcolor":"333333"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+  "styles": {
+    "definition": [
+      {
+        "name": "myCaptionFont",
+        "type": "font",
+        <strong>"align": "left"</strong>
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Caption",
+        "styles": "myCaptionFont"
+      },
+      {
+        "toobject": "SubCaption",
+        "styles": "myCaptionFont"
+      }
+    ]
+  }
+}</pre>
+			</div>
+	    </div>
+	  </div><div style="clear:both"></div>
+	 
+	 
+<p>This will result in:</p> 
+<p><img src="Images/CaptionAlign.jpg" alt="Alignment of caption and sub-caption"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Chart sub-caption </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also add a sub-title to your chart. Example: &quot;Figures in USD&quot;</p>
+    <p>XML/JSON Attribute:</p>
+    <pre class="prettyprint code_container">&lt;chart ... subCaption='Figures in USD' ...&gt;</pre>
+    <p>It will add a sub-title to the chart as shown below: </p>
+    <p><img src="Images/Title_2.jpg" width="355" height="103" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">x-Axis Name </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>To set the x-axis name, you use the following XML/JSON:</p>
+      <pre class="prettyprint code_container">&lt;chart ... xAxisName='Month' ...&gt;</pre>    
+      <p><img src="Images/Title_3.jpg" width="355" height="126"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">y-Axis Name </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Similar to x-axis name, you can also set a y-axis name as under:</p>
+      <pre class="prettyprint code_container">&lt;chart ... yAxisName='Revenue' ..&gt; </pre>    
+      <p><img src="Images/Title_4.jpg" width="233" height="230" /></p>
+      <p>The y-axis name is rotated by default on the chart. In that case, you can opt to show y-axis name in horizontal form using the following attribute: </p>
+      <pre class="prettyprint code_container">&lt;chart rotateYAxisName='0' ..&gt; </pre>
+    <p class="text">It will yield the following output: </p>
+    <img src="Images/Title_6.jpg" class="imageBorder"/>
+    <p>If you want to set the maximum width that the non-rotated y-axis title can assume, you can set it in pixels using the following attribute:</p>
+    <pre class="prettyprint code_container">&lt;chart ... rotateYAxisName='0' yAxisNameWidth='40' ...&gt;</pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Changing Font Properties </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><strong>Using a single font property for all the titles </strong></p>
+    <p>If you want to specify a single font property for all the text outside canvas area, you can use <span class="codeInline">outCnvBaseFont</span> attribute group. The font properties specified as a part of this attribute group will be applied to Caption, Sub-Caption,   X-Axis &amp; Y-Axis names, Data Labels, Divisional Line and Trendline values.</p>
+      <p>The following attributes are a part of this group: </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	<table width="98%" border="0" class="table" align="left" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="20%" valign="top" class="header">Attribute Name</td>
+        <td width="50%" valign="top" class="header">Description</td>
+        <td width="25%" valign="top" class="header">Example</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline">outCnvbaseFont&nbsp;</td>
+        <td valign="top">Lets you define the font family e.g., Arial, Verdana etc</span></td>
+        <td valign="top" class="codeInline"><span class="codeInline">outCnvBaseFont</span>='Verdana'</td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><span class="text"><span class="codeInline">outCnvbaseFontSize</span>&nbsp;&nbsp;</span></td>
+        <td valign="top">Lets you define the font size (8-72)</span></td>
+        <td valign="top" class="codeInline"><span class="codeInline">outCnvbaseFontSize</span>='10' </td>
+      </tr>
+      <tr>
+        <td valign="top" class="codeInline"><span class="codeInline">outCnvbaseFontColor</span></td>
+        <td valign="top"> Lets you define the font color. Use hex code for the color without #. E.g., 000000 or 009933 or 999999 </span></td>
+        <td valign="top" class="codeInline"><span class="codeInline">outCnvbaseFontColor=</span>'<span class="text">009933</span>'</td>
+      </tr>
+    </table>	</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><strong>Example : </strong></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab3">XML</a></li>
+      	 <li><a href="#tab4">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab3" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxis='Quarter' yAxisName='Sales' <strong>outCnvBaseFont='Arial' outCnvBaseFontSize='12' outCnvBaseFontColor='333333'</strong>&gt;
+   &lt;set label='Quarter 1' value='420500' /&gt;
+   &lt;set label='Quarter 2' value='295400' /&gt;
+   &lt;set label='Quarter 3' value='523400' /&gt;
+   &lt;set label='Quarter 4' value='465400' /&gt;
+&lt;/chart&gt;</pre></div>
+			<div id="tab4" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxis":"Quarter",
+    "yaxisname":"Sales",
+    <strong>"outcnvbasefont":"Arial",
+    "outcnvbasefontsize":"12",
+    "outcnvbasefontcolor":"333333"</strong>
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div> 
+	 
+  </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><strong>Output:</strong></p>
+    <p><img src="Images/Title_5.jpg" width="406" height="208" /></p>
+    <p>As you can see above, all the text outside chart canvas has assumed the font properties specified as part of that attribute group.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to specify font properties for individual titles </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>If you do not want to specify a single font property for all the text, you can use the STYLES feature of FusionCharts v3. This also allows you finer control over the font. Using this you can bold, italicize or underline your text. Or, you can also specify a border and background colors. </p>
+    <p>Shown below is a basic example where we've used different font properties for caption and sub-caption.</p>
+    <img src="Images/Titles_7.jpg" width="409" height="212" />
+    <p>The data for this chart is as under. To read more on Styles, please refer to <a href="../Styles/Styles.html">FusionCharts and Styles</a>.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+     <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab5">XML</a></li>
+      	 <li><a href="#tab6">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab5" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+  &lt;set label='Quarter 1' value='420500' /&gt;
+  &lt;set label='Quarter 2' value='295400' /&gt;
+ &nbsp;&lt;set label='Quarter 3' value='523400' /&gt; 
+  &lt;set label='Quarter 4' value='465400' /&gt;
+ &nbsp;<strong>&lt;styles&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;definition&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myCaptionFont' type='font' font='Arial' size='14' color='666666' bold='1' underline='1'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='mySubCaptionFont' type='font' font='Arial' size='12' color='666666' italic='1'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;style name='myAxisTitlesFont' type='font' font='Arial' size='11' bold='1'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/definition&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;application&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='Caption' styles='myCaptionFont' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='SubCaption' styles='mySubCaptionFont' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;apply toObject='XAxisName' styles='myAxisTitlesFont' /&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/application&gt;
+&nbsp; &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab6" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+  <strong>"styles": {
+    "definition": [
+      {
+        "name": "myCaptionFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "14",
+        "color": "666666",
+        "bold": "1",
+        "underline": "1"
+      },
+      {
+        "name": "mySubCaptionFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "12",
+        "color": "666666",
+        "italic": "1"
+      },
+      {
+        "name": "myAxisTitlesFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "11",
+        "bold": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Caption",
+        "styles": "myCaptionFont"
+      },
+      {
+        "toobject": "SubCaption",
+        "styles": "mySubCaptionFont"
+      },
+      {
+        "toobject": "XAxisName",
+        "styles": "myAxisTitlesFont"
+      }
+    ]
+  }</strong>
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  	 
+ 
+    <p>You cannot change the font face for y-axis name, if you show it as rotated, as it uses embedded characters. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Applying effects </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply effects (shadow, glow, blur, bevel etc.) to the chart titles using STYLES. Shown below is an example:</p> 
+    <p><img src="Images/Titles_8.jpg" width="407" height="209" /></p>
+    <p>Here, we've applied shadow to caption and sub-caption and glow to x-axis name and y-axis name. The data can be listed as under:</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab7">XML</a></li>
+      	 <li><a href="#tab8">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab7" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+  &lt;set label='Quarter 1' value='420500' /&gt;
+  &lt;set label='Quarter 2' value='295400' /&gt;
+  &lt;set label='Quarter 3' value='523400' /&gt;
+  &lt;set label='Quarter 4' value='465400' /&gt;
+  <strong>&lt;styles&gt;
+      &lt;definition&gt;
+          &lt;style name='myCaptionFont' type='font' font='Arial' size='14' color='666666' bold='1' underline='1'/&gt;
+          &lt;style name='myShadow' type='Shadow' color='999999' angle='45'/&gt;
+          &lt;style name='myGlow' type='Glow' color='FF5904'/&gt;
+      &lt;/definition&gt;
+      &lt;application&gt;
+          &lt;apply toObject='Caption' styles='myCaptionFont,myShadow' /&gt;
+          &lt;apply toObject='SubCaption' styles='myShadow' /&gt;
+          &lt;apply toObject='XAxisName' styles='myGlow' /&gt;
+          &lt;apply toObject='YAxisName' styles='myGlow' /&gt;
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab8" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+<strong> "styles": {
+    "definition": [
+      {
+        "name": "myCaptionFont",
+        "type": "font",
+        "font": "Arial",
+        "size": "14",
+        "color": "666666",
+        "bold": "1",
+        "underline": "1"
+      },
+      {
+        "name": "myShadow",
+        "type": "Shadow",
+        "color": "999999",
+        "angle": "45"
+      },
+      {
+        "name": "myGlow",
+        "type": "Glow",
+        "color": "FF5904"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Caption",
+        "styles": "myCaptionFont,myShadow"
+      },
+      {
+        "toobject": "SubCaption",
+        "styles": "myShadow"
+      },
+      {
+        "toobject": "XAxisName",
+        "styles": "myGlow"
+      },
+      {
+        "toobject": "YAxisName",
+        "styles": "myGlow"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	   
+  </td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Applying animation to titles </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can also apply animation effects to the titles using STYLES. Shown below is an  example which creates a bounce effect for the caption:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+
+  <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales'&gt;
+  &lt;set label='Quarter 1' value='420500' /&gt;
+  &lt;set label='Quarter 2' value='295400' /&gt;
+  &lt;set label='Quarter 3' value='523400' /&gt; 
+  &lt;set label='Quarter 4' value='465400' /&gt;
+  <strong>&lt;styles&gt;
+     &lt;definition&gt;
+         &lt;style name='myCaptionAnim' type='animation' param='_y' easing='Bounce' start='0' duration='1' /&gt;
+     &lt;/definition&gt;
+     &lt;application&gt;
+         &lt;apply toObject='Caption' styles='myCaptionAnim' /&gt;
+     &lt;/application&gt;
+  &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales"
+  },
+  "data":[{
+      "label":"Quarter 1",
+      "value":"420500"
+    },
+    {
+      "label":"Quarter 2",
+      "value":"295400"
+    },
+    {
+      "label":"Quarter 3",
+      "value":"523400"
+    },
+    {
+      "label":"Quarter 4",
+      "value":"465400"
+    }
+  ],
+<strong> "styles": {
+    "definition": [
+      {
+        "name": "myCaptionAnim",
+        "type": "animation",
+        "param": "_y",
+        "easing": "Bounce",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Caption",
+        "styles": "myCaptionAnim"
+      }
+    ]
+  }
+</strong>}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>
+	  	 
+ </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Loading external logo|Logo.html", "Data Plot|DataPlot.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

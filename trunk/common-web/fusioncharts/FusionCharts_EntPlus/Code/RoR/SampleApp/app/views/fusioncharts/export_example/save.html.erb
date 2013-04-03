@@ -1,0 +1,64 @@
+<%
+
+#This page demonstrates the simple saving of the chart in the specified export format.
+#When the user clicks on the "Export to ..." button, 
+#the exportChart function is called and FusionCharts("myFirstExport").exportChart will be invoked.
+#After capturing the data and processing it, the chart gets saved on the server
+#and a link to the file is shown to the user.
+#The SaveData.xml has exportAction='save' and exportAtClient='0', so, the chart is saved to the server.
+#Please ensure that the SAVEPATH in the properties.rb file has the correct entry. 
+#The SAVEPATH variable specifies the absolute or relative path to the folder on the server where the image needs to be saved.
+
+%>
+<% @page_title="FusionCharts - Export chart and save the exported file to a server-side folder" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Export example - Export chart and save the exported file to a server-side folder" %>
+<% @intro="Right click on the chart to access various export options or click any of the buttons below"%>
+<script type="text/javascript">
+	
+		// this function exports chart
+		function exportChart(exportFormat)
+		{
+				if ( FusionCharts("myFirstExport").exportChart )
+				{
+					document.getElementById ( "linkToExportedFile" ).innerHTML = "Exporting...";
+					
+					FusionCharts("myFirstExport").exportChart( { "exportFormat" : exportFormat } );
+				}
+				else
+				{
+					document.getElementById ( "linkToExportedFile" ).innerHTML = "Please wait till the chart completes rendering..." ;
+					
+				}
+				
+		}
+		
+		// This event handler function is called by the chart after the export is completed.
+		// The statusCode property when found "1" states that the export is successful
+		// You can get the access file name from fileName property
+		function FC_Exported ( statusObj )
+		{
+			if ( statusObj.statusCode == "1" )
+			{
+				document.getElementById ( "linkToExportedFile" ).innerHTML = "Export successful. You can view it from <a target='_blank' href='" + statusObj.fileName + "'>here</a>.";	
+			}
+			else
+			{
+				// If the export is found unsuccussful get the reason from notice property
+				document.getElementById ( "linkToExportedFile" ).innerHTML = "Export unsuccessful. Error from export handler : " + statusObj.statusMessage;	
+			}
+		}
+		
+		
+	</script>
+
+<%
+	#Create the chart - Column 3D Chart with data from /Data/SaveData.xml
+	render_chart "/FusionCharts/Column3D.swf", "/Data/SaveData.xml", "", "myFirstExport", 600, 300, false, true do-%> 
+<% end -%>
+<div id="linkToExportedFile" style="margin-top:10px; padding:5px; width:600px; background:#efefef; border : 1px dashed #cdcdcd; color: 666666;">Exported status.</div>
+
+<input value="Export to JPG" type="button" onClick="JavaScript:exportChart('JPG')" />
+<input value="Export to PNG" type="button" onClick="JavaScript:exportChart('PNG')" />
+<input value="Export to PDF" type="button" onClick="JavaScript:exportChart('PDF')" />
+

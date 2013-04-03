@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Listening to events </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; JavaScript|JS_Overview.html", "Listening to events" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td valign="top" class="pageHeader">Listening to events </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>FusionCharts JavaScript class allows you to listen to a host of events raised by the chart. Some of them are:</p>
+      <ul>
+        <li>When chart is loaded</li>
+        <li>When chart data gets loaded </li>
+        <li>When chart finishes drawing all cosmetic objects</li>
+        <li>When chart finishes rendering</li>
+        <li>When chart resizes itself or gets resized </li>
+        <li>When there is error in loading chart data </li>
+        <li>When chart finishes exporting to image/pdf </li>
+        <li>When chart gets disposed or removed </li>
+        <li>When Print Manager (for Mozilla Browser) is ready to work </li>
+        <li>When <i>LinkedCharts</i> drill-down action is performed etc.</li>
+      </ul>
+      <p class="header"><a name="methods" id="methods"></a>How to listen to events? </p>
+      <p>FusionCharts provides two ways of listening to events:</p>
+      <ol>
+         <li>Simple Event listening by defining fixed-named JavaScript functions</li>
+         <li>Use JavaScript's standard-event-registration-model to define <span class="codeInline">addEventListener</span> function for each event raised</li>
+      </ol>
+      <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span> &gt; <span class="codeInline">Basics</span> folder. </p>
+      <p>In this page we will see how both the methods work using simple samples.</p>
+      <p class="header"><a name="simple" id="simple"></a>Simple event listening </p>
+      <p>FusionCharts raises simple events that can be listened to at global scope by defining JavaScript functions. You need to create a JavaScript function of the same name as the name of the event. The chart will pass required event parameters to this function. </p>
+      <p>Let's create a small sample using <span class="codeInline">FC_Rendered</span> event which is raised when a chart completes rendering for the first time. The chart will pass the <span class="codeInline">DOMId</span> of the chart to the function, which we will then show in a JavaScript <span class="codeInline">alert</span> as shown in the image below:</p>
+      <p><img src="Images/simpleEvent.jpg" width="410" height="405" class="imageBorder" /><br />
+        <br />
+      See it <a href="../../Code/JavaScript/Basics/Events/Rendered.html" target="_blank">live</a>! </p>
+      <pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;FusionCharts - listen to DrawComplete event&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);<strong>
+	   
+		function FC_Rendered(DOMId)
+		{
+			alert ( DOMId + " chart has been rendered." );				
+		}
+
+</strong>// --&gt;&lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;</pre>
+		      <p>In the above code, we have generated a chart with data from an XML file. Next, we create a JavaScript function <span class="codeInline">FC_Rendered</span> which takes a parameter <span class="codeInline">DOMId</span>. The chart when completes rendering will call this function as <span class="codeInline">FC_Rendered</span> event and pass its <span class="codeInline">DOMId</span> to the function's parameter. We alert this value as shown in the above image.</p>
+		      <p class="highlightBlock">Note that this method is simple to implement but has some serious limitations. The listeners are  always to be defined globally for all charts. So, you cannot set individual event listener for separate charts - however, using <span class="codeInline">if/switch</span> statements on <span class="codeInline">DOMId</span>, you can differentiate between charts. Moreover, you need to define the function name with the same name as the event's name. To know the list of names of simple events raised by charts and the  parameter value that each event passes to the event listener read <strong>API Reference</strong> &gt; <a href="API/Events.html">Events</a> page. </p>
+				<div class="highlightBlock">
+				   <strong>Event Parameters</strong>
+				   <p>Each event sends  parameters to event listener functions. In simple event model, the parameter is received mostly as a string containing the <span class="codeInline">DOMId</span> of the chart that raises the event. <span class="codeInline">FC_Exported </span>event sends an Object containing export success status etc.  <span class="codeInline">FC_Resized </span> event sends <span class="codeInline">DOMId</span>, new width, new height, original width and original height as 4 linear parameters. Read <a href="API/Events.html">Events</a> page for more details on parameters of each event. </p>
+		   </div>
+				<p class="header"><a name="advanced" id="advanced"></a>Using JavaScript advanced event registration model </p>
+            <p>FusionCharts JavaScript class provides a standard cross-browser compatible function <span class="codeInline">addEventListener()</span> to register events. You can use this function to  attach event listener to individual charts or to all charts globally and take actions accordingly. Moreover, for each event an <a href="API/Events.html">event-alias</a> is defined to ease the process of listening to events. For each event two standard argument objects - <span class="codeInline">eventObject</span> and <span class="codeInline">argumentsObject</span> are provided to the event listeners. </p>
+            <p>Let's create a small sample that tracks the <span class="codeInline">DrawComplete </span>event of a chart. <span class="codeInline">DrawComplete</span> event is raised when a chart has finished drawing of all visual elements.</p>
+            <p class="highlightBlock">Code examples discussed in this section are present in <span class="codeInline">Download Package</span> &gt; <span class="codeInline">Code</span> &gt; <span class="codeInline">JavaScript</span>  &gt; <span class="codeInline">Basics</span> folder.</p> 
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+				<pre class="code_container prettyprint">&lt;html&gt;
+  &lt;head&gt; 	
+    &lt;title&gt;FusionCharts - listen to DrawComplete event&lt;/title&gt; 	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js<strong>&quot;</strong>&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;   
+  &lt;body&gt;     
+    &lt;div id=&quot;<strong>chartContainer</strong>&quot;&gt;FusionCharts will load here!&lt;/div&gt;          
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!-- 	
+
+<strong>      </strong>var myChart = new FusionCharts( &quot;FusionCharts/Column3D.swf&quot;, &quot;myChartId&quot;, &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot; );
+      myChart.setXMLUrl(&quot;Data.xml&quot;);
+      myChart.render(&quot;chartContainer&quot;);
+					
+<strong>      function myChartListener(eventObject, argumentsObject) 
+ </strong>     {
+         alert( <strong>eventObject</strong>.sender.id + &quot; has completed chart drawing&quot; );
+      }
+
+<strong>      FusionCharts(&quot;myChartId&quot;).addEventListener (&quot;DrawComplete&quot; , myChartListener );
+
+</strong>    // --&gt;     
+    &lt;/script&gt; 	   
+  &lt;/body&gt; 
+&lt;/html&gt;
+
+see it <a href="../../Code/JavaScript/Basics/Events/DrawComplete.html" target="_blank">live</a>!</pre>
+	 </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+      <p>In the above code, we first create a Column 3D chart with <span class="codeInline">DOMId</span> as <span class="codeInline">myChartId</span>.</p>
+      <p>Thereafter, we add an event listener for <span class="codeInline">DrawComplete</span> event. A function <span class="codeInline">myChartListener</span> is set to listen this event. </p>
+         <pre class="code_container prettyprint">FusionCharts(&quot;myChartId&quot;).addEventListener(&quot;DrawComplete&quot; , myChartListener);</pre>
+      
+      <p>The event listener receives two event arguments.
+         The <span class="codeInline">event</span> argument contains the reference to the sender or the event-raiser object, which is the chart itself. We show the id of the sender object using <span class="codeInline"> JavaScript alert()</span> function from <span class="codeInline">eventObject.sender.id</span> property. </p>
+        <pre class="code_container prettyprint"><strong> function myChartListener(eventObject, argumentsObject) 
+</strong>{
+  alert( <strong>eventObject.sender.id </strong>+ &quot; has completed drawing of chart&quot; );
+}</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" >
+       <p class="highlightBlock">
+      Apart from assigning event listeners to individual chart, you can also attach an event listener globally using <span class="codeInline">FusionCharts.addEventListener()</span> static function. To know more on each event raised by FusionCharts and FusionCharts JavaScript class, event arguments passed to each event, event alias etc., refer to <a href="API/Events.html">Events</a> page in <a href="API/Overview.html">API</a> section.</p>
+      </td>
+  </tr>
+  <tr>
+     <td valign="top" >
+			<div class="highlightBlock"><a name="eventparams" id="eventparams"></a>
+				   <strong>Event Parameters in advanced model </strong>
+				   <p>Each event sends  parameters to event listener functions. In advanced event model, two event argument Objects are sent to event listeners. The properties contained by the arguments are as follows:</p>
+				   <ul>
+				      <li>The first argument is <span class="codeInline">eventObject </span>which provides details of the event. It is an object which mainly provides three properties : 
+				         <ul>
+				            <li>			            <span class="codeInline">eventId</span> : An unique id given to the event </li>
+				            <li><span class="codeInline">eventType </span>: A string containing the name or the event type e.g. &quot;rendered&quot; etc. </li>
+				            <li><span class="codeInline">sender</span> : A FusionCharts JavaScript Object reference to the chart which has raised that event</li>
+				         </ul>
+				      </li>
+		            <li>The second argument is <span class="codeInline">argumentsObject</span> is an object and contains details of the event. As per the type of the event the properties of <span class="codeInline">parameter </span>objects varies. <br />
+		            </li>
+	         </ul>
+		            <p>Please see <a href="API/Events.html">Events</a> page for more details on parameters of each event.</p>			</div>	  
+	  </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Getting data back from chart|JS_DataBackFromChart.html","Using <i>LinkedCharts</i>|JS_LinkedCharts.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

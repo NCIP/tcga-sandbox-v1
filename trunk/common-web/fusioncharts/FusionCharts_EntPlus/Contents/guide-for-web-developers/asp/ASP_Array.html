@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ASP - Charting Data from an Array </title>
+
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with ASP|ASP_BasicExample.html", "Charting data from Array" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with ASP &gt; Charting Data from an Array </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>In this section, we'll show you how to use FusionCharts and ASP to plot charts from data contained in ASP arrays. We'll cover the following examples here:</p>
+      <ul>
+        <li>Creating a single series chart from data contained in arrays</li>
+        <li>Creating a multi-series chart from data contained in arrays </li>
+      </ul>
+      <p><strong>Before you go further with this page, we recommend you to please see the previous section &quot;Basic Examples&quot; as we start off from concepts explained in that page. </strong></p>
+      <p class="highlightBlock">The code examples contained in this page are present in <span class="codeInline">Download Package &gt; Code &gt; ASP &gt; ArrayExample</span> folder. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating a single series chart from data contained in arrays</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The code to create a single series chart is contained in <span class="codeInline">SingleSeries.asp</span> and can be listed as under: </p>
+    <pre class="prettyprint code_container">&lt;%@ Language=VBScript %&gt;
+    &lt;HTML&gt;
+      &lt;HEAD&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TITLE&gt;	FusionCharts - Array Example using Single Series Column 3D Chart&lt;/TITLE&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp;&nbsp;&nbsp; &lt;/HEAD&gt;
+  &nbsp;&nbsp; &nbsp;&lt;!-- #INCLUDE FILE=&quot;../Includes/FusionCharts.asp&quot; --&gt;
+  &nbsp;&nbsp;&nbsp; &lt;BODY&gt;
+  &nbsp;&nbsp;&nbsp; &lt;%
+      &nbsp;&nbsp;<span class="codeComment">&nbsp;'In this example, we plot a single series chart from data contained
+&nbsp;&nbsp;      &nbsp;'in an array. The array will have two columns - first one for data label
+&nbsp;&nbsp;      &nbsp;'and the next one for data values.
+
+&nbsp;     &nbsp;&nbsp; 'Let's store the sales data for 6 products in our array). We also store
+&nbsp;&nbsp;     &nbsp; 'the name of products. </span>
+      &nbsp;&nbsp;&nbsp;Dim arrData(6,2)
+      <span class="codeComment">&nbsp;&nbsp;&nbsp;'Store Name of Products</span>
+      &nbsp;&nbsp;&nbsp; arrData(0,1) = &quot;Product A&quot;
+      &nbsp;&nbsp;&nbsp; arrData(1,1) = &quot;Product B&quot;
+      &nbsp;&nbsp;&nbsp; arrData(2,1) = &quot;Product C&quot;
+      &nbsp;&nbsp;&nbsp; arrData(3,1) = &quot;Product D&quot;
+      &nbsp;&nbsp;&nbsp; arrData(4,1) = &quot;Product E&quot;
+      &nbsp;&nbsp;&nbsp; arrData(5,1) = &quot;Product F&quot;
+    
+      &nbsp;<span class="codeComment">&nbsp;&nbsp;'Store sales data</span>
+      &nbsp;&nbsp;&nbsp; arrData(0,2) = 567500
+      &nbsp;&nbsp;&nbsp; arrData(1,2) = 815300
+      &nbsp;&nbsp;&nbsp; arrData(2,2) = 556800
+      &nbsp;&nbsp;  arrData(3,2) = 734500
+      &nbsp;&nbsp;&nbsp; arrData(4,2) = 676800
+      &nbsp;&nbsp;&nbsp; arrData(5,2) = 648500
+       &nbsp;<span class="codeComment">&nbsp;'Now, we need to convert this data into XML. We convert using string concatenation.</span>
+        &nbsp; Dim strXML, i
+        &nbsp;<span class="codeComment">'Initialize &lt;chart&gt; element</span>
+          strXML = &quot;&lt;chart caption='Sales by Product' numberPrefix='$' formatNumberScale='0'&gt;&quot;
+        &nbsp;<span class="codeComment">'Convert data to XML and append</span>
+        &nbsp;&nbsp;For i=0 to UBound(arrData)-1
+        &nbsp;&nbsp;&nbsp;strXML = strXML &amp; &quot;&lt;set label='&quot; &amp; arrData(i,1) &amp; &quot;' value='&quot; &amp; arrData(i,2) &amp; &quot;' /&gt;&quot;
+        &nbsp;&nbsp;&nbsp;Next
+        &nbsp;<span class="codeComment">&nbsp;&nbsp;'Close &lt;chart&gt; element</span>
+        &nbsp;&nbsp;&nbsp;strXML = strXML &amp; &quot;&lt;/chart&gt;&quot;
+         <span class="codeComment">'Create the chart - Column 3D Chart with data contained in strXML</span>
+          Call renderChart(&quot;../../FusionCharts/Column3D.swf&quot;, &quot;&quot;, strXML, &quot;productSales&quot;, 600, 300, false, false)
+        %&gt;
+      &lt;/BODY&gt;
+    &lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above example, we first include <span class="codeInline">FusionCharts.js</span> file to enable us embed the chart using JavaScript. We also include <span class="codeInline">FusionCharts.asp</span> to help us easily embed the charts.</p>
+    <p>Thereafter, we define an ASP array <span class="codeInline">arrData</span> to store sales data for 6 different products. The array has two columns - first one for data label and the next one for data values. </p>
+    <p>We define a variable <span class="codeInline">strXML</span> to store the entire XML data. To build the XML, we iterate through the array and using string concatenation. Finally, we render the chart using <span class="codeInline">renderChart()</span> function and pass <span class="codeInline">strXML</span> as <span class="codeInline">using dataStr </span>method . </p>
+    <p>When you view the chart, you'll see a chart as under: </p>
+<p><img src="../Images/Code_ArraySS.jpg" width="584" height="287" class="imageBorder"/></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Creating a multi-series chart from data contained in arrays </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Let us now create a multi-series chart from data contained in arrays. We create a file <span class="codeInline">MultiSeries.asp</span> with the following code:</p>
+<pre class="prettyprint code_container"> &lt;%@ Language=VBScript %&gt;
+   &lt;HTML&gt;
+      &lt;HEAD&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TITLE&gt;	FusionCharts - Array Example using Multi Series Column 3D Chart	&lt;/TITLE&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SCRIPT LANGUAGE=&quot;Javascript&quot; SRC=&quot;../../FusionCharts/FusionCharts.js&quot;&gt;&lt;/SCRIPT&gt;
+  &nbsp;&nbsp;&nbsp; &lt;/HEAD&gt;
+  &nbsp;&nbsp; &nbsp;&lt;!-- #INCLUDE FILE=&quot;../Includes/FusionCharts.asp&quot; --&gt;
+  &nbsp;&nbsp;&nbsp; &lt;BODY&gt;
+      &nbsp;&nbsp;&nbsp;&lt;%
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'In this example, we plot a multi series chart from data contained
+&nbsp;&nbsp;&nbsp;'in an array. The array will have three columns - first one for data label (product)
+&nbsp;&nbsp;&nbsp;'and the next two for data values. The first data value column would store sales information
+&nbsp;&nbsp;&nbsp;'for current year and the second one for previous year.
+  
+&nbsp;&nbsp;&nbsp;'Let's store the sales data for 6 products in our array. We also store
+&nbsp;&nbsp;&nbsp;'the name of products. </span>
+        &nbsp;&nbsp;&nbsp;Dim arrData(6,3)
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Store Name of Products</span>
+        &nbsp;&nbsp;&nbsp;arrData(0,1) = &quot;Product A&quot;
+        &nbsp;&nbsp;&nbsp;arrData(1,1) = &quot;Product B&quot;
+        &nbsp;&nbsp;&nbsp;arrData(2,1) = &quot;Product C&quot;
+        &nbsp;&nbsp;&nbsp;arrData(3,1) = &quot;Product D&quot;
+        &nbsp;&nbsp;&nbsp;arrData(4,1) = &quot;Product E&quot;
+        &nbsp;&nbsp;&nbsp;arrData(5,1) = &quot;Product F&quot;
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Store sales data for current year</span>
+        &nbsp;&nbsp;&nbsp;arrData(0,2) = 567500
+        &nbsp;&nbsp;&nbsp;arrData(1,2) = 815300
+        &nbsp;&nbsp;&nbsp;arrData(2,2) = 556800
+        &nbsp;&nbsp;&nbsp;arrData(3,2) = 734500
+        &nbsp;&nbsp;&nbsp;arrData(4,2) = 676800
+        &nbsp;&nbsp;&nbsp;arrData(5,2) = 648500
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Store sales data for previous year</span>
+        &nbsp;&nbsp;&nbsp;arrData(0,3) = 547300
+        &nbsp;&nbsp;&nbsp;arrData(1,3) = 584500
+        &nbsp;&nbsp;&nbsp;arrData(2,3) = 754000
+        &nbsp;&nbsp;&nbsp;arrData(3,3) = 456300
+        &nbsp;&nbsp;&nbsp;arrData(4,3) = 754500
+        &nbsp;&nbsp;&nbsp;arrData(5,3) = 437600
+       &nbsp;<span class="codeComment">&nbsp;&nbsp;'Now, we need to convert this data into multi-series XML. 
+&nbsp;&nbsp;&nbsp;'We convert using string concatenation.
+&nbsp;&nbsp;&nbsp;'strXML - Stores the entire XML
+&nbsp;&nbsp;&nbsp;'strCategories - Stores XML for the &lt;categories&gt; and child &lt;category&gt; elements
+&nbsp;&nbsp;&nbsp;'strDataCurr - Stores XML for current year's sales
+&nbsp;&nbsp;&nbsp;'strDataPrev - Stores XML for previous year's sales</span>
+        &nbsp;&nbsp;&nbsp;Dim strXML, strCategories, strDataCurr, strDataPrev, i
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Initialize &lt;chart&gt; element</span>
+        &nbsp;&nbsp;&nbsp;strXML = &quot;&lt;chart caption='Sales by Product' numberPrefix='$' formatNumberScale='1' rotateValues='1'
+                      placeValuesInside='1' decimals='0' &gt;&quot;
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Initialize &lt;categories&gt; element - necessary to generate a multi-series chart</span>
+        &nbsp;&nbsp;&nbsp;strCategories = &quot;&lt;categories&gt;&quot;
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Initiate &lt;dataset&gt; elements</span>
+        &nbsp;&nbsp;&nbsp;strDataCurr = &quot;&lt;dataset seriesName='Current Year'&gt;&quot;
+        &nbsp;&nbsp;&nbsp;strDataPrev = &quot;&lt;dataset seriesName='Previous Year'&gt;&quot;
+        &nbsp;<span class="codeComment">&nbsp;&nbsp;'Iterate through the data </span>
+        &nbsp;&nbsp;&nbsp;For i=0 to UBound(arrData)-1
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="codeComment">&nbsp;&nbsp;'Append &lt;category label='...' /&gt; to strCategories</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strCategories = strCategories &amp; &quot;&lt;category label='&quot; &amp; arrData(i,1) &amp; &quot;' /&gt;&quot;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="codeComment">&nbsp;'Add &lt;set value='...' /&gt; to both the datasets</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strDataCurr = strDataCurr &amp; &quot;&lt;set value='&quot; &amp; arrData(i,2) &amp; &quot;' /&gt;&quot;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strDataPrev = strDataPrev &amp; &quot;&lt;set value='&quot; &amp; arrData(i,3) &amp; &quot;' /&gt;&quot; 
+        &nbsp;&nbsp;&nbsp;Next
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Close &lt;categories&gt; element</span>
+        &nbsp;&nbsp;&nbsp;strCategories = strCategories &amp; &quot;&lt;/categories&gt;&quot;
+        &nbsp;<span class="codeComment">&nbsp;&nbsp;'Close &lt;dataset&gt; elements</span>
+        &nbsp;&nbsp;&nbsp;strDataCurr = strDataCurr &amp; &quot;&lt;/dataset&gt;&quot;
+        &nbsp;&nbsp;&nbsp;strDataPrev = strDataPrev &amp; &quot;&lt;/dataset&gt;&quot;
+        &nbsp;&nbsp;<span class="codeComment">&nbsp;'Assemble the entire XML now</span>
+        &nbsp;&nbsp;&nbsp;strXML = strXML &amp; strCategories &amp; strDataCurr &amp; strDataPrev &amp; &quot;&lt;/chart&gt;&quot;
+        &nbsp;<span class="codeComment">&nbsp;&nbsp;'Create the chart - MS Column 3D Chart with data contained in strXML</span>
+        &nbsp;&nbsp;&nbsp;Call renderChart(&quot;../../FusionCharts/MSColumn3D.swf&quot;, &quot;&quot;, strXML, &quot;productSales&quot;, 600, 300, false, false)
+        %&gt;
+   &lt;/HTML&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>In the above example, we first include <span class="codeInline">FusionCharts.js</span> file to enable us embed the chart using JavaScript. We also include <span class="codeInline">FusionCharts.asp</span> to help us easily embed the charts.</p>
+      <p>Thereafter, we define an ASP array <span class="codeInline">arrData</span> to store sales data for 6 different products. The array has three columns - first one for data label (product) and the next two for data values. The first data value column would store sales information for current year and the second one for previous year.</p>
+      <p>We define a variable <span class="codeInline">strXML</span> to store the entire XML data. We also define <span class="codeInline">strCategories</span>, <span class="codeInline">strDataCurr</span> and <span class="codeInline">strDataPrev</span> variables to store XML data for categories elements, current year's dataset and previous year's dataset respectively. To build the XML, we iterate through the array and using string concatenation. We concatenate the entire XML finally in <span class="codeInline">strXML</span>. </p>
+      <p>Finally, we render the chart using <span class="codeInline">renderChart()</span> function and pass <span class="codeInline">strXML</span> as <span class="codeInline">dataStr</span>. </p>
+      <p>When you view the chart, you'll see a chart as under: </p>
+<p><img src="../Images/Code_ArrayMS.jpg" alt="" class="imageBorder" /></p>
+  <p class="highlightBlock">In <span class="codeInline">Download Package &gt; Code &gt; ASP &gt; ArrayExample</span>, we've more example codes to create Stacked and Combination Charts too, which have not been explained here, as they're similar in concept. You can directly see the code if you want to.</p> </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Using with ASP|ASP_BasicExample.html","Using with data in forms|ASP_Form.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

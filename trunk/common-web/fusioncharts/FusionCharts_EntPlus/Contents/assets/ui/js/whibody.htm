@@ -1,0 +1,224 @@
+﻿<html>
+<head>
+<title>Index content</title>
+<base target="contentFrame">
+<style type="text/css">
+	body { 
+		overflow:auto; 
+		overflow-x:none;
+		overflow-y:auto;
+		margin-bottom:62px !important;
+	}
+	body, table {
+		padding: 0;
+		margin: 0;
+		font-size: 11px;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		
+	}
+	
+	#PopupMenu table {font-family:'Arial'; font-size:11px; color:#999; )
+	#PopupMenu table td{ height:12px; }
+	#PopupMenu table td a{ text-decoration:none; } 
+	#PopupMenu table td a:hover{ text-decoration:underline; } 
+
+	a.PopupNotOver { color:#999;}
+	
+	a.PopupOver {  	color:#666!important;} 	
+	
+</style>
+<script language="javascript" src="whver.js"></script>
+<script language="javascript1.2" src="whmozemu.js"></script>
+<script language="javascript1.2" src="whmsg.js"></script>
+<script language="javascript1.2" src="whproxy.js"></script>
+<script language="javascript1.2" src="whlang.js"></script>
+<script language="javascript1.2" src="whutils.js"></script>
+<script language="javascript1.2" src="whhost.js"></script>
+<script language="javascript1.2" src="whihost.js"></script>
+<script language="javascript1.2">
+<!--
+var goPopup = null;
+var gbPopupMenuTimeoutExpired=false;
+var gBsClientWidth=640;
+var gBsClientHeight=480;
+var g_bIsPopupMenuInit=false;
+
+function WritePopupMenuLayer()
+{
+
+	if (!g_bIsPopupMenuInit)
+	{
+		document.write("<div id='PopupMenu' style=' height:150px; overflow:auto; overflow-x:hidden; overflow-y:auto; position:absolute; left:2px; top:0; z-index:4; visibility:hidden; width:238px;'></div>");
+	}
+	g_bIsPopupMenuInit = true;
+}
+
+function PopupMenu_Invoke()
+{
+	
+	
+	var fn_arguments = PopupMenu_Invoke.arguments; 
+	// Make sure we have reasonable arguments
+	var argLen = fn_arguments.length;
+	if (argLen < 3) {
+		return false;
+	}
+
+	// Check to see if we only have one target
+	var strTarget = "";
+	
+	strTarget = "TARGET='" + fn_arguments[1] + "'";
+	
+	if (argLen < 5) {
+		// Get the place that we will be putting the topic into
+		var strURL = fn_arguments[3];
+
+		if (fn_arguments[1] != null && typeof(fn_arguments[1]) != "undefined")
+			window.open(strURL, fn_arguments[1]);
+		else
+			window.open(strURL);
+			
+		return false;
+	}
+	
+	var strMenu = '<TABLE STYLE="border:1px solid #DFDFDF;" CELLSPACING="0" cellpadding="0" width="100%" ';
+	
+	strMenu += ' BGCOLOR="#E9E9E9">';
+
+	// Add each of the items
+	var i = 2;
+	while (i <= argLen - 1) {
+		strMenu += '<TR><TD><NOBR>'
+		strMenu += '<DIV STYLE="padding-left:3pt; padding-right:3pt;"><A HREF="' + fn_arguments[i + 1] + '" ' + strTarget;
+		strMenu += ' onclick="PopupMenu_HandleClick(event);"';
+		strMenu += ' onmouseover="PopupMenu_Over(event);"';
+		strMenu += ' onmouseout="PopupMenu_Out(event);"';
+		strMenu += '>';
+		strMenu += '<SPAN>' + excapeSingleQuotandSlash(fn_arguments[i]) + '</SPAN>';
+		strMenu += '</A></DIV></NOBR></TD></TR>';
+		i += 2;
+	}
+	strMenu += "</TABLE>";
+
+
+	var layerPopup = null;
+	var stylePopup = null;
+	var nEventX = 0;
+	var nEventY = 0;
+	var nWindowWidth = 0;
+	if (gbIE4||gbOpera7)
+	{
+		
+		layerPopup = document.getElementById("PopupMenu");
+		layerPopup.innerHTML = strMenu;
+		stylePopup = layerPopup.style;
+
+		_BSPSGetClientSize();
+
+	
+		stylePopup.top = window.event.srcElement.offsetTop+13;
+
+		stylePopup.visibility = "visible";
+		document.onclick = PopupMenu_HandleClick;
+
+
+	} 
+	else //if (gbNav6) 
+	{
+		layerPopup = document.getElementById("PopupMenu");
+		layerPopup.style.visibility = "hidden";
+		
+		
+		
+		var e = fn_arguments[0];
+
+		nEventX = e.pageX;
+		nEventY = e.pageY;
+		_BSPSGetClientSize();
+		layerPopup.innerHTML = strMenu;
+
+		layerPopup.style.top = fn_arguments[0].target.offsetTop+13;//nEventY;
+		
+		layerPopup.innerHTML = strMenu;
+		layerPopup.style.visibility = "visible";
+		window.onclick = PopupMenu_HandleClick;
+	} 
+	
+	
+	window.gbPopupMenuTimeoutExpired = false;
+	setTimeout("PopupMenu_Timeout();", 100);
+	return false;
+}
+
+function PopupMenu_Timeout()
+{
+	window.gbPopupMenuTimeoutExpired = true;
+}
+
+function PopupMenu_Over(e)
+{
+	if (gbIE4||gbOpera7)
+		e.srcElement.className = "PopupOver";
+	else if (gbNav6)
+		e.target.parentNode.className = "PopupOver";
+}
+
+function PopupMenu_Out(e)
+{
+	if (gbIE4||gbOpera7)
+		e.srcElement.className = "PopupNotOver";
+	else if (gbNav6)
+		e.target.parentNode.className = "PopupNotOver";
+}
+
+function PopupMenu_2HandleClick(surl, starget)
+{
+	window.open(surl, starget);
+	goPopup.hide();
+}
+
+function PopupMenu_HandleClick(e)
+{
+	if (!window.gbPopupMenuTimeoutExpired) {
+		return;
+	}
+
+	var layerPopup = getElement("PopupMenu");
+	layerPopup.style.visibility = "hidden";
+
+	return;
+}
+
+//Get client size info
+function _BSPSGetClientSize()
+{
+	gBsClientWidth	= document.body.clientWidth;
+	gBsClientHeight = getClientHeight();
+}
+
+if (window.gbWhIHost)
+{
+	setBackgroundcolor("White");
+	
+	setFont("Normal", "Verdana, Arial, Helvetica, sans-serif","11px","#323137","Normal","Normal","none");
+	setFont("Empty", "Verdana, Arial, Helvetica, sans-serif", "11px","#555258","Normal","Normal","none");
+	setFont("Hover", "Verdana, Arial, Helvetica, sans-serif","11px","#F89527","Normal","Normal","underline");
+	setActiveBgColor("#E9E9E9");
+			
+	IndexWriteClassStyle();
+}
+else
+	document.location.reload();
+//-->
+</script>
+</head>
+<body topmargin="2" leftmargin="2" marginwidth="0" marginheight="0" bgproperties="fixed" scroll="auto" bgcolor="white">
+<script languageE="JavaScript">
+<!--
+WritePopupMenuLayer();
+
+//-->
+</script>
+</body>
+</html>
+

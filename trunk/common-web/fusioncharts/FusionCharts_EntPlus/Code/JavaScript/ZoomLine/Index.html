@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>FusionCharts XT - Zoom Chart Demo</title>
+        
+        <link href="../../assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../../Charts/FusionCharts.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../assets/ui/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../assets/ui/js/lib.js"></script>
+       
+	           <!--[if IE 6]>
+        <script type="text/javascript" src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+
+	   
+	   
+        <script type="text/javascript">
+            //Max and min value for data
+            var minValue = 0;
+            var maxValue = 1000;
+            //Number of points in chart
+            var points = 100;
+	
+            function getValue (elementName){
+                //This method returns the value of a form element
+                //Get reference to the form
+                var docForm = document['chartsel'];
+                //Get reference to the element
+                var el = docForm[elementName];
+                var rtnVal;
+                //Based on the type of form element, we send the value back
+                switch (el.type){
+                    case "text":
+                        rtnVal = el.value;
+                        break;
+                    case "textarea":
+                        rtnVal = el.value;
+                        break;
+                    case "select-one":
+                        rtnVal = el.value;
+                        break;
+                    case "checkbox":
+                        rtnVal = (el.checked)?"1":"0";
+                        break;
+                    default:
+                        rtnVal = "";
+                        break;
+                }
+                return rtnVal;
+            }
+	
+            function buildXMLString(compactMode, numDataSet, numDataItems) {
+                var strXML;
+                //Add root elements
+                if (compactMode) {
+                    strXML = "<chart compactDataMode='1' dataSeparator='|' paletteThemeColor='5D57A5' divLineColor='5D57A5' divLineAlpha='40' vDivLineAlpha='40' allowPinMode='1'";
+                } else {
+                    strXML = "<chart";
+                }
+                //Add categories starting tag
+                strXML += ">\n<categories>"
+                //Build the categories first
+                var i, j;
+                //If compact mode
+                if (compactMode) {
+                    for (i=1; i<=numDataItems; i++) {
+                        strXML += "Label "+i+((i<numDataItems) ? "|" : "");
+                    }
+                } else {
+                    for (i=1; i<=numDataItems; i++) {
+                        strXML += "\t<category label='Label "+i+"' />\n";
+                    }
+                }
+                strXML += "</categories>\n";
+                //Add the dataset and data items
+                for (i=1; i<=numDataSet; i++) {
+                    strXML += "<dataset seriesName='Series "+i+"' >\n";
+                    if (compactMode) {
+                        for (j=1; j<=numDataItems; j++) {
+                            //Add the <set> items
+                            strXML += String(minValue+Math.round(Math.random()*(maxValue-minValue)))+((j<numDataItems) ? "|" : "");
+                        }
+                    } else {
+                        for (j=1; j<=numDataItems; j++) {
+                            //Add the <set> items
+                            strXML += "\t<set value='"+(minValue+Math.round(Math.random()*(maxValue-minValue)))+"' />\n";
+                        }
+                    }
+                    strXML += "</dataset>";
+                }
+                strXML += "</chart>";
+                return strXML;
+
+            }
+            /**
+             * Updates the chart with data
+             */
+            function updateChart(){
+                //Get XML data for specified points
+                var xmlstr = buildXMLString(true, 2, Math.round(points/2));
+                //Get reference to chart
+                var chart = FusionCharts("ChId1");
+                if (chart.hasRendered()){
+                    //Set the XML data
+                    chart.setXMLData(xmlstr);
+                }
+            }
+            /**
+             * Sets the number of points to be plotted on chart
+             */
+            function setChartPoints(number){
+                points = number;
+                updateChart();
+                alert("Chart has been updated with 2 series each having " + Math.round(points/2) + " points.");
+            }
+	
+            function setFirst20Index() {
+                var chart = FusionCharts("ChId1");
+                chart.zoomTo(0,20);
+            }
+	
+            function setLast20Index() {
+                var chart = FusionCharts("ChId1");
+                chart.zoomTo(Math.round(points-20)/2,Math.round(points/2));
+            }
+	
+            function zoomOutChart() {
+                var chart = FusionCharts("ChId1");
+                chart.zoomOut();
+            }
+	
+            function resetChart() {
+                var chart = FusionCharts("ChId1");
+                chart.resetChart();
+            }
+
+            function getViewIndex (hideAlert) {
+                var chart = FusionCharts("ChId1");
+                document.getElementById('start-index').value = chart.ref.getViewStartIndex();
+                document.getElementById('end-index').value = chart.ref.getViewEndIndex();
+				
+				if(!hideAlert) alert("The current starting index is : " + chart.ref.getViewStartIndex() + " and the current end index is : " + chart.ref.getViewEndIndex());
+				
+            }
+
+            function zoomToPoints () {
+                var chart, stInd, edInd;
+                stInd = document.getElementById('start-index').value;
+                edInd = document.getElementById('end-index').value;
+                chart = FusionCharts("ChId1");
+                chart.zoomTo(stInd, edInd);
+            }
+
+            
+
+            function FC_Rendered ( ) {
+                getViewIndex(true);
+            }
+        </script>
+        <!--[if IE 6]>
+        <script src="../../assets/ui/js/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script>
+          /* select the element name, css selector, background etc */
+          DD_belatedPNG.fix('img');
+
+          /* string argument can be any CSS selector */
+        </script>
+        <![endif]-->
+        
+        <style type="text/css">
+            h2.headline {
+                font: normal 110%/137.5% "Trebuchet MS", Arial, Helvetica, sans-serif;
+                padding: 0;
+                margin: 25px 0 25px 0;
+                color: #7d7c8b;
+                text-align: center;
+            }
+            p.small {
+                font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                color: #919191;
+                padding: 0;
+                margin: 0 auto;
+                width: 664px;
+                text-align: center;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <form name='chartsel'>
+            <!-- wrapper -->
+            <div id="wrapper">
+                <!-- header -->
+                <div id="header"> 
+                   <div class="logo"><a class="imagelink"  href="http://www.fusioncharts.com/" target="_blank"><img src="../../assets/ui/images/fusionchartsv3.2-logo.png" width="131" height="75" alt="FusionCharts XT logo" /></a></div>
+                      <h1 class="brand-name">FusionCharts XT</h1>
+					<h1 class="logo-text">Zoom Line Chart Demo</h1>
+                    
+                </div>
+                <!-- content area -->
+                <div class="content-area">
+                    <div id="content-area-inner-main">
+                        <p class="text" align="center">Please click on the buttons below to control number of plots on the chart.</p>
+						<div id="messageBox" style="margin-left:100px; margin-right:100px; display:none;"></div>
+						<p>&nbsp;</p>
+
+
+                        <div class="clear"></div>
+                        <div class="gen-chart-render">
+                            <div id="chartContainer" > This text is replaced by the Flash movie. </div>
+                            <script type="text/javascript">
+                                var chart1 = new FusionCharts("../../../Charts/ZoomLine.swf", "ChId1", "900", "400", "0", "1");
+                                chart1.setXMLData(buildXMLString(true, 2, 50));
+                                chart1.render("chartContainer");
+                            </script>
+                        </div>
+
+                        <div class="clear"></div>
+                        <p>&nbsp;</p>
+
+                        
+
+
+                        <div class="clear"></div>
+                        <p>&nbsp;</p>
+
+
+                        <div style="width: 590px; margin: 0 auto;">
+                            <span style="font-size: 12px; color:#777777">Start index</span>
+                            <input size="5" type="text" id="start-index"/>
+                            <span style="font-size: 12px; color:#777777">End index</span>
+                            <input size="5" type="text" id="end-index"/>
+                            <a class="qua qua-button" onClick="getViewIndex();" style="" href="javascript:void(0)">
+                                <span>Get View Index</span>
+                            </a>
+                            <a class="qua qua-button" onClick="zoomToPoints();" style="float: right;" href="javascript:void(0)">
+                                <span>Zoom to Points</span>
+                            </a>
+                      </div>
+
+                        <div class="clear"></div>
+                        <p>&nbsp;</p>
+
+                        <a class="qua qua-button" onClick="setFirst20Index();" style="margin-left: 97px;" href="javascript:void(0)">
+                            <span>Show first 20 points only</span>
+                        </a>
+                        <a class="qua qua-button" onClick="setLast20Index();" href="javascript:void(0)">
+                            <span>Show last 20 points only</span>
+                        </a>
+                        <a class="qua qua-button" onClick="zoomOutChart();" href="javascript:void(0)">
+                            <span>Zoom out to last view</span>
+                        </a>
+                        <a class="qua qua-button" onClick="resetChart();" href="javascript:void(0)">
+                            <span>Reset chart</span>
+                        </a>
+
+                        <div class="clear"></div>
+
+                        <p>&nbsp;</p>
+                        <p class="small">&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="underline-dull"></div>    </div>
+
+                    
+                </div>
+                <!-- footer -->
+                <div id="footer"> <ul><li></li> </ul>
+                </div>
+            </div>
+        </form>
+				 <script type="text/javascript"><!--//
+			$(document).ready ( function() {
+			   showConditionalMessage( "Your browser does not seem to have Flash Player support. JavaScript chart is rendered instead", isJSRenderer(chart1) );
+			});	
+		// -->
+		</script>  
+    </body>
+    
+</html>

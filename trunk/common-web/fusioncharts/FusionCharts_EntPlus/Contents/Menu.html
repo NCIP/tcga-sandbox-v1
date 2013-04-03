@@ -1,0 +1,853 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FusionCharts XT Documentation Menu</title>
+
+<link rel="stylesheet" type="text/css" href="assets/dtree/dtree.css" />
+<script type="text/javascript">
+	window.__orphanarticle = false;
+	
+</script>
+<script type="text/javascript" src="assets/dtree/dtree.js"></script>
+<script type="text/javascript" src="assets/ul2d/ul2d.js"></script>
+
+<style type="text/css">
+	body { overflow:auto !important;}
+	.tiny_links { font-size:75% !important; color: #CAC7D7 !important; margin-top:-3px; }
+	.tiny_links a { color:#BCC0C1 ; text-decoration:none;}
+	.tiny_links a:hover { color:#707273; }
+	 
+
+	body, table, tr, td
+	{
+		padding:0;
+		margin:0;
+		margin-left:5px;
+		margin-top:10px;
+	}
+	div#collapser 
+	{
+		cursor:pointer;
+		position:absolute;
+		top:0;
+		left:221px;
+	}
+			
+</style>
+
+<script type="text/javascript">
+	function isLocalStorageAvailable()
+	{
+		try
+		{
+			return ('localStorage' in window==true && window['localStorage'] !== null && typeof localStorage.getItem=='function');
+		}
+		catch(e)
+		{
+			return false;
+		}
+	}
+	
+	function getCookie(cname)
+	{
+		var ret="";
+		var cookies={};
+		var arrCookies=document.cookie.split(/\s?;\s?/);
+		
+		for (var i in arrCookies)
+		{
+			iCookie = arrCookies[i].split(/\s?=\s?/);
+			
+			if(cname==iCookie[0]){
+				ret = unescape(iCookie[1]);
+				break;
+			}
+		}
+		return ret;
+	}
+	
+	function collapseMenu()
+	{
+		if(isLocalStorageAvailable())
+		{
+			localStorage.removeItem("FC__MENU_COLLAPSED");
+			localStorage.setItem("FC__MENU_COLLAPSED", true);
+		}
+		try{
+			parent.document.getElementById("mainframeset").cols = "0,25,*";	
+		}catch(e) {}
+	}
+	
+</script>
+</head>
+<noscript>
+	<base target="contentFrame" />	
+</noscript>
+<body><a name="topMenuTerrace" id="topMenuTerrace"></a>
+	
+	<script type="text/javascript">
+		noCollapse = window.location.search;
+		
+		if(!noCollapse || noCollapse.search("noCollapse")<0)
+		{
+			document.write(	'<div onClick="collapseMenu();" id="collapser" ><img src="assets/ui/Images/collapse.png"  name="ec" width="16" height="16" id="ec"/></div>');
+		}
+	
+	</script>
+	<ul id="d1" class="navmenu dree">
+		<li>Introduction
+		   <ul>
+			  <li><a href="Introduction/Overview.html">Overview</a></li>
+			  <li><a href="Introduction/SysReq.html">System Requirements</a></li>
+			  <li><a href="Introduction/Installation.html">Installation</a></li>
+			  <li><a href="Introduction/DownloadC.html">Download Contents</a></li>
+			  <li><a href="Introduction/WhatsNew32.html">What's new in XT (v3.2.2)?</a></li>
+			  <li><a href="Introduction/ChartList.html">List of Charts</a></li>
+			  <li><a href="Introduction/JSChartingCapabilities.html">JavaScript Charting capabilities</a></li>
+			  <li><a href="Introduction/UpgradingEval.html">Upgrading from Evaluation</a></li>
+			  <li><a href="Introduction/Upgrading32.html">Upgrading to XT from v3.x.y</a></li>
+		  </ul>
+		</li>
+		<li>Creating your First Chart
+			<ul>
+				<li><a href="FirstChart/FirstChart.html">Creating your First Chart</a></li>
+				<li><a href="FirstChart/UsingPureJS.html">Creating charts in JavaScript  </a></li>
+				<li><a href="FirstChart/JSONData.html">Using JSON data instead of XML</a></li>
+				<li><a href="FirstChart/DataXML.html">Using XML embedded in the page</a></li>
+				<li><a href="FirstChart/ChangeChart.html">Changing Chart type</a></li>
+				<li><a href="FirstChart/ChangeSize.html">Changing Chart dimensions</a></li>
+				<li><a href="FirstChart/FirstMultiSeriesChart.html">Creating Multi-Series &amp; Stacked Charts</a></li>
+				<li><a href="FirstChart/FirstCombinationChart.html">Creating Combination Charts</a></li>
+				<li><a href="FirstChart/ScatterandBubbleChart.html">Creating Scatter and Bubble Charts</a></li>
+				<li><a href="FirstChart/MultipleCharts.html">Creating multiple charts in a page</a></li>
+				
+				
+				<li><a href="FirstChart/UsingDataForm.html">Creating Chart using data from Forms</a></li>
+				
+				
+				<!--<li><a href="FirstChart/FusionChartsTag.html">Using FusionCharts tag</a></li>-->
+				<li><a href="FirstChart/HtmlEmbed.html">Using HTML embedding method</a></li>
+				
+				<li><a href="FirstChart/UsingJQuery.html">Using FusionCharts jQuery Plugin</a></li>
+				<li><a href="FirstChart/ServerSideScripts.html">Using Server side scripts</a></li>
+				<li><a href="FirstChart/DatabaseCharts.html">Creating Database driven charts</a></li>
+				<li><a href="FirstChart/Drilldown.html">Adding Drill-down links to charts</a></li>
+				<li><a href="FirstChart/LinkedCharts.html">Creating <i>LinkedCharts</i></a></li>
+				<li><a href="FirstChart/ExportChart.html">Exporting chart to Image/PDF</a></li>
+				<li><a href="FirstChart/OtherApplications.html">Embedding in other applications</a></li>
+			</ul>
+		</li>
+
+
+
+		<li>FusionCharts Data Formats
+			<ul>
+				<li>XML
+					<ul>
+						<li><a href="DataFormats/XML/Overview.html">XML overview</a></li>
+						<li><a href="DataFormats/XML/SingleSeries.html">Single series Chart XML</a></li>
+						<li><a href="DataFormats/XML/MultiSeries.html">Multi series Chart XML</a></li>
+						<li><a href="DataFormats/XML/Combination.html">Combination Chart XML</a></li>
+						<li><a href="DataFormats/XML/ScatterBubble.html">Scatter &amp; Bubble Chart XML</a></li>
+						<li><a href="DataFormats/XML/MSStacked.html">Multi-series stacked Chart XML</a></li>
+						<li><a href="DataFormats/XML/ZoomLine.html">Zoom Line Chart XML</a></li>
+						<li><a href="DataFormats/XML/LinkedCharts.html">XML for <i>LinkedCharts</i></a></li>
+					</ul>
+				</li>
+				<li>JSON
+					<ul>
+						<li><a href="DataFormats/JSON/Overview.html">JSON Overview</a></li>
+						<li><a href="DataFormats/JSON/SingleSeries.html">Single series Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/MultiSeries.html">Multi-series Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/Combination.html">Combination Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/ScatterBubble.html">Scatter &amp; Bubble Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/MSStacked.html">Multi-series stacked Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/ZoomLine.html">Zoom Line Chart JSON</a></li>
+						<li><a href="DataFormats/JSON/LinkedCharts.html">JSON for <i>LinkedCharts</i></a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		
+
+		<li>Quick Chart Configuration
+			<ul>
+				<li><a href="AttDesc/Background.html">Chart Border &amp; Background</a></li>
+				<li><a href="AttDesc/Canvas.html">Chart Canvas</a></li>
+				<li><a href="AttDesc/Logo.html">Loading External Logo</a></li>
+				<li><a href="AttDesc/Titles.html">Titles &amp; Axis Names</a></li>
+				<li><a href="AttDesc/DataPlot.html">Data Plot</a></li>
+				<li><a href="AttDesc/DataLabels.html">Data Labels</a></li>
+				<li><a href="AttDesc/DataValues.html">Data Values</a></li>
+				<li><a href="AttDesc/FontProperties.html">Font Properties</a></li>
+				<li><a href="AttDesc/ChartPalettes.html">Chart Palettes</a></li>
+				<li><a href="AttDesc/ChartLimits.html">Chart Limits</a></li>
+				<li><a href="AttDesc/DivLines.html">Div Lines &amp; Grids</a></li>
+				<li><a href="AttDesc/VDivLines.html">Vertical Div Lines</a></li>
+				<li><a href="AttDesc/ZeroPlane.html">Zero Plane</a></li>
+				<li><a href="AttDesc/Trend.html">Trend Lines &amp; Zones</a></li>
+				<li><a href="AttDesc/Anchors.html">Anchors and lines</a></li>		
+				<li><a href="AttDesc/ToolTip.html">Tool tip</a></li>
+				<li><a href="AttDesc/Padding.html">Chart Paddings &amp; Margins</a></li>
+				<li><a href="AttDesc/VLines.html">Vertical Lines</a></li>
+				<li><a href="AttDesc/SmartLabels.html">Smart Labels &amp; Lines</a></li>
+				<li><a href="AttDesc/Legend.html">Legend</a></li>
+				<li><a href="AttDesc/Number_Basics.html">Number Formatting Basics</a></li>
+				<li><a href="AttDesc/Number_Scaling.html">Number Scaling</a></li>
+				<li><a href="AttDesc/CustomAboutMenu.html">Custom About Menu Item</a></li>
+				<li><a href="AttDesc/Pie_DoughnutChartAtrributes.html">Pie &amp; Doughnut Chart </a></li>
+            <li><a href="AttDesc/BubbleScatter.html">Bubble &amp; Scatter Chart</a></li>
+				<li><a href="AttDesc/StackedChartAttributes.html">Stacked Chart </a></li>
+				<li><a href="AttDesc/3D_Attributes.html">3D Chart Attributes</a></li>
+				<li><a href="AttDesc/ParetoChartAttributes.html">Pareto Chart</a></li>
+				<li><a href="AttDesc/MarimekkoChartAttributes.html">Marimekko Chart</a></li>
+				<li><a href="AttDesc/ZoomLine.html">Zoom Line Chart</a></li>
+			</ul>
+		</li>
+
+
+		<li>Chart XML API
+			<ul>
+				<li>Single Series Charts
+					<ul>
+						<li><a href="ChartSS/Column2D.html">Column 2D Chart</a></li>		
+						<li><a href="ChartSS/Column3D.html">Column 3D Chart</a></li>		
+						<li><a href="ChartSS/Pie3D.html">Pie 3D Chart</a></li>				
+						<li><a href="ChartSS/Pie2D.html">Pie 2D Chart</a></li>		
+						<li><a href="ChartSS/Line2D.html">Line 2D Chart</a></li>			
+						<li><a href="ChartSS/Bar2D.html">Bar 2D Chart</a></li>		
+						<li><a href="ChartSS/Area2D.html">Area 2D Chart</a></li>		
+						<li><a href="ChartSS/Doughnut2D.html">Doughnut 2D Chart</a></li>		
+						<li><a href="ChartSS/Doughnut3D.html">Doughnut 3D Chart</a></li>		
+						<li><a href="ChartSS/Pareto2D.html">Pareto 2D Chart</a></li>		
+						<li><a href="ChartSS/Pareto3D.html">Pareto 3D Chart</a></li>		
+					</ul>
+				</li>
+								
+				<li>Multi-Series Charts
+					<ul>
+						<li><a href="ChartSS/MSColumn2D.html">Multi-series Column 2D Chart</a></li>		
+						<li><a href="ChartSS/MSColumn3D.html">Multi-series Column 3D Chart</a></li>		
+						<li><a href="ChartSS/MSLine.html">Multi-series Line 2D Chart</a></li>				
+						<li><a href="ChartSS/ZoomLine.html">Zoom Line Chart</a></li>				
+						<li><a href="ChartSS/MSArea2D.html">Multi-series Area 2D Chart</a></li>		
+						<li><a href="ChartSS/MSBar2D.html">Multi-series Bar 2D Chart</a></li>		
+						<li><a href="ChartSS/MSBar3D.html">Multi-series Bar 3D Chart</a></li>		
+						<li><a href="ChartSS/Marimekko.html">Marimekko Chart</a></li>		
+					</ul>
+				</li>
+						
+				<li>Stacked Charts
+					<ul>
+						<li><a href="ChartSS/StCol2D.html">Stacked Column 2D Chart</a></li>		
+						<li><a href="ChartSS/StCol3D.html">Stacked Column 3D Chart</a></li>			
+						<li><a href="ChartSS/StArea2D.html">Stacked Area 2D Chart</a></li>		
+						<li><a href="ChartSS/StBar2D.html">Stacked Bar 2D Chart</a></li>		
+						<li><a href="ChartSS/StackedBar3D.html">Stacked Bar 3D Chart</a></li>		
+						<li><a href="ChartSS/MSStCol.html">Multi-series Stacked Column 2D Chart</a></li>		
+					</ul>
+				</li>
+				
+				<li>Combination Charts
+					<ul>
+						<li><a href="ChartSS/Combi3D.html">3D Single Y Combination</a></li>		
+						<li><a href="ChartSS/Combi2D.html">2D Single Y Combination</a></li>		
+						<li><a href="ChartSS/Col3DLine.html">Column 3D + Line Single Y</a></li>		
+						<li><a href="ChartSS/StCol2DLine.html">Stacked Column 2D Line Single Y</a></li>		
+						<li><a href="ChartSS/StCol3DLine.html">Stacked Column 3D Line Single Y</a></li>		
+						<li><a href="ChartSS/Combi2DDY.html">2D Dual Y Combination</a></li>				
+						<li><a href="ChartSS/MSCol3DLineDY.html">Column 3D + Line Dual Y</a></li>		
+						<li><a href="ChartSS/StCol3DLineDY.html">Stacked Column 3D + Line Dual Y</a></li>		
+						<li><a href="ChartSS/MSStColLineDY.html">Multi-series Stacked Column 2D + Line Dual Y</a></li>		
+					</ul>
+				</li>
+				<li>XY Plot Charts
+					<ul>
+						<li><a href="ChartSS/Scatter.html">Scatter (XY Plot) Chart</a></li>		
+						<li><a href="ChartSS/Bubble.html">Bubble Chart</a></li>		
+					</ul>
+				</li>
+				<li>Scroll Charts
+					<ul>
+						<li><a href="ChartSS/ScrollColumn2D.html">Scroll Column 2D Chart</a></li>		
+						<li><a href="ChartSS/ScrollLine2D.html">Scroll Line 2D Chart</a></li>		
+						<li><a href="ChartSS/ScrollArea2D.html">Scroll Area 2D Chart</a></li>		
+						<li><a href="ChartSS/ScrollStackedCol2D.html">Scroll Stacked Column 2D Chart</a></li>		
+						<li><a href="ChartSS/ScrollCombi2D.html">Scroll Combination 2D Chart (Single Y)</a></li>		
+						<li><a href="ChartSS/ScrollCombiDY2D.html">Scroll Combination 2D Chart (Dual Y)</a></li>		
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		<li>Guide for General Users
+			<ul>
+				<li>Basics
+					<ul>
+						<li><a href="guide-for-general-users/basics/GUI_Intro.html">Introduction</a></li>
+						<li><a href="guide-for-general-users/basics/GUI_FirstChart.html">Creating your First chart</a></li>
+						<li><a href="guide-for-general-users/basics/GUI_PieChart.html">Converting it to Pie chart</a></li>
+						<li><a href="guide-for-general-users/basics/GUI_MSChart.html">Creating a Multi-series chart</a></li>
+					</ul>
+				</li>
+				<li>Using External Data Sources
+					<ul>
+						<li><a href="guide-for-general-users/external-data-sources/GUI_Excel.html">Using data from MS Excel</a></li>
+						<li><a href="guide-for-general-users/external-data-sources/GUI_Word.html">Using data from MS Word</a></li>
+						<li><a href="guide-for-general-users/external-data-sources/GUI_Access.html">Using data from MS Access</a></li>
+						<li><a href="guide-for-general-users/external-data-sources/GUI_Web.html">Using data from HTML Tables</a></li>
+						<li><a href="guide-for-general-users/external-data-sources/GUI_CSV.html">Using Delimiter Separated Data</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		
+		
+		
+		<li>Guide for Web Developers
+			<ul>
+				<li>How FusionCharts works?
+					<ul>
+						<li><a href="guide-for-web-developers/how-fusioncharts-works/HowFCWorks.html">Overview</a></li>
+						<li><a href="guide-for-web-developers/how-fusioncharts-works/DataURL.html">DataUrl Method</a></li>
+						<li><a href="guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String Method</a></li>		
+					</ul>
+				</li>
+				<li>Using with ASP 
+					<ul>	
+						<li><a href="guide-for-web-developers/asp/ASP_BasicExample.html">Basic Examples</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_Array.html">Charting data from Array</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_Form.html">Using with data in Forms</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_DB.html">Plotting from database</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_Drill.html">Creating Drill Down charts</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_JS_URL.html">ASP, JavaScript &amp; dataURL</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_JS_XML.html">ASP, JavaScript &amp; dataStr</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_Transparent.html">Transparent chart</a></li>
+						<li><a href="guide-for-web-developers/asp/ASP_UTF8Example.html">Using Multilingual Text</a></li>
+					</ul>
+				</li>
+				<li>FusionCharts ASP Class 
+					<ul>	
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/Overview.html">Overview</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/Setup.html">Basic Set up</a></li>		
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/FirstChart.html">Creating First chart</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/MultipleCharts.html">Creating Multiple charts</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/MultiSeriesChart.html">Creating Multi-series chart</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/StackedChart.html">Creating Stacked chart</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/CombinationChart.html">Creating Combination chart</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/ScatterBubble.html">Creating Scatter &amp; Bubble charts</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/MSStackedCDY.html">Creating MSStacked Combination Dual Y Axis</a></li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/SSGrid.html">Creating a Grid</a></li>
+						<li>Advanced Usage
+							<ul>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_chart.html">Providing chart Attributes</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_OtherElmAttribs.html">Providing Other Elements Attributes</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_trendlines.html">Creating Trendlines and Vertical Trendlines</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_vlines.html">Creating vLines</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_styles.html">Applying Styles</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_msg.html">Setting Chart Messages</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_delim.html">Handling Delimiter</a></li>
+								<li><a href="guide-for-web-developers/fusioncharts-asp-class/advanced-usage/Adv_htmlembd.html">Using HTML Embedding Method</a></li>
+							</ul>
+						</li>
+						<li><a href="guide-for-web-developers/fusioncharts-asp-class/Functions.html">FusionCharts ASP Class API Reference</a></li>
+					</ul>
+				</li>
+						
+				<li>Using With ASP Class
+					<ul>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_BasicExamples.html">Basic Examples</a></li>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_Array.html">Charting data from Array</a></li>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_Forms.html">Using with data in Forms</a></li>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_DB.html">Charting data from Database</a></li>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_Drill.html">Creating Drilldown charts</a></li>
+						<li><a href="guide-for-web-developers/asp-class/ASPClass_UTF8Example.html">Using Multilingual Text</a></li>
+					</ul>
+				</li>
+				<li>Using With PHP
+				    <ul>
+						<li><a href="guide-for-web-developers/php/PHP_BasicExample.html">Basic Examples</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_Array.html">Charting data from Array</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_Form.html">Using with data in Forms</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_DB.html">Plotting from Database</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_Drill.html">Creating Drill Down charts</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_JS_URL.html">PHP, JavaScript &amp; dataURL</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_JS_XML.html">PHP, JavaScript &amp; dataStr</a></li>
+						<li><a href="guide-for-web-developers/php/PHP_UTF8Example.html">Using Multilingual Text</a></li>
+				    </ul>
+				</li>
+				<li>FusionCharts PHP Class
+				   <ul>
+				    <li><a href="guide-for-web-developers/fusioncharts-php-class/Overview.html">Overview</a></li>		
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/Setup.html">Basic Set up</a></li>		
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/FirstChart.html">Creating First chart</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/MultipleCharts.html">Creating Multiple charts</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/MultiSeriesChart.html">Creating Multi-series chart</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/StackedChart.html">Creating Stacked chart</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/CombinationChart.html">Creating Combination chart</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/ScatterBubble.html">Creating Scatter &amp; Bubble charts</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/MSStackedCDY.html">Creating MSStacked Combination Dual Y Axis</a></li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/SSGrid.html">Creating a Grid</a></li>
+					
+					<li>Advanced Usage
+						<ul>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_chart.html">Providing chart Attributes</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_OtherElmAttribs.html">Providing Other Elements Attributes</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_trendlines.html">Creating Trendlines and Vertical Trendlines</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_vlines.html">Creating vLines</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_styles.html">Applying Styles</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_msg.html">Setting Chart Messages</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_delim.html">Handling Delimiter</a></li>
+							<li><a href="guide-for-web-developers/fusioncharts-php-class/advanced-usage/Adv_htmlembd.html">Using HTML Embedding Method</a></li>
+						</ul>
+					</li>
+					<li><a href="guide-for-web-developers/fusioncharts-php-class/Functions.html">FusionCharts PHP Class API Reference</a></li>
+				  </ul>
+				</li>
+				<li>Using With PHP Class
+					<ul>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_BasicExamples.html">Basic Examples</a></li>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_Array.html">Charting Data from Array</a></li>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_Forms.html">Using with data in Forms</a></li>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_DB.html">Charting data from Database</a></li>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_Drill.html">Creating Drilldown charts</a></li>
+						<li><a href="guide-for-web-developers/php-class/PHPClass_UTF8Example.html">Using Multilingual Text</a></li>
+					</ul>
+				</li>
+				<li>Using With J2EE
+				   <ul><li><a href="Code/J2EE/JSP_GettingStarted.html">Getting Started</a></li>
+					<li><a href="Code/J2EE/JSP_BasicExample.html">Basic Examples</a></li>
+					<li><a href="Code/J2EE/JSP_Array.html">Charting data from Array</a></li>
+					<li><a href="Code/J2EE/JSP_Form.html">Using with data in Forms</a></li>
+					<li><a href="Code/J2EE/JSP_DB.html">Plotting from database</a></li>
+					<li><a href="Code/J2EE/JSP_Drill.html">Creating Drill Down charts</a></li>
+					<li><a href="Code/J2EE/JSP_JS_URL.html">J2EE, JavaScript &amp; dataURL</a></li>
+					<li><a href="Code/J2EE/JSP_JS_XML.html">J2EE, JavaScript &amp; dataStr</a></li>
+					<li><a href="Code/J2EE/JSP_UTF8Example.html">UTF8 Examples</a></li>
+				  </ul>
+				</li>
+				
+				
+				<li>Using With ColdFusion
+				   <ul><li><a href="guide-for-web-developers/coldfusion/CFM_BasicExample.html">Basic Examples</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_Array.html">Charting data from Array</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_Form.html">Using with data in Forms</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_DB.html">Plotting from Database</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_Drill.html">Creating Drill Down charts</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_JS_URL.html">ColdFusion, JavaScript &amp; dataURL</a></li>
+					<li><a href="guide-for-web-developers/coldfusion/CFM_JS_XML.html">ColdFusion, JavaScript &amp; dataStr</a></li>
+				  </ul>
+				</li>
+				
+				
+				<li>Using With VB.NET (ASP.NET)
+				   <ul><li><a href="guide-for-web-developers/vbnet/VBNET_BasicExample.html">Basic Examples</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_Array.html">Charting data from Array</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_Form.html">Using with data in Forms</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_DB.html">Plotting from database</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_Drill.html">Creating Drill Down charts</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VB_MasterPages.html">Using with Master Pages</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_JS_URL.html">ASP.NET, JavaScript &amp; dataURL</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_JS_XML.html">ASP.NET, JavaScript &amp; dataStr</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VB_UpdatePanel.html">Using in Update Panel</a></li>
+					<li><a href="guide-for-web-developers/vbnet/VBNET_UTF8Example.html">Using Multilingual Text</a></li>		
+				  </ul>
+				</li>
+				
+				<li>Using With C# (ASP.NET)
+				   <ul><li><a href="guide-for-web-developers/csnet/CS_BasicExample.html">Basic Examples</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_Array.html">Charting data from Array</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_Form.html">Using with data in Forms</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_DB.html">Plotting from database</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_Drill.html">Creating Drill Down charts</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_MasterPages.html">Using with Master Pages</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_JS_URL.html">ASP.NET, JavaScript &amp; dataURL</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_JS_XML.html">ASP.NET, JavaScript &amp; dataStr</a></li>
+					<li><a href="guide-for-web-developers/csnet/CS_UpdatePanel.html">Using in Update Panel</a></li>
+					<li><a href="guide-for-web-developers/csnet/CSNET_UTF8Example.html">Using Multilingual Text</a></li>		
+				  </ul>
+				</li>
+				
+				
+				<li>Using With Ruby on Rails
+				   <ul><li><a href="Code/ROR/Ruby_basicexample.html">Basic Examples</a></li>
+					<li><a href="Code/ROR/Ruby_array.html">Charting data from Array</a></li>
+					<li><a href="Code/ROR/Ruby_form.html">Using with data in Forms</a></li>
+					<li><a href="Code/ROR/Ruby_db.html">Plotting from database</a></li>
+					<li><a href="Code/ROR/Ruby_drill.html">Creating Drill Down charts</a></li>
+					<li><a href="Code/ROR/Ruby_JS_url.html">RoR, JavaScript &amp; dataURL</a></li>
+					<li><a href="Code/ROR/Ruby_JS_xml.html">RoR, JavaScript &amp; dataStr</a></li>
+					<li><a href="Code/ROR/Ruby_UTF8Example.html">UTF8 Examples</a></li>	
+					<li><a href="Code/ROR/Ruby_AJAX.html">AJAX Examples</a></li>		
+				  </ul>
+				</li>
+			</ul>
+		</li>								
+
+		<li>Guide for Flash Developers
+			<ul>
+				<li>Using Flash 8 (AS2)
+				   <ul>
+				      <li><a href="guide-for-flash-developers/flash8/Flash_Overview.html">Overview</a></li>
+			         <li><a href="guide-for-flash-developers/flash8/Flash_ExternalXML.html">Data from External source</a></li>
+			         <li><a href="guide-for-flash-developers/flash8/Flash_Multiple.html">Loading Multiple charts</a></li>
+				      <li><a href="guide-for-flash-developers/flash8/Flash_Advanced.html">Advanced Example</a></li>
+				      <li><a href="guide-for-flash-developers/flash8/Flash_Click.html">Handling Click Events</a></li>
+				      <li><a href="guide-for-flash-developers/flash8/Flash_Load.html">Loading/Rendering Events</a></li>
+				      <li><a href="guide-for-flash-developers/flash8/Flash_FAQ.html">FAQs</a></li>
+				   </ul>
+				</li>
+				<li><a href="guide-for-flash-developers/Flash_CS3CS4.html">Using Flash CS3/CS4</a></li>
+			   <li><a href="guide-for-flash-developers/Flash_Flex.html">Using Flex </a></li>
+			</ul>
+		</li>
+
+		
+		<li>Drill Down Charts
+			<ul>
+				<li><a href="DrillDown/Simple.html">Simple Example</a></li>
+				<li><a href="DrillDown/Frames.html">Links in frames</a></li>
+				<li><a href="DrillDown/PopUps.html">Links in pop-up windows</a></li>
+				<li><a href="DrillDown/ClickURL.html">Full chart as a hotspot</a></li>
+				<li><a href="DrillDown/JavaScript.html">JavaScript functions as links</a></li>
+			   <li><a href="DrillDown/LinkedCharts.html"><i>LinkedCharts</i></a></li>
+			   <li><a href="DrillDown/LinkFormat.html">FusionCharts Link format</a></li>
+			</ul>
+		</li>
+
+
+		<li>FusionCharts and JavaScript		
+		  <ul>
+		    <li><a href="JavaScript/JS_Overview.html">Overview</a></li>
+	    	<li><a href="JavaScript/JS_CreateChart.html">Constructor methods </a></li>
+		    <li><a href="JavaScript/JS_ChartInstance.html">Getting chart reference</a></li>
+      <li><a href="JavaScript/JS_ChangeData.html">Providing &amp; updating data</a></li>
+		    <li><a href="JavaScript/JS_ChangeChartProperties.html">Changing chart properties</a></li>
+		    <li><a href="JavaScript/JS_DataBackFromChart.html">Getting data back from chart</a></li>
+		    <li><a href="JavaScript/JS_EventOverview.html">Listening to events</a></li>
+		    <li><a href="JavaScript/JS_LinkedCharts.html">Using <i>LinkedCharts</i></a></li>
+		    <li><a href="JavaScript/JS_PrintManager.html">Managed Print for Mozilla</a></li>
+		    <li><a href="JavaScript/JS_Errors.html">Handling errors</a></li>
+			<li>API Reference          
+				<ul>
+				  <li><a href="JavaScript/API/Overview.html">Overview</a></li>
+				  <li><a href="JavaScript/API/Properties.html">Properties</a></li>
+				  <li><a href="JavaScript/API/Methods.html">Functions</a></li>
+				  <li><a href="JavaScript/API/Events.html">Events</a></li>
+				  <li>Chart Specific API              
+					  <ul>
+					  <li><a href="JavaScript/API/SpecialCharts/Combi3D_JSAPI.html">3D Chart JavaScript API</a></li>
+					  <li><a href="JavaScript/API/SpecialCharts/ZoomLine_JSAPI.html">Zoom Chart JavaScript API</a></li>
+					  <li><a href="JavaScript/API/SpecialCharts/PieDoughnut_JSAPI.html">Pie/Doughnut Chart API</a></li>
+					</ul>
+				  </li>
+				</ul>
+		    </li>
+			<li><a href="JavaScript/JS_Example.html">Example Application</a></li>
+		  </ul>
+		</li>
+		
+		<li>FusionCharts & jQuery
+			<ul>
+				<li><a href="jQuery/Overview.html">Overview</a></li>
+				<li><a href="jQuery/AdvancedRendering.html">Various rendering methods</a></li>
+				<li><a href="jQuery/RetrieveUpdate.html">Updating data and properties </a></li>
+				<li><a href="jQuery/Selector.html">Using Selector</a></li>
+				<li><a href="jQuery/Events.html">Handling Events</a></li>
+				<li><a href="jQuery/API.html">API Reference</a></li>
+			</ul>
+		</li>
+	  
+		<li>FusionCharts  Styles
+		  <ul>
+			<li><a href="Styles/Styles.html">Overview</a></li>
+			<li><a href="Styles/HowToUse.html">How to Use?</a></li>
+			<li><a href="Styles/Font.html">Font Style Type</a></li>
+			<li><a href="Styles/Animation.html">Animation Style Type</a></li>
+			<li><a href="Styles/Shadow.html">Shadow Style Type</a></li>
+			<li><a href="Styles/Glow.html">Glow Style Type</a></li>
+			<li><a href="Styles/Bevel.html">Bevel Style Type</a></li>
+			<li><a href="Styles/Blur.html">Blur Style Type</a></li>	
+		  </ul>
+		</li>
+		
+		<li>Grid Component
+			<ul>
+				<li><a href="grid-component/Grid_Overview.html">Overview</a></li>
+				<li><a href="grid-component/Grid_Usage.html">How to Use?</a></li>
+				<li><a href="grid-component/Grid_Parameters.html">Grid Parameters</a></li>
+			</ul>
+		</li>
+		<li>Exporting as Image/PDF
+			<ul>
+				<li><a href="exporting-image/ECOverview.html">Overview</a></li>
+				<li><a href="exporting-image/ECProcess.html">How it works?</a></li>
+				<li><a href="exporting-image/ECTerminology.html">Terminologies</a></li>
+				<li><a href="exporting-image/ECXML.html">XML Attributes</a></li>
+				
+				<li>Server-side exporting
+				   <ul>
+				      <li><a href="exporting-image/server-side/ECServerOverview.html">Overview</a></li>
+			         <li><a href="exporting-image/server-side/ECServerDownload.html">Returning image as download</a></li>
+				      <li><a href="exporting-image/server-side/ECServerSave.html">Saving to server disk</a></li>
+				      <li><a href="exporting-image/server-side/ECServerFormats.html">Configuring Export Formats</a></li>
+				      <li><a href="exporting-image/server-side/ECExportDialog.html">Configuring Export Dialog</a></li>
+				   </ul>
+				</li>
+				<li>Client-side exporting
+				   <ul>
+				      <li><a href="exporting-image/client-side/ECClientOverview.html">Overview</a></li>
+			          <li><a href="exporting-image/client-side/ECClientSimple.html">Simple Example</a></li>
+				      <li><a href="exporting-image/client-side/ECClientMultiple.html">Setting for multiple charts</a></li>
+				      <li><a href="exporting-image/client-side/ECClientCallback.html">Setting JavaScript callback</a></li>
+				      <li><a href="exporting-image/client-side/ECComponentUI.html">Component UI Customization</a></li>
+				      <li><a href="exporting-image/client-side/ECServerFormats.html">Configuring Export Formats</a></li>
+				      <li><a href="exporting-image/client-side/ECExportDialog.html">Configuring Export Dialog</a></li>
+				   </ul>
+				</li>
+				<li>Batch exporting charts
+				   <ul>
+				      <li><a href="exporting-image/batch-exporting/ECBatchOverview.html">Overview</a></li>
+			          <li><a href="exporting-image/batch-exporting/ECBatchSetup.html">Setting it up</a></li>
+				      <li><a href="exporting-image/batch-exporting/ECBatchCallback.html">Setting JavaScript callback</a></li>
+				      <li><a href="exporting-image/batch-exporting/ECBatchOverride.html">Over-riding export parameters</a></li>
+				   </ul>
+				</li>
+				<li>JavaScript Reference
+				   <ul>
+				      <li><a href="exporting-image/javascript-ref/ECReferenceJS.html">JavaScript API</a>
+			          <li><a href="exporting-image/javascript-ref/ECReferenceComponent.html">Component Attributes</a></li>
+				      <li><a href="exporting-image/javascript-ref/ECReferenceExport.html">Export Attributes</a></li>
+				      <li><a href="exporting-image/javascript-ref/ECJavaScript.html">Initiating from JavaScript</a></li>
+				   </ul>
+				</li>
+                <li><a href="exporting-image/ECPureJS.html">Exporting Pure JavaScript Charts</a></li>
+				<li><a href="exporting-image/ECReferenceDebugJS.html">Export Component Debug Mode</a></li>
+				<li><a href="exporting-image/ECTroubleshooting.html">Troubleshooting</a></li>
+			</ul>
+		</li>
+		
+		
+		<li>Exporting Chart Data
+		   <ul>
+		      <li><a href="exporting-data/ExportDataSetup.html">Using Context Menu</a></li>
+	         <li><a href="exporting-data/ExportDataJS.html">Using JavaScript API</a></li>
+		   </ul>
+		</li>
+		
+		
+		<li>Advanced Charting
+			<ul>
+				<li>Number Formatting
+					<ul>
+						<li><a href="advanced/number-format/Number_Basics.html">Basics</a></li>
+						<li><a href="advanced/number-format/Number_Scaling.html">Number Scaling</a></li>
+						<li><a href="advanced/number-format/Number_Input.html">Input Number Formatting</a></li>
+					</ul>
+				</li>
+		
+				<li>Using Special Characters
+					<ul>
+						<li><a href="advanced/special-chars/SpChar.html">Using Multi-lingual text</a></li>
+                        <li><a href="advanced/special-chars/SpCharAll.html">Using Currency Symbols</a></li>
+                        <li><a href="advanced/special-chars/SpPunctuation.html">Using Special Punctuation</a></li>
+					</ul>
+				</li>
+		
+				<li><a href="advanced/DiscData.html">Plotting Discontinuous data</a></li>
+				<li><a href="advanced/Highlight.html">Highlighting Selective Data</a></li>
+				<li><a href="advanced/Adv_DataLabels.html">Showing long data Labels</a></li>
+				<li><a href="advanced/Gradients.html">Using Gradients</a></li>
+				<li><a href="advanced/TTip_Lines.html">Tool Tip in Multiple Lines</a></li>
+				<li><a href="advanced/PercentResize.html">Resizing charts in %</a></li>
+				<li><a href="advanced/BgSWF.html">Set backgrounds for chart</a></li>
+				<li><a href="advanced/SSL.html">Using chart on SSL/HTTPS</a></li>
+				<li><a href="advanced/ChartMessages.html">Changing Chart Messages</a></li>
+			</ul>
+		</li>
+		
+		
+		<li>Debugging your charts
+			<ul>
+				<li><a href="Debug/Basic.html">Basic Troubleshooting</a></li>
+				<li><a href="Debug/Advanced.html">Advanced Troubleshooting</a></li>
+				<li><a href="Debug/Window.html">The new Debug Window</a></li>
+			   <li><a href="Debug/JS.html">Using JavaScript</a></li>
+			</ul>
+		</li>
+		
+		<li><a href="FAQ.html">Frequently Asked Questions</a></li>
+	</ul>
+
+		
+<script type="text/javascript">
+  <!--
+	menuDataStore ={ "0" : {id:"0", pid:"-1", name:"root"} };
+	var selectedItemId=2;
+	
+	d1_d = ul2d.parse('d1', 'FusionCharts XT <span class="tiny_links">[<a onclick="JavaScript:toggleOpenAll(this);" href="javascript:void(0);" title="Expand/Collapse all" id="shortEC"> + </a>]</span>', [0]);
+	dtree_addbase(d1_d, 'assets/dtree/');
+	d1_d.config.target='contentFrame';
+	document.write(d1_d);
+
+	var menuSelectTimer;
+	var onPageLoad=true;
+	var oldContentSrc;
+
+	window.onload = function() {
+		
+		if(window.parent.parent.parent.contentFrame){
+			oldContentSrc = getContentSrc("");
+			
+			menuSelectTimer = window.setInterval(function() {
+				var opendMenuItem = ( isLocalStorageAvailable() && localStorage.getItem("fc__menu") ) ? localStorage.getItem("fc__menu") :""; 
+				if(!opendMenuItem || opendMenuItem=="")
+				{
+					opendMenuItem = getCookie("menu");
+				}
+
+				menuItemSelect(opendMenuItem, true,true, false); 
+			}, 1000);
+		}
+		
+	};
+		
+	
+	
+	/*--------------------------------------------------------*/
+
+	function toggleOpenAll(elm)
+	{
+		var allClosed = ( elm.innerHTML == ' + ' );
+		if(allClosed){
+			d.openAll();
+			elm.innerHTML = ' ― ';
+		}else{
+			d.closeAll();
+			elm.innerHTML = ' + ';
+		}
+		
+	}
+	
+	function intelligentMenuSelector(request)
+	{
+		var menuId, qs, src; 
+		
+		if (typeof request == "string" ) 
+		{
+			qs = getContentSrc(request);
+			
+			menuId = "" + menuDataStore[ qs ];
+		}
+		else
+		{
+			if(request)
+				qs = request.toString();
+			else
+				qs = "2";
+			menuId = qs;
+		}
+		
+		
+		return menuId;
+	}
+	
+	function getContentSrc(request)
+	{
+		
+			if(!request)
+			{
+				
+				
+				try {
+					
+					if(!request) request = top.frames["contentFrame"] && top.frames["contentFrame"].location ? top.frames["contentFrame"].location.toString() : "";			
+					//if(!request) request = window.parent.frames["contentFrame"] && window.parent.frames["contentFrame"].location ? window.parent.frames["contentFrame"].location.toString() : "";			
+					var contentSrc = request ? unescape(request).replace(/^.+?contents\//i,"").replace(/^\s+?|\s+?$|[?].+|\#.+$/g,"") : "";
+				
+					return contentSrc;
+					
+				}catch(err)
+				{
+					
+				}
+
+
+			}
+			
+			return request;
+				
+
+	}
+	function menuItemSelect( request, forceCollapseOthers, scrollToNode, scrollToItem )
+	{
+		
+		request = request.toLowerCase();
+		
+		if (oldContentSrc == getContentSrc(request) && !onPageLoad) return; else oldContentSrc = getContentSrc(request);
+		
+		
+		if(request=="") 
+		{
+			request = oldContentSrc.toLowerCase();
+			//document.cookie = "menu="+ oldContentSrc;
+		}
+		
+		var menuId = intelligentMenuSelector(request);
+
+		if(typeof menuId == "undefined" || !d.aNodes[menuId]) { return; }
+		
+		var pMenuId =  d.aNodes[menuId].pid;
+		
+		if ( menuId && d.aNodes[menuId] &&  d.getSelected() != menuId )
+		{
+			
+			window.setTimeout(function(){ d.openTo(menuId,true, true); }, 0 );
+
+			
+		
+			//special case where on root folder we do not scroll to node or menu item
+			if(pMenuId == "1" || menuId=="-1" || pMenuId == "-1" || typeof pMenuId == "undefined")  
+			{ 
+				window.scroll(0,0);
+				onPageLoad=false; 
+				return; 
+			
+			}
+
+			if(scrollToItem)  
+			{
+			
+				window.setTimeout(function(){ window.location.hash = menuId; }, 0 );
+
+			}
+			else
+			{
+				if(scrollToNode)	window.setTimeout(function(){ window.location.hash = pMenuId; }, 0 );
+
+			}
+
+		}
+		
+		//special case for page load open selected item's parent node which might have been closed in stored in cookie cache
+		if( !d.isOpen(pMenuId) && onPageLoad )
+		{
+			window.setTimeout(function(){ d.openTo(pMenuId, false, false); }, 0 );
+		}
+		
+		onPageLoad=false;
+	}
+		
+
+	
+  -->
+</script>
+
+	<p class="dtree" style="padding-left:10px;">
+		<a href="javascript:d.openAll();" onclick="JavaScript:document.getElementById('shortEC').innerHTML=' ― ';">Expand all</a> | <a href="javascript: d.closeAll();" onclick="JavaScript:document.getElementById('shortEC').innerHTML=' + ';">Collapse all</a>
+	</p>
+
+</body>
+</html>

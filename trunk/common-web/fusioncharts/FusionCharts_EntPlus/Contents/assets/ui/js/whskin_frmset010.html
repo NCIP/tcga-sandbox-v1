@@ -1,0 +1,127 @@
+﻿<html>
+<head>
+</head>
+<script type="text/javascript" language="javascript" src="whver.js"></script>
+<script type="text/javascript" language="javascript" src="whutils.js"></script>
+<script type="text/javascript" language="javascript" src="whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="whproxy.js"></script>
+<script type="text/javascript">
+	
+	
+	var nav_=window.location.hash;
+	nav_=nav_?nav_.replace('#',''):1;
+	
+
+	function isAJAXCallAvailable()
+	{
+		if (location.protocol.search(/https?/)>=0) return true;
+		
+		 var xmlhttp=false;
+		 /* running locally on IE5.5, IE6, IE7 */
+		 if(location.protocol.search(/https?/)<0 && typeof ActiveXObject != "undefined")
+		 {
+			 if(!xmlhttp)try{ xmlhttp=new ActiveXObject("MSXML2.XMLHTTP"); }catch(e){xmlhttp=false;}
+			 if(!xmlhttp)try{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }catch(e){xmlhttp=false;}
+		 } 
+		 /* IE7, Firefox, Safari, Opera...  */
+		 if(!xmlhttp) try{ xmlhttp=new XMLHttpRequest(); } catch(e){xmlhttp=false;}
+		 /* running  from server on IE5.5, IE6 */
+		 //if(!xmlhttp && typeof ActiveXObject != "undefined")
+		 //{
+		 //	 if(!xmlhttp)try{ xmlhttp=new ActiveXObject("MSXML2.XMLHTTP"); }catch(e){xmlhttp=false;}
+		 //	 if(!xmlhttp)try{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }catch(e){xmlhttp=false;}
+		 //} 
+		 /* IceBrowser */
+		 if(!xmlhttp)try{ xmlhttp=createRequest(); }catch(e){xmlhttp=false;}
+		
+
+		try{
+			xmlhttp.open("GET","whxdata/whidx.xml",false);
+			xmlhttp.send(null);
+			xmlDoc=xmlhttp.responseText; 
+		} catch(e)
+		{
+			xmlDoc = null;
+		}
+		
+		
+		if(!xmlDoc) return false;
+		
+		return true;
+		
+	}
+	
+	
+	function isLocalStorageAvailable()
+	{
+		try
+		{
+			return 'localStorage' in window && window['localStorage'] !== null && localStorage.getItem;
+		}
+		catch(e)
+		{
+			return false;
+		}
+	}
+	
+	
+	
+</script>
+<script language="javascript">
+<!--
+
+	
+	var disabledNavBar = false	;
+	if(!isAJAXCallAvailable()) disabledNavBar = true;
+	
+	var strHTML = "";
+
+	if(disabledNavBar){
+		window.location = "../../../Menu.html";
+	}else
+	{
+		strHTML += "<frameset rows=\"28,*\" hostof=\"parent:minibar|navpane!startpage:no\" frameborder=\"0\" border=\"0\">";
+		strHTML += "<frame src=\"whskin_mbars.html#"+nav_+"\" name=\"minibar\"  id=\"minibar\" frameborder=\"0\" border=\"0\" scrolling=\"no\" marginheight=\"0\" title=\"Mini Toolbar\"></frame>";
+		strHTML += "<frame src=\"whskin_pdhtml.html#"+nav_+"\" name=\"navpane\" id=\"navpane\" frameborder=\"0\" border=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" title=\"Navigator Pane\"></frame>";
+		strHTML += "</frameset>";
+	}
+	
+	document.write(strHTML);
+	
+	
+	var hashChangedTo ="#"+nav_;
+	
+	window.onload = function()
+	{
+	
+		window.setInterval(
+			function() 
+			{
+				tmpHash = window.location.hash;
+				
+				if(hashChangedTo!=tmpHash)
+				{
+					hashChangedTo = tmpHash;
+					if (hashChangedTo.search(/^#[123]$/i) >= 0 )
+					{
+					
+						if(window.frames['minibar'].location.hash != hashChangedTo)
+							window.frames['minibar'].location.hash = hashChangedTo; 
+						if(window.frames['navpane'].location.hash != hashChangedTo)
+							window.frames['navpane'].location.hash = hashChangedTo; 
+
+					}
+					
+				}
+			}
+			, 247
+		
+		);
+	}
+	
+	
+	
+//-->
+</script>
+
+</html>

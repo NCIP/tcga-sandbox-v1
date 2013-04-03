@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Multi-Series Chart JSON </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "FusionCharts Data Formats", "JSON|Overview.html", "Multi-Series chart JSON" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Multi-Series Chart JSON </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Multi-series charts are charts where you 
+        compare multiple series of data. </p>
+      <p>In our previous example, we had 
+        seen how to plot a chart indicating <span class="codeInline">Monthly Sales Summary</span> for 1 year. 
+        This data belonged to one particular series, which is for the year say, 
+        2005. Now, if you need to compare the data for 2 or more years, you'll 
+        have to use multi-series charts. Using multi-series charts, you can compare 
+        data for 2 or more number of series. </p>
+      <p>A simple 2D multi-series chart looks 
+        as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/MS_Col2D.jpg" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>As you can see above, here we are comparing 
+      data for both 2006 and 2005.</p>
+      <p>The JSON for this chart looks as under:</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><pre class="code_container prettyprint lang-js" >
+{
+  "chart":{
+    "caption":"Business Results 2005 v 2006",
+    "xaxisname":"Month",
+    "yaxisname":"Revenue",
+    "showvalues":"0",
+    "numberprefix":"$"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Jan"
+        },
+        {
+          "label":"Feb"
+        },
+        {
+          "label":"Mar"
+        },
+        {
+          "label":"Apr"
+        },
+        {
+          "label":"May"
+        },
+        {
+          "label":"Jun"
+        },
+        {
+          "vline":"true",
+          "color":"FF5904",
+          "thickness":"2"
+        },
+        {
+          "label":"Jul"
+        },
+        {
+          "label":"Aug"
+        },
+        {
+          "label":"Sep"
+        },
+        {
+          "label":"Oct"
+        },
+        {
+          "label":"Nov"
+        },
+        {
+          "label":"Dec"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"2006",
+      "data":[{
+          "value":"27400"
+        },
+        {
+          "value":"29800"
+        },
+        {
+          "value":"25800"
+        },
+        {
+          "value":"26800"
+        },
+        {
+          "value":"29600"
+        },
+        {
+          "value":"32600"
+        },
+        {
+          "value":"31800"
+        },
+        {
+          "value":"36700"
+        },
+        {
+          "value":"29700"
+        },
+        {
+          "value":"31900"
+        },
+        {
+          "value":"34800"
+        },
+        {
+          "value":"24800"
+        }
+      ]
+    },
+    {
+      "seriesname":"2005",
+      "data":[{
+          "value":"10000"
+        },
+        {
+          "value":"11500"
+        },
+        {
+          "value":"12500"
+        },
+        {
+          "value":"15000"
+        },
+        {
+          "value":"11000"
+        },
+        {
+          "value":"9800"
+        },
+        {
+          "value":"11800"
+        },
+        {
+          "value":"19700"
+        },
+        {
+          "value":"21700"
+        },
+        {
+          "value":"21900"
+        },
+        {
+          "value":"22900"
+        },
+        {
+          "value":"20800"
+        }
+      ]
+    }
+  ],
+  "trendlines":{
+    "line":[{
+        "startvalue":"26000",
+        "color":"91C728",
+        "displayvalue":"Target",
+        "showontop":"1"
+      }
+    ]
+  },
+   "styles": {
+    "definition": [
+      {
+        "name": "CanvasAnim",
+        "type": "animation",
+        "param": "_xScale",
+        "start": "0",
+        "duration": "1"
+      }
+    ],
+    "application": [
+      {
+        "toobject": "Canvas",
+        "styles": "CanvasAnim"
+      }
+    ]
+  }
+}</pre><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"> <p>If you've already gone through the single 
+        series JSON structure, you'll find notable differences between the two 
+        JSON structures. There are  new <span class="codeInline">categories, category</span> 
+        and <span class="codeInline">dataset</span> objects. Additionally, the <span class="codeInline">dataset</span> 
+       object now just contains the <span class="codeInline">value</span> attribute.</p>
+       <p>Each <span class="codeInline">category</span> 
+        item represents a label on the x-axis. The <span class="codeInline">category</span> 
+        elements need to be defined for all the multi-series charts before you 
+        can define the data. For example, in our chart, the categories are the 
+        month names (Jan, Feb, Mar .... ) as we're plotting a chart to show monthly 
+        sales summary for two consecutive years. </p>
+       <p>Between <span class="codeInline">category</span> elements, we 
+        can create a <span class="codeInline">vLine</span> object.  From JSON perspective, a <span class="codeInline">vLine</span> is essentially a category element with key <span class="codeInline">&quot;vLine&quot;</span> and its value <span class="codeInline">&quot;true&quot;</span>, along with other properties.</p>
+       <pre class="code_container prettyprint lang-js">{ &quot;vline&quot;:&quot;true&quot;, &quot;color&quot;:&quot;FF5904&quot;, &quot;thickness&quot;:&quot;2&quot; }</pre>
+       <p>Now, in a multi-series chart, each series of data (i.e., each set of 
+        data) must  be contained in a <span class="codeInline">dataset</span> 
+        object.  Depending 
+        on the chart type, there are a number of properties which you can define 
+        for each <span class="codeInline">dataset</span> object, which 
+        you can see in &quot;Chart XML Sheet&quot; of that chart. Please note that the XML attributes are same as JSON properties. </p>
+      <p>Moving on, each element in dataset array represents a set of data which is to be plotted on the graph 
+        and determines a set of data which would appear on the graph.</p>
+      <p>Thereafter, you can define trend-lines and <a href="../../Styles/Styles.html">STYLES</a> elements similar to what we discussed in the Single Series JSON format page. </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">&nbsp;</td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Single Series chart JSON|SingleSeries.html","Combination chart JSON|Combination.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

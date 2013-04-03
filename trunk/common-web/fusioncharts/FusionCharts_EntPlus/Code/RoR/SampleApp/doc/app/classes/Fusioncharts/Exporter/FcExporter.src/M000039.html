@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>determine_path_to_save (Fusioncharts::Exporter::FcExporter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fusioncharts/exporter/fc_exporter.rb, line 139</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">determine_path_to_save</span>
+    <span class="ruby-identifier">filename</span> = <span class="ruby-ivar">@exportfilename</span>
+    <span class="ruby-identifier">format</span> = <span class="ruby-ivar">@exportformat</span>
+    <span class="ruby-identifier">ext</span>=<span class="ruby-identifier">format</span>.<span class="ruby-identifier">downcase</span>
+     <span class="ruby-identifier">notice</span> =<span class="ruby-value str">&quot;&amp;notice=&quot;</span>
+      <span class="ruby-comment cmt">#logger.info &quot;Saving to file on server&quot;</span>
+      <span class="ruby-comment cmt"># Save File on server</span>
+      <span class="ruby-identifier">folder_to_save</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">SAVEPATH</span>)
+      <span class="ruby-comment cmt">#build filepath</span>
+      <span class="ruby-identifier">complete_file_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">folder_to_save</span>,<span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>)
+      <span class="ruby-comment cmt">#folder_to_save + '/' + filename +&quot;.&quot; + ext</span>
+      <span class="ruby-identifier">displayFileName</span> = <span class="ruby-identifier">filename</span> <span class="ruby-operator">+</span><span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ext</span>
+      <span class="ruby-comment cmt">#Check if file exists and create new filename</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-constant">FileTest</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">complete_file_path</span>))
+          <span class="ruby-identifier">notice</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; File already exists.&quot;</span>
+          <span class="ruby-keyword kw">if</span>( <span class="ruby-operator">!</span><span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">OVERWRITEFILE</span>)
+            <span class="ruby-identifier">notice</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; Using intelligent naming of file by adding an unique suffix to the exising name.&quot;</span>
+            <span class="ruby-comment cmt"># create new filename</span>
+            <span class="ruby-identifier">complete_file_path</span>= <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">SaveHelper</span>.<span class="ruby-identifier">generate_unique_filename</span>(<span class="ruby-identifier">folder_to_save</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span> ,<span class="ruby-identifier">ext</span>)
+            <span class="ruby-identifier">displayFileName</span>=<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">complete_file_path</span>)
+            <span class="ruby-identifier">notice</span><span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;The filename has changed to &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">displayFileName</span>
+          <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt">#logger.info &quot;Saving to location &quot;+complete_file_path</span>
+      <span class="ruby-identifier">http_path</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HTTP_URI</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\/$/</span>, <span class="ruby-value str">''</span>)
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">http_path</span><span class="ruby-operator">==</span><span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">http_path</span> = <span class="ruby-constant">Fusioncharts</span><span class="ruby-operator">::</span><span class="ruby-constant">Exporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>.<span class="ruby-constant">HTTP_URI</span>
+      <span class="ruby-keyword kw">end</span>
+       <span class="ruby-identifier">displayPath</span>=  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">http_path</span>,<span class="ruby-identifier">displayFileName</span>)
+       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">complete_file_path</span>,<span class="ruby-identifier">displayPath</span>,<span class="ruby-identifier">notice</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

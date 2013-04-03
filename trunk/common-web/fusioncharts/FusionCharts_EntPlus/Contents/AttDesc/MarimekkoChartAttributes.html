@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Marimekko Chart</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Marimekko chart" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Marimekko Chart</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Marimekko charts are used mainly for marketing analysis,  they are essentially stacked column charts with columns of variable width.   You can represent 3 dimensions of marketing data using a marimekko chart, these are -  total value of a market segment, combined share of all competitors in a particular market segment, individual share of competitors in each of the market segments.</p>
+      <p>Shown below is a simple Marimekko chart that shows market share of three manufacturers (namely A, B and C) in three segments (Desktop, Laptop, Notebook):</p>
+      <p><img src="Images/MarimekkoChart.jpg" alt="Marimekko Chart" /></p>
+      <p>The chart helps you instantly figure out the following:</p>
+      <ul>
+        <li>Desktops have a total market share of 47.51% and Desktop &amp; Laptops Combined together 76.31%. This is deduced from the horizontal width of the stacked columns. </li>
+        <li>Within each segment, there are three manufacturers A, B, C whose share in a&nbsp; market segment is indicated by partitions in the stacked column. </li>
+      </ul>      
+      <p>The XML/JSON data for this chart is as under: </p>
+      </td>
+  </tr>
+   <tr>
+     <td valign="top" class="text">
+	  
+   <div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab1">XML</a></li>
+      	 <li><a href="#tab2">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab1" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;0&quot; caption=&quot;Market Share Analysis&quot; subcaption=&quot;2009&quot; numberprefix=&quot;$&quot;
+ xaxisname=&quot;Market Segment&quot; yaxisname=&quot;Market Share&quot; legendcaption=&quot;Manufacturer&quot; &gt;<br />
+&nbsp;&lt;categories&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Desktop&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Laptop&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Notebook&quot;/&gt;
+&nbsp;&lt;/categories&gt;<br />
+&nbsp;&lt;dataset seriesName=&quot;A&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;335000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;225100&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;164200&quot;/&gt;
+&nbsp;&lt;/dataset&gt;<br />
+&nbsp;&lt;dataset seriesName=&quot;B&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;245000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;198000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;120000&quot;/&gt;
+&nbsp;&lt;/dataset&gt;<br />
+&nbsp;&lt;dataset seriesName=&quot;C&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;298000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;109300&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;153600&quot;/&gt;
+&nbsp;&lt;/dataset&gt;<br />
+&lt;/chart&gt;</pre></div>
+			<div id="tab2" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Market Share Analysis",
+    "subcaption":"2009",
+    "numberprefix":"$",
+    "xaxisname":"Market Segment",
+    "yaxisname":"Market Share",
+    "legendcaption":"Manufacturer"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Desktop"
+        },
+        {
+          "label":"Laptop"
+        },
+        {
+          "label":"Notebook"
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"A",
+      "data":[{
+          "value":"335000"
+        },
+        {
+          "value":"225100"
+        },
+        {
+          "value":"164200"
+        }
+      ]
+    },
+    {
+      "seriesname":"B",
+      "data":[{
+          "value":"245000"
+        },
+        {
+          "value":"198000"
+        },
+        {
+          "value":"120000"
+        }
+      ]
+    },
+    {
+      "seriesname":"C",
+      "data":[{
+          "value":"298000"
+        },
+        {
+          "value":"109300"
+        },
+        {
+          "value":"153600"
+        }
+      ]
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div>	  
+
+
+</td>
+   </tr>
+   <tr>
+     <td valign="top" class="text"><p>As you can see in the data, actual sales/quantity data has been provided. FusionCharts Marimekko chart automatically converts these values into percent values based on the size of each market segment and the percentage share held by  competitors in each of the segments.</p>
+     <p>The percent share of each manufacturer within a segment can be  seen by hovering over the column - the values are shown as tool-tips, as shown below:</p>
+     <img src="Images/MarimekkoChartToolTip.jpg" alt="Tool-tips in Marimekko chart"/>
+     <p>If you do not wish to show total value of market  segments at the top of each column, you can set:</p>
+     <pre class="prettyprint code_container">&lt;chart showSum='0' ...&gt;</pre>
+     <p>This results in:  </p>
+     <img src="Images/MarimekkoNoSum.jpg" alt="Marimekko Chart - No Sum on top of column" />
+     <p>If you do not want to use percentage distribution within segments and show actual values, you can set:</p>
+       <pre class="prettyprint code_container">&lt;chart ... usePercentDistribution=&quot;0&quot; &gt;</pre>
+     <p>This results in:  </p>
+     <img src="Images/MarimekkoChart1.jpg" alt="Marimekko Chart - Showing actual values, not percent distribution"/>
+     <p>As you can see above, each of the stacked columns is now rendered using actual values, and not % values. So, the height of column can now be used to compare the TAM (Total Available Market) per market segment. The horizontal distribution (column width) is still % based.</p>
+     <p>The chart automatically calculates the horizontal width of  columns by summing up the market share of competitors in each of the market  segments. Following which,  the width of each segment is determined by calculating the ratio of its sum to the total sum. However, if you wish - you can customize the width of the columns  as shown below: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+		<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"><pre class="prettyprint code_container">&lt;chart showvalues=&quot;0&quot; caption=&quot;Market Share Analysis&quot; subcaption=&quot;2009&quot; numberprefix=&quot;$&quot; xaxisname=&quot;Market Segment&quot; yaxisname=&quot;Market Share&quot; legendcaption=&quot;Manufacturer&quot; &gt;
+&nbsp;
+&lt;categories&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Desktop&quot; <strong>widthPercent=&quot;33&quot;</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Laptop&quot; <strong>widthPercent=&quot;33&quot;</strong>/&gt;
+&nbsp;&nbsp;&nbsp;&lt;category label=&quot;Notebook&quot; <strong>widthPercent=&quot;34&quot;</strong>/&gt;
+&nbsp;&lt;/categories&gt;
+
+&nbsp;&lt;dataset seriesName=&quot;A&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;335000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;225100&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;164200&quot;/&gt;
+&nbsp;&lt;/dataset&gt;
+
+&nbsp;&lt;dataset seriesName=&quot;B&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;245000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;198000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;120000&quot;/&gt;
+&nbsp;&lt;/dataset&gt;
+
+&nbsp;&lt;dataset seriesName=&quot;C&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;298000&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;109300&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;set value=&quot;153600&quot;/&gt;
+&nbsp;&lt;/dataset&gt;
+
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "showvalues":"0",
+    "caption":"Market Share Analysis",
+    "subcaption":"2009",
+    "numberprefix":"$",
+    "xaxisname":"Market Segment",
+    "yaxisname":"Market Share",
+    "legendcaption":"Manufacturer"
+  },
+  "categories":[{
+      "category":[{
+          "label":"Desktop",
+         <strong> "widthpercent":"33"</strong>
+        },
+        {
+          "label":"Laptop",
+         <strong> "widthpercent":"33"</strong>
+        },
+        {
+          "label":"Notebook",
+         <strong> "widthpercent":"34"</strong>
+        }
+      ]
+    }
+  ],
+  "dataset":[{
+      "seriesname":"A",
+      "data":[{
+          "value":"335000"
+        },
+        {
+          "value":"225100"
+        },
+        {
+          "value":"164200"
+        }
+      ]
+    },
+    {
+      "seriesname":"B",
+      "data":[{
+          "value":"245000"
+        },
+        {
+          "value":"198000"
+        },
+        {
+          "value":"120000"
+        }
+      ]
+    },
+    {
+      "seriesname":"C",
+      "data":[{
+          "value":"298000"
+        },
+        {
+          "value":"109300"
+        },
+        {
+          "value":"153600"
+        }
+      ]
+    }
+  ]
+}</pre>
+			</div>
+		 </div>
+	  </div><div style="clear:both"></div>	 
+
+</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>This result is:  </p>
+   <img src="Images/MarimekkoChart3.jpg" alt="Marimekko Chart with Custom Width per Stacked Column" />
+    <p>The width of each stacked column  is  defined as per the values provided in the data.</p>
+    <p class="highlightBlock">While setting the width of each segment manually, the values of each category must be specified such that the  sum  of all categories equals  100 percent. If the sum of all categories doesn't equals 100 percent, then the chart will calculate the width of columns based on actual values. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>To remove the percent label on x-axis (between two stacked columns), you can set </p>
+      <pre class="prettyprint code_container">&lt;chart showXAxisPercentValues='0' ...&gt;</pre>
+      <p>This results in:  </p>
+    <img src="Images/MarimekkoChart2.jpg" alt="Marimekko Chart without x-axis % labels" /></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Pareto chart|ParetoChartAttributes.html", "Zoom Line chart|ZoomLine.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

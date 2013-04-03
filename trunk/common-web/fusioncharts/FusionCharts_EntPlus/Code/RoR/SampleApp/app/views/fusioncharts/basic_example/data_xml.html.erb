@@ -1,0 +1,13 @@
+<% @page_title="FusionCharts - Simple Column 3D Chart using dataStr method" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Basic example using dataStr method (with XML data hard-coded in Builder Template itself)" %>
+<% @intro="If you view the source of this page, you'll see that the XML data
+is present in this same page (inside HTML code).  dataStr method is
+ideal when you've to plot small amounts of data." %>
+<%
+      # The xml is obtained as a string from builder template.
+	str_xml = render :file=>"fusioncharts/basic_example/sampledata"
+
+	#Create the chart - Column 3D Chart with data from str_xml variable using dataStr method
+	render_chart '/FusionCharts/Column3D.swf', '', str_xml, 'myNext', 600, 300, false, false do-%>
+<% end -%>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Exporting Charts as PDF or Images - Batch export - Overview</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Exporting as Image/PDF|../ECOverview.html", "Batch exporting", "Overview" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Exporting Charts as PDF or Images &gt; Batch export &gt; Overview</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The batch mode is useful when you've multiple charts on a page and you want to export all of them together by calling a JavaScript API. The exported files for each chart can either be saved individually, or all the exported charts can be saved as a single file. </p>
+    <p>The export process in Batch Mode can be visualized as under: </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><img src="../Images/ECBatchOverview1.gif" width="642" height="433" /></td>
+  </tr>
+  <tr>
+    <td height="25"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Elements involved</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>For enabling export of chart in batch mode, we'll need to assemble the following elements: </p>
+      <ul>
+        <li><strong>The chart itself</strong> embedded using FusionCharts JavaScript class (<span class="codeInline">FusionCharts.js</span>). Here, we assume that you have been able to generate the chart for your page. If not, please refer to the relevant section of our documentation. </li>
+        <li><strong>FusionCharts Export Component </strong>- This is named <span class="codeInline">FCExporter.swf</span> and is present in <span class="codeInline">Download Package &gt; Charts</span>. You'll need to copy-paste this SWF to your server. A good location would be to place this SWF along with your chart SWFs. </li>
+        <li><strong>FusionCharts Export Component JavaScript class</strong> - This JavaScript class is named <span class="codeInline">FusionChartsExportComponent.js</span> and is present in <span class="codeInline">Download Package &gt; Charts</span> folder. Place it where you've placed <span class="codeInline">FusionCharts.js</span> on your web site (though not necessary, but this helps you centralize all FusionCharts related JS files) </li>
+      </ul>
+    <p>So let's quickly get started and setup a simple example that does batch processing. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Client side export - Configuring export dialog|../client-side/ECExportDialog.html","Setting it up|ECBatchSetup.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

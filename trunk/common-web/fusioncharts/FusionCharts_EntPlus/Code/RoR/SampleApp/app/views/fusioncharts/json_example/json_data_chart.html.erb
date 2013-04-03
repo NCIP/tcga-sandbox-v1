@@ -1,0 +1,12 @@
+<% @page_title="FusionCharts - Simple Column 3D Chart using JSON Url method" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Basic example using JSON Url method (with JSON data hard-coded in Data.json file)" %>
+<%
+
+ # The json is obtained as a string from json template.
+	str_json = render :file=>"fusioncharts/json_example/data.json"
+	# replace all newlines
+	str_json = str_json.gsub(/\n/,"")
+	#Create the chart - Column 3D Chart with data from str_json
+	render_chart "/FusionCharts/Column3D.swf", "", str_json, "myFirstJson", 600, 300, false, false, {:data_format=>"json"} do-%> 
+<% end -%>

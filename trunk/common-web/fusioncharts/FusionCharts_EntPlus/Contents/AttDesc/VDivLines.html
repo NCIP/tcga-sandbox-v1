@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XML/JSON Attributes for Vertical Divisional Lines </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html","Quick Chart Configuration|Background.html", "Vertical Div Lines" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">XML/JSON Attributes for Vertical Divisional Lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Vertical divisional lines are vertical lines running through the canvas in a line/area chart. They help in relating the data to its respective label, when there is large   amount of data. </p>
+        <p>You can put vertical div lines in your chart by using the <span class="codeInline">numVDivLines</span> attribute. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container"> &lt;chart numVDivLines='10'&gt;</pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p><img src="Images/vdivline1.jpg" width="145" height="200" class="imageBorder" /></p></td>
+  </tr>
+  
+  <tr>
+    <td valign="top" class="header">Customizing the looks of the vertical divisional lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>You can customize the looks of the vertical divisional lines using the following attributes:</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><table width="98%" border="0" class="table" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="25%" valign="top" class="header">Attribute Name</td>
+        <td width="15%" valign="top" class="header">Range</td>
+        <td width="55%" valign="top" class="header">Description</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="codeInline"> vDivLineColor </td>
+        <td valign="top">&nbsp;</td>
+        <td valign='top'> Color of vertical axis division lines </td>
+      </tr>
+      <tr class='trLightBlueBg'>
+        <td valign="top" class="codeInline"> vDivLineThickness</td>
+        <td valign="top"> In Pixels </td>
+        <td valign='top'> Thickness of vertical axis division lines</td>
+      </tr>
+      <tr class="tableGreyBorder">
+        <td valign="top" class="codeInline">vDivLineAlpha </td>
+        <td valign="top"> 0-100 </td>
+        <td valign='top'> Alpha of vertical axis division lines</td>
+      </tr>
+      
+    </table></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  
+  <tr>
+    <td valign="top" class="header">Dashed divisional lines </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The vertical divisional line can be made dashed using <span class="codeInline">vDivLineIsDashed='1'</span>. </p>
+        <p>The dash properties - dash length and dash gap can be customized using the <span class="codeInline">vDivLineDashLen</span> &amp; <span class="codeInline">vDivLineDashGap</span> attributes respectively. </p>
+        <pre class="prettyprint code_container">&lt;chart numVDivLines='10' <strong>vDivLineIsDashed='1' vDivLineDashLen='2' vDivLineDashGap='2'</strong> ...&gt;</pre>
+        <p>The chart with the above properties would look as under:</p>
+        <img src="Images/vdivline4.jpg" width="145" height="200" class="imageBorder"/></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Alternate Vertical Grid Bands </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The vertical grid bands appear alternately between the vertical divisional lines. They can be displayed by setting <span class="codeInline">showAlternateVGridColor='1'</span>.</p>
+    <pre class="prettyprint code_container">&lt;chart showAlternateVGridColor='1' ...&gt; </pre></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The chart with the alternate vertical grid bands would look as under:</p>
+    <p><img src="Images/vdivline2.jpg" width="145" height="200" class="imageBorder" /></p></td>
+  </tr>
+  <tr>
+    <td valign="top" class="header">Customizing the vertical grid bands </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>The color and alpha of the alternate vertical grid bands can be customized using the <span class="codeInline">alternateVGridColor</span> and <span class="codeInline">alternateVGridAlpha</span> attributes respectively.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><pre class="prettyprint code_container">&lt;chart showAlternateVGridColor='1' alternateVGridColor='D9E5F1' alternateVGridAlpha='100'...&gt; </pre></td>
+  </tr>
+  <tr><td height="25"></td></tr>
+  <tr>
+    <td valign="top" class="header">Using Styles to animate alternate vertical grid bands </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text"><p>Animation effects can be applied to the alternate vertical grid bands using STYLES. The following data would animate the y-Scale and the alpha of the horizontal grid bands.</p> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+	 
+	 
+	<div class="container">
+	    <ul class="tabs">
+   	    <li><a href="#tab9">XML</a></li>
+      	 <li><a href="#tab10">JSON</a></li>
+	    </ul>
+   	 <div class="tab_container">
+    		<div id="tab9" class="tab_content"> <pre class="prettyprint code_container">&lt;chart caption='Quarterly Sales Summary' subcaption='Figures in $' xAxisName='Quarter' yAxisName='Sales' showValues='0' numVDivLines='2' showAlternateVGridColor='1'&gt;
+   &lt;set label='Qtr 1' value='420500' /&gt;
+   &lt;set label='Qtr 2' value='295400' /&gt;
+   &lt;set label='Qtr 3' value='523400' /&gt; 
+   &lt;set label='Qtr 4' value='465400' /&gt; 
+   <strong>&lt;styles&gt;
+      &lt;definition&gt;
+          &lt;style name='myAnim1' type='animation' param='_yScale' start</strong><strong>='0' duration='1'/&gt;
+          &lt;style name='myAnim2' type='animation' param='_alpha' start</strong><strong>='0' duration='1'/&gt;</strong><strong>
+      &lt;/definition&gt;
+      &lt;application&gt;
+           &lt;apply toObject='VGRID' styles='myAnim1, myAnim2' /&gt; </strong><strong>
+      &lt;/application&gt;
+   &lt;/styles&gt;</strong>
+&lt;/chart&gt;</pre></div>
+			<div id="tab10" class="tab_content"><pre class="prettyprint code_container">{
+  "chart":{
+    "caption":"Quarterly Sales Summary",
+    "subcaption":"Figures in $",
+    "xaxisname":"Quarter",
+    "yaxisname":"Sales",
+    "showvalues":"0"
+  },
+  "data":[{
+      "label":"Qtr 1",
+      "value":"420500"
+    },
+    {
+      "label":"Qtr 2",
+      "value":"295400"
+    },
+    {
+      "label":"Qtr 3",
+      "value":"523400"
+    },
+    {
+      "label":"Qtr 4",
+      "value":"465400"
+    }
+  ],
+  "trendlines":[{
+      "line":[{
+          "startvalue":"430000",
+          "endvalue":"450000",
+          "color":"009933",
+          "istrendzone":"1",
+          "displayvalue":"Target"
+        }
+      ]
+    }
+  ]
+}</pre></div>
+		 </div>
+	  </div><div style="clear:both"></div> 
+	 
+ </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Div lines &amp; Grids|DivLines.html", "Zero Plane|ZeroPlane.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

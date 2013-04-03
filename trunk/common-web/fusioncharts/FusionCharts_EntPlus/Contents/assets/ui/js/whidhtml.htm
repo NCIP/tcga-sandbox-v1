@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+<title>Index</title>
+
+
+</head>
+<script language="javascript" src="whver.js"></script>
+<script language="javascript1.2" src="whproxy.js"></script>
+<script language="javascript1.2" src="whmsg.js"></script>
+<script language="javascript1.2">
+<!--
+var gbIndexLayerInit = false;
+if (window.gbWhProxy&&window.gbWhMsg&&window.gbWhVer)
+{
+	var strWrite;
+	strWrite="<FRAMESET ROWS='65,100%' framespacing=0  frameborder=0>";
+	strWrite +="<FRAME SRC='whiform.htm' title='index form frame' name='idxform' noresize='yes' scrolling='no'>";
+	strWrite +="<FRAME SRC='whibody.htm' title='index content frame' name='idxbody' scrolling='auto'>";
+	strWrite +="</FRAMESET>";
+	document.write(strWrite);
+}
+else
+	document.location.reload();
+//-->
+</script>
+</html>

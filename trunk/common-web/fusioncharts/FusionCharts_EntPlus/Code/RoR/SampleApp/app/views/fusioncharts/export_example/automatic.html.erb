@@ -1,0 +1,31 @@
+<%
+#Automatically starts the export of the chart once it is rendered.
+#The export is initiated in javascript. So, we have to turn registerWithJS parameter to true.
+#Once the chart is rendered, FC_Rendered(DOMId) is invoked.
+#Within this function we call the exportChart function of the chart object.
+#A handle to the chart object can be obtained using FusionCharts(DOMId)
+#Since we have used DownloadData.xml for the data here, the browser will prompt for download.
+#If we use SaveData.xml, the chart will get saved to jpg format in the sever side directory.
+%>
+<% @page_title="Export example - Automatic export chart and download the exported file" %>
+<% @page_heading="FusionCharts RoR Samples" %>
+<% @page_subheading="Export example - Automatic export chart and download the exported file" %>
+<% @intro="The chart will automatically export itself after it finishes rendering. The export format is presently set as JPG which you can always change via JavaScript."%>
+<script type="text/javascript">
+		
+		function FC_Rendered ( DOMId )
+			{
+					if ( FusionCharts(DOMId).exportChart )
+					{
+						// you can change the value of exportFormat to 'PNG' or 'PDF'
+						FusionCharts(DOMId).exportChart( { "exportFormat" : 'JPG' } );
+					}
+			}
+			
+</script>
+
+<%
+	#Create the chart - Column 3D Chart with data from /Data/DownloadData.xml
+	render_chart "/FusionCharts/Column3D.swf", "/Data/DownloadData.xml", "", "myFirstExport", 600, 300, false, true do-%> 
+<% end -%>
+

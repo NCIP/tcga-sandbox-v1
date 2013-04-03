@@ -1,0 +1,20 @@
+<html>
+  <head>        
+    <title>My First chart using FusionCharts 
+          - Using dynamically re sizable chart</title>
+    <script type="text/javascript" src="../../Charts/FusionCharts.js"></script>   
+  </head>   
+  <body style="height:100%;"> 
+    <div id="chartContainer" style="height:100%;" >
+        FusionCharts will load here</div>          
+     <script type="text/javascript" src="LargeData.xml.js"></script>           
+    <script type="text/javascript"><!--                   
+                        
+      var myChart = new FusionCharts("../../Charts/Area2D.swf", 
+          "myChartId", "100%", "100%", "0", "0");       
+      myChart.setXMLData( largeData );         
+      myChart.render("chartContainer");                   
+      // -->     
+    </script>
+  </body> 
+</html>

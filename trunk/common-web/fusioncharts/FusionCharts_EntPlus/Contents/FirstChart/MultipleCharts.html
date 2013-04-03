@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Embedding multiple charts in a page </title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "Creating your first chart|FirstChart.html", "Creating multiple charts in a page" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Embedding multiple charts in a page </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>You  can easily embed any number of charts in a single HTML page (or web page). You can even combine charts from <a href="http://www.fusioncharts.com" target="_blank">FusionCharts</a> and <a href="http://www.fusioncharts.com/PowerCharts" target="_blank">PowerCharts</a>, maps from <a href="http://www.fusioncharts.com/maps" target="_blank">FusionMaps</a>, and gauges from <a href="http://www.fusioncharts.com/widgets" target="_blank">FusionWidgets</a> in the same page.       </p>
+       <p>In this example, we'll  add 3 charts and a grid component to a page. Three charts  showing weekly sales for months -January (Column2D), February (Column2D)  March (Pie3D), and an additional  Grid component showing weekly sales for January. The page will look like the image below: </p>
+       <p><img src="Images/Multiple-charts.jpg"  class="imageBorder" /> </p>
+       <p class="highlightBlock">Code examples and data files discussed in this section are present in <span class="codeInline">Download Package &gt; Code &gt; MyFirstChart</span> folder. We have used multiple XML files for this sample which are also present in the same folder. </p>
+       <p>The process of embedding multiple charts is similar to that of embedding a single chart. You just need to take care of the following:</p>
+    <ul>
+      <li>Each  chart on the page should have a unique DOM-Id (which is specified in the JavaScript  constructor).</li>
+        <li>Each chart       should be denoted by a unique JavaScript variable name (e.g., <span class="codeInline">var chart1 = new FusionCharts (...); var chart2 = new       FusionCharts(...); ).</span></li>
+      <li>Each  chart should be rendered in separate HTML container (DIV, SPAN etc), each container having unique id. The  chart embedding code must contain a reference to the ID of the container where the  chart is to be rendered ( <span class="codeInline">render(&quot;chart1div&quot;) ; .. render(&quot;chart2Div&quot;);</span> ). </li>
+    </ul><br />
+    The following sample code embeds three charts into a single HTML page (<span class="codeInline">weekly-sales-multiple-charts.html</span>) :
+    <br />
+    <br /></td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First chart using FusionCharts - multiple charts&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;span id=&quot;chartContainerJan&quot;&gt;January Column 2D Chart will load here&lt;/span&gt;
+    &lt;span id=&quot;chartContainerFeb&quot;&gt;February Column 2D Chart will load her&lt;/span&gt;
+    &lt;span id=&quot;chartContainerMarch&quot;&gt;March Pie Chart will load here&lt;/span&gt;
+    &lt;div id=&quot;gridContainerJan&quot;&gt;January Grid will load here&lt;/span&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+      var JanChart = new FusionCharts(&quot;FusionCharts/Column2D.swf&quot;, &quot;JanChartId&quot;,
+        &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      JanChart.setXMLUrl(&quot;Data-Jan.xml&quot;);
+      JanChart.render(&quot;chartContainerJan&quot;);
+
+      var JanGrid = new FusionCharts(&quot;FusionCharts/SSGrid.swf&quot;, &quot;JanGridId&quot;, 
+        &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      JanGrid.setXMLUrl(&quot;Data-Jan.xml&quot;);
+      JanGrid.render(&quot;gridContainerJan&quot;);
+
+      var FebChart = new FusionCharts(&quot;FusionCharts/Column2D.swf&quot;, &quot;FebChartId&quot;, 
+        &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      FebChart.setXMLUrl(&quot;Data-Feb.xml&quot;);
+      FebChart.render(&quot;chartContainerFeb&quot;);
+
+      var MarChart = new FusionCharts(&quot;FusionCharts/Pie3D.swf&quot;, &quot;MarChartId&quot;,
+        &quot;400&quot;, &quot;300&quot;, &quot;0&quot;, &quot;1&quot;);
+      MarChart.setXMLUrl(&quot;Data-Mar.xml&quot;);
+      MarChart.render(&quot;chartContainerMarch&quot;);		
+
+    // --&gt;
+    &lt;/script&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+       <br />
+    See it <a href="../../Code/MyFirstChart/weekly-sales-multiple-charts.html" target="_blank">live</a>!</td>
+  </tr>
+  <tr>
+    <td valign="top" class="text">
+       <p>In the above code we've embedded four charts  in a single page - two 2D column   charts,  a 3D pie  chart and a Grid component. Each having  unique DOMIds - <span class="codeInline">JanChartId, JanGridId, FebChartId and MarChartId</span>. Each FusionCharts JavaScript object has a unique name - <span class="codeInline">JanChart, JanGrid, FebChart</span><span class="text"> and </span><span class="codeInline">MarChart</span>. There are four HTML containers (three SPAN elements and one DIV element) where each of the four charts are rendered. Each element also has unique id - <span class="codeInline">chartContainerJan, chartContainerFeb, chartContainerMarch</span> and <span class="codeInline">gridContainerJan</span>.</p>
+       <div class="highlightBlock"><strong>What happens if Flash player is not available?</strong><br />
+           <br/>
+         In case Flash Player is not available on certain devices (like iPad/iPhone), FusionCharts JavaScript library automatically renders the same chart using JavaScript. If you are running the sample from local file system, please note that you would need to provide the data using <a href="../guide-for-web-developers/how-fusioncharts-works/DataXMLExp.html">Data String method</a>, i.e., passing the data (XML/JSON) to the chart as String or JSON Object. Many browsers restrict JavaScript from accessing local file system owing   to security reasons. In the above example, since you had provided data   as a URL, the JavaScript charts would not be able to access the same,   when running locally. If you run the files from a server, it will run   absolutely fine, though. When running locally, however, if you provide   the data as string (using the <a href="DataXML.html">Data String method</a>), it works fine.<br />
+         <br />
+         
+		 <span class="msg_handler_slider"><a href="#">Click here to view the above code snippet modified to use Data String method</a> &raquo; </span>
+		 <div class="msg_body">
+	  <pre class="code_container prettyprint lang-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First chart using FusionCharts - multiple charts&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;FusionCharts/FusionCharts.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;span id=&quot;chartContainerJan&quot;&gt;January Column 2D Chart will load here&lt;/span&gt;
+    &lt;span id=&quot;chartContainerFeb&quot;&gt;February Column 2D Chart will load her&lt;/span&gt;
+    &lt;span id=&quot;chartContainerMarch&quot;&gt;March Pie Chart will load here&lt;/span&gt;
+    &lt;div id=&quot;gridContainerJan&quot;&gt;January Grid will load here&lt;/span&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+
+		var JanChart = new FusionCharts("../../Charts/Column2D.swf", "JanChartId", "400", "300", "0", "1");
+		JanChart.setXMLData('&lt;chart caption="Sales Summary" subCaption="January" xAxisName="Week" yAxisName="Sales" numberPrefix="$" useRoundEdges="1"&gt;&lt;set label="Week 1" value="24400" /&gt;&lt;set label="Week 2" value="29600" /&gt;&lt;set label="Week 3" value="34000" /&gt;&lt;set label="Week 4" value="45700" /&gt;&lt;/chart&gt;');
+		
+		JanChart.render("chartContainerJan");
+		
+		var JanGrid = new FusionCharts("../../Charts/SSGrid.swf", "JanGridId", "400", "300", "0", "1");
+		JanGrid.setXMLData('&lt;chart caption="Sales Summary" subCaption="January" xAxisName="Week" yAxisName="Sales" numberPrefix="$" useRoundEdges="1"&gt;&lt;set label="Week 1" value="24400" /&gt;&lt;set label="Week 2" value="29600" /&gt;&lt;set label="Week 3" value="34000" /&gt;&lt;set label="Week 4" value="45700" /&gt;&lt;/chart&gt;');
+		
+		JanGrid.render("gridContainerJan");
+		
+		var FebChart = new FusionCharts("../../Charts/Column2D.swf", "FebChartId", "400", "300", "0", "1");
+		FebChart.setXMLData('&lt;chart caption="Sales Summary"  subCaption="February" xAxisName="Week" yAxisName="Sales" numberPrefix="$" useRoundEdges="1"&gt;&lt;set label="Week 1" value="41400" /&gt;&lt;set label="Week 2" value="91600" /&gt;&lt;set label="Week 3" value="42000" /&gt;&lt;set label="Week 4" value="51700" /&gt;&lt;/chart&gt;');
+		
+		FebChart.render("chartContainerFeb");
+		
+		var MarChart = new FusionCharts("../../Charts/Pie3D.swf", "MarChartId", "400", "300", "0", "1");
+		MarChart.setXMLData('&lt;chart caption="Sales Summary" subCaption="March" xAxisName="Week" yAxisName="Sales" numberPrefix="$" useRoundEdges="1"&gt;&lt;set label="Week 1" value="41400" /&gt;&lt;set label="Week 2" value="61900" /&gt;&lt;set label="Week 3" value="32400" /&gt;&lt;set label="Week 4" value="71500" /&gt;&lt;/chart&gt;');
+		
+		MarChart.render("chartContainerMarch");
+
+    // --&gt;
+    &lt;/script&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+	  <br />
+	  See it <a href="../../Code/MyFirstChart/weekly-sales-multiple-charts-dataxml.html" target="_blank">live</a>!
+	  </div>
+	  </div>
+       <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Creating Scatter and Bubble charts|ScatterandBubbleChart.html","Creating chart using data from Forms|UsingDataForm.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

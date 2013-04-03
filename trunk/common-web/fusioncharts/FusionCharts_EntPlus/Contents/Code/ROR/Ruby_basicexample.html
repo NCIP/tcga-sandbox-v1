@@ -1,0 +1,669 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Using FusionCharts with ROR - Basic Examples </title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html", "Guide for web developers", "Using with Ruby on Rails" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Using FusionCharts with ROR - Basic Examples </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>FusionCharts can effectively be used with Ruby to plot dynamic data-driven charts. In this set of examples, we'll show a few basic examples to help you get started.</p>
+      <p>We'll cover the following examples here:</p>
+    <ol>
+      <li><a href="#jsxmlurl">Use FusionCharts in Ruby with a pre-built Data.xml (which contains data to plot)</a></li>
+      <li><a href="#jsxml">Change the above chart into a single page chart using dataStr method.</a></li>
+	  <li><a href="#htmlxml">Use HTML Embedding method to render the chart</a></li>
+	  <li><a href="#yml">Configure the chart using YML configuration file.</a></li>
+      <li><a href="#js">Create pure JavaScript charts</a></li>
+      <li><a href="#json">Use JSON data  to create chart</a></li>
+      <li><a href="#multiple">Create multiple charts in a single page</a></li>
+      <li><a href="#transparent">Create transparent chart</a></li>
+      <li><a href="#managedprint">Set managed printing for Mozilla browsers</a></li>
+      </ol>
+    <p>Let's quickly see each of them. </p>
+     <p class="highlightBlock">Before you proceed with the contents in this page, we strictly recommend you to please go through the section <a href="../../guide-for-web-developers/how-fusioncharts-works/HowFCWorks.html">How FusionCharts works?</a></p>
+    <p class="highlightBlock">All code discussed here is present in <br>      <span class="codeInline">Controller : <br>
+        Download Package >Code >RoR  &gt;SampleApp >app >fusioncharts &gt; controllers >basic_example_controller.rb</span>. <br> 
+    <span class="codeInline">View : Download Package > Code > RoR  &gt; SampleApp > app > views > fusioncharts    &gt;  basic_example</span> folder.<br>
+    <span class="codeInline">View Helper Modules: Download Package > Code > RoR &gt; SampleApp > lib &gt; fusion_charts_helper.rb <br>
+    YML Configuration File: Download Package > Code > RoR > SampleApp &gt; public &gt; Data &gt; chart_options.yml</span></p>
+    <p>All the charts can be accessed from the index controller in this manner: http://&lt;ipaddress:port&gt;/fusioncharts/index </p>
+      <p class="header">Setting up the charts for use </p>
+        In our code, we've used the charts contained in <span class="codeInline">Download Package > Code &gt;  RoR > public >FusionCharts</span> folder. When you run your samples, you need to make sure that the SWF files are in proper location. Also the <span class="codeInline">Data.xml</span> file used in simple_chart action is present in the <span class="codeInline">Download Package &gt; Code > RoR > public > Data </span>folder.<br>
+        <p class="header"><a name="jsxmlurl" id="jsxmlurl"></a>Plotting a chart from data contained in <span class="codeInline">Data.xml</span> </p>
+      <p class="text">Let's now start building our first example. In this example, we'll create a &quot;Monthly Unit Sales&quot; chart using dataUrl method. For a start, we'll hard code our XML data in a physical XML document <span class="codeInline">Data.xml</span> and then utilize it for our chart.</p>
+      <p class="text">Let's first have a look at the XML Data document:</p>
+ <pre class="code_container prettyprint">
+  &lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' 
+  showValues='0' formatNumberScale='0' showBorder='1'&gt;
+    &lt;set label='Jan' value='462' /&gt;
+    &lt;set label='Feb' value='857' /&gt;
+    &lt;set label='Mar' value='671' /&gt;
+    &lt;set label='Apr' value='494' /&gt;
+    &lt;set label='May' value='761' /&gt;
+    &lt;set label='Jun' value='960' /&gt;
+    &lt;set label='Jul' value='629' /&gt;
+    &lt;set label='Aug' value='622' /&gt;
+    &lt;set label='Sep' value='376' /&gt;
+    &lt;set label='Oct' value='494' /&gt;
+    &lt;set label='Nov' value='761' /&gt;
+    &lt;set label='Dec' value='960' /&gt;
+  &lt;/chart&gt;
+</pre><p>This XML is stored as <span class="codeInline">Data.xml</span> 
+  in <span class="codeInline">Data </span>folder under<span class="codeInline"> public</span> folder. It basically contains the data to create a single series chart to show &quot;Monthly Unit Sales&quot;. We'll plot this on a Column 3D Chart. Let's see how to do that. </p>
+ <p>To plot a chart that consumes this data, you need to include the HTML/javascript code to embed a Flash object and then provide the requisite parameters. To make things simpler for you, we've put all this functionality in a function named as <span class="codeInline">render_chart</span>. This function is present in the fusion_charts_helper.rb file in the lib folder and is accessible to all views by including it in the application_helper.rb as shown: 
+ <pre class="code_container prettyprint">  include FusionChartsHelper</pre>
+ <p>We will define a function called simple_chart in the controller. The view used for this controller is the<span class="codeInline"> simple_chart.html.erb</span> file. We will use a layout to contain all the common elements of the HTML.erb files that we will be using and put only the specific elements or ruby code in individual templates.</p>
+      <p>Let's see it in an example:</p> 
+      <pre class="code_container prettyprint"><b>Controller: <b>Fusioncharts::BasicExampleController</b>
+Action: simple_chart
+    </b>class Fusioncharts::BasicExampleController &lt; ApplicationController
+        <span class="codeComment">#This is the layout which all functions in this controller make use of.</span>
+        layout &quot;common&quot;
+        #Here, we've used a pre-defined Data.xml (contained in /Data/ folder)
+        #Ideally, you would NOT use a physical data file. Instead you'll have 
+        #your own code virtually relay the XML data document. Such examples are also present.
+        #For a head-start, we've kept this example very simple. 
+        #This function uses the dataUrl method of FusionCharts. 
+        #A view with the same name simple_chart.html.erb is present 
+        #and it is this view, which gets shown along with the layout &quot;common&quot;.
+        #render_chart function from the helper is invoked to render the chart.
+        #The action itself has no code, all the work is done in the builder and the view.
+        def simple_chart
+        end
+     . . . <font color="blue">
+    end
+</font><b>View: </b>
+    &lt;% @page_title=&quot;FusionCharts - Simple Column 3D Chart&quot; %&gt;
+    &lt;% @page_heading=&quot;FusionCharts Examples&quot; %&gt;
+    &lt;% @page_subheading=&quot;Basic example using pre-built Data.xml&quot; %&gt;
+    &lt;% #Create the chart - Column 3D Chart with data from /Data/Data.xml
+	  render_chart &quot;/FusionCharts/Column3D.swf&quot;, &quot;/Data/Data.xml&quot;, &quot;&quot;, &quot;myFirst&quot;, 600, 300, false, false do-%&gt; 
+    &lt;% end -%&gt;</pre>
+<p><span class="codeInline">simple_chart</span> action of the controller will render the view <span class="codeInline">simple_chart.html.erb</span>. In this view, we call the<span class="codeInline"> render_chart</span> function present in the <span class="codeInline">fusion_charts_helper.rb</span>, using the dataUrl method by passing the second parameter as the path to the xml file. </p>
+      <p class="text">We will not go into the details of the code present in <span class="codeInline">render_chart</span> function of <span class="codeInline">FusionChartsHelper.</span></p>
+      <p>The actions in this controller use a layout named &quot;common&quot;. This file <span class="codeInline">common.html.erb</span> is present in the views/layouts folder. We will see the details of this layout in a minute.<br>
+            As seen  above, we have not written any code in the  action simple_chart - the action is just defined empty. Rails by default, renders a template by the same name. (In this case, <span class="codeInline">simple_chart.html.erb</span>) <br>
+            In the <span class="codeInline">simple_chart.html.erb</span> template, we have assigned values for page_title, page_heading and page_subheading variables which will be used in the &quot;common&quot; layout.</p>      <p>All the actions in this controller use the &quot;common&quot; layout. </p>
+      <p class="header">Common layout used for all the examples </p>
+This is the layout used by most templates in our application. Here we place all the common elements of the page, so that, in each template., only the specifics can be dealt with. Here is how it looks: 
+<pre class="code_container prettyprint">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;title&gt;&lt;%= @page_title %&gt;&lt;/title&gt;
+        &lt;%= stylesheet_link_tag &quot;style&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;jquery-1.4.2.min&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;lib&quot; %&gt;
+        &lt;%= javascript_include_tag &quot;DD_belatedPNG_0.0.8a-min&quot; %&gt;
+        &lt;!--[if IE 6]&gt;
+        &lt;script&gt;
+          /* select the element name, css selector, background etc */
+              DD_belatedPNG.fix('img');
+          /* string argument can be any CSS selector */
+        &lt;/script&gt;
+        &lt;![endif]--&gt;
+         &lt;style type=&quot;text/css&quot;&gt;
+            h2.headline {
+              font: normal 110%/137.5% &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+              padding: 0;
+              margin: 25px 0 25px 0;
+              color: #7d7c8b;
+              text-align: center;
+            }
+            p.small {
+              font: normal 68.75%/150% Verdana, Geneva, sans-serif;
+                  color: #919191;
+                  padding: 0;
+                  margin: 0 auto;
+                  width: 664px;
+                  text-align: center;
+                }
+          &lt;/style&gt;
+          <span class="codeComment">&lt;%
+              #You need to include the following JS files, 
+              #if you intend to embed the chart using JavaScript.
+              #When you make your own charts, make sure that the path to this 
+              #JS file is correct. Else, you would get JavaScript errors.
+          %&gt;</span>
+          &lt;%= javascript_include_tag &quot;FusionCharts&quot; %&gt;
+     &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;wrapper&quot;&gt;
+        &lt;div id=&quot;header&quot;&gt;
+          &lt;div class=&quot;back-to-home&quot;&gt;&lt;%= link_to 'Back to home', :controller=&gt;'fusioncharts/index'%&gt;&lt;/div&gt;
+          &lt;div class=&quot;logo&quot;&gt;
+            &lt;a href=&quot;http://www.fusioncharts.com&quot;&gt;&lt;%= image_tag &quot;fusionchartsv3.2-logo.png&quot;, 
+            :width=&gt;&quot;131&quot;, :height=&gt;&quot;75&quot;, :alt=&gt;&quot;FusionCharts v3.2 logo&quot; %&gt;&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;h1 class=&quot;brand-name&quot;&gt;FusionCharts&lt;/h1&gt;
+          &lt;h1 class=&quot;logo-text&quot;&gt;&lt;%= @page_heading %&gt;&lt;/h1&gt;
+        &lt;/div&gt;
+      &lt;div class=&quot;content-area&quot;&gt;
+        &lt;div id=&quot;content-area-inner-main&quot;&gt;
+        &lt;h2 class=&quot;headline&quot;&gt;&lt;%= @page_subheading %&gt;&lt;/h2&gt;
+        &lt;div class=&quot;gen-chart-render&quot;&gt;
+          &lt;%= yield %&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+        &lt;p&gt;&amp;nbsp;&lt;/p&gt;
+        &lt;p class=&quot;small&quot;&gt;&lt;%= @intro %&gt;
+        &lt;!--&lt;p class=&quot;small&quot;&gt;This dashboard was created using FusionCharts v3, 
+        FusionWidgets v3 and FusionMaps v3 You are free to reproduce and distribute this dashboard 
+        in its original form, without changing any content, whatsoever. &lt;br /&gt;
+        &amp;copy; All Rights Reserved&lt;/p&gt;
+        &lt;p&gt;&amp;nbsp;&lt;/p&gt;--&gt;
+        &lt;/p&gt;
+        &lt;div class=&quot;underline-dull&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;%= link_to '&amp;laquo; Back to list of examples', :controller=&gt;'fusioncharts/index'%&gt;&lt;/li&gt;
+        &lt;li class=&quot;pipe&quot;&gt;|&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/NoChart.html&quot;&gt;&lt;span&gt;Unable to see the chart above?&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<p> As you would notice, this layout contains all the common elements of the page like &lt;html&gt; ,&lt;head&gt;,&lt;body&gt;. Note that the included javascript file (<span class="codeInline">FusionCharts.js</span>) will not be used by basic_chart and basic_data_xml views of the controller Fusioncharts::BasicExampleController but all other views that use this layout will use this javascript. Hence it has been included here. </p>
+<p> This layout, gets the page title from a variable <span class="codeInline">@page_title</span> and puts it within the &lt;title&gt; &lt;/title&gt; tags. Similarly, inside the body tag, it renders the values of <span class="codeInline">@page_heading</span> and <span class="codeInline">@page_subheading. </span>These values might differ from one template to the other and hence, each template needs to assign values to these variables, as seen in the view for simple_chart action.</p>
+<p> At the bottom, there is a link to <span class="codeInline">&quot;/NoChart.html&quot; </span>which would display information to the user, in case he/she is unable to view the chart. The &lt;%=yield%&gt; inside the body ensures that any content in our specific template are included before rendering the page.</p>
+<p class="header"><a name="renderchartparams" id="renderchartparams"></a>render_chart function </p>
+      <p class="text">The <span class="codeInline">render_chart</span> function takes the following parameters:</p>
+      <table width="95%" border="0" cellpadding="2" cellspacing="0" class="table">
+          <tr>
+              <td width="24%" valign="top" class="header">Parameter</td>
+              <td width="76%" valign="top" class="header">Description</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">chart_swf</td>
+              <td valign="top" class="text">SWF File Name (and Path) of the chart which you intend to plot. Here, we are plotting a Column 3D chart. So, we've specified it as <span class="codeInline">/FusionCharts/Column3D.swf</span></td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">str_url</td>
+              <td valign="top" class="text">If you intend to use <span class="codeInline">dataURL</span> method for the chart, pass the URL as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">dataStr</span> method). In this case, we're using <span class="codeInline">Data.xml</span> file, so we specify <span class="codeInline">Data/Data.xml</span></td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">str_data</td>
+              <td valign="top" class="text">If you intend to use dataStr method for this chart, pass the XML data as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">dataURL</span> method). Since we're using <span class="codeInline">dataURL</span> method, we specify this parameter as &quot;&quot;.</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">chart_id</td>
+              <td valign="top" class="text"> Id for the chart, using which it will be recognized in the HTML page. <strong> Each chart on the page needs to have a unique Id.</strong></td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">chart_width</td>
+              <td valign="top" class="text">Intended width for the chart (in pixels)</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">chart_height</td>
+              <td valign="top" class="text">Intended height for the chart (in pixels)</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">debug_mode</td>
+              <td valign="top" class="text">Whether to start the chart in debug mode. Please see Debugging your Chart Section for more details on Debug Mode. </td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">register_with_js</td>
+              <td valign="top" class="text"> Whether to register the chart with JavaScript. Please see FusionCharts and JavaScript section for more details on this. </td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">options</td>
+              <td valign="top" class="text">Hash containing other parameters to the function ( explained below) </td>
+          </tr>
+      </table>
+      <p> The options hash can contain the following elements:</p>
+      <table width="95%" border="0" cellpadding="2" cellspacing="0" class="table">
+          <tr>
+              <td width="3%" valign="top" class="header">Parameter</td>
+              <td width="97%" valign="top" class="header">Description</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">renderer</td>
+              <td valign="top" class="text">The renderer for this chart. Can take values &quot;flash&quot; or &quot;javascript&quot; . </td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">data_format</td>
+              <td valign="top" class="text">The format of the given data. Currently, it can take values &quot;xml&quot;,&quot;xmlurl&quot;,&quot;json&quot; and &quot;jsonurl&quot;. If no value is provided for this option, then if str_url parameter is passed the value for this would be taken as &quot;xmlurl&quot; and if str_data parameter has a value then data_format would be taken as &quot;xml&quot;. </td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">w_mode</td>
+              <td valign="top" class="text">&quot;window&quot; (default) - here the chart /Flash Player acts as a separate window always lying above the HTML elements.So the HTML elements like HTML menu are always below the charts ; &quot;opaque&quot; - mode where chart unlike &quot;window&quot; mode stay integrated with HTML elements - here DHTML elements can come over the chart ; &quot;transparent&quot; - almost like OPAQUE mode - but with more feature that can turn a chart background transparent/translucent (if bgAlpha is set accordingly) so that the color/HTML elements below the chart (which are part of HTML and not chart) become visible.</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">color</td>
+              <td valign="top" class="text">Background color of the Flash movie (here chart) which comes below the chart and is visible if chart's background color is set to transparent or translucent using bgAlpha, it also comes as background color of the preloader state like when messages like &quot;Loading chart&quot;, &quot;retrieving data&quot; &quot;No data to display&quot; etc. are shown - format - Hexcoded #RRGGBB color e.g. &quot;#ff0000&quot;</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">scale_mode</td>
+              <td valign="top" class="text">&quot;noScale&quot; - recommended/default, <br />
+&quot;exactFit&quot; - scales the chart to fit the container exactly with width and height (causes distortion in some cases), <br />
+&quot;noBorder&quot; - constrained scale. (not recommended at all), <br />
+&quot;showAll&quot; - (not recommended)</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">lang</td>
+              <td valign="top" class="text">Language. Currently, it only takes value &quot;EN&quot; for english</td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">detect_flash_version</td>
+              <td valign="top" class="text">If set on, the user would be redirected to Adobe site if Flash player 8 is not installed. </td>
+          </tr>
+          <tr>
+              <td valign="top" class="codeInline">auto_install_redirect</td>
+              <td valign="top" class="text">Checks the Flash Player version and if version is less than 8 and autoInstallRedirect is set on then asks the user to install Flash Player from Adobe site</td>
+          </tr>
+      </table>      
+      <p>To view this page, you would open the browser and point to the <span class="codeInline">simple_chart</span> action of the <span class="codeInline">basic_example</span> controller present in the <span class="codeInline">Fusioncharts</span> folder. Suppose the host is <span class="codeInline">localhost</span> and port is <span class="codeInline">3000</span>, then the address to be typed would be: <span class="codeInline">http://localhost:3000/Fusioncharts/basic_example/simple_chart.</span> Or, from the index page as <span class="codeInline">http://localhost:3000/Fusioncharts/index</span></p>
+      <p>The chart you see will be like the one shown below:</p>
+      <p> <img src="../../guide-for-web-developers/Images/Code_BasicChart.jpg" width="591" height="292" class="imageBorder" /></p>
+              <p class="highlightBlock">If you do not see a chart like the one above, 
+		please follow the steps listed in		<span class="codeInline">Debugging your Charts &gt; Basic Troubleshooting</span> 
+	  section of this documentation.	  </p>      
+      <p> Well, that was simple! Creating chart in Ruby on Rails using FusionCharts is fun and easy. FusionCharts allows the user to provide the xml in two ways. They are <span class="codeInline">dataUrl</span> and <span class="codeInline">dataStr</span> .The simple_chart uses the <span class="codeInline">dataUrl</span> method. Let's now convert the above chart to use <span class="codeInline">dataStr</span> method. </p>
+      <div class="highlightBlock">
+		 <span><strong>Advanced note :</strong> Apart from <span class="codeInline">render_chart </span>function, <span class="codeInline">FusionChartsHelper</span> provides a number of functions to ease your implementation.</span> <span class="msg_handler_open_slider"><a>Click here to collapse and expand</a>  &laquo; </span>
+		  <div class="msg_body_open" style="overflow:auto;margin-left:10px;">
+		     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table" bgcolor="#fdfdfd">
+              <tr>
+                 <td width="200" class="header">Function</td>
+                 <td width="200" class="header">Parameter</td>
+                 <td  class="header">What it does? </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">render_chart</td>
+                 <td><a href="#renderchartparams">see above</a>  </td>
+                 <td>Returns HTML+JavaScript that renders a chart as string. You need to print the string. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">render_chart_html</td>
+                 <td><a href="#renderchartparams">see above</a></td>
+                 <td>Returns HTML that renders a chart as string. You need to print the string. This function is deprecated. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">enable_FC_print_manager_js</td>
+                 <td>&quot;xml&quot; or &quot;json&quot; </td>
+                 <td>This function helps you set <a href="../../JavaScript/JS_PrintManager.html">managed print</a> feature of FusionCharts for Mozilla- browsers. It returns a <span class="codeInline">&lt;script&gt; </span>tag . You need to print the string in your page.</td>
+              </tr>
+              <tr>
+                 <td class="codeInline">get_UTF8_BOM</td>
+                 <td>Nil</td>
+                 <td>Returns the BOM as a string. This can be used when generating xml containing UTF-8 characters. </td>
+              </tr>
+              <tr>
+                 <td class="codeInline">add_cache_to_data_url</td>
+                 <td>str_data_url : the URL to which the timestamp needs to be appended. </td>
+                 <td>This function can be used when time needs to be added to the Url.</td>
+              </tr>
+           </table>
+		  </div>
+		 </div>
+       <p class="header"><a name="jsxml" id="jsxml"></a>Changing the above chart into a chart using Data String method</p>
+       <p class="text">To convert this chart to use data string (dataStr) method, we create another action. Here is the controller and view code:</p>
+       <pre class="code_container prettyprint"><b>Controller: Fusioncharts::BasicExampleController
+Action: data_xml</b>
+      <span class="codeComment">#A Builder Template is used to build the XML data which is hard-coded.
+      #Ideally, you would generate XML data documents 
+      #in the builder at run-time, 
+      #after interfacing with forms or databases etc. 
+      #Such examples are also present.
+      #We set the content-type header to text/html. 
+      #render_chart function from the helper is invoked to render the chart.
+      #The action itself has no code, 
+      #all the work is done in the builder and the view. </span>
+      def data_xml
+       response.content_type = Mime::HTML
+      end
+<b>View:</b>
+      &lt;% @page_title=&quot;FusionCharts - Simple Column 3D 
+      Chart using dataStr method&quot; %&gt;
+      &lt;% @page_heading=&quot;FusionCharts Examples&quot; %&gt;
+      &lt;% @page_subheading=&quot;Basic example using dataStr method 
+      (with XML data hard-coded in Builder Template itself)&quot; %&gt;
+      &lt;p&gt;If you view the source of this page, you'll see that the XML data
+      is present in this same page (inside HTML code). dataStr method is
+      ideal when you've to plot small amounts of data.&lt;/p&gt;
+      &lt;%
+        <span class="codeComment"># The xml is obtained as a string from builder template.</span>
+        str_xml = render :file=&gt;&quot;fusioncharts/basic_example/sampledata&quot;
+        <span class="codeComment">#Create the chart - Column 3D Chart with data from str_xml variable 
+        #using dataStr method</span>
+        render_chart '/FusionCharts/Column3D.swf', '', str_xml, 'myNext', 
+        600, 300, false, false do-%&gt;
+      &lt;% end -%&gt;
+</pre>       
+       <p class="text">In this view, we obtain the xml from the builder file <span class="text">fusioncharts/basic_example/sampledata and store it in <span class="codeInline">str_xml</span>. </span></p>
+       <p class="text">We call render_chart function to render a Column3D chart (swf present in the public/FusionCharts folder), using the <span class="codeInline">dataStr</span> method by setting the value of <span class="codeInline">str_xml</span> in the third parameter. </p>       <p>Let us now take a look at the builder template.</p>
+       <pre class="code_container prettyprint"> <span class="codeComment">   #Creates xml with values for monthly sales data 
+    #The values required for building the xml are hard-coded in this file</span>
+    xml = Builder::XmlMarkup.new
+    xml.chart(:caption=&gt;'Monthly Unit Sales', 
+      :xAxisName=&gt;'Month', :yAxisName=&gt;'Units', 
+      :showValues=&gt;'0', :formatNumberScale=&gt;'0', :showBorder=&gt;'1') do
+      xml.set(:label=&gt;'Jan',:value=&gt;'462') 
+      xml.set(:label=&gt;'Feb',:value=&gt;'857') 
+      xml.set(:label=&gt;'Mar',:value=&gt;'671')
+      xml.set(:label=&gt;'Apr',:value=&gt;'494')
+      xml.set(:label=&gt;'May',:value=&gt;'761')
+      xml.set(:label=&gt;'Jun',:value=&gt;'960')
+      xml.set(:label=&gt;'Jul',:value=&gt;'629') 
+      xml.set(:label=&gt;'Aug',:value=&gt;'622')
+      xml.set(:label=&gt;'Sep',:value=&gt;'376')
+      xml.set(:label=&gt;'Oct',:value=&gt;'494')
+      xml.set(:label=&gt;'Nov',:value=&gt;'761')
+      xml.set(:label=&gt;'Dec',:value=&gt;'960')
+    end</pre>
+       <p> We have hardcoded the xml with the label and value attributes present in the &lt;set&gt; tag. Ideally, you would get this data from database at run-time.</p>
+       <p class="header"><a name="htmlxml" id="htmlxml"></a>Using FusionCharts HTML embedding method to render chart</p>
+       <p class="text">You can also create charts using HTML embedding method. It creates HTML &lt;object&gt;/&lt;embed&gt; tags to render chart. It does not require FusionCharts.js to render. </p>
+       <p class="highlightBlock">HTML embedding method is <strong>deprecated</strong>. Many of the features of FusionCharts that works in collaboration with JavaScript, like providing JSON data, advanced event-handling, setting chart attribute etc., won't work using this method.   </p>
+       <p class="text">Again, to make things simpler for you, we've provided a PHP function called <span class="codeInline">render_chart_html </span>which helps you render chart using &lt;object&gt;/&lt;embed&gt; tag and you don't have to get your hands dirty with HTML tags. This function is present in <span class="codeInline">FusionChartsHelper</span>. </p>
+       <p class="text">Let's now quickly put up a sample to show the use of this function. We load the data from our previously created<span class="codeInline"> Data.xml</span> file. The modification involves a single line change from the previous file. and the modification (in <strong>bold</strong>) would look like the following code: </p>
+       <pre class="code_container prettyprint"><b>Controller: <b>Fusioncharts::BasicExampleController</b> 
+Action: basic_data_xml</b>
+<span class="codeComment">    #This action demonstrates the ease of generating 
+    #charts using FusionCharts.
+    #Here, we've used a Builder Template to build the XML data.
+    #Ideally, you would generate XML data documents at run-time, 
+    #after interfacing with forms or databases etc. 
+    #Such examples are also present.
+    #Here, we've kept this example very simple.
+    #render_chart_html function from the helper module is invoked 
+    #to render the chart.
+    #The function itself has no code(except setting the content type), 
+    #all the work is done in the builder and the view.</span>
+  def basic_data_xml
+    response.content_type = Mime::HTML
+  end
+<b>View:</b>
+&lt;% @page_title=&quot;FusionCharts - Simple Column 3D Chart using dataStr method&quot; %&gt;
+&lt;% @page_heading=&quot;FusionCharts Examples&quot; %&gt;
+&lt;% @page_subheading=&quot;Basic example using dataStr method (with XML data hard-coded in Builder Template itself)&quot; %&gt;
+&lt;p&gt;If you view the source of this page, you'll see that the XML data
+is present in this same page (inside HTML code). dataStr method is
+ideal when you've to plot small amounts of data.&lt;/p&gt;
+&lt;%
+# The xml is obtained as a string from builder template.
+str_xml =render :file=&gt;&quot;fusioncharts/basic_example/sampledata&quot;
+#Create the chart - Column 3D Chart with data from str_xml variable using dataStr method
+   <strong> render_chart_html '/FusionCharts/Column3D.swf', '', str_xml, 'myNextHTML', 600, 300, false do-%&gt;
+&lt;% end -%&gt; </strong></pre>
+<p class="text">Here we call render_chart_html from FusionChartsHelper and provide the xml from the builder to it as the second parameter. Let us now take a look at the parameters to render_chart_html function. </p>
+       <p class="header">render_chart_html function </p>       
+       <p>As seen in the above view, the code written to show the chart is just one line function call to the function <span class="codeInline">render_chart_html</span> present in the <span class="codeInline">fusion_charts_helper.rb</span>. To this function, you need to pass the following parameters (in the same order):</p>      <table class="table" width="95%" border="0" cellpadding="2" cellspacing="0" >
+        <tr>
+          <td width="19%" valign="top" class="header">Parameter</td>
+          <td width="81%" valign="top" class="header">Description</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">chart_swf</td>
+          <td valign="top" class="text">SWF File Name (and path) of the chart which you intend to plot. Here, we are plotting a Column 3D chart. So, we've specified it as <span class="codeInline">/FusionCharts/Column3D.swf</span></td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">str_url</td>
+          <td valign="top" class="text">If you intend to use <span class="codeInline">dataURL</span> method for the chart, pass the URL as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">dataStr</span> method). In this case, we're using <span class="codeInline">Data.xml</span> file, so we specify <span class="codeInline">Data/Data.xml</span></td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">str_xml</td>
+          <td valign="top" class="text">If you intend to use <span class="codeInline">dataStr</span> method for this chart, pass the XML data as this parameter. Else, set it to &quot;&quot; (in case of <span class="codeInline">dataURL</span> method). Since we're using <span class="codeInline">dataURL</span> method, we specify this parameter as &quot;&quot;.</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">chart_id</td>
+          <td valign="top" class="text"> Id for the chart, using which it will be recognized in the HTML page. <strong>Each chart on the page needs to have a unique Id.</strong></td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">chart_width</td>
+          <td valign="top" class="text">Intended width for the chart (in pixels)</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">chart_height</td>
+          <td valign="top" class="text">Intended height for the chart (in pixels)</td>
+        </tr>
+        <tr>
+          <td valign="top" class="codeInline">debug_mode</td>
+          <td valign="top" class="text">Whether to start the chart in debug mode. Please see <span class="codeInline">Debugging your Charts</span> section for more details on Debug Mode. </td>
+        </tr>
+        <tr>
+            <td valign="top" class="codeInline">register_with_js</td>
+            <td valign="top" class="text"> Whether to register the chart with JavaScript. Please see FusionCharts and JavaScript section for more details on this. </td>
+        </tr>
+        <tr>
+            <td valign="top" class="codeInline">options</td>
+            <td valign="top" class="text">Hash containing other parameters to the function ( explained below) </td>
+        </tr>
+          </table>      
+        <p>The options hash can contain the following elements:</p>
+        <table class="table" width="95%" border="0" cellpadding="2" cellspacing="0" >
+            <tr>
+                <td width="19%" valign="top" class="header">Parameter</td>
+                <td width="81%" valign="top" class="header">Description</td>
+                </tr>
+            <tr>
+                <td valign="top" class="codeInline">w_mode</td>
+                <td valign="top" class="text">&quot;window&quot; (default) - here the chart /Flash Player acts as a separate always window lying above the HTML elements.So the HTML elements like HTML menu are always below the charts ;<br>
+&quot;opaque&quot; - mode where chart unlike &quot;window&quot; mode stay integrated with HTML elements - here DHTML elements can come over the chart ; &quot;transparent&quot; - almost like OPAQUE mode - but with more feature that can turn a chart background transparent/translucent (if bgAlpha is set accordingly) so that the color/HTML elements below the chart (which are part of HTML and not chart) become visible.</td>
+                </tr>
+            <tr>
+                <td valign="top" class="codeInline">color</td>
+                <td valign="top" class="text">Background color of the Flash movie (here chart) which comes below the chart and is visible if chart's background color is set to transparent or translucent using bgAlpha, it also comes as background color of the preloader state like when messages like &quot;Loading chart&quot;, &quot;retrieving data&quot; &quot;No data to display&quot; etc. are shown - format - Hexcoded #RRGGBB color e.g. &quot;#ff0000&quot;</td>
+                </tr>
+            <tr>
+                <td valign="top" class="codeInline">scale_mode</td>
+                <td valign="top" class="text">&quot;noScale&quot; - recommended/default, <br />
+&quot;exactFit&quot; - scales the chart to fit the container exactly with width and height (causes distortion in some cases), <br />
+&quot;noBorder&quot; - constrained scale. (not recommended at all), <br />
+&quot;showAll&quot; - (not recommended)</td>
+                </tr>
+            <tr>
+                <td valign="top" class="codeInline">lang</td>
+                <td valign="top" class="text">Language. Currently, it only takes value &quot;EN&quot; for english</td>
+                </tr>
+        </table>                        
+        <p></p>
+        <p class="highlightBlock">
+The above example shows how you can load data using <span class="codeInline">dataUrl</span> method. You can always use <span class="codeInline">dataStr </span>method to pass XML as string using <span class="codeInline">render_chart_html</span> method.</p>        
+<p class="header"><a name="yml" id="js"></a>Configuring the chart</p>
+<p class="text">In our previous examples, we have created a simple chart by providing the xml to it. Let us now see how we can configure a few properties of the chart. Typically in a rails application, YAML is the format used for configuration purposes. We will adopt the same convention. We will store the configuration of the chart in a yml file (public/Data/chart_options.yml) and merge these values in the xml. Let us see this in an example. </p>
+<pre class="code_container prettyprint"><b>Controller: Fusioncharts::BasicExampleController
+Action: configured_chart
+</b><span class="codeComment">  # This action loads the yml configuration file, 
+  #these values are used in the builder.</span> 
+  def configured_chart
+    @chart_options= YAML::load_file(&quot;public/Data/chart_options.yml&quot;)
+  end
+<b>View:</b>
+  &lt;% @page_title=&quot;FusionCharts - Configured Column 3D Chart&quot; %&gt;
+  &lt;% @page_heading=&quot;FusionCharts Examples&quot; %&gt;
+  &lt;% @page_subheading=&quot;Basic Configured chart example using dataStr method and chart options from yml file&quot; %&gt;
+  &lt;p&gt;The chart options for this chart have been taken from chart_options.yml file&lt;/p&gt;
+  &lt;%
+  # The xml is obtained as a string from builder template. 
+  # This xml will also contain the chart configuration attributes loaded from yml
+<strong>  str_xml = render :file=&gt;&quot;fusioncharts/basic_example/sampledatawithchartoptions&quot;, 
+  :locals=&gt;{:chart_options=&gt;@chart_options,:option=&gt;&quot;col3d&quot;}</strong>
+  #Create the chart - Column 3D Chart with data from str_xml variable using dataStr method
+  render_chart '/FusionCharts/Column3D.swf', '', str_xml, 'configuredChart', 600, 300, false, false do-%&gt;
+  &lt;% end -%&gt;</pre><p class="text">In the configured_chart action, the yml file is loaded. For this, the load method from YAML module is used. The view rendered for this action is <span class="codeInline">configured_chart.html.erb</span>. As it can be seen, this view is similar to the view from previous example. The only difference is in obtaining the xml from the builder. </p>
+<ul>
+    <li>The builder file used here is sampledatawithchartoptions.builder. </li>
+    <li>The parameters passed to this builder as locals are <span class="codeInline">:chart_options=&gt;@chart_options,:option=&gt;&quot;col3d&quot;.</span> chart_options is the chart configuration values loaded from the yml file (by the controller). This is passed on to the builder. <span class="codeInline">option</span> value tells the builder which configuration to use. The yml file can contain several configurations, this parameter specifies which one of the configurations should be used in the xml. In our case, we have specified col3d as one of the configurations. Similarly, you could have one configuration per type of chart and use that configuration in the builder while constructing the xml.</li>
+</ul>
+<p>Finally, the <span class="codeInline">render_chart</span> method is called, to render the configured chart. A brief glance at the builder <span class="codeInline">sampledatawithchartoptions</span>, will give us the complete picture. </p>
+<pre class="code_container prettyprint"><span class="codeComment">    #Creates xml with values for monthly sales data 
+    #The values required for building the xml are hard-coded in this file
+    #The chart_options are merged</span>
+    xml = Builder::XmlMarkup.new
+    <strong>options = {:caption=&gt;'Monthly Unit Sales', :xAxisName=&gt;'Month', :yAxisName=&gt;'Units'}</strong>
+    <strong>options.merge!(chart_options[option])</strong>
+    xml.chart(options) do
+      xml.set(:label=&gt;'Jan',:value=&gt;'462') 
+      xml.set(:label=&gt;'Feb',:value=&gt;'857') 
+      xml.set(:label=&gt;'Mar',:value=&gt;'671')
+      xml.set(:label=&gt;'Apr',:value=&gt;'494')
+      xml.set(:label=&gt;'May',:value=&gt;'761')
+      xml.set(:label=&gt;'Jun',:value=&gt;'960')
+      xml.set(:label=&gt;'Jul',:value=&gt;'629') 
+      xml.set(:label=&gt;'Aug',:value=&gt;'622')
+      xml.set(:label=&gt;'Sep',:value=&gt;'376')
+      xml.set(:label=&gt;'Oct',:value=&gt;'494')
+      xml.set(:label=&gt;'Nov',:value=&gt;'761')
+      xml.set(:label=&gt;'Dec',:value=&gt;'960')
+    end</pre>
+<p>Again, this builder template is similar to the one seen in previous example. Here some of the attributes like caption, xAxisName, yAxisName for the chart are specified and some attributes are taken from the locals hash. Both of these set of attributes are merged and provided as attributes to the chart tag. Here, <span class="codeInline">chart_options[option] </span>gives the configuration attributes specific to col3d only. </p>
+<p>Now when we view the chart, we get a beautiful chart as shown below:</p>
+<p><br>
+        <img src="../../guide-for-web-developers/Images/Code_RubyConfigChart.jpg" width="584" height="292" class="imageBorder" /> </p>
+<p class="header"><a name="js" id="js"></a>Create pure JavaScript charts</p>
+<p>FusionCharts allows you to create pure JavaScript-only charts that does not require Flash, hence enabling your chart in browsers where Flash is not supported like that of iPhone/iPad etc. This is achieve by calling <span class="codeInline">FC_SetRenderer</span> function in PHP before you render your chart. The function sets the current chart renderer to 'javascript'.</p>
+<p>The code snippet below shows how you can achieve this:</p>
+<pre class="code_container prettyprint" >
+<b>View:</b>
+&lt;%
+ #Create the chart - Column 3D Chart with data from Data/Data.xml
+ render_chart '/FusionCharts/Column3D.swf', '/Data/Data.xml', '', 'chart1', 
+ 600, 300, false, <strong>true, {:renderer=&gt;&quot;javascript&quot;}</strong> do-%&gt;
+&lt;% end -%&gt;
+</pre>
+<p>The above code will create pure-JavaScript FusionCharts as shown in the image below:</p>
+<p><img src="../../guide-for-web-developers/Images/code/php/basic_purejs.jpg" alt="FusionCharts pure JavaScript chart" width="598" height="298" /> </p>
+<p class="header"><a name="json" id="json"></a>Use JSON data to create chart</p>
+<p>You can provide chart data in JSON format. You need to call <span class="codeInline">FC_SetDataFormat</span> function and set the data format to 'json' through it. Once done, you can pass the JSON data through <span class="codeInline">renderChart </span>function. If you need to pass JSON data contained in a Url, you need to pass the URL through <span class="codeInline">dataUrl </span>parameter. If you have JSON as string you need to pass the JSON through <span class="codeInline">dataStr</span> parameter. The code snippets below illustrates how you can do these: </p>
+<pre class="code_container prettyprint">&lt;%
+#Create the chart - Column 3D Chart with data from /Data/Data.json
+render_chart &quot;/FusionCharts/Column3D.swf&quot;, &quot;/Data/Data.json&quot;, &quot;&quot;, &quot;myFirst&quot;, 
+600, 300, false, false, {:<strong>data_format=&gt;&quot;jsonurl&quot;} do</strong>-%&gt; 
+&lt;% end -%&gt;
+&lt;%
+# The json is obtained as a string from json template.
+    str_json = render :file=&gt;&quot;fusioncharts/json_example/data.json&quot;
+    # replace all newlines
+    str_json = str_json.gsub(/\n/,&quot;&quot;)
+    #Create the chart - Column 3D Chart with data from str_json
+    render_chart &quot;/FusionCharts/Column3D.swf&quot;, &quot;&quot;, str_json, &quot;myFirstJson&quot;, 
+600, 300, false, false, <strong>{:data_format=&gt;&quot;json&quot;}</strong> do-%&gt; 
+&lt;% end -%&gt;</pre>
+<p>FusionCharts needs JSON to be passed in a specific format. Please read FusionCharts Data Formats &gt; <a href="../../DataFormats/JSON/Overview.html">JSON</a> section for more on this. </p>
+<p class="highlightBlock">Please note that JSON data format is not supported in <span class="codeInline">render_chart_html</span> function. </p>
+<p class="header"><a name="multiple" id="multiple"></a>Create multiple charts in a single page</p>
+<p>Creating multiple charts in a page is as easy as creating a single chart. The code below shows how you can call <span class="codeInline">render_chart </span>function and create as many charts as you wish. All you need to take care is that you should <strong>set unique chart id</strong> to each chart as highlighted in bold below: </p>
+<pre class="code_container prettyprint">&lt;%
+#Create the chart - Column 3D Chart with data from Data/Data.xml
+render_chart '/FusionCharts/Column3D.swf', '/Data/Data.xml', '', 'ch<strong>art1',</strong> 600, 300, false, false do-%&gt;
+&lt;% end -%&gt;
+&lt;BR&gt;&lt;BR&gt;
+&lt;%
+#Create the Column 2D chart 
+render_chart '/FusionCharts/Column2D.swf', '/Data/Data.xml', '', 'ch<strong>art2',</strong> 600, 300, false, false do-%&gt;
+&lt;% end -%&gt;
+&lt;BR&gt;&lt;BR&gt;
+&lt;%
+#Create the Line 2D chart 
+render_chart '/FusionCharts/Line.swf', '/Data/Data.xml', '', 'ch<strong>art3',</strong> 600, 300, false, false do-%&gt;
+&lt;% end -%&gt;</pre><p class="header"><a name="transparent" id="transparent"></a>Create transparent chart</p>
+<p class="text">You can create charts with transparent backgrounds. This makes the chart show what lies below it in HTML. To do this you need to do follow these steps:</p>
+<ol>
+    <li>In the chart's XML data, set <span class="codeInline">&lt;chart ... bgAlpha='0,0' ..&gt;</span></li>
+    <li>In the <span class="codeInline">render_chart</span>/<span class="codeInline">render_chart_html </span>function pass :w_mode <span class="codeInline"></span>parameter in options as <span class="codeInline">&quot;transparent</span>&quot;. </li>
+</ol>
+<p>Below is a sample code with a chart having transparent background :</p>
+<pre class="code_container prettyprint"><strong>View:</strong>
+&lt;% @page_title=&quot;FusionCharts - Simple Column 3D Chart&quot; %&gt;
+&lt;% @page_heading=&quot;FusionCharts Examples&quot; %&gt;
+&lt;% @page_subheading=&quot;Basic example using pre-built Data.xml&quot; %&gt;
+&lt;div style=&quot;padding:40px; background-color:#9d7fbd; border:1px solid #745C92; width: 600px;&quot;&gt;
+&lt;%
+   #Create the chart - Column 3D Chart with data from /Data/Data.xml
+   render_chart &quot;/FusionCharts/Column3D.swf&quot;, &quot;/Data/Data_Transparent.xml&quot;, &quot;&quot;, &quot;myFirst_Transparent&quot;, 
+                 600, 300, false, false, <strong>{:w_mode=&gt;&quot;transparent&quot;}</strong> do-%&gt; 
+&lt;% end -%&gt;</pre>
+<pre class="code_container prettyprint"><strong>XML File Data_Transparent.xml</strong>:
+&lt;chart caption='Monthly Unit Sales' xAxisName='Month' yAxisName='Units' showValues='0' 
+formatNumberScale='0' showBorder='1' <strong>bgAlpha='0,0' canvasBgAlpha='0'</strong>&gt;
+  &lt;set label='Jan' value='462' /&gt;
+  &lt;set label='Feb' value='857' /&gt;
+  &lt;set label='Mar' value='671' /&gt;
+  &lt;set label='Apr' value='494' /&gt;
+  &lt;set label='May' value='761' /&gt;
+  &lt;set label='Jun' value='960' /&gt;
+  &lt;set label='Jul' value='629' /&gt;
+  &lt;set label='Aug' value='622' /&gt;
+  &lt;set label='Sep' value='376' /&gt;
+  &lt;set label='Oct' value='494' /&gt;
+  &lt;set label='Nov' value='761' /&gt;
+  &lt;set label='Dec' value='960' /&gt;
+&lt;/chart&gt;
+</pre>
+
+
+
+<p>In the code above we have :</p>
+<ul>
+    <li>Created a DIV with purple background -<span class="codeInline">background-color:#9d7fbd;</span></li>
+    <li>We build XML with attributes<span class="codeInline"> bgAlpha='0,0'</span> and <span class="codeInline">canvasBgAlpha='0'</span></li>
+    <li>We render the chart with these settings inside that DIV using render_chart</li>
+</ul>
+<p>The chart would look as shown below. The purple color of the DIV below the chart is visible through the body of the transparent chart.</p>
+<p><img src="../../guide-for-web-developers/Images/code/php/transparentchart.jpg" alt="FusionCharts pure JavaScript chart" width="657" height="357" /></p>
+<p class="header"><a name="managedprint" id="managedprint"></a>Set managed printing for Mozilla browsers
+</p>
+<p>Since v3.2, FusionCharts provides better-print feature for all Mozilla/WebKit/Gecko based browsers like Firefox, Safari etc. To enable this feature in RoR all you need to do is call <span class="codeInline">enable_FC_print_manager </span>function once in your page(preferably at the beginning or end). This will enable the print manager process print data from all the charts in a page and prepare the charts for better-quality printing. To read more on how print manager works please go through <a href="../../JavaScript/JS_PrintManager.html">this</a>. </p>
+<p>The code below shows how you need to enable print manager through RoR:</p>
+<pre class="code_container prettyprint">&lt;%
+<strong>enable_FC_print_manager_js</strong> do-%&gt;
+%&gt;
+&lt;% end -%&gt;
+&lt;%
+	#Create the chart - Column 3D Chart with data from Data/Data.xml
+	render_chart '/FusionCharts/Column3D.swf', '/Data/Data.xml', '', <strong>'chart</strong>1', 600, 300, false, true do-%&gt;
+&lt;% end -%&gt;</pre></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("C# (ASP.NET) - Using Multilingual text|../../guide-for-web-developers/csnet/CSNET_UTF8Example.html","Charting data from Array|Ruby_array.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

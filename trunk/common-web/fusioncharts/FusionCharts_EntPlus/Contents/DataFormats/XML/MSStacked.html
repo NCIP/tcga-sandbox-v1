@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Multi-series stacked Chart XML</title>
+<link rel="stylesheet" href="../../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../../Introduction/Overview.html","FusionCharts Data Formats", "XML|Overview.html", "Multi-series Stacked chart XML" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">Multi-series stacked Chart XML</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>Multi-series stacked charts are useful when you have to show clustered stacked columns per x-axis category. An example is shown below: </p>      </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/MSStCol2D.jpg" width="604" height="354" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The XML looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;chart caption='Break-up of Annual Revenue' subcaption='In Million $' xaxisname='Year'<br />&nbsp;Yaxisname='Sales in M$' numdivlines='3' numberPrefix='$' numberSuffix='M' showSum='1'&gt;<br /><br />&nbsp; &nbsp;&lt;categories font='Arial' fontSize='12' fontColor='000000'&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2001'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2002'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2003'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2004'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2005'/&gt;<br />&nbsp; &nbsp;&lt;/categories&gt;<br /><br />&nbsp; &nbsp;&lt;dataset&gt;<br />&nbsp; &nbsp; &nbsp; &lt;dataSet seriesName='Product A' color='AFD8F8' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='30' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='26' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='29' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='31' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='34' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataSet&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataSet seriesName='Product B' color='F6BD0F' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='21' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='28' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='39' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='41' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='24' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataSet&gt; &nbsp; <br />&nbsp; &nbsp;&lt;/dataset&gt;<br /><br />&nbsp; &nbsp;&lt;dataset&gt;<br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service A' color='8BBA00' &nbsp;showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='27' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='25' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='28' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='26' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='10' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service B' color='A66EDD' &nbsp;showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='17' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='15' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='18' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='16' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='10' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service C' color='F984A1' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='12' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='17' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='16' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='15' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='12' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt; &nbsp; &nbsp; &nbsp;<br />&nbsp; &nbsp;&lt;/dataset&gt;<br /><br />&lt;/chart&gt;</pre><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+    <tr> 
+    <td valign="top" class="text"><p>The XML structure of multi-series stacked chart is similar to that of a normal <a href="MultiSeries.html">multi series chart</a> except for a few elements.</p>
+      <p>Since multi-series stacked charts have multiple stacked columns category, all the series which form one stacked column are grouped together using nested dataset. This is done for each such cluster of stacked columns.</p>
+      <p>      For example, in the above chart, we have two stacked dataplots in each category. The first dataplot comprises of two data series with series name <span class="codeInline">Product A</span> and <span class="codeInline">Product B</span>. So the XML of the first dataplot represents one dataset with two nested datasets each with series name <span class="codeInline">Product A</span> and <span class="codeInline">Product B</span> respectively. </p></td>
+  </tr>
+    <tr>
+      <td valign="top" class="header"><a name="dualy" id="dualy"></a>Multi-series stacked Column chart with Line dataset </td>
+    </tr>
+  <tr> 
+    <td valign="top" class="text"><p>An example of a Multi-series Stacked Column 2D Line Dual Y Combination Chart is given below:</p> </td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><img src="../../ChartSS/Images/StCol2DLineDY.jpg" width="604" height="354" /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text"><p>The XML of the above chart looks as under:</p></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+      <pre class="prettyprint code_container">&lt;chart caption='Annual Revenue' subcaption='In Million $' &nbsp;xaxisname='Year' PYaxisname='Sales in M$'<br />&nbsp;SYAxisName='Cost as % of Revenue' decimals='0' numberPrefix='$' numberSuffix='M' sNumberSuffix='%25' &gt;<br /><br />&nbsp; &nbsp;&lt;categories&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2001'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2002'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2003'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2004'/&gt;<br />&nbsp; &nbsp; &nbsp; &lt;category label='2005'/&gt;<br />&nbsp; &nbsp;&lt;/categories&gt;<br /><br />&nbsp; &nbsp;&lt;dataset&gt;<br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesName='Product A' color='AFD8F8' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='30' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='26' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='29' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='31' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='34' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesName='Product B' color='F6BD0F' &nbsp;showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='21' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='28' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='39' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='41' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='24' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt; &nbsp; <br />&nbsp; &nbsp;&lt;/dataset&gt; &nbsp; <br /><br />&nbsp; &nbsp;&lt;dataset&gt;<br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service A' color='8BBA00' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='27' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='25' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='28' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='26' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='10' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service B' color='A66EDD' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='17' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='15' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='18' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='16' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='10' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt;<br /><br />&nbsp; &nbsp; &nbsp; &lt;dataset seriesname='Service C' color='F984A1' showValues='0'&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='12' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='17' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='16' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='15' /&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;set value='12' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;/dataset&gt; &nbsp; &nbsp; &nbsp;<br />&nbsp; &nbsp;&lt;/dataset&gt;<br /><br />&nbsp; &nbsp;&lt;lineset seriesname='Cost as % of Revenue' showValues='0' lineThickness='4' &gt;<br />&nbsp; &nbsp; &nbsp; &lt;set value='57' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set value='68' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set value='79' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set value='73' /&gt;<br />&nbsp; &nbsp; &nbsp; &lt;set value='80' /&gt;<br />&nbsp; &nbsp;&lt;/lineset&gt;<br /><br />&lt;/chart&gt;</pre><br /></td>
+  </tr>
+  <tr> 
+    <td valign="top" class="header">Brief Explanation</td>
+  </tr>
+<tr> 
+    <td valign="top" class="text"><p>The XML structure of multi-series Stacked Column 2D Line Dual Y Combination Charts is similar to that of a multi-series Stacked Column 2D Chart with the addition of <span class="codeInline">&lt;lineset&gt;</span> element. There can be multiple <span class="codeInline">&lt;lineset&gt;</span> elements per chart, each indicating a series of line to be plotted over column chart.</p>
+      <p>Also, since this chart has dual y-axis, you'll need to configure the titles, limits, number formatting and prefix/suffix for each axis separately. </p></td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Scatter &amp; Bubble chart XML|ScatterBubble.html","Zoom Line chart XML|ZoomLine.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>

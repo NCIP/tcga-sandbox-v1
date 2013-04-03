@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FusionCharts jQuery plugin API Reference</title>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="../assets/prettify/prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/prettify/prettify.css" />
+<script type="text/javascript" src="../assets/ui/js/jquery-1.4.2.min.js" ></script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+
+a.whtbtnhide, a.whtbtnshow, a.whtbtnhidenav , a.whtbtnshownav { border-bottom:none !important; }
+-->
+</style>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../assets/ui/js/whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../assets/ui/js/whtopic.js"></script>
+<script type="text/javascript" src="../assets/ui/js/lib.js"></script>
+</head>
+
+<body>
+<!-- breadcrumb starts here -->
+<div id="breadcrumb"></div>
+<script type="text/javascript">
+	document.write( addFCBreadcrumb( [ "Home|../Introduction/Overview.html", "FusionCharts &amp; jQuery|Overview.html", "API Reference" ] ) );
+</script>
+<!-- breadcrumb ends here -->
+
+
+<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+  <tr> 
+    <td class="pageHeader">FusionCharts jQuery plugin API Reference</td>
+  </tr>
+  <tr> 
+    <td valign="top" class="text">
+       <p>FusionCharts jQuery plugin  provides a number of jQuery methods. The list below shows details on each function : </p>
+       <table cellspacing="0" cellpadding="0" class="table" width="100%">
+        
+        <tr class="trLightBlueBg">
+          <td class="header" valign="top" width="30%">Name</td>
+          <td class="header" valign="top" width="40%">Purpose parameters and what it returns </td>
+          <td valign="top" class="header" >Examples</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><strong><a name="render" id="render"></a></strong>Chart Rendering functions </strong></td>
+        </tr>
+        <tr>
+           <td class="codeInline" valign="top"><a name="insertfusioncharts" id="insertfusioncharts"></a>insertFusionCharts( chartConfigurations : Object)</td>
+           <td class="text" valign="top">Renders charts inside HTML elements.  The HTML elements need to be selected using jQuery selector. In case, multiple HTML elements are selected using the jQuery selector, a chart will be rendered inside each selected HTML element. All existing elements inside the selected elements will be replaced by the rendered charts. 
+             <p><a href="AdvancedRendering.html#insert">Click here to see code snippets and demos.</a></p>
+             <p>The method returns the original jQuery selection to allow chaining of other jQuery methods. </p>
+             <p>An object (set of key/value pairs)  passed as parameter contains chart configurations. The possible configurations are:</p>
+            <table width="100%" border="0" class="table text">
+           <tr>
+             <td valign="top" class="header"> <a name="chartparams" id="chartparams"></a>Chart configurations</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>swfUrl</strong></span> : Path (as string) to the chart SWF file. You can get the list of chart SWF file names from <a href="../Introduction/ChartList.html">Chart List</a> page. </td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>id</strong></span> : Sets the DOM id of the chart. The value is provided as string. (optional)</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>width</strong></span> : Width of the chart&nbsp; (optional - default is 400). The value is provided as  number if the width is in pixels or as string if the width is to be set in percentage (e.g., &quot;50%&quot;) </td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>height</strong></span> : Height of the chart (optional - default is 300). The value is provided as  number if the height is set in pixels or as string if the height is to be set in percentage (e.g., &quot;50%&quot;)</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>dataSource</strong></span> : XML or JSON chart data. It can be a URL for XML or JSON. It can also be a string containing XML or   JSON object</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>dataFormat</strong></span> : Defines the format of the dataSource.
+               <ul>
+                 <li> Set it to <span class="codeInline">xmlurl</span> when data source is an URL to XML data</li>
+                   <li>Set it to <span class="codeInline">xml</span> when the data source is an XML String</li>
+                   <li>Set it to <span class="codeInline">jsonurl</span> when data source is an URL to JSON data</li>
+                   <li>Set it to <span class="codeInline">json </span>when the data source is a JSON String or JSON object</li>
+               </ul>
+             </td>
+             </tr>
+           <tr valign="top">
+             <td valign="top"><span class="codeInline"><strong>renderer</strong></span> : Sets the chart renderer engine. Acceptable values are  '<span class="codeInline">flash</span>' and <span class="codeInline"> 'javascript</span>'. The default value is automatically selected depending on the availability and support of Flash player.  When set to <span class="codeInline">javascript </span>FusionCharts JavaScript class renders pure JavaScript charts. (optional)</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>bgColor</strong></span> : This sets the color of the flash player's background on which a chart gets drawn. It is passed as a string containing hex coded color value. This background color is not same as the background color of a chart. This background is visible while showing chart messages or when chart's <span class="codeInline">bgAlpha</span> is set to less than 100. (optional - default value is &quot;#FFFFFF&quot; i.e., white) </td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>scaleMode</strong></span> : Flash player's mode of scaling a chart. <span class="codeInline">NoScale</span> is the default value. There are other settings namely, <span class="codeInline"> showAll</span>, <span class="codeInline">ExactFit</span>, <span class="codeInline">noBorder</span>. But these are not supported and might result in distorted charts.&nbsp; (optional)</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>lang</strong></span> : Sets the language for chart messages. It presently supports only English. The value is &quot;EN&quot;. (optional) </td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>detectFlashVersion</strong></span> : Set to &quot;1&quot; to make FusionCharts Class check whether Flash Player 8 is present in the Browser. (optional - Default value is &quot;0' ) </td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>autoInstallRedirect</strong></span> : Set to &quot;1&quot; with <span class="codeInline">detectFlashVersion</span> set to &quot;1&quot; and FusionCharts redirect to Flash Player installation page of Adobe's Web site. (optional - default is &quot;0')</td>
+             </tr>
+           <tr>
+             <td valign="top"><span class="codeInline"><strong>debugMode</strong></span> : Sets the chart debug window on. Can take &quot;0&quot; or &quot;1&quot;. When set to &quot;1&quot;, the chart shows a debug window over itself. (optional - default value is &quot;0&quot;)</td>
+             </tr>
+        </table>
+          </td>
+           <td valign="top" class="codeInline">$(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+   swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+   dataSource: &quot;Data.xml&quot;, dataFormat: &quot;xmlurl&quot;, 
+   width: &quot;400&quot;, height: &quot;300&quot; })<br />
+          </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="appendfusioncharts" id="appendfusioncharts"></a>appendFusionCharts( chartConfigurations : Object)</td>
+          <td class="text" valign="top">Renders and inserts charts at the <strong>end</strong> of HTML elements. The HTML elements need to be selected using jQuery selector. In case, multiple HTML elements are selected using the jQuery selector, a chart will be rendered inside each selected HTML element. All existing elements inside the selected elements will be preserved. <br />
+            <p>The method returns the original jQuery selection to allow chaining of other jQuery methods. </p>
+          <p>An object (set of key/value pairs)  passed as parameter contains chart configurations. The possible configurations are listed in the <a href="#chartparams">Chart configurations</a>&nbsp;table.</p>
+          <p><a href="AdvancedRendering.html#append">Click here to see code snippets and demos.</a></p></td>
+          <td valign="top" class="codeInline">$(&quot;#chartContainer&quot;).<strong>insertFusionCharts</strong>({
+   swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+   dataSource: &quot;Data.xml&quot;, dataFormat: &quot;xmlurl&quot;, 
+   width: &quot;400&quot;, height: &quot;300&quot;, id: &quot;myChartId&quot; })<br />
+   </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="prependfusioncharts" id="prependfusioncharts"></a>prependFusionCharts( chartConfigurations : Object)</td>
+          <td class="text" valign="top">Renders and inserts charts at the <strong>beginning</strong> of HTML elements. The HTML elements need to be selected using jQuery selector. In case, multiple HTML elements are selected using the jQuery selector, a chart will be rendered inside each selected HTML element. All existing elements inside the selected elements will be preserved. <br />
+            <p>The method returns the original jQuery selection to allow chaining of other jQuery methods. </p>
+          <p>An object (set of key/value pairs)  passed as parameter contains chart configurations. The possible configurations are listed in the <a href="#chartparams">Chart configurations</a>&nbsp;table.</p>
+          <p><a href="AdvancedRendering.html#prepend">Click here to see code snippets and demos.</a></p></td>
+          <td valign="top"  class="codeInline">$(&quot;#chartContainer&quot;).<strong>appendFusionCharts</strong>({
+   swfUrl: &quot;FusionCharts/Column3D.swf&quot;, 
+   dataSource: &quot;Data.xml&quot;, dataFormat: &quot;xmlurl&quot;, 
+   width: &quot;400&quot;, height: &quot;300&quot;, id: &quot;myChartId&quot; })<br />
+   </td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="clonefusioncharts" id="clonefusioncharts"></a>cloneFusionCharts( callback:function, [cloneConfigurations : Object] )</td>
+          <td class="text" valign="top">This method makes copy of existing charts and passes the list of cloned chart objects to a function for further processing. The method looks for all the charts in jQuery selected elements and clones them.
+             <p>An array of cloned chart objects is passed  to a <span class="codeInline">callback</span> function whose name or reference needs to be passed as a mandatory parameter to <span class="codeInline">cloneFusionCharts</span> method. One can also use an anonymous function as the callback&nbsp; function. </p>
+             <p><a href="AdvancedRendering.html#clone"></a>Before cloning of existing charts, one can optionally overwrite some of the configurations of the existing charts. To do this, one needs to pass an object  (set of key/value pairs) containing chart configurations as <span class="codeInline">cloneConfigurations</span> parameter. The possible <span class="codeInline">cloneConfigurations</span> are listed in the <a href="#chartparams">Chart configurations</a>&nbsp;table. </p>
+             <p><a href="AdvancedRendering.html#clone">Click here to see code snippets and demos.</a></p>
+            </td>
+          <td valign="top" class="codeInline">
+             $(&ldquo;#chartContainer&rdquo;).<strong>cloneFusionCharts</strong>(callbackFn, {width:300, height: 400})
+             <p>or</p>
+             <p>$(&quot;#leftPanel&quot;).<strong>cloneFusionCharts</strong>(  function() { $(&quot;#rightPanel&quot;).insertFusionCharts(this[0]); }, { renderer: &quot;javascript&quot; }  ); </p>
+          </td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="updatefusioncharts" id="updatefusioncharts"></a>updateFusionCharts( updateConfigurations : Object)</td>
+          <td class="text" valign="top">This method helps in updating chart configurations of an existing chart at run-time. Barring <span class="codeInline">id</span>, you can re-configure <span class="codeInline">swfUrl, dataSource, dataFormat, width, height, renderer, bgColor, debugMode, scaleMode</span> etc. of existing charts. 
+            <p>The possible<span class="codeInline"> updateConfigurations</span> are listed in the <a href="#chartparams">Chart configurations</a>&nbsp;table. Please note that <span class="codeInline">id</span> configuration cannot be passed to <span class="codeInline">updateConfigurations</span> parameter. </p>
+            <p><span class="codeInline">updateFusionCharts</span> method is applied on HTML elements selected using jQuery selector. It finds  all the charts rendered in the selected elements. It updates all these charts with the values passed through <span class="codeInline">updateConfigurations</span> parameter.</p>
+            <p><a href="RetrieveUpdate.html">Click here to see code snippets and demos.</a></p>
+          <p>Please note that the charts thus updated are actually re-drawn with the new configurations. </p></td>
+          <td class="codeInline" valign="top">$(&quot;#chartContainer&quot;).<strong>updateFusionCharts</strong>( {&quot;dataSource&quot;: NewMSXMLAsString, &quot;dataFormat&quot;: &quot;xml&quot;, &quot;swfUrl&quot; : &quot;MSColumn3D.swf&quot;})</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><a name="attrfusioncharts" id="attrfusioncharts"></a>attrFusionCharts( chartAttribute : string)
+         
+            <p>or</p>
+         
+          <p>attrFusionCharts( chartAttribute:string, newValue:string)          </p>
+          <p>or</p>
+          <p>attrFusionCharts( chartAttributes : Object) </p></td>
+          <td class="text" valign="top">Using this method one can dynamically read or update chart's root properties (also known as &quot;chart attributes&quot; which are passed through <span class="codeInline">&lt;chart&gt;</span> element in chart XML data or through chart   property in chart's JSON data) on-the-fly. This feature would come   handy when one wishes to change the chart titles, theme colors, number   formatting or scaling setup, divisional line and grid configurations and   other functional and cosmetic features of existing charts. 
+          <p>The method is applied on HTML elements which are selected using jQuery selector. It finds all the charts rendered in the selected elements and retrieves the value of a chart parameter from those charts or updates those charts with new parameter values. </p>
+          <p>This method returns the value of a chart attribute (of an existing chart) if the name of the chart attribute is passed to the method as a single string parameter - <span class="codeInline">chartAttribute</span>. </p>
+          <p>If a value is passed as a second parameter (<span class="codeInline">newValue</span>) to the method along with the name of the chart attribute through <span class="codeInline">chartAttribute</span> (as first parameter), the chart gets updated with the new parameter value.</p>
+          <p>The <span class="codeInline">attrFusionCharts</span> method also helps in passing a set of key(attribute-name)/value pairs (JavaScript Object) to apply multiple chart attributes to existing charts at run-time. The method here would accept a single Object parameter which would contain the new settings. </p>
+          <p><a href="RetrieveUpdate.html#settitle">Click here to see code snippets and demos.</a></p>
+          <p>Please note that when the charts are updated with selective configurations and properties, internally, FusionCharts   re-draws the entire chart.</p></td>
+          <td class="codeInline" valign="top">var oldCaption = $(&quot;#chartContainer&quot; ).<strong>attrFusionCharts</strong>( &quot;caption&quot;)
+            <p>or</p>
+            <p> $(&quot;#chartContainer&quot; ).<strong>attrFusionCharts</strong>( &quot;caption&quot;, &quot;New title&quot; )</p>
+            <p>or</p>
+          <p> $(&quot;#chartContainer&quot; ).<strong>attrFusionCharts</strong>( {&quot;palette&quot;: &quot;5&quot;, &quot;paletteColors&quot;: &quot;D977B7&quot;})</p>
+          </td>
+        </tr>
+        
+        
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="text"><strong><a name="selector" id="selector"></a>Selector</strong></td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top"><span class="trVeryLightYellowBg">:FusionCharts</span></td>
+          <td class="text" valign="top">A custom jQuery selector <span class="veryLightYellowBg codeInline">:FusionCharts</span> which helps in selecting all the charts rendered using FusionCharts jQuery plugin or using FusionCharts JavaScript Class. You can use this custom selector as a conventional jQuery selector. 
+          <p><a href="Selector.html">Click here to see code snippets and demos.</a></p></td>
+          <td class="codeInline" valign="top">$(&quot;div <strong>:FusionCharts</strong>&quot;).attrFusionCharts( { caption: &quot;New chart title&quot; } )
+             <p>or</p>
+          <p>$(&quot;div <strong>:FusionCharts</strong>&quot;).attrFusionCharts( { caption: &quot;New chart title&quot; } );</p>
+          <p>or</p>
+          <p>$(&quot;#topRow <strong>:FusionCharts</strong>&quot;).attrFusionCharts( &quot;bgColor&quot;, &quot;ecdecd&quot;)</p>
+          <p>or</p>
+          <p>$(&quot;.myFusionCharts <strong>:FusionCharts</strong>&quot;).attrFusionCharts( { showBorder:1 )</p>
+          <p>or</p>
+          <p>$(&quot;#bottomRow&quot;).find(&quot;<strong>:FusionCharts</strong>&quot;).attrFusionCharts( { borderColor : &quot;008800&quot; } )</p>
+          <p>or</p>
+          <p>$(&quot;span.myFusionCharts&quot;).find(&quot;<strong>:FusionCharts</strong>&quot;).attrFusionCharts( {bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot;} )</p>
+          <p>or</p>
+          <p>$(&quot;div#dashboard #upper:visible&quot;).find(&quot;<strong>:FusionCharts</strong>&quot;).attrFusionCharts( {bgColor : &quot;ecdecd&quot;, showBorder:1, borderColor:&quot;880000&quot;} )</p>
+          </td>
+        </tr>
+        
+        
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline">&nbsp;</td>
+        </tr>
+        <tr class="trLightBlueBg">
+          <td colspan="3" valign="top" class="codeInline"><strong><a name="bind" id="bind"></a>Event handling </strong></td>
+        </tr>
+        
+        <tr class="trLightBlueBg">
+          <td class="codeInline" valign="top">bind( eventType : String, eventHandler : function )</td>
+          <td class="text" valign="top">Adds an event handler function to all FusionCharts related events. The event handler needs to be attached to the the container HTML elements of the FusionCharts objects. 
+            <p>As the first parameter, the method takes the name of the event (through <span class="codeInline">eventType</span> parameter) .The list of FusionCharts event names or event types can be derived from FusionCharts &amp; JavaScript &gt;  API &gt; <a href="../JavaScript/API/Events.html">Events</a> page. The event names used here are similar to  those listed in the &quot;Name (Advanced model)&quot; column of the list of events in the <a href="../JavaScript/API/Events.html">Events</a> page. One would just need to prefix the listed event names with &quot;fusioncharts&quot;. This is done to avoid conflict with the pre-existing jQuery event types having same names, e.g., the event name <span class="codeInline">Loaded</span> (as listed in the <a href="../JavaScript/API/Events.html">Events</a> page) needs to be passed as &quot;fusionchartsloaded&quot;. </p>
+            <p>The second parameter <span class="codeInline">eventHandler</span> accepts the name or reference to the event handling function. You can also directly create anonymous function instead. The parameters passed to the event handler function for each event are also same as stated in the <a href="../JavaScript/API/Events.html">Events</a> page. </p>
+          <p><a href="Events.html">Click here to see code snippets and demos.</a></p></td>
+          <td class="codeInline" valign="top">$(&quot;#chartContainer&quot;).<strong>bind</strong>( &quot;fusionchartsdrawcomplete&quot;, <br /> 
+           &nbsp; function ( eventObject, argumentsObject) { <br />
+           &nbsp;&nbsp;&nbsp;&nbsp;
+alert(&quot;Chart named &quot; + eventObject.sender.id + &quot; has completed chart drawing.&quot; );<br /> 
+&nbsp;
+}<br />
+)</td>
+        </tr>
+      </table>
+       
+    </td>
+  </tr>
+</table>
+<!-- footer links starts-->
+<div id="fcfooter"></div>
+<script type="text/javascript">
+	document.getElementById("fcfooter").innerHTML =  addFCFooter("Handling events|Events.html","FusionCharts styles overview|../Styles/Styles.html");
+</script>
+<!-- footer links ends -->
+<script type="text/javascript" language="javascript1.2">//<![CDATA[
+<!--
+
+	highlightSearch();
+
+//-->
+//]]></script>
+</body>
+</html>
