@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+        <artifactId>tcgadcc-dependencies</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tcgadcc-dependencies-persistence</artifactId>
+    <packaging>pom</packaging>
+    <name>TCGA DCC :: Dependencies :: Persistence</name>
+    <description>Declares all the common dependencies used across all TCGA DCC software projects for database persistence.</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 
+    #########################################################################################################
+     
+        The dependencies declared in this project are common persistence dependencies used 
+        across all TCGA DCC software projects. When declaring this module as a dependency in 
+        other modules, the 'type' element must be set to 'pom' so that the dependencies from
+        this module can be resolved:
+        
+            ...
+            <dependency>
+                <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+                <artifactId>tcgadcc-dependencies-persistence</artifactId>
+                <version>1.0</version>
+                <type>pom</type>
+            </dependency>
+            ...
+        
+    #########################################################################################################
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${org.hibernate.version}</version>
+        </dependency>
+    </dependencies>
+</project>

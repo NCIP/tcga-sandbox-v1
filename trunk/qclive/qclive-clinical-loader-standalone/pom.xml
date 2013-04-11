@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
-  ~ Copyright Notice.  The software subject to this notice and license includes both human
-  ~ readable source code form and machine readable, binary, object code form (the "caBIG
-  ~ Software").
-  ~
-  ~ Please refer to the complete License text for full details at the root of the project.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
 	
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
-		<artifactId>tcga-parent</artifactId>
+		<groupId>gov.nih.nci.ncicb.tcga.dcc.qclive</groupId>
+        <artifactId>qclive</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>gov.nih.nci.ncicb.tcga.dcc.qclive</groupId>
 	<artifactId>qclive-clinical-loader-standalone</artifactId>
 	<packaging>jar</packaging>
-	<name>QCLive Clinical Loader Standalone</name>
+	<name>TCGA DCC :: QCLive :: Clinical Loader Standalone</name>
 	<description />
 	<!--
 	###############################################################################################################
@@ -28,8 +30,19 @@
 
     ################################################################################################################
     -->
+    <properties>
+        <checkstyle.maxViolations>7</checkstyle.maxViolations>
+    </properties>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -74,96 +87,42 @@
 						</manifestEntries>
 					</archive>
 					<excludes>
-						<!-- Exclude all resources inside src/main/resources from the JAR. These 
-							resources will be provided outside of the JAR as part of the distribution 
-							via the assembly plugin configuration below. -->
 						<exclude>**/*.properties</exclude>
 						<exclude>**/*.xml</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<!-- Bind the assembly of the datareports-cli distribution to the package 
-					phase, so that the deployed artifacts for datareports-cli get automatically 
-					created when the "mvn install" or "mvn package" goals are executed. -->
-				<executions>
-					<execution>
-						<id>assemble-qclive-clinical-loader-standalone-distro</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>src/main/assembly/src.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit4</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-spring</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
 			<artifactId>common</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging-adapters</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc5</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+			<groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
 			<artifactId>common</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>

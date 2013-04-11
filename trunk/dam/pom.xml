@@ -1,70 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
-  ~ Copyright Notice.  The software subject to this notice and license includes both human
-  ~ readable source code form and machine readable, binary, object code form (the "caBIG
-  ~ Software").
-  ~
-  ~ Please refer to the complete License text for full details at the root of the project.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
-		<artifactId>tcga-parent</artifactId>
+		<artifactId>tcgadcc-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
     <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.nih.nci.ncicb.tcga.dcc.dam</groupId>
     <artifactId>dam</artifactId>
     <packaging>war</packaging>
-    <name>DAM</name>
-    <description />
+    <name>TCGA DCC :: Data Access Matrix</name>
+    <description>TCGA DCC Data Access Matrix (DAM)</description>
     <properties>
     	<!-- List of allowable redirect paths for this application separated by a vertical bar '|' with no spaces.
     	     For example: foo|bar|crawl -->
     	<allowable.redirect.paths>tcga</allowable.redirect.paths>
+        <checkstyle.maxViolations>7218</checkstyle.maxViolations>
     </properties>
-    <scm>
-		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/dam/trunk</connection>
-		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/dam/trunk</developerConnection>
-		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/dam/trunk</url>
-	</scm>
-    <!--#############################################################################################################################################################################
-
-        To run a full build for the dam project, including all unit tests, execute the following command from the 'dam' project directory:
-
-           mvn -Denv=<build-for-env> -Dprops.loc='<properties-file-path>' clean install
-
-        where <build-for-env> is either local, dev, prod, qa, or stage, and <properties-file-path> is the path to the
-        damApp.properties file that should be replaced in the "applicationContext-jdbc.xml" and "dam-servlet.xml" files. 
-        For example:
-
-            ... -Denv=dev -Dprops.loc='C:\\dev\\jboss-4.0.5.GA\\server\\default\\conf' ...
-
-        To run a full build and generate HTML unit test reports, include the "site" goal:
-
-           mvn -Denv=<build_for_env> -Dprops.loc='<properties-file-path>' clean install site
-
-        Note that specifying the "site" goal will run the unit tests twice, which may not be desirable when only a
-        unit test report is required. To generate only the unit test report(s), use the "surefire-report:report-only"
-        goal instead of "site".
-        
-        To run just the unit tests and generate an HTML report, execute the following command:
-        
-           mvn clean site
-        
-        To run just slow or fast tests, provide the '-Dtest=' argument:
-        
-           mvn -Dtest=*FastTest clean site
-          
-           OR
-          
-           mvn -Dtest=*SlowTest clean site
-
-    ##############################################################################################################################################################################-->
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -93,106 +64,47 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
-            <!-- Bind the "war:exploded" goal to the "prepare-package" phase so that other plugins can access and
-                 process build artifacts before they are packaged into the final WAR archive. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>explode-dam-war</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <overlays>
                         <overlay>
-                            <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+                            <groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
                             <artifactId>common-web</artifactId>
                             <filtered>true</filtered>
                         </overlay>
                     </overlays>
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <!-- Bind the assembly of the dam distribution to the package phase, so that
-                     the deployed artifacts for dam get automatically created when the
-                     "mvn install" or "mvn package" goals are executed. -->
-                <executions>
-                    <execution>
-                        <id>assemble-dam-distro</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/src.xml</descriptor>
-                            </descriptors>
-                            <filters>
-                                <filter>${project.basedir}/src/main/assembly/common-filter-values.properties</filter>
-                                <filter>${project.basedir}/src/main/assembly/${env}-filter-values.properties</filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <filters>
+                        <filter>${project.basedir}/src/main/assembly/common-filter-values.properties</filter>
+                        <filter>${project.basedir}/src/main/assembly/${env}-filter-values.properties</filter>
+                    </filters>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>maven-replacer-plugin</artifactId>
-                <executions>
-                    <!-- Bind the replacer plugin to the prepare-package and package phases so that the
-                         tokens specified below get replaced in the specified files.
-                     -->
-                    <execution>
-                        <id>replace-properties-path</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>target/${project.build.finalName}/WEB-INF/applicationContext-jdbc.xml</include>
-                                <include>target/${project.build.finalName}/WEB-INF/dam-servlet.xml</include>
-                            </includes>
-                            <replacements>
-                                <replacement>
-                                    <token>classpath:tcgaApp.properties</token>
-                                    <value>file://${props.loc}/damApp.properties</value>
-                                </replacement>
-                            </replacements>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <includes>
+                        <include>target/${project.build.finalName}/WEB-INF/applicationContext-jdbc.xml</include>
+                        <include>target/${project.build.finalName}/WEB-INF/dam-servlet.xml</include>
+                    </includes>
+                    <replacements>
+                        <replacement>
+                            <token>classpath:tcgaApp.properties</token>
+                            <value>file://${props.loc}/dam/damApp.properties</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
             </plugin>
-            <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jboss-maven-plugin</artifactId>
-				<configuration>
-					<fileNames>
-						<fileName>${project.build.directory}/${project.build.finalName}-distribution/${project.artifactId}/tcga.${project.packaging}</fileName>
-					</fileNames>
-				</configuration>
-			</plugin>
         </plugins>
         <resources>
-            <!-- Uncomment this resource definition when non-class files (.properties, .xml, etc.) exist within the source
-                 package structure that should be copied to the target/classes (${project.build.outputDirectory})
-                 directory during compilation. These resources will then be available on classpath during unit test
-                 execution and will be packaged up as part of the final build artifact(s) (JAR, WAR, EAR, etc.).
-            <resource>
-                <directory>${basedir}/src/main/java/gov</directory>
-                <targetPath>gov</targetPath>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource> -->
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
@@ -223,116 +135,49 @@
         </testResources> 
     </build>
     <dependencies>
-    	<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit4</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
-       	<dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>3.1</version>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <scope>compile</scope>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-spring</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
-		<dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc5</artifactId>
-        </dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-bundle</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-spring</artifactId>
-		</dependency>
-		<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-         <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <classifier>jdk15</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jettison</groupId>
-            <artifactId>jettison</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>org.extremecomponents</groupId>
-        	<artifactId>extremecomponents</artifactId>
-        	<version>1.0.1</version>
-        </dependency>
-        <dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-jboss</artifactId>
-		</dependency>
-        <dependency>
-        	<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-oracle</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
             <artifactId>common-web</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
         </dependency>
     </dependencies>
 </project>

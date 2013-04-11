@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
-  ~ Copyright Notice.  The software subject to this notice and license includes both human
-  ~ readable source code form and machine readable, binary, object code form (the "caBIG
-  ~ Software").
-  ~
-  ~ Please refer to the complete License text for full details at the root of the project.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
-        <artifactId>tcga-parent</artifactId>
+        <artifactId>tcgadcc-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
     <artifactId>common-web</artifactId>
     <packaging>war</packaging>
-    <name>Common Web</name>
-    <description />
-    <scm>
-		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-web/trunk</connection>
-		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-web/trunk</developerConnection>
-		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-web/trunk</url>
-	</scm>
+    <name>TCGA DCC :: Common :: Web</name>
+    <description>Defines common web application components and libraries that are assimilated by various TCGA DCC web applications.</description>
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
     </properties>
@@ -96,26 +95,4 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-    </dependencies>
 </project>

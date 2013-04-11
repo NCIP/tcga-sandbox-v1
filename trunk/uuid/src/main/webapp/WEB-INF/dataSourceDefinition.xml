@@ -18,5 +18,5 @@
     <bean id="uuidDataSource"
           class="org.springframework.jndi.JndiObjectFactoryBean"
           lazy-init="true"
-          p:jndiName="java:dccCommon"/>
+          p:jndiName="java:comp/env/jdbc/dccCommon"/>
 </beans>

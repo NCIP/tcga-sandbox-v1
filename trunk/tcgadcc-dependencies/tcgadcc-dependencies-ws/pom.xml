@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+    ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+    ~ Copyright Notice. The software subject to this notice and license includes 
+    ~ both human readable source code form and machine readable, binary, object 
+    ~ code form (the "caBIG ~ Software"). 
+    ~ 
+    ~ Please refer to the complete License text for full details at the root of 
+    ~ the project. 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+        <artifactId>tcgadcc-dependencies</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tcgadcc-dependencies-ws</artifactId>
+    <packaging>pom</packaging>
+    <name>TCGA DCC :: Dependencies :: Web Services</name>
+    <description>Declares all the common web service dependencies used across all TCGA DCC web service modules.</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 
+    #########################################################################################################
+     
+        The dependencies declared in this project are common web service dependencies used 
+        across all TCGA DCC web service modules. When declaring this project as a dependency, 
+        its scope must be set as provided so that its dependencies are not transitive 
+        and are not included in the final build artifacts (e.g. WAR file) of the 
+        host project:
+        
+            ...
+            <dependency>
+                <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+                <artifactId>tcgadcc-dependencies-ws</artifactId>
+                <version>1.0</version>
+                <type>pom</type>
+                <scope>[ provide required scope ]</scope>
+            </dependency>
+            ...
+        
+    #########################################################################################################
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-bundle</artifactId>
+            <version>${com.sun.jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${com.sun.jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-spring</artifactId>
+            <version>${com.sun.jersey.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>

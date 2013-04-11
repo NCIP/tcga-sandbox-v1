@@ -30,7 +30,7 @@
     </bean>
 
     <bean id="dccCommonDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
-        <property name="jndiName" value="java:dccCommon"/>
+        <property name="jndiName" value="java:comp/env/jdbc/dccCommon"/>
     </bean>
 
 
@@ -38,7 +38,7 @@
     <bean id="diseaseSpecificDataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource">
         <constructor-arg index="0">
             <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
-                <property name="prefix" value="java:"/>
+                <property name="prefix" value="java:comp/env/jdbc/"/>
                 <property name="jndiDataSourceLookup">
                     <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup"/>
                 </property>
@@ -57,7 +57,7 @@
     </bean>
 
     <bean id="quartzDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
-        <property name="jndiName" value="java:quartzOracleDS"/>
+        <property name="jndiName" value="java:comp/env/jdbc/quartzOracleDS"/>
     </bean>
 
     <bean id="quartzTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

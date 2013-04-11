@@ -12,38 +12,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
-		<artifactId>tcga-parent</artifactId>
+		<artifactId>tcgadcc-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>gov.nih.nci.ncicb.tcga.dcc.common</groupId>
 	<artifactId>common-jaxb</artifactId>
 	<packaging>jar</packaging>
-	<name>Common JAXB</name>
-	<description />
-	<scm>
-		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-jaxb/trunk</connection>
-		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-jaxb/trunk</developerConnection>
-		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/common-jaxb/trunk</url>
-	</scm>
-	<!-- To generate the JAXB source from the TCGA XSDs invoke the following 
-		command: 
-			
-			mvn clean jaxb2:generate install 
-		
-		The generated JAXB objects will be in 'common-jaxb/target/generated-sources'. 
-		However for most cases the JAR file created in 'common-jaxb/' is all that is 
-		needed.
-		
-		Use the 'deploy' goal instead of 'install' to deploy the generated JAXB 
-		source JAR to the Nexus repository. Then to use this JAR in other Maven 
-		projects, add the following dependency: 
-		
-			<dependency>
-				<groupId>nci.tcga.bcr.xml.jaxb.biospecimen</groupId>
-				<artifactId>common-jaxb-mvn</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-	-->
+	<name>TCGA DCC :: Common :: JAXB</name>
+	<description>Generates class files from clinical XSDs.</description>
 	<build>
 		<plugins>
 			<plugin>
@@ -67,7 +44,6 @@
                             <bindingIncludes>
                                 <include>jaxb-binding.xjb</include>
                             </bindingIncludes>
-
 						</configuration>
 					</execution>
 				</executions>
@@ -100,33 +76,12 @@
 	</build>
 	<dependencies>
 		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-        </dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>

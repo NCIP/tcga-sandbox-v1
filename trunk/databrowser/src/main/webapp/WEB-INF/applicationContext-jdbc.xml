@@ -27,7 +27,7 @@
     <bean id="dataSource" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseRoutingDataSource">
         <constructor-arg>
             <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
-                <property name="prefix" value="java:" />
+                <property name="prefix" value="java:comp/env/jdbc/" />
                 <property name="jndiDataSourceLookup">
                     <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" />
                 </property>
@@ -68,7 +68,7 @@
         <constructor-arg ref="processLogger" />
         <constructor-arg>
             <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker">
-                <property name="prefix" value="java:" />
+                <property name="prefix" value="java:comp/env/jdbc/" />
                 <property name="jndiDataSourceLookup">
                     <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" />
                 </property>

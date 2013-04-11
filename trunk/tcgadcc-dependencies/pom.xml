@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+    ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+    ~ Copyright Notice. The software subject to this notice and license includes 
+    ~ both human readable source code form and machine readable, binary, object 
+    ~ code form (the "caBIG ~ Software"). 
+    ~ 
+    ~ Please refer to the complete License text for full details at the root of 
+    ~ the project. 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+        <artifactId>tcgadcc-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+    <artifactId>tcgadcc-dependencies</artifactId>
+    <packaging>pom</packaging>
+    <name>TCGA DCC :: Dependencies</name>
+    <description>Parent module for building sub-modules that declare common dependencies used across all TCGA DCC software projects.</description>
+    <modules>
+        <module>tcgadcc-dependencies-common</module>
+        <module>tcgadcc-dependencies-integration</module>
+        <module>tcgadcc-dependencies-persistence</module>
+        <module>tcgadcc-dependencies-spring</module>
+        <module>tcgadcc-dependencies-test</module>
+        <module>tcgadcc-dependencies-web</module>
+        <module>tcgadcc-dependencies-ws</module>
+    </modules>
+    <profiles>
+        <profile>
+            <id>tcgadcc-profile-copy-dependencies</id>
+            <activation>
+                <property>
+                    <name>setup</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-clean-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>auto-clean-dependencies</id>
+                                    <phase>initialize</phase>
+                                    <goals>
+                                        <goal>clean</goal>
+                                    </goals>
+                                    <configuration>
+                                        <filesets>
+                                            <fileset>
+                                                <!--
+                                                    The target directory used when using the '-Dsetup' parameter, 
+                                                    e.g. '../jboss-5.1.0.GA/server/default/lib/tcgadcc-<module-name>' 
+                                                -->
+                                                <directory>
+                                                    ${appserver.lib.dir}/${project.artifactId}
+                                                </directory>
+                                                <includes>
+                                                    <include>**/*</include>
+                                                </includes>
+                                                <followSymlinks>false</followSymlinks>
+                                            </fileset>
+                                        </filesets>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>copy-dependencies</id>
+                                    <phase>install</phase>
+                                    <goals>
+                                        <goal>copy-dependencies</goal>
+                                    </goals>
+                                    <configuration>
+                                        <!--
+                                            The target directory used when running the 'dependency:copy-dependencies'
+                                            goal, e.g. '../jboss-5.1.0.GA/server/default/lib/tcgadcc-<module-name>'
+                                         -->
+                                        <outputDirectory>
+                                            ${appserver.lib.dir}/${project.artifactId}
+                                        </outputDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>-nopackagediagram</additionalparam>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

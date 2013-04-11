@@ -29,11 +29,11 @@
 
     <!-- Datasource access through JNDI in jBoss, there is no configuration for connection to db in war file.-->
     <bean id="dataReportsDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
-        <property name="jndiName" value="java:dccCommon"/>
+        <property name="jndiName" value="java:comp/env/jdbc/dccCommon"/>
     </bean>
 
     <bean id="quartzDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
-        <property name="jndiName" value="java:quartzOracleDS"/>
+        <property name="jndiName" value="java:comp/env/jdbc/quartzOracleDS"/>
     </bean>
 
     <bean id="cacheAspect" class="gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.CacheAspect"/>

@@ -33,7 +33,7 @@
         <constructor-arg>
             <bean class="gov.nih.nci.ncicb.tcga.dcc.common.dao.JndiDataSourceMaker" lazy-init="default"
                   autowire="default" dependency-check="default">
-                <property name="prefix" value="java:"/>
+                <property name="prefix" value="java:comp/env/jdbc/"/>
                 <property name="jndiDataSourceLookup">
                     <bean class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup" lazy-init="default"
                           autowire="default" dependency-check="default"/>

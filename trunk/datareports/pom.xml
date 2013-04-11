@@ -1,94 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ Software License, Version 1.0 Copyright 2011 SRA International, Inc.
-  ~ Copyright Notice.  The software subject to this notice and license includes both human
-  ~ readable source code form and machine readable, binary, object code form (the "caBIG
-  ~ Software").
-  ~
-  ~ Please refer to the complete License text for full details at the root of the project.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2012 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
-		<artifactId>tcga-parent</artifactId>
+		<artifactId>tcgadcc-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>gov.nih.nci.ncicb.tcga.dcc.datareports</groupId>
     <artifactId>datareports</artifactId>
     <packaging>pom</packaging>
-    <name>Data Reports</name>
+    <name>TCGA DCC :: Data Reports</name>
     <description>Aggregator project for all Data Reports modules.</description>
-    <scm>
-		<connection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/datareports/trunk</connection>
-		<developerConnection>scm:svn:https://ncisvn.nci.nih.gov/svn/tcga-sandbox/datareports/trunk</developerConnection>
-		<url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox/datareports/trunk</url>
-	</scm>
     <modules>
         <module>datareports-web</module>
         <module>datareports-cli</module>
     </modules>
-    <!--#############################################################################################################################################################################
-
-        To run a full build for the datareports project, including all unit tests, execute the following command from the 'datareports' project directory:
-
-           mvn clean install
-
-        To run a full build and generate HTML unit test reports, include the "site" goal:
-
-           mvn clean install site
-
-        Note that specifying the "site" goal will run the unit tests twice, which may not be desirable when only a
-        unit test report is required. To generate only the unit test report(s), use the "surefire-report:report-only"
-        goal instead of "site".
-        
-        To run just the unit tests and generate an HTML report, execute the following command:
-        
-           mvn clean site
-        
-        To run just slow or fast tests, provide the '-Dtest=' argument:
-        
-           mvn -Dtest=*FastTest clean site
-          
-           OR
-          
-           mvn -Dtest=*SlowTest clean site
-
-    ##############################################################################################################################################################################-->
-    <build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-scm-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 	<reporting>
 		<plugins>
 			<plugin>
