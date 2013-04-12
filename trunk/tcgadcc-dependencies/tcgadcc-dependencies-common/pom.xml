@@ -241,14 +241,14 @@
             <artifactId>ojdbc6</artifactId>
             <version>${oracle.jdbc.version}</version>
             <scope>system</scope>
-            <systemPath>[ absolute system path ]/oracle/jdbc/11.2.0.3/ojdbc6.jar</systemPath>
+            <systemPath>/home/nichollsmc/development/shared-dev/lib/maven-local-repository/oracle/jdbc/11.2.0.3/ojdbc6.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>oracle.ucp.jdbc</groupId>
             <artifactId>ucp</artifactId>
             <version>${oracle.jdbc.version}</version>
             <scope>system</scope>
-            <systemPath>[ absolute system path ]/oracle/ucp/jdbc/11.2.0.3/ucp.jar</systemPath>
+            <systemPath>/home/nichollsmc/development/shared-dev/lib/maven-local-repository/oracle/ucp/jdbc/11.2.0.3/ucp.jar</systemPath>
         </dependency>
 
         <!-- Logging modules -->
@@ -261,6 +261,21 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
             <version>1.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${org.slf4j.version}</version>
         </dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -294,7 +309,12 @@
             <version>${org.quartz.scheduler.version}</version>
         </dependency>
 
-        <!-- XML parser -->
+        <!-- XML -->
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+        </dependency>
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>

@@ -47,6 +47,7 @@
         <org.hibernate.version>3.5.6-Final</org.hibernate.version>
         <org.milyn.smooks.version>1.5.1</org.milyn.smooks.version>
         <org.quartz.scheduler.version>1.8.6</org.quartz.scheduler.version>
+        <org.slf4j.version>1.6.2</org.slf4j.version>
         <org.springframework.version>3.2.2.RELEASE</org.springframework.version>
         <org.springframework.security.version>2.0.7.RELEASE</org.springframework.security.version>
 
@@ -238,14 +239,14 @@
                         </nonFilteredFileExtensions>
                         <!-- Exclude container managed dependencies -->
                         <packagingExcludes>
-                            commons-lang-*.jar,
-                            javaee-*.jar,
-                            log4j-*.jar,
-                            logback-*.jar,
-                            mail-*.jar,
-                            tomcat-*.jar,
-                            ojdbc*.jar,
-                            ucp.jar
+                            **/commons-lang-*.jar,
+                            **/javaee-*.jar,
+                            **/log4j-*.jar,
+                            **/logback-*.jar,
+                            **/mail-*.jar,
+                            **/tomcat-*.jar,
+                            **/ojdbc*.jar,
+                            **/ucp.jar
                         </packagingExcludes>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                         <!--<webXml>src/main/webapp/WEB-INF/web.xml</webXml>-->
