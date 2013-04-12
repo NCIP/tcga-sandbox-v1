@@ -15,14 +15,14 @@
                 <%@include file="/includes/modules/rightMenuDownloadData.jspf" %>
             </div>
             <div class="clear"></div>
-
+            <a name="skip" id="skip"></a>
             <div id="center" class="<%=bodyDesign%>">
                 <div id="downloadformdiv">
                     <form name="downloadform" id="downloadform" action="<%=request.getContextPath()%>/dataAccessFileProcessing.htm"
                           method="post">
                         <table>
                             <tr>
-                                <td><spring:message code="label.enterEmailAddress"/></td>
+                                <td><label for="email"><spring:message code="label.enterEmailAddress"/></label></td>
                                 <td><input tabindex="1" type="text" name="email" id="email" onkeypress="handleKeyPress(event)" value="<%=model.getEmail() == null ? "" : model.getEmail()%>"/>
                                 </td>
                                 <td style="padding-left:20px;">
@@ -45,19 +45,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><spring:message code="label.reEnterEmailAddress"/></td>
+                                <td><label for="email2"><spring:message code="label.reEnterEmailAddress"/></label></td>
                                 <td colspan="2"><input tabindex="2" type="text" name="email2" id="email2" onkeypress="handleKeyPress(event)" value="<%=model.getEmail2() == null ? "" : model.getEmail2()%>">
                                 </td>
                             </tr>
                             <tr>
-                                <td><spring:message code="label.estimatedUncompressedSize"/></td>
+                                <td><label for="size"><spring:message code="label.estimatedUncompressedSize"/></label></td>
                                 <td colspan="2"><input type="text" id="size" name="size" readonly="true" onkeypress="handleKeyPress(event)"> <div id="allowableLimit"> <%=model.getSizeLimitGigs()%> Gb maximum allowable size</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="vertical-align:top">Archive Options:</td>
                                 <td colspan="2">
-                                    <input tabindex="4" type="checkbox" id="flatten" name="flatten" value="true" <%=model.isFlatten() ? "checked" : "" %>>&nbsp;<spring:message code="label.flattenDirectoryStructure"/>
+                                    <input tabindex="4" type="checkbox" id="flatten" name="flatten" value="true" <%=model.isFlatten() ? "checked" : "" %>>&nbsp;<label for="flatten"><spring:message code="label.flattenDirectoryStructure"/></label>
                                 </td>
                             </tr>
                         </table>

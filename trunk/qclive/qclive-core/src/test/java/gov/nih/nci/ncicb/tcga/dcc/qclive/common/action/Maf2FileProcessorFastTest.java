@@ -101,8 +101,7 @@ public class Maf2FileProcessorFastTest {
                 one(bcrDataService).addBioSpecimenToFileAssociations(with(any(List.class)), with(any(Tumor.class)));
                 one(bcrDataService).addShippedBiospecimensFileRelationship(with(any(List.class)), with(5L));
 
-				exactly(7).of(mockMafInfoQueries).addMaf(mafInfo); // 7 lines in
-																	// maf file
+				exactly(7).of(mockMafInfoQueries).addMaf(mafInfo); // 7 lines in maf file
 				allowing(bcrDataService).parseAliquotBarcode(with(any(String.class)));
 				will(returnBCRID());
 			}
@@ -127,8 +126,7 @@ public class Maf2FileProcessorFastTest {
                 one(bcrDataService).addBioSpecimenToFileAssociations(with(any(List.class)), with(any(Tumor.class)));
                 one(bcrDataService).addShippedBiospecimensFileRelationship(with(any(List.class)), with(5L));
 
-				exactly(1).of(mockMafInfoQueries).addMaf(mafInfo); // 7 lines in
-																	// maf file
+				exactly(1).of(mockMafInfoQueries).addMaf(mafInfo); // 7 lines in maf file
 				allowing(bcrDataService).parseAliquotBarcode(with(any(String.class)));
 				will(returnBCRID());
 			}
@@ -166,13 +164,7 @@ public class Maf2FileProcessorFastTest {
 			{
 				one(mockFileInfoQueries).getFileId("testBadMaf2Header.maf", 1L);
 				will(returnValue(5L));
-				exactly(0).of(mockMafInfoQueries).addMaf(mafInfo); // Should
-																	// fail
-																	// hence not
-																	// do
-																	// anything
-																	// in maf
-																	// file
+				exactly(0).of(mockMafInfoQueries).addMaf(mafInfo);
 			}
 		});
 		processor.doWork(mafFile, qcContext);
@@ -189,7 +181,7 @@ public class Maf2FileProcessorFastTest {
 		assertEquals(new Long(5), mafInfo.getFileID());
 		assertEquals("NOL9", mafInfo.getHugoSymbol());
 		assertEquals(new Integer(79707), mafInfo.getEntrezGeneID());
-		assertEquals("36", mafInfo.getNcbibuild());
+		assertEquals("36", mafInfo.getNcbiBuild());
 		assertEquals("1", mafInfo.getChromosome());
 		assertEquals(new Integer(6533111), mafInfo.getStartPosition());
 		assertEquals(new Integer(6533111), mafInfo.getEndPosition());

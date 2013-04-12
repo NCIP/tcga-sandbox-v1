@@ -11,8 +11,6 @@ package gov.nih.nci.ncicb.tcga.dcc.qclive.dao;
 
 import gov.nih.nci.ncicb.tcga.dcc.qclive.bean.MafInfo;
 
-import java.util.Collection;
-
 /**
  * Interface for MAF queries
  *
@@ -22,5 +20,10 @@ import java.util.Collection;
  */
 public interface MafInfoQueries {
 
-    public Integer addMaf( MafInfo theMaf );
+    public Long addMaf( MafInfo theMaf );
+
+    public boolean fileIdExistsInMafInfo(Long mafFileId);
+
+    public void deleteMafInfoForFileId(Long mafFileId);
+
 }

@@ -99,13 +99,12 @@ public class SoundcheckFastTest {
     private static final String SAMPLE_DIR = Thread.currentThread().getContextClassLoader()
             .getResource("samples").getPath() + File.separator;
     private static final String ARCHIVE_DIRECTORY = SAMPLE_DIR + "qclive" + File.separator + "soundcheck" + File.separator + "tarAndTarGz" + File.separator;
+    private static final String TEST_DIR = SAMPLE_DIR + "qclive" + File.separator + "mafFileValidator" + File.separator;
 
     private Mockery mockery = new JUnit4Mockery();
     private Soundcheck soundcheck;
     private RemoteValidationHelper mockRemoteValidationHelper = mockery.mock(RemoteValidationHelper.class);
     private Logger mockLogger;
-
-
 
     @Before
     public void setup() {
@@ -321,32 +320,153 @@ public class SoundcheckFastTest {
     }
 
     @Test
-    public void testCheckMafValidator() throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{    	              	     	
-    	   Soundcheck.setUseRemoteValidation(false);
-    	   final ExperimentValidator gscExperimentValidator = soundcheck.makeValidator(Experiment.TYPE_GSC, false);    	
-           assertNotNull(gscExperimentValidator);           
-           String SAMPLES_DIR = Thread.currentThread()
-			.getContextClassLoader().getResource("samples").getPath()
-			+ File.separator;
-           
-           final List<Processor<Archive, Boolean>> listProcessors = getListProcessors(gscExperimentValidator);
-           MafFileValidatorDispatcher mafDispatcher = (MafFileValidatorDispatcher)listProcessors.get(1);
-           
-           Archive archive = new Archive(new File(SAMPLES_DIR
-     				+ "qclive/mafFileValidator/good/standalone.tar.gz").toString());
-           archive.setExperimentType(Experiment.TYPE_GSC);
-           final QcContext qcContext = soundcheck.getQcContext();
-           qcContext.setArchive(archive);
-           archive.setDeployLocation(
-                   new File(SAMPLES_DIR + "qclive/mafFileValidator/good/standalone.tar.gz").toString());
-           
-           archive.setArchiveType(Archive.TYPE_LEVEL_2);
-           qcContext.setCenterConvertedToUUID(true);
-           Boolean result = mafDispatcher.execute(archive, qcContext);
+    public void testCheckDefaultMafValidator()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{
 
-           assertTrue(result);
+        final String archiveFilename = TEST_DIR + "good/standalone.tar.gz";
+        checkMafValidator(archiveFilename);
     }
-    
+
+    @Test
+    public void testCheckMafValidator1Dot0()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{
+
+        final String archiveFilename = TEST_DIR + "mafV1_0/standalone/valid.tar.gz";
+        checkMafValidator(archiveFilename);
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot4ValidSomatic()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{
+
+        soundcheck.getQcContext().setPlatformName("IlluminaGA_DNASeq");
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/valid/somatic.tar.gz";
+        checkMafValidator(archiveFilename);
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot4ValidProtected()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{
+
+        soundcheck.getQcContext().setPlatformName("IlluminaGA_DNASeq_Cont");
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/valid/protectedMaf.tar.gz";
+        checkMafValidator(archiveFilename);
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot3()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException{
+
+        final String archiveFilename = TEST_DIR + "mafV2_3/standalone/valid.tar.gz";
+        checkMafValidator(archiveFilename);
+    }
+
+    @Test
+    public void testCheckRnaSeqMafValidator()
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException, ApplicationException {
+
+        final String archiveFilename = TEST_DIR + "mafRnaSeqV1_0/standalone/valid.tar.gz";
+        checkMafValidator(archiveFilename);
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot2Invalid()
+            throws NoSuchFieldException, IllegalAccessException, ApplicationException {
+
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/invalid/mafV2_2.tar.gz";
+        try {
+            checkMafValidator(archiveFilename);
+            fail("ProcessorException was not thrown.");
+
+        } catch (final ProcessorException e) {
+            final String expectedErrorMessage = "MAF spec version '2.2' is not supported";
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCheckMafValidatorInvalidVersionHeader()
+            throws NoSuchFieldException, IllegalAccessException, ApplicationException {
+
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/invalid/mafVSquirrel.tar.gz";
+        try {
+            checkMafValidator(archiveFilename);
+            fail("ProcessorException was not thrown.");
+
+        } catch (final ProcessorException e) {
+            final String expectedErrorMessage = "MAF spec version must be specified in the first line of the " +
+                    "file with the format '#version X' where X is the version designation";
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot4InvalidFilenameForSomaticMaf()
+            throws NoSuchFieldException, IllegalAccessException, ApplicationException {
+
+        soundcheck.getQcContext().setPlatformName("IlluminaGA_DNASeq");
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/invalid/invalidSomaticFileName.tar.gz";
+        try {
+            checkMafValidator(archiveFilename);
+            fail("ProcessorException was not thrown.");
+
+        } catch (final ProcessorException e) {
+            final String expectedErrorMessage = "Failed processing maf file center_disease_platform_invalid.germ.somatic.maf. " +
+                    "Somatic maf files must not have 'germ' or 'protected'  text in the filename.";
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCheckMafValidator2Dot4InvalidFilenameForProtectedMaf()
+            throws NoSuchFieldException, IllegalAccessException, ApplicationException {
+
+        soundcheck.getQcContext().setPlatformName("IlluminaGA_DNASeq_Cont");
+        final String archiveFilename = TEST_DIR + "mafV2_4/standalone/invalid/invalidProtectedFileName.tar.gz";
+        try {
+            checkMafValidator(archiveFilename);
+            fail("ProcessorException was not thrown.");
+
+        } catch (final ProcessorException e) {
+            final String expectedErrorMessage = "Failed processing maf file center_disease_platform_invalid.germ.somatic.protected.maf. " +
+                    "Protected maf files must not have 'somatic' text in the filename.";
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+
+    /**
+     * Checks that the MAF files in the given archive are valid.
+     *
+     *
+     * @param archiveFilename the archive file name (the directory in which to find the MAF files appended with .tar.gz)
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws ProcessorException
+     */
+    private void checkMafValidator(final String archiveFilename)
+            throws NoSuchFieldException, IllegalAccessException, ProcessorException {
+
+        Soundcheck.setUseRemoteValidation(false);
+        final ExperimentValidator gscExperimentValidator = soundcheck.makeValidator(Experiment.TYPE_GSC, false);
+        assertNotNull(gscExperimentValidator);
+
+        final List<Processor<Archive, Boolean>> listProcessors = getListProcessors(gscExperimentValidator);
+        MafFileValidatorDispatcher mafDispatcher = (MafFileValidatorDispatcher)listProcessors.get(1);
+
+        final Archive archive = new Archive(archiveFilename);
+        archive.setExperimentType(Experiment.TYPE_GSC);
+        final QcContext qcContext = soundcheck.getQcContext();
+        qcContext.setArchive(archive);
+        archive.setDeployLocation(archiveFilename);
+
+        archive.setArchiveType(Archive.TYPE_LEVEL_2);
+        qcContext.setCenterConvertedToUUID(true);
+        final Boolean result = mafDispatcher.execute(archive, qcContext);
+
+        assertTrue(result);
+        assertEquals(0, qcContext.getErrorCount());
+    }
+
     @Test
     public void testMakeGscValidator() throws NoSuchFieldException, IllegalAccessException {
 

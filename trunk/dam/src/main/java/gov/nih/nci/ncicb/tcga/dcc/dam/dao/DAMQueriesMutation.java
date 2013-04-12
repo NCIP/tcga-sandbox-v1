@@ -64,27 +64,29 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             "archive_info ai, " +
             "file_to_archive fa, " +
             "maf_info mi, " +
+            "maf_key mk, " +
             "shipped_biospecimen bb, " +
-            "center_to_bcr_center m, " +
+            "center_to_bcr_center ctbc, " +
             "platform p, center c, data_type dt," +
             "visibility v, data_visibility dv, archive_type at, " +
             "(select maf_info_id, tumor_sample_barcode||'%' as barcode from maf_info) mv ";
 
     private static final String MUTATION_QUERY_WHERE = " where " +
-            "p.platform_id=ai.platform_id " +
-            "and c.center_id=mi.center_id " +
+            "p.platform_id = ai.platform_id " +
+            "and mi.maf_key_id = mk.maf_key_id " +
+            "and c.center_id = mk.center_id " +
             "and fa.archive_id = ai.archive_id " +
             "and fa.file_id = fi.file_id " +
             "and mi.file_id = fi.file_id " +
             "and mi.maf_info_id = mv.maf_info_id " +
             "and bb.built_barcode like mv.barcode " +
-            "and bb.bcr_center_id = m.bcr_center_id " +
-            "and mi.center_id = m.center_id " +
-            "and v.visibility_id=dv.visibility_id " +
-            "and at.archive_type_id=ai.archive_type_id " +
-            "and dt.data_type_id=p.base_data_type_id " +
-            "and at.data_level=dv.level_number " +
-            "and dv.data_type_id=dt.data_type_id " +
+            "and bb.bcr_center_id = ctbc.bcr_center_id " +
+            "and mk.center_id = ctbc.center_id " +
+            "and v.visibility_id = dv.visibility_id " +
+            "and at.archive_type_id = ai.archive_type_id " +
+            "and dt.data_type_id = p.base_data_type_id " +
+            "and at.data_level = dv.level_number " +
+            "and dv.data_type_id = dt.data_type_id " +
             "and ai.is_latest = 1 " +
             "and bb.is_viewable = 1 " +
             "and bb.is_redacted = 0 " +
@@ -152,7 +154,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
         final List<DataSet> retDataSets = new ArrayList<DataSet>();
         final Map<String, Integer> barcodeToBatch = getBarcodeBatches();
         setInstanceVariables();
-        for(final String diseaseType : diseaseTypes) {
+        for (final String diseaseType : diseaseTypes) {
             retDataSets.addAll(makeDatasets(diseaseType, barcodeToBatch, isControl.value()));
         }
         return retDataSets;
@@ -170,9 +172,8 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
     }
 
 
-
     private Collection<DataSet> makeDatasets(final String diseaseType,
-                              final Map<String, Integer> barcodeToBatch, final int isControlValue) {
+                                             final Map<String, Integer> barcodeToBatch, final int isControlValue) {
         final Map<String, DataSet> dataSets = new HashMap<String, DataSet>();
         final SimpleJdbcTemplate jdbc = new SimpleJdbcTemplate(getDataSource());
         //this query will list each barcode just once
@@ -223,7 +224,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
         ds.setPlatformAlias(record.get("platform_alias").toString());
         ds.setPlatformId(record.get("platform_id").toString());
         ds.setPlatformDisplayName(record.get("platform_display_name").toString());
-        ds.setArchiveId(((BigDecimal)record.get("archive_id")).intValue());
+        ds.setArchiveId(((BigDecimal) record.get("archive_id")).intValue());
         ds.setCenterId((record.get("center_id")).toString());
         ds.setLevel(record.get("data_level").toString());
         // note: don't get batch in this query anymore
@@ -259,11 +260,10 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
      *
      * @param selectedDataSets the data sets the user selected
      * @param consolidateFiles whether data for selected data sets should be consolidated -- IGNORED IN THIS
-     * IMPLEMENTATION
-     *
+     *                         IMPLEMENTATION
      * @return data files representing the given data sets
-     *
      * @throws DataAccessMatrixQueries.DAMQueriesException
+     *
      */
     public List<DataFile> getFileInfoForSelectedDataSets(
             final List<DataSet> selectedDataSets, final boolean consolidateFiles)
@@ -350,8 +350,9 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                 long totalBytesForFile = 0;
                 PreparedStatement stmt = null;
                 try {
-                    String sql = "select count(maf_info_id) from maf_info where tumor_sample_barcode = ? and center_id = ?";
-                    
+                    String sql = "select count(maf_info_id) from maf_info mi, maf_key mk where tumor_sample_barcode = ? " +
+                            "and mi.maf_key_id = mk.maf_key_id and center_id = ?";
+
                     //noinspection JDBCResourceOpenedButNotSafelyClosed
                     stmt = connection.prepareStatement(sql);
                     for (final String barcode : df.getBarcodes()) {
@@ -363,23 +364,19 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                             rs.next();
                             final int rowsForBarcode = rs.getInt(1);
                             totalBytesForFile += (rowsForBarcode * BYTES_PER_ROW);
-                        }
-                        finally {
+                        } finally {
                             SQLProcessingCleaner.cleanUpResultSet(rs);
                         }
                     }
                     df.setSize(totalBytesForFile);
-                }
-                catch (SQLException e) {
+                } catch (SQLException e) {
                     new ErrorInfo(e); //logs
                     throw new DataAccessMatrixQueries.DAMQueriesException(e);
-                }
-                finally {
+                } finally {
                     SQLProcessingCleaner.cleanUpStatement(stmt);
                 }
             }
-        }
-        finally {
+        } finally {
             SQLProcessingCleaner.cleanUpConnection(connection);
         }
     }
@@ -416,11 +413,9 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                     writeDataFile(logger, (DataFileMutation) df, connection);
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DataAccessMatrixQueries.DAMQueriesException("SQLException thrown while running prepared statement", e);
-        }
-        finally {
+        } finally {
             SQLProcessingCleaner.cleanUpConnection(connection);
         }
     }
@@ -428,13 +423,15 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
     private void writeDataFile(
             final ProcessLogger logger, final DataFileMutation dfm,
             final Connection connection) throws SQLException, DataAccessMatrixQueries.DAMQueriesException {
-            final StringBuilder sql1 = new StringBuilder("select maf_info_id, hugo_symbol, start_position, end_position");
-                 sql1.append(" from maf_info m, file_to_archive fa, archive_info a ")
-                     .append(" where m.tumor_sample_barcode = ? and m.center_id = ? ")
-                     .append(" and m.file_id =  fa.file_id ")
-                     .append(" and fa.archive_id = a.archive_id and a.is_latest = 1 ");
-       
-        final String sql2 = "select * from maf_info, center where maf_info.center_id=center.center_id and maf_info_id = ?";
+        final StringBuilder sql1 = new StringBuilder("select maf_info_id, hugo_symbol, start_position, end_position");
+        sql1.append(" from maf_info mi, maf_key mk, file_to_archive fa, archive_info a ")
+                .append(" where mi.tumor_sample_barcode = ? and mk.center_id = ? ")
+                .append(" and mi.maf_key_id = mk.maf_key_id ")
+                .append(" and mi.file_id =  fa.file_id ")
+                .append(" and fa.archive_id = a.archive_id and a.is_latest = 1 ");
+
+        final String sql2 = "select * from maf_info mi, maf_key mk, center " +
+                "where mi.maf_key_id = mk.maf_key_id and mk.center_id=center.center_id and mi.maf_info_id = ?";
         PreparedStatement stmt1 = null, stmt2 = null;
         Writer writer = null;
         final String uniqueName = makeTempFilename(dfm);
@@ -456,23 +453,19 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             writer.flush();
             writer.close();
             writer = null;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             new ErrorInfo(e); //logs itself
             throw new DataAccessMatrixQueries.DAMQueriesException(e);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             new ErrorInfo(e); //logs itself
             throw new DataAccessMatrixQueries.DAMQueriesException(e);
-        }
-        finally {
+        } finally {
             if (writer != null) {
                 //will only happen if some exception occurred. In that case, we don't care about
                 //flushing the buffer-  file will not be used anyway. Just make sure it's closed
                 try {
                     writer.close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     logger.logToLogger(Level.WARN, "Could not close writer.");
                 }
             }
@@ -509,8 +502,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                         writer.write('\t');
                     }
                 }
-            }
-            finally {
+            } finally {
                 SQLProcessingCleaner.cleanUpResultSet(rs); //but not the statement, that's released at a higher level
             }
         }
@@ -540,8 +532,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                     rowkey.bc = barcode;
                     rowkeys.add(rowkey);
                 }
-            }
-            finally {
+            } finally {
                 SQLProcessingCleaner.cleanUpResultSet(rs);  //but leave statement alone - it will be cleaned up in the calling method (faster, since we can reuse the statement)
             }
         }

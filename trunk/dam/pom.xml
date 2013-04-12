@@ -34,6 +34,16 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <filters>
+                        <filter>${project.basedir}/src/main/assembly/common-filter-values.properties</filter>
+                        <filter>${project.basedir}/src/main/assembly/${env}-filter-values.properties</filter>
+                    </filters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
             <plugin>
@@ -75,16 +85,6 @@
                             <filtered>true</filtered>
                         </overlay>
                     </overlays>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <filters>
-                        <filter>${project.basedir}/src/main/assembly/common-filter-values.properties</filter>
-                        <filter>${project.basedir}/src/main/assembly/${env}-filter-values.properties</filter>
-                    </filters>
                 </configuration>
             </plugin>
             <plugin>

@@ -18,7 +18,7 @@ use strict;
 my $tagName = shift @ARGV or die "First argument should be the tag name.  Second argument should be the jira issue number (without APPS).\n";
 my $jiraKey = shift @ARGV or die "First argument should be the tag name.  Second argument should be the jira issue number (without APPS)\n";
 
-my $svnUrl = 'https://ncisvn.nci.nih.gov/svn/tcga-sandbox';
+my $svnUrl = 'https://ncisvn.nci.nih.gov/svn/tcgainformatics';
 my @apps = ('tcga-parent', 'common', 'common-jaxb', 'common-web', 'qclive-test-data-generator', 'qclive', 'annotations', 'dam', 'datareports', 'uuid', 'databrowser', 'clide');
 
 foreach my $app (@apps) {

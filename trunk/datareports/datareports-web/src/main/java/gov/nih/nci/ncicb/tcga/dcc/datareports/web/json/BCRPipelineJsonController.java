@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.*;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALL;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DISEASE;
 
 /**
  * Json controller class for all bcrpipeline reports data calls
@@ -54,23 +56,16 @@ public class BCRPipelineJsonController {
         return model;
     }
 
-    @RequestMapping(value = "/bcrData.json", method = RequestMethod.GET)
-    public ModelMap allBcrData(final ModelMap model) {
-        model.addAttribute("bcrData", service.getBcrData());
-        return model;
-    }
-
     @RequestMapping(value = "/pRepData.json", method = RequestMethod.GET)
     public ModelMap pipeLineReportData(
             final ModelMap model,
             @RequestParam(value = DISEASE, required = false) final String disease,
-            @RequestParam(value = BCR, required = false) final String bcr,
             @RequestParam(value = DATE, required = false) final String date) {
 
-        int success = service.readBCRInputFiles(disease, bcr, date);
+        int success = service.readBCRInputFiles(disease, date);
         if (success == 1) {
             model.addAttribute("graphConfig", service.getGraphConfigData());
-            model.addAttribute("nodeData", service.getNodeDataListData(bcr));
+            model.addAttribute("nodeData", service.getNodeDataListData());
             model.addAttribute("totals", service.getTotalData());
             if (disease == null || ALL.equalsIgnoreCase(disease)) {
                 model.addAttribute("tumorTypes", service.getTumorTypesData());

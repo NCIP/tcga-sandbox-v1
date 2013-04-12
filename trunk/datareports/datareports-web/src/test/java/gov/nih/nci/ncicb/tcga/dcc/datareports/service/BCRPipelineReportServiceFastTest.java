@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -68,10 +68,10 @@ public class BCRPipelineReportServiceFastTest {
 
     @Test
     public void getNodeDataListDataTest() {
-        List<NodeData> ndList = service.getNodeDataListData("igc");
+        List<NodeData> ndList = service.getNodeDataListData();
         assertNotNull(ndList);
         assertEquals(5, ndList.size());
-        assertEquals("igc", ndList.get(0).getName());
+        assertEquals("bcr", ndList.get(0).getName());
         assertEquals("Genotype/Final Review", ndList.get(3).getLabel());
         assertEquals(new Integer(2), ndList.get(0).getOutputs().get(0).getCount());
         assertEquals(new Integer(14), ndList.get(0).getOutputs().get(1).getCount());
@@ -128,40 +128,14 @@ public class BCRPipelineReportServiceFastTest {
     }
 
     @Test
-    public void testGetBcrData() throws Exception {
-        List<ExtJsFilter> res = service.getBcrData();
-        assertNotNull(res);
-        assertEquals(3, res.size());
-        assertEquals("total", res.get(0).getId());
-        assertEquals("All BCRs", res.get(0).getText());
-    }
-
-    @Test
     public void readInputFiles() {
-        assertEquals(0, service.readBCRInputFiles("blahblah", "igc", "01-2011"));
-        assertEquals(1, service.readBCRInputFiles("COAD", "nwch", "01-2011"));
-        assertEquals(1, service.readBCRInputFiles("All", "total", "01-2011"));
+        assertEquals(0, service.readBCRInputFiles("blahblah", "01-2011"));
+        assertEquals(1, service.readBCRInputFiles("COAD", "01-2011"));
+        assertEquals(1, service.readBCRInputFiles("All", "01-2011"));
         BCRJson bcr = service.getBcrJson();
         assertNotNull(bcr);
         assertEquals("All", bcr.getDisease());
-        assertEquals(new Integer(102), bcr.getDq_genotype());
-    }
-
-    @Test
-    public void testCommonDiseaseInBothBCR() throws Exception {
-        BCRJson bcr;
-        service.readBCRInputFiles("COAD", "nwch", "01-2011");
-        bcr = service.getBcrJson();
-        assertNotNull(bcr);
-        assertEquals(new Integer(45), bcr.getShipped());
-        service.readBCRInputFiles("COAD", "igc", "01-2011");
-        bcr = service.getBcrJson();
-        assertNotNull(bcr);
-        assertEquals(new Integer(158), bcr.getShipped());
-        service.readBCRInputFiles("COAD", "total", "01-2011");
-        bcr = service.getBcrJson();
-        assertNotNull(bcr);
-        assertEquals(new Integer(203), bcr.getShipped());
+        assertEquals(new Integer(21), bcr.getDq_genotype());
     }
 
 }//End of Class

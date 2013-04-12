@@ -10,6 +10,7 @@
 package gov.nih.nci.ncicb.tcga.dcc.qclive.common.action;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Archive;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.FileInfo;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseContextHolder;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.FileInfoQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.exception.UUIDException;
@@ -21,24 +22,19 @@ import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.util.MessagePr
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BiospecimenHelper;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.dao.BCRDataService;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.dao.MafInfoQueries;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.dao.DataAccessException;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.dao.DataAccessException;
+import java.util.*;
 
 /**
  * Processes all maf files in an archive.  Note that this does not perform validation -- see MafFileValidator for that.
- *
+ * <p/>
  * NOTE: saves info only to disease-specific schema.
  *
  * @author Jessica Chen
@@ -65,7 +61,7 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         BufferedReader bufferedReader = null;
 
         try {
-             // open file
+            // open file
             fileReader = new FileReader(mafFile);
             bufferedReader = new BufferedReader(fileReader);
 
@@ -89,51 +85,50 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
                 context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
                 throw new ProcessorException(new StringBuilder().append("File '").append(mafFile.getName()).append("' was not found in the database").toString());
             }
-            HashMap<String, BCRID> biospecimens = new HashMap<String, BCRID>();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lineNum++;
-                if (!StringUtils.isBlank(line.trim()) && !StringUtils.startsWith(line, COMMENT_LINE_TOKEN)) {
-                    final String[] row = line.split("\\t");
+            if (isAddMafInfo(mafFileId)) {
+                HashMap<String, BCRID> biospecimens = new HashMap<String, BCRID>();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    lineNum++;
+                    if (!StringUtils.isBlank(line.trim()) && !StringUtils.startsWith(line, COMMENT_LINE_TOKEN)) {
+                        final String[] row = line.split("\\t");
 
-                    try {
-                        processRow(row, fieldOrder, mafFileId, biospecimens, context, mafFile);
-                        //  If exceeds batch size store it in the database
-                        if(biospecimens.size() >= getBatchSize()){
-                            try {
-                                insertBiospecimenToFileRelationships(biospecimens, context, mafFile);
-                            } catch (UUIDException ue) {
-                                throw new ProcessorException(ue.getMessage(),ue);
+                        try {
+                            processRow(row, fieldOrder, mafFileId, biospecimens, context, mafFile);
+                            //  If exceeds batch size store it in the database
+                            if (biospecimens.size() >= getBatchSize()) {
+                                try {
+                                    insertBiospecimenToFileRelationships(biospecimens, context, mafFile);
+                                } catch (UUIDException ue) {
+                                    throw new ProcessorException(ue.getMessage(), ue);
+                                }
+                                biospecimens.clear();
                             }
-                            biospecimens.clear();
+                        } catch (DataAccessException e) {
+                            // catch DB errors per line
+                            context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
+                            context.addError(MessageFormat.format(
+                                    MessagePropertyType.MAF_FILE_PROCESSING_ERROR,
+                                    mafFile.getName(),
+                                    new StringBuilder().append("Mutation information from file at line '").append(lineNum).append("' was not successfully added. Root cause: ").append(e.getMessage()).toString()));
                         }
                     }
-                    catch (DataAccessException e) {
-                        // catch DB errors per line
-                        context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
-                        context.addError(MessageFormat.format(
-                                MessagePropertyType.MAF_FILE_PROCESSING_ERROR,
-                                mafFile.getName(),
-                                new StringBuilder().append("Mutation information from file at line '").append(lineNum).append("' was not successfully added. Root cause: ").append(e.getMessage()).toString()));
-                    }
                 }
-            }     
-            // process remaining biospecimens
-            if(biospecimens.size() > 0){
-               try {
-                   insertBiospecimenToFileRelationships(biospecimens, context, mafFile);
-               } catch (UUIDException ue) {
-                   context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
-                   throw new ProcessorException(ue.getMessage(),ue);
-               } catch (DataAccessException e) {
-                   context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
-                   throw new ProcessorException(e.getMessage(), e);
-        }
-                biospecimens.clear();
+                // process remaining biospecimens
+                if (biospecimens.size() > 0) {
+                    try {
+                        insertBiospecimenToFileRelationships(biospecimens, context, mafFile);
+                    } catch (UUIDException ue) {
+                        context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
+                        throw new ProcessorException(ue.getMessage(), ue);
+                    } catch (DataAccessException e) {
+                        context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
+                        throw new ProcessorException(e.getMessage(), e);
+                    }
+                    biospecimens.clear();
+                }
             }
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
             throw new ProcessorException(new StringBuilder().append("Error reading maf file ").append(mafFile.getName()).toString());
         } finally {
@@ -157,9 +152,26 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         return mafFile;
     }
 
+    protected boolean isAddMafInfo(final Long mafFileId) {
+        boolean bRet = true;
+        if(mafInfoQueries.fileIdExistsInMafInfo(mafFileId)) {
+            final FileInfo fi = fileInfoQueries.getFileForFileId(mafFileId);
+            if(fi != null) {
+                final Archive archive = fileInfoQueries.getLatestArchiveContainingFile(fi);
+                if(archive != null) {
+                    bRet = false;
+                }
+            }
+            if(bRet == true) {
+                mafInfoQueries.deleteMafInfoForFileId(mafFileId);
+            }
+        }
+        return bRet;
+    }
+
     protected void setOtherMafInfoFields(final MafInfo mafInfo, final String[] row, final Map<String, Integer> fieldOrder,
-            final long mafFileId) throws ProcessorException {
-       // does nothing, all fields are in processRow.  But subclasses should override!
+                                         final long mafFileId) throws ProcessorException {
+        // does nothing, all fields are in processRow.  But subclasses should override!
     }
 
     protected String getEndPositionName() {
@@ -188,7 +200,7 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         mafInfo.setMatchNormValidationAllele1(row[fieldOrder.get(FIELD_MATCH_NORM_VALIDATION_ALLELE1)]);
         mafInfo.setMatchNormValidationAllele2(row[fieldOrder.get(FIELD_MATCH_NORM_VALIDATION_ALLELE2)]);
         mafInfo.setMutationStatus(row[fieldOrder.get(FIELD_MUTATION_STATUS)]);
-        mafInfo.setNcbibuild(row[fieldOrder.get(FIELD_NCBI_BUILD)]);
+        mafInfo.setNcbiBuild(row[fieldOrder.get(FIELD_NCBI_BUILD)]);
         mafInfo.setReferenceAllele(row[fieldOrder.get(FIELD_REFERENCE_ALLELE)]);
         mafInfo.setStartPosition(Integer.valueOf(row[fieldOrder.get(getStartPositionName())]));
         mafInfo.setStrand(row[fieldOrder.get(FIELD_STRAND)]);
@@ -210,8 +222,9 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
             mafInfo.setMatchNormalSampleUUID(row[fieldOrder.get(FIELD_MATCHED_NORM_SAMPLE_UUID)]);
         }
 
-        setOtherMafInfoFields(mafInfo,row, fieldOrder, mafFileId);
-        final int mafId = mafInfoQueries.addMaf(mafInfo);
+        setOtherMafInfoFields(mafInfo, row, fieldOrder, mafFileId);
+        final long fileId = context.getArchive().getFilenameToIdToMap().get(mafFile.getName());
+        final long mafId = mafInfoQueries.addMaf(mafInfo);
         mafInfo.setId(mafId);
 
         insertBiospecimenInMap(bcrIds, mafInfo.getTumorSampleBarcode(), mafInfo.getTumorSampleUUID(), context, mafFile);
@@ -223,9 +236,9 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
                                         final String barcodeString,
                                         final String uuid,
                                         final QcContext context,
-                                        final File mafFile){
+                                        final File mafFile) {
 
-        try{
+        try {
             final BCRID bcrId;
 
             final String key;
@@ -235,18 +248,18 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
                 key = barcodeString;
             }
 
-            if(bcrIds.get(key) == null) {
+            if (bcrIds.get(key) == null) {
                 bcrId = bcrDataService.parseAliquotBarcode(barcodeString);
                 bcrId.setUUID(uuid);
                 bcrIds.put(key, bcrId);
             }
 
-        } catch(ParseException e) {
-            context.getArchive().setDeployStatus( Archive.STATUS_IN_REVIEW );
+        } catch (ParseException e) {
+            context.getArchive().setDeployStatus(Archive.STATUS_IN_REVIEW);
             context.addError(MessageFormat.format(
-            		MessagePropertyType.MAF_FILE_PROCESSING_ERROR, 
-            		mafFile.getName(), 
-            		"Barcode format in " + mafFile.getName() + " is invalid: '"));
+                    MessagePropertyType.MAF_FILE_PROCESSING_ERROR,
+                    mafFile.getName(),
+                    "Barcode format in " + mafFile.getName() + " is invalid: '"));
         }
 
     }
@@ -274,7 +287,7 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         } else {
             biospecimenIds = BiospecimenHelper.getBiospecimenIds(new ArrayList<BCRID>(barcodesOrUuids.values()), bcrDataService);
             shippedBiospecimenIds = new ArrayList<Long>();
-            for(final Integer id : biospecimenIds){
+            for (final Integer id : biospecimenIds) {
                 shippedBiospecimenIds.add(id.longValue());
             }
 
@@ -282,12 +295,12 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
 
         // add biospecimen to file relationship into common and disease database
         BiospecimenHelper.insertBiospecimenFileRelationship(biospecimenIds,
-                                                        context.getArchive().getFilenameToIdToMap().get(mafFile.getName()),
-                                                        bcrDataService,
-                                                        context.getArchive().getTheTumor());
+                context.getArchive().getFilenameToIdToMap().get(mafFile.getName()),
+                bcrDataService,
+                context.getArchive().getTheTumor());
 
         // now shipped biospecimen to file...
-        bcrDataService.addShippedBiospecimensFileRelationship(shippedBiospecimenIds,context.getArchive().getFilenameToIdToMap().get(mafFile.getName()));
+        bcrDataService.addShippedBiospecimensFileRelationship(shippedBiospecimenIds, context.getArchive().getFilenameToIdToMap().get(mafFile.getName()));
     }
 
     protected MafInfo getMafInfo() {

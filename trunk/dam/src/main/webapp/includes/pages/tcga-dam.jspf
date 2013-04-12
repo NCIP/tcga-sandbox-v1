@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.regex.Pattern" %>
 <%@ include file="/includes/dam-scripts-dam.jspf" %>
 <%@include file="/includes/dam-imports.jspf" %>
 
@@ -221,7 +223,7 @@
                 <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_HEALTHY_TISSUE_CONTROL+",")?"checked":""%>
                        id="normalUnmatchedType" name="tumorNormal"
                        value="<%=DataAccessMatrixQueries.TUMORNORMAL_HEALTHY_TISSUE_CONTROL%>">
-                <label for="normalUnmatchedType"><spring:message code="label.normalUnmatched"/></label>
+                <label for="normalUnmatchedType"><spring:message code="label.normalUnmatched"/></label> <br/>
                 <input type="checkbox" <%=prevTissue.contains(","+DataAccessMatrixQueries.TUMORNORMAL_CELL_LINE_CONTROL+",")?"checked":""%>
                        id="cellLineControlType" name="tumorNormal"
                        value="<%=DataAccessMatrixQueries.TUMORNORMAL_CELL_LINE_CONTROL%>">
@@ -420,6 +422,9 @@
     <div id="matrixHeader">
 
         <%
+            List<String> levelIds = new ArrayList<String>();
+            getServletConfig().getServletContext().setAttribute("levelHeaderIds", levelIds);
+
             int batchCount = facadeI.getTotalBatches();
             if (batchCount > 0) {
         %>

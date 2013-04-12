@@ -2597,8 +2597,7 @@ UNION
 SELECT DISTINCT d.disease_abbreviation, sb.participant as case , 'Exome' as data_type, st.sample_Type_code,st.is_tumor 
             FROM archive_info a,file_to_archive f2a, shipped_biospecimen_file sbf, shipped_biospecimen_breakdown sb, 
                  archive_type at,platform p,disease d, sample_type st 
-            WHERE sb.is_redacted=0 
-            AND   sb.is_viewable = 1 
+            WHERE sb.is_viewable = 1
             AND   sb.is_control = 0 
             AND   sb.sample_type_code = st.sample_type_code 
             AND   sb.shipped_biospecimen_id=sbf.shipped_biospecimen_id 
@@ -2621,8 +2620,7 @@ SELECT DISTINCT d.disease_abbreviation,  sb.participant case,
                        END  as data_type , st.sample_type_code, st.is_tumor  
             FROM archive_info a,file_to_archive f2a, shipped_biospecimen_file sb2f, shipped_biospecimen_breakdown sb,archive_type at, 
                  platform p,disease d,sample_type st 
-            WHERE sb.is_redacted=0 
-            AND   sb.is_viewable = 1 
+            WHERE sb.is_viewable = 1
             AND   sb.is_control = 0 
             AND   sb.sample_type_code=st.sample_type_code 
             AND   sb.shipped_biospecimen_id=sb2f.shipped_biospecimen_id 
@@ -2663,15 +2661,13 @@ AND   a.is_latest = 1
 AND   a.deploy_status='Available' 
 AND   a.disease_id = d.disease_id 
 AND   puf.uuid = uh.uuid 
-AND   uh.is_redacted=0 
-AND   uh.uuid = uhs.parent_uuid 
+AND   uh.uuid = uhs.parent_uuid
 AND   uhs.sample_type_code = st.sample_type_code 
 UNION 
 SELECT DISTINCT d.disease_abbreviation,  sb.participant case, 'Clinical' as data_type, st.sample_type_code, st.is_tumor 
 FROM archive_info a,file_to_archive f2a, shipped_biospecimen_file sb2f, shipped_biospecimen_breakdown sb, 
  disease d, sample_type st, file_info f 
-WHERE sb.is_redacted=0 
-AND   sb.is_viewable = 1 
+WHERE sb.is_viewable = 1
 AND   sb.is_control = 0 
 AND   sb.sample_type_code=st.sample_type_code 
 AND   sb.shipped_biospecimen_id=sb2f.shipped_biospecimen_id 
@@ -2685,8 +2681,7 @@ UNION
 SELECT DISTINCT d.disease_abbreviation,  sb.participant case, 'Biospecimen' as data_type, st.sample_type_code, st.is_tumor 
 FROM archive_info a,file_to_archive f2a, shipped_biospecimen_file sb2f, shipped_biospecimen_breakdown sb, 
  disease d, sample_type st, file_info f 
-WHERE sb.is_redacted=0 
-AND   sb.is_viewable = 1 
+WHERE sb.is_viewable = 1
 AND   sb.is_control = 0 
 AND   sb.sample_type_code=st.sample_type_code 
 AND   sb.shipped_biospecimen_id=sb2f.shipped_biospecimen_id 

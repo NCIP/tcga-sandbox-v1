@@ -16,13 +16,14 @@ package gov.nih.nci.ncicb.tcga.dcc.qclive.bean;
  */
 public class MafInfo {
 
-    private Integer id = null;
+    private Long id = null;
+    private Long mafKeyId = null;
     private Integer centerID = null;
     private String centerName = null;
     private Long fileID = null;
     private String hugoSymbol = null;
     private Integer entrezGeneID = null;
-    private String ncbibuild = null;
+    private String ncbiBuild = null;
     private String chromosome = null;
     private Integer startPosition = null;
     private Integer endPosition = null;
@@ -54,11 +55,11 @@ public class MafInfo {
     private String sequencingPhase = null;
     private String validationMethod = null;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId( final Integer ID ) {
+    public void setId( final Long ID ) {
         this.id = ID;
     }
 
@@ -186,16 +187,16 @@ public class MafInfo {
         return mutationStatus;
     }
 
-    public void setMutationStatus( final String mutaionStatus ) {
-        this.mutationStatus = mutaionStatus;
+    public void setMutationStatus( final String mutationStatus ) {
+        this.mutationStatus = mutationStatus;
     }
 
-    public String getNcbibuild() {
-        return ncbibuild;
+    public String getNcbiBuild() {
+        return ncbiBuild;
     }
 
-    public void setNcbibuild( final String ncbibuild ) {
-        this.ncbibuild = ncbibuild;
+    public void setNcbiBuild(final String ncbiBuild) {
+        this.ncbiBuild = ncbiBuild;
     }
 
     public String getReferenceAllele() {
@@ -348,5 +349,13 @@ public class MafInfo {
 
     public void setMatchNormalSampleUUID(String matchNormalSampleUUID) {
         this.matchNormalSampleUUID = matchNormalSampleUUID;
+    }
+
+    public Long getMafKeyId() {
+        return mafKeyId;
+    }
+
+    public void setMafKeyId(final Long mafKeyId) {
+        this.mafKeyId = mafKeyId;
     }
 }

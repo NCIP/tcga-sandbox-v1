@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -40,9 +40,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.IGC;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.NWCH;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.TOTAL;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsProperties.pipelineReportJsonFilesPath;
 
 /**
@@ -80,18 +77,12 @@ public class BCRPipelineReportServiceImpl implements BCRPipelineReportService {
     };
 
     @Override
-    public List<NodeData> getNodeDataListData(String bcr) {
-        String bcrLabel;
-        if (bcr == null || "total".equals(bcr)) {
-            bcrLabel = "BCRs";
-        } else {
-            bcrLabel = bcr.toUpperCase();
-        }
+    public List<NodeData> getNodeDataListData() {
         List<Output> bcrOutputList = new LinkedList<Output>();
         addToOutputList(bcrOutputList, new Output(bcrJson.getDq_init_screen(), "Initial Screen Failures", "red", "up"));
         addToOutputList(bcrOutputList, new Output(bcrJson.getSubmitted_to_bcr(), null, "true", "false", "dodgerblue"));
         addToOutputList(bcrOutputList, new Output(bcrJson.getPending_init_screen(), "Pending BCR Initial Screening", "darkorange", "down"));
-        NodeData bcrs = new NodeData("igc", "Received at " + bcrLabel, "images/bcr.jpg", "cases", null, null);
+        NodeData bcrs = new NodeData("bcr", "Received at BCR", "images/bcr.jpg", "cases", null, null);
         bcrs.setOutputs(bcrOutputList);
 
         List<Output> pathologyOutputList = new LinkedList<Output>();
@@ -170,7 +161,9 @@ public class BCRPipelineReportServiceImpl implements BCRPipelineReportService {
 
     @Override
     public TumorTypes getTumorTypesData() {
-        return new TumorTypes(14, getBlueboxWidth(), new Position(380, 1), "#d8eff6",
+        int width = getBlueboxWidth();
+        int xPos = width > 680 ? 0 : 680 - width;
+        return new TumorTypes(14, width, new Position(xPos, 1), "#d8eff6",
                 "Tumors Represented", tumorList);
     }
 
@@ -231,39 +224,15 @@ public class BCRPipelineReportServiceImpl implements BCRPipelineReportService {
     }
 
     @Override
-    public List<ExtJsFilter> getBcrData() {
-        //For now hard coded ... maybe int the future,
-        // if we get more bcr in the excel files we can change this implementation
-        List<ExtJsFilter> res = new LinkedList<ExtJsFilter>();
-        res.add(new ExtJsFilter(TOTAL, "All BCRs"));
-        res.add(new ExtJsFilter(IGC, "IGC"));
-        res.add(new ExtJsFilter(NWCH, "NWCH"));
-        return res;
-    }
-
-    @Override
-    public int readBCRInputFiles(String disease, String bcr, String date) {
+    public int readBCRInputFiles(String disease, String date) {
         if (disease == null) {
             disease = "All";
         }
         if (date == null) {
             date = getDatesFromInputFiles().get(0).getId();
         }
-        if (bcr == null) {
-            bcr = getBcrData().get(0).getId();
-        }
-        final List<BCRJson> listIGC = getBCRJson(pipelineReportJsonFilesPath + "IGC-BCR_" + date + ".json");
-        final List<BCRJson> listNWCH = getBCRJson(pipelineReportJsonFilesPath + "NWCH-BCR_" + date + ".json");
-        final List<BCRJson> listAllBCR = getAllBCRJsonFile(listIGC, listNWCH);
-        if (IGC.equals(bcr)) {
-            return initBCRJson(listIGC, disease);
-        } else if (NWCH.equals(bcr)) {
-            return initBCRJson(listNWCH, disease);
-        } else if (TOTAL.equals(bcr)) {
-            return initBCRJson(listAllBCR, disease);
-        } else {
-            return 0;
-        }
+        final List<BCRJson> listNCH = getBCRJson(pipelineReportJsonFilesPath + "NWCH-BCR_" + date + ".json");
+        return initBCRJson(listNCH, disease);
     }
 
     private int initBCRJson(final List<BCRJson> listBCR, final String disease) {
@@ -313,49 +282,6 @@ public class BCRPipelineReportServiceImpl implements BCRPipelineReportService {
         }
         resBCR.setDisease("All");
         return resBCR;
-    }
-
-    private List<BCRJson> cloneList(List<BCRJson> bcrList) {
-        List<BCRJson> clonedList = new LinkedList<BCRJson>();
-        for (BCRJson bcr : bcrList) clonedList.add(new BCRJson(bcr));
-        return clonedList;
-    }
-
-    protected List<BCRJson> getAllBCRJsonFile(final List<BCRJson> listIGC, final List<BCRJson> listNWCH) {
-        final List<BCRJson> localBigBCR;
-        final List<BCRJson> localSmallBCR;
-        if (listIGC.size() > 0) {
-            localBigBCR = cloneList(listIGC);
-            localSmallBCR = cloneList(listNWCH);
-        } else {
-            localBigBCR = cloneList(listNWCH);
-            localSmallBCR = cloneList(listIGC);
-        }
-        for (final BCRJson bigBCR : localBigBCR) {
-            for (final BCRJson smallBCR : localSmallBCR) {
-                if (smallBCR.getDisease().equals(bigBCR.getDisease())) {
-                    bigBCR.setDq_genotype(bigBCR.getDq_genotype() + smallBCR.getDq_genotype());
-                    bigBCR.setDq_init_screen(bigBCR.getDq_init_screen() + smallBCR.getDq_init_screen());
-                    bigBCR.setDq_mol(bigBCR.getDq_mol() + smallBCR.getDq_mol());
-                    bigBCR.setDq_other(bigBCR.getDq_other() + smallBCR.getDq_other());
-                    bigBCR.setDq_path(bigBCR.getDq_path() + smallBCR.getDq_path());
-                    bigBCR.setPending_init_screen(bigBCR.getPending_init_screen() + smallBCR.getPending_init_screen());
-                    bigBCR.setPending_mol_qc(bigBCR.getPending_mol_qc() + smallBCR.getPending_mol_qc());
-                    bigBCR.setPending_path_qc(bigBCR.getPending_path_qc() + smallBCR.getPending_path_qc());
-                    bigBCR.setPending_shipment(bigBCR.getPending_shipment() + smallBCR.getPending_shipment());
-                    bigBCR.setQual_mol(bigBCR.getQual_mol() + smallBCR.getQual_mol());
-                    bigBCR.setQual_path(bigBCR.getQual_path() + smallBCR.getQual_path());
-                    bigBCR.setReceived(bigBCR.getReceived() + smallBCR.getReceived());
-                    bigBCR.setShipped(bigBCR.getShipped() + smallBCR.getShipped());
-                    bigBCR.setSubmitted_to_bcr(bigBCR.getSubmitted_to_bcr() + smallBCR.getSubmitted_to_bcr());
-                    bigBCR.setQualified_hold(bigBCR.getQualified_hold() + smallBCR.getQualified_hold());
-                    localSmallBCR.remove(smallBCR);
-                    break;
-                }
-            }
-        }
-        localBigBCR.addAll(localSmallBCR);
-        return localBigBCR;
     }
 
     private List<BCRJson> getBCRJson(String fileName) {

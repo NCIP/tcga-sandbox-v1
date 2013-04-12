@@ -38,6 +38,7 @@ import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MD5Validator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.Maf2FileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorDispatcher;
+import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorV2_4;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MageTabExperimentValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ManifestValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MiRNASeqFileValidator;
@@ -47,6 +48,7 @@ import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.ProteinArraySd
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqExonFileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqGeneFileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqJunctionFileValidator;
+import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqMafValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMGeneNormalizedFileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMGeneResultsFileValidator;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMIsoformFileValidator;
@@ -88,6 +90,7 @@ import gov.nih.nci.system.applicationservice.ApplicationException;
 import org.apache.log4j.Level;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -102,8 +105,8 @@ import java.util.regex.Matcher;
  * Stand-alone validator for archives.
  *
  * @author Jessica Chen
- *         Last updated by: $Author: waltonj $
- * @version $Rev: 18467 $
+ *         Last updated by: $Author: baboudj $
+ * @version $Rev: 18515 $
  */
 public class Soundcheck {
 
@@ -627,11 +630,19 @@ public class Soundcheck {
             validator.addInputValidator(mageTabExperimentValidator);
             validator.addInputValidator(new GscExperimentValidator());
 
-            //Processors
-            MafFileValidatorDispatcher mafFileValidatorDispatcher = new MafFileValidatorDispatcher();
-            mafFileValidatorDispatcher.setDefaultSpecVersion("1.0");
-            MafFileValidator mafValidator1 = new MafFileValidator();
-            Maf2FileValidator mafValidator2 = new Maf2FileValidator();
+            final String maf1Dot0VersionString = "1.0";
+            final String maf2Dot3VersionString = "2.3";
+            final String maf2Dot4VersionString = "2.4";
+            final String mafRnaSeqVersionString = "RNASeq v1.0";
+            final String[] supportedMafVersion = {maf1Dot0VersionString, maf2Dot3VersionString, maf2Dot4VersionString, mafRnaSeqVersionString};
+
+            final MafFileValidatorDispatcher mafFileValidatorDispatcher = new MafFileValidatorDispatcher();
+            mafFileValidatorDispatcher.setDefaultSpecVersion(maf1Dot0VersionString);
+            mafFileValidatorDispatcher.setSupportedVersions(StringUtils.arrayToCommaDelimitedString(supportedMafVersion));
+            final MafFileValidator mafValidator1 = new MafFileValidator();
+            final Maf2FileValidator mafValidator2 = new Maf2FileValidator();
+            final RNASeqMafValidator rnaSeqMafValidator = new RNASeqMafValidator();
+            final MafFileValidatorV2_4 mafFileValidatorV2Dot4 = new MafFileValidatorV2_4();
 
 
             // OK to hardcode SampleType per APPS-3072
@@ -657,7 +668,12 @@ public class Soundcheck {
             
             mafValidator1.setSampleTypeQueries(localSampleTypeQueries);
             mafValidator2.setSampleTypeQueries(localSampleTypeQueries);
-            
+            mafFileValidatorV2Dot4.setSampleTypeQueries(localSampleTypeQueries);
+
+            mafValidator1.setBarcodeTumorValidator(getBarcodeTumorValidator());
+            mafValidator2.setBarcodeTumorValidator(getBarcodeTumorValidator());
+            mafFileValidatorV2Dot4.setBarcodeTumorValidator(getBarcodeTumorValidator());
+
             final ShippedBiospecimenWSQueriesImpl shippedBiospecimenWSQueries = 
                     (ShippedBiospecimenWSQueriesImpl) applicationContext.getBean("shippedBiospecimenWSQueries");
             shippedBiospecimenWSQueries.setQcContext(qcContext);
@@ -666,21 +682,27 @@ public class Soundcheck {
             
             mafValidator1.setShippedBiospecimenQueries(shippedBiospecimenWSQueries);
             mafValidator2.setShippedBiospecimenQueries(shippedBiospecimenWSQueries);
-            
+            mafFileValidatorV2Dot4.setShippedBiospecimenQueries(shippedBiospecimenWSQueries);
+
             mafValidator1.setChromInfoUtils(chromInfoUtils);
             mafValidator2.setChromInfoUtils(chromInfoUtils);
+            mafFileValidatorV2Dot4.setChromInfoUtils(chromInfoUtils);
             
             mafValidator1.setBarcodeValidator(qcLiveBarcodeAndUUIDValidator);
             mafValidator2.setBarcodeValidator(qcLiveBarcodeAndUUIDValidator);
+            mafFileValidatorV2Dot4.setBarcodeValidator(qcLiveBarcodeAndUUIDValidator);
 
             if (remoteValidationHelper != null) {
                 RemoteCenterQueries remoteCenterQueries = new RemoteCenterQueries();
                 remoteCenterQueries.setRemoteValidationHelper(remoteValidationHelper);
                 mafValidator2.setCenterQueries(remoteCenterQueries);
+                mafFileValidatorV2Dot4.setCenterQueries(remoteCenterQueries);
             }
 
-            mafFileValidatorDispatcher.addMafHandler(mafValidator1, "1.0");
-            mafFileValidatorDispatcher.addMafHandler(mafValidator2, "2.3");
+            mafFileValidatorDispatcher.addMafHandler(mafValidator1, maf1Dot0VersionString);
+            mafFileValidatorDispatcher.addMafHandler(mafValidator2, maf2Dot3VersionString);
+            mafFileValidatorDispatcher.addMafHandler(mafFileValidatorV2Dot4, maf2Dot4VersionString);
+            mafFileValidatorDispatcher.addMafHandler(rnaSeqMafValidator, mafRnaSeqVersionString);
 
             validator.addListProcessor(mafFileValidatorDispatcher);
             validator.addListProcessor(new TraceFileValidator(qcLiveBarcodeAndUUIDValidator));

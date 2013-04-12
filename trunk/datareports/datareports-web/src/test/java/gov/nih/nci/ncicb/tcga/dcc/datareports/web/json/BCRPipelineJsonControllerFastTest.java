@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -92,26 +92,13 @@ public class BCRPipelineJsonControllerFastTest {
     }
 
     @Test
-    public void testAllBcrData() throws Exception {
-        context.checking(new Expectations() {{
-            allowing(service).getBcrData();
-            will(returnValue(makeMockBCRFiles()));
-        }});
-        ModelMap model = new ModelMap();
-        final ModelMap resMap = controller.allBcrData(model);
-        List<ExtJsFilter> json = (List<ExtJsFilter>) resMap.get("bcrData");
-        assertEquals(json.get(0).getText(), makeMockBCRFiles().get(0).getText());
-    }
-
-
-    @Test
     public void testPipeLineReportData() throws Exception {
         context.checking(new Expectations() {{
-            allowing(service).readBCRInputFiles("GBM", "igc", "08-2010");
+            allowing(service).readBCRInputFiles("GBM", "08-2010");
             will(returnValue(1));
             allowing(service).getGraphConfigData();
             will(returnValue(new GraphConfig()));
-            allowing(service).getNodeDataListData("igc");
+            allowing(service).getNodeDataListData();
             will(returnValue(new LinkedList<NodeData>() {{
                 add(new NodeData("name", "label", "image", "numericLabel", 1, 2));
             }}));
@@ -119,7 +106,7 @@ public class BCRPipelineJsonControllerFastTest {
             will(returnValue(new Total(12, 21, new Position(1, 2), "fill", "Total")));
         }});
         ModelMap model = new ModelMap();
-        final ModelMap resMap = controller.pipeLineReportData(model, "GBM", "igc", "08-2010");
+        final ModelMap resMap = controller.pipeLineReportData(model, "GBM", "08-2010");
         assertTrue(resMap != null);
         List<NodeData> nList = (List<NodeData>) resMap.get("nodeData");
         Total tot = (Total) resMap.get("totals");
@@ -130,13 +117,13 @@ public class BCRPipelineJsonControllerFastTest {
     @Test
     public void testPipeLineReportDataBad() throws Exception {
         context.checking(new Expectations() {{
-            allowing(service).readBCRInputFiles("flu", "igc", "08-2010");
+            allowing(service).readBCRInputFiles("flu", "08-2010");
             will(returnValue(0));
             allowing(service).getGraphConfigData();
             will(returnValue(new GraphConfig()));
         }});
         ModelMap model = new ModelMap();
-        final ModelMap resMap = controller.pipeLineReportData(model, "flu", "igc", "08-2010");
+        final ModelMap resMap = controller.pipeLineReportData(model, "flu", "08-2010");
         assertTrue(resMap != null);
         NodeData n = (NodeData) resMap.get("nodeData");
         assertEquals("FailErrorFail", n.getName());

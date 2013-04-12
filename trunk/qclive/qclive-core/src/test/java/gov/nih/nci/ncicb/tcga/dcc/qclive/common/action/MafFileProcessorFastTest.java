@@ -9,9 +9,9 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.qclive.common.action;
 
-import static org.junit.Assert.assertEquals;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Archive;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Center;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.FileInfo;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Tumor;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.FileInfoQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.exception.UUIDException;
@@ -21,15 +21,6 @@ import gov.nih.nci.ncicb.tcga.dcc.qclive.bean.MafInfo;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.common.QcContext;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.dao.BCRDataService;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.dao.MafInfoQueries;
-
-import java.io.File;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jmock.Expectations;
@@ -40,6 +31,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.matchers.TypeSafeMatcher;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.text.ParseException;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for MafFileProcessor
@@ -110,6 +107,9 @@ public class MafFileProcessorFastTest {
 				one(mockFileInfoQueries).getFileId("mafWithUUIDHeader.maf", 1L);
 				will(returnValue(5L));
 
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
+
                 one(bcrDataService).getShippedBiospecimenIds(Arrays.asList("2e276db0-a903-46c0-8892-620fc0e94de8", "2e276db0-a903-46c0-8892-620fc0e94de6"));
                 will(returnValue(Arrays.asList(100L, 101L)));
 
@@ -146,6 +146,9 @@ public class MafFileProcessorFastTest {
                 one(mockFileInfoQueries).getFileId("test.maf", 1L);
                 will(returnValue(5L));
 
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
+
                 one(bcrDataService).getBiospecimenIds(Arrays.asList("TCGA-00-0000-03A-00B-0000-00", "TCGA-00-0000-19C-00D-0000-00"));
                 will(returnValue(Arrays.asList(200, 201)));
 
@@ -171,7 +174,7 @@ public class MafFileProcessorFastTest {
 		assertEquals(new Long(5), mafInfo.getFileID());
 		assertEquals("AAA", mafInfo.getHugoSymbol());
 		assertEquals(new Integer(123), mafInfo.getEntrezGeneID());
-		assertEquals("36.1", mafInfo.getNcbibuild());
+		assertEquals("36.1", mafInfo.getNcbiBuild());
 		assertEquals("X", mafInfo.getChromosome());
 		assertEquals(new Integer(1), mafInfo.getStartPosition());
 		assertEquals(new Integer(4), mafInfo.getEndPosition());
@@ -195,6 +198,108 @@ public class MafFileProcessorFastTest {
 		assertEquals("Unknown", mafInfo.getValidationStatus());
 		assertEquals("Somatic", mafInfo.getMutationStatus());
 	}
+
+    @Test
+    public void testMafSameFileTwoArchives() throws Processor.ProcessorException, ParseException {
+        File mafFile1 = new File(SAMPLE_DIR + "qclive/mafFileValidator/good/test.maf");
+        File mafFile2 = new File(SAMPLE_DIR + "qclive/mafFileValidator/good/test.maf");
+        final BCRID bcrId1 = new BCRID();
+        bcrId1.setFullID("TCGA-00-0000-03A-00B-0000-00");
+        final BCRID bcrId2 = new BCRID();
+        bcrId2.setFullID("TCGA-00-0000-19C-00D-0000-00");
+
+        qcContext.getArchive().getFilenameToIdToMap().put("test.maf", 5L);
+        qcContext.setCenterConvertedToUUID(false);
+        context.checking(new Expectations() {
+            {
+                one(mockFileInfoQueries).getFileId("test.maf", 1L);
+                will(returnValue(5L));
+
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
+
+                one(bcrDataService).getBiospecimenIds(Arrays.asList("TCGA-00-0000-03A-00B-0000-00", "TCGA-00-0000-19C-00D-0000-00"));
+                will(returnValue(Arrays.asList(200, 201)));
+
+                one(bcrDataService).parseAliquotBarcode("TCGA-00-0000-03A-00B-0000-00");
+                will(returnValue(bcrId1));
+
+                one(bcrDataService).parseAliquotBarcode("TCGA-00-0000-19C-00D-0000-00");
+                will(returnValue(bcrId2));
+
+                one(bcrDataService).addBioSpecimenToFileAssociations(with(any(List.class)), with(any(Tumor.class)));
+                one(bcrDataService).addShippedBiospecimensFileRelationship(with(any(List.class)), with(5L));
+
+                exactly(3).of(mockMafInfoQueries).addMaf(mafInfo); // 3 lines in maf file
+            }
+        });
+        processor.execute(mafFile1, qcContext);
+        context.checking(new Expectations() {
+            {
+                one(mockFileInfoQueries).getFileId("test.maf", 1L);
+                will(returnValue(99L));
+
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(99L);
+                will(returnValue(true));
+
+                FileInfo fi = new FileInfo();
+                one(mockFileInfoQueries).getFileForFileId(99L);
+                will(returnValue(fi));
+
+                Archive a = new Archive();
+                one(mockFileInfoQueries).getLatestArchiveContainingFile(fi);
+                will(returnValue(a));
+
+                exactly(0).of(mockMafInfoQueries).addMaf(mafInfo); // 3 lines in maf file
+            }
+        });
+        processor.execute(mafFile2, qcContext);
+        assertEquals(0, qcContext.getErrorCount());
+        assertEquals(0, qcContext.getWarningCount());
+    }
+
+    @Test
+    public void testMafDeleteExistingMafInfoIfBadPreviousInsert() throws Processor.ProcessorException, ParseException {
+        File mafFile = new File(SAMPLE_DIR + "qclive/mafFileValidator/good/test.maf");
+        final BCRID bcrId1 = new BCRID();
+        bcrId1.setFullID("TCGA-00-0000-03A-00B-0000-00");
+        final BCRID bcrId2 = new BCRID();
+        bcrId2.setFullID("TCGA-00-0000-19C-00D-0000-00");
+
+        qcContext.getArchive().getFilenameToIdToMap().put("test.maf", 5L);
+        qcContext.setCenterConvertedToUUID(false);
+        context.checking(new Expectations() {
+            {
+                one(mockFileInfoQueries).getFileId("test.maf", 1L);
+                will(returnValue(5L));
+
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(true));
+
+                one(mockFileInfoQueries).getFileForFileId(5L);
+                will(returnValue(null));
+
+                one(mockMafInfoQueries).deleteMafInfoForFileId(5L);
+
+                one(bcrDataService).getBiospecimenIds(Arrays.asList("TCGA-00-0000-03A-00B-0000-00", "TCGA-00-0000-19C-00D-0000-00"));
+                will(returnValue(Arrays.asList(200, 201)));
+
+                one(bcrDataService).parseAliquotBarcode("TCGA-00-0000-03A-00B-0000-00");
+                will(returnValue(bcrId1));
+
+                one(bcrDataService).parseAliquotBarcode("TCGA-00-0000-19C-00D-0000-00");
+                will(returnValue(bcrId2));
+
+                one(bcrDataService).addBioSpecimenToFileAssociations(with(any(List.class)), with(any(Tumor.class)));
+                one(bcrDataService).addShippedBiospecimensFileRelationship(with(any(List.class)), with(5L));
+
+                exactly(3).of(mockMafInfoQueries).addMaf(mafInfo); // 3 lines in maf file
+            }
+        });
+        processor.execute(mafFile, qcContext);
+        assertEquals(0, qcContext.getErrorCount());
+        assertEquals(0, qcContext.getWarningCount());
+    }
 
     private static Matcher<List<BCRID>> expectedBcrIds(final String... barcodes) {
         return new TypeSafeMatcher<List<BCRID>>() {

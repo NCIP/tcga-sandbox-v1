@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -81,9 +81,8 @@ public class ProjectCaseDashboardServiceImpl implements ProjectCaseDashboardServ
     public List<ProjectCase> getAllProjectCaseCounts() {
         final List<ProjectCase> projectCaseList = daoImpl.getAllProjectCasesCounts();
         try {
-            final List<BCRJson> listIGC = getBCRJson(pipelineReportJsonFilesPath + getMostRecentBCRFile(pipelineReportJsonFilesPath, "IGC"));
             final List<BCRJson> listNWCH = getBCRJson(pipelineReportJsonFilesPath + getMostRecentBCRFile(pipelineReportJsonFilesPath, "NWCH"));
-            return completeBCRProjectCase(projectCaseList, listIGC, listNWCH);
+            return completeBCRProjectCase(projectCaseList, listNWCH);
         } catch (IOException e) {
             logger.info(e);
             return projectCaseList;
@@ -132,15 +131,14 @@ public class ProjectCaseDashboardServiceImpl implements ProjectCaseDashboardServ
      * @param list NWCH
      * @return lost of ProjectCase
      */
-    protected List<ProjectCase> completeBCRProjectCase(final List<ProjectCase> list,
-                                                       final List<BCRJson> listIGC, final List<BCRJson> listNWCH) throws IOException {
-        final List<BCRJson> jsonList = processBCRJsonFile(listIGC, listNWCH);
+    protected List<ProjectCase> completeBCRProjectCase(final List<ProjectCase> list, final List<BCRJson> listNWCH)
+            throws IOException {
         final ProjectCase total = new ProjectCase();
         total.setDisease(TOTALS);
         total.setDiseaseName("Totals");
         for (final ProjectCase pc : list) {
             pc.setDiseaseName(getDiseaseName(pc.getDisease()));
-            for (final BCRJson jo : jsonList) {
+            for (final BCRJson jo : listNWCH) {
                 if (pc.getDisease().equals(jo.getDisease())) {
                     final int shipped = jo.getShipped();
                     final int pending = jo.getPending_shipment();
@@ -245,31 +243,6 @@ public class ProjectCaseDashboardServiceImpl implements ProjectCaseDashboardServ
         } catch (NumberFormatException nfe) {
             return 0;
         }
-    }
-
-    /**
-     * processBCRJsonFile
-     *
-     * @param listIGC
-     * @param listNWCH
-     * @return list of BCRJson
-     */
-    protected List<BCRJson> processBCRJsonFile(List<BCRJson> listIGC, List<BCRJson> listNWCH) {
-        if (listIGC != null && listIGC.size() > 0) {
-            for (final BCRJson igc : listIGC) {
-                for (final BCRJson nwch : listNWCH) {
-                    if (nwch.getDisease().equals(igc.getDisease())) {
-                        igc.setPending_shipment(igc.getPending_shipment() + nwch.getPending_shipment());
-                        igc.setReceived(igc.getReceived() + nwch.getReceived());
-                        igc.setShipped(igc.getShipped() + nwch.getShipped());
-                        listNWCH.remove(nwch);
-                        break;
-                    }
-                }
-            }
-        }
-        listIGC.addAll(listNWCH);
-        return listIGC;
     }
 
     /**

@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -31,7 +32,9 @@ import java.util.regex.Pattern;
  * @version $Rev$
  */
 public abstract class AbstractMafFileVersionDispatcher<O> extends AbstractArchiveFileProcessor<O> {
+    private static final String VERSION_DELIMITER = ",";
     private static final Pattern VERSION_PATTERN = Pattern.compile("#version (.+)$");
+    private String supportedVersions;
     private String defaultSpecVersion;
     private Map<String, Processor<File, O>> mafHandlers = new HashMap<String, Processor<File, O>>();
 
@@ -50,7 +53,8 @@ public abstract class AbstractMafFileVersionDispatcher<O> extends AbstractArchiv
             if(versionMatcher.matches()) {
                 String version = versionMatcher.group(1);
                 mafHandler = mafHandlers.get(version);
-                if(mafHandler == null) {
+                if(!Arrays.asList(getSupportedVersions().split(VERSION_DELIMITER,-1)).contains(version)  ||
+                        (mafHandler == null)) {
                     throw new ProcessorException("MAF spec version '" + version + "' is not supported");
                 }
             } else if (firstLine.startsWith("#")) {
@@ -111,5 +115,13 @@ public abstract class AbstractMafFileVersionDispatcher<O> extends AbstractArchiv
 
     public void setDefaultSpecVersion(final String defaultSpecVersion) {
         this.defaultSpecVersion = defaultSpecVersion;
+    }
+
+    public String getSupportedVersions() {
+        return supportedVersions;
+    }
+
+    public void setSupportedVersions(String supportedVersions) {
+        this.supportedVersions = supportedVersions;
     }
 }

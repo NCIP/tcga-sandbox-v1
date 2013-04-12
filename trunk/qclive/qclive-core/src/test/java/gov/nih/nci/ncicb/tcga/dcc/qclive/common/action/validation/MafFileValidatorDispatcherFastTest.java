@@ -37,7 +37,9 @@ import static org.junit.Assert.assertTrue;
 public class MafFileValidatorDispatcherFastTest {
     private Mockery context = new JUnit4Mockery();
     private MafFileValidatorDispatcher validator;
-    private Processor<File, Boolean> mafFileValidator1, mafFileValidator2;
+    private Processor<File, Boolean> mafFileValidator1;
+    private Processor<File, Boolean>  mafFileValidator2;
+    private Processor<File, Boolean>  mafFileValidator24;
     private Archive archive;
     private QcContext qcContext;
     private static final String SAMPLES_DIR = Thread.currentThread()
@@ -52,10 +54,14 @@ public class MafFileValidatorDispatcherFastTest {
         mafFileValidator2 = (Processor<File, Boolean>) context.mock(
                 Processor.class, "maf 2 validator");
 
+        mafFileValidator24 = (Processor<File, Boolean>) context.mock(
+                Processor.class, "maf 2.4 validator");
+
         validator.setDefaultSpecVersion("1.0");
         validator.addMafHandler(mafFileValidator1, "1.0");
         validator.addMafHandler(mafFileValidator2, "2.3");
-
+        validator.addMafHandler(mafFileValidator24, "2.4");
+        validator.setSupportedVersions("1.0,2.3,2.4");
         archive = new Archive();
         archive.setArchiveType(Archive.TYPE_LEVEL_2);
         archive.setExperimentType(Experiment.TYPE_GSC);
@@ -95,6 +101,25 @@ public class MafFileValidatorDispatcherFastTest {
         context.checking(new Expectations() {
             {
                 atLeast(1).of(mafFileValidator2).execute(with(any(File.class)),
+                        with(qcContext));
+                will(returnValue(true));
+            }
+        });
+
+        boolean valid = validator.execute(archive, qcContext);
+        assertTrue(qcContext.getErrors().toString(), valid);
+    }
+    @Test
+    public void testVersion2_4() throws Processor.ProcessorException {
+        // this archive maf has #version 2.3, which is one of the registered
+        // validator versions
+
+        archive.setDeployLocation(SAMPLES_DIR
+                + "qclive/mafFileValidator/mafV2_4/validArchive"
+                + ConstantValues.COMPRESSED_ARCHIVE_EXTENSION);
+        context.checking(new Expectations() {
+            {
+                atLeast(1).of(mafFileValidator24).execute(with(any(File.class)),
                         with(qcContext));
                 will(returnValue(true));
             }

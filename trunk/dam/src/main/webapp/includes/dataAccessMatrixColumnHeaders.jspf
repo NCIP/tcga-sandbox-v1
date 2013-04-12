@@ -27,6 +27,8 @@ Author: David Nassau
             }
 			
 			levelID = "header_p" + platformx + "_c" + centerx + "_l" + levelx + "_column" +iCol + "_";
+            List<String> levelIds = (List<String>) getServletConfig().getServletContext().getAttribute("levelHeaderIds");
+            levelIds.add(levelID);
 
             cssclass = "headerCell numbers";            
             if (facade.isHeaderProtected(colId)) {
@@ -42,7 +44,7 @@ if ( scat.equals("platform") ) {
 	String platformID = "header_p" + platformx + "_";
     cssclass = "headerCell vertical";
 %>
-<td id="<%=platformID%>"
+<th id="<%=platformID%>"
     colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
     valign="top"
     class="<%=cssclass%>"
@@ -54,7 +56,7 @@ if ( scat.equals("platform") ) {
     	platformFirstColumn += facade.getColumnHeaderColSpan(colId);
         platformx++;
     %>
-</td>
+</th>
 <%}%>
 
 <%
@@ -66,7 +68,7 @@ if ( scat.equals("center") ) {
 
     
 %>
-<td id="<%=centerID%>"
+<th id="<%=centerID%>"
     colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
     valign="top"
     class="<%=cssclass%>"			   
@@ -88,7 +90,7 @@ if ( scat.equals("center") ) {
     <%
         centerx++;
     %>
-</td>
+</th>
 <%}%>
 
 <%
@@ -96,7 +98,7 @@ if ( scat.equals("level") ) {
     levelJsArray = levelJsArray +  "'" + levelID + "'";
 
 %>
-<td id="<%=levelID%>"
+<th id="<%=levelID%>"
     colspan="<%=facade.getColumnHeaderColSpan(colId)%>"
     valign="top"
     class="<%=cssclass%>"
@@ -124,7 +126,7 @@ if ( scat.equals("level") ) {
     <%
         levelx=levelx+1;
     %>
-</td>
+</th>
 <%}%>
 
 <%

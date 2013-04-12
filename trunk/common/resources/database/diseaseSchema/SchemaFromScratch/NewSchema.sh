@@ -21,7 +21,7 @@ fi
  echo "common schema is $common"
 #
 #echo "Starting table creation "
-sqlplus $user/$pwd@$db < CreatePortalSchema.sql > CreatePortalSchema.out 
+sqlplus $user/$pwd@$db < CreateDiseaseSchema.sql > CreatePortalSchema.out
 #echo "Completed table creation"
 # 
    echo "Starting grant creation "

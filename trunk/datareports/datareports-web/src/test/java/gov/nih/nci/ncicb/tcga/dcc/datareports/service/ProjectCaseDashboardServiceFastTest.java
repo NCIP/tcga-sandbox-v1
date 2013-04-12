@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -196,7 +196,7 @@ public class ProjectCaseDashboardServiceFastTest {
 
     @Test
     public void testProcessBCRJsonFile() throws Exception {
-        final List<BCRJson> list = service.processBCRJsonFile(makeMockIGCBCR(), makeMockNWCHBCR());
+        final List<BCRJson> list = makeMockNWCHBCR();
         Map<String, String> map = new HashMap<String, String>();
         assertNotNull(list);
         assertEquals(8, list.size());
@@ -206,21 +206,16 @@ public class ProjectCaseDashboardServiceFastTest {
         }
         assertTrue(map.containsKey("COAD"));
         assertTrue(map.containsKey("READ"));
-        assertTrue(map.containsKey("LGG"));
         assertTrue(map.containsKey("OV"));
         for (BCRJson jo : list) {
             if ("COAD".equals(jo.getDisease())) {
-                assertEquals(new Integer(34), jo.getShipped());
-                assertEquals(new Integer(36), jo.getPending_shipment());
-                assertEquals(new Integer(38), jo.getReceived());
+                assertEquals(new Integer(12), jo.getShipped());
+                assertEquals(new Integer(13), jo.getPending_shipment());
+                assertEquals(new Integer(14), jo.getReceived());
             } else if ("READ".equals(jo.getDisease())) {
-                assertEquals(new Integer(34), jo.getShipped());
-                assertEquals(new Integer(36), jo.getPending_shipment());
-                assertEquals(new Integer(38), jo.getReceived());
-            } else if ("LGG".equals(jo.getDisease())) {
-                assertEquals(new Integer(22), jo.getShipped());
-                assertEquals(new Integer(23), jo.getPending_shipment());
-                assertEquals(new Integer(24), jo.getReceived());
+                assertEquals(new Integer(12), jo.getShipped());
+                assertEquals(new Integer(13), jo.getPending_shipment());
+                assertEquals(new Integer(14), jo.getReceived());
             } else if ("OV".equals(jo.getDisease())) {
                 assertEquals(new Integer(100), jo.getShipped());
                 assertEquals(new Integer(13), jo.getPending_shipment());
@@ -236,7 +231,7 @@ public class ProjectCaseDashboardServiceFastTest {
             will(returnValue(makeMockTumor()));
         }});
         List<ProjectCase> list = service.completeBCRProjectCase(
-                makeMockProjectCases(), makeMockIGCBCR(), makeMockNWCHBCR());
+                makeMockProjectCases(), makeMockNWCHBCR());
         assertNotNull(list);
         assertEquals(9, list.size());
         assertEquals("GBM", list.get(4).getDisease());
@@ -245,12 +240,12 @@ public class ProjectCaseDashboardServiceFastTest {
         assertEquals("14/1000", list.get(4).getReceivedBCR());
         assertEquals("COAD", list.get(0).getDisease());
         assertEquals("COAD FullName", list.get(0).getDiseaseName());
-        assertEquals("70/500", list.get(0).getShippedBCR());
-        assertEquals("38/1000", list.get(0).getReceivedBCR());
+        assertEquals("25/500", list.get(0).getShippedBCR());
+        assertEquals("14/1000", list.get(0).getReceivedBCR());
         assertEquals("LGG", list.get(3).getDisease());
         assertEquals("Unknonw", list.get(3).getDiseaseName());
-        assertEquals("45/500", list.get(3).getShippedBCR());
-        assertEquals("24/1000", list.get(3).getReceivedBCR());
+        assertEquals("25/500", list.get(3).getShippedBCR());
+        assertEquals("14/1000", list.get(3).getReceivedBCR());
         assertEquals("LUAD", list.get(2).getDisease());
         assertEquals("Unknonw", list.get(2).getDiseaseName());
         assertEquals("135/500", list.get(2).getShippedBCR());
@@ -262,8 +257,8 @@ public class ProjectCaseDashboardServiceFastTest {
 
         assertEquals("TOTALS", list.get(8).getDisease());
         assertEquals("Totals", list.get(8).getDiseaseName());
-        assertEquals("508/4000", list.get(8).getShippedBCR());
-        assertEquals("408/7073", list.get(8).getReceivedBCR());
+        assertEquals("398/4000", list.get(8).getShippedBCR());
+        assertEquals("350/7073", list.get(8).getReceivedBCR());
         assertEquals("1879/4000", list.get(8).getMethylationCGCC());
         assertEquals("175/4000", list.get(8).getMutationGSC());
     }
@@ -333,23 +328,16 @@ public class ProjectCaseDashboardServiceFastTest {
         assertEquals(878, otherWayGap);
     }
 
-    public List<BCRJson> makeMockIGCBCR() {
+    public List<BCRJson> makeMockNWCHBCR() {
         List<BCRJson> list = new LinkedList<BCRJson>();
         list.add(new BCRJson("GBM", 12, 13, 14, 0f));
         list.add(new BCRJson("OV", 100, 13, 122, 0f));
         list.add(new BCRJson("COAD", 12, 13, 14, 0f));
+        list.add(new BCRJson("LGG", 12, 13, 14, 0f));
         list.add(new BCRJson("LUAD", 122, 13, 144, 0f));
         list.add(new BCRJson("READ", 12, 13, 14, 0f));
         list.add(new BCRJson("KIRC", 12, 13, 14, 0f));
         list.add(new BCRJson("KIRP", 12, 13, 14, 0f));
-        return list;
-    }
-
-    public List<BCRJson> makeMockNWCHBCR() {
-        List<BCRJson> list = new LinkedList<BCRJson>();
-        list.add(new BCRJson("LGG", 22, 23, 24, 0f));
-        list.add(new BCRJson("COAD", 22, 23, 24, 0f));
-        list.add(new BCRJson("READ", 22, 23, 24, 0f));
         return list;
     }
 

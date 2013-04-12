@@ -1,6 +1,9 @@
 <%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.dao.DataAccessMatrixQueries" %>
 <%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.view.DAMFacade" %>
 <%@ page import="gov.nih.nci.ncicb.tcga.dcc.dam.view.DAMFacadeI" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.regex.Pattern" %>
+<%@ page import="java.util.regex.Matcher" %>
 
 <%--
     Author: David Nassau
@@ -11,6 +14,10 @@
     <%
 	    String currentSelectedCells = "," + request.getParameterValues("currentSelectedCells")[0] + ",";
 	    String currentSelectedHeaders = "," + request.getParameterValues("currentSelectedHeaders")[0] + ",";
+
+	    List<String> levelIds = (List<String>) getServletConfig().getServletContext().getAttribute("levelHeaderIds");
+        Pattern patternForLevelIds = Pattern.compile("((header_p\\d+_)c\\d+_)l\\d+_column\\d+_");
+
 	    
         DAMFacadeI facadeI = (DAMFacadeI)request.getAttribute(DAMFacade.FACADE_KEY_NAME);
         
@@ -43,11 +50,11 @@
         int ieComfortUB = 24;
         int ieComfortDB = 18;
     %>
-    <td id="header_batch<%=sbatch%>_"
+    <th id="header_batch<%=sbatch%>_"
         onclick="toggleHeader(event, this, null)"
         rowspan="<%=facadeI.getBatchHeaderRowSpan(batchId)%>"
         class="headerCell left_header1"><%=facadeI.getHeaderName( batchId )%>
-    </td>
+    </th>
     <%
         for (int iSample=0; iSample<max; iSample++) {
             String sampleId = facadeI.getChildHeaderId(batchId, iSample);
@@ -59,9 +66,9 @@
     <%
         }
     %>
-    <td id="<%=header2CurrentID%>" onclick="toggleHeader(event,this, null)"
+    <th id="<%=header2CurrentID%>" onclick="toggleHeader(event,this, null)"
 		class= "headerCell left_header2"><%=facadeI.getHeaderName( sampleId )%>
-    </td>
+    </th>
     <%
         tempCellJsString = "";
 
@@ -70,6 +77,15 @@
             String availability = facadeI.getCellAvailability( cellId );
             String cellclass = "cell";
                 cellCurrentID = header2CurrentID + "column" + iCell + "_cellID_" + cellId;
+
+            String levelHeaderId = levelIds.get(iCell);
+            Matcher matcher = patternForLevelIds.matcher(levelHeaderId);
+            String platformHeaderId = "";
+            String centerHeaderId = "";
+            if (matcher.matches()) {
+                platformHeaderId = matcher.group(1);
+                centerHeaderId = matcher.group(2);
+            }
 
             if(currentSelectedCells.indexOf(","+cellId+",", 0) > -1) {
                 cellclass = "cellselected";
@@ -83,7 +99,7 @@
             String[] colorcode = facadeI.getCellColorAndLetter( cellId );
 
     %>
-    <td id="<%=cellCurrentID%>"
+    <td id="<%=cellCurrentID%>" headers="<%=header1CurrentID%> <%=header2CurrentID%> <%=platformHeaderId%> <%=centerHeaderId%> <%=levelHeaderId%>"
     <%
         if(availability.equals( DataAccessMatrixQueries.AVAILABILITY_AVAILABLE )) {
                 %> onclick="toggleCell(this)"<%

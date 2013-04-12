@@ -912,7 +912,9 @@ dhtmlXTreeObject.prototype._xopenAll = function( itemObject )
 dhtmlXTreeObject.prototype._correctPlus = function( itemObject ) {
     if(!itemObject.htmlNode) return;
     var imsrc = itemObject.htmlNode.childNodes[0].childNodes[0].childNodes[0].lastChild;
+    imsrc.alt = 'plus/minus click to collapse or expand node';
     var imsrc2 = itemObject.htmlNode.childNodes[0].childNodes[0].childNodes[2].childNodes[0];
+    imsrc2.alt = 'plus/minus click to collapse or expand node';
     var workArray = this.lineArray;
     if((this.XMLsource) && (!itemObject.XMLload))
     {
@@ -1307,6 +1309,7 @@ dhtmlXTreeObject.prototype._createItem = function( acheck, itemObject, mode ) {
     this._setSrc(inp, this.imPath + this.checkArray[0]);
     inp.style.width = "16px";
     inp.style.height = "16px";
+    inp.alt = 'checkbox - click to select or deselect this file';
             //can cause problems with hide/show check
     if(!acheck) (((_isOpera) || (_isKHTML)) ? td11 : inp).style.display = "none";
 

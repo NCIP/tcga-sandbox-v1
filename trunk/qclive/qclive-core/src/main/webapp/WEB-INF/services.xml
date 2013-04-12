@@ -656,9 +656,10 @@
             <bean parent="qcLiveActionParent"
                   class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MafFileProcessorDispatcher">
                 <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
+                <property name="supportedVersions" value="${tcga.dcc.mafVersions}" />
                 <property name="mafHandlers">
                     <map>
-                        <entry key="${tcga.dcc.mafVersion.FirstGen}">
+                        <entry key="1.0">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MafFileProcessor">
                                 <property name="fileInfoQueries" ref="fileQueries"/>
                                 <property name="mafInfoQueries" ref="mafinfoQueries"/>
@@ -666,14 +667,22 @@
 
                             </bean>
                         </entry>
-                        <entry key="${tcga.dcc.mafVersion.NextGen}">
+                        <entry key="2.3">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.Maf2FileProcessor">
                                 <property name="fileInfoQueries" ref="fileQueries"/>
                                 <property name="mafInfoQueries" ref="mafinfoQueries"/>
                                 <property name="bcrDataService" ref="bcrDataService"/>
                             </bean>
                         </entry>
-                        <entry key="${tcga.dcc.mafVersion.RNASeq}">
+                        <entry key="2.4">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.Maf2FileProcessor">
+                                <property name="fileInfoQueries" ref="fileQueries"/>
+                                <property name="mafInfoQueries" ref="mafinfoQueries"/>
+                                <property name="bcrDataService" ref="bcrDataService"/>
+                            </bean>
+                        </entry>
+
+                        <entry key="RNASeq v1.0">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.RNASeqMafProcessor"/>
                         </entry>
                     </map>
@@ -982,10 +991,11 @@
         <property name="target">
             <bean parent="qcLiveActionParent"
                   class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorDispatcher">
+                <property name="supportedVersions" value="${tcga.dcc.mafVersions}" />
                 <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
                 <property name="mafHandlers">
                     <map>
-                        <entry key="${tcga.dcc.mafVersion.FirstGen}">
+                        <entry key="1.0">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidator">
                                 <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
                                 <property name="barcodeValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
@@ -994,7 +1004,7 @@
                                 <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
                             </bean>
                         </entry>
-                        <entry key="${tcga.dcc.mafVersion.NextGen}">
+                        <entry key="2.3">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.Maf2FileValidator">
                                 <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
                                 <property name="barcodeValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
@@ -1004,7 +1014,18 @@
                                 <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
                             </bean>
                         </entry>
-                        <entry key="${tcga.dcc.mafVersion.RNASeq}">
+                        <entry key="2.4">
+                            <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorV2_4">
+                                <property name="barcodeTumorValidator" ref="barcodeTumorValidator"/>
+                                <property name="barcodeValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+                                <property name="chromInfoUtils" ref="chromInfoUtils"/>
+                                <property name="sampleTypeQueries" ref="sampleTypeQueries"/>
+                                <property name="centerQueries" ref="centerQueries"/>
+                                <property name="shippedBiospecimenQueries" ref="commonShippedBiospecimenQueries"/>
+                            </bean>
+                        </entry>
+
+                        <entry key="RNASeq v1.0">
                             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqMafValidator"/>
                         </entry>
                     </map>

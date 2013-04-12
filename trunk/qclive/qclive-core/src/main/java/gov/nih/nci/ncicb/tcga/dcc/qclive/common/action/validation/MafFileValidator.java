@@ -49,14 +49,15 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
 
     public static final String MULTI_VALUE_SEPARATOR = ";";
 
-    protected HashMap<String,Boolean> sampleCodes = new HashMap<String,Boolean>();   
+    protected HashMap<String, Boolean> sampleCodes = new HashMap<String, Boolean>();
     protected static final String VALIDATION_STATUS_VALID = "Valid";
     protected static final String VALIDATION_STATUS_WILDTYPE = "Wildtype";
     protected static final String MUTATION_STATUS_GERMLINE = "Germline";
     protected static final String MUTATION_STATUS_SOMATIC = "Somatic";
     protected static final String MUTATION_STATUS_LOH = "LOH";
     protected static final String VALIDATION_STATUS_UNKNOWN = "Unknown";
-    
+    protected static final String VERIFICATION_STATUS_VERIFIED = "Verified";
+
     // a map of fields and their regexp to use to check the value -- must match ENTIRE value
     private final Map<String, Pattern> requiredMafExpressions = new HashMap<String, Pattern>();
     private final Map<String, String> requiredFieldDescriptions = new HashMap<String, String>();
@@ -67,14 +68,13 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
     private ChromInfoUtils chromInfoUtils;
     private SampleTypeQueries sampleTypeQueries;
     private ShippedBiospecimenQueries shippedBiospecimenQueries;
-	private BarcodeTumorValidator barcodeTumorValidator;
-	private static final String VARIANT_TYPE_INS = "Ins";
+    private BarcodeTumorValidator barcodeTumorValidator;
+    private static final String VARIANT_TYPE_INS = "Ins";
     private static final String VARIANT_TYPE_DEL = "Del";
-    private static final String MAF_FILE_EXTENSION = "maf";
     private QcLiveBarcodeAndUUIDValidator qcLiveBarcodeAndUUIDValidator;
     private ThreadLocal<Set<String>> barcodeList = new ThreadLocal<Set<String>>();
     private ThreadLocal<Set<String>> uuidList = new ThreadLocal<Set<String>>();
-    
+
     public MafFileValidator() {
         initConditions();
         setupRequiredValidation();
@@ -143,11 +143,11 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
 
     }
 
-    private void initConditions() {
-        barcodeFields.add(FIELD_TUMOR_SAMPLE_BARCODE);
-        barcodeFields.add(FIELD_MATCHED_NORM_SAMPLE_BARCODE);
-        uuidFields.add(FIELD_TUMOR_SAMPLE_UUID);
-        uuidFields.add(FIELD_MATCHED_NORM_SAMPLE_UUID);
+    protected void initConditions() {
+        getBarcodeFields().add(FIELD_TUMOR_SAMPLE_BARCODE);
+        getBarcodeFields().add(FIELD_MATCHED_NORM_SAMPLE_BARCODE);
+        getUuidFields().add(FIELD_TUMOR_SAMPLE_UUID);
+        getUuidFields().add(FIELD_MATCHED_NORM_SAMPLE_UUID);
         // if Validation_Status is 'Valid' then Tumor_Validation_Allele1 must match be made only of ACGT and -
         conditions.add(new ConditionalRequirement(FIELD_VALIDATION_STATUS, VALIDATION_STATUS_VALID, FIELD_TUMOR_VALIDATION_ALLELE1,
                 Pattern.compile("[^TCGA\\-]"), "contain characters other than 'A', 'C', 'G', 'T', and '-' ", true));
@@ -160,7 +160,11 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
         conditions.add(new ConditionalRequirement(FIELD_VALIDATION_STATUS, VALIDATION_STATUS_WILDTYPE, FIELD_VERIFICATION_STATUS,
                 Pattern.compile("^Verified$"), "be 'Verified'", true));
 
-        initSpecSpecificConditions();                                     
+        initSpecSpecificConditions();
+    }
+
+    protected void validateFilename(final String filename, final QcContext context) throws ProcessorException {
+        return;
     }
 
     protected String getVariantTypeDelSymbol() {
@@ -224,36 +228,36 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
     public Map<String, Pattern> getRequiredMafExpressions() {
         return getRequiredMafExpressions(false);
     }
-    
+
     public Map<String, Pattern> getRequiredMafExpressions(final boolean isCenterConvertedToUUID) {
-    	
-    	if(isCenterConvertedToUUID) {
-    		final Map<String, Pattern> requiredMafExpressionsWithUUID = new HashMap<String, Pattern>();
-    		requiredMafExpressionsWithUUID.putAll(requiredMafExpressions);
-    		requiredMafExpressionsWithUUID.put(FIELD_TUMOR_SAMPLE_UUID, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN);
-    		requiredMafExpressionsWithUUID.put(FIELD_MATCHED_NORM_SAMPLE_UUID, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN);
-    		
-    		return requiredMafExpressionsWithUUID;
-    	}
-    	
+
+        if (isCenterConvertedToUUID) {
+            final Map<String, Pattern> requiredMafExpressionsWithUUID = new HashMap<String, Pattern>();
+            requiredMafExpressionsWithUUID.putAll(requiredMafExpressions);
+            requiredMafExpressionsWithUUID.put(FIELD_TUMOR_SAMPLE_UUID, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN);
+            requiredMafExpressionsWithUUID.put(FIELD_MATCHED_NORM_SAMPLE_UUID, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN);
+
+            return requiredMafExpressionsWithUUID;
+        }
+
         return requiredMafExpressions;
     }
-    
+
     public Map<String, String> getRequiredFieldDescriptions() {
         return getRequiredFieldDescriptions(false);
     }
-    
+
     public Map<String, String> getRequiredFieldDescriptions(final boolean isCenterConvertedToUUID) {
-    	
-    	if(isCenterConvertedToUUID) {
-    		final Map<String, String> requiredFieldDescriptionsWithUUID = new HashMap<String, String>();
-    		requiredFieldDescriptionsWithUUID.putAll(requiredFieldDescriptions);
-    		requiredFieldDescriptionsWithUUID.put(FIELD_TUMOR_SAMPLE_UUID, "must be a valid aliquot UUID");
-    		requiredFieldDescriptionsWithUUID.put(FIELD_MATCHED_NORM_SAMPLE_UUID, "must be a valid aliquot UUID");
-    		
-    		return requiredFieldDescriptionsWithUUID;
-    	}
-    	
+
+        if (isCenterConvertedToUUID) {
+            final Map<String, String> requiredFieldDescriptionsWithUUID = new HashMap<String, String>();
+            requiredFieldDescriptionsWithUUID.putAll(requiredFieldDescriptions);
+            requiredFieldDescriptionsWithUUID.put(FIELD_TUMOR_SAMPLE_UUID, "must be a valid aliquot UUID");
+            requiredFieldDescriptionsWithUUID.put(FIELD_MATCHED_NORM_SAMPLE_UUID, "must be a valid aliquot UUID");
+
+            return requiredFieldDescriptionsWithUUID;
+        }
+
         return requiredFieldDescriptions;
     }
 
@@ -273,6 +277,14 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
 
     public QcLiveBarcodeAndUUIDValidator getBarcodeValidator() {
         return qcLiveBarcodeAndUUIDValidator;
+    }
+
+    public List<String> getBarcodeFields() {
+        return barcodeFields;
+    }
+
+    public List<String> getUuidFields() {
+        return uuidFields;
     }
 
     public enum ConditionalOperator {
@@ -442,29 +454,29 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
     @Override
     protected Boolean doWork(final File file, final QcContext context) throws ProcessorException {
         try {
+            validateFilename(file.getName(), context);
             return validate(file, context);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             context.getArchive().setDeployStatus(Archive.STATUS_INVALID);
             throw new ProcessorException(new StringBuilder().append("Error reading maf file ").append(file.getName()).toString());
         }
     }
 
-    private void initThreadLocals(){
+    private void initThreadLocals() {
         barcodeList.set(new HashSet<String>());
         uuidList.set(new HashSet<String>());
     }
 
-    private void cleanupThreadLocals(){
+    private void cleanupThreadLocals() {
         barcodeList.remove();
         uuidList.remove();
     }
 
-    private Set<String> getBarcodeList(){
+    private Set<String> getBarcodeList() {
         return barcodeList.get();
     }
-    
-    private Set<String> getUUIDList(){
+
+    private Set<String> getUUIDList() {
         return uuidList.get();
     }
 
@@ -492,7 +504,7 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
 
 
             // set sampleTypes
-            for (SampleType sample:sampleTypeQueries.getAllSampleTypes()){
+            for (SampleType sample : sampleTypeQueries.getAllSampleTypes()) {
                 sampleCodes.put(sample.getSampleTypeCode(), sample.getIsTumor());
             }
 
@@ -549,7 +561,7 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
                                 MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
                                 mafFile.getName(),
                                 lineNum,
-                                new StringBuilder().append("Improper format: expected '" ).append(fieldOrder.size()).append("' fields but found '").
+                                new StringBuilder().append("Improper format: expected '").append(fieldOrder.size()).append("' fields but found '").
                                         append(row.length).append("'").toString()));
                         ok = false;
                     }
@@ -562,7 +574,7 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
             }
 
             // validate remaining ids (barcodes or UUIDs)
-            if(context.isStandaloneValidator()){
+            if (context.isStandaloneValidator()) {
                 ok = batchValidate(null, context, mafFile.getName(), true, true);
             }
 
@@ -573,7 +585,7 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
             return ok;
 
         } finally {
-                cleanupThreadLocals();
+            cleanupThreadLocals();
             if (bufferedReader != null) {
                 bufferedReader.close();
             }
@@ -606,79 +618,81 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
                     String[] values = value.split(MULTI_VALUE_SEPARATOR);
                     for (final String oneValue : values) {
                         if (!pattern.matcher(oneValue).matches()) {
-                        	context.addError(MessageFormat.format(
-                            		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                            		fileName, 
-                            		rowNum,
-                            		new StringBuilder().append("'")
-                            		.append(oneValue)
-                            		.append("' is an invalid value for '")
-                            		.append(field).
-                            		append(" - ")
-                            		.append(requiredFieldDescriptions.get(field))
-                            		.append("'").toString()));
+                            context.addError(MessageFormat.format(
+                                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                                    fileName,
+                                    rowNum,
+                                    new StringBuilder().append("'")
+                                            .append(oneValue)
+                                            .append("' is an invalid value for '")
+                                            .append(field).
+                                            append(" - ")
+                                            .append(requiredFieldDescriptions.get(field))
+                                            .append("'").toString()));
                         }
                     }
                 } else {
                     if (!pattern.matcher(value).matches()) {
                         // add an error if the value isn't formatted correctly
-                    	context.addError(MessageFormat.format(
-                        		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                        		fileName, 
-                        		rowNum,
-                        		new StringBuilder().append("'")
-                        		.append(field)
-                        		.append("' value '")
-                        		.append(value)
-                        		.append("' is invalid - ")
-                        		.append(requiredFieldDescriptions.get(field)).toString()));
+                        context.addError(MessageFormat.format(
+                                MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                                fileName,
+                                rowNum,
+                                new StringBuilder().append("'")
+                                        .append(field)
+                                        .append("' value '")
+                                        .append(value)
+                                        .append("' is invalid - ")
+                                        .append(requiredFieldDescriptions.get(field)).toString()));
                         rowOk = false;
                     }
                 }
             }
         }
+        rowOk &= checkSpecialProtectedMaf(row, fieldOrder, rowNum, context, fileName);
         // only continue to more advanced validation if the basic format of the row passed... otherwise may run into weirdness with blank/badly formatted values
         if (rowOk) {
             for (final ConditionalRequirement condition : getConditions()) {
                 if (!condition.isSatisfied(row, fieldOrder)) {
-                	context.addError(MessageFormat.format(
-                    		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                    		fileName, 
-                    		rowNum,
-                    		condition.errorString(row, fieldOrder)));
+                    context.addError(MessageFormat.format(
+                            MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                            fileName,
+                            rowNum,
+                            condition.errorString(row, fieldOrder)));
                     rowOk = false;
                 }
             }
-            // Now check things that can't be represented with generic ConditionalRequirements
 
+            // Now check things that can't be represented with generic ConditionalRequirements
+            rowOk &= validatePublicMaf(row, fieldOrder, rowNum, context, fileName);
             // these are the same for all maf spec versions... for now
             final int start = Integer.parseInt(row[fieldOrder.get(getFieldStartPosition())]);
             final int end = Integer.parseInt(row[fieldOrder.get(getFieldEndPosition())]);
             if (end < start) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                		fileName, 
-                		rowNum,
-                		new StringBuilder().append(getFieldStartPosition()).append(" should be less than or equal to ").append(getFieldEndPosition()).toString()));
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append(getFieldStartPosition()).append(" should be less than or equal to ").append(getFieldEndPosition()).toString()));
                 rowOk = false;
             }
             // check if start and end are valid chromosome coords
             final String chrom = row[fieldOrder.get(getFieldChrom())];
             final String build = row[fieldOrder.get(getFieldNCBIBuild())];
-            if ( ! chromInfoUtils.isValidChromCoord(chrom, start, build) ) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-                		fileName,
-                		rowNum,
-                		new StringBuilder().append(getFieldStartPosition()).append(" is not valid for chrom ").append( chrom )));
+            if (!chromInfoUtils.isValidChromCoord(chrom, start, build)) {
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append(getFieldStartPosition()).append(" is not valid for chrom ").append(chrom)));
                 rowOk = false;
             }
-            if ( ! chromInfoUtils.isValidChromCoord(chrom, end, build) ) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-                		fileName,
-                		rowNum,
-                		new StringBuilder().append(getFieldEndPosition()).append(" is not valid for chrom ").append( chrom )));
+            if (!chromInfoUtils.isValidChromCoord(chrom, end, build)) {
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append(getFieldEndPosition()).append(" is not valid for chrom ").append(chrom)));
                 rowOk = false;
             }
 
@@ -689,41 +703,50 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
             final String normalBarcode = row[fieldOrder.get(FIELD_MATCHED_NORM_SAMPLE_BARCODE)];
 
             // Assert that the Ids (barcodes or UUIDs) in the current row are valid for the archive tumor type and patient
-            if(!context.isCenterConvertedToUUID()) {
+            if (!context.isCenterConvertedToUUID()) {
 
-            	rowOk &= validateTumorTypeForRowIds(barcodeFields, fieldOrder, row, rowNum, context, fileName);
-            	if(rowOk) {
-            		rowOk &= validateTumorAndNormalIdsForPatient(
-            				tumorBarcode,
-            				normalBarcode,
-            				context,
-            				fileName,
-            				rowNum);
-            	}
-            }
-            else {
+                rowOk &= validateTumorTypeForRowIds(getBarcodeFields(), fieldOrder, row, rowNum, context, fileName);
+                if (rowOk) {
+                    rowOk &= validateTumorAndNormalIdsForPatient(
+                            tumorBarcode,
+                            normalBarcode,
+                            context,
+                            fileName,
+                            rowNum);
+                }
+            } else {
                 final String tumorUuid = row[fieldOrder.get(FIELD_TUMOR_SAMPLE_UUID)];
                 final String normalUuid = row[fieldOrder.get(FIELD_MATCHED_NORM_SAMPLE_UUID)];
 
-            	rowOk &= validateTumorTypeForRowIds(uuidFields, fieldOrder, row, rowNum, context, fileName);
-            	if(rowOk) { 
-            		rowOk &= validateTumorAndNormalIdsForPatient(
-            				tumorUuid,
-            				normalUuid,
-            				context,
-            				fileName,
-            				rowNum);
+                rowOk &= validateTumorTypeForRowIds(getUuidFields(), fieldOrder, row, rowNum, context, fileName);
+                if (rowOk) {
+                    rowOk &= validateTumorAndNormalIdsForPatient(
+                            tumorUuid,
+                            normalUuid,
+                            context,
+                            fileName,
+                            rowNum);
                     rowOk &= validateAreAliquots(tumorUuid, normalUuid, context, fileName, rowNum);
                     rowOk &= validateUuidBarcodeMapping(context, tumorBarcode, tumorUuid, normalBarcode, normalUuid, fileName, rowNum);
-            	}
+                }
             }
         }
-        
+
         if (!rowOk) {
             context.getArchive().setDeployStatus(Archive.STATUS_INVALID);
         }
-        
+
         return rowOk;
+    }
+
+    protected Boolean checkSpecialProtectedMaf(final String[] row, final Map<String, Integer> fieldOrder, final int rowNum,
+                                               final QcContext context, final String fileName) {
+        return true;
+    }
+
+    protected Boolean validatePublicMaf(final String[] row, final Map<String, Integer> fieldOrder, final int rowNum,
+                                               final QcContext context, final String fileName) {
+        return true;
     }
 
     private boolean validateUuidBarcodeMapping(final QcContext context, final String tumorBarcode, final String tumorUuid,
@@ -753,59 +776,56 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
         if (!qcLiveBarcodeAndUUIDValidator.isAliquotUUID(tumorUuid)) {
             valid = false;
             context.addError(MessageFormat.format(
-                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-                        fileName,
-                        rowNum, "tumor sample UUID does not represent an aliquot"));
+                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                    fileName,
+                    rowNum, "tumor sample UUID does not represent an aliquot"));
         }
 
         if (!qcLiveBarcodeAndUUIDValidator.isAliquotUUID(normalUuid)) {
             valid = false;
             context.addError(MessageFormat.format(
-                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-                        fileName,
-                        rowNum, "normal sample UUID does not represent an aliquot"));
+                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                    fileName,
+                    rowNum, "normal sample UUID does not represent an aliquot"));
         }
         return valid;
     }
 
     private boolean validateTumorTypeForRowIds(
-    		final List<String> rowidFields, 
-    		final Map<String, Integer> fieldOrder, 
-    		final String[] row, 
-    		final int rowNum, 
-    		final QcContext context, 
-    		final String fileName) throws ProcessorException {
-    	
-    	boolean isValid = true;
-    	
-    	for(final String rowIdField : rowidFields) {
+            final List<String> rowidFields,
+            final Map<String, Integer> fieldOrder,
+            final String[] row,
+            final int rowNum,
+            final QcContext context,
+            final String fileName) throws ProcessorException {
+
+        boolean isValid = true;
+
+        for (final String rowIdField : rowidFields) {
             final String rowIdForField = row[fieldOrder.get(rowIdField)];
-            if(context.isStandaloneValidator()) {
-            	isValid &= batchValidate(rowIdForField, context, fileName, true, false);
-            }
-            else  {
-            	if(QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(rowIdForField).matches()) {
-            		isValid &= validateTumorTypeForBarcode(rowIdForField, rowNum, context, fileName);
-            	}
-            	else
-            		if(QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN.matcher(rowIdForField).matches()) {
-            			isValid &= validateTumorTypeForUUID(rowIdForField, rowNum, context, fileName);
-            	}
+            if (context.isStandaloneValidator()) {
+                isValid &= batchValidate(rowIdForField, context, fileName, true, false);
+            } else {
+                if (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(rowIdForField).matches()) {
+                    isValid &= validateTumorTypeForBarcode(rowIdForField, rowNum, context, fileName);
+                } else if (QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN.matcher(rowIdForField).matches()) {
+                    isValid &= validateTumorTypeForUUID(rowIdForField, rowNum, context, fileName);
+                }
             }
         }
-    	
-    	return isValid;
-    	
+
+        return isValid;
+
     }
-    
+
     private boolean validateTumorTypeForBarcode(
-    		final String barcode, final int rowNum, final QcContext context, final String fileName) throws ProcessorException {
-    	
-    	boolean isValid = true;
-    	
-    	isValid &= qcLiveBarcodeAndUUIDValidator.validate(barcode, context, fileName, true);
-    	
-    	if(barcodeTumorValidator != null) {
+            final String barcode, final int rowNum, final QcContext context, final String fileName) throws ProcessorException {
+
+        boolean isValid = true;
+
+        isValid &= qcLiveBarcodeAndUUIDValidator.validate(barcode, context, fileName, true);
+
+        if (barcodeTumorValidator != null) {
             if (!barcodeTumorValidator.barcodeIsValidForTumor(barcode, context.getArchive().getTumorType())) {
                 context.addError(MessageFormat.format(
                         MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
@@ -815,13 +835,13 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
                 isValid = false;
             }
         }
-    	
-    	return isValid;
+
+        return isValid;
     }
-    
+
     private boolean validateTumorTypeForUUID(final String uuid, final int rowNum, final QcContext context, final String fileName) {
-    	
-    	boolean isValid = qcLiveBarcodeAndUUIDValidator.validateUuid(uuid, context, fileName, true);
+
+        boolean isValid = qcLiveBarcodeAndUUIDValidator.validateUuid(uuid, context, fileName, true);
 
         if (!qcLiveBarcodeAndUUIDValidator.isMatchingDiseaseForUUID(uuid, context.getArchive().getTumorType())) {
             context.addError(MessageFormat.format(
@@ -833,47 +853,44 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
             isValid = false;
 
         }
-    	
-    	return isValid;
+
+        return isValid;
     }
-    
+
     /**
      * Performs batch validation on a list of tumor and normal Ids (barcodes or UUIDs).
-     * 
-     * @param id - barcode or UUID
-     * @param context - QC context
-     * @param fileName - MAF file name containing the barcode or UUID
+     *
+     * @param id        - barcode or UUID
+     * @param context   - QC context
+     * @param fileName  - MAF file name containing the barcode or UUID
      * @param mustExist - boolean indicating whether or not the id exists in the database
      * @param lastBatch - flag indicating whether or not a batch validation should be performed on the final list of ids
      * @return true if the id is valid, false otherwise
      */
     protected boolean batchValidate(
-    		final String id, final QcContext context, final String fileName, final boolean mustExist, boolean lastBatch) {
-    	
+            final String id, final QcContext context, final String fileName, final boolean mustExist, boolean lastBatch) {
+
         boolean isValid = true;
-        
+
         // Add the id (barcode or UUID) to the batch list
         if (id != null) {
-        	if(QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(id).matches()) {
-        		getBarcodeList().add(id);
-        	}
-        	else
-        		if(QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN.matcher(id).matches()) {
-        		getUUIDList().add(id);
-        	}
+            if (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(id).matches()) {
+                getBarcodeList().add(id);
+            } else if (QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN.matcher(id).matches()) {
+                getUUIDList().add(id);
+            }
         }
 
-        if(lastBatch) {
-        	final List<String> idList = new ArrayList<String>();
+        if (lastBatch) {
+            final List<String> idList = new ArrayList<String>();
 
-            if(!context.isCenterConvertedToUUID()) {
-        		idList.addAll(getBarcodeList());
-        	}
-        	else {
-        		idList.addAll(getUUIDList());
-        	}
-        	
-        	isValid = qcLiveBarcodeAndUUIDValidator.batchValidate(idList, context, fileName, mustExist);
+            if (!context.isCenterConvertedToUUID()) {
+                idList.addAll(getBarcodeList());
+            } else {
+                idList.addAll(getUUIDList());
+            }
+
+            isValid = qcLiveBarcodeAndUUIDValidator.batchValidate(idList, context, fileName, mustExist);
 
             // there is no batch method for this so do them one at a time,
             // but make sure to only check each UUID once for efficiency
@@ -884,197 +901,194 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
                     if (!qcLiveBarcodeAndUUIDValidator.isMatchingDiseaseForUUID(uuid, context.getArchive().getTumorType())) {
                         context.addError(
                                 new StringBuilder().append(fileName).append(": ").
-                                append("UUID ").append(uuid).append(" is not part of disease set for ").
+                                        append("UUID ").append(uuid).append(" is not part of disease set for ").
                                         append(context.getArchive().getTumorType()).toString()
                         );
                         isValid = false;
                     }
                 }
             }
-        	
+
             getBarcodeList().clear();
             getUUIDList().clear();
         }
 
         return isValid;
     }
-    
+
     /**
-     * Validates that the meta-data (TSS codes, Participant codes, and SampleType codes) match for both 
+     * Validates that the meta-data (TSS codes, Participant codes, and SampleType codes) match for both
      * tumor and normal Ids (barcodes or UUIDs).
-     * 
-     * @param tumorId - tumor barcode or UUID
+     *
+     * @param tumorId  - tumor barcode or UUID
      * @param normalId - normal barcode or UUID
-     * @param context - QcContext
+     * @param context  - QcContext
      * @param fileName - MAF file name containing the barcodes or UUIDs
-     * @param rowNum - row number that contains the Ids being validated
+     * @param rowNum   - row number that contains the Ids being validated
      * @return true if the meta-data between the tumor and normal Ids match, false otherwise
      */
     protected boolean validateTumorAndNormalIdsForPatient(
-    		final String tumorId,
-    		final String normalId,
-    		final QcContext context,
-    		final String fileName,
-    		final int rowNum) {
-    	
-    	boolean isValid = true;
-    	MetaDataBean tumorIdMetaData = null;
-    	MetaDataBean normalIdMetaData = null;
-    	final Map<String, MetaDataBean> idMetaData = getMetaDataForIds(tumorId, normalId);
+            final String tumorId,
+            final String normalId,
+            final QcContext context,
+            final String fileName,
+            final int rowNum) {
 
-    	if(idMetaData.isEmpty()) {
-    		context.addError(MessageFormat.format(
-    				MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-    				fileName,
-    				rowNum,
-    				new StringBuilder()
-    				.append("Both tumor Id '").append(tumorId).append("'")
-    				.append(" and normal Id '").append(normalId).append("' ")
-    				.append("must match the same Id type (barcode or UUID) pattern")));
-    		
-    		return false;
-    	}
-    	
-    	tumorIdMetaData = idMetaData.get(tumorId);
-    	normalIdMetaData = idMetaData.get(normalId);
-	    	
-    	// Perform validations
-    	if (sampleCodes.get(tumorIdMetaData.getSampleCode()) != null && sampleCodes.get(normalIdMetaData.getSampleCode()) != null) {
-    		
-	    	if(!sampleCodes.get(tumorIdMetaData.getSampleCode())) {
-	    		isValid = false;    		
-	    		context.addError(MessageFormat.format(
-	                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-	                    fileName,
-	                    rowNum,
-	                    new StringBuilder().append("The sample type of '")
-	                    .append(tumorIdMetaData.getSampleCode())
-	                    .append("' for tumor Id '").append(tumorId)
-	                    .append("' is not a valid sample type code for tumor.")));
-	    	}
-	    	
-	    	if(sampleCodes.get(normalIdMetaData.getSampleCode())) {
-	    		isValid = false;    		
-	    		context.addError(MessageFormat.format(
-	                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-	                    fileName,
-	                    rowNum,
-	                    new StringBuilder().append("The sample type of '")
-	                    .append(normalIdMetaData.getSampleCode())
-	                    .append("' for non tumor Id '").append(normalId)
-	                    .append("' is not a valid sample type code for non tumor.")));
-	    	}
-	    	
-	    	if(!tumorIdMetaData.getTssCode().equals(normalIdMetaData.getTssCode())) {
-	    		isValid = false;    		
-	    		context.addError(MessageFormat.format(
-	                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-	                    fileName,
-	                    rowNum,
-	                    new StringBuilder().append("The TSS code for both the tumor Id '")
-	                    .append(tumorId)
-	                    .append("' and the normal Id '")
-	                    .append(normalId)
-	                    .append("' must match.")));
-	    	}
-	    	
-	    	if(!tumorIdMetaData.getParticipantCode().equals(normalIdMetaData.getParticipantCode())) {
-	    		isValid = false;    		
-	    		context.addError(MessageFormat.format(
-	                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
-	                    fileName,
-	                    rowNum,
-	                    new StringBuilder().append("The Participant Code for both the tumor Id '")
-	                    .append(tumorId)
-	                    .append("' and the normal Id '")
-	                    .append(normalId)
-	                    .append("' must match.")));
-	    	}
-    	}
-    	else {
-    	    if(!context.isNoRemote()) {
-        		isValid = false;
-        		context.addError(MessageFormat.format(
+        boolean isValid = true;
+        MetaDataBean tumorIdMetaData = null;
+        MetaDataBean normalIdMetaData = null;
+        final Map<String, MetaDataBean> idMetaData = getMetaDataForIds(tumorId, normalId);
+
+        if (idMetaData.isEmpty()) {
+            context.addError(MessageFormat.format(
+                    MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                    fileName,
+                    rowNum,
+                    new StringBuilder()
+                            .append("Both tumor Id '").append(tumorId).append("'")
+                            .append(" and normal Id '").append(normalId).append("' ")
+                            .append("must match the same Id type (barcode or UUID) pattern")));
+
+            return false;
+        }
+
+        tumorIdMetaData = idMetaData.get(tumorId);
+        normalIdMetaData = idMetaData.get(normalId);
+
+        // Perform validations
+        if (sampleCodes.get(tumorIdMetaData.getSampleCode()) != null && sampleCodes.get(normalIdMetaData.getSampleCode()) != null) {
+
+            if (!sampleCodes.get(tumorIdMetaData.getSampleCode())) {
+                isValid = false;
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append("The sample type of '")
+                                .append(tumorIdMetaData.getSampleCode())
+                                .append("' for tumor Id '").append(tumorId)
+                                .append("' is not a valid sample type code for tumor.")));
+            }
+
+            if (sampleCodes.get(normalIdMetaData.getSampleCode())) {
+                isValid = false;
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append("The sample type of '")
+                                .append(normalIdMetaData.getSampleCode())
+                                .append("' for non tumor Id '").append(normalId)
+                                .append("' is not a valid sample type code for non tumor.")));
+            }
+
+            if (!tumorIdMetaData.getTssCode().equals(normalIdMetaData.getTssCode())) {
+                isValid = false;
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append("The TSS code for both the tumor Id '")
+                                .append(tumorId)
+                                .append("' and the normal Id '")
+                                .append(normalId)
+                                .append("' must match.")));
+            }
+
+            if (!tumorIdMetaData.getParticipantCode().equals(normalIdMetaData.getParticipantCode())) {
+                isValid = false;
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append("The Participant Code for both the tumor Id '")
+                                .append(tumorId)
+                                .append("' and the normal Id '")
+                                .append(normalId)
+                                .append("' must match.")));
+            }
+        } else {
+            if (!context.isNoRemote()) {
+                isValid = false;
+                context.addError(MessageFormat.format(
                         MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
                         fileName,
                         rowNum,
                         new StringBuilder().append("Unknown sample type code encountered, check your Ids and try again.")));
-    	    }
-    	}
-    	
-    	return isValid;
+            }
+        }
+
+        return isValid;
     }
-    
+
     private Map<String, MetaDataBean> getMetaDataForIds(final String tumorId, final String normalId) {
-    	
-    	final Map<String, MetaDataBean> idMetaData = new HashMap<String, MetaDataBean>();
-    	MetaDataBean tumorIdMetaDataBean = null;
-    	MetaDataBean normalIdMetaDataBean = null;
-    	
-    	@SuppressWarnings("serial")
-		final List<String> idList = new ArrayList<String>() {{
-    		add(tumorId); 
-    		add(normalId);
-		}};
-    		
-    	if(getNumMatchesForIdList(idList, QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN) == idList.size()) {
-    		
-    		final Matcher tumorBarcodeMatcher = (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(tumorId));
-    		tumorBarcodeMatcher.find();
-        	final Matcher normalBarcodeMatcher = (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(normalId));
-        	normalBarcodeMatcher.find();
-        	
-        	// Set the tumor meta-data for tumor barcode
-        	tumorIdMetaDataBean = new MetaDataBean();
-        	tumorIdMetaDataBean.setTssCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.TSS_GROUP));
-        	tumorIdMetaDataBean.setParticipantCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.PATIENT_GROUP));
-        	tumorIdMetaDataBean.setSampleCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.SAMPLE_TYPE_CODE_GROUP));
-        	idMetaData.put(tumorId, tumorIdMetaDataBean);
-        	
-        	// Set the normal meta-data for normal barcode
-        	normalIdMetaDataBean = new MetaDataBean();
-        	normalIdMetaDataBean.setTssCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.TSS_GROUP));
-        	normalIdMetaDataBean.setParticipantCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.PATIENT_GROUP));
-        	normalIdMetaDataBean.setSampleCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.SAMPLE_TYPE_CODE_GROUP));
-        	idMetaData.put(normalId, normalIdMetaDataBean);
-    	}
-    	else
-    		if(getNumMatchesForIdList(idList, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN) == idList.size()) {
-    			tumorIdMetaDataBean = shippedBiospecimenQueries.retrieveUUIDMetadata(tumorId);
-        		normalIdMetaDataBean = shippedBiospecimenQueries.retrieveUUIDMetadata(normalId);
-        		
-        		if(tumorIdMetaDataBean != null && normalIdMetaDataBean != null) {
-        			idMetaData.put(tumorId, tumorIdMetaDataBean);
-        			idMetaData.put(normalId, normalIdMetaDataBean);
-        		}
-    		}
-    		
-    	return idMetaData;
+
+        final Map<String, MetaDataBean> idMetaData = new HashMap<String, MetaDataBean>();
+        MetaDataBean tumorIdMetaDataBean = null;
+        MetaDataBean normalIdMetaDataBean = null;
+
+        @SuppressWarnings("serial")
+        final List<String> idList = new ArrayList<String>() {{
+            add(tumorId);
+            add(normalId);
+        }};
+
+        if (getNumMatchesForIdList(idList, QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN) == idList.size()) {
+
+            final Matcher tumorBarcodeMatcher = (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(tumorId));
+            tumorBarcodeMatcher.find();
+            final Matcher normalBarcodeMatcher = (QcLiveBarcodeAndUUIDValidatorImpl.ALIQUOT_BARCODE_PATTERN.matcher(normalId));
+            normalBarcodeMatcher.find();
+
+            // Set the tumor meta-data for tumor barcode
+            tumorIdMetaDataBean = new MetaDataBean();
+            tumorIdMetaDataBean.setTssCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.TSS_GROUP));
+            tumorIdMetaDataBean.setParticipantCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.PATIENT_GROUP));
+            tumorIdMetaDataBean.setSampleCode(tumorBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.SAMPLE_TYPE_CODE_GROUP));
+            idMetaData.put(tumorId, tumorIdMetaDataBean);
+
+            // Set the normal meta-data for normal barcode
+            normalIdMetaDataBean = new MetaDataBean();
+            normalIdMetaDataBean.setTssCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.TSS_GROUP));
+            normalIdMetaDataBean.setParticipantCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.PATIENT_GROUP));
+            normalIdMetaDataBean.setSampleCode(normalBarcodeMatcher.group(QcLiveBarcodeAndUUIDValidatorImpl.SAMPLE_TYPE_CODE_GROUP));
+            idMetaData.put(normalId, normalIdMetaDataBean);
+        } else if (getNumMatchesForIdList(idList, QcLiveBarcodeAndUUIDValidatorImpl.UUID_PATTERN) == idList.size()) {
+            tumorIdMetaDataBean = shippedBiospecimenQueries.retrieveUUIDMetadata(tumorId);
+            normalIdMetaDataBean = shippedBiospecimenQueries.retrieveUUIDMetadata(normalId);
+
+            if (tumorIdMetaDataBean != null && normalIdMetaDataBean != null) {
+                idMetaData.put(tumorId, tumorIdMetaDataBean);
+                idMetaData.put(normalId, normalIdMetaDataBean);
+            }
+        }
+
+        return idMetaData;
     }
-    
+
     private int getNumMatchesForIdList(final List<String> idList, final Pattern pattern) {
-    	int numMatches = 0;
-    	for(final String id : idList) {
-    		if(pattern.matcher(id).matches()) {
-    			numMatches += 1;
-    		}
-    	}
-    	
-    	return numMatches;
+        int numMatches = 0;
+        for (final String id : idList) {
+            if (pattern.matcher(id).matches()) {
+                numMatches += 1;
+            }
+        }
+
+        return numMatches;
     }
-    
+
     protected boolean runMafSpecificSpecialChecks(final String[] row, final Map<String, Integer> fieldOrder, final int rowNum,
                                                   final QcContext context, final String fileName, final int start, final int end) {
 
         //If variant_Type is "ins", then end_position - start_position should always = 1
         if (row[fieldOrder.get(FIELD_VARIANT_TYPE)].equals(getVariantInsSymbol())) {
             if (end - start != 1) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                		fileName, 
-                		rowNum,
-                		new StringBuilder().append(getFieldEndPosition()).append(" should only be 1 greater than ").append(getFieldStartPosition()).
-                		append(" when ").append(FIELD_VARIANT_TYPE).append(" is '").append(getVariantInsSymbol()).append("'").toString()));
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append(getFieldEndPosition()).append(" should only be 1 greater than ").append(getFieldStartPosition()).
+                                append(" when ").append(FIELD_VARIANT_TYPE).append(" is '").append(getVariantInsSymbol()).append("'").toString()));
                 return false;
             }
         } else {
@@ -1082,25 +1096,25 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
             // should equal to the string length of Reference_Allele and one of Tumor_Seq_Allele.
             final int length = end - start + 1;
             if (row[fieldOrder.get(FIELD_REFERENCE_ALLELE)].length() != length) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                		fileName, 
-                		rowNum,
-                		new StringBuilder().append(FIELD_REFERENCE_ALLELE).append(" length should be equal to ").append(getFieldEndPosition()).
-                		append(" - ").append(getFieldStartPosition()).append(" + 1 (").append(length).append(") when ").append(FIELD_VARIANT_TYPE).
-                		append(" is not '").append(getVariantInsSymbol()).append("'").toString()));
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append(FIELD_REFERENCE_ALLELE).append(" length should be equal to ").append(getFieldEndPosition()).
+                                append(" - ").append(getFieldStartPosition()).append(" + 1 (").append(length).append(") when ").append(FIELD_VARIANT_TYPE).
+                                append(" is not '").append(getVariantInsSymbol()).append("'").toString()));
                 return false;
             }
             if (row[fieldOrder.get(FIELD_TUMOR_SEQ_ALLELE1)].length() != length &&
                     row[fieldOrder.get(FIELD_TUMOR_SEQ_ALLELE2)].length() != length) {
-            	context.addError(MessageFormat.format(
-                		MessagePropertyType.MAF_FILE_VALIDATION_ERROR, 
-                		fileName, 
-                		rowNum,
-                		new StringBuilder().append("Either ").append(FIELD_TUMOR_SEQ_ALLELE1).append(" or ").append(FIELD_TUMOR_SEQ_ALLELE2).
-                		append(" length must be equal to ").append(getFieldEndPosition()).append(" - ").append(getFieldStartPosition()).
-                		append(" + 1  (").append(length).append(") when ").append(FIELD_VARIANT_TYPE).append(" is not '").append(getVariantInsSymbol()).
-                		append("'").toString()));
+                context.addError(MessageFormat.format(
+                        MessagePropertyType.MAF_FILE_VALIDATION_ERROR,
+                        fileName,
+                        rowNum,
+                        new StringBuilder().append("Either ").append(FIELD_TUMOR_SEQ_ALLELE1).append(" or ").append(FIELD_TUMOR_SEQ_ALLELE2).
+                                append(" length must be equal to ").append(getFieldEndPosition()).append(" - ").append(getFieldStartPosition()).
+                                append(" + 1  (").append(length).append(") when ").append(FIELD_VARIANT_TYPE).append(" is not '").append(getVariantInsSymbol()).
+                                append("'").toString()));
                 return false;
             }
         }
@@ -1114,7 +1128,7 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
     public void setChromInfoUtils(final ChromInfoUtils chromInfoUtils) {
         this.chromInfoUtils = chromInfoUtils;
     }
-    
+
     protected String getVariantInsSymbol() {
         return VARIANT_TYPE_INS;
     }
@@ -1138,12 +1152,12 @@ public class MafFileValidator extends AbstractMafFileHandler<Boolean> {
     public String getName() {
         return "MAF file validation";
     }
-    
+
     public void setSampleTypeQueries(final SampleTypeQueries sampleTypeQueries) {
-		this.sampleTypeQueries = sampleTypeQueries;
-	}
-    
+        this.sampleTypeQueries = sampleTypeQueries;
+    }
+
     public void setShippedBiospecimenQueries(final ShippedBiospecimenQueries shippedBiospecimenQueries) {
-		this.shippedBiospecimenQueries = shippedBiospecimenQueries;
-	}
+        this.shippedBiospecimenQueries = shippedBiospecimenQueries;
+    }
 }

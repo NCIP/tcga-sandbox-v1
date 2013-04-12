@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -34,29 +34,20 @@ public interface BCRPipelineReportService {
     public List<ExtJsFilter> getDatesFromInputFiles();
 
     /**
-     * get BCR names
-     *
-     * @return list of ExtJsFilter
-     */
-    public List<ExtJsFilter> getBcrData();
-
-    /**
      * read excel source files
      *
      * @param disease
-     * @param bcr
      * @param date
      * @return success
      */
-    public int readBCRInputFiles(String disease,String bcr, String date);
+    public int readBCRInputFiles(String disease, String date);
 
     /**
      * get node data for pipeline diagram
      *
-     * @param bcr
      * @return list of NodeData
      */
-    public List<NodeData> getNodeDataListData(String bcr);
+    public List<NodeData> getNodeDataListData();
 
     /**
      * get graph config for pipeline diagram
@@ -74,6 +65,7 @@ public interface BCRPipelineReportService {
 
     /**
      * get tumor types data for pipeline diagram
+     *
      * @return TumorTypes
      */
     public TumorTypes getTumorTypesData();

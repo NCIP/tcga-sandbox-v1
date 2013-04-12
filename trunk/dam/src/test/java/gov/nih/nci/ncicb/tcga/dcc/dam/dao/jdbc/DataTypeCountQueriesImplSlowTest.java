@@ -84,11 +84,11 @@ private static final String PATH_TO_DB_PROPERTIES =
         assertEquals(3, gbmCounts[0].getClinical());
 
         assertEquals(DataTypeCount.CountType.HealthyControl, gbmCounts[1].getCountType());
-        assertEquals(6, gbmCounts[1].getTotal());
+        assertEquals(5, gbmCounts[1].getTotal());
         assertEquals(1, gbmCounts[1].getSnp());
         assertEquals(0, gbmCounts[1].getMethylation());
         assertEquals(1, gbmCounts[1].getmRna());
-        assertEquals(1, gbmCounts[1].getMiRna());
+        assertEquals(0, gbmCounts[1].getMiRna());
         assertEquals(1, gbmCounts[1].getExome());
         assertEquals(2, gbmCounts[1].getClinical());
 
