@@ -58,7 +58,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
                 "HI", "36", "ins", "type", "AAA", "AAAG", "TTTC", "ok", "good",
                 "AAA", "TTT", "AAAG", "TTTC", "AAA", "TTT",
                 "verified", "valid", "somatic", "science", "12", "99",
-                "hi.bam", "SquirrelSeq5000", "trees", "tcga-1", "tcga-2",
+                "hi.bam", "SquirrelSeq5000", "trees", 42, "tcga-1", "tcga-2",
                 1, 1); // expect 1 new key and maf info
 
         // verify inserted data is as expected
@@ -98,6 +98,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
         assertEquals("trees", values.get("SEQUENCE_SOURCE").toString());
         assertEquals("tcga-1", values.get("TUMOR_SAMPLE_BARCODE").toString());
         assertEquals("tcga-2", values.get("MATCH_NORM_SAMPLE_BARCODE").toString());
+        assertEquals("42", values.get("LINE_NUMBER").toString());
     }
 
     public void testExistingMafFileId() {
@@ -109,11 +110,11 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
     }
 
     public void testMafFileInfoDeleteForExistingMafFileId() {
-        final Long mafId = doTest(123L, 1, 0, "1", 500, 505, "+", "newTumorUuid", "newNormalUuid",
+        doTest(123L, 1, 0, "1", 500, 505, "+", "newTumorUuid", "newNormalUuid",
                 "HI", "36", "ins", "type", "AAA", "AAAG", "TTTC", "ok", "good",
                 "AAA", "TTT", "AAAG", "TTTC", "AAA", "TTT",
                 "verified", "valid", "somatic", "science", "12", "99",
-                "hi.bam", "SquirrelSeq5000", "trees", "tcga-1", "tcga-2",
+                "hi.bam", "SquirrelSeq5000", "trees", 7, "tcga-1", "tcga-2",
                 1, 1); // expect 1 new key and maf info
         assertEquals(true, mafInfoQueries.fileIdExistsInMafInfo(123L));
         mafInfoQueries.deleteMafInfoForFileId(123L);
@@ -126,7 +127,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
         final Long mafId = doTest(123L, 1, 0, "12", 1000, 2000, "+", "12341234-1111-2222-3333-aaaaaaaaaaaa",
                 "12341234-1111-2222-3333-bbbbbbbbbbbb", "hello", "36", "blue", "yes", "G", "C", "G",
                 "sure", "alligator", "G", "C", "G", "G", "C", "C", "a-okay", "seems legit", "germline", "science!",
-                "100", "5", "key.bam", "DNASeq", "a company", "do", "re",
+                "100", "5", "key.bam", "DNASeq", "a company", 555, "do", "re",
                 0, 1); // should insert 0 maf_keys, 1 maf_info
 
         // verify the new maf info row uses the existing maf key id
@@ -144,15 +145,12 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
         final Long mafId = doTest(123L, 1, 0, "12", 1000, 2000, "+", "12341234-1111-2222-3333-aaaaaaaaaaaa",
                 "12341234-1111-2222-3333-bbbbbbbbbbbb", "HUGO", "36", "del", "squirrel", "TCGA", "TCG-", "AGC-",
                 "yeah", "orange", "TCGA", "AGCT", "none", "none", "none", "none", "gold", "unknown", "somatic",
-                "magic 8 ball", "III", "99", "BAM.bam", "showbot5000", "France", "barcode1", "barcode2",
+                "magic 8 ball", "III", "99", "BAM.bam", "showbot5000", "France", 876, "barcode1", "barcode2",
                 0, 1);
 
         assertEquals(new Long(1), maf.getMafKeyId());
         assertEquals(mafId, maf.getId());
     }
-
-
-
 
     private Long doTest(final Long fileId,
                         final Integer centerId,
@@ -187,6 +185,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
                         final String bamFile,
                         final String sequencer,
                         final String sequenceSource,
+                        final Integer lineNumber,
                         final String tumorBarcode,
                         final String normalBarcode,
                         final int expectedNumNewMafKey,
@@ -202,7 +201,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
                 tumorSeqAllele2, dbSnpRs, dbSnpValStatus, matchNormSeqAllele1, matchNormSeqAllele2, tumorValidationAllele1,
                 tumorValidationAllele2, matchNormValidationAllele1, matchNormValidationAllele2, verificationStatus,
                 validationStatus, mutationStatus, validationMethod, sequencingPhase, score, bamFile, sequencer,
-                sequenceSource, tumorBarcode, normalBarcode, fileId);
+                sequenceSource, lineNumber, tumorBarcode, normalBarcode, fileId);
 
 
         final Long mafId = mafInfoQueries.addMaf(maf);
@@ -244,6 +243,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
                                  final String bamFile,
                                  final String sequencer,
                                  final String sequenceSource,
+                                 final Integer lineNumber,
                                  final String tumorBarcode,
                                  final String normalBarcode,
                                  final Long fileId
@@ -281,6 +281,7 @@ public class MafInfoQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
         maf.setBamFile(bamFile);
         maf.setSequencer(sequencer);
         maf.setSequenceSource(sequenceSource);
+        maf.setLineNumber(lineNumber);
         maf.setTumorSampleBarcode(tumorBarcode);
         maf.setMatchNormalSampleBarcode(normalBarcode);
         maf.setFileID(fileId);

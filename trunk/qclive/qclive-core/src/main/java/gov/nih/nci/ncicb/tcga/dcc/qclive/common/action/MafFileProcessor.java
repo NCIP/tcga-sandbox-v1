@@ -30,7 +30,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Processes all maf files in an archive.  Note that this does not perform validation -- see MafFileValidator for that.
@@ -94,7 +98,7 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
                         final String[] row = line.split("\\t");
 
                         try {
-                            processRow(row, fieldOrder, mafFileId, biospecimens, context, mafFile);
+                            processRow(row, fieldOrder, mafFileId, biospecimens, context, mafFile, lineNum);
                             //  If exceeds batch size store it in the database
                             if (biospecimens.size() >= getBatchSize()) {
                                 try {
@@ -152,6 +156,14 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         return mafFile;
     }
 
+    /**
+     * Method determines whether the fileid has already been loaded in the MAF_INFO table. Checks
+     * to see if the archive corresponding to the fileid is available and latest. If yes, returns false. Otherwise,
+     * deletes the existing set of maf_info data corresponding to the fileid and returns true. This ensures that there
+     * is only on set of maf_info data for a given fileid.
+     * @param mafFileId
+     * @return boolean true if ok to add the {@link MafInfo} corresponding to the maf file id. false otherwise.
+     */
     protected boolean isAddMafInfo(final Long mafFileId) {
         boolean bRet = true;
         if(mafInfoQueries.fileIdExistsInMafInfo(mafFileId)) {
@@ -162,7 +174,7 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
                     bRet = false;
                 }
             }
-            if(bRet == true) {
+            if(bRet) {
                 mafInfoQueries.deleteMafInfoForFileId(mafFileId);
             }
         }
@@ -184,8 +196,11 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
 
     private void processRow(
             final String[] row, final Map<String, Integer> fieldOrder,
-            final long mafFileId, final HashMap<String, BCRID> bcrIds, final QcContext context, final File mafFile) throws ProcessorException {
+            final long mafFileId, final HashMap<String, BCRID> bcrIds, final QcContext context, final File mafFile,
+            final int lineNum) throws ProcessorException {
+
         final MafInfo mafInfo = getMafInfo();
+        mafInfo.setLineNumber(lineNum);
         mafInfo.setCenterID(context.getArchive().getTheCenter().getCenterId());
         mafInfo.setFileID(mafFileId);
         mafInfo.setChromosome(row[fieldOrder.get(FIELD_CHROMOSOME)]);
@@ -223,7 +238,6 @@ public class MafFileProcessor extends AbstractMafFileHandler<File> {
         }
 
         setOtherMafInfoFields(mafInfo, row, fieldOrder, mafFileId);
-        final long fileId = context.getArchive().getFilenameToIdToMap().get(mafFile.getName());
         final long mafId = mafInfoQueries.addMaf(mafInfo);
         mafInfo.setId(mafId);
 

@@ -41,6 +41,7 @@ public abstract class DataFile implements Serializable {
     private Collection<String> samples = new TreeSet<String>();
     private List<String> patients = new ArrayList<String>();
     private String diseaseType;
+    private Boolean isMafFile;
 
 
     public Collection<String> getBarcodes() {
@@ -268,5 +269,13 @@ public abstract class DataFile implements Serializable {
      */
     public boolean mayPossiblyGenerateCacheFile() {
         return false;
+    }
+
+    public Boolean isMafFile() {
+        return (isMafFile == null)? false: isMafFile;
+    }
+
+    public void setMafFile(Boolean mafFile) {
+        isMafFile = mafFile;
     }
 }

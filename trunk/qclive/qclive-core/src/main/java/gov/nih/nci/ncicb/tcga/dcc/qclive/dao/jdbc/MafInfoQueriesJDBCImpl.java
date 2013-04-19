@@ -38,8 +38,8 @@ public class MafInfoQueriesJDBCImpl extends BaseQueriesProcessor implements MafI
             "reference_allele, tumor_seq_allele1, tumor_seq_allele2, dbsnp_rs, dbsnp_val_status, " +
             "match_norm_seq_allele1, match_norm_seq_allele2, tumor_validation_allele1, tumor_validation_allele2, " +
             "match_norm_validation_allele1, match_norm_validation_allele2, verification_status, validation_status, " +
-            "mutation_status, validation_method, sequencing_phase, score, bam_file, sequencer, sequence_source) " +
-            "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "mutation_status, validation_method, sequencing_phase, score, bam_file, sequencer, sequence_source, line_number) " +
+            "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     /**
      * Adds the given MAF into to the database
@@ -94,7 +94,8 @@ public class MafInfoQueriesJDBCImpl extends BaseQueriesProcessor implements MafI
                 mafInfo.getScore(),
                 mafInfo.getBamFile(),
                 mafInfo.getSequencer(),
-                mafInfo.getSequenceSource());
+                mafInfo.getSequenceSource(),
+                mafInfo.getLineNumber());
 
         return mafId;
     }
@@ -138,10 +139,10 @@ public class MafInfoQueriesJDBCImpl extends BaseQueriesProcessor implements MafI
     }
 
     @Override
-    public boolean fileIdExistsInMafInfo(Long mafFileId) {
+    public boolean fileIdExistsInMafInfo(final Long mafFileId) {
         boolean bRet = false;
         final String select = "select count(file_id) from maf_info where file_id = ?";
-        final int count = getJdbcTemplate().queryForInt(select, new Object[]{mafFileId});
+        final int count = getJdbcTemplate().queryForInt(select, mafFileId);
         if(count > 0) {
             bRet = true;
         }
@@ -149,8 +150,8 @@ public class MafInfoQueriesJDBCImpl extends BaseQueriesProcessor implements MafI
     }
 
     @Override
-    public void deleteMafInfoForFileId(Long mafFileId) {
+    public void deleteMafInfoForFileId(final Long mafFileId) {
         final String delete = "delete from maf_info where file_id = ?";
-        getJdbcTemplate().update(delete, new  Object[]{mafFileId});
+        getJdbcTemplate().update(delete, mafFileId);
     }
 }

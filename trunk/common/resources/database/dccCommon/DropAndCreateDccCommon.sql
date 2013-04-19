@@ -785,22 +785,22 @@ CREATE TABLE projectOverview_case_counts (
 
 DROP TABLE bam_file_datatype CASCADE CONSTRAINTS PURGE;
 CREATE TABLE bam_file_datatype (
-    bam_datatype_id      NUMBER(38,0)    NOT NULL,
+    bam_datatype_id     NUMBER(38,0)    NOT NULL,
     bam_datatype        VARCHAR2(50)    NOT NULL,
-    molecule            VARCHAR2(10)    NOT NULL,
     general_datatype    VARCHAR2(10)    NOT NULL,
     CONSTRAINT pk_bam_file_datatype_idx PRIMARY KEY (bam_datatype_id)
 );
 
 DROP TABLE bam_file CASCADE CONSTRAINTS;
 CREATE TABLE bam_file (
-    bam_file_id            NUMBER(38,0)    NOT NULL,
-    bam_file_name    VARCHAR2(100)    NOT NULL,
-    disease_id            NUMBER(38,0)    NOT NULL,
-    center_id            NUMBER(38,0)    NOT NULL,
-    bam_file_size    NUMBER(38,0)    NOT NULL,
-    date_received      DATE            NOT NULL,
-    bam_datatype_id     NUMBER(38,0)    NOT NULL,
+    bam_file_id			NUMBER(38,0)    NOT NULL,
+    bam_file_name		VARCHAR2(100)	NOT NULL,
+    disease_id			NUMBER(38,0)    NOT NULL,
+    center_id			NUMBER(38,0)    NOT NULL,
+    bam_file_size		NUMBER(38,0)    NOT NULL,
+    date_received		DATE            NOT NULL,
+    bam_datatype_id		NUMBER(38,0)    NOT NULL,
+    analyte_code	VARCHAR2(10),
     CONSTRAINT pk_bam_file_idx PRIMARY KEY (bam_file_id)
 );
 
@@ -813,7 +813,10 @@ ALTER TABLE bam_file ADD (
     REFERENCES disease(disease_id),
     CONSTRAINT fk_bam_file_datatype
     FOREIGN KEY (bam_datatype_id)
-    REFERENCES bam_file_datatype(bam_datatype_id)
+    REFERENCES bam_file_datatype(bam_datatype_id),
+    CONSTRAINT fk_bam_file_portion_analyte
+    FOREIGN KEY (analyte_code)
+    REFERENCES portion_analyte(portion_analyte_code)
 );
 
 
@@ -855,28 +858,28 @@ DROP TABLE uuid_hierarchy CASCADE CONSTRAINTS;
 CREATE TABLE uuid_hierarchy (
     disease_abbreviation        VARCHAR2(10)    NOT NULL,
     uuid                        VARCHAR2(36)    NOT NULL,
-    parent_uuid                    VARCHAR2(36),
-    item_type_id                   INTEGER     NOT NULL,
+    parent_uuid			VARCHAR2(36),
+    item_type_id		INTEGER     	NOT NULL,
     tss_code                    VARCHAR2(10)    NOT NULL,
-    center_id_bcr        NUMBER(38,0)    NOT NULL,
-    batch_number        INTEGER        NOT NULL,
-    barcode                    VARCHAR2(50),
-    participant_number            VARCHAR2(20)    NOT NULL,
+    center_id_bcr		NUMBER(38,0)    NOT NULL,
+    batch_number		INTEGER        	NOT NULL,
+    barcode			VARCHAR2(50),
+    participant_number		VARCHAR2(20)    NOT NULL,
     sample_type_code            VARCHAR2(20),
-    sample_sequence            VARCHAR2(10),
+    sample_sequence		VARCHAR2(10),
     portion_sequence            VARCHAR2(10),
     portion_analyte_code        VARCHAR2(10),
-    plate_id                VARCHAR2(10),
-    receiving_center_id            NUMBER(38,0),
-    slide                    VARCHAR2(10),
-    slide_layer            VARCHAR2(7),
-    create_date            DATE        NOT NULL,
-    update_date                DATE , 
-    platforms            VARCHAR2(4000),
-    is_redacted             NUMBER(1) DEFAULT 0 NOT NULL,
-    center_code            VARCHAR2(10),
-    is_shipped            NUMBER(1),
-    shipped_date        DATE,
+    plate_id			VARCHAR2(10),
+    receiving_center_id		NUMBER(38,0),
+    slide			VARCHAR2(10),
+    slide_layer			VARCHAR2(7),
+    create_date			DATE        NOT NULL,
+    update_date			DATE , 
+    platforms			VARCHAR2(4000),
+    is_redacted			NUMBER(1) DEFAULT 0 NOT NULL,
+    center_code			VARCHAR2(10),
+    is_shipped			NUMBER(1),
+    shipped_date		DATE,
     CONSTRAINT pk_uuid_hierarchy_idx PRIMARY KEY (uuid)
 );
 ALTER TABLE uuid_hierarchy ADD (
@@ -2576,7 +2579,13 @@ ALTER TABLE participant_uuid_file ADD (
 
 CREATE INDEX part_uuid_file_file_idx ON participant_uuid_file (file_id);
 
-DROP MATERIALIZED VIEW case_data_received;
+DROP TABLE exclude_from_case_count;
+CREATE TABLE exclude_from_case_count (
+    participant_barcode	VARCHAR2(50) NOT NULL,
+    CONSTRAINT pk_exclude_from_count_idx PRIMARY KEY (participant_barcode));
+
+
+DROP MATERIALIZED VIEW case_data_received ;
 CREATE MATERIALIZED VIEW case_data_received 
 BUILD IMMEDIATE
 REFRESH COMPLETE ON DEMAND
@@ -2691,7 +2700,9 @@ AND   f.file_name like '%biospecimen%.xml'
 AND   f2a.archive_id=a.archive_id 
 AND   a.is_latest=1 AND a.deploy_status='Available' 
 AND   a.disease_id=d.disease_id)
-WHERE data_type IS NOT NULL;
+WHERE data_type IS NOT NULL
+AND   case NOT IN (select participant_barcode FROM exclude_from_case_count);
+
 
 purge recyclebin;
    

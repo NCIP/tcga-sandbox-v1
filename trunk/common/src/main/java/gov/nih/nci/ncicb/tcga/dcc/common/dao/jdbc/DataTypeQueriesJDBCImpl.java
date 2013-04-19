@@ -29,6 +29,9 @@ public class DataTypeQueriesJDBCImpl extends BaseQueriesProcessor implements Dat
     private static final String DATATYPE = "data_type";
 
     private static final String GET_DATA_TYPES_NAME = "select name,data_type_id from data_type";
+
+    private static final String GET_DATA_TYPE_NAME = "select data_type.name from data_type, platform where platform.platform_name=? and platform.base_data_type_id= data_type.data_type_id";
+
     public DataTypeQueriesJDBCImpl() {
     }
 
@@ -36,6 +39,17 @@ public class DataTypeQueriesJDBCImpl extends BaseQueriesProcessor implements Dat
         String select = "select data_type.name from data_type, platform where platform.platform_id=? and platform.base_data_type_id= data_type.data_type_id";
         final SimpleJdbcTemplate st = new SimpleJdbcTemplate(getDataSource());
         return st.queryForObject(select, String.class, platformId);
+    }
+
+    @Override
+    public String getBaseDataTypeNameForPlatform(final String platformName) {
+
+        final SimpleJdbcTemplate st = new SimpleJdbcTemplate(getDataSource());
+        try{
+            return st.queryForObject(GET_DATA_TYPE_NAME, String.class, platformName);
+        }catch(EmptyResultDataAccessException er ){
+            return null;
+        }
     }
 
     public String getCenterTypeIdForPlatformId(final Integer platformId) {

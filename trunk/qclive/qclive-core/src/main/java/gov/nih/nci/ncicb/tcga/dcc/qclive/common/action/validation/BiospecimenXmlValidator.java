@@ -61,6 +61,11 @@ public class BiospecimenXmlValidator extends AbstractArchiveFileProcessor<Boolea
 
     private CodeTableQueries codeTableQueries;
 
+    private HashMap<String, Boolean> centerIdValidityMap = new HashMap<String, Boolean>();
+    private HashMap<String, Boolean> analyteTypeIdValidityMap = new HashMap<String, Boolean>();
+    private HashMap<String, Boolean> sampleTypeIdValidityMap = new HashMap<String, Boolean>();
+    private HashMap<String, Boolean> tssCodeValidityMap = new HashMap<String, Boolean>();
+
     private BCRUtils bcrUtils;
 
     public void setCodeTableQueries(CodeTableQueries codeTableQueries) {
@@ -251,10 +256,39 @@ public class BiospecimenXmlValidator extends AbstractArchiveFileProcessor<Boolea
         // Validate the center Ids
         for (final String centerId : centerIds) {
 
-            if (centerId.length() == 0 || !codeTableQueries.bcrCenterIdExists(centerId)) {
+            if (centerId.length() == 0 || !bcrCenterIdExists(centerId, context)) {
                 createError("BCR centerId " + centerId + " is not a valid BCR center code", file, context);
             }
         }
+    }
+
+    /**
+     * Return {@code true} if the centerId exists, {@code false} otherwise.
+     *
+     * Note: When this is called by the standalone validator, this method stores the codes it validates
+     * so that it can retrieve the result if the same code has to be validated again for other files.
+     *
+     * @param centerId the center Id to validate
+     * @param context the context
+     * @return {@code true} if the centerId exists, {@code false} otherwise
+     */
+    private boolean bcrCenterIdExists(final String centerId,
+                                      final QcContext context) {
+
+        Boolean result;
+
+        if (context.isStandaloneValidator()) {
+            result = centerIdValidityMap.get(centerId);
+
+            if (result == null) {
+                result = codeTableQueries.bcrCenterIdExists(centerId);
+                centerIdValidityMap.put(centerId, result);
+            }
+        } else {
+            result = codeTableQueries.bcrCenterIdExists(centerId);
+        }
+
+        return result;
     }
 
     /**
@@ -307,10 +341,40 @@ public class BiospecimenXmlValidator extends AbstractArchiveFileProcessor<Boolea
 
         // Validate the analyte type Ids
         for (final String analyteTypeId : analyteTypeIds) {
-            if (analyteTypeId.length() == 0 || !codeTableQueries.portionAnalyteExists(analyteTypeId)) {
+            if (analyteTypeId.length() == 0 || !portionAnalyteExists(analyteTypeId, context)) {
                 createError("AnalyteTypeId " + analyteTypeId + " is not a valid analyte type code", file, context);
             }
         }
+    }
+
+    /**
+     * Return {@code true} if the analyteTypeId exists, {@code false} otherwise.
+     *
+     * Note: When this is called by the standalone validator, this method stores the codes it validates
+     * so that it can retrieve the result if the same code has to be validated again for other files.
+     *
+     * @param analyteTypeId the analyte type Id to validate
+     * @param context the context
+     * @return {@code true} if the analyteTypeId exists, {@code false} otherwise
+     */
+    private boolean portionAnalyteExists(final String analyteTypeId,
+                                         final QcContext context) {
+
+        Boolean result;
+
+        if (context.isStandaloneValidator()) {
+            result = analyteTypeIdValidityMap.get(analyteTypeId);
+
+            if (result == null) {
+                result = codeTableQueries.portionAnalyteExists(analyteTypeId);
+                analyteTypeIdValidityMap.put(analyteTypeId, result);
+            }
+
+        } else {
+            result = codeTableQueries.portionAnalyteExists(analyteTypeId);
+        }
+
+        return result;
     }
 
     /**
@@ -385,10 +449,40 @@ public class BiospecimenXmlValidator extends AbstractArchiveFileProcessor<Boolea
 
         // Validate the sample type Ids
         for (final String sampleTypeId : sampleTypeIds) {
-            if (sampleTypeId.length() == 0 || !codeTableQueries.sampleTypeExists(sampleTypeId)) {
+            if (sampleTypeId.length() == 0 || !sampleTypeExists(sampleTypeId, context)) {
                 createError("SampleTypeId " + sampleTypeId + " is not a valid sample type code", file, context);
             }
         }
+    }
+
+    /**
+     * Return {@code true} if the sampleTypeId exists, {@code false} otherwise.
+     *
+     * Note: When this is called by the standalone validator, this method stores the codes it validates
+     * so that it can retrieve the result if the same code has to be validated again for other files.
+     *
+     * @param sampleTypeId the sample type Id to validate
+     * @param context the context
+     * @return {@code true} if the sampleTypeId exists, {@code false} otherwise
+     */
+    private boolean sampleTypeExists(final String sampleTypeId,
+                                     final QcContext context) {
+
+        Boolean result;
+
+        if (context.isStandaloneValidator()) {
+            result= sampleTypeIdValidityMap.get(sampleTypeId);
+
+            if (result == null) {
+                result = codeTableQueries.sampleTypeExists(sampleTypeId);
+                sampleTypeIdValidityMap.put(sampleTypeId, result);
+            }
+
+        } else {
+            result = codeTableQueries.sampleTypeExists(sampleTypeId);
+        }
+
+        return result;
     }
 
     /**
@@ -440,11 +534,40 @@ public class BiospecimenXmlValidator extends AbstractArchiveFileProcessor<Boolea
         }
 
         //Validate tss codes
-        for (final String tss : tssCodes) {
-            if (tss.length() == 0 || !codeTableQueries.tssCodeExists(tss)) {
-                createError("TSS " + tss + " is not a valid tissue source site code", file, context);
+        for (final String tssCode : tssCodes) {
+            if (tssCode.length() == 0 || !tssCodeExists(tssCode, context)) {
+                createError("TSS " + tssCode + " is not a valid tissue source site code", file, context);
             }
         }
+    }
+
+    /**
+     * Return {@code true} if the tssCode exists, {@code false} otherwise.
+     *
+     * Note: When this is called by the standalone validator, this method stores the codes it validates
+     * so that it can retrieve the result if the same code has to be validated again for other files.
+     *
+     * @param tssCode the sample type Id to validate
+     * @param context the context
+     * @return {@code true} if the tssCode exists, {@code false} otherwise
+     */
+    private boolean tssCodeExists(final String tssCode,
+                                  final QcContext context) {
+
+        Boolean result;
+
+        if (context.isStandaloneValidator()) {
+            result = tssCodeValidityMap.get(tssCode);
+
+            if (result == null) {
+                result = codeTableQueries.tssCodeExists(tssCode);
+                tssCodeValidityMap.put(tssCode, result);
+            }
+        } else {
+            result = codeTableQueries.tssCodeExists(tssCode);
+        }
+
+        return result;
     }
 
     /**

@@ -28,7 +28,7 @@ Ext.onReady(function() {
 		'<thead class="smallertext"><tr>',
            '<th scope="col">Available Cancer Types</th>',
            '<th scope="col"># Cases Shipped by BCR</th>',
-           '<th scope="col"># Cases with Data</th>',
+           '<th scope="col"># Cases with Data<sup>*</sup></th>',
            '<th scope="col">Date Last Updated (mm/dd/yy)</th>',
 		'</tr></thead><tbody>',
         '<tpl for=".">',
@@ -69,6 +69,7 @@ Ext.onReady(function() {
            '</tr>',
        '</tpl>',
 		'</tbody></table>',
+        '<p><sup>*</sup>Excludes non-canonical cases</p>',
 		{
 			isNotNull: function(valName, vals) {
 				return (vals[valName] != null && vals[valName] != ''?true:false);

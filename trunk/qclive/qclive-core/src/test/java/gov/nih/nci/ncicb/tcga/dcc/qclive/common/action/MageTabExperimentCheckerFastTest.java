@@ -154,6 +154,29 @@ public class MageTabExperimentCheckerFastTest {
         assertFalse(mageTabExperimentChecker.isMageTabOptional(experiment));
     }
 
+    @Test
+    public void testVcfOnlyAndAvailableMageTab() throws IOException, ParseException, Processor.ProcessorException {
+        // test case where the submission only has a VCF file but there is an available mage-tab archive
+        // should NOT require mage-tab for processing the new submission
+
+        context.checking(new Expectations() {{
+            one(mockCenterQueries).doesCenterRequireMageTab("gsc.org", Experiment.TYPE_GSC);
+            will(returnValue(true));
+        }});
+
+        // does not require mage tab
+        experiment.setCenterName("gsc.org");
+        experiment.setType(Experiment.TYPE_GSC);
+        experiment.addArchive(makeArchive(Archive.TYPE_LEVEL_2, Archive.STATUS_UPLOADED,
+                TEST_DIR + File.separator + "gsc.org_TEST.DNASeq.Level_2.1.0.0"));
+        experiment.addArchive(makeArchive(Archive.TYPE_MAGE_TAB, Archive.STATUS_AVAILABLE,
+                "/path/to/hypothetical/archive/gsc.org_TEST.DNASeq.mage-tab.0.0.0"));
+        assertTrue(mageTabExperimentChecker.doWork(experiment, qcContext));
+        assertFalse(qcContext.experimentRequiresMageTab());
+        assertEquals(0, qcContext.getWarningCount());
+        assertEquals(0, qcContext.getErrorCount());
+    }
+
     private Archive makeArchive(final String archiveType, final String archiveStatus, final String archiveDirectory) {
         final Archive archive = new Archive();
         archive.setArchiveType(archiveType);

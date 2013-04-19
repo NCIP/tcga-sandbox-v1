@@ -126,7 +126,12 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             "validation_method",
             "score",
             "bam_file",
-            "sequencer"
+            "sequencer",
+            "tumor_sample_uuid",
+            "match_norm_sample_uuid",
+            "file_name",
+            "archive_name",
+            "line_number"
     };
 
     private String tempfileDirectory;
@@ -320,6 +325,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             }
             if (newColumn) {
                 final DataFileMutation df = new DataFileMutation();
+                df.setMafFile(true);
                 df.setDiseaseType(ds.getDiseaseType());
                 df.setPlatformTypeId(ds.getPlatformTypeId());
                 df.setCenterId(ds.getCenterId());
@@ -430,8 +436,15 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                 .append(" and mi.file_id =  fa.file_id ")
                 .append(" and fa.archive_id = a.archive_id and a.is_latest = 1 ");
 
-        final String sql2 = "select * from maf_info mi, maf_key mk, center " +
-                "where mi.maf_key_id = mk.maf_key_id and mk.center_id=center.center_id and mi.maf_info_id = ?";
+        final String sql2 = "select * from maf_info mi, maf_key mk, center, file_info fi, file_to_archive fta, " +
+                "archive_info ai " +
+                "where mi.maf_key_id = mk.maf_key_id " +
+                "and mk.center_id=center.center_id " +
+                "and mi.maf_info_id = ? " +
+                "and mi.file_id = fi.file_id " +
+                "and fi.file_id = fta.file_id " +
+                "and fta.archive_id = ai.archive_id " +
+                "and ai.is_latest = 1";
         PreparedStatement stmt1 = null, stmt2 = null;
         Writer writer = null;
         final String uniqueName = makeTempFilename(dfm);
@@ -568,7 +581,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             if (writeval.equals("domain_name")) {
                 writeval = "center";
             }
-            writeval = titleCase(writeval);
+            writeval = titleMafCase(writeval);
             writer.write(writeval);
             if (i == FIELDS_2_WRITE.length - 1) {
                 writer.write('\n');
@@ -578,9 +591,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
         }
     }
 
-    //todo: move to a util class?
-
-    private String titleCase(final String s) {
+    private String titleMafCase(final String s) {
         final char[] cc = s.toCharArray();
         boolean capNext = true;
         for (int i = 0; i < cc.length; i++) {
@@ -592,8 +603,8 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                 capNext = true;
             }
         }
-        return new String(cc);
+        final String res = new String(cc);
+        return res.replace("Uuid", "UUID");
     }
 
-
-}
+}//End of Class

@@ -74,6 +74,9 @@
     <uuid_item_type item_type_id="1" item_type="Participant" sort_order="1" xml_name="patient"/>
     <uuid_item_type item_type_id="2" item_type="Sample" sort_order="2" xml_name="sample"/>
 
+    <exclude_from_case_count participant_barcode="TCGA-00-0007"/>
+    <exclude_from_case_count participant_barcode="TCGA-00-0011"/>
+
     <!-- SNP -->
     <platform platform_id="1" platform_name="Genome_Wide_SNP_6" platform_display_name="Genome_Wide_SNP_6"
               platform_alias="Genome_Wide_SNP_6" center_type_code="CGCC" base_data_type_id="1" available="1" sort_order="1"/>
@@ -252,6 +255,7 @@
     <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="7"/>
 
     <!-- IlluminaDNAMethylation_OMA003_CPI GBM TCGA-00-0007 Methylation -->
+    <!-- note TCGA-00-0007 added to exclude_from_case_count table so will not count! -->
     <archive_info archive_id="7" archive_name="cgcc.org_GBM.IlluminaDNAMethylation_OMA003_CPI.Level_1.5.0.0" center_id="1"
                   platform_id="5" disease_id="1" archive_type_id="1"
                   serial_index="5" revision="0" series="0" deploy_status="Available" is_latest="1" deploy_location="loc"

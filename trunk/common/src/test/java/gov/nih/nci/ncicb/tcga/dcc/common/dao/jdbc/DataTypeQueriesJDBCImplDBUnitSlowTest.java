@@ -66,9 +66,21 @@ public class DataTypeQueriesJDBCImplDBUnitSlowTest extends DBUnitTestCase {
         assertEquals(getBaseDataTypeDisplayNameTestObject(testPlatform.getPlatformId()), dbData);
     }
 
+
+    public void testGetDataTypeNameForPlatform() throws Exception {
+        final String dbData = queries.getBaseDataTypeNameForPlatform("GenomeWideSNP_5");
+        assertNotNull(dbData);
+        assertEquals("SNP", dbData);
+    }
+
+    public void testGetDataTypeNameForInvalidPlatform() throws Exception {
+        final String dbData = queries.getBaseDataTypeNameForPlatform("GenomeWideSNP_56");
+        assertNull(dbData);
+    }
+
     public void testEmptyDataAccessForGetFirstDataTypeDisplayNameForPlatform() throws Exception {
         try {
-            // platform id doesn't exsist in the data set
+            // platform id doesn't exist in the data set
             queries.getBaseDataTypeDisplayNameForPlatform(INVALID_PLATFORM_ID);
         } catch (Exception e) {
             assertTrue(e instanceof EmptyResultDataAccessException);

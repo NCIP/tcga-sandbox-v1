@@ -17,6 +17,7 @@ package gov.nih.nci.ncicb.tcga.dcc.qclive.bean;
 public class MafInfo {
 
     private Long id = null;
+    private Integer lineNumber = null;
     private Long mafKeyId = null;
     private Integer centerID = null;
     private String centerName = null;
@@ -357,5 +358,13 @@ public class MafInfo {
 
     public void setMafKeyId(final Long mafKeyId) {
         this.mafKeyId = mafKeyId;
+    }
+
+    public Integer getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(final Integer lineNumber) {
+        this.lineNumber = lineNumber;
     }
 }

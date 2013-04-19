@@ -75,9 +75,9 @@ private static final String PATH_TO_DB_PROPERTIES =
 
         final DataTypeCount[] gbmCounts = dataTypeCountQueries.getDataTypeCountArray("GBM");
         assertEquals(DataTypeCount.CountType.Case, gbmCounts[0].getCountType());
-        assertEquals(8, gbmCounts[0].getTotal());
+        assertEquals(7, gbmCounts[0].getTotal());
         assertEquals(1, gbmCounts[0].getSnp());
-        assertEquals(2, gbmCounts[0].getMethylation());
+        assertEquals(1, gbmCounts[0].getMethylation());
         assertEquals(5, gbmCounts[0].getmRna());
         assertEquals(1, gbmCounts[0].getMiRna());
         assertEquals(1, gbmCounts[0].getExome());
@@ -94,10 +94,10 @@ private static final String PATH_TO_DB_PROPERTIES =
 
         final DataTypeCount[] ovCounts = dataTypeCountQueries.getDataTypeCountArray("OV");
         assertEquals(DataTypeCount.CountType.Case, ovCounts[0].getCountType());
-        assertEquals(6, ovCounts[0].getTotal());
+        assertEquals(5, ovCounts[0].getTotal());
         assertEquals(0, ovCounts[0].getSnp());
         assertEquals(1, ovCounts[0].getMethylation());
-        assertEquals(4, ovCounts[0].getmRna());
+        assertEquals(3, ovCounts[0].getmRna());
         assertEquals(1, ovCounts[0].getMiRna());
         assertEquals(2, ovCounts[0].getExome());
         assertEquals(0, ovCounts[0].getClinical());

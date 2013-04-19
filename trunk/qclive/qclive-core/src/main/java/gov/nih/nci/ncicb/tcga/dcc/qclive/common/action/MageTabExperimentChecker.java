@@ -171,15 +171,21 @@ public class MageTabExperimentChecker extends AbstractProcessor<Experiment, Bool
                                 append(availableMageTab.getRealName()).append(".").toString());
                     }
                 } else if (mageTabArchives.size() == 1) {
-                    Archive availableMageTab = mageTabArchives.get(0);
-                    if(!Archive.STATUS_UPLOADED.equals(availableMageTab.getDeployStatus())) {
-                        experiment.setStatus( Experiment.STATUS_PENDING );
-                        context.addError(MessageFormat.format(
-                                MessagePropertyType.EXPERIMENT_PROCESSING_ERROR,
-                                experiment,
-                                "Updated mage-tab archive has not been uploaded yet."));
-                        return true;
-                    }
+                    // if new mage-tab isn't uploaded and mage-tab isn't optional, then pending/need to wait
+                    if(!Archive.STATUS_UPLOADED.equals(mageTabArchives.get(0).getDeployStatus())) {
+                        if(isMageTabOptional(experiment)) {
+                            context.setExperimentRequiresMageTab(false);
+                            return true;
+                        } else {
+                            experiment.setStatus( Experiment.STATUS_PENDING );
+                            context.addError(MessageFormat.format(
+                                    MessagePropertyType.EXPERIMENT_PROCESSING_ERROR,
+                                    experiment,
+                                    "Updated mage-tab archive has not been uploaded yet."));
+                            return true;
+
+                        }
+                    } // else we have 1 uploaded mage-tab so continue to check it
                 } else if(mageTabArchives.size() == 0) {
 
                     if (isMageTabOptional(experiment)) {

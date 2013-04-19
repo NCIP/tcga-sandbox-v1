@@ -92,6 +92,9 @@ public class Maf2FileProcessorFastTest {
         qcContext.getArchive().getFilenameToIdToMap().put("testMaf2.maf", 5L);
 		context.checking(new Expectations() {
 			{
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
+
 				one(mockFileInfoQueries).getFileId("testMaf2.maf", 1L);
 				will(returnValue(5L));
 
@@ -117,6 +120,9 @@ public class Maf2FileProcessorFastTest {
         qcContext.getArchive().getFilenameToIdToMap().put("mafWithUUIDHeader.maf", 5L);
 		context.checking(new Expectations() {
 			{
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
+                
 				one(mockFileInfoQueries).getFileId("mafWithUUIDHeader.maf", 1L);
 				will(returnValue(5L));
 
@@ -162,6 +168,8 @@ public class Maf2FileProcessorFastTest {
 
 		context.checking(new Expectations() {
 			{
+                one(mockMafInfoQueries).fileIdExistsInMafInfo(5L);
+                will(returnValue(false));
 				one(mockFileInfoQueries).getFileId("testBadMaf2Header.maf", 1L);
 				will(returnValue(5L));
 				exactly(0).of(mockMafInfoQueries).addMaf(mafInfo);

@@ -112,6 +112,7 @@ public class SoundcheckFastTest {
         soundcheck.setVerbose(false);
         QcContext context = new QcContext();
         context.setNoRemote(true);
+        context.setStandaloneValidator(true);
         // logger with no destinations will not actually log anything
         Logger logger = new LoggerImpl();
         context.setLogger(logger);

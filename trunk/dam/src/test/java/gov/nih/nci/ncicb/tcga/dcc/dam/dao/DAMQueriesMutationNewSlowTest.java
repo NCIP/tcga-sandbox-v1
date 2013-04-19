@@ -20,8 +20,9 @@ import java.util.List;
  *         Last updated by: $Author$
  * @version $Rev$
  */
-public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private static final String TEST_DATA_FOLDER =
-    	Thread.currentThread().getContextClassLoader().getResource("samples").getPath() + File.separator;
+public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {
+    private static final String TEST_DATA_FOLDER =
+            Thread.currentThread().getContextClassLoader().getResource("samples").getPath() + File.separator;
     private static final String PROPERTIES_FILE = "tcga_unittest.properties";
     private static final String TEST_DATA_FILE = "portal/MafDataSetInput.xml";
 
@@ -65,8 +66,8 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
             if (dataSet.isProtected() && dataSet.getLevel().equals("3")) {
                 assertEquals("11", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0004-01A-11W-A019-09", ((DataSetMutation)dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0004-10A-11W-A019-09", ((DataSetMutation)dataSet).getMatchedNormalBarcode());
+                assertEquals("TCGA-00-0004-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                assertEquals("TCGA-00-0004-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
                 foundCount++;
 
                 if (dataSet.getSample().equals("TCGA-00-0004-01")) {
@@ -80,8 +81,8 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
             } else if (dataSet.isProtected() && dataSet.getLevel().equals("2")) {
                 assertEquals("11", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0002-01A-11W-A019-09", ((DataSetMutation)dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0002-10A-11W-A019-09", ((DataSetMutation)dataSet).getMatchedNormalBarcode());
+                assertEquals("TCGA-00-0002-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                assertEquals("TCGA-00-0002-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
                 foundCount++;
 
                 if (dataSet.getSample().equals("TCGA-00-0002-01")) {
@@ -96,8 +97,8 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
             } else if (!dataSet.isProtected() && dataSet.getLevel().equals("3")) {
                 assertEquals("10", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0003-01A-11W-A019-09", ((DataSetMutation)dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0003-10A-11W-A019-09", ((DataSetMutation)dataSet).getMatchedNormalBarcode());
+                assertEquals("TCGA-00-0003-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                assertEquals("TCGA-00-0003-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
                 foundCount++;
 
                 if (dataSet.getSample().equals("TCGA-00-0003-01")) {
@@ -111,8 +112,8 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
             } else if (!dataSet.isProtected() && dataSet.getLevel().equals("2")) {
                 assertEquals("10", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0001-01A-11W-A019-09", ((DataSetMutation)dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0001-10A-11W-A019-09", ((DataSetMutation)dataSet).getMatchedNormalBarcode());
+                assertEquals("TCGA-00-0001-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                assertEquals("TCGA-00-0001-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
                 foundCount++;
 
                 if (dataSet.getSample().equals("TCGA-00-0001-01")) {
@@ -134,8 +135,8 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
         assertFalse(controlDataSets.get(0).isProtected());
         assertEquals("2", controlDataSets.get(0).getLevel());
         assertEquals("10", controlDataSets.get(0).getPlatformTypeId());
-        assertEquals("TCGA-AV-0007-20A-11W-A019-09", ((DataSetMutation)controlDataSets.get(0)).getMatchedNormalBarcode());
-        assertEquals("TCGA-AV-0007-20A-11W-A019-09", ((DataSetMutation)controlDataSets.get(0)).getMutationBarcode());
+        assertEquals("TCGA-AV-0007-20A-11W-A019-09", ((DataSetMutation) controlDataSets.get(0)).getMatchedNormalBarcode());
+        assertEquals("TCGA-AV-0007-20A-11W-A019-09", ((DataSetMutation) controlDataSets.get(0)).getMutationBarcode());
     }
 
     public void testGetDataFiles() throws DataAccessMatrixQueries.DAMQueriesException {
@@ -144,7 +145,7 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
                         true);
 
         assertEquals(4, dataFiles.size());
-        
+
         checkDataFile(dataFiles.get(0), Arrays.asList("TCGA-00-0001-01A-11W-A019-09"), "10", "selected_samples",
                 "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_level2.maf", "2", "40", "10", 175, "TEST", false);
         checkDataFile(dataFiles.get(1), Arrays.asList("TCGA-00-0003-01A-11W-A019-09"), "10", "selected_samples",
@@ -180,28 +181,36 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {private stati
         damQueriesMutation.addPathsToSelectedFiles(dataFiles);
 
         checkFile(publicLevel2ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
-                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0001-01A-11W-A019-09\tTCGA-00-0001-10A-11W-A019-09\tC\tC\t" +
-                "\t\t\t\t\tUnknown\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx");
+                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0001-01A-11W-A019-09\tTCGA-00-0001-10A-11W-A019-09\tC\t" +
+                "C\t\t\t\t\t\tUnknown\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid1\tuuid2\t" +
+                "level_2.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0\t3");
 
         checkFile(publicLevel3ExpectedFiles, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
-                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0003-01A-11W-A019-09\tTCGA-00-0003-10A-11W-A019-09\tC\tC\t" +
-                "\t\t\t\t\tValid\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx");
+                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0003-01A-11W-A019-09\tTCGA-00-0003-10A-11W-A019-09\tC\t" +
+                "C\t\t\t\t\t\tValid\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
+                "level_3.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_3.1.0.0\t3");
 
         checkFile(protectedLevel2ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
-                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0002-01A-11W-A019-09\tTCGA-00-0002-10A-11W-A019-09\tC\tC\t" +
-                "\t\t\t\t\tUnknown\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx");
-        
+                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0002-01A-11W-A019-09\tTCGA-00-0002-10A-11W-A019-09\tC\t" +
+                "C\t\t\t\t\t\tUnknown\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
+                "level_2.protected.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_2.1.0.0\t3");
+
         checkFile(protectedLevel3ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
-                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0004-01A-11W-A019-09\tTCGA-00-0004-10A-11W-A019-09\tC\tC\t" +
-                "\t\t\t\t\tValid\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx");
-
-
+                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0004-01A-11W-A019-09\tTCGA-00-0004-10A-11W-A019-09\tC\t" +
+                "C\t\t\t\t\t\tValid\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
+                "level_3.protected.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_3.1.0.0\t3");
     }
 
     private void checkFile(final File file, final String expectedDataLine) throws IOException {
-          final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         final String header = bufferedReader.readLine();
-        assertEquals("Hugo_Symbol\tEntrez_Gene_Id\tCenter\tNcbi_Build\tChrom\tStart_Position\tEnd_Position\tStrand\tVariant_Classification\tVariant_Type\tReference_Allele\tTumor_Seq_Allele1\tTumor_Seq_Allele2\tDbsnp_Rs\tDbsnp_Val_Status\tTumor_Sample_Barcode\tMatch_Norm_Sample_Barcode\tMatch_Norm_Seq_Allele1\tMatch_Norm_Seq_Allele2\tTumor_Validation_Allele1\tTumor_Validation_Allele2\tMatch_Norm_Validation_Allele1\tMatch_Norm_Validation_Allele2\tVerification_Status\tValidation_Status\tMutation_Status\tSequencing_Phase\tSequence_Source\tValidation_Method\tScore\tBam_File\tSequencer",
+        assertEquals("Hugo_Symbol\tEntrez_Gene_Id\tCenter\tNcbi_Build\tChrom\tStart_Position\tEnd_Position\tStrand\t" +
+                "Variant_Classification\tVariant_Type\tReference_Allele\tTumor_Seq_Allele1\tTumor_Seq_Allele2\t" +
+                "Dbsnp_Rs\tDbsnp_Val_Status\tTumor_Sample_Barcode\tMatch_Norm_Sample_Barcode\tMatch_Norm_Seq_Allele1\t" +
+                "Match_Norm_Seq_Allele2\tTumor_Validation_Allele1\tTumor_Validation_Allele2\t" +
+                "Match_Norm_Validation_Allele1\tMatch_Norm_Validation_Allele2\tVerification_Status\tValidation_Status\t" +
+                "Mutation_Status\tSequencing_Phase\tSequence_Source\tValidation_Method\tScore\tBam_File\tSequencer\t" +
+                "Tumor_Sample_UUID\tMatch_Norm_Sample_UUID\tFile_Name\tArchive_Name\tLine_Number",
                 header);
         final String dataLine = bufferedReader.readLine();
         assertEquals(expectedDataLine, dataLine);

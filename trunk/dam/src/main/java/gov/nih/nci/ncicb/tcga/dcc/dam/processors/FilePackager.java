@@ -21,6 +21,7 @@ import gov.nih.nci.ncicb.tcga.dcc.dam.bean.QuartzJobStatus;
 import gov.nih.nci.ncicb.tcga.dcc.dam.dao.DataAccessMatrixQueries;
 import gov.nih.nci.ncicb.tcga.dcc.dam.util.DataAccessMatrixJSPUtil;
 import gov.nih.nci.ncicb.tcga.dcc.dam.view.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
@@ -50,6 +51,7 @@ import java.util.zip.GZIPOutputStream;
  */
 
 public class FilePackager implements FilePackagerI {
+    private static String README_FILENAME = "README_DCC.txt";
     private static final String DOUBLE_LINE_SEPARATOR = "\n\n";
 
     private FilePackagerFactoryI filePackagerFactory;
@@ -204,7 +206,8 @@ public class FilePackager implements FilePackagerI {
             setStartArchiveCreationTime(System.currentTimeMillis());
             calculateActualUncompressedSize();
             writeManifest();
-            makeArchive();
+            final String readmeTempFilename = writeDCCReadMe();
+            makeArchive(readmeTempFilename);
             filePackagerBean.setStatus(QuartzJobStatus.Succeeded);
         } catch (Exception ex) {
             //we need this catchall because any uncaught exception (e.g. a RuntimeException)
@@ -292,6 +295,43 @@ public class FilePackager implements FilePackagerI {
         }
         return path;
     }
+
+    private String writeDCCReadMe() throws IOException {
+        Boolean mafFileFound = false;
+        for (final DataFile df : filePackagerBean.getSelectedFiles()) {
+            if( df.isMafFile()){
+                mafFileFound = true;
+                break;
+            }
+
+        }
+        BufferedWriter writer = null;
+        try {
+            if(mafFileFound) {
+                final String tempDir = getTempfileDirectory();
+                if (tempDir == null || tempDir.length() == 0) {
+                    throw new IOException("FilePackagerFactory.tempfileDirectory is null");
+                }
+                String readmeFileTempName = tempDir + ConstantValues.SEPARATOR + UUID.randomUUID();
+                writer = new BufferedWriter(new FileWriter(readmeFileTempName));
+                final StringBuilder line = new StringBuilder();
+                line.append("README for Data Matrix generated archive which contains maf files.\n\n" +
+                        "TCGA MAF files must contain 34 defined columns, however centers are free to add additional columns. Since MAF files created using the Data Matrix contain only the 34 required columns and do not contain any of the additional columns," +
+                        " this can result in the appearance of duplicate rows. If your MAF file appears to have duplicate rows, check the original MAF file and see if there are additional columns of information.\n" +
+                        "In addition, MAF files generated through the DAM will include new columns indicating the MAF file the entry came from, the archive name and the row number of the entry in the MAF file (if known).");
+                writer.write(line.toString());
+                writer.flush();
+                return readmeFileTempName;
+            }
+
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+        return null;
+    }
+
 
     private void writeManifest() throws IOException {
         BufferedWriter writer = null;
@@ -488,7 +528,7 @@ public class FilePackager implements FilePackagerI {
         return tarArchiveOutputStream;
     }
 
-    void makeArchive() throws IOException {
+    void makeArchive(final String readmeTempFilename) throws IOException {
         final byte[] buffer = new byte[1024];
         File archiveFile = null;
         TarArchiveOutputStream out = null;
@@ -498,6 +538,7 @@ public class FilePackager implements FilePackagerI {
             archiveFile = new File(archiveName);
             out = makeTarGzOutputStream(archiveFile);
             copyManifestToArchive(out);
+            copyReadmeToArchive(out, readmeTempFilename);
             int i = 0;
             for (final DataFile fileInfo : filePackagerBean.getSelectedFiles()) {
                 final File file = new File(fileInfo.getPath());
@@ -610,14 +651,31 @@ public class FilePackager implements FilePackagerI {
     }
 
     private void copyManifestToArchive(final TarArchiveOutputStream out) throws IOException {
+        copyFileToArchive(out,manifestTempfileName,"file_manifest.txt");
+
+    }
+
+    private void copyReadmeToArchive(final TarArchiveOutputStream out,
+                                     final String tempFilename)throws IOException  {
+
+
+        copyFileToArchive(out,tempFilename,README_FILENAME);
+    }
+
+    private void copyFileToArchive(final TarArchiveOutputStream out,
+                                   final String tempFilename,
+                                   final String filename) throws IOException {
+        if(StringUtils.isEmpty(tempFilename)) {
+            return;
+        }
         final byte[] buffer = new byte[1024];
-        final File file = new File(manifestTempfileName);
+        final File file = new File(tempFilename);
         if (!file.exists()) {
-            throw new IOException("Manifest file does not exist: " + manifestTempfileName);
+            throw new IOException("File does not exist: " + tempFilename);
         }
         final TarArchiveEntry tarAdd = new TarArchiveEntry(file);
         tarAdd.setModTime(file.lastModified());
-        tarAdd.setName("file_manifest.txt");
+        tarAdd.setName(filename);
         out.putArchiveEntry(tarAdd);
         FileInputStream in = null;
         try {

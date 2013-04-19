@@ -404,8 +404,126 @@ public class BiospecimenXmlValidatorFastTest {
 		assertTrue(biospecimenXmlValidator.processFile(new File(
 				biospecimenXmlEtalon), qcContext));     
 		
-		assertEquals (0,qcContext.getWarnings().size());
+		assertEquals (0,qcContext.getErrors().size());
 	}
+
+    @Test
+    public void testTwoBiospecimenXmlGoodFileStandalone() throws Exception {
+
+        qcContext.setStandaloneValidator(true);
+
+        archive.setSerialIndex("86");
+
+        context.checking(new Expectations() {{
+
+            exactly(2).of(mockBcrUtils).isBiospecimenFile(with(any(File.class)));
+            will(returnValue(true));
+
+            exactly(2).of(mockBcrUtils).isControlFile(with(any(File.class)));
+            will(returnValue(false));
+
+            one(mockCodeTableQueries).tssCodeExists(with("C4"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).sampleTypeExists(with("10"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).sampleTypeExists(with("01"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).portionAnalyteExists(with("D"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).portionAnalyteExists(with("R"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("08"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("05"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("07"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("13"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("01"));
+            will(returnValue(true));
+
+            one(mockCodeTableQueries).bcrCenterIdExists(with("02"));
+            will(returnValue(true));
+        }});
+
+        assertTrue(biospecimenXmlValidator.processFile(new File(
+                biospecimenXmlEtalon), qcContext));
+
+        assertEquals (0,qcContext.getErrors().size());
+
+        assertTrue(biospecimenXmlValidator.processFile(new File(
+                biospecimenXmlEtalon), qcContext));
+
+        assertEquals (0,qcContext.getErrors().size());
+    }
+
+    @Test
+    public void testTwoBiospecimenXmlGoodFileQclive() throws Exception {
+
+        archive.setSerialIndex("86");
+
+        context.checking(new Expectations() {{
+
+            exactly(2).of(mockBcrUtils).isBiospecimenFile(with(any(File.class)));
+            will(returnValue(true));
+
+            exactly(2).of(mockBcrUtils).isControlFile(with(any(File.class)));
+            will(returnValue(false));
+
+            exactly(2).of(mockCodeTableQueries).tssCodeExists(with("C4"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).sampleTypeExists(with("10"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).sampleTypeExists(with("01"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).portionAnalyteExists(with("D"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).portionAnalyteExists(with("R"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("08"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("05"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("07"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("13"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("01"));
+            will(returnValue(true));
+
+            exactly(2).of(mockCodeTableQueries).bcrCenterIdExists(with("02"));
+            will(returnValue(true));
+        }});
+
+        assertTrue(biospecimenXmlValidator.processFile(new File(
+                biospecimenXmlEtalon), qcContext));
+
+        assertEquals (0,qcContext.getErrors().size());
+
+        assertTrue(biospecimenXmlValidator.processFile(new File(
+                biospecimenXmlEtalon), qcContext));
+
+        assertEquals (0,qcContext.getErrors().size());
+    }
 
 	@Test
 	public void testBiospecimenXmlClinicalFile() throws Exception {

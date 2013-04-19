@@ -11,6 +11,7 @@ package gov.nih.nci.ncicb.tcga.dcc.dam.processors;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelper;
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailSender;
+import gov.nih.nci.ncicb.tcga.dcc.common.util.DataTypeName;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataFile;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataFileLevelOne;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataFileLevelThree;
@@ -18,6 +19,7 @@ import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataFileLevelTwo;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.FilePackagerBean;
 import gov.nih.nci.ncicb.tcga.dcc.dam.dao.DAMUtilsI;
 import gov.nih.nci.ncicb.tcga.dcc.dam.dao.DataAccessMatrixQueries;
+import gov.nih.nci.ncicb.tcga.dcc.dam.util.DataAccessMatrixJSPUtil;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
@@ -49,6 +51,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map;
+import java.util.HashMap;
+
 import java.util.zip.GZIPInputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -172,7 +177,41 @@ public class FilePackagerFastTest {
         assertTrue(packagerBean.getLinkText().endsWith(packagerBean.getArchiveLogicalName() + ".tar.gz"));
         File fzip = new File(packagerBean.getArchivePhysicalName() + ".tar.gz");
         assertTrue(fzip.exists());
-        checkGzip(packagerBean.getArchivePhysicalName() + ".tar.gz");
+        checkGzip(packagerBean.getArchivePhysicalName() + ".tar.gz",false);
+    }
+
+    @Test
+    public void testFilePackagerForMutationArchives() throws Exception {
+        final FilePackagerBean packagerBean = fpFactory.createFilePackagerBean(DISEASE, downloadFiles, null, false, false,
+                UUID.fromString("067e6162-3b6f-4ae2-a171-2470b63dff00"), null);
+        final Map<String,String> dataTypeNames = new HashMap<String,String>();
+        dataTypeNames.put("platform1", DataTypeName.SOMATIC_MUTATIONS.getValue());
+        DataAccessMatrixJSPUtil.setPlatformTypeNames(dataTypeNames);
+        packager.runJob(packagerBean);
+        assertTrue(packagerBean.isDone());
+        assertFalse(packagerBean.isFailed());
+        assertTrue(packagerBean.getLinkText().endsWith(packagerBean.getArchiveLogicalName() + ".tar.gz"));
+        File fzip = new File(packagerBean.getArchivePhysicalName() + ".tar.gz");
+        assertTrue(fzip.exists());
+        checkGzip(packagerBean.getArchivePhysicalName() + ".tar.gz",false);
+    }
+
+    @Test
+    public void testFilePackagerForMafArchives() throws Exception {
+        final FilePackagerBean packagerBean = fpFactory.createFilePackagerBean(DISEASE, downloadFiles, null, false, false,
+                UUID.fromString("067e6162-3b6f-4ae2-a171-2470b63dff00"), null);
+        final DataFile dataFile = packagerBean.getSelectedFiles().get(0);
+        dataFile.setMafFile(true);
+        final Map<String,String> dataTypeNames = new HashMap<String,String>();
+        dataTypeNames.put("platform1", DataTypeName.SOMATIC_MUTATIONS.getValue());
+        DataAccessMatrixJSPUtil.setPlatformTypeNames(dataTypeNames);
+        packager.runJob(packagerBean);
+        assertTrue(packagerBean.isDone());
+        assertFalse(packagerBean.isFailed());
+        assertTrue(packagerBean.getLinkText().endsWith(packagerBean.getArchiveLogicalName() + ".tar.gz"));
+        File fzip = new File(packagerBean.getArchivePhysicalName() + ".tar.gz");
+        assertTrue(fzip.exists());
+        checkGzip(packagerBean.getArchivePhysicalName() + ".tar.gz",true);
     }
 
     @Test
@@ -184,7 +223,7 @@ public class FilePackagerFastTest {
         emptyScratchFolder();
     }
 
-    private void checkGzip(final String gzipName) throws IOException {
+    private void checkGzip(final String gzipName, final Boolean isMafArchive) throws IOException {
 
         InputStream in = null;
         OutputStream out = null;
@@ -209,14 +248,14 @@ public class FilePackagerFastTest {
             out.flush();
             File f_tar = new File(tarName);
             assertTrue(f_tar.exists());
-            checkTar(f_tar);
+            checkTar(f_tar,isMafArchive);
         } finally {
             IOUtils.closeQuietly(out);
             IOUtils.closeQuietly(in);
         }
     }
 
-    private void checkTar(final File f_tar) throws IOException {
+    private void checkTar(final File f_tar, final Boolean isMafArchive) throws IOException {
 
         FileReader origReader = null;
         TarArchiveInputStream tarIn = null;
@@ -241,6 +280,10 @@ public class FilePackagerFastTest {
             int i = 0;
             entry = tarIn.getNextTarEntry();
             assertEquals("file_manifest.txt", entry.getName());
+            if(isMafArchive) {
+                entry = tarIn.getNextTarEntry();
+                assertEquals("README_DCC.txt", entry.getName());
+            }
             while ((entry = tarIn.getNextTarEntry()) != null) {
                 //compare to input file
                 File expectedName = new File("platform" + i + "/center" + i + "/Level_1/f" + i + ".idat");
@@ -296,7 +339,7 @@ public class FilePackagerFastTest {
                 UUID.fromString("067e6162-3b6f-4ae2-a171-2470b63dff00"), null);
         packager.setFilePackagerBean(packagerBean);
         packager.setManifestTempfileName(THIS_FOLDER + "dummyManifest.txt");
-        packager.makeArchive();
+        packager.makeArchive(null);
     }
 
     @Test

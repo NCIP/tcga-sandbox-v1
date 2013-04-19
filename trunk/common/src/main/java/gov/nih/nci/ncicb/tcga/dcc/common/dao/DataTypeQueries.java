@@ -31,4 +31,11 @@ public interface DataTypeQueries {
      * @return list of data type ids
      */
     public Map<String,Long> getAllDataTypesId();
+
+    /**
+     * Get data type name for the given platform name.
+     * @param platformName
+     * @return  data type name for the given platform name.
+     */
+    public String getBaseDataTypeNameForPlatform(final String platformName);
 }

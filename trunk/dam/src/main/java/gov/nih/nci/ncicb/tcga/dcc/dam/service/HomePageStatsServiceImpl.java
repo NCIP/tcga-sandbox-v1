@@ -70,15 +70,13 @@ public class HomePageStatsServiceImpl implements HomePageStatsService {
                 JSONObject diseaseStats = jsonDiseaseArray.getJSONObject(i);
                 String disease = diseaseStats.getString("tumor_abbrev");
                 int shipped = 0;
-                int pending = 0;
                 try {
                     shipped = diseaseStats.getInt("shipped");
-                    pending = diseaseStats.getInt("pending_shipment");
                 } catch (JSONException e) {
-                    // means the numbers aren't there or are not integers, so just keep them 0
+                    // means the number isn't there or is not integer, so just keep 0
                 }
 
-                statsMap.put(disease, new HomePageStats(disease, shipped + pending, 0, null));
+                statsMap.put(disease, new HomePageStats(disease, shipped, 0, null));
             }
             return  statsMap;
         } catch (IOException e) {

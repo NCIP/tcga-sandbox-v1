@@ -197,6 +197,7 @@ public class MafFileProcessorFastTest {
 		assertEquals("Unknown", mafInfo.getVerificationStatus());
 		assertEquals("Unknown", mafInfo.getValidationStatus());
 		assertEquals("Somatic", mafInfo.getMutationStatus());
+        assertEquals(new Integer(4), mafInfo.getLineNumber()); // this is from the last line which is the 4th
 	}
 
     @Test

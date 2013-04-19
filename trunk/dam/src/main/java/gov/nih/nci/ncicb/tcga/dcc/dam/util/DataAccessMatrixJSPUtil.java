@@ -327,4 +327,8 @@ public class DataAccessMatrixJSPUtil {
         ret.put( "Platform", plList );
         return ret;
     }
+
+    public static void setPlatformTypeNames(Map<String, String> platformTypeNames) {
+        DataAccessMatrixJSPUtil.platformTypeNames = platformTypeNames;
+    }
 }

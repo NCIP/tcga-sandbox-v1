@@ -125,7 +125,7 @@ ON maf_key (
       
 ALTER TABLE maf_key ADD CONSTRAINT fk_maf_key_center FOREIGN KEY (center_id) REFERENCES center (center_id) ON DELETE CASCADE;
 
-ALTER TABLE maf_info ADD (maf_key_id NUMBER(38), line_num INTEGER);
+ALTER TABLE maf_info ADD (maf_key_id NUMBER(38), line_number INTEGER);
 
 ALTER TABLE maf_info MODIFY (
      hugo_symbol         	VARCHAR2(50),
@@ -146,6 +146,10 @@ ALTER TABLE maf_info MODIFY (
      tumor_sample_barcode	VARCHAR2(50),
      match_norm_sample_barcode  VARCHAR2(50));
      
+-- GBM has one barcode that needed to be corrected
+UPDATE maf_info set tumor_sample_barcode = 'TCGA-06-0133-01A-02W' where tumor_sample_barcode = 'TCGA-06-0133-01A-01W';
+commit;
+
 INSERT INTO maf_key (
     maf_key_id,
     entrez_gene_id,

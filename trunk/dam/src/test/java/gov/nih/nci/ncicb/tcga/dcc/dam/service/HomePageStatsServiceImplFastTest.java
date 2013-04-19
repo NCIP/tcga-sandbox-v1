@@ -111,7 +111,7 @@ public class HomePageStatsServiceImplFastTest {
         
 
         final Map<String, Integer> expectedValuesInStats = new HashMap<String, Integer>();
-        expectedValuesInStats.put("BRCA", 919 +  16);
+        expectedValuesInStats.put("BRCA", 919);
         expectedValuesInStats.put("OV", 572);
 
         context.checking(new Expectations() {{
