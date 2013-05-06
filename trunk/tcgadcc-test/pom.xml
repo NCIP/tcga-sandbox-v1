@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2013 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>tcgadcc-parent</artifactId>
+        <groupId>gov.nih.nci.ncicb.tcga.dcc</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <groupId>gov.nih.nci.ncicb.tcga.dcc.test</groupId>
+    <artifactId>tcgadcc-test</artifactId>
+    <packaging>pom</packaging>
+    <name>TCGA DCC :: Test</name>
+    <properties>
+        <org.jboss.arquillian.version>1.0.3.Final</org.jboss.arquillian.version>
+        <org.jboss.arquillian.extension.spring.version>1.0.0.Beta1</org.jboss.arquillian.extension.spring.version>
+    </properties>
+    <modules>
+        <module>tcgadcc-test-integration</module>
+        <module>tcgadcc-test-system</module>
+    </modules>
+</project>

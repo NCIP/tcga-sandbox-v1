@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~ Software License, Version 1.0 Copyright 2013 SRA International, Inc. 
+~ Copyright Notice. The software subject to this notice and license includes 
+~ both human readable source code form and machine readable, binary, object 
+~ code form (the "caBIG Software"). 
+~ 
+~ Please refer to the complete License text for full details at the root of 
+~ the project. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>tcgadcc-test</artifactId>
+        <groupId>gov.nih.nci.ncicb.tcga.dcc.test</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>tcgadcc-test-system</artifactId>
+    <name>TCGA DCC :: Test :: Integration :: System</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-spring</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-test</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Arquillian -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>${org.jboss.arquillian.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-tomcat-embedded-7</artifactId>
+            <version>1.0.0.CR4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-service-integration-spring-inject</artifactId>
+            <version>${org.jboss.arquillian.extension.spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-service-integration-spring-javaconfig</artifactId>
+            <version>${org.jboss.arquillian.extension.spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-service-deployer-spring-3</artifactId>
+            <version>${org.jboss.arquillian.extension.spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Tomcat -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>${org.apache.tomcat.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-coyote</artifactId>
+            <version>${org.apache.tomcat.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jasper</artifactId>
+            <version>${org.apache.tomcat.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Eclipse compiler -->
+        <dependency>
+            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <artifactId>ecj</artifactId>
+            <version>${org.eclipse.jdt.core.compiler.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
