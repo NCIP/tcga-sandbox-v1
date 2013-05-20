@@ -14,7 +14,7 @@
 
 <configuration debug="true">
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--
             On Windows machines setting with Jansi to true enables ANSI color 
             code interpretation by the Jansi library. This requires org.fusesource.jansi:jansi:1.8 
@@ -29,7 +29,11 @@
         
     </appender>
     
-    <root level="DEBUG">
+    <logger name="org.vertx" level="INFO"/>
+    
+    <logger name="gov.nih.nci.ncicb.tcga.dcc.io" level="INFO"/>
+    
+    <root level="CONSOLE">
         <appender-ref ref="STDOUT" />
     </root>
 

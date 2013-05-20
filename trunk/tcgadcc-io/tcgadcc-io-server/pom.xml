@@ -20,12 +20,15 @@
         <artifactId>tcgadcc-io</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>gov.nih.nci.ncicb.tcga.dcc.io.server</groupId>
     <artifactId>tcgadcc-io-server</artifactId>
     <packaging>war</packaging>
     <name>TCGA DCC :: I/O :: Server</name>
     <build>
         <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -63,9 +66,9 @@
                 <artifactId>maven-war-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-            </plugin> 
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -83,46 +86,59 @@
         </dependency>
         <dependency>
             <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
-            <artifactId>tcgadcc-dependencies-web</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
-            <artifactId>tcgadcc-dependencies-ws</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
             <artifactId>tcgadcc-dependencies-test</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>pom</type>
             <scope>test</scope>
         </dependency>
         
-        <!-- Akka -->
+        <!-- Javolution -->
         <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.10</artifactId>
+            <groupId>org.javolution</groupId>
+            <artifactId>javolution</artifactId>
         </dependency>
-
-        <!-- HTTP/Rest support for Akka -->
+        
+        <!-- Jetty WebSocket API -->
         <dependency>
-            <groupId>io.spray</groupId>
-            <artifactId>spray-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.spray</groupId>
-            <artifactId>spray-httpx</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.spray</groupId>
-            <artifactId>spray-io</artifactId>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-client</artifactId>
+        </dependency>
+        
+        <!-- Vertx IO -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.spray</groupId>
-            <artifactId>spray-servlet</artifactId>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-platform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>testtools</artifactId>
+        </dependency>
+        
+        <!-- LMAX -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+        
+        <!-- MsgPack -->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+        </dependency>
+        
+        <!-- TCGA DCC I/O API -->
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.io</groupId>
+            <artifactId>tcgadcc-io-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

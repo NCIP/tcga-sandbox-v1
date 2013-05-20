@@ -20,18 +20,14 @@
         <artifactId>tcgadcc-io</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>tcgadcc-io-client</artifactId>
+    <artifactId>tcgadcc-io-api</artifactId>
     <packaging>jar</packaging>
-    <name>TCGA DCC :: I/O :: Client</name>
+    <name>TCGA DCC :: I/O :: API</name>
     <build>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,16 +57,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
     <dependencies>
         <dependency>
             <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
             <artifactId>tcgadcc-dependencies-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>gov.nih.nci.ncicb.tcga.dcc.dependencies</groupId>
+            <artifactId>tcgadcc-dependencies-spring</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>pom</type>
         </dependency>
@@ -87,17 +85,7 @@
             <groupId>org.javolution</groupId>
             <artifactId>javolution</artifactId>
         </dependency>
-            
-        <!-- Jetty WebSocket API -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-client</artifactId>
-        </dependency>
-            
+        
         <!-- Vertx IO -->
         <dependency>
             <groupId>io.vertx</groupId>
@@ -122,13 +110,6 @@
         <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>msgpack</artifactId>
-        </dependency>
-        
-        <!-- TCGA DCC I/O API-->
-        <dependency>
-            <groupId>gov.nih.nci.ncicb.tcga.dcc.io</groupId>
-            <artifactId>tcgadcc-io-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -26,10 +26,13 @@
     <name>TCGA DCC :: I/O</name>
     <description>Parent module for building I/O sub-modules.</description>
     <properties>
-        <com.typesafe.akka.version>2.2-M3</com.typesafe.akka.version>
-        <io.spray.version>1.1-M7</io.spray.version>
+        <io.vertx.version>2.0.0-beta2</io.vertx.version>
+        <io.vertx.maven.plugin.version>2.0.0-SNAPSHOT</io.vertx.maven.plugin.version>
+        <io.vertx.testtools.version>2.0.0-beta1</io.vertx.testtools.version>
+        <com.netflix.rxjava.version>0.8.4</com.netflix.rxjava.version>
     </properties>
     <modules>
+        <module>tcgadcc-io-api</module>
         <module>tcgadcc-io-client</module>
         <module>tcgadcc-io-data</module>
         <module>tcgadcc-io-server</module>
@@ -38,77 +41,73 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>scala-maven-plugin</artifactId>
-                    <version>3.1.4</version>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-maven-plugin</artifactId>
+                    <version>${io.vertx.maven.plugin.version}</version>
+                    <!--
+                    You can specify a configFile and number of instances to run for the runMod task here if you want
                     <configuration>
-                        <recompileMode>incremental</recompileMode>
+                       <configFile>/path/to/MyVerticle.conf</configFile>
+                       <instances>1</instances>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>scala-compile-first</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>add-source</goal>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>scala-test-compile</id>
-                            <phase>process-test-resources</phase>
-                            <goals>
-                                <goal>testCompile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>add-source</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                              <goal>add-source</goal>
-                            </goals>
-                            <configuration>
-                              <sources>
-                                <source>src/main/scala</source>
-                              </sources>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    -->
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
     <dependencyManagement>
         <dependencies>
+            <!-- Javolution -->
             <dependency>
-                <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-actor_2.10</artifactId>
-                <version>${com.typesafe.akka.version}</version>
+                <groupId>org.javolution</groupId>
+                <artifactId>javolution</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+        
+            <!-- Jetty WebSocket API -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-client</artifactId>
+                <version>9.0.0.v20130308</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>io.spray</groupId>
-                <artifactId>spray-http</artifactId>
-                <version>${io.spray.version}</version>
+                <groupId>org.eclipse.jetty.websocket</groupId>
+                <artifactId>websocket-client</artifactId>
+                <version>9.0.0.v20130308</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Vertx IO -->
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-core</artifactId>
+                <version>${io.vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.spray</groupId>
-                <artifactId>spray-httpx</artifactId>
-                <version>${io.spray.version}</version>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-platform</artifactId>
+                <version>${io.vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.spray</groupId>
-                <artifactId>spray-io</artifactId>
-                <version>${io.spray.version}</version>
+                <groupId>io.vertx</groupId>
+                <artifactId>testtools</artifactId>
+                <version>${io.vertx.testtools.version}</version>
+                <scope>test</scope>
             </dependency>
+            
+            <!-- LMAX -->
             <dependency>
-                <groupId>io.spray</groupId>
-                <artifactId>spray-servlet</artifactId>
-                <version>${io.spray.version}</version>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            
+            <!-- MsgPack -->
+            <dependency>
+                <groupId>org.msgpack</groupId>
+                <artifactId>msgpack</artifactId>
+                <version>0.6.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

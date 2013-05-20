@@ -12,7 +12,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -->
 
-<configuration debug="true">
+<configuration debug="false">
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--
@@ -29,12 +29,8 @@
         
     </appender>
     
-    <logger name="org.vertx" level="INFO"/>
-    
-    <logger name="gov.nih.nci.ncicb.tcga.dcc.io" level="INFO"/>
-    
-    <root level="CONSOLE">
-        <appender-ref ref="STDOUT" />
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>
