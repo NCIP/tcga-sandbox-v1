@@ -19,9 +19,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * @author nichollsmc
  */
 @Configuration
-@PropertySource("classpath:properties/io.properties")
+@PropertySource("classpath:properties/io-config.properties")
 public class IoApiConfig {
-    
+
     /**
      * Default no-arg constructor. A requirement for classes annotated with
      * {@link Configuration}.
@@ -37,5 +37,5 @@ public class IoApiConfig {
 
         return propertySourcesPlaceholderConfigurer;
     }
-    
+
 }

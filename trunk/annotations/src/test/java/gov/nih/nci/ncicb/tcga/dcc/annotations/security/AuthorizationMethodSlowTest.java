@@ -19,22 +19,23 @@ import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries.AnnotationQueriesException;
 import gov.nih.nci.ncicb.tcga.dcc.common.exception.BeanException;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.DccAnnotationNoteRetrievalStrategy;
+
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.Authentication;
-import org.springframework.security.acls.MutableAclService;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.jdbc.EhCacheBasedAclCache;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
+import org.springframework.security.acls.domain.EhCacheBasedAclCache;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
-
-import java.util.Date;
 
 
 /**

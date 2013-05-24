@@ -9,25 +9,29 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.annotations.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.AclSecurityUtil;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.DccAnnotationNoteRetrievalStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.Authentication;
-import org.springframework.security.acls.AccessControlEntry;
-import org.springframework.security.acls.Acl;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.jdbc.EhCacheBasedAclCache;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
-import org.springframework.security.acls.sid.PrincipalSid;
-import org.springframework.security.acls.sid.Sid;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
+import org.springframework.security.acls.domain.EhCacheBasedAclCache;
+import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.Acl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.Sid;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
@@ -133,16 +137,17 @@ public class AclSecurityUtilImplSlowTest extends AbstractTransactionalDataSource
         //Retrieve ACL from the domain object
         final ObjectIdentity objectIdentity = new DccAnnotationNoteRetrievalStrategy()
                 .getObjectIdentity(dccAnnotationNote);
-        final Sid[] sidArray = {recipient};
-        Acl acl = mutableAclService.readAclById(objectIdentity, sidArray);
+        final List<Sid> sidList = new ArrayList<Sid>();
+        sidList.add(recipient);
+        Acl acl = mutableAclService.readAclById(objectIdentity, sidList);
         assertNotNull(acl);
 
         //Retrieve ACE entries
-        AccessControlEntry[] accessControlEntries = acl.getEntries();
+        List<AccessControlEntry> accessControlEntries = acl.getEntries();
 
         //There should be only the one added
-        assertEquals(1, accessControlEntries.length);
-        AccessControlEntry accessControlEntry = accessControlEntries[0];
+        assertEquals(1, accessControlEntries.size());
+        AccessControlEntry accessControlEntry = accessControlEntries.get(0);
         assertNotNull(accessControlEntry);
 
         //Verify that the correct permission was given to the recipient
@@ -171,16 +176,17 @@ public class AclSecurityUtilImplSlowTest extends AbstractTransactionalDataSource
                 .getObjectIdentity(dccAnnotationNote);
 
         final Sid recipient = new PrincipalSid(testUser);
-        final Sid[] sidArray = {recipient};
-        Acl acl = mutableAclService.readAclById(objectIdentity, sidArray);
+        final List<Sid> sidList = new ArrayList<Sid>();
+        sidList.add(recipient);
+        Acl acl = mutableAclService.readAclById(objectIdentity, sidList);
         assertNotNull(acl);
 
         //Retrieve ACE entries
-        AccessControlEntry[] accessControlEntries = acl.getEntries();
+        List<AccessControlEntry> accessControlEntries = acl.getEntries();
 
         //There should be only the one added
-        assertEquals(1, accessControlEntries.length);
-        AccessControlEntry accessControlEntry = accessControlEntries[0];
+        assertEquals(1, accessControlEntries.size());
+        AccessControlEntry accessControlEntry = accessControlEntries.get(0);
         assertNotNull(accessControlEntry);
 
         //Verify that the correct permission was given to the recipient

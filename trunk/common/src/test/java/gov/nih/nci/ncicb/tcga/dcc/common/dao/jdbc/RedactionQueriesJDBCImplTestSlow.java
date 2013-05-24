@@ -32,14 +32,13 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
     private static final String TEST_DATA_FILE = "dao/RedactionQueriesTestData.xml";
 
     private static final String appContextFile = "samples/applicationContext-dbunit.xml";
-    private final ApplicationContext appContext;
     private final RedactionQueries queries;
     private final UUIDHierarchyQueries uuidHierarchyQueries;
     private SimpleJdbcTemplate sjdbc;
 
     public RedactionQueriesJDBCImplTestSlow() {
         super(TEST_DATA_FOLDER, TEST_DATA_FILE, PROPERTIES_FILE);
-        appContext = new ClassPathXmlApplicationContext(appContextFile);
+        final ApplicationContext appContext = new ClassPathXmlApplicationContext(appContextFile);
         queries = (RedactionQueries) appContext.getBean("redactionQueries");
         uuidHierarchyQueries = (UUIDHierarchyQueries) appContext.getBean("uuidHierarchyQueries");
         sjdbc = new SimpleJdbcTemplate(getDataSource());
@@ -60,7 +59,7 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
         final String participantBarcode = "TCGA-02-0001";
         final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantBarcode, ConstantValues.BARCODE);
         final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidList.toArray());
-        queries.redact(childUuids);
+        queries.redact(childUuids, true);
         assertNotNull(uuidList);
         assertNotNull(childUuids);
         assertEquals(9, uuidList.size());
@@ -86,9 +85,21 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
         final String participantUuid = "d88b35a3-a291-457a-b15b-a314859b25c5";
         final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantUuid, ConstantValues.UUID);
         final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidList.toArray());
-        queries.redact(childUuids);
+        queries.redact(childUuids, true);
         assertEquals(2, getShippedChildren("d88b35a3-a291-457a-b15b-a314859b25c5", "UUID", "REDACTED"));
         assertEquals(2, getBBChildren("d88b35a3-a291-457a-b15b-a314859b25c5", "UUID", "REDACTED"));
+        for (final UUIDDetail childUuid : uuidList) {
+            assertTrue(getUuidHierarchyRedactionStatus(childUuid.getUuid()));
+        }
+    }
+
+    public void testRedactParticipantWithdrawal() {
+        final String participantUuid = "d88b35a3-a291-457a-b15b-a314859b25c5";
+        final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantUuid, ConstantValues.UUID);
+        final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidList.toArray());
+        queries.redact(childUuids, false);
+        assertEquals(2, getShippedChildren("d88b35a3-a291-457a-b15b-a314859b25c5", "UUID", "WITHDRAWAL_REDACTION"));
+        assertEquals(0, getBBChildren("d88b35a3-a291-457a-b15b-a314859b25c5", "UUID", "REDACTED"));
         for (final UUIDDetail childUuid : uuidList) {
             assertTrue(getUuidHierarchyRedactionStatus(childUuid.getUuid()));
         }
@@ -116,7 +127,7 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
     public void testRescindRedactedParticipantAsUUID() {
         final String participantUuid = "d88b35a3-a291-457a-b15b-a314859b25c5";
         final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidHierarchyQueries.getChildUUIDs(participantUuid, ConstantValues.UUID).toArray());
-        queries.redact(childUuids);
+        queries.redact(childUuids, true);
         queries.rescind(childUuids);
         final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantUuid, ConstantValues.UUID);
         assertEquals(2, getShippedChildren("d88b35a3-a291-457a-b15b-a314859b25c5", "UUID", "RESCINDED"));
@@ -131,7 +142,7 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
         final String participantBarcode = "TCGA-02-0001-01C";
         final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantBarcode, ConstantValues.BARCODE);
         final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidList.toArray());
-        queries.redact(childUuids);
+        queries.redact(childUuids, true);
         assertEquals(3, getShippedChildren("TCGA-02-0001-01C", "BARCODE", "REDACTED"));
         assertEquals(3, getBBChildren("TCGA-02-0001-01C", "BARCODE", "REDACTED"));
         for (final UUIDDetail childUuid : uuidList) {
@@ -144,7 +155,7 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
         final String participantUuid = "3df90f1c-94da-4bd5-bd8e-a0bc92d715f9";
         final List<UUIDDetail> uuidList = uuidHierarchyQueries.getChildUUIDs(participantUuid, ConstantValues.UUID);
         final SqlParameterSource[] childUuids = SqlParameterSourceUtils.createBatch(uuidList.toArray());
-        queries.redact(childUuids);
+        queries.redact(childUuids, true);
         assertEquals(3, getShippedChildren("3df90f1c-94da-4bd5-bd8e-a0bc92d715f9", "UUID", "REDACTED"));
         assertEquals(3, getBBChildren("3df90f1c-94da-4bd5-bd8e-a0bc92d715f9", "UUID", "REDACTED"));
         for (final UUIDDetail childUuid : uuidList) {
@@ -185,14 +196,19 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
                 selectString = "Select count (*) from biospecimen_barcode where is_viewable=1 and uuid in (select uuid from uuid_hierarchy start with uuid = ? connect by prior uuid=parent_uuid)";
             }
         }
-        int childCount = sjdbc.queryForInt(selectString, parent);
-        return childCount;
+        return sjdbc.queryForInt(selectString, parent);
     }
 
     private int getShippedChildren(String parent, String parentType, String action) {
         String selectString;
         if (action.equals("REDACTED")) {
             if (parentType.equals("BARCODE")) {
+                selectString = "Select count (*) from shipped_biospecimen where is_redacted=1 and is_viewable=0 and uuid in (select uuid from uuid_hierarchy start with barcode = ? connect by prior uuid=parent_uuid)";
+            } else {
+                selectString = "Select count (*) from shipped_biospecimen where is_redacted=1 and is_viewable=0 and uuid in (select uuid from uuid_hierarchy start with uuid = ? connect by prior uuid=parent_uuid)";
+            }
+        } else if (action.equals("WITHDRAWAL_REDACTION")) {
+              if (parentType.equals("BARCODE")) {
                 selectString = "Select count (*) from shipped_biospecimen where is_redacted=1 and uuid in (select uuid from uuid_hierarchy start with barcode = ? connect by prior uuid=parent_uuid)";
             } else {
                 selectString = "Select count (*) from shipped_biospecimen where is_redacted=1 and uuid in (select uuid from uuid_hierarchy start with uuid = ? connect by prior uuid=parent_uuid)";
@@ -204,7 +220,6 @@ public class RedactionQueriesJDBCImplTestSlow extends DBUnitTestCase {
                 selectString = "Select count (*) from shipped_biospecimen where is_redacted=0 and uuid in (select uuid from uuid_hierarchy start with uuid = ? connect by prior uuid=parent_uuid)";
             }
         }
-        int childCount = sjdbc.queryForInt(selectString, parent);
-        return childCount;
+        return sjdbc.queryForInt(selectString, parent);
     }
 }

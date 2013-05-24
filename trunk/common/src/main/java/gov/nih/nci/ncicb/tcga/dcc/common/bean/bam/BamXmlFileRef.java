@@ -1,0 +1,37 @@
+/*
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+ * Copyright Notice.  The software subject to this notice and license includes both human
+ * readable source code form and machine readable, binary, object code form (the "caBIG
+ * Software").
+ *
+ * Please refer to the complete License text for full details at the root of the project.
+ */
+package gov.nih.nci.ncicb.tcga.dcc.common.bean.bam;
+
+/**
+ * BamXmlFileRef internal bean, only use for bam CGHub xml parsing.
+ *
+ * @author bertondl
+ *         Last updated by: $Author$
+ * @version $Rev$
+ */
+public class BamXmlFileRef {
+    private String fileName;
+    private String fileSize;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+}//End of Class

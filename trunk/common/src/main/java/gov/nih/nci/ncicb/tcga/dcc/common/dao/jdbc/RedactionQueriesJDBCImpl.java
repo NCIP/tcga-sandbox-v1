@@ -31,13 +31,14 @@ public class RedactionQueriesJDBCImpl extends SimpleJdbcDaoSupport implements Re
     protected final Log logger = LogFactory.getLog(getClass());
     private boolean isCommonSchema = true;
 
-    private final String REDACT_SHIPPED_BIOSPECIMEN = "update shipped_biospecimen set is_redacted=1, is_viewable=0 where uuid = :uuid ";
-    private final String REDACT_BIOSPECIMEN_BARCODE = "update biospecimen_barcode set is_viewable = 0 where uuid = :uuid";
-    private final String REDACT_UUID_HIERARCHY = "update uuid_hierarchy set is_redacted=1 where uuid = :uuid";
+    private final static String REDACT_SHIPPED_BIOSPECIMEN = "update shipped_biospecimen set is_redacted=1, is_viewable=0 where uuid = :uuid";
+    private final static String REDACT_SHIPPED_BIOSPECIMEN_KEEP_VIEWABLE = "update shipped_biospecimen set is_redacted=1 where uuid = :uuid";
+    private final static String REDACT_BIOSPECIMEN_BARCODE = "update biospecimen_barcode set is_viewable = 0 where uuid = :uuid";
+    private final static String REDACT_UUID_HIERARCHY = "update uuid_hierarchy set is_redacted=1 where uuid = :uuid";
           
-    private final String RESCIND_SHIPPED_BIOSPECIMEN = "update shipped_biospecimen set is_redacted = 0, is_viewable = 1 where uuid = :uuid";
-    private final String RESCIND_BIOSPECIMEN_BARCODE = "update biospecimen_barcode set is_viewable = 1 where uuid = :uuid";
-    private final String RESCIND_UUID_HIERARCHY = "update uuid_hierarchy set is_redacted=0 where uuid = :uuid";
+    private final static String RESCIND_SHIPPED_BIOSPECIMEN = "update shipped_biospecimen set is_redacted = 0, is_viewable = 1 where uuid = :uuid";
+    private final static String RESCIND_BIOSPECIMEN_BARCODE = "update biospecimen_barcode set is_viewable = 1 where uuid = :uuid";
+    private final static String RESCIND_UUID_HIERARCHY = "update uuid_hierarchy set is_redacted=0 where uuid = :uuid";
     
     private PlatformTransactionManager transactionManager;
 
@@ -45,16 +46,19 @@ public class RedactionQueriesJDBCImpl extends SimpleJdbcDaoSupport implements Re
      * Do redaction actions for a redacted item
      *
      * @param childUuids an array of child uuid's to redact
+     * @param setToNotViewable whether to also set any shipped biospecimens in the list to not viewable
      */
-    public void redact(final SqlParameterSource[] childUuids) {
+    public void redact(final SqlParameterSource[] childUuids, final boolean setToNotViewable) {
 
         // start TX
         DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = transactionManager.getTransaction(transactionDefinition);
         try {
-            getSimpleJdbcTemplate().batchUpdate(REDACT_SHIPPED_BIOSPECIMEN, childUuids);
-            getSimpleJdbcTemplate().batchUpdate(REDACT_BIOSPECIMEN_BARCODE, childUuids);
+            getSimpleJdbcTemplate().batchUpdate(setToNotViewable ? REDACT_SHIPPED_BIOSPECIMEN : REDACT_SHIPPED_BIOSPECIMEN_KEEP_VIEWABLE, childUuids);
+            if (setToNotViewable) {
+                getSimpleJdbcTemplate().batchUpdate(REDACT_BIOSPECIMEN_BARCODE, childUuids);
+            }
             if (isCommonSchema) {
                 getSimpleJdbcTemplate().batchUpdate(REDACT_UUID_HIERARCHY, childUuids);
             }

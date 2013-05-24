@@ -882,5 +882,33 @@
                    <type-mapping>Oracle9i</type-mapping>
                </metadata>
            </local-tx-datasource>
+    <!-- TGCT data source -->
+    <local-tx-datasource>
+        <jndi-name>tcgaTGCTDS</jndi-name>
+        <track-connection-by-tx>true</track-connection-by-tx>
+        <isSameRM-override-value>false</isSameRM-override-value>
+        <driver-class>oracle.jdbc.xa.client.OracleXADataSource</driver-class>
+        <connection-url>
+            jdbc:oracle:thin:@SERVER.nci.nih.gov:PORT:SCHEMA
+        </connection-url>
+        <user-name>USERNAME</user-name>
+        <password>???</password>
+
+        <idle-timeout-minutes>30</idle-timeout-minutes>
+        <!-- sql to call when connection is created -->
+        <new-connection-sql>select 0 from dual</new-connection-sql>
+        <prepared-statement-cache-size>100</prepared-statement-cache-size>
+        <share-prepared-statements>true</share-prepared-statements>
+        <background-validation>true</background-validation>
+        <background-validation-minutes>20</background-validation-minutes>]
+        <min-pool-size>5</min-pool-size>
+        <max-pool-size>100</max-pool-size>
+        <!-- Checks the Oracle error codes and messages for fatal errors -->
+        <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+        <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+        <metadata>
+            <type-mapping>Oracle9i</type-mapping>
+        </metadata>
+    </local-tx-datasource>
 </datasources>
 

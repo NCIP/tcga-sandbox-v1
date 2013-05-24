@@ -23,7 +23,7 @@
 		</script>
         <div style="position:absolute;">
             <a href="#skip">
-                <img src="http://cabig-ut.nci.nih.gov/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
+                <img src="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/images/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
             </a>
         </div>
     </head>

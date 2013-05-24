@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -9,7 +9,7 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.datareports.service;
 
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.ExtJsFilter;
 
 import java.util.Comparator;
@@ -43,7 +43,8 @@ public interface BamTelemetryReportService {
      * @param disease
      * @param center
      * @param dataType
-     * @param molecule
+     * @param analyteCode
+     * @param libraryStrategy
      * @return a List of BamTelemetry
      */
     public List<BamTelemetry> getFilteredBamTelemetryList(
@@ -55,7 +56,8 @@ public interface BamTelemetryReportService {
             List<String> disease,
             List<String> center,
             List<String> dataType,
-            List<String> molecule);
+            List<String> analyteCode,
+            List<String> libraryStrategy);
 
     /**
      * creates a list of distinct possible values of a given filter for the whole BamTelemetry report
@@ -73,5 +75,5 @@ public interface BamTelemetryReportService {
      */
     public Map<String, Comparator> getBamTelemetryComparator();
 
-    
+
 }

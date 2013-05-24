@@ -16,6 +16,7 @@
 	    <script type="text/javascript" src="/web/news/home-text.js"></script>
 	    <script type="text/javascript" src="/<%=rootDir%>/scripts/merged.js?vers=<%=timestamp%>&js=newsDisplay.js newsDisplayRightAnnouncements.js homePageTable.js"></script>
     <% } else if (layout.equals("cancerdetails")) {%>
+        <script type="text/javascript" src="/web/news/home-text.js"></script>
 		<script type="text/javascript" src="/<%=rootDir%>/scripts/merged.js?vers=<%=timestamp%>&js=../Charts/FusionCharts.js ../Charts/FusionCharts.HC.js ../Charts/FusionCharts.HC.Charts.js newsDisplay.js newsDisplayRightAnnouncements.js detailsPageTable.js detailsPageChart.js"></script>
 	<% } else if (layout.equals("platform-design")) {%>
     	<script type="text/javascript" src="/<%=rootDir%>/scripts/platforms.js"></script>
@@ -28,7 +29,7 @@
 	<title><%=sectionTitle%><%=h1String%> - <%=pageTitle%></title>
     <div style="position:absolute;">
         <a href="#skip">
-            <img src="http://cabig-ut.nci.nih.gov/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
+            <img src="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/images/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
         </a>
     </div>
     </head>

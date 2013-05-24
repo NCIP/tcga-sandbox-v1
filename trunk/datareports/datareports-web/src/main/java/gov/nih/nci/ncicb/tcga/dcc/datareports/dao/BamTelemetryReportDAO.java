@@ -1,6 +1,15 @@
+/*
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
+ * Copyright Notice.  The software subject to this notice and license includes both human
+ * readable source code form and machine readable, binary, object code form (the "caBIG
+ * Software").
+ *
+ * Please refer to the complete License text for full details at the root of the project.
+ */
+
 package gov.nih.nci.ncicb.tcga.dcc.datareports.dao;
 
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 
 import javax.sql.DataSource;
 import java.util.List;

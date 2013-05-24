@@ -432,6 +432,62 @@ public class AnnotationServiceImplFastTest {
     }
 
     @Test
+    public void testUpdateApproveRedaction() throws BeanException, AnnotationQueries.AnnotationQueriesException {
+
+        final DccAnnotation myAnnotation = new DccAnnotation();
+        final Date now = new Date();
+        myAnnotation.setDateCreated(now);
+        myAnnotation.setDateUpdated(now);
+        final String user = "tester";
+        myAnnotation.setCreatedBy(user);
+        myAnnotation.setUpdatedBy(user);
+
+        final DccAnnotationItemType itemType = new DccAnnotationItemType();
+        itemType.setItemTypeId(1L);
+        final Tumor disease = new Tumor();
+        disease.setTumorId(1);
+        final DccAnnotationItem dccAnnotationItem = new DccAnnotationItem();
+        dccAnnotationItem.setItemType(itemType);
+        dccAnnotationItem.setItem("TCGA-12-3456");
+        dccAnnotationItem.setDisease(disease);
+        dccAnnotationItem.setId(1L);
+        myAnnotation.setItems(new LinkedList<DccAnnotationItem>(){{
+            add(dccAnnotationItem);
+        }});
+
+        final DccAnnotationCategory category = new DccAnnotationCategory();
+        category.setCategoryId(1L);
+        DccAnnotationClassification classification = new DccAnnotationClassification();
+        classification.setAnnotationClassificationName("redaction");
+        category.setAnnotationClassification(classification);
+        myAnnotation.setAnnotationCategory(category);
+
+        final Long annotationId = 10L;
+        myAnnotation.setId(annotationId);
+        myAnnotation.setApproved(true);
+        annotationService.setAclSecurityUtil(null);
+
+        context.checking(new Expectations() {{
+            one(mockAnnotationQueries).getAnnotationById(10L);
+            will(returnValue(myAnnotation));
+
+            one(mockAnnotationQueries).updateAnnotation(10L, myAnnotation, true);
+
+            one(mockAnnotationQueries).getAnnotationCategories();
+            will(returnValue(Arrays.asList(category)));
+
+            one(mockAnnotationQueries).getActiveDiseases();
+            will(returnValue(Arrays.asList(disease)));
+
+            // make sure this is called since the annotation is approved and a redaction
+            one(mockRedactionService).redact("TCGA-12-3456", 1L);
+        }});
+
+        annotationService.updateAnnotation(annotationId, 1, 1L, "TCGA-12-3456", "approved", 1L, "tester", true);
+
+    }
+
+    @Test
     public void testGetItemTypes() {
         final List<Map<String, Object>> itemTypes = new ArrayList<Map<String, Object>>();
         context.checking( new Expectations() {{

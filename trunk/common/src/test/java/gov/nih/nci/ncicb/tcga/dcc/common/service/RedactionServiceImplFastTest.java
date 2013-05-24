@@ -12,6 +12,7 @@ package gov.nih.nci.ncicb.tcga.dcc.common.service;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.DBUnitTestCase;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.RedactionQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDHierarchyQueries;
+import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -39,6 +40,7 @@ public class RedactionServiceImplFastTest extends DBUnitTestCase {
     private RedactionQueries mockRedactionQueries;
     private CommonBarcodeAndUUIDValidator mockBarcodeUUIDValidator;
     private UUIDHierarchyQueries mockUUIDHierarchyQueries;
+    private AnnotationQueries mockAnnotationQueries;
     private List<String> childUuidList;
 
     @Before
@@ -47,11 +49,15 @@ public class RedactionServiceImplFastTest extends DBUnitTestCase {
         mockRedactionQueries = context.mock(RedactionQueries.class);
         mockBarcodeUUIDValidator = context.mock(CommonBarcodeAndUUIDValidator.class);
         mockUUIDHierarchyQueries = context.mock(UUIDHierarchyQueries.class);
+        mockAnnotationQueries = context.mock(AnnotationQueries.class);
+
         redactionService = new RedactionServiceImpl();
         redactionService.setRedactionQueriesCommon(mockRedactionQueries);
         redactionService.setRedactionQueriesDisease(mockRedactionQueries);
         redactionService.setBarcodeAndUUIDValidator(mockBarcodeUUIDValidator);
         redactionService.setUuidHierarchyQueries(mockUUIDHierarchyQueries);
+        redactionService.setAnnotationQueries(mockAnnotationQueries);
+        
         childUuidList = new LinkedList<String>() {{
             add("uuid1");
             add("uuid2");
@@ -86,40 +92,67 @@ public class RedactionServiceImplFastTest extends DBUnitTestCase {
     @Test
     public void testRedactParticipantAsBarcode() {
         context.checking(new Expectations() {{
+            one(mockAnnotationQueries).getAnnotationCategoryNameForId(11L);
+            will(returnValue("because I said so"));
             one(mockBarcodeUUIDValidator).validateAnyBarcodeFormat("TCGA-13-1817");
             will(returnValue(true));
             one(mockUUIDHierarchyQueries).getChildUUIDs("TCGA-13-1817", "barcode");
             will(returnValue(childUuidList));
-            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)));
+            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)), with(true));
         }});
-        redactionService.redact("TCGA-13-1817");
+        redactionService.redact("TCGA-13-1817", 11L);
     }
 
     @Test
     public void testRedactParticipantAsUuid() {
         context.checking(new Expectations() {{
 
+            one(mockAnnotationQueries).getAnnotationCategoryNameForId(2L);
+            will(returnValue("this is a category"));
+
             one(mockUUIDHierarchyQueries).getChildUUIDs("810adcea-d548-42c8-ba9c-f5619597d931", "uuid");
             one(mockBarcodeUUIDValidator).validateAnyBarcodeFormat("810adcea-d548-42c8-ba9c-f5619597d931");
             will(returnValue(false));
             one(mockBarcodeUUIDValidator).validateUUIDFormat("810adcea-d548-42c8-ba9c-f5619597d931");
             will(returnValue(true));
-            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)));
+            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)), with(true));
         }});
 
-        redactionService.redact("810adcea-d548-42c8-ba9c-f5619597d931");
+        redactionService.redact("810adcea-d548-42c8-ba9c-f5619597d931", 2L);
+    }
 
+    @Test
+    public void testParticipantRedactionFromConsentWithdrawal() {
+        context.checking(new Expectations() {{
+
+            one(mockAnnotationQueries).getAnnotationCategoryNameForId(12L);
+            will(returnValue("Subject withdrew consent"));
+
+            one(mockUUIDHierarchyQueries).getChildUUIDs("810adcea-d548-42c8-ba9c-f5619597d931", "uuid");
+            one(mockBarcodeUUIDValidator).validateAnyBarcodeFormat("810adcea-d548-42c8-ba9c-f5619597d931");
+            will(returnValue(false));
+            one(mockBarcodeUUIDValidator).validateUUIDFormat("810adcea-d548-42c8-ba9c-f5619597d931");
+            will(returnValue(true));
+
+            // false means don't update is_viewable
+            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)), with(false));
+        }});
+
+        redactionService.redact("810adcea-d548-42c8-ba9c-f5619597d931", 12L);
     }
 
     @Test
     public void testRedactSample() {
         context.checking(new Expectations() {{
+            one(mockAnnotationQueries).getAnnotationCategoryNameForId(8L);
+            will(returnValue("not a consent redaction"));
+
             one(mockUUIDHierarchyQueries).getChildUUIDs("TCGA-13-1817-01A", "barcode");
             one(mockBarcodeUUIDValidator).validateAnyBarcodeFormat("TCGA-13-1817-01A");
             will(returnValue(true));
-            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)));
+            exactly(2).of(mockRedactionQueries).redact(with(any(SqlParameterSource[].class)), with(true));
         }});
-        redactionService.redact("TCGA-13-1817-01A");
+        redactionService.redact("TCGA-13-1817-01A", 8L);
     }
 
     @Test

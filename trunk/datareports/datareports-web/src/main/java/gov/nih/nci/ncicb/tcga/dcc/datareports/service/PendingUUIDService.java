@@ -5,7 +5,7 @@ import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.PendingUUID;
 
 import java.util.List;
 
-import org.springframework.security.annotation.Secured;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * @author bertondl

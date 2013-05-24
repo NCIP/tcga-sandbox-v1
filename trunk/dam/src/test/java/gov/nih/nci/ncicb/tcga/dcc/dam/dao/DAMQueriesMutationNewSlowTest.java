@@ -58,24 +58,38 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {
 
     public void testGetDataSetsForDisease() throws DataAccessMatrixQueries.DAMQueriesException {
         final List<DataSet> dataSets = damQueriesMutation.getDataSetsForDiseaseType("TEST");
-        // there are 4 maf records, expect a data set for normal and for tumor
-        assertEquals(8, dataSets.size());
+        // there are 5 maf records, expect a data set for normal and for tumor
+        assertEquals(12, dataSets.size());
 
         int foundCount = 0;
         for (final DataSet dataSet : dataSets) {
             if (dataSet.isProtected() && dataSet.getLevel().equals("3")) {
                 assertEquals("11", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0004-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0004-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
-                foundCount++;
+                if (dataSet.getSample().startsWith("TCGA-00-0004")) {
+                    assertEquals("TCGA-00-0004-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                    assertEquals("TCGA-00-0004-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
+                    foundCount++;
 
-                if (dataSet.getSample().equals("TCGA-00-0004-01")) {
-                    assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
-                } else if (dataSet.getSample().equals("TCGA-00-0004-10")) {
-                    assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    if (dataSet.getSample().equals("TCGA-00-0004-01")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
+                    } else if (dataSet.getSample().equals("TCGA-00-0004-10")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    } else {
+                        fail("Unexpected data set");
+                    }
                 } else {
-                    fail("Unexpected data set");
+                    assertEquals("TCGA-00-0003-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                    assertEquals("TCGA-00-0003-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
+                    foundCount++;
+
+                    if (dataSet.getSample().equals("TCGA-00-0003-01")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
+                    } else if (dataSet.getSample().equals("TCGA-00-0003-10")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    } else {
+                        fail("Unexpected data set");
+                    }
                 }
 
             } else if (dataSet.isProtected() && dataSet.getLevel().equals("2")) {
@@ -110,18 +124,34 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {
                 }
 
             } else if (!dataSet.isProtected() && dataSet.getLevel().equals("2")) {
+
                 assertEquals("10", dataSet.getPlatformTypeId());
 
-                assertEquals("TCGA-00-0001-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
-                assertEquals("TCGA-00-0001-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
-                foundCount++;
+                if (dataSet.getSample().startsWith("TCGA-00-0007")) {
+                    assertEquals("TCGA-00-0007-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                    assertEquals("TCGA-00-0007-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
+                    foundCount++;
 
-                if (dataSet.getSample().equals("TCGA-00-0001-01")) {
-                    assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
-                } else if (dataSet.getSample().equals("TCGA-00-0001-10")) {
-                    assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    if (dataSet.getSample().equals("TCGA-00-0007-01")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
+                    } else if (dataSet.getSample().equals("TCGA-00-0007-10")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    } else {
+                        fail("Unexpected data set");
+                    }
                 } else {
-                    fail("Unexpected data set");
+
+                    assertEquals("TCGA-00-0001-01A-11W-A019-09", ((DataSetMutation) dataSet).getMutationBarcode());
+                    assertEquals("TCGA-00-0001-10A-11W-A019-09", ((DataSetMutation) dataSet).getMatchedNormalBarcode());
+                    foundCount++;
+
+                    if (dataSet.getSample().equals("TCGA-00-0001-01")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_TUMOR_WITH_MATCHED_NORMAL, dataSet.getTumorNormal());
+                    } else if (dataSet.getSample().equals("TCGA-00-0001-10")) {
+                        assertEquals(DataAccessMatrixQueries.TUMORNORMAL_NORMAL_WITH_MATCHED_TUMOR, dataSet.getTumorNormal());
+                    } else {
+                        fail("Unexpected data set");
+                    }
                 }
             }
         }
@@ -146,15 +176,15 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {
 
         assertEquals(4, dataFiles.size());
 
-        checkDataFile(dataFiles.get(0), Arrays.asList("TCGA-00-0001-01A-11W-A019-09"), "10", "selected_samples",
-                "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_level2.maf", "2", "40", "10", 175, "TEST", false);
+        checkDataFile(dataFiles.get(0), Arrays.asList("TCGA-00-0001-01A-11W-A019-09", "TCGA-00-0007-01A-11W-A019-09"), "10", "selected_samples",
+                "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_level2.maf", "2", "40", "10", 350, "TEST", false);
         checkDataFile(dataFiles.get(1), Arrays.asList("TCGA-00-0003-01A-11W-A019-09"), "10", "selected_samples",
                 "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_level3.maf", "3", "40", "10", 175, "TEST", false);
         checkDataFile(dataFiles.get(2), Arrays.asList("TCGA-00-0002-01A-11W-A019-09"), "10", "selected_samples",
                 "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_-_Controlled_level2.maf", "2", "41", "11",
                 175, "TEST", true);
-        checkDataFile(dataFiles.get(3), Arrays.asList("TCGA-00-0004-01A-11W-A019-09"), "10", "selected_samples",
-                "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_-_Controlled_level3.maf", "3", "41", "11", 175,
+        checkDataFile(dataFiles.get(3), Arrays.asList("TCGA-00-0003-01A-11W-A019-09", "TCGA-00-0004-01A-11W-A019-09"), "10", "selected_samples",
+                "broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_-_Controlled_level3.maf", "3", "41", "11", 350,
                 "TEST", true);
     }
 
@@ -183,37 +213,49 @@ public class DAMQueriesMutationNewSlowTest extends DBUnitTestCase {
         checkFile(publicLevel2ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
                 "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0001-01A-11W-A019-09\tTCGA-00-0001-10A-11W-A019-09\tC\t" +
                 "C\t\t\t\t\t\tUnknown\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid1\tuuid2\t" +
-                "level_2.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0\t3");
+                "level_2.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0\t3",
+                "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\tSNP\tT\tC\tC\trs669\tUnknown\t" +
+                "TCGA-00-0007-01A-11W-A019-09\tTCGA-00-0007-10A-11W-A019-09\tC\tC\t\t\t\t\t\tUnknown\tSomatic\t" +
+                "Phase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid1\tuuid2\tlevel_2.somatic.maf\t" +
+                "broad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0\t3");
 
         checkFile(publicLevel3ExpectedFiles, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
                 "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0003-01A-11W-A019-09\tTCGA-00-0003-10A-11W-A019-09\tC\t" +
                 "C\t\t\t\t\t\tValid\tSomatic\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
-                "level_3.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_3.1.0.0\t3");
+                "level_3.somatic.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq.Level_3.1.0.0\t3", null);
 
         checkFile(protectedLevel2ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
                 "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0002-01A-11W-A019-09\tTCGA-00-0002-10A-11W-A019-09\tC\t" +
                 "C\t\t\t\t\t\tUnknown\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
-                "level_2.protected.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_2.1.0.0\t3");
+                "level_2.protected.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_2.1.0.0\t3", null);
 
         checkFile(protectedLevel3ExpectedFile, "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
+                "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0003-01A-11W-A019-09\tTCGA-00-0003-10A-11W-A019-09\tC\tC\t\t\t\t\t" +
+                "\tInvalid\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\tlevel_3.protected.maf" +
+                "\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_3.1.0.0\t3",
+                "A2M\t0\tbroad.mit.edu\t36\t12\t9123535\t9123535\t+\tMissense_Mutation\t" +
                 "SNP\tT\tC\tC\trs669\tUnknown\tTCGA-00-0004-01A-11W-A019-09\tTCGA-00-0004-10A-11W-A019-09\tC\t" +
                 "C\t\t\t\t\t\tValid\tGermline\tPhase I\tCapture\tSequenom\t\t\tIllumina GAIIx\tuuid3\tuuid4\t" +
                 "level_3.protected.maf\tbroad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_3.1.0.0\t3");
     }
 
-    private void checkFile(final File file, final String expectedDataLine) throws IOException {
+    private void checkFile(final File file, final String expectedDataLine1, final String expectedDataLine2) throws IOException {
         final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         final String header = bufferedReader.readLine();
         assertEquals("Hugo_Symbol\tEntrez_Gene_Id\tCenter\tNcbi_Build\tChrom\tStart_Position\tEnd_Position\tStrand\t" +
                 "Variant_Classification\tVariant_Type\tReference_Allele\tTumor_Seq_Allele1\tTumor_Seq_Allele2\t" +
-                "Dbsnp_Rs\tDbsnp_Val_Status\tTumor_Sample_Barcode\tMatch_Norm_Sample_Barcode\tMatch_Norm_Seq_Allele1\t" +
+                "Dbsnp_Rs\tDbsnp_Val_Status\tTumor_Sample_Barcode\tMatched_Norm_Sample_Barcode\tMatch_Norm_Seq_Allele1\t" +
                 "Match_Norm_Seq_Allele2\tTumor_Validation_Allele1\tTumor_Validation_Allele2\t" +
                 "Match_Norm_Validation_Allele1\tMatch_Norm_Validation_Allele2\tVerification_Status\tValidation_Status\t" +
                 "Mutation_Status\tSequencing_Phase\tSequence_Source\tValidation_Method\tScore\tBam_File\tSequencer\t" +
-                "Tumor_Sample_UUID\tMatch_Norm_Sample_UUID\tFile_Name\tArchive_Name\tLine_Number",
+                "Tumor_Sample_UUID\tMatched_Norm_Sample_UUID\tFile_Name\tArchive_Name\tLine_Number",
                 header);
         final String dataLine = bufferedReader.readLine();
-        assertEquals(expectedDataLine, dataLine);
+        assertEquals(expectedDataLine1, dataLine);
+        if (expectedDataLine2 != null) {
+            final String dataLine2 = bufferedReader.readLine();
+            assertEquals(expectedDataLine2, dataLine2);
+        }
         assertNull(bufferedReader.readLine());
     }
 }

@@ -10,10 +10,11 @@ package gov.nih.nci.ncicb.tcga.dcc.common.service;
 
 public interface RedactionService {
     /**
-    * Redacts all children of a redacted item
-    * @param redactedItem the barcode or uuid of the participant being redacted
+     * Redacts all children of a redacted item
+     * @param redactedItem the barcode or uuid of the participant being redacted
+     * @param annotationCategoryId the ID of the category of the redaction
      */
-    public void redact(final String redactedItem);
+    public void redact(String redactedItem, Long annotationCategoryId);
 
     /**
      * Rescinds the redaction for all children of a redacted participant

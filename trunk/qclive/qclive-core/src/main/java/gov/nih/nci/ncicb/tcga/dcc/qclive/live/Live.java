@@ -17,6 +17,7 @@ import gov.nih.nci.ncicb.tcga.dcc.common.bean.Platform;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.ArchiveQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.CenterQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.DiseaseContextHolder;
+import gov.nih.nci.ncicb.tcga.dcc.common.dao.FileInfoQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.PlatformQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelper;
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailSender;
@@ -94,6 +95,8 @@ public class Live implements LiveI {
     private PlatformQueries platformQueries;
     private ArchiveQueries commonArchiveQueries;
     private ArchiveQueries diseaseArchiveQueries;
+    private FileInfoQueries commonFileInfoQueries;
+    private FileInfoQueries diseaseFileInfoQueries;
     private ExperimentDAO experimentDAO;
     private MailSender mailSender;
     private MailErrorHelper errorMailSender;
@@ -118,6 +121,7 @@ public class Live implements LiveI {
         Archive newArchive = null;
         boolean failValidation = false;
 
+        deleteInvalidArchive(filename);
         try {
             // check the upload
             newArchive = uploadChecker.execute(makeFile(filename), context);
@@ -433,6 +437,8 @@ public class Live implements LiveI {
                 commonArchiveQueries.updateArchiveStatus(archive);
                 diseaseArchiveQueries.updateArchiveStatus(archive);
             }
+
+            deleteInvalidArchive(archive);
             // now all unavailable archives are added to list of failed and also scheduled for cleanup
             if (!archive.getDeployStatus().equals(Archive.STATUS_AVAILABLE)) {
                 archiveList.append("\t- ").append(archive.getRealName()).append("\n");
@@ -444,6 +450,31 @@ public class Live implements LiveI {
 
         }
         fail(experiment.getName(), context, archiveList.toString());
+    }
+
+    private void deleteInvalidArchive(final String fileName) {
+        Archive archive = new Archive(fileName);
+        deleteInvalidArchive(commonArchiveQueries.getArchive(archive.getArchiveName()));
+
+
+    }
+
+    private void deleteInvalidArchive(final Archive archive) {
+        if(archive == null) {
+            return;
+        }
+        try{
+            //clean the files from the database
+            if(archive.getDeployStatus().equals(Archive.STATUS_IN_REVIEW) ||
+               archive.getDeployStatus().equals(Archive.STATUS_INVALID) ||
+               archive.getDeployStatus().equals(Archive.STATUS_INTERRUPTED ) ) {
+                commonFileInfoQueries.deleteFilesFromArchive(archive.getArchiveName());
+                diseaseFileInfoQueries.deleteFilesFromArchive(archive.getArchiveName());
+            }
+
+        }catch(Exception e) {
+            logger.log(e);
+        }
     }
 
     private synchronized void scheduleCleanup(final Archive archive, final boolean isFailed) {
@@ -871,5 +902,21 @@ public class Live implements LiveI {
 
     public void setExperimentDAO(ExperimentDAO experimentDAO) {
         this.experimentDAO = experimentDAO;
+    }
+
+    public FileInfoQueries getCommonFileInfoQueries() {
+        return commonFileInfoQueries;
+    }
+
+    public void setCommonFileInfoQueries(FileInfoQueries commonFileInfoQueries) {
+        this.commonFileInfoQueries = commonFileInfoQueries;
+    }
+
+    public FileInfoQueries getDiseaseFileInfoQueries() {
+        return diseaseFileInfoQueries;
+    }
+
+    public void setDiseaseFileInfoQueries(FileInfoQueries diseaseFileInfoQueries) {
+        this.diseaseFileInfoQueries = diseaseFileInfoQueries;
     }
 }

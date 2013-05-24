@@ -39,6 +39,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
@@ -215,8 +216,24 @@ public class ClinicalLoaderCallerFastTest {
 		assertEquals("fake-uuid-1", justPatient.getUuid());
 	}
 
+    @Test (expected = ClinicalLoaderException.class)
+    public void testSavePatientDbException() throws Exception {
+        final Barcode barcode = new Barcode();
+		barcode.setUuid("fake-uuid-1");
+
+		context.checking(new Expectations() {
+			{				
+                // get ID results in DAO exception
+				one(mockClinicalLoaderQueries).getId(justPatient);
+				will(throwException(new IncorrectResultSizeDataAccessException(2)));
+			}
+		});
+		loader.save(justPatient, ClinicalLoaderCaller.FileType.Biospecimen,
+				archive);
+    }
+
 	@Test
-	public void testSaveBiospecimenPatientExisting() throws UUIDException {
+	public void testSaveBiospecimenPatientExisting() throws UUIDException, ClinicalLoaderException {
 		final Barcode barcode = new Barcode();
 		barcode.setUuid("fake-uuid");
 
@@ -241,7 +258,7 @@ public class ClinicalLoaderCallerFastTest {
 	}
 
 	@Test
-	public void testSaveClinicalPatientExisting() throws UUIDException {
+	public void testSaveClinicalPatientExisting() throws UUIDException, ClinicalLoaderException {
 		final Barcode barcode = new Barcode();
 		barcode.setUuid("hi");
 
@@ -265,7 +282,7 @@ public class ClinicalLoaderCallerFastTest {
 	}
 
 	@Test
-	public void testSaveClinicalNew() throws UUIDException {
+	public void testSaveClinicalNew() throws UUIDException, ClinicalLoaderException {
 		context.checking(new Expectations() {
 			{
 				one(mockBarcodeUuidResolver).resolveBarcodeAndUuid(
@@ -336,7 +353,7 @@ public class ClinicalLoaderCallerFastTest {
 	}
 
 	@Test
-	public void testSaveClinicalExisting() throws UUIDException {
+	public void testSaveClinicalExisting() throws UUIDException, ClinicalLoaderException {
 		context.checking(new Expectations() {
 			{
 				one(mockBarcodeUuidResolver).resolveBarcodeAndUuid(
@@ -395,16 +412,16 @@ public class ClinicalLoaderCallerFastTest {
 	}
 
 	@Test
-	public void testSaveBiospecimenNew() throws UUIDException {
+	public void testSaveBiospecimenNew() throws UUIDException, ClinicalLoaderException {
         biospecimenOrControlNewTest(ClinicalLoaderCaller.FileType.Biospecimen);
     }
 
      @Test
-    public void testSaveControlNew() throws UUIDException {
+    public void testSaveControlNew() throws UUIDException, ClinicalLoaderException {
          biospecimenOrControlNewTest(ClinicalLoaderCaller.FileType.Control);
     }
 
-    private void biospecimenOrControlNewTest(final ClinicalLoaderCaller.FileType fileType) throws UUIDException {
+    private void biospecimenOrControlNewTest(final ClinicalLoaderCaller.FileType fileType) throws UUIDException, ClinicalLoaderException {
          // both biospecimen and control xml files should be treated the same way
         context.checking(new Expectations() {
 			{
@@ -469,16 +486,16 @@ public class ClinicalLoaderCallerFastTest {
 	}
 
 	@Test
-	public void testSaveBiospecimenExisting() throws UUIDException {
+	public void testSaveBiospecimenExisting() throws UUIDException, ClinicalLoaderException {
         biospecimenOrControlSaveExisting(ClinicalLoaderCaller.FileType.Biospecimen);
     }
 
     @Test
-    public void testSaveControlExisting() throws UUIDException {
+    public void testSaveControlExisting() throws UUIDException, ClinicalLoaderException {
         biospecimenOrControlSaveExisting(ClinicalLoaderCaller.FileType.Control);
     }
 
-    private void biospecimenOrControlSaveExisting(final ClinicalLoaderCaller.FileType fileType) throws UUIDException {
+    private void biospecimenOrControlSaveExisting(final ClinicalLoaderCaller.FileType fileType) throws UUIDException, ClinicalLoaderException {
         // both biospecimen and control xml files should be treated the same way
 		context.checking(new Expectations() {
 			{
@@ -648,7 +665,7 @@ public class ClinicalLoaderCallerFastTest {
 		assertEquals(0, tumorPathology.getChildren().size());
         assertEquals(null, tumorPathology.getDynamicIdentifier());
 
-        ClinicalObject followUp = patient.getChildren().get(1);
+        final ClinicalObject followUp = patient.getChildren().get(1);
         assertEquals("follow_up", followUp.getObjectType());
         assertEquals("31", followUp.getValue("age"));
         assertEquals("alive", followUp.getValue("status"));
@@ -707,14 +724,14 @@ public class ClinicalLoaderCallerFastTest {
         assertEquals(null, radiation.getDynamicIdentifier());
 
 		// test multiple values
-		Collection<String> attributes = patient.getAttributeNames();
+		final Collection<String> attributes = patient.getAttributeNames();
 		assertTrue(attributes != null && attributes.size() == 6);
-		String attributeValue = patient
+		final String attributeValue = patient
 				.getValue("loss_expression_of_mismatch_repair_proteins_by_ihc_result");
 		assertEquals(attributeValue, "value1,value2,value3");
 
 		// test single value
-		String attributeValue2 = patient
+		final String attributeValue2 = patient
 				.getValue("number_of_first_degree_relatives_with_cancer_diagnosis");
 		assertEquals(attributeValue2, "0");
 	}
@@ -953,7 +970,8 @@ public class ClinicalLoaderCallerFastTest {
                     with(any(Tumor.class)), with(any(Center.class)),
                     with(true));
             will(throwException(new UUIDException("oops!")));
-             allowing(mockLogger).log(with(any(Exception.class)));
+            //noinspection ThrowableResultOfMethodCallIgnored
+            allowing(mockLogger).log(with(any(Exception.class)));
             allowing(mockPlatformTxManager).getTransaction(
                     with(any(TransactionDefinition.class)));
             allowing(mockPlatformTxManager).rollback(
@@ -1057,7 +1075,7 @@ public class ClinicalLoaderCallerFastTest {
 		archive.setDeployLocation(SAMPLE_DIRECTORY_LOCATION
 				+ "good_TEST.bio.Level_1.1.2.0.tar.gz");
 
-		QcLiveStateBean state = new QcLiveStateBean();
+		final QcLiveStateBean state = new QcLiveStateBean();
 		state.setTransactionId(null);
 
         context.checking(new Expectations() {{

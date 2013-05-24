@@ -18,7 +18,6 @@ import gov.nih.nci.ncicb.tcga.dcc.common.util.ProcessLogger;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataFile;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataSet;
 import gov.nih.nci.ncicb.tcga.dcc.dam.util.DataSetReducer;
-import gov.nih.nci.ncicb.tcga.dcc.dam.util.TumorNormalClassifierI;
 import org.apache.log4j.Level;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -48,8 +47,8 @@ public abstract class DAMQueriesFilesystem extends DAMBaseQueriesProcessor imple
     private final ProcessLogger logger = new ProcessLogger();
 
     /**
-     * Gets the SQL for getting file info. Takes 2 parameters: barcode and platform ID. Should select the following
-     * columns: file_id, file_name, file_size
+     * Gets the SQL for getting file info. Takes 3 parameters: barcode, platform ID, center ID.
+     * Should select the following columns: file_id, file_name, file_size
      *
      * @return file info sql
      */
@@ -217,7 +216,7 @@ public abstract class DAMQueriesFilesystem extends DAMBaseQueriesProcessor imple
                    if(dataSetShouldBeIncluded(dataset)) {
                        for(final String barcode : dataset.getBarcodes()) {
                            logger.logToLogger( Level.DEBUG, "executing query for getFileInfoForSelectedDataSets(), barcode=" + barcode + ": " + System.currentTimeMillis() );
-                           List<DataFile> queryResult = jdbc.query(getFileInfoQuery(), mapper, barcode, dataset.getPlatformId() );
+                           List<DataFile> queryResult = jdbc.query(getFileInfoQuery(), mapper, barcode, dataset.getPlatformId(), dataset.getCenterId() );
                            logger.logToLogger( Level.DEBUG, "finished executing query for getFileInfoForSelectedDataSets(), barcode=" + barcode + ": " + System.currentTimeMillis() );
                            for(final DataFile fileInfo : queryResult) {
                                final int iFile = Integer.parseInt( fileInfo.getFileId() );

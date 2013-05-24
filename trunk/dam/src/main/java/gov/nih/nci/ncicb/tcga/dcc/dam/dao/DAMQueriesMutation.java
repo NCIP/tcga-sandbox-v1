@@ -89,7 +89,6 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
             "and dv.data_type_id = dt.data_type_id " +
             "and ai.is_latest = 1 " +
             "and bb.is_viewable = 1 " +
-            "and bb.is_redacted = 0 " +
             "and bb.is_control = ?";
 
     static final String MUTATION_QUERY = MUTATION_QUERY_SELECT + MUTATION_QUERY_FROM + MUTATION_QUERY_WHERE;
@@ -356,8 +355,10 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                 long totalBytesForFile = 0;
                 PreparedStatement stmt = null;
                 try {
-                    String sql = "select count(maf_info_id) from maf_info mi, maf_key mk where tumor_sample_barcode = ? " +
-                            "and mi.maf_key_id = mk.maf_key_id and center_id = ?";
+                    String sql = "select count(maf_info_id) from maf_info mi, maf_key mk, file_to_archive fa, archive_info a " +
+                            "where a.archive_id=fa.archive_id and fa.file_id=mi.file_id " +
+                            "and tumor_sample_barcode = ? " +
+                            "and mi.maf_key_id = mk.maf_key_id and mk.center_id = ? and a.platform_id = ?";
 
                     //noinspection JDBCResourceOpenedButNotSafelyClosed
                     stmt = connection.prepareStatement(sql);
@@ -366,6 +367,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                         try {
                             stmt.setString(1, barcode);
                             stmt.setInt(2, Integer.parseInt(df.getCenterId()));
+                            stmt.setInt(3, Integer.parseInt(df.getPlatformId()));
                             rs = stmt.executeQuery();
                             rs.next();
                             final int rowsForBarcode = rs.getInt(1);
@@ -434,7 +436,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
                 .append(" where mi.tumor_sample_barcode = ? and mk.center_id = ? ")
                 .append(" and mi.maf_key_id = mk.maf_key_id ")
                 .append(" and mi.file_id =  fa.file_id ")
-                .append(" and fa.archive_id = a.archive_id and a.is_latest = 1 ");
+                .append(" and fa.archive_id = a.archive_id and a.is_latest = 1 and a.platform_id = ?");
 
         final String sql2 = "select * from maf_info mi, maf_key mk, center, file_info fi, file_to_archive fta, " +
                 "archive_info ai " +
@@ -533,6 +535,7 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
         for (final String barcode : dfm.getBarcodes()) {  //for each tumor barcode associated with this data file
             stmt1.setString(1, barcode);
             stmt1.setInt(2, Integer.parseInt(dfm.getCenterId()));
+            stmt1.setInt(3, Integer.parseInt(dfm.getPlatformId()));
             ResultSet rs = null;
             try {
                 rs = stmt1.executeQuery();
@@ -577,12 +580,16 @@ public class DAMQueriesMutation extends DAMBaseQueriesProcessor implements DataA
 
     private void writeHeader(final Writer writer) throws IOException {
         for (int i = 0; i < FIELDS_2_WRITE.length; i++) {
-            String writeval = FIELDS_2_WRITE[i];
-            if (writeval.equals("domain_name")) {
-                writeval = "center";
+            String writeVal = FIELDS_2_WRITE[i];
+            if (writeVal.equals("domain_name")) {
+                writeVal = "center";
+            } else if (writeVal.equals("match_norm_sample_barcode")) {
+                writeVal = "matched_norm_sample_barcode";
+            } else if (writeVal.equals("match_norm_sample_uuid")) {
+                writeVal = "matched_norm_sample_uuid";
             }
-            writeval = titleMafCase(writeval);
-            writer.write(writeval);
+            writeVal = titleMafCase(writeVal);
+            writer.write(writeVal);
             if (i == FIELDS_2_WRITE.length - 1) {
                 writer.write('\n');
             } else {

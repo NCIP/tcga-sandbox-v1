@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -9,8 +9,9 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.datareports.web.json;
 
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.Aliquot;
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.BamTelemetryReportService;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.DatareportsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.ANALYTE_CODE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.BAM_TELEMETRY_DATA;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.BAM_TELEMETRY_FILTER_DATA_URL;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.BAM_TELEMETRY_REPORT_JSON_URL;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.EMPTY_BAM_TELEMETRY_FILTER;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.LIBRARY_STRATEGY;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALIQUOT_ID;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALIQUOT_UUID;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.CENTER;
@@ -39,7 +42,6 @@ import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommon
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.FILTER_REQ;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.FORM_FILTER;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.LIMIT;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.MOLECULE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.SORT;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.START;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.TOTAL_COUNT;
@@ -67,7 +69,8 @@ public class BamTelemetryJsonController {
         service.getBamTelemetryFilterDistinctValues(DISEASE);
         service.getBamTelemetryFilterDistinctValues(CENTER);
         service.getBamTelemetryFilterDistinctValues(DATA_TYPE);
-        service.getBamTelemetryFilterDistinctValues(MOLECULE);
+        service.getBamTelemetryFilterDistinctValues(ANALYTE_CODE);
+        service.getBamTelemetryFilterDistinctValues(LIBRARY_STRATEGY);
         service.getBamTelemetryComparator();
     }
 
@@ -93,9 +96,9 @@ public class BamTelemetryJsonController {
             @RequestParam(value = FILTER_REQ, required = false) final String jsonFilterReq,
             @RequestParam(value = FORM_FILTER, required = false) final String jsonFormFilter) {
 
-        String aliquotId = null, aliquotUUID = null, dateFrom = null, dateTo = null;
-        List<String> diseaseTab = null, centerTab = null, moleculeTab = null,
-                dataTypeTab = null;
+        String aliquotId = null, dateFrom = null, dateTo = null, aliquotUUID = null;
+        List<String> diseaseTab = null, centerTab = null, analyteCodeTab = null, dataTypeTab = null,
+                libraryStrategyTab = null;
         List<BamTelemetry> bamTelemetryList = service.getAllBamTelemetry();
         if (jsonFilterReq != null && !EMPTY_BAM_TELEMETRY_FILTER.equals(jsonFilterReq)) {
             aliquotId = commonService.processJsonSingleFilter(ALIQUOT_ID, jsonFilterReq);
@@ -105,11 +108,12 @@ public class BamTelemetryJsonController {
             diseaseTab = commonService.processJsonMultipleFilter(DISEASE, jsonFilterReq);
             centerTab = commonService.processJsonMultipleFilter(CENTER, jsonFilterReq);
             dataTypeTab = commonService.processJsonMultipleFilter(DATA_TYPE, jsonFilterReq);
-            moleculeTab = commonService.processJsonMultipleFilter(MOLECULE, jsonFilterReq);
+            analyteCodeTab = commonService.processJsonMultipleFilter(ANALYTE_CODE, jsonFilterReq);
+            libraryStrategyTab = commonService.processJsonMultipleFilter(LIBRARY_STRATEGY, jsonFilterReq);
             bamTelemetryList = service.getFilteredBamTelemetryList(service.getAllBamTelemetry(), aliquotUUID, aliquotId, dateFrom,
-                    dateTo, diseaseTab, centerTab, dataTypeTab, moleculeTab);
+                    dateTo, diseaseTab, centerTab, dataTypeTab, analyteCodeTab, libraryStrategyTab);
         }
-        if (jsonFormFilter != null && !EMPTY_BAM_TELEMETRY_FILTER.equals(jsonFormFilter)) {
+        if (jsonFormFilter != null && !BamTelemetryReportConstants.EMPTY_BAM_TELEMETRY_FILTER.equals(jsonFormFilter)) {
             aliquotId = commonService.processJsonSingleFilter(ALIQUOT_ID, jsonFormFilter);
             aliquotUUID = commonService.processJsonSingleFilter(ALIQUOT_UUID, jsonFormFilter);
             dateFrom = commonService.processJsonSingleFilter(DATE_FROM, jsonFormFilter);
@@ -117,10 +121,11 @@ public class BamTelemetryJsonController {
             diseaseTab = commonService.processJsonMultipleFilter(DISEASE, jsonFormFilter);
             centerTab = commonService.processJsonMultipleFilter(CENTER, jsonFormFilter);
             dataTypeTab = commonService.processJsonMultipleFilter(DATA_TYPE, jsonFormFilter);
-            moleculeTab = commonService.processJsonMultipleFilter(MOLECULE, jsonFormFilter);
+            analyteCodeTab = commonService.processJsonMultipleFilter(ANALYTE_CODE, jsonFormFilter);
+            libraryStrategyTab = commonService.processJsonMultipleFilter(LIBRARY_STRATEGY, jsonFormFilter);
         }
         final List<BamTelemetry> filteredBamTelemetryList = service.getFilteredBamTelemetryList(bamTelemetryList, aliquotUUID,
-                aliquotId, dateFrom, dateTo, diseaseTab, centerTab, dataTypeTab, moleculeTab);
+                aliquotId, dateFrom, dateTo, diseaseTab, centerTab, dataTypeTab, analyteCodeTab, libraryStrategyTab);
         final List<BamTelemetry> sortedBamTelemetryList = commonService.getSortedList(filteredBamTelemetryList,
                 service.getBamTelemetryComparator(), sort, dir);
         final List<Aliquot> aliquotData = commonService.getPaginatedList(sortedBamTelemetryList, start, limit);
@@ -151,8 +156,11 @@ public class BamTelemetryJsonController {
         if (DATA_TYPE.equals(filterName)) {
             model.addAttribute(DATA_TYPE + "Data", service.getBamTelemetryFilterDistinctValues(DATA_TYPE));
         }
-        if (MOLECULE.equals(filterName)) {
-            model.addAttribute(MOLECULE + "Data", service.getBamTelemetryFilterDistinctValues(MOLECULE));
+        if (ANALYTE_CODE.equals(filterName)) {
+            model.addAttribute(ANALYTE_CODE + "Data", service.getBamTelemetryFilterDistinctValues(ANALYTE_CODE));
+        }
+        if (LIBRARY_STRATEGY.equals(filterName)) {
+            model.addAttribute(LIBRARY_STRATEGY + "Data", service.getBamTelemetryFilterDistinctValues(LIBRARY_STRATEGY));
         }
         if (ALIQUOT_UUID.equals(filterName)) {
             model.addAttribute(ALIQUOT_UUID + "Data", service.getBamTelemetryFilterDistinctValues(ALIQUOT_UUID));

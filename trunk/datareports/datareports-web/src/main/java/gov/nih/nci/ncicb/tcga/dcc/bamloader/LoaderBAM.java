@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,7 +71,6 @@ public class LoaderBAM {
 
     public void start() {
         logger.info("START LOADING ....");
-        //readExcel();
         readTextFile();
         if(fileBAMs.size() > 0) {
             loadData();
@@ -80,38 +80,26 @@ public class LoaderBAM {
 
     protected boolean readTextFile() {
         boolean validTextFile = true;
+        String bamFile = (BAMLoaderConstants.isExtendedBAMFile())? BAMLoaderConstants.extendedBAMFilePath:BAMLoaderConstants.BAMFilePath;
         logger.info("Reading File "+BAMLoaderConstants.BAMFilePath+" ....");
 
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader(BAMLoaderConstants.BAMFilePath));
+            bufferedReader = new BufferedReader(new FileReader(bamFile));
             String line;
             int rowCount = 0;
+            final Date dccReceivedDate = new Date();
             while((line = bufferedReader.readLine()) != null ){
                 rowCount++;
                 // ignore the first line
-                if(line.startsWith("barcode")){
+                if(line.contains("barcode")){
                     continue;
                 }
 
                 try{
                     String[] rowData = line.split("\t");
-                    if(rowData.length != 7){
-                        throw new Exception("Contains data for  "+ rowData.length+" columns");
-                    }
-                    BAMFile bf = new BAMFile();
-                    bf.setDateReceived(format.parse(rowData[5]));
-                    bf.setFileNameBAM(rowData[1]);
-                    bf.setCenterId(Integer.parseInt(rowData[3]));
-                    bf.setDiseaseId(Integer.parseInt(rowData[2]));
-                    bf.setDatatypeBAMId(Integer.parseInt(rowData[6]));
-                    bf.setBiospecimenId(getAliquotId(rowData[0]));
-                    try {
-                        bf.setFileSizeBAM(Long.parseLong(rowData[4]));
-                    } catch (NumberFormatException nfe) {
-                        logger.info(nfe.toString());
-                        bf.setFileSizeBAM(0L);
-                    }
+                    final BAMFile bf = getBamFileBean(rowData);
+                    bf.setDccDateReceived(dccReceivedDate);
                     fileBAMs.add(bf);
                 }catch(Exception e){
                     logger.error(" Row "+rowCount+" contains invalid data "+ e.getMessage(),e);
@@ -124,45 +112,41 @@ public class LoaderBAM {
             logger.error(ioe.toString());
             validTextFile = false;
         }
-
         return validTextFile;
     }
 
-    protected void readExcel() {
-        logger.info("Reading Excel File ....");
-        workbookSettings.setSuppressWarnings(true);
-        try {
-            Workbook workbook = Workbook.getWorkbook(new File(BAMLoaderConstants.BAMFilePath), workbookSettings);
-            Sheet sheet = workbook.getSheet(0);
-            final int size = sheet.getRows();
-            for (int i = 1; i < size; i++) {
-                BAMFile bf = new BAMFile();
-                Cell[] cellTab = sheet.getRow(i);
-                bf.setDateReceived(format.parse(cellTab[1].getContents()));
-                bf.setFileNameBAM(cellTab[2].getContents());
-                bf.setCenterId(getCenterId(cellTab[0].getContents(), cellTab[7].getContents()));
-                bf.setDiseaseId(getDiseaseId(cellTab[6].getContents()));
-                bf.setDatatypeBAMId(getDatatypeBAMId(cellTab[8].getContents()));
-                bf.setBiospecimenId(getAliquotId((cellTab[3].getContents())));
-                try {
-                    bf.setFileSizeBAM(Long.parseLong(cellTab[9].getContents()));
-                } catch (NumberFormatException nfe) {
-                    logger.info(nfe.toString());
-                    bf.setFileSizeBAM(0L);
-                }
-                fileBAMs.add(bf);
-                logger.info(bf.toString());
-            }
-            logger.info("Total number of Rows: "+fileBAMs.size());
+    private  BAMFile getBamFileBean(final String[] rowData) throws Exception{
+        int maxColumns = (BAMLoaderConstants.isExtendedBAMFile()) ?10 :7;
 
-        } catch (IOException ioe) {
-            logger.info(ioe.toString());
-        } catch (BiffException be) {
-            logger.info(be.toString());
-        } catch (ParseException pe) {
-            logger.info(pe.toString());
+        if(rowData.length != maxColumns){
+            throw new Exception("Contains data for  "+ rowData.length+" columns");
         }
+        BAMFile bf = new BAMFile();
+        int index =  (BAMLoaderConstants.isExtendedBAMFile()) ?1 :0;
+
+        bf.setBiospecimenId(getAliquotId(rowData[index++]));
+        bf.setFileNameBAM(rowData[index++]);
+        bf.setDiseaseId(Integer.parseInt(rowData[index++]));
+        bf.setCenterId(Integer.parseInt(rowData[index++]));
+        try {
+            bf.setFileSizeBAM(Long.parseLong(rowData[index++]));
+        } catch (NumberFormatException nfe) {
+            logger.info(nfe.toString());
+            bf.setFileSizeBAM(0L);
+        }
+
+        bf.setDateReceived(format.parse(rowData[index++]));
+        bf.setDatatypeBAMId(Integer.parseInt(rowData[index++]));
+
+        if(BAMLoaderConstants.isExtendedBAMFile()) {
+            bf.setAnalysisId(rowData[0]);
+            bf.setAnalyteCode(rowData[index++]);
+            bf.setLibraryStrategy(rowData[index]);
+        }
+
+        return bf;
     }
+
 
     @Transactional
     protected void loadData() {
@@ -173,16 +157,16 @@ public class LoaderBAM {
             logger.info("Inserting data in DB ....");
             final List<Object[]> parametersBAM = new ArrayList<Object[]>();
             final List<Object[]> parameterBAMToAliquots = new ArrayList<Object[]>();
+
+            final String insertSql =  (BAMLoaderConstants.isExtendedBAMFile()) ?  BAMLoaderConstants.EXTENDED_BAM_INSERT:BAMLoaderConstants.BAM_INSERT;
             for (final BAMFile bf : fileBAMs) {
                 bf.setFileBAMId(fileBAMSequence.nextLongValue());
-                parametersBAM.add(new Object[]{bf.getFileBAMId(), bf.getFileNameBAM(),
-                        bf.getDiseaseId(), bf.getCenterId(), bf.getFileSizeBAM(),
-                        bf.getDateReceived(), bf.getDatatypeBAMId()});
+                parametersBAM.add(getBAMFileObjectArray(bf));
                 if (bf.getBiospecimenId() != 0) {
                     parameterBAMToAliquots.add(new Object[]{bf.getBiospecimenId(), bf.getFileBAMId()});
                 }
                 if(parametersBAM.size() >= BAMLoaderConstants.BATCH_SIZE){
-                    jdbcTemplate.batchUpdate(BAMLoaderConstants.BAM_INSERT, parametersBAM);
+                    jdbcTemplate.batchUpdate(insertSql, parametersBAM);
                     jdbcTemplate.batchUpdate(BAMLoaderConstants.BAM_TO_ALIQUOT_INSERT, parameterBAMToAliquots);
                     logger.info("Inserted "+parametersBAM.size()+" records ...");
                     parameterBAMToAliquots.clear();
@@ -190,13 +174,35 @@ public class LoaderBAM {
 
                 }
             }
-            jdbcTemplate.batchUpdate(BAMLoaderConstants.BAM_INSERT, parametersBAM);
+            jdbcTemplate.batchUpdate(insertSql, parametersBAM);
             jdbcTemplate.batchUpdate(BAMLoaderConstants.BAM_TO_ALIQUOT_INSERT, parameterBAMToAliquots);
             logger.info("Inserted "+parametersBAM.size()+" records ...");
             logger.info(" Total records inserted : "+fileBAMs.size());
         } catch (DataIntegrityViolationException e) {
             logger.info(e);
         }
+    }
+
+    private Object[] getBAMFileObjectArray(final BAMFile bf) {
+        final List<Object> bamData = new ArrayList<Object>();
+
+        if((BAMLoaderConstants.isExtendedBAMFile())) {
+            bamData.add(bf.getAnalysisId());
+        }
+        bamData.add(bf.getFileBAMId());
+        bamData.add(bf.getFileNameBAM());
+        bamData.add(bf.getDiseaseId());
+        bamData.add(bf.getCenterId());
+        bamData.add(bf.getFileSizeBAM());
+        bamData.add(bf.getDateReceived());
+        bamData.add(bf.getDatatypeBAMId());
+
+        if((BAMLoaderConstants.isExtendedBAMFile())) {
+            bamData.add(bf.getAnalyteCode());
+            bamData.add(bf.getDccDateReceived());
+        }
+
+        return bamData.toArray();
     }
 
     private Integer getCenterId(String shortName,String centerType){
@@ -235,6 +241,7 @@ public class LoaderBAM {
                 return a.getAliquotId();
             }
         }
+        logger.warn("Barcode  "+barcode+ " is not available in DCC database ");
         return 0L;
     }
 

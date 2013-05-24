@@ -23,18 +23,20 @@ import gov.nih.nci.ncicb.tcga.dcc.common.exception.BeanException;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.AclSecurityUtil;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityUtilImpl;
 import gov.nih.nci.ncicb.tcga.dcc.common.service.RedactionService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.stereotype.Component;
 
 /**
  * Implementation of Annotation Service that uses Annotation Queries.
@@ -165,9 +167,11 @@ public class AnnotationServiceImpl implements AnnotationService {
         // 4. Update annotation in DB
         annotationQueries.updateAnnotation(annotation.getId(), annotation, useStrictItemValidation);
         // 5. Redacted item process
-        if (annotation.getApproved() && REDACTION.equalsIgnoreCase(getClassificationNameFromCategoryId(annotationCategoryId))){
+        if (annotation.getApproved() &&
+                REDACTION.equalsIgnoreCase(getClassificationNameFromCategoryId(annotationCategoryId))) {
+
             DiseaseContextHolder.setDisease(getDiseaseAbbreviationFromDiseaseId(diseaseId));
-            redactionService.redact(item);
+            redactionService.redact(item, annotationCategoryId);
         }
 
         return annotation;

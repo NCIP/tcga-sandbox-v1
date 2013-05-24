@@ -204,20 +204,20 @@
         <property name="uuidService" ref="uuidService"/>
         <property name="centerQueries" ref="centerQueries"/>
     </bean>
-   
+
     <bean id="uuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
         <property name="dataSource" ref="dccCommonDataSource"/>
         <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
         <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
     </bean>
-    
-     <bean id="diseaseIuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
+
+    <bean id="diseaseIuidDAOImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDDAOImpl">
         <property name="dataSource" ref="diseaseDataSource"/>
         <property name="commonBarcodeAndUUIDValidator" ref="commonBarcodeAndUUIDValidator"/>
         <property name="uuidTypeQueries" ref="uuidTypeQueries"/>
     </bean>
-    
-     <bean id="diseaseUUIDDAO"
+
+    <bean id="diseaseUUIDDAO"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="target" ref="diseaseIuidDAOImpl"/>
@@ -227,7 +227,7 @@
             </props>
         </property>
     </bean>
-    
+
     <bean id="uuidTypeQueries" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.UUIDTypeQueriesJDBCImpl">
         <property name="dataSource" ref="dccCommonDataSource"/>
     </bean>
@@ -702,7 +702,8 @@
 
     </bean>
 
-    <bean id="vcfHeaderDefinitionQueries" class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VcfHeaderDefinitionQueriesJDBCImpl">
+    <bean id="vcfHeaderDefinitionQueries"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.dao.jdbc.VcfHeaderDefinitionQueriesJDBCImpl">
         <property name="dataSource" ref="dccCommonDataSource"/>
     </bean>
 
@@ -805,5 +806,36 @@
           class="gov.nih.nci.ncicb.tcga.dcc.common.bean.validation.IOCConstraintValidatorFactory"/>
 
     <bean id="validator" factory-bean="iOCConstraintValidatorFactory" factory-method="getValidator"/>
+    
+    <bean id="bamFileImpl" class="gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc.BAMFileQueriesJDBCImpl"
+          lazy-init="true" init-method="initBamLookupQueries">
+        <property name="dataSource" ref="dccCommonDataSource"/>
+    </bean>
 
+    <bean id="bamFileQueries" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="bamFileImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="store*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="bamValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.bamloader.BAMValidator">
+        <property name="codeTableQueries" ref="codeTableQueries"/>
+        <property name="tumorQueries" ref="tumorQueries"/>
+        <property name="bamFileQueries" ref="bamFileQueries"/>
+        <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
+    </bean>
+
+    <bean id="bamLoader" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.bamloader.BAMLoader">
+        <property name="cgHubUrl" value="${tcga.dcc.cgHubUrl}"/>
+        <property name="bamXmlFilePath" value="${tcga.dcc.bamXmlFilePath}"/>
+        <property name="bamValidator" ref="bamValidator"/>
+        <property name="bamParser" ref="bamParser"/>
+        <property name="bamFileQueries" ref="bamFileQueries"/>
+        <property name="cgHubXMLParsingDelayInterval" value="${tcga.dcc.bamLoader.cgHubXMLParsingDelayInterval}" />
+    </bean>
+    
 </beans>

@@ -81,6 +81,7 @@ public class DAMQueriesCGCCLevel1 extends DAMQueriesFilesystem implements DAMSub
             " and p.platform_id=ai.platform_id and p.center_type_code='" + CGCC_CENTER_TYPE + "' " +
             " and ai.is_latest = 1 " +
             " and ai.platform_id = ? " +
+            " and ai.center_id = ? " +
             " and bf.file_id = fi.file_id " +
             " and fi.file_id = f2a.file_id " +
             " and f2a.archive_id = ai.archive_id " +

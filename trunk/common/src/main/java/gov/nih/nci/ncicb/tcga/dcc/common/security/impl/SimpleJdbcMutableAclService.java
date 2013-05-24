@@ -9,12 +9,12 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.common.security.impl;
 
-import org.springframework.security.acls.MutableAcl;
-import org.springframework.security.acls.jdbc.AclCache;
+import javax.sql.DataSource;
+
 import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.acls.jdbc.LookupStrategy;
-
-import javax.sql.DataSource;
+import org.springframework.security.acls.model.AclCache;
+import org.springframework.security.acls.model.MutableAcl;
 
 /**
  * This is just like the Spring JdbcMutableAclService except when you call updateAcl, the object identity is not updated.

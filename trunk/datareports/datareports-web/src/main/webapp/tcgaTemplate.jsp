@@ -64,7 +64,7 @@
     <% } %>
     <div style="position:absolute;">
         <a href="#skip">
-            <img src="http://cabig-ut.nci.nih.gov/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation"
+            <img src="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/images/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation"
                  title="Skip Navigation"/>
         </a>
     </div>
@@ -89,7 +89,7 @@
     <% } else if (layout.equals("aliquotReport")) { %>
     <%@include file="/includes/pages/tcga-aliquot-report.jspf" %>
     <% } else if (layout.equals("bamtReport")) { %>
-    <%@include file="/includes/pages/tcga-bamt-elementary-report.jspf" %>
+    <%@include file="/includes/pages/tcga-bam-telemetry-report.jspf" %>
     <% } else if (layout.equals("bcrpipeline")) { %>
     <%@include file="/includes/pages/tcga-bcr-pipeline-report.jspf" %>
     <% } else if (layout.equals("submissionreport")) { %>

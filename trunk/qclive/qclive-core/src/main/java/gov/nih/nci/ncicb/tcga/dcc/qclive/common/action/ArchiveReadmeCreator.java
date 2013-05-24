@@ -132,6 +132,10 @@ public class ArchiveReadmeCreator extends AbstractProcessor<Archive, Archive> {
                 "http://tcga-data.nci.nih.gov/docs/TCGA_Data_Primer.pdf"));
         readmeText.append(NEWLINE);
         readmeText.append(formatParagraph(LINE_WIDTH,
+                "If you use TCGA data in your publications, please follow the guidelines described at ",
+                "http://cancergenome.nih.gov/abouttcga/policies/publicationguidelines."));
+        readmeText.append(NEWLINE);
+        readmeText.append(formatParagraph(LINE_WIDTH,
                 "For even more information, please visit the TCGA Data Portal at http://tcga-data.nci.nih.gov"));
         readmeText.append(NEWLINE);
         readmeText.append(formatParagraph(LINE_WIDTH,

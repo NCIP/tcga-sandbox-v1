@@ -15,26 +15,21 @@ delete from users;
 insert into users (username, password, enabled) values ('alonsos', 'alonsos', 1);
 insert into users (username, password, enabled) values ('baboudj', 'baboudj', 1);
 insert into users (username, password, enabled) values ('bertondl', 'bertondl', 1);
-insert into users (username, password, enabled) values ('girshiks', 'girshiks', 1);
-insert into users (username, password, enabled) values ('kigonyapa', 'kigonyapa', 1);
 insert into users (username, password, enabled) values ('nichollsmc', 'nichollsmc', 1);
 insert into users (username, password, enabled) values ('ramanr', 'ramanr', 1);
 insert into users (username, password, enabled) values ('srinivasand', 'srinivasand',1);
 insert into users (username, password, enabled) values ('waltonj', 'waltonj', 1);
 
 ---- QA
-insert into users (username, password, enabled) values ('barlettasp', 'barlettasp', 1);
+insert into users (username, password, enabled) values ('hunterst', 'hunterst', 1);
 insert into users (username, password, enabled) values ('sanbhadtirn', 'sanbhadtirn', 1);
 
 ---- BINFS
 insert into users (username, password, enabled) values ('arik', 'arik', 1);
 insert into users (username, password, enabled) values ('ayalabe', 'ayalabe', 1);
-insert into users (username, password, enabled) values ('chual', 'chual', 1);
 insert into users (username, password, enabled) values ('jensenma', 'jensenma', 1);
-insert into users (username, password, enabled) values ('kothiyalp', 'kothiyalp', 1);
 insert into users (username, password, enabled) values ('pihltd', 'pihltd', 1);
 insert into users (username, password, enabled) values ('pontiusj', 'pontiusj', 1);
-insert into users (username, password, enabled) values ('snyderee', 'snyderee', 1);
 insert into users (username, password, enabled) values ('wangz', 'wangz', 1);
 insert into users (username, password, enabled) values ('robesontn', 'robesontn', 1);
 
@@ -73,25 +68,21 @@ insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEX
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'ayalabe', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'baboudj', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'bertondl', group_id_1);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'chual', group_id_1);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'girshiks', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'hadfielj', group_id_1);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'kothiyalp', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'nichollsmc', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'pihltd', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'pontiusj', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'ramanr', group_id_1);
+insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'hunterst', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'sanbhadtirn', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'srinivasand', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'wangz', group_id_1);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'robesontn', group_id_1);
 
 ---- AnnotationsAdmin
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'barlettasp', group_id_2);
+insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'sanbhadtirn', group_id_2);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'cbiitappscan', group_id_2);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'jensenma', group_id_2);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'kigonyapa', group_id_2);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'snyderee', group_id_2);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'waltonj', group_id_2);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'alonsos', group_id_2);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'robesontn', group_id_2);
@@ -99,10 +90,8 @@ insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEX
 ---- DataReports
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'alonsos', group_id_3);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'baboudj', group_id_3);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'barlettasp', group_id_3);
+insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'hunterst', group_id_3);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'bertondl', group_id_3);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'girshiks', group_id_3);
-insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'kigonyapa', group_id_3);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'nichollsmc', group_id_3);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'ramanr', group_id_3);
 insert into group_members (id, username, group_id) values (GROUP_MEMBERS_SEQ.NEXTVAL, 'sanbhadtirn', group_id_3);

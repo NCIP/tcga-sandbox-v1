@@ -9,22 +9,25 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.datareports.webservice;
 
-import com.sun.jersey.api.core.InjectParam;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.PendingUUID;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.webservice.PendingUUIDResponse;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.PendingUUIDService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.Scope;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
+
+import com.sun.jersey.api.core.InjectParam;
 
 /**
  * Implementation of the pending UUID web service

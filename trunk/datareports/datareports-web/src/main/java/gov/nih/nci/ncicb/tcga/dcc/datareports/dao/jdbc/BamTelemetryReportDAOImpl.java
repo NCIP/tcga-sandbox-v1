@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -10,7 +10,7 @@
 package gov.nih.nci.ncicb.tcga.dcc.datareports.dao.jdbc;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.Cached;
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.dao.BamTelemetryReportDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -58,11 +58,12 @@ public class BamTelemetryReportDAOImpl implements BamTelemetryReportDAO {
             bam.setFileSize(resultSet.getLong(4));
             bam.setDateReceived(resultSet.getDate(5));
             bam.setDataType(resultSet.getString(6));
-            bam.setMolecule(resultSet.getString(7));
+            bam.setAnalyteCode(resultSet.getString(7));
             bam.setAliquotId(resultSet.getString(8));
             bam.setParticipantId(getParticipant(resultSet.getString(8)));
             bam.setSampleId(getSample(resultSet.getString(8)));
             bam.setAliquotUUID(resultSet.getString(10));
+            bam.setLibraryStrategy(resultSet.getString(11));
             return bam;
         }
     };

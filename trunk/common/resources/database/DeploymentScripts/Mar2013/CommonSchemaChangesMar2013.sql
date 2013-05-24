@@ -180,6 +180,8 @@ INSERT INTO exclude_from_case_count values ('TCGA-08-0384');
 INSERT INTO exclude_from_case_count values ('TCGA-16-0846');
 INSERT INTO exclude_from_case_count values ('TCGA-32-2498');
 INSERT INTO exclude_from_case_count values ('TCGA-76-4932');
+INSERT INTO exclude_from_case_count values ('TCGA-AB-2852');
+INSERT INTO exclude_from_case_count values ('TCGA-AB-2902');
 commit;
 
 CREATE MATERIALIZED VIEW case_data_received 

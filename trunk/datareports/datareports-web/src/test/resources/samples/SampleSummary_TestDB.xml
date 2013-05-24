@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-  ~ Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+  ~ Software License, Version 1.0 Copyright 2013 SRA International, Inc.
   ~ Copyright Notice.  The software subject to this notice and license includes both human
   ~ readable source code form and machine readable, binary, object code form (the "caBIG
   ~ Software").
@@ -10,9 +10,9 @@
 
 <dataset>
 
-    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" molecule="DNA" general_datatype="Exome"/>
-    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
-    <bam_file_datatype bam_datatype_id="10" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="10" bam_datatype="mirna" general_datatype="miRNA"/>
 
     <center_type center_type_definition="Cancer Genome Characterization Center" center_type_code="CGCC"/>
     <center_type center_type_definition="Genomic Sequencing Center" center_type_code="GSC"/>
@@ -459,11 +459,14 @@
                          participant_code="0138" bcr_center_id="06" is_viewable="1" is_redacted="0"/>
 
     <bam_file bam_file_id="1" bam_file_name="bamfilename1" disease_id="2" center_id="4" bam_file_size="12345"
-              date_received="2010-04-22 11:24:55.939" bam_datatype_id="1"/>
+              date_received="2010-04-22 11:24:55.939" bam_datatype_id="1" analyte_code="D" analysis_id="1"
+              dcc_received_date="2013-04-03 16:44:50.387"/>
     <bam_file bam_file_id="2" bam_file_name="bamfilename2" disease_id="1" center_id="3" bam_file_size="54321"
-              date_received="2010-01-02 11:24:55.939" bam_datatype_id="2"/>
+              date_received="2010-01-02 11:24:55.939" bam_datatype_id="2" analyte_code="D" analysis_id="2"
+              dcc_received_date="2013-04-03 16:44:50.387"/>
     <bam_file bam_file_id="3" bam_file_name="bamfilename3" disease_id="3" center_id="8" bam_file_size="987654321"
-              date_received="2010-05-12 11:24:55.939" bam_datatype_id="2"/>
+              date_received="2010-05-12 11:24:55.939" bam_datatype_id="2" analyte_code="D" analysis_id="3"
+              dcc_received_date="2013-04-03 16:44:50.387"/>
 
     <shipped_biospecimen_bamfile shipped_biospecimen_id="1" bam_file_id="1"/>
     <shipped_biospecimen_bamfile shipped_biospecimen_id="2" bam_file_id="2"/>

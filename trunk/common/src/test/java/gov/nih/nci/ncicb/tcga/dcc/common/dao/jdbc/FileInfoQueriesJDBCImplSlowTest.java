@@ -136,7 +136,7 @@ public class FileInfoQueriesJDBCImplSlowTest extends DBUnitTestCase {
         assertNotNull(fileId);
         assertEquals(fileId, fileInfo.getId());
         assertEquals(fileInfo.getFileName(),
-                getSimpleJdbcTemplate().queryForObject("select file_name from file_info where file_id=?", String.class, fileId));
+                getSimpleJdbcTemplate().queryForObject("SELECT file_name FROM file_info WHERE file_id=?", String.class, fileId));
     }
 
     public void testUpdateFile() {
@@ -156,7 +156,7 @@ public class FileInfoQueriesJDBCImplSlowTest extends DBUnitTestCase {
         // now update the data level to 2 
         fileInfoQueriesJDBCImpl.updateFileDataLevel(fileId, dataLevel);
         final SimpleJdbcTemplate template = new SimpleJdbcTemplate(getDataSource());
-        final Map<String, Object> values = template.queryForMap("select * from file_info where file_id=?", fileId);
+        final Map<String, Object> values = template.queryForMap("SELECT * FROM file_info WHERE file_id=?", fileId);
         assertEquals("2", values.get("level_number").toString());
     }
 
@@ -165,7 +165,7 @@ public class FileInfoQueriesJDBCImplSlowTest extends DBUnitTestCase {
         final int dataTypeId = 199;
         fileInfoQueriesJDBCImpl.updateFileDataType(fileId, dataTypeId);
         final SimpleJdbcTemplate template = new SimpleJdbcTemplate(getDataSource());
-        final Map<String, Object> values = template.queryForMap("select * from file_info where file_id=?", fileId);
+        final Map<String, Object> values = template.queryForMap("SELECT * FROM file_info WHERE file_id=?", fileId);
         assertEquals("199", values.get("data_type_id").toString());
     }
 
@@ -197,7 +197,7 @@ public class FileInfoQueriesJDBCImplSlowTest extends DBUnitTestCase {
         expectedData.put("level3.txt", 5);
 
         final JdbcTemplate template = new JdbcTemplate(getDataSource());
-        template.query("select file_name,data_type_id from file_info where file_name in ('level1.txt','level2.txt','level3.txt')", new RowCallbackHandler() {
+        template.query("SELECT file_name,data_type_id FROM file_info WHERE file_name IN ('level1.txt','level2.txt','level3.txt')", new RowCallbackHandler() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 assertEquals(expectedData.get(rs.getString("file_name")), new Integer(rs.getInt("data_type_id")));
@@ -265,6 +265,18 @@ public class FileInfoQueriesJDBCImplSlowTest extends DBUnitTestCase {
         fileInfoQueriesJDBCImpl.deleteFiles(fileIds);
         assertNull("Failed to delete fileinfo record", getFileInfoFromDB("delete_1.txt"));
         assertNull("Failed to delete fileinfo record", getFileInfoFromDB("delete_2.txt"));
+
+    }
+
+    public void testDeleteFilesFromArchive(){
+        FileInfoQueryRequest fileInfoQueryRequest = new FileInfoQueryRequest();
+        fileInfoQueryRequest.setArchiveId(107);
+        List<FileInfo> fileInfoList = fileInfoQueriesJDBCImpl.getFilesForArchive(fileInfoQueryRequest);
+        assertEquals(2, fileInfoList.size());
+        // remove the data
+        fileInfoQueriesJDBCImpl.deleteFilesFromArchive("broad.mit.edu_BLCA.IlluminaGA_DNASeq.Level_2.0.1.0");
+        fileInfoList = fileInfoQueriesJDBCImpl.getFilesForArchive(fileInfoQueryRequest);
+        assertEquals(0, fileInfoList.size());
 
     }
 

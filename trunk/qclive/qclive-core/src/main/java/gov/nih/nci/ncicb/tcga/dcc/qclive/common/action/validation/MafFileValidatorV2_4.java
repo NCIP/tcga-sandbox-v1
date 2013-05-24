@@ -542,11 +542,11 @@ public class MafFileValidatorV2_4 extends MafFileValidator {
             final String archiveDataTYpeName = getDataTypeQueries().getBaseDataTypeNameForPlatform(context.getPlatformName());
             if (DataTypeName.PROTECTED_MUTATIONS.getValue().equals(archiveDataTYpeName)) {
                 if (!filename.endsWith(FileName.PROTECTED_MAF_EXTENSION.getValue())) {
-                    throw new ProcessorException("Failed processing maf file " + filename + ". File extension must be " + FileName.PROTECTED_MAF_EXTENSION);
+                    throw new ProcessorException("Failed processing maf file " + filename + ". File extension must be " + FileName.PROTECTED_MAF_EXTENSION.getValue());
                 }
             } else if (DataTypeName.SOMATIC_MUTATIONS.getValue().equals(archiveDataTYpeName)) {
                 if (!filename.endsWith(FileName.SOMATIC_MAF_EXTENSION.getValue())) {
-                    throw new ProcessorException("Failed processing maf file " + filename + ". File extension must be " + FileName.SOMATIC_MAF_EXTENSION);
+                    throw new ProcessorException("Failed processing maf file " + filename + ". File extension must be " + FileName.SOMATIC_MAF_EXTENSION.getValue());
                 }
             } else {
                 throw new ProcessorException("Failed processing maf file " + filename + ". DCC does not support " + ((archiveDataTYpeName == null)?"unknown":archiveDataTYpeName)+ " maf files yet.");

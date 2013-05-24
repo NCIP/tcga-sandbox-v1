@@ -11,9 +11,10 @@ package gov.nih.nci.ncicb.tcga.dcc.common.security;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.Permission;
-import org.springframework.security.acls.sid.Sid;
+
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.Sid;
 
 /**
  * Simple wrapper around ACL-based security operations, to be used by services that create a DccAnnotationNote object

@@ -7,6 +7,7 @@
 
     <center center_id="1" domain_name="gsc.org" center_type_code="GSC" display_name="gsc.org"/>
     <center center_id="2" domain_name="cgcc.edu" center_type_code="CGCC" display_name="cgcc.edu"/>
+    <center center_id="3" domain_name="gsc2.edu" center_type_code="GSC" display_name="gsc2.edu"/>
 
     <data_type data_type_id="1" name="Somatic Mutations" center_type_code="GSC" ftp_display="somatic_mutations" available="1" sort_order="1"/>
     <data_type data_type_id="2" name="Protected Mutations" center_type_code="GSC" ftp_display="protected_mutations" available="1" sort_order="2"/>
@@ -27,6 +28,7 @@
 
     <center_to_bcr_center bcr_center_id="99" center_id="1" center_type_code="GSC"/>
     <center_to_bcr_center bcr_center_id="88" center_id="2" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="77" center_id="3" center_type_code="GSC"/>
 
     <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliquot"/>
     <!-- sent to gsc.org -->
@@ -58,6 +60,7 @@
                          built_barcode="TCGA-00-4444-10A-01W-1111-99"
                          bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid8" shipped_date="2010-01-01" is_control="0"/>
 
+    <!-- this one was analyzed by GSC2 also -->
     <shipped_biospecimen shipped_biospecimen_id="9" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="5555"
                          built_barcode="TCGA-00-5555-01A-01W-1111-99"
                          bcr_center_id="99" is_viewable="1" is_redacted="0" uuid="uuid9" shipped_date="2010-01-01" is_control="0"/>
@@ -133,6 +136,14 @@
     <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="9"/>
     <shipped_biospecimen_file file_id="7" shipped_biospecimen_id="10"/>
     <shipped_biospecimen_file file_id="8" shipped_biospecimen_id="13"/>
+
+    <!-- GSC2 archive with VCF file for biospecimen id 9 -->
+    <archive_info archive_id="6" archive_name="gsc2.edu_DIS1_DNASeq.Level_2.10.3.0" center_id="3" platform_id="1" disease_id="1" archive_type_id="1"
+                  serial_index="10" revision="3" series="0" deploy_status="Available" is_latest="1" deploy_location="/public/path/to/gsc2.edu_DIS1_DNASeq.Level_2.10.3.0.tar.gz"
+                  date_added="2013-02-26 0:00:00.000000000"/>
+    <file_info file_id="9" file_name="gsc2.somatic.vcf" data_type_id="2" level_number="2"/>
+    <file_to_archive file_archive_id="9" file_id="9" archive_id="6" file_location_url="who knows"/>
+    <shipped_biospecimen_file file_id="9" shipped_biospecimen_id="9"/>
 
     <!-- shipped_biospecimen_element so the shipped_biospecimen_breakdown view will be populated correctly TCGA-00-1111-01A-01W-1111-99 -->
     <shipped_biospecimen_element shipped_biospecimen_element_id="1" shipped_biospecimen_id="1" element_type_id="1" element_value="01"/>

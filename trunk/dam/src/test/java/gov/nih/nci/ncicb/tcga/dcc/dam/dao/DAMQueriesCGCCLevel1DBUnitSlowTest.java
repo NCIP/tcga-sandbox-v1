@@ -103,7 +103,7 @@ public class DAMQueriesCGCCLevel1DBUnitSlowTest extends DBUnitTestCase {
         DataSetLevelOne dataSet = new DataSetLevelOne();
         dataSet.setArchiveId(11);
         dataSet.setPlatformId("1");
-        dataSet.setCenterId("1");
+        dataSet.setCenterId("2");
         dataSet.setProtected(true);
         dataSet.setSample("hello");
         dataSet.setLevel("1"); // really?  we have to set the level on a DataSetLevelOne object?  I object.
@@ -132,7 +132,7 @@ public class DAMQueriesCGCCLevel1DBUnitSlowTest extends DBUnitTestCase {
     @Test
     public void testGetFileInfoForSelectedDataSetsMultipleDiseases() throws DataAccessMatrixQueries.DAMQueriesException {
         final List<DataSet> dataSets = new ArrayList<DataSet>();
-        final DataSet ds1 = makeDataSet("1", "1", "TCGA-00-0001-00", "DIS1");
+        final DataSet ds1 = makeDataSet("1", "2", "TCGA-00-0001-00", "DIS1");
         final DataSet ds2 = makeDataSet("1", "2", "TCGA-00-0002-00", "DIS2");
         dataSets.add(ds1);
         dataSets.add(ds2);
@@ -151,11 +151,12 @@ public class DAMQueriesCGCCLevel1DBUnitSlowTest extends DBUnitTestCase {
         assertNotNull(fourthDataFile);
 
         for(final DataFile datafile : datafiles) {
-            if(datafile.getCenterId().equals("1")) {
+            if(datafile.getBarcodes().contains("TCGA-00-0001-00")) {
                 assertEquals("DIS1", datafile.getDiseaseType());
-            }
-            if(datafile.getCenterId().equals("2")) {
+            } else if(datafile.getBarcodes().contains("TCGA-00-0002-00")) {
                 assertEquals("DIS2", datafile.getDiseaseType());
+            } else {
+                fail("unexpected data file");
             }
         }
     }

@@ -16,7 +16,8 @@ Ext.onReady(function () {
     filterMap.disease = Ext.get('disease').getAttribute('value');
     filterMap.aliquotId = Ext.get('aliquotId').getAttribute('value');
     filterMap.aliquotUUID = Ext.get('aliquotUUID').getAttribute('value');
-    filterMap.molecule = Ext.get('molecule').getAttribute('value');
+    filterMap.analyteCode = Ext.get('analyteCode').getAttribute('value');
+    filterMap.libraryStrategy = Ext.get('libraryStrategy').getAttribute('value');
     filterMap.center = Ext.get('center').getAttribute('value');
     filterMap.dateFrom = Ext.get('dateFrom').getAttribute('value');
     filterMap.dataType = Ext.get('dataType').getAttribute('value');
@@ -39,7 +40,8 @@ Ext.onReady(function () {
             {name: 'aliquotId'},
             {name: 'participantId'},
             {name: 'sampleId'},
-            {name: 'molecule'},
+            {name: 'analyteCode'},
+            {name: 'libraryStrategy'},
             {name: 'dataType'},
             {name: 'fileSize'}
         ]
@@ -73,12 +75,21 @@ Ext.onReady(function () {
         }},
         fields: ['id', 'text']
     });
-    var moleculeStore = new Ext.data.JsonStore({
-        url: "bamTelemetryFilterData.json?filter=molecule",
-        root: 'moleculeData',
+    var analyteCodeStore = new Ext.data.JsonStore({
+        url: "bamTelemetryFilterData.json?filter=analyteCode",
+        root: 'analyteCodeData',
         autoLoad: 'true',
         listeners: {load: function () {
-            Ext.getCmp('moleculeCombo').setValue(filterMap.molecule);
+            Ext.getCmp('analyteCodeCombo').setValue(filterMap.analyteCode);
+        }},
+        fields: ['id', 'text']
+    });
+    var libraryStrategyStore = new Ext.data.JsonStore({
+        url: "bamTelemetryFilterData.json?filter=libraryStrategy",
+        root: 'libraryStrategyData',
+        autoLoad: 'true',
+        listeners: {load: function () {
+            Ext.getCmp('libraryStrategyCombo').setValue(filterMap.libraryStrategy);
         }},
         fields: ['id', 'text']
     });
@@ -147,7 +158,7 @@ Ext.onReady(function () {
         colModel: new Ext.grid.ColumnModel({
             defaults: {sortable: true},
             columns: [
-                {header: 'Disease', width: 40, dataIndex: 'disease', tooltip: 'Disease / Study name'},
+                {header: 'Disease', width: 50, dataIndex: 'disease', tooltip: 'Disease / Study name'},
                 {header: 'Center', width: 90, dataIndex: 'center', tooltip: 'Receiving Center'},
                 {header: 'Date', width: 60, dataIndex: 'dateReceived', tooltip: 'Date Received', renderer: makeDate},
                 {header: 'BAM File', width: 200, dataIndex: 'bamFile', tooltip: 'BAM File'},
@@ -155,9 +166,10 @@ Ext.onReady(function () {
                 {header: 'Aliquot ID', width: 170, dataIndex: 'aliquotId', tooltip: 'Aliquot Id'},
                 {header: 'Participant ID', width: 80, dataIndex: 'participantId', tooltip: 'Participant ID'},
                 {header: 'Sample ID', width: 105, dataIndex: 'sampleId', tooltip: 'Sample ID'},
-                {header: 'Molecule', width: 47, dataIndex: 'molecule', tooltip: 'Molecule Type'},
-                {header: 'Data Type', width: 55, dataIndex: 'dataType', tooltip: 'Data Type'},
-                {header: 'File Size', width: 50, dataIndex: 'fileSize', tooltip: 'File Size', renderer: makeFileSize}
+                {header: 'Analyte Code', width: 80, dataIndex: 'analyteCode', tooltip: 'Analyte Code'},
+                {header: 'SRA Library Strategy', width: 80, dataIndex: 'libraryStrategy', tooltip: 'SRA Library Strategy'},
+                {header: 'DCC Data Type', width: 90, dataIndex: 'dataType', tooltip: 'DCC Data Type'},
+                {header: 'File Size', width: 70, dataIndex: 'fileSize', tooltip: 'File Size', renderer: makeFileSize}
             ]}),
         stripeRows: true,
         forceFit: true,
@@ -269,20 +281,38 @@ Ext.onReady(function () {
         forceSelection: true
     });
 
-    //Create comboBox for molecule
-    var moleculeCombo = new Ext.ux.form.LovCombo({
-        id: 'moleculeCombo',
-        fieldLabel: 'Molecule',
-        emptyText: 'Select molecules...',
-        name: 'molecule',
-        store: moleculeStore,
+    //Create comboBox for analyte code
+    var analyteCodeCombo = new Ext.ux.form.LovCombo({
+        id: 'analyteCodeCombo',
+        fieldLabel: 'Analyte Code',
+        emptyText: 'Select analyte code...',
+        name: 'analyteCode',
+        store: analyteCodeStore,
         mode: 'local',
         width: 200,
         triggerAction: 'all',
-        triggerConfig: {tag: "img", id: "moleculeComboTrigger", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass},
+        triggerConfig: {tag: "img", id: "analyteCodeComboTrigger", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass},
         displayField: 'text',
         valueField: 'id',
-        hiddenName: 'molecule',
+        hiddenName: 'analyteCode',
+        editable: false,
+        forceSelection: true
+    });
+
+    //Create comboBox for library strategy
+    var libraryStrategyCombo = new Ext.ux.form.LovCombo({
+        id: 'libraryStrategyCombo',
+        fieldLabel: 'SRA Library Strategy',
+        emptyText: 'Select library strategy...',
+        name: 'molecule',
+        store: libraryStrategyStore,
+        mode: 'local',
+        width: 200,
+        triggerAction: 'all',
+        triggerConfig: {tag: "img", id: "libraryStrategyComboTrigger", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass},
+        displayField: 'text',
+        valueField: 'id',
+        hiddenName: 'libraryStrategy',
         editable: false,
         forceSelection: true
     });
@@ -290,7 +320,7 @@ Ext.onReady(function () {
     var filterBox = new Ext.form.FormPanel({
         frame: true,
         id: 'filterBox',
-        labelWidth: 65,
+        labelWidth: 75,
         margins: '3 3 0 0',
         layout: 'column',
         items: [
@@ -300,17 +330,18 @@ Ext.onReady(function () {
                 {id: 'aliquotUUID', fieldLabel: 'UUID', name: 'aliquotUUID', xtype: 'textfield', width: 200,
                     emptyText: "Enter an Aliquot UUID...", value: filterMap.aliquotUUID}]},
             {width: 300, layout: 'form', items: [centerCombo,
-                {width: 250, layout: 'form', labelWidth: 65, items: [
+                {width: 250, layout: 'form', labelWidth: 75, items: [
                     {id: 'dateFrom', fieldLabel: 'Date From', name: 'dateFrom',
-                        xtype: 'datefield', emptyText: "Choose a Date...", value: filterMap.dateFrom, width: 150}
+                        xtype: 'datefield', emptyText: "Choose a Date...", value: filterMap.dateFrom, width: 170}
                 ]},
-                moleculeCombo
+                analyteCodeCombo
             ]},
             {width: 300, layout: 'form', items: [dataTypeCombo,
-                {width: 250, layout: 'form', labelWidth: 65, items: [
+                {width: 250, layout: 'form', labelWidth: 75, items: [
                     {id: 'dateTo', fieldLabel: 'Date To', name: 'dateTo',
-                        xtype: 'datefield', emptyText: "Choose a Date...", value: filterMap.dateTo, width: 150}
-                ]}
+                        xtype: 'datefield', emptyText: "Choose a Date...", value: filterMap.dateTo, width: 170}
+                ]},
+                libraryStrategyCombo
             ]}
         ],
         buttons: [
@@ -345,9 +376,9 @@ Ext.onReady(function () {
             {
                 title: 'Filters Extended',
                 region: 'north',
-                height: 150,
-                minSize: 150,
-                maxSize: 150,
+                height: 160,
+                minSize: 160,
+                maxSize: 160,
                 collapsible: true,
                 collapsed: true,
                 collapseMode: 'mini',

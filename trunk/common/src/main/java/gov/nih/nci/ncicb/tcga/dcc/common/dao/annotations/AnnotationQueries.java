@@ -40,6 +40,7 @@ public interface AnnotationQueries {
      * @param useStrictItemValidation whether to validate the annotation's item against the database values or not
      * @return the ID of the newly added annotation
      * @throws AnnotationQueriesException if there is an error adding the annotation
+     * @throws BeanException
      */
     public long addNewAnnotation(final DccAnnotation annotation, final boolean useStrictItemValidation)
             throws AnnotationQueriesException, BeanException;
@@ -55,6 +56,7 @@ public interface AnnotationQueries {
      * @param annotation the annotation to add
      * @return the ID of the newly added annotation
      * @throws AnnotationQueriesException if there is an error adding the annotation
+     * @throws BeanException 
      */
     public long addNewAnnotation(final DccAnnotation annotation)
             throws AnnotationQueriesException, BeanException;
@@ -216,6 +218,13 @@ public interface AnnotationQueries {
      * @return list of classifications beans
      */
     public List<DccAnnotationClassification> getAnnotationClassifications();
+
+    /**
+     * Gets the annotation category name for the given id.  Returns null if not found.
+     * @param categoryId the category id
+     * @return the category name or null
+     */
+    public String getAnnotationCategoryNameForId(Long categoryId);
 
     /**
      * Exception for use by the AnnotationQueries object.

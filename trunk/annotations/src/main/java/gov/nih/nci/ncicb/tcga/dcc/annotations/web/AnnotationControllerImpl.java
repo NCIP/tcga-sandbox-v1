@@ -17,19 +17,21 @@ import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Tumor;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.SecurityUtil;
 import gov.nih.nci.ncicb.tcga.dcc.common.service.annotations.AnnotationService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Contains controller methods for annotations application.

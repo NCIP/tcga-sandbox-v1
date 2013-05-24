@@ -38,7 +38,7 @@ public class DAMUtils implements DAMUtilsI {
     public static final String DATA_TYPE_ID = "data_type_id";
     public static final String FTP_DISPLAY = "ftp_display";
     public static final String NAME = "name";
-    public static final String CNA = "CNV (Array)";
+    public static final String CNA = "CNV (CN Array)";
     public static final String SNP = "snp";
     public static final String TRANSCRIPTOME = "transcriptome";
     public static final String EXON = "exon";

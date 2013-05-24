@@ -34,7 +34,7 @@ Ext.onReady(function() {
 		'<thead><tr class="firstrow">',
 			'<th scope="col">' + diseaseName + ' [' + diseaseType + ']' + '</th>',
 			'<th scope="col">Total</th>',
-			'<th scope="col">Exome</th>',
+			'<th scope="col">Exome<sup style="font-size: smaller">1</sup></th>',
 			'<th scope="col">SNP</th>',
 			'<th scope="col">Methylation</th>',
 			'<th scope="col">mRNA</th>',
@@ -141,7 +141,7 @@ Ext.onReady(function() {
             },
             displayNameForCountType: function(countType) {
                 if (countType == 'Organ-Specific Controls') {
-                    return countType + '<sup>*</sup>';
+                    return countType + '<sup style="font-size: smaller">2</sup>';
                 } else {
                     return countType;
                 }

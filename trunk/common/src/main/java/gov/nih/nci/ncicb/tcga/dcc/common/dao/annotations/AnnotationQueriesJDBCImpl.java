@@ -9,11 +9,6 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations;
 
-import com.googlecode.ehcache.annotations.Cacheable;
-import com.googlecode.ehcache.annotations.KeyGenerator;
-import com.googlecode.ehcache.annotations.PartialCacheKey;
-import com.googlecode.ehcache.annotations.Property;
-import com.googlecode.ehcache.annotations.TriggersRemove;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotation;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationCategory;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationClassification;
@@ -26,14 +21,6 @@ import gov.nih.nci.ncicb.tcga.dcc.common.exception.BeanException;
 import gov.nih.nci.ncicb.tcga.dcc.common.service.UUIDService;
 import gov.nih.nci.ncicb.tcga.dcc.common.util.CommonBarcodeAndUUIDValidator;
 import gov.nih.nci.ncicb.tcga.dcc.common.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.jdbc.core.RowCallbackHandler;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
-import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
-import org.springframework.security.annotation.Secured;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,6 +35,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
+import org.springframework.security.access.annotation.Secured;
+
+import com.googlecode.ehcache.annotations.Cacheable;
+import com.googlecode.ehcache.annotations.KeyGenerator;
+import com.googlecode.ehcache.annotations.PartialCacheKey;
+import com.googlecode.ehcache.annotations.Property;
+import com.googlecode.ehcache.annotations.TriggersRemove;
+
 /**
  * JDBC implementation of AnnotationQueries.
  *
@@ -55,7 +57,7 @@ import java.util.Map;
  *         Last updated by: $Author$
  * @version $Rev$
  */
-public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements AnnotationQueries {
+public class AnnotationQueriesJDBCImpl extends JdbcDaoSupport implements AnnotationQueries {
 
     private static final String CATEGORY_FIELD_ID = "ID";
     private static final String CATEGORY_FIELD_NAME = "NAME";
@@ -306,7 +308,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
             long annotationId = annotationIdSequence.nextLongValue();
 
             // add a row to the annotation table
-            getSimpleJdbcTemplate().update(INSERT_ANNOTATION_QUERY,
+            getJdbcTemplate().update(INSERT_ANNOTATION_QUERY,
                     annotationId,
                     annotation.getAnnotationCategory().getCategoryId(),
                     annotation.getCreatedBy(),
@@ -345,7 +347,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      */
     public String getAnnotationCategoryById(final Long annotationCategoryId) throws AnnotationQueriesException {
         try {
-            Map<String, Object> row = getSimpleJdbcTemplate().queryForMap(CATEGORY_NAME_QUERY, annotationCategoryId);
+            Map<String, Object> row = getJdbcTemplate().queryForMap(CATEGORY_NAME_QUERY, annotationCategoryId);
             return String.valueOf(row.get("CATEGORY_DISPLAY_NAME"));
         } catch (IncorrectResultSizeDataAccessException e) {
             throw new AnnotationQueriesException("Annotation category with id " + annotationCategoryId + " does not exist");
@@ -361,7 +363,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      */
     public DccAnnotationItemType getItemTypeById(final Long itemTypeId) throws AnnotationQueriesException {
         try {
-            Map<String, Object> row = getSimpleJdbcTemplate().queryForMap(ITEM_TYPE_NAME_QUERY, itemTypeId);
+            Map<String, Object> row = getJdbcTemplate().queryForMap(ITEM_TYPE_NAME_QUERY, itemTypeId);
             String typeName = String.valueOf(row.get("TYPE_DISPLAY_NAME"));
             DccAnnotationItemType itemType = new DccAnnotationItemType();
             itemType.setItemTypeId(itemTypeId);
@@ -386,7 +388,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     )
     public void addNewAnnotationItem(@PartialCacheKey final Long annotationId, final DccAnnotationItem dccAnnotationItem) {
 
-        getSimpleJdbcTemplate().update(INSERT_ANNOTATION_ITEM_QUERY,
+        getJdbcTemplate().update(INSERT_ANNOTATION_ITEM_QUERY,
                 annotationId,
                 dccAnnotationItem.getItemType().getItemTypeId(),
                 dccAnnotationItem.getItem(),
@@ -414,7 +416,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
             validateNote(note, dccAnnotation);
 
             long noteId = annotationNoteIdSequence.nextLongValue();
-            getSimpleJdbcTemplate().update(INSERT_ANNOTATION_NOTE_QUERY,
+            getJdbcTemplate().update(INSERT_ANNOTATION_NOTE_QUERY,
                     noteId,
                     annotationId,
                     note.getNoteText(),
@@ -443,7 +445,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      * @return a list of DccAnnotationItemType objects
      */
     public List<DccAnnotationItemType> getItemTypes() {
-        return getSimpleJdbcTemplate().getJdbcOperations().query(ITEM_TYPES_QUERY,
+        return getJdbcTemplate().query(ITEM_TYPES_QUERY,
                 new ParameterizedRowMapper<DccAnnotationItemType>() {
                     public DccAnnotationItemType mapRow(final ResultSet resultSet, final int i) throws SQLException {
                         final DccAnnotationItemType itemType = new DccAnnotationItemType();
@@ -463,7 +465,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     public List<DccAnnotationCategory> getAnnotationCategories() {
         // key is annotation cat id, val is the map of values: id, name, itemTypes
         final Map<Long, DccAnnotationCategory> annotationCategories = new HashMap<Long, DccAnnotationCategory>();
-        getSimpleJdbcTemplate().getJdbcOperations().query(CATEGORIES_QUERY, new RowCallbackHandler() {
+        getJdbcTemplate().query(CATEGORIES_QUERY, new RowCallbackHandler() {
             public void processRow(final ResultSet resultSet) throws SQLException {
                 Long id = resultSet.getLong(CATEGORY_FIELD_ID);
                 String name = resultSet.getString(CATEGORY_FIELD_NAME);
@@ -499,7 +501,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      * @return a list of diseases as key/value pairs
      */
     public List<Tumor> getActiveDiseases() {
-        return getSimpleJdbcTemplate().getJdbcOperations().query(DISEASE_QUERY,
+        return getJdbcTemplate().query(DISEASE_QUERY,
                 new ParameterizedRowMapper<Tumor>() {
                     public Tumor mapRow(final ResultSet resultSet, final int i) throws SQLException {
                         final Tumor tumor = new Tumor();
@@ -517,8 +519,19 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      * @return a list of classification beans
      */
     public List<DccAnnotationClassification> getAnnotationClassifications() {
-        return getSimpleJdbcTemplate().getJdbcOperations().query(CLASSIFICATIONS_QUERY,
+        return getJdbcTemplate().query(CLASSIFICATIONS_QUERY,
                 new ClassificationMapper());
+    }
+
+    @Override
+    public String getAnnotationCategoryNameForId(final Long categoryId) {
+        String category = null;
+        try {
+            category = getAnnotationCategoryById(categoryId);
+        } catch (AnnotationQueriesException e) {
+            // doesn't exist
+        }
+        return category;
     }
 
     /**
@@ -536,7 +549,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     public DccAnnotation getAnnotationById(final Long annotationId) throws AnnotationQueriesException, BeanException {
 
         // multiple rows possible, because we will get one row per annotation item
-        final List<Map<String, Object>> annotationData = getSimpleJdbcTemplate().queryForList(SELECT_ANNOTATION_BY_ID_QUERY, annotationId);
+        final List<Map<String, Object>> annotationData = getJdbcTemplate().queryForList(SELECT_ANNOTATION_BY_ID_QUERY, annotationId);
 
         if (annotationData.isEmpty()) {
             throw new AnnotationQueriesException("Annotation with id " + annotationId + " was not found");
@@ -586,7 +599,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
         }
 
         // separate query for notes -- can just set the result as the note variable
-        final List<DccAnnotationNote> notes = getSimpleJdbcTemplate().getJdbcOperations().
+        final List<DccAnnotationNote> notes = getJdbcTemplate().
                 query(SELECT_ANNOTATION_NOTES_QUERY,
                         new ParameterizedRowMapper<DccAnnotationNote>() {
                             public DccAnnotationNote mapRow(final ResultSet resultSet, final int i) throws SQLException {
@@ -643,7 +656,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
             validateNote(note, dccAnnotation);
 
             // Persist the new note
-            int rowsUpdated = getSimpleJdbcTemplate().update(EDIT_NOTE_QUERY,
+            int rowsUpdated = getJdbcTemplate().update(EDIT_NOTE_QUERY,
                     newText, editor, now, note.getNoteId());
 
             // if number updated is zero, throw exception
@@ -666,7 +679,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
         final DccAnnotation result;
 
         try {
-            final long annotationId = getSimpleJdbcTemplate().queryForLong(SELECT_ANNOTATION_ID_BY_NOTE_ID_QUERY, noteId);
+            final long annotationId = getJdbcTemplate().queryForLong(SELECT_ANNOTATION_ID_BY_NOTE_ID_QUERY, noteId);
             result = getAnnotationById(annotationId);
 
         } catch (final DataAccessException e) {
@@ -686,7 +699,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     public DccAnnotationNote getAnnotationNoteById(final Long noteId) throws AnnotationQueriesException {
         Map<String, Object> noteData;
         try {
-            noteData = getSimpleJdbcTemplate().queryForMap(SELECT_NOTE_BY_ID_QUERY, noteId);
+            noteData = getJdbcTemplate().queryForMap(SELECT_NOTE_BY_ID_QUERY, noteId);
         } catch (IncorrectResultSizeDataAccessException e) {
             throw new AnnotationQueriesException("No note with id '" + noteId + "' was found in the database");
         }
@@ -721,7 +734,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
         final List<Object> params = new ArrayList<Object>();
         String query = searchCriteria.buildQuery(params);
 
-        return getSimpleJdbcTemplate().getJdbcOperations().query(
+        return getJdbcTemplate().query(
                 query,
                 new ParameterizedRowMapper<Long>() {
                     public Long mapRow(final ResultSet resultSet, final int i) throws SQLException {
@@ -740,7 +753,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
         final List<Object> params = new ArrayList<Object>();
         final String queryCount = searchCriteria.buildQuery(params).replace("select distinct annotation.annotation_id",
                 "select count(distinct annotation.annotation_id)");
-        return getSimpleJdbcTemplate().queryForLong(queryCount, params.toArray());
+        return getJdbcTemplate().queryForLong(queryCount, params.toArray());
     }
 
     @Override
@@ -751,7 +764,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      */
     public List<Long> getAllAnnotationIds() {
         final String query = "select distinct annotation.annotation_id from annotation";
-        return getSimpleJdbcTemplate().getJdbcOperations().query(
+        return getJdbcTemplate().query(
                 query,
                 new ParameterizedRowMapper<Long>() {
                     @Override
@@ -818,7 +831,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
             throws AnnotationQueriesException, BeanException {
         annotation.isValidStatusUpdate(isCurated, annotation.getRescinded()); //this has to be valid before the state can be changed
         try {
-            getSimpleJdbcTemplate().update(UPDATE_CURATED_QUERY, isCurated ? 1 : 0, annotation.getId());
+            getJdbcTemplate().update(UPDATE_CURATED_QUERY, isCurated ? 1 : 0, annotation.getId());
         } catch (DataAccessException e) {
             throw new AnnotationQueriesException("Failed to update curated status", e);
         }
@@ -830,7 +843,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
             throws AnnotationQueriesException, BeanException {
         annotation.isValidStatusUpdate(annotation.getApproved(), isRescinded); //this has to be valid before the state can be changed
         try {
-            getSimpleJdbcTemplate().update(UPDATE_RESCINDED_QUERY, isRescinded ? 1 : 0, annotation.getId());
+            getJdbcTemplate().update(UPDATE_RESCINDED_QUERY, isRescinded ? 1 : 0, annotation.getId());
         } catch (DataAccessException e) {
             throw new AnnotationQueriesException("Failed to update rescinded status", e);
         }
@@ -862,7 +875,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
                 updateAnnotationItem(item);
             }
             // now update the annotation record
-            getSimpleJdbcTemplate().update(UPDATE_ANNOTATION, annotation.getAnnotationCategory().getCategoryId(),
+            getJdbcTemplate().update(UPDATE_ANNOTATION, annotation.getAnnotationCategory().getCategoryId(),
                     annotation.getUpdatedBy(), annotation.getDateUpdated(), annotation.getApproved() ? 1 : 0, annotation.getRescinded() ? 1 : 0,
                     annotation.getId());
         }
@@ -882,7 +895,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
      * @param item the AnnotationItem to update
      */
     private void updateAnnotationItem(final DccAnnotationItem item) {
-        getSimpleJdbcTemplate().update(UPDATE_ANNOTATION_ITEM, item.getItemType().getItemTypeId(), item.getItem(),
+        getJdbcTemplate().update(UPDATE_ANNOTATION_ITEM, item.getItemType().getItemTypeId(), item.getItem(),
                 item.getDisease().getTumorId(), item.getId());
     }
 
@@ -1009,7 +1022,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     }
 
     private DccAnnotationClassification getClassificationForCategory(final DccAnnotationCategory annotationCategory) {
-        return getSimpleJdbcTemplate().getJdbcOperations().queryForObject(CLASSIFICATION_FOR_CATEGORY_QUERY,
+        return getJdbcTemplate().queryForObject(CLASSIFICATION_FOR_CATEGORY_QUERY,
                 new ClassificationMapper(), annotationCategory.getCategoryId());
     }
 
@@ -1066,7 +1079,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
     }
 
     private boolean checkAnnotationCategoryItemValidity(final long itemTypeId, final long annotationCategoryId) {
-        int count = getSimpleJdbcTemplate().queryForInt(CATEGORY_ITEM_TYPE_QUERY, itemTypeId, annotationCategoryId);
+        int count = getJdbcTemplate().queryForInt(CATEGORY_ITEM_TYPE_QUERY, itemTypeId, annotationCategoryId);
         return count > 0;
     }
 
@@ -1102,7 +1115,7 @@ public class AnnotationQueriesJDBCImpl extends SimpleJdbcDaoSupport implements A
                 tumorId
         };
 
-        final int sameAnnotationCount = getSimpleJdbcTemplate().queryForInt(SAME_ANNOTATION_COUNT_QUERY, args);
+        final int sameAnnotationCount = getJdbcTemplate().queryForInt(SAME_ANNOTATION_COUNT_QUERY, args);
 
         return sameAnnotationCount > 0;
     }

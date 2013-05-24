@@ -24,8 +24,9 @@ public interface RedactionQueries {
      *  Do redaction actions for a redacted item
      *
      * @param childUuids an array of child uuid's to redact
+     * @param setToNotViewable whether to also set any shipped biospecimens in the list to not viewable
      */
-     public void redact(final SqlParameterSource[] childUuids);
+     public void redact(SqlParameterSource[] childUuids, boolean setToNotViewable);
 
 
    /**

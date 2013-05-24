@@ -10,9 +10,10 @@
 package gov.nih.nci.ncicb.tcga.dcc.common.security;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
-import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
-import org.springframework.security.acls.objectidentity.ObjectIdentityRetrievalStrategy;
+
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy;
 
 /**
  * This class is necessary to overwrite Spring Security default getId() call

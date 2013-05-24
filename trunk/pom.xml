@@ -34,14 +34,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Compiler version -->
-        <java.compiler.version>1.7</java.compiler.version>
+        <java.compiler.version>1.6</java.compiler.version>
 
         <!-- Managed dependency versions -->
         <com.sun.jersey.version>1.9.1</com.sun.jersey.version>
         <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
         <org.apache.poi.version>3.8-beta4</org.apache.poi.version>
-        <org.apache.tomcat.version>7.0.37</org.apache.tomcat.version>
+        <org.apache.tomcat.version>7.0.39</org.apache.tomcat.version>
         <org.aspectj.version>1.7.2</org.aspectj.version>
+        <org.eclipse.jdt.core.compiler.version>4.2.2</org.eclipse.jdt.core.compiler.version>
         <org.eclipse.persistence.version>2.4.0</org.eclipse.persistence.version>
         <org.codehaus.jackson.version>1.9.0</org.codehaus.jackson.version>
         <org.hibernate.version>3.5.6-Final</org.hibernate.version>
@@ -49,7 +50,7 @@
         <org.quartz.scheduler.version>1.8.6</org.quartz.scheduler.version>
         <org.slf4j.version>1.6.2</org.slf4j.version>
         <org.springframework.version>3.2.2.RELEASE</org.springframework.version>
-        <org.springframework.security.version>2.0.7.RELEASE</org.springframework.security.version>
+        <org.springframework.security.version>3.0.5.RELEASE</org.springframework.security.version>
 
         <!-- URLs for release, deployment, etc. -->
         <tcga.svn.url>https://ncisvn.nci.nih.gov/svn/tcga-sandbox</tcga.svn.url>
@@ -271,10 +272,10 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[3.0.5,)</version>
+                                    <version>[3.0.4,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>[1.7,)</version>
+                                    <version>[1.6,)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>

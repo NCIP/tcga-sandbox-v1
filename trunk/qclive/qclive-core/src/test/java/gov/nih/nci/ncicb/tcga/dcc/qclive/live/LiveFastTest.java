@@ -15,6 +15,7 @@ import gov.nih.nci.ncicb.tcga.dcc.common.bean.Center;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.Platform;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.ArchiveQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.CenterQueries;
+import gov.nih.nci.ncicb.tcga.dcc.common.dao.FileInfoQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.PlatformQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailErrorHelper;
 import gov.nih.nci.ncicb.tcga.dcc.common.mail.MailSender;
@@ -132,6 +133,11 @@ public class LiveFastTest {
             ArchiveQueries.class, "archiveQueries_1");
     private ArchiveQueries mockDiseaseArchiveQueries = context.mock(
             ArchiveQueries.class, "archiveQueries_2");
+    private FileInfoQueries mockCommonFileQueries =   context.mock(
+            FileInfoQueries.class, "commonFileInfoQueries");
+    private FileInfoQueries mockDiseaseFileQueries =   context.mock(
+            FileInfoQueries.class, "diseaseFileInfoQueries");
+
     private final Platform platForm = new Platform();
     private String failedArchiveRootPath = "";
     private String experimentArchiveNameFilter = "center_disease.platform.level.serialIndex.revision.series";
@@ -174,6 +180,8 @@ public class LiveFastTest {
         live.setMailSender(mockMailSender);
         live.setCommonArchiveQueries(mockArchiveQueries);
         live.setDiseaseArchiveQueries(mockDiseaseArchiveQueries);
+        live.setCommonFileInfoQueries(mockCommonFileQueries);
+        live.setDiseaseFileInfoQueries(mockDiseaseFileQueries);
         live.setInitialWaitMinutes(30);
         live.setValidClinicalPlatforms("bio,clinical");
         live.setEmailBcc("newArchiveList");
@@ -266,10 +274,41 @@ public class LiveFastTest {
                         with(any(String.class)), with(any(Calendar.class)),
                         with(any(QcLiveStateBean.class)),
                         with(any(String.class)));
+                one(mockArchiveQueries).getArchive("test");
+                will(returnValue(null));
             }
         });
 
-        live.processUpload("test", 1, stateContext);
+        live.processUpload("test.tar.gz", 1, stateContext);
+        assertEquals(Archive.STATUS_UPLOADED, archive.getDeployStatus());
+    }
+
+    @Test
+    public void testProcessUploadForExistingFailedArechive() throws Processor.ProcessorException,
+            SchedulerException {
+        final Archive existingFailedArchive = new Archive("test_archive.tar.gz");
+        existingFailedArchive.setDeployStatus(Archive.STATUS_INVALID);
+
+        context.checking(new Expectations() {
+            {
+                one(mockArchiveQueries).getArchive("test");
+                will(returnValue(existingFailedArchive));
+                one(mockDiseaseFileQueries).deleteFilesFromArchive(existingFailedArchive.getArchiveName());
+                one(mockCommonFileQueries).deleteFilesFromArchive(existingFailedArchive.getArchiveName());
+
+                one(mockUploadChecker).execute(testFile, qcContext);
+                will(uploadArchive(archive));
+                allowing(mockLogger).log(with(any(Level.class)),
+                        with(any(String.class)));
+                one(mockLiveScheduler).scheduleExperimentCheck(
+                        with(any(String.class)), with(any(String.class)),
+                        with(any(String.class)), with(any(Calendar.class)),
+                        with(any(QcLiveStateBean.class)),
+                        with(any(String.class)));
+            }
+        });
+
+        live.processUpload("test.tar.gz", 1, stateContext);
         assertEquals(Archive.STATUS_UPLOADED, archive.getDeployStatus());
     }
 
@@ -312,6 +351,9 @@ public class LiveFastTest {
                 one(mockArchiveLogger).addErrorMessage(1l, "domain_tumor.platform.test",
                         errorMesssage);
                 one(mockArchiveLogger).endTransaction(1l, false);
+                one(mockArchiveQueries).getArchive(archive.getArchiveName());
+                will(returnValue(null));
+
             }
         });
         live.processUpload(archive.getDepositLocation(), 1, stateContext);
@@ -344,6 +386,9 @@ public class LiveFastTest {
                         with(any(Integer.class)),
                         with(any(QcLiveStateBean.class)));
                 one(mockLogger).log(Level.INFO, "Retrying MD5 Check again.");
+                one(mockArchiveQueries).getArchive(archive.getArchiveName());
+                will(returnValue(null));
+
             }
         });
         live.processUpload(archive.getDepositLocation(), 1, stateContext);
@@ -391,6 +436,9 @@ public class LiveFastTest {
                 one(mockArchiveLogger)
                         .addErrorMessage(1l, "domain_tumor.platform.test", errorMessage);
                 one(mockArchiveLogger).endTransaction(1l, false);
+                one(mockArchiveQueries).getArchive(archive.getArchiveName());
+                will(returnValue(null));
+
             }
         });
 
@@ -442,6 +490,9 @@ public class LiveFastTest {
                 one(mockArchiveLogger).addErrorMessage(1l, "domain_tumor.platform.test",
                         expectedEmailBody);
                 one(mockArchiveLogger).endTransaction(1l, false);
+                one(mockArchiveQueries).getArchive(archive.getArchiveName());
+                will(returnValue(null));
+
             }
         });
 
@@ -702,6 +753,9 @@ public class LiveFastTest {
                         errorMessage);
                 one(mockArchiveLogger).endTransaction("domain_tumor.platform.test", false);
                 one(mockArchiveLogger).endTransaction(1l, false);
+                one(mockCommonFileQueries).deleteFilesFromArchive(archive.getArchiveName());
+                one(mockDiseaseFileQueries).deleteFilesFromArchive(archive.getArchiveName());
+
             }
         });
         live.checkExperiment(platform, centerType, stateContext);
@@ -746,6 +800,8 @@ public class LiveFastTest {
                         errorMessage);
                 one(mockArchiveLogger).endTransaction(1l, false);
                 one(mockArchiveLogger).endTransaction("domain_tumor.platform.test", false);
+                one(mockCommonFileQueries).deleteFilesFromArchive(archive.getArchiveName());
+                one(mockDiseaseFileQueries).deleteFilesFromArchive(archive.getArchiveName());
 
             }
         });
@@ -851,6 +907,9 @@ public class LiveFastTest {
                 one(mockArchiveLogger).addErrorMessage(with(any(Long.class)),
                         with(any(String.class)), with(any(String.class)));
                 one(mockArchiveLogger).endTransaction(1l, false);
+                one(mockArchiveQueries).getArchive("center_disease.platform.type.0.0.0");
+                will(returnValue(null));
+
             }
         });
 
@@ -1088,6 +1147,11 @@ public class LiveFastTest {
                 one(mockArchiveLogger).endTransaction("uploaded", false);
                 one(mockArchiveLogger).endTransaction("validated", false);
                 one(mockArchiveLogger).endTransaction(1L, false);
+                one(mockCommonFileQueries).deleteFilesFromArchive(uploadedArchive.getArchiveName());
+                one(mockDiseaseFileQueries).deleteFilesFromArchive(uploadedArchive.getArchiveName());
+                one(mockCommonFileQueries).deleteFilesFromArchive(validatedArchive.getArchiveName());
+                one(mockDiseaseFileQueries).deleteFilesFromArchive(validatedArchive.getArchiveName());
+
 
             }
         });

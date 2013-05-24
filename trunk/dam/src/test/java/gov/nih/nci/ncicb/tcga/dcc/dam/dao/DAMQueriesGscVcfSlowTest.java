@@ -18,7 +18,6 @@ import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataSetGscVcf;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataSetLevelOne;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataSetLevelTwoThree;
 import gov.nih.nci.ncicb.tcga.dcc.dam.bean.DataSetMutation;
-import gov.nih.nci.ncicb.tcga.dcc.dam.util.TumorNormalClassifierI;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
 
     public void testGetDataSetsForDisease() throws DataAccessMatrixQueries.DAMQueriesException {
         final List<DataSet> diseaseDataSets = damQueriesGscVcf.getDataSetsForDiseaseType("DIS1");
-        assertEquals(6, diseaseDataSets.size());
+        assertEquals(7, diseaseDataSets.size());
 
         final List<String> sampleBarcodes = new ArrayList<String>();
         for (final DataSet dataSet : diseaseDataSets) {
@@ -96,11 +95,10 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
         dataSets.add(new DataSetLevelTwoThree());
 
         final List<DataFile> dataFiles = damQueriesGscVcf.getFileInfoForSelectedDataSets(dataSets, false);
-        assertEquals(3, dataFiles.size());
+        assertEquals(4, dataFiles.size());
         for (final DataFile dataFile : dataFiles) {
             assertEquals("DIS1", dataFile.getDiseaseType());
             assertEquals("2", dataFile.getLevel());
-            assertEquals("1", dataFile.getCenterId());
             assertTrue(dataFile.isPermanentFile());
 
             if (dataFile.getFileName().equals("file1.vcf")) {
@@ -108,6 +106,7 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-1111-01A-01W-1111-99"));
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-1111-10A-01W-1111-99"));
                 assertEquals("2", dataFile.getPlatformId());
+                assertEquals("1", dataFile.getCenterId());
                 assertEquals("2", dataFile.getPlatformTypeId());
                 assertEquals("1", dataFile.getFileId());
                 assertTrue(dataFile.isProtected());
@@ -117,6 +116,7 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-2222-01A-01W-1111-99"));
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-2222-10A-01W-1111-99"));
                 assertEquals("2", dataFile.getPlatformId());
+                assertEquals("1", dataFile.getCenterId());
                 assertEquals("2", dataFile.getPlatformTypeId());
                 assertEquals("3", dataFile.getFileId());
                 assertTrue(dataFile.isProtected());
@@ -126,10 +126,19 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-5555-01A-01W-1111-99"));
                 assertTrue(dataFile.getBarcodes().contains("TCGA-00-5555-10A-01W-1111-99"));
                 assertEquals("1", dataFile.getPlatformId());
+                assertEquals("1", dataFile.getCenterId());
                 assertEquals("1", dataFile.getPlatformTypeId());
                 assertEquals("7", dataFile.getFileId());
                 assertFalse(dataFile.isProtected());
 
+            } else if (dataFile.getFileName().equals("gsc2.somatic.vcf")) {
+                assertEquals(1, dataFile.getBarcodes().size());
+                assertTrue(dataFile.getBarcodes().contains("TCGA-00-5555-01A-01W-1111-99"));
+                assertEquals("1", dataFile.getPlatformId());
+                assertEquals("1", dataFile.getPlatformTypeId());
+                assertEquals("3", dataFile.getCenterId());
+                assertEquals("9", dataFile.getFileId());
+                assertFalse(dataFile.isProtected());
             } else {
                 fail("Unexpected data file: " + dataFile.getFileName());
             }
@@ -149,6 +158,8 @@ public class DAMQueriesGscVcfSlowTest extends DBUnitTestCase {
                 assertEquals("/fake/path/to/archive/file2.vcf", dataFile.getPath());
             } else if (dataFile.getFileId().equals("7")) {
                 assertEquals("/public/archive/somatic.vcf", dataFile.getPath());
+            } else if (dataFile.getFileId().equals("9")) {
+                assertEquals("who knows", dataFile.getPath());
             } else {
                 fail("Unexpected data file id: " + dataFile.getFileId());
             }

@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -9,7 +9,7 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.datareports.service;
 
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.ExtJsFilter;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.dao.BamTelemetryReportDAO;
 import org.jmock.Expectations;
@@ -80,7 +80,7 @@ public class BamTelemetryReportServiceFastTest {
             add("GBM");
         }};
         List<BamTelemetry> bList = service.getFilteredBamTelemetryList(makeMockBamTelemetryRows(),
-                null, null, null, null, gbmList, null, null, null);
+                null, null, null, null, gbmList, null, null, null, null);
         assertNotNull(bList);
         assertEquals(2, bList.size());
         assertEquals("mockcenter1", bList.get(0).getCenter());
@@ -89,7 +89,7 @@ public class BamTelemetryReportServiceFastTest {
     @Test
     public void testGetFilteredAliquotListForNull() {
         List<BamTelemetry> bList = service.getFilteredBamTelemetryList(makeMockBamTelemetryRows(),
-                null, null, null, null, null, null, null, null);
+                null, null, null, null, null, null, null, null, null);
         assertNotNull(bList);
         assertEquals(makeMockBamTelemetryRows().size(), bList.size());
     }
@@ -97,7 +97,7 @@ public class BamTelemetryReportServiceFastTest {
     @Test
     public void testGetFilteredBamTelemetryListForAliquot() {
         List<BamTelemetry> bList = service.getFilteredBamTelemetryList(makeMockBamTelemetryRows(),
-                null, "mockaliq", null, null, null, null, null, null);
+                null, "mockaliq", null, null, null, null, null, null, null);
         assertNotNull(bList);
         assertEquals(3, bList.size());
         assertEquals("mockaliquot1", bList.get(0).getAliquotId());

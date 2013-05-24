@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.4.xsd">
+
+    <jb:bean beanId="bamXmlResultSet" class="gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamXmlResultSet"
+             createOnElement="/ResultSet">
+        <jb:value property="fetchDate" decoder="Date" data="/ResultSet/@date">
+            <jb:decodeParam name="format">yyyy-MM-dd HH:mm:ss</jb:decodeParam>
+        </jb:value>
+        <jb:wiring property="bamXmlResultList" beanIdRef="bamXmlResultList"/>
+    </jb:bean>
+
+    <jb:bean beanId="bamXmlResultList" class="java.util.ArrayList" createOnElement="/ResultSet">
+        <jb:wiring beanIdRef="bamXmlResult"/>
+    </jb:bean>
+
+    <jb:bean beanId="bamXmlResult" class="gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamXmlResult"
+             createOnElement="/ResultSet/Result">
+        <jb:value property="analysisId" data="/analysis_id"/>
+        <jb:value property="state" data="/state"/>
+        <jb:value property="disease" data="/disease_abbr"/>
+        <jb:value property="aliquotUUID" data="/aliquot_id"/>
+        <jb:value property="center" data="/center_name"/>
+        <jb:value property="dateReceived" data="/upload_date"/>
+        <jb:value property="analyteCode" data="/analyte_code"/>
+        <jb:value property="libraryStrategy" data="/library_strategy"/>
+        <jb:wiring property="bamXmlFileRefList" beanIdRef="bamXmlFileRefList"/>
+    </jb:bean>
+
+    <jb:bean beanId="bamXmlFileRefList" class="java.util.ArrayList" createOnElement="/ResultSet/Result/files">
+        <jb:wiring beanIdRef="bamFileRef"/>
+    </jb:bean>
+
+    <jb:bean beanId="bamFileRef" class="gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamXmlFileRef"
+             createOnElement="/ResultSet/Result/files/file">
+        <jb:value property="fileName" data="/filename"/>
+        <jb:value property="fileSize" data="/filesize"/>
+    </jb:bean>
+
+</smooks-resource-list>

@@ -12,7 +12,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -->
 
-<configuration debug="true">
+<configuration debug="false">
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--
@@ -24,17 +24,13 @@
         <withJansi>false</withJansi>
         
         <encoder>
-            <pattern>%date [%thread] %highlight(%-5level) %cyan(%-15logger{15}) %X - %msg %n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
         
     </appender>
     
-    <logger name="org.vertx" level="INFO"/>
-    
-    <logger name="gov.nih.nci.ncicb.tcga.dcc.io" level="INFO"/>
-    
-    <root level="CONSOLE">
-        <appender-ref ref="STDOUT" />
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>

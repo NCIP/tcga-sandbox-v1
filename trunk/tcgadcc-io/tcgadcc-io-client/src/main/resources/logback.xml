@@ -12,9 +12,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -->
 
-<configuration debug="true">
+<configuration debug="false">
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--
             On Windows machines setting with Jansi to true enables ANSI color 
             code interpretation by the Jansi library. This requires org.fusesource.jansi:jansi:1.8 
@@ -24,13 +24,13 @@
         <withJansi>false</withJansi>
         
         <encoder>
-            <pattern>%date [%thread] %highlight(%-5level) %cyan(%-15logger{15}) %X - %msg %n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
         
     </appender>
     
-    <root level="DEBUG">
-        <appender-ref ref="STDOUT" />
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>

@@ -9,23 +9,28 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.common.security.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.AclSecurityUtil;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.DccAnnotationNoteRetrievalStrategy;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.SecurityUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.acls.AccessControlEntry;
-import org.springframework.security.acls.MutableAcl;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.NotFoundException;
-import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
-import org.springframework.security.acls.sid.PrincipalSid;
-import org.springframework.security.acls.sid.Sid;
+import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.MutableAcl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.Sid;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -91,7 +96,7 @@ public class AclSecurityUtilImpl implements AclSecurityUtil {
 
         final boolean granting = true;
         try {
-            acl.insertAce(acl.getEntries().length, permission, recipient, granting);
+            acl.insertAce(acl.getEntries().size(), permission, recipient, granting);
         } catch (NotFoundException nfe) {
             logger.debug("Could not insert ACE [recipient:" + recipient + ", with permission:" + permission + ", granting:" + granting + "] (NotFoundException)");
         }
@@ -111,10 +116,12 @@ public class AclSecurityUtilImpl implements AclSecurityUtil {
         // Retrieve the relevant ACL
         MutableAcl acl;
         try {
-            Sid[] sidArray = {recipient};
-            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sidArray);
+            List<Sid> sidList = new ArrayList<Sid>();
+            sidList.add(recipient);
+            
+            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sidList);
 
-            AccessControlEntry[] accessControlEntries = acl.getEntries();
+            List<AccessControlEntry> accessControlEntries = acl.getEntries();
             for (final AccessControlEntry accessControlEntry : accessControlEntries) {
 
                 if (accessControlEntry.getPermission().getMask() == permission.getMask()) {

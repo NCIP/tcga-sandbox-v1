@@ -10,10 +10,9 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
     <!-- this advises any method call by any proxied class -->
@@ -77,6 +76,8 @@
         <property name="platformQueries" ref="platformQueries"/>
         <property name="commonArchiveQueries" ref="archiveQueries"/>
         <property name="diseaseArchiveQueries" ref="diseaseArchiveQueries"/>
+        <property name="commonFileInfoQueries" ref="fileQueries" />
+        <property name="diseaseFileInfoQueries" ref="diseaseFileQueries" />
         <property name="experimentDAO" ref="experimentDAO"/>
         <property name="jobScheduler" ref="liveScheduler"/>
         <property name="waitHours" value="${tcga.dcc.qcLiveWaitHours}"/>
@@ -656,7 +657,7 @@
             <bean parent="qcLiveActionParent"
                   class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.MafFileProcessorDispatcher">
                 <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
-                <property name="supportedVersions" value="${tcga.dcc.mafVersions}" />
+                <property name="supportedVersions" value="${tcga.dcc.mafVersions}"/>
                 <property name="mafHandlers">
                     <map>
                         <entry key="1.0">
@@ -741,8 +742,8 @@
                   class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.ClinicalXmlProcessor">
                 <property name="bcrDataService" ref="bcrDataService"/>
                 <property name="bcrProcessor" ref="bcrIDProcessor"/>
-                <property name="uuidDAOService" ref="uuidDAOImpl"/>  
-                <property name="diseaseUuidDAOService" ref="diseaseUUIDDAO"/>                                                   
+                <property name="uuidDAOService" ref="uuidDAOImpl"/>
+                <property name="diseaseUuidDAOService" ref="diseaseUUIDDAO"/>
             </bean>
         </property>
     </bean>
@@ -991,7 +992,7 @@
         <property name="target">
             <bean parent="qcLiveActionParent"
                   class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.MafFileValidatorDispatcher">
-                <property name="supportedVersions" value="${tcga.dcc.mafVersions}" />
+                <property name="supportedVersions" value="${tcga.dcc.mafVersions}"/>
                 <property name="defaultSpecVersion" value="${tcga.dcc.mafVersion.FirstGen}"/>
                 <property name="mafHandlers">
                     <map>
@@ -1112,8 +1113,8 @@
             </bean>
         </property>
     </bean>
-    
-	<bean id="rnaSeqRSEMGeneResultsFileValidator" parent="qcProxyParent">
+
+    <bean id="rnaSeqRSEMGeneResultsFileValidator" parent="qcProxyParent">
         <property name="target">
             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMGeneResultsFileValidator">
                 <property name="qcLiveBarcodeAndUUIDValidator" ref="qcLiveBarcodeAndUUIDValidator"/>
@@ -1122,7 +1123,7 @@
             </bean>
         </property>
     </bean>
-    
+
     <bean id="rnaSeqRSEMIsoformNormalizedFileValidator" parent="qcProxyParent">
         <property name="target">
             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMIsoformNormalizedFileValidator">
@@ -1132,7 +1133,7 @@
             </bean>
         </property>
     </bean>
-    
+
     <bean id="rnaSeqRSEMIsoformFileValidator" parent="qcProxyParent">
         <property name="target">
             <bean class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.action.validation.RNASeqRSEMIsoformFileValidator">
@@ -1199,7 +1200,8 @@
         </property>
     </bean>
 
-    <bean id="vcfHeaderDefinitionStore" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.VcfHeaderDefinitionStoreDBImpl">
+    <bean id="vcfHeaderDefinitionStore"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.VcfHeaderDefinitionStoreDBImpl">
         <property name="vcfHeaderDefinitionQueries" ref="vcfHeaderDefinitionQueries"/>
     </bean>
 
@@ -1207,7 +1209,8 @@
         <property name="vcfHeaderDefinitionStore" ref="vcfHeaderDefinitionStore"/>
     </bean>
 
-    <bean id="vcfFileDataLineValidator" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.TcgaVcfFileDataLineValidatorImpl" scope="prototype"/>
+    <bean id="vcfFileDataLineValidator"
+          class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.TcgaVcfFileDataLineValidatorImpl" scope="prototype"/>
 
     <bean id="directoryLister" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.DirectoryListerImpl"/>
 
@@ -1289,7 +1292,7 @@
                 </property>
                 <property name="manifestParser" ref="manifestParser"/>
                 <property name="remote" value="false"/>
-                <property name="experimentQueries" ref="experimentQueries"/>                
+                <property name="experimentQueries" ref="experimentQueries"/>
             </bean>
         </property>
     </bean>
@@ -1452,7 +1455,7 @@
         <property name="waitForJobsToCompleteOnShutdown"
                   value="${tcga.dcc.quartzSchedulerWaitForJobsToCompleteOnShutdown}"/>
     </bean>
-        <bean id="uploadSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <bean id="uploadSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="schedulerName" value="qcLiveUploadScheduler"/>
         <property name="quartzProperties">
             <props>
@@ -1582,7 +1585,7 @@
           init-method="init">
     </bean>
 
-    <bean id="bioTabDataProcessorUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabDataProcessorUtil" />
+    <bean id="bioTabDataProcessorUtil" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabDataProcessorUtil"/>
 
     <bean id="bioTabFileGenerator" class="gov.nih.nci.ncicb.tcga.dcc.common.generation.BioTabFileGenerator"
           lazy-init="true" init-method="init">
@@ -1598,6 +1601,26 @@
 
     <bean id="bcrUtils" class="gov.nih.nci.ncicb.tcga.dcc.qclive.common.util.BCRUtilsImpl"/>
 
+    <bean id="bamParser" class="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.bamloader.BAMParser"/>
 
+    <bean id="bamLoaderCronJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerName" value="bamLoaderCronJobScheduler"/>
+        <property name="triggers">
+            <list>
+                <ref bean="bamLoaderSchedulerTrigger"/>
+            </list>
+
+        </property>
+    </bean>
+
+    <bean id="bamLoaderSchedulerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="bamLoaderSchedulerJob"/>
+        <property name="cronExpression" value="${tcga.dcc.bamLoaderCronExpression}"/>
+    </bean>
+
+    <bean id="bamLoaderSchedulerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="gov.nih.nci.ncicb.tcga.dcc.qclive.loader.bamloader.BAMLoaderSchedulerJob"/>
+        <property name="group" value="QCLive"/>
+    </bean>
 
 </beans>

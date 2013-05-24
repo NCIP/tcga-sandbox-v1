@@ -794,13 +794,15 @@ CREATE TABLE bam_file_datatype (
 DROP TABLE bam_file CASCADE CONSTRAINTS;
 CREATE TABLE bam_file (
     bam_file_id			NUMBER(38,0)    NOT NULL,
-    bam_file_name		VARCHAR2(100)	NOT NULL,
+    bam_file_name		VARCHAR2(256)	NOT NULL,
     disease_id			NUMBER(38,0)    NOT NULL,
     center_id			NUMBER(38,0)    NOT NULL,
     bam_file_size		NUMBER(38,0)    NOT NULL,
     date_received		DATE            NOT NULL,
     bam_datatype_id		NUMBER(38,0)    NOT NULL,
-    analyte_code	VARCHAR2(10),
+    analyte_code		VARCHAR2(10),
+    analysis_id			VARCHAR2(36)	NOT NULL,
+    dcc_received_date		DATE		NOT NULL,
     CONSTRAINT pk_bam_file_idx PRIMARY KEY (bam_file_id)
 );
 
@@ -819,6 +821,17 @@ ALTER TABLE bam_file ADD (
     REFERENCES portion_analyte(portion_analyte_code)
 );
 
+CREATE UNIQUE INDEX bam_file_uk_analysis_idx ON bam_file (analysis_id);
+
+CREATE TABLE cghub_center (
+    cghub_center_name   VARCHAR2(25) NOT NULL,
+    dcc_center_id       NUMBER(38) NOT NULL,
+    CONSTRAINT cghub_center_pk_idx PRIMARY KEY (cghub_center_name)
+);
+ALTER TABLE cghub_center ADD
+CONSTRAINT fk_cghub_center_centerid
+FOREIGN KEY (dcc_center_id)
+REFERENCES center(center_id);
 
 DROP TABLE biospecimen_to_bam_file CASCADE CONSTRAINTS PURGE;
 CREATE TABLE biospecimen_to_bam_file (

@@ -121,6 +121,11 @@ public class ArchiveReadmeCreatorFastTest {
 								"classification and organization (including data types and data levels), how to access the data, ",
 								"and a description of some possible ways to aggregate TCGA data. ",
 								"http://tcga-data.nci.nih.gov/docs/TCGA_Data_Primer.pdf")
+                + "\n"
+                + ArchiveReadmeCreator
+                .formatParagraph(
+                        ArchiveReadmeCreator.LINE_WIDTH, "If you use TCGA data in your publications, please follow the guidelines described at ",
+                        "http://cancergenome.nih.gov/abouttcga/policies/publicationguidelines.")
 				+ "\n"
 				+ "For even more information, please visit the TCGA Data Portal at http://tcga-data.nci.nih.gov\n"
 				+ "\n"

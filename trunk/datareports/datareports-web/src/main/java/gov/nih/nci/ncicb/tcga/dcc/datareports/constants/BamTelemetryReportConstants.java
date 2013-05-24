@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2009 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -31,6 +31,8 @@ public class BamTelemetryReportConstants {
     public static final String EMPTY_BAM_TELEMETRY_FILTER = "";
     public static final String DATE_RECEIVED = "dateReceived";
     public static final String BAM_FILE = "bamFile";
+    public static final String ANALYTE_CODE = "analyteCode";
+    public static final String LIBRARY_STRATEGY = "libraryStrategy";
 
     public static final Map<String, String> BAM_TELEMETRY_COLS = new LinkedHashMap<String, String>() {{
 
@@ -41,8 +43,9 @@ public class BamTelemetryReportConstants {
         put(DatareportsCommonConstants.ALIQUOT_ID, "Aliquot ID");
         put(DatareportsCommonConstants.PARTICIPANT_ID, "Participant ID");
         put(DatareportsCommonConstants.SAMPLE_ID, "Sample ID");
-        put(DatareportsCommonConstants.MOLECULE, "Molecule Type");
-        put(DatareportsCommonConstants.DATA_TYPE, "Data Type");
+        put(ANALYTE_CODE, "Analyte Code");
+        put(LIBRARY_STRATEGY, "SRA Library Strategy");
+        put(DatareportsCommonConstants.DATA_TYPE, "DCC Data Type");
         put(DatareportsCommonConstants.FILE_SIZE, "File Size");
         put(DatareportsCommonConstants.ALIQUOT_UUID, "UUID");
     }};
@@ -50,7 +53,7 @@ public class BamTelemetryReportConstants {
     public static final String QUERY_BAM_TELEMETRY_LIST = "select bam_file_name," +
             "disease_abbreviation,domain_name," +
             "bam_file_size,date_received,general_datatype," +
-            "molecule,built_barcode,center_type_code,uuid " +
+            "analyte_code,built_barcode,center_type_code,uuid,bam_datatype " +
             "from bam_file bf, shipped_biospecimen sb, " +
             "bam_file_datatype bfd, shipped_biospecimen_bamfile sbb, " +
             "center c, disease d " +

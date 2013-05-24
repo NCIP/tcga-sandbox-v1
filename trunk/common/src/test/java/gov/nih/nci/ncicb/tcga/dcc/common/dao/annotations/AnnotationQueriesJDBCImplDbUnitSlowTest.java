@@ -34,6 +34,7 @@ import org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrem
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -501,9 +502,9 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
         final DccAnnotationItem secondDccAnnotationItem = annotation.getItems().get(1);
         final DccAnnotationItem thirdDccAnnotationItem = annotation.getItems().get(2);
 
-        checkDccAnnotationItem(firstDccAnnotationItem, new Integer(2), "acorns");
-        checkDccAnnotationItem(secondDccAnnotationItem, new Integer(3), "the one with spots");
-        checkDccAnnotationItem(thirdDccAnnotationItem, new Integer(2), "the one with stripes");
+        checkDccAnnotationItem(firstDccAnnotationItem, 2, "acorns");
+        checkDccAnnotationItem(secondDccAnnotationItem, 3, "the one with spots");
+        checkDccAnnotationItem(thirdDccAnnotationItem, 2, "the one with stripes");
 
         assertEquals("now with USB capabilities", annotation.getNotes().get(0).getNoteText());
 
@@ -521,7 +522,7 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
     @Test
     public void testGetAnnotationByIdInconsistent() throws AnnotationQueries.AnnotationQueriesException {
         try {
-            final DccAnnotation annotation = queries.getAnnotationById(114L);
+            queries.getAnnotationById(114L);
         } catch (final BeanException be) {
             assertEquals("An annotation must be approved in order to be rescinded.", be.getMessage());
         }
@@ -842,11 +843,8 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
         assertTrue(annotation.getApproved()); // and database is updated
     }
 
-    /**
+    /*
      * For some reason the @Test (expected = AnnotationQueries.AnnotationQueriesException) does not work for this
-     *
-     * @throws AnnotationQueries.AnnotationQueriesException,
-     *          BeanException
      */
     @Test
     public void testSetNotCuratedAndRescinded() throws AnnotationQueries.AnnotationQueriesException, BeanException {
@@ -1110,6 +1108,11 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
         assertEquals(new Long(0L), result);
     }
 
+    public void testGetCategoryNameForId() {
+        assertEquals("Annotation Category 3", queries.getAnnotationCategoryNameForId(3L));
+        assertNull(queries.getAnnotationCategoryNameForId(123456L));
+    }
+
     /**
      * Query for 1 sample and assert that the result is as expected. If the expected sample is <code>null</code>
      * then it is expected that there is no match.
@@ -1122,9 +1125,7 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
 
         final String[] samplesArray = sample.split(",", -1);
         final List<String> samples = new ArrayList<String>();
-        for (final String sampleItem : samplesArray) {
-            samples.add(sampleItem);
-        }
+        Collections.addAll(samples, samplesArray);
 
         final List<DccAnnotation> result = queries.getAllAnnotationsForSamples(samples);
 
@@ -1153,9 +1154,7 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
                                                                    final String expectedSample) {
         final String[] samplesArray = sample.split(",", -1);
         final List<String> samples = new ArrayList<String>();
-        for (final String sampleItem : samplesArray) {
-            samples.add(sampleItem);
-        }
+        Collections.addAll(samples, samplesArray);
         final Long result = queries.getAllAnnotationsCountForSamples(samples);
         assertNotNull(result);
         if (expectedSample != null) {
@@ -1280,8 +1279,7 @@ public class AnnotationQueriesJDBCImplDbUnitSlowTest extends DBUnitTestCase {
         assertNotNull(dccAnnotation.getItems());
         assertEquals(1, dccAnnotation.getItems().size());
 
-        final DccAnnotationItem dccAnnotationItem = dccAnnotation.getItems().get(0);
-        return dccAnnotationItem;
+        return dccAnnotation.getItems().get(0);
     }
 
     /**

@@ -18,21 +18,21 @@ accordingly to make sure the tests reflect the latest security setup
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
-            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.4.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- =========== AUTHORIZATION WITH SPRING-ACL =========== -->
 
     <!-- a UserDetail service for the authorities populator -->
-    <bean id="jdbcUserService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl"
+    <bean id="jdbcUserService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl"
           p:dataSource-ref="dccCommonDataSource"
           p:enableAuthorities="true"
           p:enableGroups="true"
           p:rolePrefix=""/>
 
-    <bean id="populator" class="org.springframework.security.ldap.populator.UserDetailsServiceLdapAuthoritiesPopulator">
+    <bean id="populator" class="org.springframework.security.ldap.authentication.UserDetailsServiceLdapAuthoritiesPopulator">
         <constructor-arg>
             <ref local="jdbcUserService"/>
         </constructor-arg>
@@ -40,7 +40,7 @@ accordingly to make sure the tests reflect the latest security setup
 
     <!-- ACL cache for the lookup strategy -->
 
-    <bean id="aclCache" class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
+    <bean id="aclCache" class="org.springframework.security.acls.domain.EhCacheBasedAclCache">
         <constructor-arg>
             <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean"
                   p:cacheName="aclCache"
@@ -64,13 +64,13 @@ accordingly to make sure the tests reflect the latest security setup
             <bean class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
                 <constructor-arg>
                     <list>
-                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                        <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                             <constructor-arg value="ROLE_ADMINISTRATOR"/>
                         </bean>
-                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                        <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                             <constructor-arg value="ROLE_ADMINISTRATOR"/>
                         </bean>
-                        <bean class="org.springframework.security.GrantedAuthorityImpl">
+                        <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                             <constructor-arg value="ROLE_ADMINISTRATOR"/>
                         </bean>
                     </list>
@@ -97,7 +97,7 @@ accordingly to make sure the tests reflect the latest security setup
           p:staticField="org.springframework.security.acls.domain.BasePermission.WRITE"/>
 
     <!-- An access decision voter that reads ACL_ANNOTATION_NOTE_EDITOR configuration settings -->
-    <bean id="aclAnnotationNoteEditorVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <bean id="aclAnnotationNoteEditorVoter" class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg ref="aclService"/>
         <constructor-arg value="ACL_ANNOTATION_NOTE_EDITOR"/>
         <constructor-arg>
@@ -119,11 +119,11 @@ accordingly to make sure the tests reflect the latest security setup
             - an ACL based voter for DccAnnotationNote edition
      -->
     <util:list id="decisionVoters">
-        <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter"/>
+        <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
         <ref local="aclAnnotationNoteEditorVoter"/>
     </util:list>
 
-    <bean id="businessAccessDecisionManager" class="org.springframework.security.vote.UnanimousBased"
+    <bean id="businessAccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased"
           p:allowIfAllAbstainDecisions="true"
           p:decisionVoters-ref="decisionVoters">
     </bean>
@@ -174,16 +174,15 @@ accordingly to make sure the tests reflect the latest security setup
         <constructor-arg index="2" ref="contextSource"/>
     </bean>
 
-    <bean id="authenticator" class="org.springframework.security.providers.ldap.authenticator.BindAuthenticator"
+    <bean id="authenticator" class="org.springframework.security.ldap.authentication.BindAuthenticator"
           p:userSearch-ref="userSearch">
         <constructor-arg ref="contextSource"/>
     </bean>
 
-    <bean id="ldapAuthProvider" class="org.springframework.security.providers.ldap.LdapAuthenticationProvider">
+    <bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
         <constructor-arg ref="authenticator"/>
         <constructor-arg ref="populator"/>
-        <!-- For ACL -->
-        <security:custom-authentication-provider/>
+        
     </bean>
 
     <!-- =========== GENERAL CONFIGURATION FOR AUTHENTICATION ENTRY POINT =========== -->
@@ -197,22 +196,28 @@ accordingly to make sure the tests reflect the latest security setup
         <!-- Authentication exit point that defaults to /j_spring_security_logout -->
         <!-- Requiring HTTPS on all urls for now. In the future only login should be made over HTTPS -->
         <security:intercept-url pattern="/**" requires-channel="https"/>
+        <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
     </security:http>
 
     <bean id="authenticationProcessingFilterEntryPoint"
-          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint"
+          class="org.springframework.security.web.authentication.AuthenticationProcessingFilterEntryPoint"
           p:loginFormUrl="/webservice_login"
           p:forceHttps="false">
     </bean>
 
-    <security:authentication-manager alias="authenticationManager"/>
+    <security:authentication-manager alias="authenticationManager">
+        <!-- For ACL -->
+        <security:authentication-provider ref="ldapAuthProvider" />
+    </security:authentication-manager>
 
     <bean id="authenticationProcessingFilter"
-          class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter"
-          p:defaultTargetUrl="/"
+          class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
           p:authenticationManager-ref="authenticationManager"
-          p:authenticationFailureUrl="/webservice_authentication_failure">
-        <security:custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+          p:authenticationFailureHandler-ref="failureHandler">
     </bean>
-
+    
+    <bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"
+          p:defaultFailureUrl="/webservice_authentication_failure">
+    </bean>
+    
 </beans>

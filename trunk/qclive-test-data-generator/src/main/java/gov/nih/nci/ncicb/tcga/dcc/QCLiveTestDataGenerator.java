@@ -284,11 +284,17 @@ public class QCLiveTestDataGenerator {
 			
 			// Get the SQL statements from the SQL file
 			sqlStmts = getSQLStmtsToLowerCaseFromFile(sqlScriptFileResource.getURL());
-			
+            for(String sql: sqlStmts) {
+                System.out.println(sql+";");
+            }
+			try{
 			if(schemaType.equals(SchemaType.LOCAL_COMMON)) 
 				dccCommonLocalJdbcTemplate.batchUpdate(sqlStmts.toArray(new String[]{}));
 			else if(schemaType.equals(SchemaType.LOCAL_DISEASE))
 				diseaseLocalJdbcTemplate.batchUpdate(sqlStmts.toArray(new String[]{}));
+            }catch(Exception e){
+               e.printStackTrace();
+            }
 		}
 		else
 			throw new NullPointerException("Cannot execute SQL script file for schema '" + schemaType + "' and file '" + sqlScriptFileResource + "'.");
@@ -322,6 +328,9 @@ public class QCLiveTestDataGenerator {
 		
 		// If the list of generated SQL statements is not empty execute the insert statements against the users local common test 
 		// schema referenced by dccCommonLocalJdbcTemplate, otherwise do nothing and log a warning statement
+        for(String sql: insertsForCommonTestData) {
+        System.out.println( sql);
+        }
 		if(insertsForCommonTestData.isEmpty())
 			logger.warn("No insert statements were generated using SQL script file '" + sqlScriptFileNameURL + "'. " +
 					"Common test data will not be loaded.");

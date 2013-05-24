@@ -77,6 +77,14 @@
                          built_barcode="TCGA-AV-0007-20A-11W-A019-09" project_code="TCGA" tss_code="AV"
                          participant_code="0007" bcr_center_id="08" is_viewable="1" is_redacted="0" is_control="1"/>
 
+    <!-- redacted but still viewable -->
+    <shipped_biospecimen shipped_biospecimen_id="14" uuid="uuid14" shipped_item_type_id="1"
+                             built_barcode="TCGA-00-0007-01A-11W-A019-09" project_code="TCGA" tss_code="00"
+                             participant_code="0006" bcr_center_id="08" is_viewable="1" is_redacted="1" is_control="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="15" uuid="uuid15" shipped_item_type_id="1"
+                             built_barcode="TCGA-00-0007-10A-11W-A019-09" project_code="TCGA" tss_code="00"
+                             participant_code="0006" bcr_center_id="08" is_viewable="1" is_redacted="1" is_control="0"/>
+
 
     <!-- public platform, level 2, latest -->
     <archive_info ARCHIVE_ID="100" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq.Level_2.1.1.0" ARCHIVE_TYPE_ID="2"
@@ -100,7 +108,7 @@
               MUTATION_STATUS="Somatic"
               SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE=""
               SEQUENCER="Illumina GAIIx" LINE_NUMBER="3"/>
-    <!-- this record is for a redacted case so ignored -->
+    <!-- this record is for a not viewable case so ignored -->
     <maf_info MAF_INFO_ID="1100" MAF_KEY_ID="1" FILE_ID="1" HUGO_SYMBOL="A2M" VARIANT_CLASSIFICATION="Missense_Mutation"
               VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
               DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0005-01A-11W-A019-09"
@@ -119,7 +127,15 @@
               MUTATION_STATUS="Somatic"
               SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE=""
               SEQUENCER="Illumina GAIIx" LINE_NUMBER="3"/>
-
+    <!-- this record is for an aliquot that's redacted but viewable so NOT ignored -->
+     <maf_info MAF_INFO_ID="1300" MAF_KEY_ID="1" FILE_ID="1" HUGO_SYMBOL="A2M" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0007-01A-11W-A019-09"
+              MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0007-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Unknown"
+              MUTATION_STATUS="Somatic"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE=""
+              SEQUENCER="Illumina GAIIx" LINE_NUMBER="3"/>
 
     <!-- protected platform, level 2, latest -->
     <archive_info ARCHIVE_ID="101" ARCHIVE_NAME="broad.mit.edu_TEST.IlluminaGA_DNASeq_Cont.Level_2.1.0.0"
@@ -192,5 +208,13 @@
               SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE=""
               SEQUENCER="Illumina GAIIx" LINE_NUMBER="3"/>
 
+    <!-- maf record for TCGA-00-0003-01 in protected archive -->
+     <maf_info MAF_INFO_ID="1006" MAF_KEY_ID="2" FILE_ID="4" HUGO_SYMBOL="A2M" VARIANT_CLASSIFICATION="Missense_Mutation"
+              VARIANT_TYPE="SNP" REFERENCE_ALLELE="T" TUMOR_SEQ_ALLELE1="C" TUMOR_SEQ_ALLELE2="C" DBSNP_RS="rs669"
+              DBSNP_VAL_STATUS="Unknown" TUMOR_SAMPLE_BARCODE="TCGA-00-0003-01A-11W-A019-09"
+              MATCH_NORM_SAMPLE_BARCODE="TCGA-00-0003-10A-11W-A019-09"
+              MATCH_NORM_SEQ_ALLELE1="C" MATCH_NORM_SEQ_ALLELE2="C" VALIDATION_STATUS="Invalid" MUTATION_STATUS="Germline"
+              SEQUENCING_PHASE="Phase I" SEQUENCE_SOURCE="Capture" VALIDATION_METHOD="Sequenom" SCORE="" BAM_FILE=""
+              SEQUENCER="Illumina GAIIx" LINE_NUMBER="3"/>
 
 </dataset>

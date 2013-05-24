@@ -94,4 +94,10 @@ public interface FileInfoQueries {
      * @param archiveIds the Ids of the archives for which to update the files deploy location to public
      */
     public void updateArchiveFilesLocationToPublic(final Set<Long> archiveIds);
+
+    /**
+     * Deletes all the file id references for the given archive.
+     * @param archiveName archiveName.
+     */
+    void deleteFilesFromArchive(final String archiveName);
 }

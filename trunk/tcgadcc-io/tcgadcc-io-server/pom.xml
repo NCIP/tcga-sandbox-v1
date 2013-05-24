@@ -30,6 +30,24 @@
                 <artifactId>scala-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <configuration>
+                    <daemons>
+                        <daemon>
+                            <id>app1</id>
+                            <mainClass>gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.WebSocketServerLauncher</mainClass>
+                            <commandLineArguments>
+                                <commandLineArgument>start</commandLineArgument>
+                            </commandLineArguments>
+                            <platforms>
+                                <platform>jsw</platform>
+                            </platforms>
+                        </daemon>
+                    </daemons>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
@@ -108,19 +126,7 @@
             <artifactId>websocket-client</artifactId>
         </dependency>
         
-        <!-- Vertx IO -->
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-platform</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>testtools</artifactId>
-        </dependency>
+        
         
         <!-- LMAX -->
         <dependency>

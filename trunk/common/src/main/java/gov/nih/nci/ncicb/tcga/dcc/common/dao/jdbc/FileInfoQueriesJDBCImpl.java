@@ -39,7 +39,17 @@ import static gov.nih.nci.ncicb.tcga.dcc.ConstantValues.IN_CLAUSE_SIZE;
 public class FileInfoQueriesJDBCImpl extends BaseQueriesProcessor implements FileInfoQueries {
     private static final String IN_CLAUSE_PLACEHOLDER = "IN_CLAUSE";
     private static final String FILE_INFO_INSERT_QUERY = " INSERT INTO file_info (file_id, file_name, file_size, level_number, data_type_id, md5) " +
-            "values (?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?)";
+
+    private static final String DELETE_ARCHIVE_FILES_QUERY = "delete from file_info fi" +
+            " where fi.file_id in " +
+            " (select fi.file_id from" +
+            " file_info fi," +
+            " file_to_archive fta," +
+            " archive_info a where" +
+            " fi.file_id = fta.file_id and" +
+            " fta.archive_id = a.archive_id and" +
+            " a.archive_name like ?)";
 
     private static final String FILE_INFO_DELETE_FILES_QUERY = "DELETE FROM file_info where file_id IN(" +
             IN_CLAUSE_PLACEHOLDER +
@@ -95,7 +105,7 @@ public class FileInfoQueriesJDBCImpl extends BaseQueriesProcessor implements Fil
                 "and fa.archive_id= ?";
 
         List<FileInfo> fileInfoList = getJdbcTemplate().query(query, new Object[]{fileInfoQueryRequest.getArchiveId()}, getFileInfoRowMapperWithFileLocationUrl());
-        return (fileInfoList == null || fileInfoList.size() == 0 ? null : fileInfoList);
+        return fileInfoList;
     }
 
 
@@ -321,6 +331,10 @@ public class FileInfoQueriesJDBCImpl extends BaseQueriesProcessor implements Fil
 
             getJdbcTemplate().update(UPDATE_FILES_LOCATION_TO_PUBLIC.replace(ARCHIVE_IDS_PLACEHOLDER, archiveIdsPlaceHolder), archiveIdsSubList.toArray());
         }
+    }
+
+    public void deleteFilesFromArchive(final String archiveName) {
+        getJdbcTemplate().update(DELETE_ARCHIVE_FILES_QUERY, archiveName);
     }
 
     private ParameterizedRowMapper<FileInfo> getFileInfoRowMapper() {

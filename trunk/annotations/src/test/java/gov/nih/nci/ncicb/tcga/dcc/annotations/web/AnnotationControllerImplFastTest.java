@@ -9,6 +9,7 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.annotations.web;
 
+import static org.junit.Assert.*;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotation;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationCategory;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationClassification;
@@ -24,6 +25,14 @@ import gov.nih.nci.ncicb.tcga.dcc.common.security.SecurityUtil;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.impl.SecurityUtilImpl;
 import gov.nih.nci.ncicb.tcga.dcc.common.service.annotations.AnnotationService;
 import gov.nih.nci.ncicb.tcga.dcc.common.service.annotations.AnnotationServiceImpl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -32,18 +41,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.ui.ExtendedModelMap;
-
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 
 /**

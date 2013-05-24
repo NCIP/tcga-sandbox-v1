@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -10,9 +10,9 @@
 package gov.nih.nci.ncicb.tcga.dcc.datareports.service;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.aspect.cache.Cached;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.common.util.FancyExceptionLogger;
 import gov.nih.nci.ncicb.tcga.dcc.common.util.GetterMethod;
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.ExtJsFilter;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.dao.BamTelemetryReportDAO;
 import org.apache.commons.collections.CollectionUtils;
@@ -35,12 +35,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.ANALYTE_CODE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.BAM_TELEMETRY_COLS;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.LIBRARY_STRATEGY;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.CENTER;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATA_TYPE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_FORMAT_US_STRING;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DISEASE;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.MOLECULE;
 
 /**
  * bam telemetry service implementation
@@ -68,18 +69,26 @@ public class BamTelemetryReportServiceImpl implements BamTelemetryReportService 
 
     @Override
     public List<BamTelemetry> getFilteredBamTelemetryList(final List<BamTelemetry> list,
-                                                          final String aliquotUUID, final String aliquotId, final String dateFrom, final String dateTo, final List<String> disease,
-                                                          final List<String> center, final List<String> dataType, final List<String> molecule) {
+                                                          final String aliquotUUID,
+                                                          final String aliquotId,
+                                                          final String dateFrom,
+                                                          final String dateTo,
+                                                          final List<String> disease,
+                                                          final List<String> center,
+                                                          final List<String> dataType,
+                                                          final List<String> analyteCode,
+                                                          final List<String> libraryStrategy) {
         final StringBuilder strLog = new StringBuilder();
         final DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_US_STRING);
         strLog.append("Filter used: aliquotUUID:").append(aliquotUUID).append("aliquotID")
                 .append(aliquotId).append(" disease:")
                 .append(disease).append(" center:").append(center).append(" dataType:")
-                .append(dataType).append(" molecule:").append(molecule).append(" dateFrom:")
-                .append(dateFrom).append(" dateTo:").append(dateTo);
+                .append(dataType).append(" analyteCode:").append(analyteCode).append(" dateFrom:")
+                .append(dateFrom).append(" dateTo:").append(dateTo).append(" libraryStrategy:")
+                .append(libraryStrategy);
         logger.debug(strLog);
         if (aliquotId == null && aliquotUUID == null && disease == null && center == null && dataType == null &&
-                molecule == null && dateFrom == null && dateTo == null) {
+                analyteCode == null && dateFrom == null && dateTo == null && libraryStrategy == null) {
             return list;
         }
 
@@ -103,7 +112,8 @@ public class BamTelemetryReportServiceImpl implements BamTelemetryReportService 
         commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, disease, DISEASE);
         commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, center, CENTER);
         commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, dataType, DATA_TYPE);
-        commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, molecule, MOLECULE);
+        commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, analyteCode, ANALYTE_CODE);
+        commonService.genORPredicateList(BamTelemetry.class, bamPredicateList, libraryStrategy, LIBRARY_STRATEGY);
 
         Predicate bamTelemetryPredicates = PredicateUtils.allPredicate(bamPredicateList);
         List<BamTelemetry> fList = (List<BamTelemetry>) CollectionUtils.select(list, bamTelemetryPredicates);

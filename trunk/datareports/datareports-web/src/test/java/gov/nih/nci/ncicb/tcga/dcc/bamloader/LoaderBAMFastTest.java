@@ -55,6 +55,7 @@ public class LoaderBAMFastTest {
         daoServiceField.setAccessible(true);
         daoServiceField.set(service, dao);
         props.setBAMFilePath(EXCEL_PATH);
+        props.setExtendedBAMFile(false);
     }
 
     @Test

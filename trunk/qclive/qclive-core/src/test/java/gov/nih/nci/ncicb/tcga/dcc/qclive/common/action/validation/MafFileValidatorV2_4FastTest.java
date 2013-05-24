@@ -286,7 +286,7 @@ public class MafFileValidatorV2_4FastTest {
     }
 
     @Test
-    public void testInvalidProtectedMAFFilename() {
+    public void testInvalidSomaticDataTypeFilename() {
 
         qcContext.setPlatformName("IlluminaGA_DNASeq");
         File mafFile = new File(MAFV2_4_DIR + "/validArchive/genome.wustl.edu_OV.IlluminaGA_DNASeq.Level_2.7.somatic.protected.maf");
@@ -303,10 +303,31 @@ public class MafFileValidatorV2_4FastTest {
             mafFileValidator.validateFilename(mafFile.getName(), qcContext);
             fail("Not a valid filename. Must throw an exception");
         } catch (Exception e) {
-            assertTrue(e.getMessage().contains("Failed processing maf file genome.wustl.edu_OV.IlluminaGA_DNASeq.Level_2.7.somatic.protected.maf. File extension must be SOMATIC_MAF_EXTENSION"));
+            assertEquals("Failed processing maf file genome.wustl.edu_OV.IlluminaGA_DNASeq.Level_2.7.somatic.protected.maf. File extension must be .somatic.maf",e.getMessage());
         }
     }
 
+    @Test
+    public void testInvalidProtectedDataTypeFilename() {
+
+        qcContext.setPlatformName("IlluminaGA_DNASeq_Cont");
+        File mafFile = new File(MAFV2_4_DIR + "/validArchive/genome.wustl.edu_OV.IlluminaGA_DNASeq_Cont.Level_2.7.somatic.maf");
+        qcContext.getArchive().setArchiveFile(new File(MAFV2_4_DIR
+                + "/validArchive/genome.wustl.edu_OV.IlluminaGA_DNASeq_Cont.Level_2.7.somatic.tar.gz"));
+
+        context.checking(new Expectations() {{
+            one(mockDataTypeQueries).getBaseDataTypeNameForPlatform("IlluminaGA_DNASeq_Cont");
+            will(returnValue(DataTypeName.PROTECTED_MUTATIONS.getValue()));
+        }
+        });
+
+        try {
+            mafFileValidator.validateFilename(mafFile.getName(), qcContext);
+            fail("Not a valid filename. Must throw an exception");
+        } catch (Exception e) {
+            assertEquals("Failed processing maf file genome.wustl.edu_OV.IlluminaGA_DNASeq_Cont.Level_2.7.somatic.maf. File extension must be .protected.maf",e.getMessage());
+        }
+    }
 
     @Test
     public void testMAFHeaderOK() throws Exception {

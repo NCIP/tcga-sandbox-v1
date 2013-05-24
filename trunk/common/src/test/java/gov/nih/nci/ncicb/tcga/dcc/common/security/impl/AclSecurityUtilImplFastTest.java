@@ -9,27 +9,31 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.common.security.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.DccAnnotationNote;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.annotations.AnnotationQueries;
 import gov.nih.nci.ncicb.tcga.dcc.common.security.AclSecurityUtil;
+
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.security.acls.AccessControlEntry;
-import org.springframework.security.acls.MutableAcl;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.NotFoundException;
-import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
-import org.springframework.security.acls.sid.Sid;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.MutableAcl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.Sid;
 
 /**
  * This class tests the AclSecurityUtilImpl class for unusual cases
@@ -95,7 +99,8 @@ public class AclSecurityUtilImplFastTest {
         final DccAnnotationNote dccAnnotationNote = new DccAnnotationNote();
         dccAnnotationNote.setNoteId(1L);
         final Sid recipient = null;
-        final Sid[] recipientArray = {recipient};
+        final List<Sid> recipientList = new ArrayList<Sid>();
+        recipientList.add(recipient);
         final Permission permission = BasePermission.WRITE;
         final Permission differentPermission = BasePermission.READ;
         assertTrue(permission != differentPermission);
@@ -107,7 +112,7 @@ public class AclSecurityUtilImplFastTest {
         context.checking(new Expectations() {{
             one(mutableAclService).readAclById(
                     new ObjectIdentityImpl(DccAnnotationNote.class, dccAnnotationNote.getNoteId()),
-                    recipientArray
+                    recipientList
             );
             will(returnValue(acl));
 
@@ -128,13 +133,14 @@ public class AclSecurityUtilImplFastTest {
         final DccAnnotationNote dccAnnotationNote = new DccAnnotationNote();
         dccAnnotationNote.setNoteId(1L);
         final Sid recipient = null;
-        final Sid[] recipientArray = {recipient};
+        final List<Sid> recipientList = new ArrayList<Sid>();
+        recipientList.add(recipient);
         final Permission permission = BasePermission.WRITE;
 
         context.checking(new Expectations() {{
             one(mutableAclService).readAclById(
                     new ObjectIdentityImpl(DccAnnotationNote.class, dccAnnotationNote.getNoteId()),
-                    recipientArray
+                    recipientList
             );
             will(throwException(new NotFoundException("Expected")));
         }});

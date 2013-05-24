@@ -1,0 +1,68 @@
+<dataset>
+    <project project_code="TCGA" definition="The Cancer Genome Atlas"/>
+    <disease disease_id="1" disease_abbreviation="GBM" disease_name="glioblastoma" active="1"/>
+    <disease disease_id="2" disease_abbreviation="OV" disease_name="ovarian cancer" active="1"/>
+    <center_type center_type_code="CGCC" center_type_definition="CGCC"/>
+    <center center_id="1" domain_name="test.org" center_type_code="CGCC" display_name="Test"/>
+    <center center_id="3" domain_name="test2.org" center_type_code="CGCC" display_name="Test2"/>
+    <center center_id="5" domain_name="test3.org" center_type_code="CGCC" display_name="Test3"/>
+    <tissue tissue_id="1" tissue="brain"/>
+    <tissue_to_disease tissue_disease_id="1" disease_id="1" tissue_id="1"/>
+    <tissue_source_site tss_code="01" tss_definition="Henry Ford Hospital" receiving_center_id="1"/>
+    <tissue_source_site tss_code="07" tss_definition="TGen" receiving_center_id="1"/>
+    <tissue_source_site tss_code="AA" tss_definition="Test" receiving_center_id="1"/>
+    <tss_to_disease tss_disease_id="1" tss_code="01" disease_id="1"/>
+    <portion_analyte portion_analyte_code="R" definition="RNA"/>
+    <portion_analyte portion_analyte_code="D" definition="DNA"/>
+    <center_to_bcr_center bcr_center_id="07" center_id="5" center_type_code="CGCC"/>
+    <center_to_bcr_center bcr_center_id="01" center_id="3" center_type_code="CGCC"/>
+    <cghub_center cghub_center_name="BI" dcc_center_id="1"/>
+    <cghub_center cghub_center_name="LBL" dcc_center_id="3"/>
+    <cghub_center cghub_center_name="IGC" dcc_center_id="5"/>
+    <bam_file_datatype bam_datatype_id="1" bam_datatype="FINISHING" general_datatype="Unknown"/>
+    <bam_file_datatype bam_datatype_id="2" bam_datatype="WGS" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="3" bam_datatype="mirna" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="4" bam_datatype="Unknown" general_datatype="Unknown"/>
+
+    <bam_file bam_file_id="1"
+              bam_file_name="UNCID_1109493.c11e3246-c33d-47ef-b4b4-be287b92d91e.sorted_genome_alignments.bam"
+              disease_id="1" center_id="1" bam_file_size="4058557710"
+              date_received="2009-04-01 16:44:50.387" bam_datatype_id="1" analyte_code="R"
+              analysis_id="6eb5874b-f81e-4b33-9a17-0b810d78b229" dcc_received_date="2013-04-01 16:44:50.387"/>
+    <bam_file bam_file_id="2"
+              bam_file_name="UNCID_1109899.7206d218-0e58-4722-8566-cbcbd8b8b4e0.sorted_genome_alignments.bam"
+              disease_id="1" center_id="1" bam_file_size="4058557710"
+              date_received="2009-04-01 16:44:50.387" bam_datatype_id="2" analyte_code="D"
+              analysis_id="088a8d3a-1884-4d14-93a2-66df2ff47628" dcc_received_date="2013-04-02 16:44:50.387"/>
+    <bam_file bam_file_id="3"
+              bam_file_name="UNCID_1111944.3d1b5ffe-38d6-4073-9020-c6897727341c.sorted_genome_alignments.bam"
+              disease_id="1" center_id="1" bam_file_size="4058557710"
+              date_received="2009-04-01 16:44:50.387" bam_datatype_id="3" analyte_code="R"
+              analysis_id="5" dcc_received_date="2013-04-03 16:44:50.387"/>
+
+    <shipped_item_type shipped_item_type_id="1" shipped_item_type="Aliqot"/>
+
+    <shipped_biospecimen shipped_biospecimen_id="1" uuid="d88b35a3-a291-457a-b15b-a314859b25c5" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0621-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0621" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="2" uuid="d88b35a3-a291-457a-b15b-a314859b25c6" shipped_item_type_id="1"
+                         built_barcode="TCGA-59-2362-10A-01D-0704-01" project_code="TCGA" tss_code="01"
+                         participant_code="2362" bcr_center_id="01" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="3" uuid="d88b35a3-a291-457a-b15b-a314859b25c7" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0623-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0623" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="4" uuid="uuid1" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0623-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0623" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="5" uuid="uuid2" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0623-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0623" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+    <shipped_biospecimen shipped_biospecimen_id="6" uuid="uuid3" shipped_item_type_id="1"
+                         built_barcode="TCGA-01-0623-01A-01T-0364-07" project_code="TCGA" tss_code="01"
+                         participant_code="0623" bcr_center_id="07" is_viewable="1" is_redacted="0"/>
+
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="1" bam_file_id="1"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="2" bam_file_id="2"/>
+    <shipped_biospecimen_bamfile shipped_biospecimen_id="3" bam_file_id="3"/>
+
+</dataset>

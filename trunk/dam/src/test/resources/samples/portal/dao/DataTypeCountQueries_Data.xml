@@ -64,11 +64,11 @@
     <shipped_element_type element_type_id="4" element_type_name="analyte_code"/>
     <shipped_element_type element_type_id="5" element_type_name="plate_id"/>
 
-    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" molecule="DNA" general_datatype="Exome"/>
-    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" molecule="RNA" general_datatype="miRNA"/>
-    <bam_file_datatype bam_datatype_id="3" bam_datatype="rnaseq" molecule="RNA" general_datatype="RNAseq"/>
-    <bam_file_datatype bam_datatype_id="4" bam_datatype="whole" molecule="DNA" general_datatype="Genome"/>
-    <bam_file_datatype bam_datatype_id="5" bam_datatype="capture" molecule="DNA" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="1" bam_datatype="454" general_datatype="Exome"/>
+    <bam_file_datatype bam_datatype_id="2" bam_datatype="mirna" general_datatype="miRNA"/>
+    <bam_file_datatype bam_datatype_id="3" bam_datatype="rnaseq" general_datatype="RNAseq"/>
+    <bam_file_datatype bam_datatype_id="4" bam_datatype="whole" general_datatype="Genome"/>
+    <bam_file_datatype bam_datatype_id="5" bam_datatype="capture" general_datatype="Exome"/>
 
     <generation_method generation_method_id="1" generation_method="test"/>
     <uuid_item_type item_type_id="1" item_type="Participant" sort_order="1" xml_name="patient"/>
@@ -278,8 +278,10 @@
          data from BAM files -->
 
     <!-- BRCA mRNA for TCGA-00-0008-->
-    <bam_file bam_file_id="1" bam_file_name="BRCA-mrna-0008.bam" disease_id="3" center_id="2" bam_file_size="100" date_received="2013-04-01"
-              bam_datatype_id="3"/>
+    <bam_file bam_file_id="1" bam_file_name="BRCA-mrna-0008.bam" disease_id="3" center_id="2" bam_file_size="100"
+              date_received="2013-04-01"
+              bam_datatype_id="3" analysis_id="0"
+              dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="9" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="00" participant_code="0008"
                          built_barcode="TCGA-00-0008-01A-01W-0000-00"
@@ -292,7 +294,8 @@
     <shipped_biospecimen_bamfile shipped_biospecimen_id="9" bam_file_id="1"/>
 
     <!-- UCEC mRNA for TCGA-00-0009 -->
-    <bam_file bam_file_id="2" bam_file_name="hi.bam" disease_id="5" center_id="3" bam_file_size="200" date_received="2013-04-04" bam_datatype_id="3"/>
+    <bam_file bam_file_id="2" bam_file_name="hi.bam" disease_id="5" center_id="3" bam_file_size="200"
+              date_received="2013-04-04" bam_datatype_id="3" analysis_id="1" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="10" shipped_item_type_id="1" project_code="TCGA" tss_code="00" participant_code="0009"
                          built_barcode="TCGA-00-0009-01A-01W-0000-00" bcr_center_id="00" is_viewable="1" is_control="0" is_redacted="0"
                          shipped_date="2011-03-07" uuid="uuid9"/>
@@ -438,12 +441,12 @@
 
     <!-- UCEC TCGA-00-0009 (id 10) already in total -->
     <bam_file bam_file_id="3" bam_file_name="ucec-mirna-0009.bam" bam_file_size="300" center_id="3" disease_id="5" date_received="2013-01-17"
-              bam_datatype_id="2" />
+              bam_datatype_id="2" analysis_id="2" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="3" shipped_biospecimen_id="10"/>
 
     <!-- COAD TCGA-00-0015 miRNA -->
     <bam_file bam_file_id="4" bam_file_name="wrong-center.bam" bam_file_size="400" center_id="3" disease_id="4" date_received="2011-01-01"
-              bam_datatype_id="2"/>
+              bam_datatype_id="2" analysis_id="3" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="16" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="00" participant_code="0015"
                          built_barcode="TCGA-00-0015-01A-01W-0000-00"
@@ -510,13 +513,13 @@
     <shipped_biospecimen_element shipped_biospecimen_element_id="95" shipped_biospecimen_id="19" element_type_id="5" element_value="0000"/>
 
     <bam_file bam_file_id="5" bam_file_name="tumor-0017.bam" bam_file_size="500" center_id="4" disease_id="3" date_received="2012-09-15"
-              bam_datatype_id="1"/>
+              bam_datatype_id="1" analysis_id="4" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="5" shipped_biospecimen_id="18"/>
     <shipped_biospecimen_bamfile bam_file_id="5" shipped_biospecimen_id="19"/>
 
     <!-- BRCA just tumor BAM (won't count for Exome) TCGA-00-0003 -->
     <bam_file bam_file_id="6" bam_file_name="tumor-0003.bam" bam_file_size="6" center_id="4" disease_id="3" date_received="2013-03-02"
-              bam_datatype_id="1"/>
+              bam_datatype_id="1" analysis_id="5" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="6" shipped_biospecimen_id="3"/>
 
     <!-- just normal BAM (for a case that has a tumor defined) TCGA-00-0008 - won't count because no tumor BAM -->
@@ -530,7 +533,7 @@
     <shipped_biospecimen_element shipped_biospecimen_element_id="99" shipped_biospecimen_id="20" element_type_id="4" element_value="W"/>
     <shipped_biospecimen_element shipped_biospecimen_element_id="100" shipped_biospecimen_id="20" element_type_id="5" element_value="0000"/>
     <bam_file bam_file_id="7" bam_file_name="0008-normal.bam" bam_file_size="7" center_id="4" disease_id="3" date_received="2013-02-28"
-              bam_datatype_id="1"/>
+              bam_datatype_id="1" analysis_id="6" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="7" shipped_biospecimen_id="20"/>
 
     <!-- ABI tumor and normal -->
@@ -651,10 +654,10 @@
     <shipped_biospecimen_element shipped_biospecimen_element_id="135" shipped_biospecimen_id="27" element_type_id="5" element_value="0000"/>
 
     <bam_file bam_file_id="8" bam_file_name="tumor-0020.bam" bam_file_size="800" center_id="4" disease_id="2" date_received="2012-09-15"
-              bam_datatype_id="5"/>
+              bam_datatype_id="5" analysis_id="7" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="8" shipped_biospecimen_id="26"/>
     <bam_file bam_file_id="9" bam_file_name="normal-0020.bam" bam_file_size="900" center_id="4" disease_id="2" date_received="2012-09-16"
-              bam_datatype_id="5"/>
+              bam_datatype_id="5" analysis_id="8" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen_bamfile bam_file_id="9" shipped_biospecimen_id="27"/>
 
     
@@ -762,7 +765,7 @@
 
     <!-- UCEC: BAM Exome -->
     <bam_file bam_file_id="10" bam_file_name="normal-1003.bam" bam_file_size="900" center_id="4" disease_id="5" date_received="2012-09-16"
-              bam_datatype_id="1"/>
+              bam_datatype_id="1" analysis_id="9" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="103" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="ZZ" participant_code="1003"
                          built_barcode="TCGA-ZZ-1003-11A-01W-0000-00"
@@ -828,7 +831,7 @@
 
     <!-- BAM file for UCEC -->
     <bam_file bam_file_id="11" bam_file_name="normal-1007-mRNA.bam" bam_file_size="20" center_id="2" disease_id="5" date_received="2012-09-16"
-              bam_datatype_id="3"/>
+              bam_datatype_id="3" analysis_id="10" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="106" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="ZZ" participant_code="1007"
                          built_barcode="TCGA-ZZ-1007-11A-01W-0000-00"
@@ -861,7 +864,7 @@
     <!-- miRNA -->
     <!-- BAM file for UCEC from BC -->
     <bam_file bam_file_id="12" bam_file_name="normal-1009-miRNA.bam" bam_file_size="20" center_id="3" disease_id="5" date_received="2012-09-16"
-              bam_datatype_id="2"/>
+              bam_datatype_id="2" analysis_id="11" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="108" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="ZZ" participant_code="1009"
                          built_barcode="TCGA-ZZ-1009-11A-01W-0000-00"
@@ -911,7 +914,7 @@
     <participant_uuid_file file_id="108" uuid="participant-0021"/>
 
     <bam_file bam_file_id="13" bam_file_name="normal-0021-exome.bam" bam_file_size="20" center_id="2" disease_id="1" date_received="2012-09-16"
-              bam_datatype_id="3"/>
+              bam_datatype_id="3" analysis_id="12" dcc_received_date="2013-04-26"/>
     <shipped_biospecimen shipped_biospecimen_id="110" shipped_item_type_id="1"
                          project_code="TCGA" tss_code="00" participant_code="0021"
                          built_barcode="TCGA-00-0021-11A-01W-0000-00"

@@ -28,6 +28,7 @@ import gov.nih.nci.ncicb.tcga.dcc.qclive.loader.clinical.ClinicalLoaderException
 import gov.nih.nci.ncicb.tcga.dcc.qclive.loader.clinical.ClinicalObject;
 import gov.nih.nci.ncicb.tcga.dcc.qclive.loader.clinical.ClinicalTable;
 import org.apache.log4j.Level;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
@@ -65,7 +66,7 @@ import java.util.regex.Pattern;
  */
 public class ClinicalLoaderCaller implements ArchiveLoader {
 
-    private Map<String, ClinicalTable> cachedClinicalTables = new HashMap<String, ClinicalTable>();
+    private final Map<String, ClinicalTable> cachedClinicalTables = new HashMap<String, ClinicalTable>();
     private Map<Pattern, ClinicalTable> dynamicClinicalTables;
     private ClinicalLoaderQueries clinicalLoaderQueries;
     private ArchiveQueries archiveQueries;
@@ -99,10 +100,11 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
      * @param archivesToLoad list of archives to load
      */
     @Override
-    public void load(List<Archive> archivesToLoad, QcLiveStateBean stateContext) throws ClinicalLoaderException {
+    public void load(final List<Archive> archivesToLoad, final QcLiveStateBean stateContext) throws ClinicalLoaderException {
 
         if (archivesToLoad != null && archivesToLoad.size() > 0) {
-            try {            	
+            try {
+                //noinspection ResultOfMethodCallIgnored
                 archivesToLoad.get(0).getArchiveFile().getCanonicalPath();
             } catch (IOException e) {
                 throw new ClinicalLoaderException(" unable to get file path from first archive = " + archivesToLoad.get(0).getArchiveName());
@@ -139,18 +141,19 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
     /**
      * Loads an archive by name
      *
-     * @param archiveName
-     * @throws ClinicalLoaderException
+     * @param archiveName the archive to load
+     * @param stateContext for transaction management
+     * @throws ClinicalLoaderException if loading fails
      */
-    public void loadArchiveByName(final String archiveName,QcLiveStateBean stateContext) throws ClinicalLoaderException {    	    
+    public void loadArchiveByName(final String archiveName, final QcLiveStateBean stateContext) throws ClinicalLoaderException {
         newElements = new ArrayList<String>();
     	// start TX
-    	DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
+    	final DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
     	transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-    	TransactionStatus status = transactionManager.getTransaction(transactionDefinition);
+    	final TransactionStatus status = transactionManager.getTransaction(transactionDefinition);
     	
 	    // find this archive in the db
-	    long archiveId = archiveQueries.getArchiveIdByName(archiveName);
+	    final long archiveId = archiveQueries.getArchiveIdByName(archiveName);
 	    
 	    try{	    		    		    	
 	        if (archiveId != -1) {
@@ -195,15 +198,15 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
      * Loads an archive to the database.
      *
      * @param archive to load
-     * @throws ClinicalLoaderException
+     * @throws ClinicalLoaderException if loader fails
      */
     protected void loadArchive(final Archive archive) throws ClinicalLoaderException {
         if (!Experiment.TYPE_BCR.equals(archive.getExperimentType())) {
             throw new ClinicalLoaderException("Archive " + archive.getRealName() + " is not a BCR archive so can't be loaded");
         }
         // find the valid platforms for clinical archives
-        String[] validPlatforms = validClinicalPlatforms.split(",");
-        List validList = Arrays.asList(validPlatforms);
+        final String[] validPlatforms = validClinicalPlatforms.split(",");
+        final List validList = Arrays.asList(validPlatforms);
         if (!validList.contains(archive.getPlatform().toLowerCase())) {
             throw new ClinicalLoaderException("Archive " + archive.getRealName() + " is not a clinical platform archive so can't be loaded");
         }
@@ -286,7 +289,7 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
      * @param xmlFile the control xml file
      * @param archive the archive the file is from
      * @return ClinicalObject representing the patient, with any control elements added as children
-     * @throws ClinicalLoaderException
+     * @throws ClinicalLoaderException if parsing fails
      */
     protected ClinicalObject parseControlXmlFile(final File xmlFile, final Archive archive) throws ClinicalLoaderException {
         try {
@@ -383,45 +386,50 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
      * @param archive    the archive the objects are in
      * @throws gov.nih.nci.ncicb.tcga.dcc.common.exception.UUIDException
      *          if there was an error assigning/getting the UUID for the object
+     * @throws ClinicalLoaderException is saving fails
      */
-    protected void save(final ClinicalObject rootObject, final FileType fileType, final Archive archive) throws UUIDException {
+    protected void save(final ClinicalObject rootObject, final FileType fileType, final Archive archive) throws UUIDException, ClinicalLoaderException {
         saveElement(rootObject, -1, fileType, archive);
 
     }
 
     // recursive save!
 
-    private void saveElement(final ClinicalObject clinicalObject, final long parentId, final FileType fileType, final Archive archive) throws UUIDException {
+    private void saveElement(final ClinicalObject clinicalObject, final long parentId, final FileType fileType, final Archive archive) throws UUIDException, ClinicalLoaderException {
 
-        long id = clinicalLoaderQueries.getId(clinicalObject);
-        // some objects have no barcode (protocol, rna, dna)... those also don't have UUIDs
-        if (clinicalObject.getBarcode() != null) {
-            final Barcode barcodeDetail = barcodeUuidResolver.resolveBarcodeAndUuid(clinicalObject.getBarcode(),
-                    clinicalObject.getUuid(), archive.getTheTumor(), archive.getTheCenter(), true);
-            clinicalObject.setUuid(barcodeDetail.getUuid());
-        }
-
-        if (id < 1) {
-            // if it's not there, insert it
-            id = clinicalLoaderQueries.insert(clinicalObject, parentId, archive.getId(),newElements);
-        } else {
-            // if it is there, update it...
-            // except if this is a patient object for a non-clinical file -- since that has no attributes
-            // we want to skip the update because we don't want to delete all the attributes from the db
-            if ("patient".equals(clinicalObject.getObjectType()) && fileType != FileType.Clinical) {
-                clinicalLoaderQueries.addArchiveLink(clinicalObject, archive.getId());
-            } else {
-                clinicalLoaderQueries.update(clinicalObject, archive.getId(), newElements);
+        try {
+            long id = clinicalLoaderQueries.getId(clinicalObject);
+            // some objects have no barcode (protocol, rna, dna)... those also don't have UUIDs
+            if (clinicalObject.getBarcode() != null) {
+                final Barcode barcodeDetail = barcodeUuidResolver.resolveBarcodeAndUuid(clinicalObject.getBarcode(),
+                        clinicalObject.getUuid(), archive.getTheTumor(), archive.getTheCenter(), true);
+                clinicalObject.setUuid(barcodeDetail.getUuid());
             }
-        }
 
-        // now recurse on each child object
-        for (final ClinicalObject child : clinicalObject.getChildren()) {
-            child.setParentId(parentId);
-            child.setParentTable(clinicalObject.getClinicalTable());
-            saveElement(child, id, fileType, archive);
-        }
+            if (id < 1) {
+                // if it's not there, insert it
+                id = clinicalLoaderQueries.insert(clinicalObject, parentId, archive.getId(),newElements);
+            } else {
+                // if it is there, update it...
+                // except if this is a patient object for a non-clinical file -- since that has no attributes
+                // we want to skip the update because we don't want to delete all the attributes from the db
+                if ("patient".equals(clinicalObject.getObjectType()) && fileType != FileType.Clinical) {
+                    clinicalLoaderQueries.addArchiveLink(clinicalObject, archive.getId());
+                } else {
+                    clinicalLoaderQueries.update(clinicalObject, archive.getId(), newElements);
+                }
+            }
 
+            // now recurse on each child object
+            for (final ClinicalObject child : clinicalObject.getChildren()) {
+                child.setParentId(parentId);
+                child.setParentTable(clinicalObject.getClinicalTable());
+                saveElement(child, id, fileType, archive);
+            }
+        } catch (DataAccessException e) {
+            throw new ClinicalLoaderException("Exception caught trying to save " + clinicalObject.getBarcode() +
+                    " from archive " + archive.getRealName(), e);
+        }
     }
 
     private boolean isSimpleTextElement(final Node node) {
@@ -431,11 +439,10 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
                 (node.getChildNodes().getLength() == 1 && node.getFirstChild().getNodeType() == Node.TEXT_NODE);
     }
 
-    /**
+    /*
      * for development and unit test enviroments,
      * make sure that InsertClinicalMetaData.sql script has been run before, otherwise you'll get a NPE
      */
-    // recursive!
     private ClinicalObject parse(final ClinicalObject parentElement, final Node node, final Archive archive) {
         ClinicalObject clinicalObject = null;
         if (!isSimpleTextElement(node)) {
@@ -451,7 +458,7 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
                 clinicalObject.setArchive(archive);
                 clinicalObject.setObjectType(getNodeNameWithoutNamespace(node));
                 if(clinicalTable.isDynamic()) {
-                    StringBuffer dynamicIdentifier = new StringBuffer(getNodeNameWithoutNamespace(node));
+                    final StringBuilder dynamicIdentifier = new StringBuilder(getNodeNameWithoutNamespace(node));
                     final Attr attr  = ((Element)node).getAttributeNode(DYNAMIC_ATTRIBUTE_NAME);
                     if(attr != null){
                         dynamicIdentifier.append("_v")
@@ -553,7 +560,7 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
 
         if (dynamicClinicalTables == null) {
             dynamicClinicalTables = new HashMap<Pattern, ClinicalTable>();
-            List<ClinicalTable> dynamicTables = clinicalLoaderQueries.getDynamicClinicalTables();
+            final List<ClinicalTable> dynamicTables = clinicalLoaderQueries.getDynamicClinicalTables();
             for (final ClinicalTable clinicalTable : dynamicTables) {
                 dynamicClinicalTables.put(Pattern.compile(clinicalTable.getElementNodeName()), clinicalTable);
             }
@@ -581,8 +588,8 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
     }
 
     private String getNodeNameWithoutNamespace(final Node node) {
-        String name = node.getNodeName();
-        int indexOfColon = name.indexOf(":");
+        final String name = node.getNodeName();
+        final int indexOfColon = name.indexOf(":");
         if (indexOfColon > 0) {
             return name.substring(indexOfColon + 1);
         } else {
@@ -590,7 +597,7 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
         }
     }
 
-    private void sendEmail(String archiveName) {
+    private void sendEmail(final String archiveName) {
         final String subject = "New xsd elements were added from archive: " + archiveName;
         final StringBuilder body = new StringBuilder();
         body.append("The following new xsd elements were added to the database: \n");
@@ -601,12 +608,6 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
         mailSender.send( mailTo, null, subject, body.toString(), false );
     }
 
-    private String getCenterEmail(Archive archive) {
-        if (archive != null && archive.getTheCenter() != null) {
-            return archive.getTheCenter().getCommaSeparatedEmailList();
-        }
-        return null;
-    }
     protected File[] getArchiveXmlFiles(final Archive archive) {
         return DirectoryListerImpl.getFilesByExtension(archive.getDeployDirectory(), ".xml");
     }
@@ -619,39 +620,31 @@ public class ClinicalLoaderCaller implements ArchiveLoader {
         this.archiveQueries = archiveQueries;
     }
 
-    public void setArchiveLogger(ArchiveLogger archiveLogger) {
+    public void setArchiveLogger(final ArchiveLogger archiveLogger) {
         this.archiveLogger = archiveLogger;
     }
 
-    public void setCachedClinicalTables(Map<String, ClinicalTable> cachedClinicalTables) {
-        this.cachedClinicalTables = cachedClinicalTables;
-    }
-
-    public void setLogger(Logger logger) {
+    public void setLogger(final Logger logger) {
         this.logger = logger;
     }
 
-    public void setValidClinicalPlatforms(String validClinicalPlatforms) {
+    public void setValidClinicalPlatforms(final String validClinicalPlatforms) {
         this.validClinicalPlatforms = validClinicalPlatforms;
-    }
-
-    public String getValidClinicalPlatforms() {
-        return this.validClinicalPlatforms;
     }
 
     public void setBarcodeUuidResolver(final BarcodeUuidResolver barcodeUuidResolver) {
         this.barcodeUuidResolver = barcodeUuidResolver;
     }
 
-    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+    public void setTransactionManager(final PlatformTransactionManager transactionManager) {
         this.transactionManager = transactionManager;
     }
 
-    public void setMailSender(MailSender mailSender) {
+    public void setMailSender(final MailSender mailSender) {
         this.mailSender = mailSender;
     }
 
-    public void setMailTo(String mailTo) {
+    public void setMailTo(final String mailTo) {
         this.mailTo = mailTo;
     }
 

@@ -28,6 +28,10 @@ public class BAMFile {
     private Date dateReceived;
     private Integer datatypeBAMId;
     private Long biospecimenId;
+    private String analysisId;
+    private String analyteCode;
+    private String libraryStrategy;
+    private Date dccDateReceived;
 
     public Long getFileBAMId() {
         return fileBAMId;
@@ -105,5 +109,37 @@ public class BAMFile {
                 ", datatypeBAMId=" + datatypeBAMId +
                 ", biospecimenId=" + biospecimenId +
                 '}';
+    }
+
+    public String getAnalysisId() {
+        return analysisId;
+    }
+
+    public void setAnalysisId(String analysisId) {
+        this.analysisId = analysisId;
+    }
+
+    public String getAnalyteCode() {
+        return analyteCode;
+    }
+
+    public void setAnalyteCode(String analyteCode) {
+        this.analyteCode = analyteCode;
+    }
+
+    public String getLibraryStrategy() {
+        return libraryStrategy;
+    }
+
+    public void setLibraryStrategy(String libraryStrategy) {
+        this.libraryStrategy = libraryStrategy;
+    }
+
+    public Date getDccDateReceived() {
+        return dccDateReceived;
+    }
+
+    public void setDccDateReceived(Date dccDateReceived) {
+        this.dccDateReceived = dccDateReceived;
     }
 }//End of Class

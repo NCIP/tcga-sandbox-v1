@@ -9,13 +9,18 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.common.security.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import gov.nih.nci.ncicb.tcga.dcc.common.security.SecurityUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * This is the default implementation of the Util interface.
@@ -103,22 +108,21 @@ public class SecurityUtilImpl implements SecurityUtil {
      */
     public String[] getAuthenticatedPrincipalAuthorities() {
 
-        String[] result = new String[0];
+        List<String> result = new ArrayList<String>();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null) {
-            GrantedAuthority[] grantedAuthorities = authentication.getAuthorities();
+            Collection<GrantedAuthority> grantedAuthorities = authentication.getAuthorities();
             if(grantedAuthorities != null) {
-                result = new String[grantedAuthorities.length];
-                for(int i=0; i < grantedAuthorities.length; i++) {
-                    result[i] = grantedAuthorities[i].getAuthority();
+                for(GrantedAuthority grantedAuthority : grantedAuthorities) {
+                    result.add(grantedAuthority.getAuthority());
                 }
             } else {
                 logger.debug("The authenticated user's authorities are null for user " + getAuthenticatedPrincipalLoginName());
             }
         }
 
-        return result;
+        return (String[]) result.toArray();
     }
 
     /**
@@ -128,10 +132,10 @@ public class SecurityUtilImpl implements SecurityUtil {
     public static boolean isAdministrator() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            final GrantedAuthority[] grantedAuthorities = authentication.getAuthorities();
+            final Collection<GrantedAuthority> grantedAuthorities = authentication.getAuthorities();
             if (grantedAuthorities != null) {
-                for (int i = 0; i < grantedAuthorities.length; i++) {
-                    if ("ROLE_ANNOTATIONS_ADMINISTRATOR".equals(grantedAuthorities[i].getAuthority())) {
+                for (GrantedAuthority grantedAuthority : grantedAuthorities) {
+                    if ("ROLE_ANNOTATIONS_ADMINISTRATOR".equals(grantedAuthority.getAuthority())) {
                         return true;
                     }
                 }

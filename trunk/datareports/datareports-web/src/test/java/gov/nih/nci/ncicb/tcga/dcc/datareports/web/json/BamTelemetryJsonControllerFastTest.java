@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2011 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -9,25 +9,10 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.datareports.web.json;
 
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALIQUOT_ID;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.CENTER;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATA_TYPE;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_FROM;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_TO;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DISEASE;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.MOLECULE;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.ExtJsFilter;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.BamTelemetryReportService;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.DatareportsService;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -38,6 +23,22 @@ import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.ui.ModelMap;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.ANALYTE_CODE;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.LIBRARY_STRATEGY;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALIQUOT_ID;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.CENTER;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATA_TYPE;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_FROM;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_TO;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DISEASE;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Test class for the json controller of the bam telemetry report
@@ -87,7 +88,8 @@ public class BamTelemetryJsonControllerFastTest {
         context.checking(new Expectations() {{
             allowing(service).getAllBamTelemetry();
             will(returnValue(mockBamTelemetry));
-            allowing(service).getFilteredBamTelemetryList(mockBamTelemetry,null, null, null, null, null, null, null, null);
+            allowing(service).getFilteredBamTelemetryList(mockBamTelemetry, null, null, null, null, null, null, null,
+                    null, null);
             will(returnValue(mockBamTelemetry));
             allowing(service).getBamTelemetryComparator();
             will(returnValue(null));
@@ -109,7 +111,9 @@ public class BamTelemetryJsonControllerFastTest {
             will(returnValue(null));
             allowing(commonService).processJsonMultipleFilter(DATA_TYPE, "");
             will(returnValue(null));
-            allowing(commonService).processJsonMultipleFilter(MOLECULE, "");
+            allowing(commonService).processJsonMultipleFilter(ANALYTE_CODE, "");
+            will(returnValue(null));
+            allowing(commonService).processJsonMultipleFilter(LIBRARY_STRATEGY, "");
             will(returnValue(null));
         }});
 

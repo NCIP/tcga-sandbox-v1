@@ -10,7 +10,7 @@
 package gov.nih.nci.ncicb.tcga.dcc.datareports.web;
 
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.ViewAndExtensionForExport;
-import gov.nih.nci.ncicb.tcga.dcc.datareports.bean.BamTelemetry;
+import gov.nih.nci.ncicb.tcga.dcc.common.bean.bam.BamTelemetry;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.BamTelemetryReportService;
 import gov.nih.nci.ncicb.tcga.dcc.datareports.service.DatareportsService;
@@ -32,14 +32,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.ANALYTE_CODE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.BAM_TELEMETRY_COLS;
+import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.BamTelemetryReportConstants.LIBRARY_STRATEGY;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.ALIQUOT_ID;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.CENTER;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATA_TYPE;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_FROM;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DATE_TO;
 import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.DISEASE;
-import static gov.nih.nci.ncicb.tcga.dcc.datareports.constants.DatareportsCommonConstants.MOLECULE;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -99,7 +100,7 @@ public class BamTelemetryControllerFastTest {
             allowing(commonService).processDisplayTag("bamTelemetry", mockbio, model, request);
         }});
         final String viewName = controller.bamTelemetryReportFullHandler(model, session, request,
-                null, null, null, null, null, null, null, null);
+                null, null, null, null, null, null, null, null, null);
         assertTrue(viewName != null);
         assertEquals(BamTelemetryReportConstants.BAM_TELEMETRY_REPORT_VIEW, viewName);
     }
@@ -146,7 +147,8 @@ public class BamTelemetryControllerFastTest {
         context.checking(new Expectations() {{
             allowing(service).getAllBamTelemetry();
             will(returnValue(mockBamTelemetry));
-            allowing(service).getFilteredBamTelemetryList(mockBamTelemetry, null, null, null, null, null, null, null, null);
+            allowing(service).getFilteredBamTelemetryList(mockBamTelemetry, null, null, null, null, null, null, null,
+                    null, null);
             will(returnValue(mockBamTelemetry));
             allowing(service).getBamTelemetryComparator();
             will(returnValue(null));
@@ -168,7 +170,9 @@ public class BamTelemetryControllerFastTest {
             will(returnValue(null));
             allowing(commonService).processJsonMultipleFilter(DATA_TYPE, "");
             will(returnValue(null));
-            allowing(commonService).processJsonMultipleFilter(MOLECULE, "");
+            allowing(commonService).processJsonMultipleFilter(ANALYTE_CODE, "");
+            will(returnValue(null));
+            allowing(commonService).processJsonMultipleFilter(LIBRARY_STRATEGY, "");
             will(returnValue(null));
         }});
 

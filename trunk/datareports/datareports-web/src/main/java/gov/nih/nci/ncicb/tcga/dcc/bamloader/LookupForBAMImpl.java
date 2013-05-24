@@ -1,5 +1,5 @@
 /*
- * Software License, Version 1.0 Copyright 2012 SRA International, Inc.
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc.
  * Copyright Notice.  The software subject to this notice and license includes both human
  * readable source code form and machine readable, binary, object code form (the "caBIG
  * Software").
@@ -89,8 +89,7 @@ public class LookupForBAMImpl implements LookupForBAM {
                 final BAMDatatype dt = new BAMDatatype();
                 dt.setDatatypeBAMId(rs.getInt(1));
                 dt.setDatatypeBAM(rs.getString(2));
-                dt.setMolecule(rs.getString(3));
-                dt.setGeneralDatatype(rs.getString(4));
+                dt.setGeneralDatatype(rs.getString(3));
                 return dt;
             }
         });

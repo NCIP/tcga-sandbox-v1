@@ -38,9 +38,6 @@ public class DatareportsCommonConstants {
     public static final String BCR = "bcr";
     public static final String BATCH = "batch";
     public static final String IGC = "igc";
-    public static final String NWCH = "nwch";
-    public static final String TOTAL = "total";
-    public static final String MOLECULE = "molecule";
     public static final String ALIQUOT_ID = "aliquotId";
     public static final String ANALYTE_ID = "analyteId";
     public static final String SAMPLE_ID = "sampleId";
@@ -74,7 +71,6 @@ public class DatareportsCommonConstants {
     public static final String PAGE_SIZE = "pageSize";
     public static final String SHOW_FILTER_BOX = "showFilterBox";
     public static final String YES = "yes";
-    public static final String NO = "no";
     public static final String ALL = "all";
     public static final String NOT_AVAILABLE = "N/A";
     public static final String DATE_FORMAT_US_STRING = "MM/dd/yyyy";

@@ -3,7 +3,6 @@ package gov.nih.nci.ncicb.tcga.dcc.common.dao.jdbc;
 import gov.nih.nci.ncicb.tcga.dcc.common.bean.UUIDDetail;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.DBUnitTestCase;
 import gov.nih.nci.ncicb.tcga.dcc.common.dao.RedactionQueries;
-import gov.nih.nci.ncicb.tcga.dcc.common.dao.UUIDHierarchyQueries;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -31,17 +30,14 @@ public class RedactionQueriesJDBCImplDiseaseSlowTest extends DBUnitTestCase {
     private static final String TEST_DATA_FILE = "dao/RedactionQueriesTestDiseaseData.xml";
 
     private static final String appContextFile = "samples/applicationContext-dbunit.xml";
-    private final ApplicationContext appContext;
     private final RedactionQueries queries;
-    private final UUIDHierarchyQueries uuidHierarchyQueries;
     private SimpleJdbcTemplate sjdbc;
 
     public RedactionQueriesJDBCImplDiseaseSlowTest() {
         super(TEST_DATA_FOLDER, TEST_DATA_FILE, PROPERTIES_FILE);
-        appContext = new ClassPathXmlApplicationContext(appContextFile);
+        final ApplicationContext appContext = new ClassPathXmlApplicationContext(appContextFile);
         queries = (RedactionQueries) appContext.getBean("redactionDiseaseQueries");
         ((RedactionQueriesJDBCImpl)queries).setCommonSchema(false);
-        uuidHierarchyQueries = (UUIDHierarchyQueries) appContext.getBean("uuidHierarchyQueries") ;
 
         sjdbc = new SimpleJdbcTemplate(getDataSource());
     }
@@ -72,9 +68,15 @@ public class RedactionQueriesJDBCImplDiseaseSlowTest extends DBUnitTestCase {
 
     @Test
     public void testRedact() {
-        queries.redact(SqlParameterSourceUtils.createBatch(makeUuidList().toArray()));
+        queries.redact(SqlParameterSourceUtils.createBatch(makeUuidList().toArray()), true);
         assertEquals(3, getBBChildren("REDACTED"));
         assertEquals(3, getShippedChildren("REDACTED"));
+    }
+
+    public void testRedactDoNotChangeViewable() {
+        queries.redact(SqlParameterSourceUtils.createBatch(makeUuidList().toArray()), false);
+        assertEquals(0, getBBChildren("REDACTED"));
+        assertEquals(3, sjdbc.queryForInt("select count(*) from shipped_biospecimen where is_redacted=1"));
     }
 
     @Test
@@ -91,19 +93,17 @@ public class RedactionQueriesJDBCImplDiseaseSlowTest extends DBUnitTestCase {
         } else {
             selectString = "Select count (*) from biospecimen_barcode where is_viewable=1";
         }
-        int childCount = sjdbc.queryForInt(selectString);
-        return childCount;
+        return sjdbc.queryForInt(selectString);
     }
 
     private int getShippedChildren(String action) {
          String selectString;
          if (action.equals("REDACTED")){
-            selectString = "Select count (*) from shipped_biospecimen where is_redacted=1";
+            selectString = "Select count (*) from shipped_biospecimen where is_redacted=1 and is_viewable=0";
         } else {
-            selectString = "Select count (*) from shipped_biospecimen where is_redacted=0";
+            selectString = "Select count (*) from shipped_biospecimen where is_redacted=0 and is_viewable=1";
         }
-         int childCount = sjdbc.queryForInt(selectString);
-         return childCount;
+        return sjdbc.queryForInt(selectString);
      }
 
 }

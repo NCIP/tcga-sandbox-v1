@@ -44,7 +44,7 @@
     <title>TCGA Data Portal: TCGA Publications</title>
         <div style="position:absolute;">
             <a href="#skip">
-                <img src="http://cabig-ut.nci.nih.gov/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
+                <img src="/tcgafiles/ftp_auth/distro_ftpusers/anonymous/images/skipnav.gif" border="0" height="1" width="1" alt="Skip Navigation" title="Skip Navigation" />
             </a>
         </div>
 </head>
@@ -112,7 +112,6 @@
 	<ul id="mainnavlist" class="level1">
 		<li class="level1-li nav0"><a class="level1-a" href="http://tcga-data.nci.nih.gov/tcga/tcgaHome2.jsp"><span>Home</span></a></li>
 
-		<li class="level1-li nav1"><a class="level1-a" href="http://tcga-portal.nci.nih.gov/tcga-portal/"><span>Query the Data</span></a></li>
 		<li class="level1-li nav2"><a class="level1-a" href="http://tcga-data.nci.nih.gov/tcga/tcgaDownload.jsp"><span>Download Data</span></a>
 			<ul class="time">
 

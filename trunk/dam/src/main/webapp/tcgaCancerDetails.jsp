@@ -10,11 +10,11 @@
 <%@include file="includes/page-variables.jspf"%>
 <%
     layout =  "cancerdetails";
-    h1String = "Cancer Details - " + request.getParameter("diseaseName") + ": Case Counts and Findings";
+    h1String = "Cancer Details - " + request.getParameter("diseaseName") + ": Case Counts";
 
     String disease_abbreviation = request.getParameter("diseaseType");
     String disease_name = request.getParameter("diseaseName");
-    metaKeywords = disease_abbreviation + "," + disease_name + "," + "tumor,Methylation,Gene Expression,miRNA Expression,SNP,case counts,tissue samples,findings";
+    metaKeywords = disease_abbreviation + "," + disease_name + "," + "tumor,Methylation,Gene Expression,miRNA Expression,SNP,case counts,tissue samples";
     metaDescription = "View the breakdown of cases and organ-specific controls for " + disease_name + "(" + disease_abbreviation + ") data.";
 
 %>
