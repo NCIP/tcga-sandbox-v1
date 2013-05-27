@@ -1,42 +1,14 @@
 /*
- * Copyright 2012 The Netty Project
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc. Copyright Notice.  
+ * The software subject to this notice and license includes both human readable source 
+ * code form and machine readable, binary, object code form (the "caBIG Software").
  *
- * The Netty Project licenses this file to you under the Apache License,
- * version 2.0 (the "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at:
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
+ * Please refer to the complete License text for full details at the root of the project.
  */
-//The MIT License
-//
-//Copyright (c) 2009 Carl Bystršm
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in
-//all copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//THE SOFTWARE.
 
 package gov.nih.nci.ncicb.tcga.dcc.io.client.http.websocket;
 
+import javolution.util.FastTable;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -53,67 +25,80 @@ import io.netty.util.CharsetUtil;
 public class WebSocketClientHandler extends ChannelInboundMessageHandlerAdapter<Object> {
 
     private final WebSocketClientHandshaker handshaker;
-    private ChannelPromise handshakeFuture;
+    private ChannelPromise                  handshakeFuture;
+    private FastTable<String>               receivedMessages = new FastTable<String>();
 
     public WebSocketClientHandler(WebSocketClientHandshaker handshaker) {
         this.handshaker = handshaker;
     }
-
-    public ChannelFuture handshakeFuture() {
-        return handshakeFuture;
-    }
-
+    
     @Override
-    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-        handshakeFuture = ctx.newPromise();
-    }
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        handshaker.handshake(ctx.channel());
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("WebSocket Client disconnected!");
-    }
-
-    @Override
-    public void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel ch = ctx.channel();
+    public void messageReceived(ChannelHandlerContext channelHandlerContext, Object inboundMessage) throws Exception {
+        Channel channel = channelHandlerContext.channel();
         if (!handshaker.isHandshakeComplete()) {
-            handshaker.finishHandshake(ch, (FullHttpResponse) msg);
+            handshaker.finishHandshake(channel, (FullHttpResponse) inboundMessage);
             System.out.println("WebSocket Client connected!");
             handshakeFuture.setSuccess();
             return;
         }
 
-        if (msg instanceof FullHttpResponse) {
-            FullHttpResponse response = (FullHttpResponse) msg;
+        if (inboundMessage instanceof FullHttpResponse) {
+            FullHttpResponse response = (FullHttpResponse) inboundMessage;
             throw new Exception("Unexpected FullHttpResponse (getStatus=" + response.getStatus() + ", content="
                     + response.content().toString(CharsetUtil.UTF_8) + ')');
         }
 
-        WebSocketFrame frame = (WebSocketFrame) msg;
+        WebSocketFrame frame = (WebSocketFrame) inboundMessage;
         if (frame instanceof TextWebSocketFrame) {
             TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
-            System.out.println("WebSocket Client received message: " + textFrame.text());
-        } else if (frame instanceof PongWebSocketFrame) {
+            String frameText = textFrame.text();
+            System.out.println("WebSocket Client received message: " + frameText);
+            receivedMessages.add(frameText);
+        }
+        else if (frame instanceof PongWebSocketFrame) {
             System.out.println("WebSocket Client received pong");
-        } else if (frame instanceof CloseWebSocketFrame) {
+        }
+        else if (frame instanceof CloseWebSocketFrame) {
             System.out.println("WebSocket Client received closing");
-            ch.close();
+            channel.close();
         }
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable cause) throws Exception {
         cause.printStackTrace();
 
         if (!handshakeFuture.isDone()) {
             handshakeFuture.setFailure(cause);
         }
 
-        ctx.close();
+        channelHandlerContext.close();
     }
+
+    @Override
+    public void handlerAdded(ChannelHandlerContext channelHandlerContext) throws Exception {
+        handshakeFuture = channelHandlerContext.newPromise();
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext channelHandlerContext) throws Exception {
+        handshaker.handshake(channelHandlerContext.channel());
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext channelHandlerContext) throws Exception {
+        System.out.println("WebSocket Client disconnected!");
+    }
+
+    public ChannelFuture handshakeFuture() {
+        return handshakeFuture;
+    }
+    
+    /**
+     * @return the receivedMessages
+     */
+    public FastTable<String> getReceivedMessages() {
+        return receivedMessages;
+    }
+
 }

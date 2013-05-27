@@ -6,13 +6,11 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler;
+package gov.nih.nci.ncicb.tcga.dcc.io.api.http.websocket.event;
 
-import com.lmax.disruptor.EventHandler;
+public enum WebSocketEventType {
 
+    CLIENT,
+    SERVER,
 
-public interface WebSocketFrameHandler<E> extends EventHandler<E> {
-
-    //public void handleFrame(WebSocketFrame);
-    
 }

@@ -28,7 +28,7 @@ import org.vertx.java.core.json.JsonObject;
  */
 public class RpcMethodResolver {
 
-    private Map<String, Method> methodMap = new FastMap<>();
+    private Map<String, Method> methodMap = new FastMap<String, Method>();
     private Object              callableObject;
 
     public RpcMethodResolver(Object callableObject) {

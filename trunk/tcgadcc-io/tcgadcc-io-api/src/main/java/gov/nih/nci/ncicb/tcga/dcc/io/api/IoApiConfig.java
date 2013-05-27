@@ -19,7 +19,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * @author nichollsmc
  */
 @Configuration
-@PropertySource("classpath:properties/io-config.properties")
+@PropertySource("classpath:properties/io-config-websocket.properties")
 public class IoApiConfig {
 
     /**

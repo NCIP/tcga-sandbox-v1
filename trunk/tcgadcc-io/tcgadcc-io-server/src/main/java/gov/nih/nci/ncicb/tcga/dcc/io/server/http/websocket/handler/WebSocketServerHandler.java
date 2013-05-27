@@ -17,7 +17,8 @@ import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.WebSocketServer;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.WebSocketEventBus;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.EventBus;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.WebSocketEvent;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -34,10 +35,10 @@ import javolution.text.TextBuilder;
 
 public class WebSocketServerHandler extends ChannelInboundMessageHandlerAdapter<Object> {
 
-    private WebSocketEventBus         webSocketEventBus;
+    private EventBus         webSocketEventBus;
     private WebSocketServerHandshaker handshaker;
 
-    public WebSocketServerHandler(WebSocketEventBus webSocketEventBus) {
+    public WebSocketServerHandler(EventBus webSocketEventBus) {
         this.webSocketEventBus = webSocketEventBus;
     }
 

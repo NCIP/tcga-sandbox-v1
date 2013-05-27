@@ -12,7 +12,7 @@ import gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.RpcContext;
 
 import org.vertx.java.core.json.JsonObject;
 
-public class RpcTestEnpoint implements Endpoint {
+public class RpcTestEnpoint {
     
     public JsonObject sum(RpcContext context, int a, int b) {
         return new JsonObject().putNumber("result", a + b);

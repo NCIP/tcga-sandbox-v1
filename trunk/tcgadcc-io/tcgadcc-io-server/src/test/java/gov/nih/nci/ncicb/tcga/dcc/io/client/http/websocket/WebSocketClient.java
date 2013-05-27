@@ -37,7 +37,6 @@
 package gov.nih.nci.ncicb.tcga.dcc.io.client.http.websocket;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -50,14 +49,16 @@ import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshakerFactory;
 import io.netty.handler.codec.http.websocketx.WebSocketVersion;
 
 import java.net.URI;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javolution.text.TextBuilder;
 
 public class WebSocketClient {
 
@@ -68,7 +69,8 @@ public class WebSocketClient {
     }
 
     public void run() throws Exception {
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+        final WebSocketClientHandler handler;
         try {
             Bootstrap bootstrap = new Bootstrap();
             String protocol = uri.getScheme();
@@ -78,59 +80,67 @@ public class WebSocketClient {
 
             HttpHeaders customHeaders = new DefaultHttpHeaders();
             customHeaders.add("MyHeader", "MyValue");
+            
+            handler = new WebSocketClientHandler(
+                    WebSocketClientHandshakerFactory.newHandshaker(
+                            uri,
+                            WebSocketVersion.V13,
+                            null,
+                            false,
+                            customHeaders));
 
-            // Connect with V13 (RFC 6455 aka HyBi-17). You can change it to V08 or V00.
-            // If you change it to V00, ping is not supported and remember to change
-            // HttpResponseDecoder to WebSocketHttpResponseDecoder in the pipeline.
-            final WebSocketClientHandler handler =
-                    new WebSocketClientHandler(
-                            WebSocketClientHandshakerFactory.newHandshaker(
-                                    uri, WebSocketVersion.V13, null, false, customHeaders));
-
-            bootstrap.group(group)
-             .channel(NioSocketChannel.class)
-             .handler(new ChannelInitializer<SocketChannel>() {
-                 @Override
-                 public void initChannel(SocketChannel ch) throws Exception {
-                     ChannelPipeline pipeline = ch.pipeline();
-                     pipeline.addLast("http-codec", new HttpClientCodec());
-                     pipeline.addLast("aggregator", new HttpObjectAggregator(8192));
-                     pipeline.addLast("ws-handler", handler);
-                 }
-             });
+            bootstrap.group(eventLoopGroup)
+                     .channel(NioSocketChannel.class)
+                     .handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                public void initChannel(SocketChannel ch) throws Exception {
+                    ChannelPipeline pipeline = ch.pipeline();
+                    pipeline.addLast("http-codec", new HttpClientCodec());
+                    pipeline.addLast("aggregator", new HttpObjectAggregator(8192));
+                    pipeline.addLast("ws-handler", handler);
+                }
+            });
 
             System.out.println("WebSocket Client connecting");
-            Channel ch = bootstrap.connect(uri.getHost(), uri.getPort()).sync().channel();
+            Channel channel = bootstrap.connect(uri.getHost(), uri.getPort()).sync().channel();
             handler.handshakeFuture().sync();
 
             // Send 10 messages and wait for responses
             System.out.println("WebSocket Client sending message");
             for (int i = 0; i < 10; i++) {
-                ch.write(new TextWebSocketFrame("Message #" + i));
+                channel.write(new TextWebSocketFrame("Client-" + Thread.currentThread().getId() + ": message #" + i));
             }
-
-            // Ping
-            System.out.println("WebSocket Client sending ping");
-            ch.write(new PingWebSocketFrame(Unpooled.copiedBuffer(new byte[]{1, 2, 3, 4, 5, 6})));
 
             // Close
             System.out.println("WebSocket Client sending close");
-            ch.write(new CloseWebSocketFrame());
+            channel.write(new CloseWebSocketFrame());
 
             // WebSocketClientHandler will close the connection when the server
             // responds to the CloseWebSocketFrame.
-            ch.closeFuture().sync();
-        } finally {
-            group.shutdownGracefully();
+            channel.closeFuture().sync();
         }
+        finally {
+            eventLoopGroup.shutdownGracefully();
+        }
+        
+        List<String> receivedMessages = handler.getReceivedMessages();
+        TextBuilder endResult = new TextBuilder();
+        endResult
+        .append("\n\nClient [").append(Thread.currentThread().getId()).append("] completed.\n")
+        .append("\tReceived message count [" + receivedMessages.size() + "]\n");
+        for(String message : receivedMessages) {
+            endResult.append("\t" + message + "\n");
+        }
+        
+        System.out.println(endResult.toString());
     }
 
     public static void main(String[] args) throws Exception {
         final URI uri = new URI("ws://localhost:8080/io");
-        
+
         ExecutorService exec = Executors.newCachedThreadPool();
-        
-        for(int i = 0; i <= 10; i++) {
+
+        for (int i = 0; i <= 10; i++) {
             exec.execute(new Runnable() {
                 public void run() {
                     try {
@@ -142,7 +152,7 @@ public class WebSocketClient {
                 }
             });
         }
-        
+
         exec.shutdown();
     }
 }

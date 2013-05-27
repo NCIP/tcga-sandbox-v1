@@ -11,7 +11,6 @@ package gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.reflect;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.RpcContext;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.RpcException;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -30,7 +29,7 @@ import org.vertx.java.core.json.JsonObject;
  */
 public class RpcMethodRegistry {
 
-    private Map<String, RpcMethodResolver> rpcResolvers   = new FastMap<>();
+    private Map<String, RpcMethodResolver> rpcResolvers   = new FastMap<String, RpcMethodResolver>();
     private final static Pattern           TARGET_PATTERN = Pattern.compile("^([A-Za-z]+)\\.([A-Za-z]+)$");
 
     public RpcMethodRegistry() {
@@ -57,7 +56,7 @@ public class RpcMethodRegistry {
             try {
                 return rpcMethodResolver.dispatch(targetMethod, args);
             }
-            catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            catch (Exception e) {
                 throw new RpcException(e);
             }
         }
@@ -67,7 +66,7 @@ public class RpcMethodRegistry {
     }
 
     public List<String> callableTargets() {
-        List<String> targets = new FastTable<>();
+        List<String> targets = new FastTable<String>();
 
         for (String objectKey : rpcResolvers.keySet()) {
             RpcMethodResolver rpcMethodResolver = rpcResolvers.get(objectKey);

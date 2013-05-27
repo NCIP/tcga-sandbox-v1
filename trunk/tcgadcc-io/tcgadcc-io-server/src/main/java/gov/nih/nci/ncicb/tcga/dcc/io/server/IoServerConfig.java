@@ -10,7 +10,7 @@ package gov.nih.nci.ncicb.tcga.dcc.io.server;
 
 import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiConfigProfileType;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.WebSocketServer;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.WebSocketEventBus;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.EventBus;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler.WebSocketServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -67,7 +67,7 @@ public class IoServerConfig {
         private SSLContext sslContext;
         
         @Inject
-        private WebSocketEventBus webSocketEventBus;
+        private EventBus webSocketEventBus;
 
         @Bean
         public ChannelInitializer<SocketChannel> channelInitializer() {
@@ -95,7 +95,7 @@ public class IoServerConfig {
         private Integer websocketBufferSizeMax;
 
         @Inject
-        private WebSocketEventBus webSocketEventBus;
+        private EventBus webSocketEventBus;
         
         @Bean
         public ChannelInitializer<SocketChannel> channelInitializer() {
@@ -112,8 +112,8 @@ public class IoServerConfig {
     }
     
     @Bean
-    public WebSocketEventBus webSocketEventBus() {
-        return new WebSocketEventBus();
+    public EventBus webSocketEventBus() {
+        return new EventBus();
     }
     
     @Bean
