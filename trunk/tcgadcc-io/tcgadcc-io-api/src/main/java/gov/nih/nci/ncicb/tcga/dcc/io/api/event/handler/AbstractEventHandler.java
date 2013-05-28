@@ -6,12 +6,19 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler;
+package gov.nih.nci.ncicb.tcga.dcc.io.api.event.handler;
 
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
 
-public abstract class AbstractWebSocketEventHandler<E> implements SequenceReportingEventHandler<E> {
+/**
+ * Template that defines basic event handler behavior.
+ * 
+ * @param <E> the event type
+ * 
+ * @author nichollsmc
+ */
+public abstract class AbstractEventHandler<E> implements SequenceReportingEventHandler<E> {
     
     private Sequence sequence;
     
@@ -21,23 +28,22 @@ public abstract class AbstractWebSocketEventHandler<E> implements SequenceReport
     }
     
     @Override
-    public void onEvent(E webSocketEvent, long sequence, boolean endOfBatch) throws Exception {
-        onEvent(webSocketEvent);
+    public void onEvent(E event, long sequence, boolean endOfBatch) throws Exception {
+        onEvent(event);
         this.sequence.set(sequence);
     }
     
     /**
-     * Callback method to be implemented by a sub-type for processing WebSocket
-     * events.
+     * Callback method to be implemented by a sub-type for processing events.
      * 
-     * @param <E> the type of WebSocket event
-     * @param webSocketEvent
+     * @param <E> the type of event
+     * @param event
      *            event implementation storing the data for sharing during
-     *            exchange or parallel coordination of a WebSocket event
+     *            exchange or parallel coordination of an event
      * @throws Exception
      *             for reporting errors that should be handled by the event
      *             chain
      */
-    protected abstract void onEvent(E webSocketEvent) throws Exception;
+    protected abstract void onEvent(E event) throws Exception;
 
 }

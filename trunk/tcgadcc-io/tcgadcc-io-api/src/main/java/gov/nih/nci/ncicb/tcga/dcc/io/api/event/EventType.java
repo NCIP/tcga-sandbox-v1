@@ -8,8 +8,24 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.event;
 
+/**
+ * Enumerates the supported event types.
+ * 
+ * @author nichollsmc
+ */
 public enum EventType {
+    
+    DEFAULT("default"),
+    
+    WEBSOCKET("websocket");
+    
+    private String label;
 
-    DELTA_ENCODE;
-
+    private EventType(String label) {
+        this.label = label;
+    }
+    
+    public String label() {
+        return label;
+    }
 }

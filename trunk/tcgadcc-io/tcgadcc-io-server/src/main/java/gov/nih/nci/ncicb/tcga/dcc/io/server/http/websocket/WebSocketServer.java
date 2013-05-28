@@ -24,23 +24,26 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Implementation of an {@link AbstractNettyServer} for handling WebSocket
+ * (http://tools.ietf.org/html/rfc6455) requests.
+ * 
+ * @author nichollsmc
+ */
 public class WebSocketServer extends AbstractNettyServer {
 
-    public static final String                SCHEME       = "ws://";
-    public static final String                CONTEXT_PATH = "/io";
-
-    private static final Logger               log          = LoggerFactory.getLogger(WebSocketServer.class);
-    private volatile boolean                  isRunning    = false;
+    private static final Logger               log       = LoggerFactory.getLogger(WebSocketServer.class);
 
     private EventLoopGroup                    bossGroup;
     private EventLoopGroup                    workerGroup;
     private Channel                           channel;
+    private volatile boolean                  isRunning = false;
     
     @Inject
     private ChannelInitializer<SocketChannel> channelInitializer;
     
-    public WebSocketServer(int port) {
-        setPort(port);
+    public WebSocketServer(final String host, final int port) {
+        super.setInetSocketAddress(new InetSocketAddress(host, port));
     }
     
     @Override
@@ -58,47 +61,14 @@ public class WebSocketServer extends AbstractNettyServer {
 
     @Override
     public void start() {
+        start(getInetSocketAddress());
         isRunning = true;
-        start(getPort());
-    }
-    
-    @Override
-    public void stop() {
-        isRunning = false;
-        bossGroup.shutdownGracefully();
-        workerGroup.shutdownGracefully();
-    }
-    
-    @Override
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    @Override
-    public int getPhase() {
-        return 1;
-    }
-    
-    @Override
-    public void start(int port) {
-        start(new InetSocketAddress(port));
-    }
-
-    @Override
-    public boolean isAutoStartup() {
-        return true;
-    }
-
-    @Override
-    public void stop(Runnable callback) {
-        isRunning = false;
-        stop();
     }
     
     @Override
     public void start(InetSocketAddress inetSocketAddress) {
         try {
-            log.info("Starting WebSocket server on port [" + port + ']');
+            log.info("Starting WebSocket server on port [" + inetSocketAddress.getPort() + "]...");
             channel = createServerBootstrap().bind(inetSocketAddress).sync().channel();
             
             log.info("WebSocket server started.");
@@ -111,5 +81,35 @@ public class WebSocketServer extends AbstractNettyServer {
             stop();
         }
     }
+    
+    @Override
+    public void stop() {
+        log.info("Stopping WebSocket server...");
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
+        isRunning = false;
+        log.info("WebSocket server stopped.");
+    }
+    
+    @Override
+    public boolean isRunning() {
+        return isRunning;
+    }
 
+    @Override
+    public int getPhase() {
+        return 0;
+    }
+    
+    @Override
+    public boolean isAutoStartup() {
+        return true;
+    }
+
+    @Override
+    public void stop(Runnable callback) {
+        stop();
+        isRunning = false;
+    }
+    
 }

@@ -15,8 +15,6 @@ import io.netty.channel.socket.SocketChannel;
 
 import java.net.InetSocketAddress;
 
-import javolution.text.TextBuilder;
-
 /**
  * Abstract implementation of the {@link NettyServer} interface.
  * 
@@ -27,7 +25,6 @@ public abstract class AbstractNettyServer implements NettyServer {
     protected ServerBootstrap                   serverBootstrap;
     protected ChannelInitializer<SocketChannel> channelInitializer;
     protected InetSocketAddress                 inetSocketAddress;
-    protected int                               port;
     protected Session                           session;
 
     @Override
@@ -69,24 +66,16 @@ public abstract class AbstractNettyServer implements NettyServer {
     public void setSession(Session session) {
         this.session = session;
     }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
     
     @Override
     public String toString() {
-        return new TextBuilder().append("[socketAddress:")
-                                .append(inetSocketAddress)
-                                .append("],")
-                                .append("[port:")
-                                .append(port)
-                                .append("]")
-                                .toString();
+        return new StringBuilder().append("[host:")
+                                  .append(inetSocketAddress.getHostName())
+                                  .append("],")
+                                  .append("[port:")
+                                  .append(inetSocketAddress.getPort())
+                                  .append("]")
+                                  .toString();
     }
     
 }

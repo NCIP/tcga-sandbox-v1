@@ -8,9 +8,17 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.server;
 
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.IoUriComponent.WEBSOCKET_CONTEXT_PATH;
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.IoUriComponent.WEBSOCKET_URI_SCHEME;
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.IoUriComponent.WEBSOCKET_URI_SCHEME_SECURE;
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.event.EventType.WEBSOCKET;
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.event.WebSocketEvent.EndpointType.SERVER;
+import static gov.nih.nci.ncicb.tcga.dcc.io.api.event.util.WebSocketEventBuilder.webSocketEvent;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiConfigProfileType;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.EventBus;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.WebSocketEvent;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.WebSocketServer;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.EventBus;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler.ServerWebSocketFrameHandler;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler.WebSocketServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -19,6 +27,9 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.ssl.SslHandler;
 
+import java.net.URI;
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
@@ -26,7 +37,11 @@ import javax.net.ssl.SSLEngine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.lmax.disruptor.EventFactory;
 
 /**
  * Java-based Spring configuration for common server I/O components and
@@ -36,18 +51,15 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 public class IoServerConfig {
-
-    /**
-     * The default server port to use if not explicitly by the
-     * configuration property 'websocket.server.port'.
-     */
-    public static final int DEFAULT_WS_SERVER_PORT = 8080;
     
-    @Value("${websocket.server.host}")
-    private String websocketServerHost;
+    @Value("${eventBus.ringSize}")
+    private int ringSize;
 
-    @Value("${websocket.server.port}")
-    private Integer websocketServerPort;
+    @Value("${eventBus.threadPool.minProcessors}")
+    private int threadPoolMinProcessors;
+
+    @Value("${eventBus.threadPool.minProcessors.scaleFactor}")
+    private int threadPoolMinProcessorsScaleFactor;
     
     /**
      * Default no-arg constructor. A requirement for classes annotated with
@@ -55,19 +67,52 @@ public class IoServerConfig {
      */
     public IoServerConfig() {
     }
+    
+    @Bean
+    public EventBus<WebSocketEvent> webSocketEventBus() {
+        // Create an factory for creating events
+        final EventFactory<WebSocketEvent> eventFactory = new EventFactory<WebSocketEvent>() {
+            @Override
+            public WebSocketEvent newInstance() {
+                return webSocketEvent()
+                        .id(SERVER.label() + '-' + UUID.randomUUID())
+                        .type(WEBSOCKET)
+                        .timestamp(System.currentTimeMillis())
+                        .build();
+            }
+        };
+        
+        // Create and initialize the event bus for handling WebSocket specific events
+        final EventBus<WebSocketEvent> webSocketEventBus = new EventBus<WebSocketEvent>(
+                ringSize,
+                threadPoolMinProcessors,
+                threadPoolMinProcessorsScaleFactor,
+                eventFactory);
+        
+        // Define the DSL for handling WebSocket events
+        webSocketEventBus.handleEventsWith(new ServerWebSocketFrameHandler());
+        
+        return webSocketEventBus;
+    }
 
     @Configuration
     @Profile(IoApiConfigProfileType.TLS_ENABLED_PROFILE_NAME)
     static class TlsEnabled {
 
         @Value("${websocket.buffer.size.max}")
-        private Integer websocketBufferSizeMax;
+        private int websocketBufferSizeMax;
+        
+        @Value("${http.server.host}")
+        private String websocketServerHost;
+        
+        @Value("${http.server.port.secure}")
+        private int websocketServerSecurePort;
 
         @Inject
         private SSLContext sslContext;
         
         @Inject
-        private EventBus webSocketEventBus;
+        private EventBus<WebSocketEvent> webSocketEventBus;
 
         @Bean
         public ChannelInitializer<SocketChannel> channelInitializer() {
@@ -81,9 +126,25 @@ public class IoServerConfig {
                     channelPipeline.addLast("ssl", new SslHandler(sslEngine));
                     channelPipeline.addLast("codec-http", new HttpServerCodec());
                     channelPipeline.addLast("aggregator", new HttpObjectAggregator(websocketBufferSizeMax));
-                    channelPipeline.addLast("handler", new WebSocketServerHandler(webSocketEventBus));
+                    channelPipeline.addLast("handler", new WebSocketServerHandler(
+                            webSocketEventBus, webSocketUri()));
                 }
             };
+        }
+        
+        @Bean
+        @DependsOn("webSocketEventBus")
+        public WebSocketServer webSocketServer() {
+            return new WebSocketServer(websocketServerHost, websocketServerSecurePort);
+        }
+        
+        private URI webSocketUri() {
+            return UriComponentsBuilder
+                    .fromPath(WEBSOCKET_CONTEXT_PATH.componentValue())
+                    .scheme(WEBSOCKET_URI_SCHEME_SECURE.componentValue())
+                    .host(websocketServerHost)
+                    .build()
+                    .toUri();
         }
     }
 
@@ -92,10 +153,16 @@ public class IoServerConfig {
     static class TlsDisabled {
         
         @Value("${websocket.buffer.size.max}")
-        private Integer websocketBufferSizeMax;
+        private int websocketBufferSizeMax;
+        
+        @Value("${http.server.host}")
+        private String websocketServerHost;
+        
+        @Value("${http.server.port}")
+        private int websocketServerPort;
 
         @Inject
-        private EventBus webSocketEventBus;
+        private EventBus<WebSocketEvent> webSocketEventBus;
         
         @Bean
         public ChannelInitializer<SocketChannel> channelInitializer() {
@@ -105,25 +172,26 @@ public class IoServerConfig {
                     ChannelPipeline channelPipeline = socketChannel.pipeline();
                     channelPipeline.addLast("codec-http", new HttpServerCodec());
                     channelPipeline.addLast("aggregator", new HttpObjectAggregator(websocketBufferSizeMax));
-                    channelPipeline.addLast("handler", new WebSocketServerHandler(webSocketEventBus));
+                    channelPipeline.addLast("handler", new WebSocketServerHandler(
+                            webSocketEventBus, webSocketUri()));
                 }
             };
         }
+        
+        @Bean
+        @DependsOn("webSocketEventBus")
+        public WebSocketServer webSocketServer() {
+            return new WebSocketServer(websocketServerHost, websocketServerPort);
+        }
+        
+        private URI webSocketUri() {
+            return UriComponentsBuilder
+                    .fromPath(WEBSOCKET_CONTEXT_PATH.componentValue())
+                    .scheme(WEBSOCKET_URI_SCHEME.componentValue())
+                    .host(websocketServerHost)
+                    .build()
+                    .toUri();
+        }
     }
     
-    @Bean
-    public EventBus webSocketEventBus() {
-        return new EventBus();
-    }
-    
-    @Bean
-    public WebSocketServer webSocketServer() {
-        if (websocketServerPort != null) {
-            return new WebSocketServer(websocketServerPort);
-        }
-        else {
-            return new WebSocketServer(DEFAULT_WS_SERVER_PORT);
-        }
-    }
-
 }

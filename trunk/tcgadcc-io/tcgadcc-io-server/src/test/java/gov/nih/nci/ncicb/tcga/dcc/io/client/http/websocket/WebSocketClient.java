@@ -58,8 +58,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javolution.text.TextBuilder;
-
 public class WebSocketClient {
 
     private final URI uri;
@@ -124,7 +122,7 @@ public class WebSocketClient {
         }
         
         List<String> receivedMessages = handler.getReceivedMessages();
-        TextBuilder endResult = new TextBuilder();
+        StringBuilder endResult = new StringBuilder();
         endResult
         .append("\n\nClient [").append(Thread.currentThread().getId()).append("] completed.\n")
         .append("\tReceived message count [" + receivedMessages.size() + "]\n");
@@ -133,6 +131,8 @@ public class WebSocketClient {
         }
         
         System.out.println(endResult.toString());
+        
+        
     }
 
     public static void main(String[] args) throws Exception {
@@ -140,19 +140,23 @@ public class WebSocketClient {
 
         ExecutorService exec = Executors.newCachedThreadPool();
 
-        for (int i = 0; i <= 10; i++) {
-            exec.execute(new Runnable() {
-                public void run() {
-                    try {
-                        new WebSocketClient(uri).run();
+        try {
+            for (int i = 0; i <= 10; i++) {
+                exec.execute(new Runnable() {
+                    public void run() {
+                        try {
+                            new WebSocketClient(uri).run();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+                });
+            }
         }
-
-        exec.shutdown();
+        finally {
+            exec.shutdown();
+        }
+        
     }
 }

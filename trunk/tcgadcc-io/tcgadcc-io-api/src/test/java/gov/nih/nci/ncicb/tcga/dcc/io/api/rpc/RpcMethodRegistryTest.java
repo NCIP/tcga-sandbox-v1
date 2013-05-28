@@ -35,7 +35,7 @@ public class RpcMethodRegistryTest {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=RpcException.class)
     public void testMethodCalledWithWrongNumberOfArguments() throws RpcException {
         RpcTestEnpoint exampleObject = new RpcTestEnpoint();
 

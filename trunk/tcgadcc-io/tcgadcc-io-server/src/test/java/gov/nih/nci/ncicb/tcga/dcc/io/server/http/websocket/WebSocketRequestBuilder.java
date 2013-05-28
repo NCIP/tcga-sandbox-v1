@@ -17,6 +17,7 @@ package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket;
 
 import static io.netty.handler.codec.http.HttpHeaders.Values.WEBSOCKET;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.IoUriComponent;
 import io.netty.handler.codec.http.DefaultFullHttpRequest;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -126,7 +127,7 @@ public class WebSocketRequestBuilder {
         return new WebSocketRequestBuilder()
         .httpVersion(HTTP_1_1)
         .method(HttpMethod.GET)
-        .uri(WebSocketServer.CONTEXT_PATH)
+        .uri(IoUriComponent.WEBSOCKET_CONTEXT_PATH.componentValue())
         .host("ws-server.org")
         .upgrade(WEBSOCKET.toLowerCase())
         .key("dGhlIHNhbXBsZSBub25jZQ==")

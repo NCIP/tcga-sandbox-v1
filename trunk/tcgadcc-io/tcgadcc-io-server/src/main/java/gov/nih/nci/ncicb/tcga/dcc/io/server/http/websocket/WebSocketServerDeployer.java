@@ -31,9 +31,9 @@ public class WebSocketServerDeployer {
 
     public WebSocketServerDeployer() {
         applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.registerShutdownHook();
         applicationContext.getEnvironment().addActiveProfile(IoApiConfigProfileType.TLS_DISABLED_PROFILE_NAME);
         applicationContext.register(configClasses);
-        applicationContext.registerShutdownHook();
         applicationContext.refresh();
     }
 
@@ -43,7 +43,7 @@ public class WebSocketServerDeployer {
 
     public static void main(String... args) throws Exception {
         assertPreconditions();
-        new WebSocketServerDeployer();
+        WebSocketServerDeployer deployer = new WebSocketServerDeployer();
     }
 
     public static void assertPreconditions() {

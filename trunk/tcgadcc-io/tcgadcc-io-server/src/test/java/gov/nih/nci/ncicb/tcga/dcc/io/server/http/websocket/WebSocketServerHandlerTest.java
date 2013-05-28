@@ -8,54 +8,28 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket;
 
-import static io.netty.handler.codec.http.HttpHeaders.Values.WEBSOCKET;
-import static io.netty.handler.codec.http.HttpMethod.GET;
-import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
-import gov.nih.nci.ncicb.tcga.dcc.io.client.http.websocket.WebSocketClientHandler;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.NettyWebSocketTestUtil.MockOutboundHandler;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiConfigProfileType;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.IoServerTestConfig;
 import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler.WebSocketServerHandler;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.MessageBuf;
-import io.netty.channel.embedded.EmbeddedByteChannel;
 import io.netty.channel.embedded.EmbeddedMessageChannel;
-import io.netty.handler.codec.http.DefaultFullHttpRequest;
-import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaders.Names;
-import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponse;
-import io.netty.handler.codec.http.HttpResponseDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
-import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker13;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(JUnit4.class)
-//@ContextConfiguration(classes = { WebSocketServerTestConfig.class })
-//@ActiveProfiles(IoApiConfigProfileType.TLS_DISABLED_PROFILE_NAME)
+@ContextConfiguration(classes = { IoServerTestConfig.class })
+@ActiveProfiles(IoApiConfigProfileType.TLS_DISABLED_PROFILE_NAME)
 public class WebSocketServerHandlerTest {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketServerHandlerTest.class);
-    
-    //@Value("${websocket.server.scheme}")
-    private String websocketServerScheme;
-    
-    //@Value("${websocket.server.host}")
-    private String websocketServerHost;
-    
-    //@Value("${websocket.server.port}")
-    private Integer websocketServerPort;
-    
-    //@Value("${websocket.server.context.path}")
-    private String websocketServerContextPath;
 
     @Test
     public void testHandleTextFrame() {

@@ -1,5 +1,26 @@
-package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event;
+/*
+ * Software License, Version 1.0 Copyright 2013 SRA International, Inc. Copyright Notice.  
+ * The software subject to this notice and license includes both human readable source 
+ * code form and machine readable, binary, object code form (the "caBIG Software").
+ *
+ * Please refer to the complete License text for full details at the root of the project.
+ */
 
+package gov.nih.nci.ncicb.tcga.dcc.io.api.event.util;
+
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.Event;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.EventContext;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.EventType;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.GenericEvent;
+
+/**
+ * Defines the fluent builder API for building {@link Event} types.
+ * 
+ * @param <B> fluent builder sub-type
+ * 
+ * @author nichollsmc
+ *
+ */
 public class EventBuilderBase<B extends EventBuilderBase<B>> {
     
     private final GenericEvent event;

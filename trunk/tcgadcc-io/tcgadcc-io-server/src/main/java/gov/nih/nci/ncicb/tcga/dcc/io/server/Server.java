@@ -23,13 +23,6 @@ import org.springframework.context.SmartLifecycle;
  */
 public interface Server extends SmartLifecycle {
 	
-    /**
-     * Starts the server and binds to the provided port.
-     * 
-     * @param port the port to bind the server to
-     */
-	void start(int port);
-	
 	/**
 	 * Starts the server using the provided {@link InetSocketAddress}.
 	 * 

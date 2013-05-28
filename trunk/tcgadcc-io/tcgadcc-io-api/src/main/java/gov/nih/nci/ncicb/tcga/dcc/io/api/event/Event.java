@@ -8,21 +8,36 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.event;
 
-public interface Event<T> {
+/**
+ * Defines the primary behavior of an I/O event. 
+ * 
+ * @author nichollsmc
+ */
+public interface Event {
 
-//    T getSource();
-//
-//    void setSource(T source);
-//    
-//    int getType();
-//
-//    void setType(int type);
-//
-//    EventContext getEventContext();
-//
-//    void setEventContext(EventContext context);
-//
-//    long getTimeStamp();
-//
-//    void setTimeStamp(long timeStamp);
+    /**
+     * Returns the event Id.
+     */
+    String getId();
+
+    /**
+     * Returns the {@link EventType}.
+     */
+    EventType getType();
+    
+    /**
+     * Returns the source that generated the event, can be null.
+     */
+    Object getSource();
+
+    /**
+     * Returns the {@link EventContext}.
+     */
+    EventContext getContext();
+    
+    /**
+     * Returns the time at which an event was created.
+     */
+    Long getTimestamp();
+
 }

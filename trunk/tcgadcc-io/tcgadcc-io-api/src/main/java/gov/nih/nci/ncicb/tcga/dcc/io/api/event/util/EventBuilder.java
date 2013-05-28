@@ -6,8 +6,17 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event;
+package gov.nih.nci.ncicb.tcga.dcc.io.api.event.util;
 
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.Event;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.GenericEvent;
+
+/**
+ * Generic implementation of the fluent {@link EventBuilderBase} class for
+ * building {@link Event}s.
+ * 
+ * @author nichollsmc
+ */
 public class EventBuilder extends EventBuilderBase<EventBuilder> {
     
     public static EventBuilder event() {

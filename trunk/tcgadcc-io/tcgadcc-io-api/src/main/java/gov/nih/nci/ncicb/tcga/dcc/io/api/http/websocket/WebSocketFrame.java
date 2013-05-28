@@ -6,9 +6,8 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket;
+package gov.nih.nci.ncicb.tcga.dcc.io.api.http.websocket;
 
-import javolution.text.TextBuilder;
 import io.netty.buffer.BufUtil;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
@@ -16,6 +15,11 @@ import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
+/**
+ * Container for WebSocket frame types. 
+ * 
+ * @author nichollsmc
+ */
 public final class WebSocketFrame {
 
     private FrameType            frameType;
@@ -25,6 +29,16 @@ public final class WebSocketFrame {
     private PingWebSocketFrame   pingWebSocketFrame;
     private PongWebSocketFrame   pongWebSocketFrame;
 
+    /**
+     * Constructor that creates a {@link WebSocketFrame} instance from the
+     * provided object type.
+     * <p>
+     * If the object passed to this constructor cannot be resolved to a known
+     * WebSocket frame type, an {@link IllegalStateException} will be thrown.
+     * 
+     * @param webSocketFrame
+     *            object that represents a WebSocket frame
+     */
     public WebSocketFrame(Object webSocketFrame) {
         
         BufUtil.retain(webSocketFrame);
@@ -106,7 +120,7 @@ public final class WebSocketFrame {
 
     @Override
     public String toString() {
-        return new TextBuilder()
+        return new StringBuilder()
         .append("\n\nWebSocketFrame content:\n")
         .append("\tTEXT:   ").append(textWebSocketFrame).append("\n")
         .append("\tBINARY: ").append(binaryWebSocketFrame).append("\n")
@@ -117,7 +131,7 @@ public final class WebSocketFrame {
     }
     
     /**
-     * List of all WebSocket frame types.
+     * List of all supported WebSocket frame types.
      */
     public enum FrameType {
         BINARY, CONTINUATION, CLOSE, PING, PONG, TEXT;

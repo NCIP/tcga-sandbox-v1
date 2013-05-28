@@ -8,22 +8,29 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler;
 
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.WebSocketFrame;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.event.WebSocketEvent;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.event.WebSocketEvent;
+import gov.nih.nci.ncicb.tcga.dcc.io.api.http.websocket.WebSocketFrame;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 
 import com.lmax.disruptor.EventTranslator;
 
+/**
+ * Implementation of an {@link EventTranslator} that translates WebSocket
+ * messages into {@link WebSocketEvent}s for processing by a
+ * {@code WebSocketEvent} aware {@link EventBus}.
+ * 
+ * @author nichollsmc
+ */
 public class InboundMessageTranslator implements EventTranslator<WebSocketEvent> {
 
     private ChannelHandlerContext     channelHandlerContext;
     private Object                    inboundMessage;
     private WebSocketServerHandshaker handshaker;
 
-    public InboundMessageTranslator(ChannelHandlerContext channelHandlerContext,
-                                    Object inboundMessage,
-                                    WebSocketServerHandshaker handshaker) {
+    public InboundMessageTranslator(final ChannelHandlerContext channelHandlerContext,
+                                    final Object inboundMessage,
+                                    final WebSocketServerHandshaker handshaker) {
         this.channelHandlerContext = channelHandlerContext;
         this.inboundMessage = inboundMessage;
         this.handshaker = handshaker;
