@@ -86,18 +86,14 @@
             <artifactId>javolution</artifactId>
         </dependency>
         
-        <!-- Vertx IO -->
+        <!-- Netty -->
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-core</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-platform</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>testtools</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-testsuite</artifactId>
         </dependency>
         
         <!-- LMAX -->
@@ -106,10 +102,10 @@
             <artifactId>disruptor</artifactId>
         </dependency>
         
-        <!-- MsgPack -->
+        <!-- Kryo (fast JSON serialization) -->
         <dependency>
-            <groupId>org.msgpack</groupId>
-            <artifactId>msgpack</artifactId>
+            <groupId>com.esotericsoftware.kryo</groupId>
+            <artifactId>kryo</artifactId>
         </dependency>
     </dependencies>
 </project>

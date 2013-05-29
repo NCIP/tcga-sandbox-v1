@@ -46,7 +46,8 @@ public class WebSocketServerHandler extends ChannelInboundMessageHandlerAdapter<
     private WebSocketServerHandshaker handshaker;
     private URI webSocketUri;
     
-    public WebSocketServerHandler(final EventBus<WebSocketEvent> webSocketEventBus, final URI webSocketUri) {
+    public WebSocketServerHandler(final EventBus<WebSocketEvent> webSocketEventBus,
+                                  final URI webSocketUri) {
         this.webSocketEventBus = webSocketEventBus;
         this.webSocketUri = webSocketUri;
     }
@@ -54,9 +55,11 @@ public class WebSocketServerHandler extends ChannelInboundMessageHandlerAdapter<
     @Override
     public void messageReceived(ChannelHandlerContext channelHandlerContext, Object inboundMessage) throws Exception {
         if (inboundMessage instanceof FullHttpRequest) {
+            System.out.println("\n\n\thandling http request: " + inboundMessage + "\n");
             handleHttpRequest(channelHandlerContext, (FullHttpRequest) inboundMessage);
         }
         else if (inboundMessage instanceof io.netty.handler.codec.http.websocketx.WebSocketFrame) {
+            System.out.println("\n\n\thandling WebSocket frame: " + inboundMessage + "\n");
             webSocketEventBus.publishEvent(
                     new InboundMessageTranslator(channelHandlerContext, inboundMessage, handshaker));
         }
@@ -127,21 +130,5 @@ public class WebSocketServerHandler extends ChannelInboundMessageHandlerAdapter<
             channelFuture.addListener(ChannelFutureListener.CLOSE);
         }
     }
-
-//    /**
-//     * Retrieves the full URI of the {@link WebSocketServer} endpoint (e.g.
-//     * wss://localhost:8080/io).
-//     * 
-//     * @param fullHttpRequest
-//     *            the inbound HTTP request
-//     * @return the URI of the WebSocket server
-//     */
-//    protected String getWebSocketLocation(FullHttpRequest fullHttpRequest) {
-//        return new StringBuilder().append(webSocketUri.getScheme())
-//                                  .append("://")
-//                                  .append(fullHttpRequest.headers().get(HOST))
-//                                  .append(webSocketUri.getPath())
-//                                  .toString();
-//    }
 
 }

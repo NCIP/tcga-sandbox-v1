@@ -122,18 +122,18 @@ public class EventBus<E extends Event> implements SmartLifecycle {
 
     @Override
     public void start() {
-        isRunning = true;
         log.info("Starting event bus...");
         ringBuffer = disruptor.start();
+        isRunning = true;
         log.info("Event bus started.");
     }
 
     @Override
     public void stop() {
         log.info("Stopping event bus...");
-        isRunning = false;
         disruptor.shutdown();
         executorService.shutdown();
+        isRunning = false;
         log.info("Event bus stopped.");
     }
 
@@ -149,12 +149,11 @@ public class EventBus<E extends Event> implements SmartLifecycle {
 
     @Override
     public boolean isAutoStartup() {
-        return true;
+        return false;
     }
 
     @Override
     public void stop(Runnable callback) {
-        isRunning = false;
         stop();
     }
 

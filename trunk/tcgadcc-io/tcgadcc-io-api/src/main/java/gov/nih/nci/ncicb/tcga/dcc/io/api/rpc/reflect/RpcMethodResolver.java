@@ -8,18 +8,6 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.reflect;
 
-import gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.RpcContext;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-
-import javolution.util.FastMap;
-
-import org.vertx.java.core.json.JsonObject;
 
 /**
  * Resolves available RPC methods. 
@@ -28,42 +16,42 @@ import org.vertx.java.core.json.JsonObject;
  */
 public class RpcMethodResolver {
 
-    private Map<String, Method> methodMap = new FastMap<String, Method>();
-    private Object              callableObject;
-
-    public RpcMethodResolver(Object callableObject) {
-        this.callableObject = callableObject;
-        scanMethods();
-    }
-
-    private void scanMethods() {
-        for (Method method : callableObject.getClass().getDeclaredMethods()) {
-            int modifiers = method.getModifiers();
-            Class<?>[] parameterTypes = method.getParameterTypes();
-
-            if (Modifier.isPublic(modifiers) && !Modifier.isAbstract(modifiers)
-                    && method.getReturnType().equals(JsonObject.class) && parameterTypes.length > 0
-                    && RpcContext.class.isAssignableFrom(parameterTypes[0])) {
-                methodMap.put(method.getName(), method);
-            }
-        }
-    }
-
-    public JsonObject dispatch(String methodName, Object... args) throws NoSuchMethodException,
-            InvocationTargetException, IllegalAccessException {
-        if (methodMap.containsKey(methodName)) {
-            return (JsonObject) methodMap.get(methodName).invoke(callableObject, args);
-        }
-        else {
-            throw new NoSuchMethodException(methodName);
-        }
-    }
-
-    public boolean hasMethod(String name) {
-        return methodMap.containsKey(name);
-    }
-
-    public Set<String> methodNames() {
-        return Collections.unmodifiableSet(methodMap.keySet());
-    }
+//    private Map<String, Method> methodMap = new FastMap<String, Method>();
+//    private Object              callableObject;
+//
+//    public RpcMethodResolver(Object callableObject) {
+//        this.callableObject = callableObject;
+//        scanMethods();
+//    }
+//
+//    private void scanMethods() {
+//        for (Method method : callableObject.getClass().getDeclaredMethods()) {
+//            int modifiers = method.getModifiers();
+//            Class<?>[] parameterTypes = method.getParameterTypes();
+//
+//            if (Modifier.isPublic(modifiers) && !Modifier.isAbstract(modifiers)
+//                    && method.getReturnType().equals(JsonObject.class) && parameterTypes.length > 0
+//                    && RpcContext.class.isAssignableFrom(parameterTypes[0])) {
+//                methodMap.put(method.getName(), method);
+//            }
+//        }
+//    }
+//
+//    public JsonObject dispatch(String methodName, Object... args) throws NoSuchMethodException,
+//            InvocationTargetException, IllegalAccessException {
+//        if (methodMap.containsKey(methodName)) {
+//            return (JsonObject) methodMap.get(methodName).invoke(callableObject, args);
+//        }
+//        else {
+//            throw new NoSuchMethodException(methodName);
+//        }
+//    }
+//
+//    public boolean hasMethod(String name) {
+//        return methodMap.containsKey(name);
+//    }
+//
+//    public Set<String> methodNames() {
+//        return Collections.unmodifiableSet(methodMap.keySet());
+//    }
 }

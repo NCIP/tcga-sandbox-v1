@@ -10,6 +10,7 @@ import io.netty.channel.ChannelOutboundMessageHandler;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.embedded.EmbeddedMessageChannel;
 import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -33,11 +34,12 @@ public class NettyWebSocketTestUtil {
 
     public static EmbeddedMessageChannel createChannel(ChannelHandler handler) {
         return new EmbeddedMessageChannel(
-                new WebSocketServerProtocolHandler("/test", null, false),
-                new HttpRequestDecoder(),
+                new WebSocketServerProtocolHandler("ws://ws-client.org/test", null, false),
+                //new HttpRequestDecoder(),
                 new HttpResponseEncoder(),
                 new MockOutboundHandler(),
-                handler);
+                handler,
+                new MockOutboundHandler());
     }
 
     public static void writeUpgradeRequest(EmbeddedMessageChannel ch) {
@@ -72,7 +74,7 @@ public class NettyWebSocketTestUtil {
 
         @Override
         public void messageReceived(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
-            log.info("\n\nProcessed content: " + msg.text() + "\n");
+            log.info("\n\n\t>>>>>>>>>> Processed content: " + msg.text() + "\n");
             content = "processed: " + msg.text();
         }
 

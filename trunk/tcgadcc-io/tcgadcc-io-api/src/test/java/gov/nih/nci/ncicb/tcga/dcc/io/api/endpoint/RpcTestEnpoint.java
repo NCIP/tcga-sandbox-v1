@@ -8,22 +8,19 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.endpoint;
 
-import gov.nih.nci.ncicb.tcga.dcc.io.api.rpc.RpcContext;
-
-import org.vertx.java.core.json.JsonObject;
 
 public class RpcTestEnpoint {
     
-    public JsonObject sum(RpcContext context, int a, int b) {
-        return new JsonObject().putNumber("result", a + b);
-    }
-
-    public JsonObject diff(RpcContext context, int a, int b) {
-        return new JsonObject().putNumber("result", a - b);
-    }
-
-    public JsonObject multiply(RpcContext context, int a, int b) {
-        return new JsonObject().putNumber("result", a * b);
-    }
+//    public JsonObject sum(RpcContext context, int a, int b) {
+//        return new JsonObject().putNumber("result", a + b);
+//    }
+//
+//    public JsonObject diff(RpcContext context, int a, int b) {
+//        return new JsonObject().putNumber("result", a - b);
+//    }
+//
+//    public JsonObject multiply(RpcContext context, int a, int b) {
+//        return new JsonObject().putNumber("result", a * b);
+//    }
     
 }

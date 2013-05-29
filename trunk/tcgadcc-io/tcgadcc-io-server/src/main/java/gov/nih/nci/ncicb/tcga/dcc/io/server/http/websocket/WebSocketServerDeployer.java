@@ -11,7 +11,7 @@ package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiConfig;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiConfigProfileType;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.IoApiSecurityConfig;
-import gov.nih.nci.ncicb.tcga.dcc.io.server.IoServerConfig;
+import gov.nih.nci.ncicb.tcga.dcc.io.server.WebSocketServerConfig;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -27,7 +27,7 @@ public class WebSocketServerDeployer {
 
     private Class<?>[] configClasses = { IoApiConfig.class, 
                                          IoApiSecurityConfig.class,
-                                         IoServerConfig.class };
+                                         WebSocketServerConfig.class };
 
     public WebSocketServerDeployer() {
         applicationContext = new AnnotationConfigApplicationContext();

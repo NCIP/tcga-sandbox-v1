@@ -8,6 +8,8 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket.handler;
 
+import java.net.SocketAddress;
+
 import gov.nih.nci.ncicb.tcga.dcc.io.api.event.WebSocketEvent;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.event.handler.AbstractEventHandler;
 import gov.nih.nci.ncicb.tcga.dcc.io.api.http.websocket.WebSocketFrame;
@@ -30,8 +32,10 @@ public class ServerWebSocketFrameHandler extends AbstractEventHandler<WebSocketE
         
         switch (webSocketFrame.type()) {
             case TEXT:
+                String text = webSocketFrame.getTextWebSocketFrame().text();
+                System.out.println("\n\n\ttext payload > " + text + "\n");
                 channelHandlerContext.channel()
-                .write(new TextWebSocketFrame(webSocketFrame.getTextWebSocketFrame().text().toUpperCase()));
+                .write(new TextWebSocketFrame(text.toUpperCase()));
                 break;
             case CLOSE:
                 webSocketEvent.getHandshaker()

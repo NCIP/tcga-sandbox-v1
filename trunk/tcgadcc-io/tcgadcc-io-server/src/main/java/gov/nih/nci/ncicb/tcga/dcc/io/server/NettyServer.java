@@ -9,8 +9,6 @@
 package gov.nih.nci.ncicb.tcga.dcc.io.server;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.socket.SocketChannel;
 
 /**
  * Extension of the {@link Server} interface that defines the behavior specific
@@ -26,38 +24,5 @@ public interface NettyServer extends Server {
      * @return configured {@link ServerBootstrap} instance
      */
     ServerBootstrap createServerBootstrap();
-
-    /**
-     * Retrieve the pre-configured {@link ServerBootstrap} instance.
-     * 
-     * @return the pre-configured {@link ServerBootstrap} instance
-     */
-    ServerBootstrap getServerBootstrap();
-
-    /**
-     * Set a pre-configured {@link ServerBootstrap} instance.
-     * 
-     * @return the pre-configured {@link ServerBootstrap} to set
-     */
-    void setServerBootstrap(ServerBootstrap serverBootstrap);
-
-    /**
-     * Retrieve the pre-configured {@link ChannelInitializer} instance used to
-     * initialize the server.
-     * <p>
-     * The returned instance will of the type {@link SocketChannel}.
-     * 
-     * @return the pre-configured {@link ChannelInitializer} instance used to
-     *         initialize the server
-     */
-    ChannelInitializer<SocketChannel> getChannelInitializer();
-
-    /**
-     * Set a pre-configured {@link ChannelInitializer} instance that the server
-     * will use for initialization at start-up.
-     * 
-     * @return the pre-configured {@link ChannelInitializer} to set
-     */
-    void setChannelInitializer(ChannelInitializer<SocketChannel> channelInitializer);
 
 }

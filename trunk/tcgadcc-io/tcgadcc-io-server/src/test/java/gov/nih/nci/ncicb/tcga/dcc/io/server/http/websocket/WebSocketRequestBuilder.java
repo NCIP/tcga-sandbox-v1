@@ -123,7 +123,7 @@ public class WebSocketRequestBuilder {
         return req;
     }
 
-    public static HttpRequest sucessful() {
+    public static FullHttpRequest sucessful() {
         return new WebSocketRequestBuilder()
         .httpVersion(HTTP_1_1)
         .method(HttpMethod.GET)

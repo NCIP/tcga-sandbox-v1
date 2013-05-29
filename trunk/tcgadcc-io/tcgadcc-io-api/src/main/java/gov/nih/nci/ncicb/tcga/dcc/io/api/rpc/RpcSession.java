@@ -8,24 +8,22 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.rpc;
 
-import org.vertx.java.core.Vertx;
-import org.vertx.java.core.http.ServerWebSocket;
 
 public class RpcSession {
 
-    private Vertx vertx;
-    private ServerWebSocket webSocket;
-
-    public RpcSession(Vertx vertx, ServerWebSocket webSocket) {
-        this.vertx = vertx;
-        this.webSocket = webSocket;
-    }
-
-    public Vertx vertx() {
-        return vertx;
-    }
-
-    public ServerWebSocket webSocket() {
-        return webSocket;
-    }
+//    private Vertx vertx;
+//    private ServerWebSocket webSocket;
+//
+//    public RpcSession(Vertx vertx, ServerWebSocket webSocket) {
+//        this.vertx = vertx;
+//        this.webSocket = webSocket;
+//    }
+//
+//    public Vertx vertx() {
+//        return vertx;
+//    }
+//
+//    public ServerWebSocket webSocket() {
+//        return webSocket;
+//    }
 }

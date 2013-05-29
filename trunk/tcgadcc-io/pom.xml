@@ -26,9 +26,8 @@
     <name>TCGA DCC :: I/O</name>
     <description>Parent module for building I/O sub-modules.</description>
     <properties>
-        <io.vertx.version>2.0.0-beta2</io.vertx.version>
-        <io.vertx.maven.plugin.version>2.0.0-SNAPSHOT</io.vertx.maven.plugin.version>
-        <io.vertx.testtools.version>2.0.0-beta1</io.vertx.testtools.version>
+        <org.eclipse.jetty.version>9.0.0.v20130308</org.eclipse.jetty.version>
+        <io.netty.version>4.0.0.CR3</io.netty.version>
         <com.netflix.rxjava.version>0.8.4</com.netflix.rxjava.version>
     </properties>
     <modules>
@@ -54,18 +53,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>io.vertx</groupId>
-                    <artifactId>vertx-maven-plugin</artifactId>
-                    <version>${io.vertx.maven.plugin.version}</version>
-                    <!--
-                    You can specify a configFile and number of instances to run for the runMod task here if you want
-                    <configuration>
-                       <configFile>/path/to/MyVerticle.conf</configFile>
-                       <instances>1</instances>
-                    </configuration>
-                    -->
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -82,31 +69,26 @@
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-client</artifactId>
-                <version>9.0.0.v20130308</version>
+                <version>${org.eclipse.jetty.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty.websocket</groupId>
                 <artifactId>websocket-client</artifactId>
-                <version>9.0.0.v20130308</version>
+                <version>${org.eclipse.jetty.version}</version>
                 <scope>test</scope>
             </dependency>
 
-            <!-- Vertx IO -->
+            <!-- Netty -->
             <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-core</artifactId>
-                <version>${io.vertx.version}</version>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${io.netty.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-platform</artifactId>
-                <version>${io.vertx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>testtools</artifactId>
-                <version>${io.vertx.testtools.version}</version>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-testsuite</artifactId>
+                <version>4.0.0.Alpha1</version>
                 <scope>test</scope>
             </dependency>
             
@@ -117,11 +99,11 @@
                 <version>3.0.1</version>
             </dependency>
             
-            <!-- MsgPack -->
+            <!-- Kryo (fast JSON serialization) -->
             <dependency>
-                <groupId>org.msgpack</groupId>
-                <artifactId>msgpack</artifactId>
-                <version>0.6.7</version>
+                <groupId>com.esotericsoftware.kryo</groupId>
+                <artifactId>kryo</artifactId>
+                <version>2.21</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

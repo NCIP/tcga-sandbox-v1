@@ -6,7 +6,10 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.client.http.websocket;
+package gov.nih.nci.ncicb.tcga.dcc.io.server.http.websocket;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javolution.util.FastTable;
 import io.netty.channel.Channel;
@@ -22,13 +25,15 @@ import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.util.CharsetUtil;
 
-public class WebSocketClientHandler extends ChannelInboundMessageHandlerAdapter<Object> {
+public class WebSocketTestClientHandler extends ChannelInboundMessageHandlerAdapter<Object> {
+
+    private static final Logger log = LoggerFactory.getLogger(WebSocketTestClientHandler.class);
 
     private final WebSocketClientHandshaker handshaker;
     private ChannelPromise                  handshakeFuture;
     private FastTable<String>               receivedMessages = new FastTable<String>();
 
-    public WebSocketClientHandler(WebSocketClientHandshaker handshaker) {
+    public WebSocketTestClientHandler(WebSocketClientHandshaker handshaker) {
         this.handshaker = handshaker;
     }
     
@@ -37,7 +42,7 @@ public class WebSocketClientHandler extends ChannelInboundMessageHandlerAdapter<
         Channel channel = channelHandlerContext.channel();
         if (!handshaker.isHandshakeComplete()) {
             handshaker.finishHandshake(channel, (FullHttpResponse) inboundMessage);
-            System.out.println("WebSocket Client connected!");
+            log.info("WebSocket Client connected!");
             handshakeFuture.setSuccess();
             return;
         }
@@ -52,14 +57,14 @@ public class WebSocketClientHandler extends ChannelInboundMessageHandlerAdapter<
         if (frame instanceof TextWebSocketFrame) {
             TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
             String frameText = textFrame.text();
-            System.out.println("WebSocket Client received message: " + frameText);
+            log.info("WebSocket Client received message: " + frameText);
             receivedMessages.add(frameText);
         }
         else if (frame instanceof PongWebSocketFrame) {
-            System.out.println("WebSocket Client received pong");
+            log.info("WebSocket Client received pong");
         }
         else if (frame instanceof CloseWebSocketFrame) {
-            System.out.println("WebSocket Client received closing");
+            log.info("WebSocket Client received closing");
             channel.close();
         }
     }
@@ -87,7 +92,7 @@ public class WebSocketClientHandler extends ChannelInboundMessageHandlerAdapter<
 
     @Override
     public void channelInactive(ChannelHandlerContext channelHandlerContext) throws Exception {
-        System.out.println("WebSocket Client disconnected!");
+        log.info("WebSocket Client disconnected!");
     }
 
     public ChannelFuture handshakeFuture() {

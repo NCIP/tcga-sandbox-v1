@@ -8,8 +8,6 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.server;
 
-import gov.nih.nci.ncicb.tcga.dcc.io.api.session.Session;
-
 import java.net.InetSocketAddress;
 
 import org.springframework.context.SmartLifecycle;
@@ -44,20 +42,6 @@ public interface Server extends SmartLifecycle {
 	 * @return the {@link InetSocketAddress} used to start the server
 	 */
 	InetSocketAddress getInetSocketAddress();
-	
-	/**
-     * Sets the {@link Session} used by the server.
-     * 
-     * @param session the {@link Session} used by the server.
-     */
-	void setSession(Session session);
-	
-	/**
-     * Retrieves the {@link Session} that will be used to configure the server session.
-     * 
-     * @return the {@link Session} that will be used to configure the server session
-     */
-	Session getSession();
 	
     /**
      * List of transport protocols.

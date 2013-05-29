@@ -8,70 +8,65 @@
 
 package gov.nih.nci.ncicb.tcga.dcc.io.api.rpc;
 
-import java.util.List;
-
-import org.vertx.java.core.Vertx;
-import org.vertx.java.core.buffer.Buffer;
-import org.vertx.java.core.json.JsonObject;
 
 public class RpcContext {
 
-    protected String clientId;
-    protected Vertx  vertx;
-
-    public RpcContext(RpcSession session) {
-        this.vertx = session.vertx();
-        this.clientId = session.webSocket().binaryHandlerID();
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void notification(List<String> clients, String method, JsonObject params) {
-        JsonObject message = wrapNotification(method, params);
-        Buffer buffer = new Buffer(message.encode());
-        for (String client : clients) {
-            vertx.eventBus().send(client, buffer);
-        }
-    }
-
-    public void notification(String client, String method, JsonObject params) {
-        JsonObject message = wrapNotification(method, params);
-        Buffer buffer = new Buffer(message.encode());
-        vertx.eventBus().send(client, buffer);
-    }
-
-    private JsonObject wrapNotification(String method, JsonObject params) {
-        JsonObject message = new JsonObject();
-        message.putString("method", method);
-        message.putObject("params", params);
-        
-        return message;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        RpcContext that = (RpcContext) o;
-
-        if (!clientId.equals(that.clientId)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return clientId.hashCode();
-    }
+//    protected String clientId;
+//    protected Vertx  vertx;
+//
+//    public RpcContext(RpcSession session) {
+//        this.vertx = session.vertx();
+//        this.clientId = session.webSocket().binaryHandlerID();
+//    }
+//
+//    public String getClientId() {
+//        return clientId;
+//    }
+//
+//    public void notification(List<String> clients, String method, JsonObject params) {
+//        JsonObject message = wrapNotification(method, params);
+//        Buffer buffer = new Buffer(message.encode());
+//        for (String client : clients) {
+//            vertx.eventBus().send(client, buffer);
+//        }
+//    }
+//
+//    public void notification(String client, String method, JsonObject params) {
+//        JsonObject message = wrapNotification(method, params);
+//        Buffer buffer = new Buffer(message.encode());
+//        vertx.eventBus().send(client, buffer);
+//    }
+//
+//    private JsonObject wrapNotification(String method, JsonObject params) {
+//        JsonObject message = new JsonObject();
+//        message.putString("method", method);
+//        message.putObject("params", params);
+//        
+//        return message;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//
+//        RpcContext that = (RpcContext) o;
+//
+//        if (!clientId.equals(that.clientId)) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return clientId.hashCode();
+//    }
 
 }

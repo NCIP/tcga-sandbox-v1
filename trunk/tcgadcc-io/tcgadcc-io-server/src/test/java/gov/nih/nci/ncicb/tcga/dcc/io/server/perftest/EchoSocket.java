@@ -6,7 +6,7 @@
  * Please refer to the complete License text for full details at the root of the project.
  */
 
-package gov.nih.nci.ncicb.tcga.dcc.io.client.http.websocket;
+package gov.nih.nci.ncicb.tcga.dcc.io.server.perftest;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
